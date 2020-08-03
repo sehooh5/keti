@@ -1,5 +1,15 @@
 # Kubernetes
 
+## 목차
+
+[TOC]
+
+---
+
+### [쿠버네티스 구성요소](https://kubernetes.io/ko/docs/concepts/overview/components/)
+
+- 쿠버네티스 클러스터는 컴퓨터 집합인 **노드 컴포넌트**와 **컨트롤 플레인 컴포넌트**로 구성
+
 
 
 
