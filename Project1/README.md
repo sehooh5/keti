@@ -6,7 +6,10 @@
 
 ### 사용 툴 버전
 
+---
+
 - ubuntu : 18.04
+
 - kubernetes : 1.14
 - docker : 최신버전 19.03.1 (현, 2020.08.04)
 
@@ -14,7 +17,20 @@
 
 ### 참고 자료
 
+---
+
+#### Docker
+
+- [Docker?](https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
+- [설치 및 실행](https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html)
+
 - [ubuntu 에 docker 최신버전 설치](https://www.dante2k.com/581)
+
+
+
+#### Kubernetes
+
+- [공식 도큐먼트](https://kubernetes.io/ko/docs/concepts/overview/what-is-kubernetes/)
 
 
 
