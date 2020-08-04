@@ -19,18 +19,28 @@
 
 ---
 
+#### Ubuntu
+
+- [Ubuntu 설치방법](https://coding-factory.tistory.com/494)
+
+
+
 #### Docker
 
-- [Docker?](https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
-- [설치 및 실행](https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html)
+- [Docker?(subicura)](https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
+- [설치 및 실행(subicura)](https://subicura.com/2017/01/19/docker-guide-for-beginners-2.html)
+- [Ubuntu 18.04 버전 다운로드](http://mirror.kakao.com/ubuntu-releases/bionic/)
 
-- [ubuntu 에 docker 최신버전 설치](https://www.dante2k.com/581)
+- [Ubuntu 에 Docker 최신버전 설치](https://www.dante2k.com/581)
+- [Ubuntu에 Docker 설치(HiSEON)](https://hiseon.me/linux/ubuntu/install-docker/)
 
 
 
 #### Kubernetes
 
 - [공식 도큐먼트](https://kubernetes.io/ko/docs/concepts/overview/what-is-kubernetes/)
+- [Kubernetes?(subicura)](https://subicura.com/2019/05/19/kubernetes-basic-1.html)
+- [Ubuntu에 Kubernetes 설치(HiSEON)](https://hiseon.me/linux/ubuntu/ubuntu-kubernetes-install/)
 
 
 
@@ -46,3 +56,5 @@
   - 사용하는 프로그램, 툴에 대한 언어 공부 및 활용 방법 모색
   - Ubuntu 기반 **Kubernetes**를 사용하여 Master/Worker 서버에 대한 환경 구축(**Docker** 활용)
 - 베어본 PC 사용하여 직접 설치해보기
+- **설치 순서**: Ubuntu - Docker - Kubernetes
+- **Rufus** 로 USB 에 부팅 가능한 ISO 파일 저장후 사용하게끔하기
