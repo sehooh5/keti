@@ -12,9 +12,44 @@
 
 
 
+### Kubernetes Object 
+
+- <u>쿠버네티스는 상태를 관리하기 위한 대상</u>을 **오브젝트**로 정의
+
+#### 1. Pod
+
+- 쿠버네티스에서 배포할 수 있는 가장 작은 단위
+- 한 개 이상의 컨테이너와 스토리지, 네트워크 속성을 갖는다
+- Pod 에 속한 컨테이너는 스토리지와 네트워크를 공유하고 서로 localhost 로 접근 가능하다
+- 컨테이너를 하나만 사용하는 경우도 반드시  Pod 으로 감싸서 관리
+
+![image](https://user-images.githubusercontent.com/58541635/89391056-9e304b80-d742-11ea-960a-7ae2f72f6e13.png)
 
 
 
+#### 2. ReplicaSet
+
+- Pod 을 여러개(한개 이상) 복제하여 관리하는 오브젝트
+- Pod을 생성하고 개수를 유지하려면 반드시 사용해야함
+- 복제할 개수, 개수를 체크할 라벨 선택자, 생성할 Pod의 설정값(템플릿) 등을 갖고 있다
+- 직접 사용보다는 Deployment 등 다른 오브젝트에 의해서 사용되는 경우가 많다
+
+![image](https://user-images.githubusercontent.com/58541635/89391588-5d850200-d743-11ea-90c9-87e047edfc70.png)
+
+
+
+#### Service
+
+- 네트워크와 관련된 오브젝트
+- Pod을 외부 네트워크와 연결해주고 여러개의 Pod을 바라보는 내부 로드 밸런서를 생성할 때 사용
+- 내부 DNS에 서비스 이름을 도메인으로 등록하기 때문에 서비스 디스커버리 역할도 함
+
+
+
+#### Volume
+
+- 저장소와 관련된 오브젝트
+- 
 
 ### [표준 용어집](https://kubernetes.io/ko/docs/reference/glossary/?all=true#term-cluster-architect)
 

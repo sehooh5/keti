@@ -72,6 +72,6 @@
 
 ### 0805
 
-- 진행중 : keti0 에 Kubernetes 설치
+- 진행중 : keti0,1,2 에 Kubernetes 설치 중 / Kubernetes 용어 및 개념 친숙해지기 
 
-  완료 : keti0 에 Docker 설치 완료
+  완료 : Docker*3 설치 완료
