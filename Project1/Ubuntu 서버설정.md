@@ -14,6 +14,12 @@
 
 ### [문제] ifcofig 입력 시 찾을수 없다고 뜸
 
+- 아래 명령어로 툴 설치
+
+```bash
+sudo apt-get install net-tools
+```
+
 - 서버 문제로 `Software&Update` 에서 서버를 변경(한국 서버가 다운 많이 된다함)
 
 
