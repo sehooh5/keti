@@ -11,13 +11,19 @@
 - ubuntu : 18.04
 
 - kubernetes : 1.14
-- docker : 최신버전 19.03.1 (현, 2020.08.04)
+- docker : 최신버전 19.03.12 (현, 2020.08.04)
 
 
 
 ### 참고 자료
 
 ---
+
+### 전체적 시나리오 잘 정리된 페이지
+
+- [시나리오](https://medium.com/finda-tech/overview-8d169b2a54ff)
+
+
 
 #### Ubuntu
 
@@ -57,13 +63,15 @@
 - 테스트베드 구축에 대한 탐구
   - 사용하는 프로그램, 툴에 대한 언어 공부 및 활용 방법 모색
   - Ubuntu 기반 **Kubernetes**를 사용하여 Master/Worker 서버에 대한 환경 구축(**Docker** 활용)
-  
 - 베어본 PC 사용하여 직접 설치해보기
-
 - **설치 순서**: Ubuntu - Docker - Kubernetes
-
 - **Rufus** 로 USB 에 부팅 가능한 ISO 파일 저장후 사용하게끔하기
+- 완료 : keti0 컴퓨터에 Ubuntu 설치완료, 네트워크 static IPv4 설정 완료, 3개 컴퓨터 이더넷으로 연결 ( IPv4 : 192.168.100.5, 6, 7)
 
-- 진행중 : 3개 컴퓨터 이더넷으로 연결, 1번&2번 컴퓨터에 Ubuntu 설치중
 
-  완료 : keti0 컴퓨터에 Ubuntu 설치완료, 네트워크 static IPv4 설정 완료
+
+### 0805
+
+- 진행중 : keti0 에 Kubernetes 설치
+
+  완료 : keti0 에 Docker 설치 완료

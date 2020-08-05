@@ -1,5 +1,7 @@
 # Ubuntu
 
+- Version : 18.04
+
 ### Ubuntu 설치파일 다운로드 및 설치용 USB 만들기
 
 - Rutus 사용하여 설치용 USB 만들어서 사용

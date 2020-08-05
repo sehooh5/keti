@@ -1,5 +1,6 @@
 # Docker
 
+- Version : 19.03.12
 - 도커 설치 환경 : Ubuntu 18.04
 - 도커 버전은 크게 두가지
   - CE(Community Edition) : 개발자나 작은 팀들에게 이상적. 무료.
@@ -10,10 +11,18 @@
 
 ## 준비
 
+- apt update
+
+  ```bash
+  sudo apt-get update
+  ```
+
+  
+
 - 오래된 버전 도커 삭제
 
   ```bash
-  sudo apt-get remove docker docker0engine docker.io
+  sudo apt-get remove docker docker-engine docker.io
   ```
 
 - 패키지 설치
@@ -40,9 +49,47 @@ sudo apt-get update && sudo apt-get install \
   # 저장소 추가
   $ sudo add-apt-repository \
      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-     $(lsb_release -cs) \
+     bionic \
      stable"
+  # docker 패키지 검색되는지 확인
+  $ sudo apt-get update 
+  $ sudo apt-cache search docker-ce
+  ## 출력메시지
+  docker-ce - Docker: the open-source application container engine
   ```
 
   
 
+### 도커 CE설치
+
+```bash
+$ sudo apt-get update 
+$ sudo apt-get install docker-ce
+
+# 사용자를 docker 그룹에 추가
+$ sudo usermod -aG docker $USER
+```
+
+
+
+### 도커 데몬 드라이버 교체(사용안함)
+
+- from `cgroupfs` to `systemd`
+
+  ```bash
+  $ sudo cat > /etc/docker/daemon.json <<EOF
+  {
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "100m"
+    },
+    "storage-driver": "overlay2"
+  }
+  EOF
+  $ sudo mkdir -p /etc/systemd/system/docker.service.d
+  $ sudo systemctl daemon-reload
+  $ sudo systemctl restart docker
+  ```
+
+  
