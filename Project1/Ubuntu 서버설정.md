@@ -28,6 +28,21 @@ sudo apt-get install net-tools
 
 
 
+### 우분투 방화벽(UFW) 설정
+
+```bash
+# check
+sudo ufw status verbose
+
+# active 
+sudo ufw enable
+
+# inactive
+sudo ufw disable
+```
+
+
+
 ### 이더넷 연결 가능하게 네트워크 설정 [(참고)](https://webdir.tistory.com/188)
 
 - `ifconfig`  로 해당 네트워크 환경 확인
@@ -65,3 +80,22 @@ sudo apt-get install net-tools
 
   
 
+### apt-get update 명령 시 주소를 못찾아올 때
+
+- 패키지 다운로드 서버를 변경해준다
+
+- `sources.list` 안에 내용 변경
+
+  ```bash
+  sudo vi /etc/apt/sources.list
+  ```
+
+- 내용 변경하는 명령어 `:`를 입력한 후에
+
+  ```bash
+  %s/kr.archive.ubuntu.com/ftp.daumkakao.com
+  ```
+
+  명령어 치면 변경이 몇개 되었는지 나오고 `:wq`로 저장하고 빠져나오기
+
+- 나는 wifi 연결이 아니라 이더넷으로 연결되어있어서 온라인이 아니어서 오류났었던것
