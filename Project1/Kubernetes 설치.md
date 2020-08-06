@@ -36,4 +36,3 @@ $ kubectl version
 
 - 초기화 시 사용할 Pod Network 에 따라 코드가 달라질 수 있다
 - [Pod Network 사용 방법 및 초기화 코드 확인 페이지](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
-- 
