@@ -38,7 +38,7 @@
 
 
 
-#### Service
+#### 3. Service
 
 - 네트워크와 관련된 오브젝트
 - Pod을 외부 네트워크와 연결해주고 여러개의 Pod을 바라보는 내부 로드 밸런서를 생성할 때 사용
@@ -46,10 +46,115 @@
 
 
 
-#### Volume
+#### 4. Volume
 
 - 저장소와 관련된 오브젝트
-- 
+- 호스트 디렉토리를 그대로 사용 or EBS 같은 스토리지를 동적으로 생성하여 사용 가능
+
+
+
+
+
+### Object Spec - YAML 사용
+
+- 오브젝트의 명세는 YAML로 정의한다
+- 명세는 생성, 조회, 삭제로 관리할 수 있기 때문에 REST API 로 쉽게 노출 가능
+
+
+
+
+
+### Kubernetes 배포방식
+
+- 원하는 상태를 다양한 Object에 Label을 붙여 정의(YAML)하고 API 서버에 전달하는 방식
+
+- “컨테이너를 2개 배포하고 80 포트로 오픈해줘”라는 간단한 작업을 위해 다음과 같은 구체적인 명령을 전달해야 합니다.
+
+  > “컨테이너를 Pod으로 감싸고 type=app, app=web이라는 라벨을 달아줘. type=app, app=web이라는 라벨이 달린 Pod이 2개 있는지 체크하고 없으면 Deployment Spec에 정의된 템플릿을 참고해서 Pod을 생성해줘. 그리고 해당 라벨을 가진 Pod을 바라보는 가상의 서비스 IP를 만들고 외부의 80 포트를 방금 만든 서비스 IP랑 연결해줘.”
+
+
+
+
+
+### Kubernetes Architecture
+
+- 중앙(**Master**)에 API 서버와 상태 저장소를 두고 각 서버(Node)의 에이전트(**Kubelet**)와 통신하는 단순한 구조
+
+
+
+#### Master - Node 구조
+
+- 전체 클러스터를 관리하는 Master 와 컨테이너가 배포되는 Node 로 구성
+- 모든 명령은 마스터의 API 서버를 호출하고, 노드는 마스터와 통신하면서 필요한 작업을 수행
+
+![image](https://user-images.githubusercontent.com/58541635/89495620-a0061780-d7f3-11ea-9bb0-2adb1c0c1dd7.png)
+
+##### Master
+
+- 마스터 서버는 다양한 모듈이 확장성을 고려하여 기능별로 쪼개져있음
+- 관리자만 접속할 수 있도록 보안 설정을 해야 함
+- 마스터 서버가 죽으면 클러스터를 관리할 수 없어서 보통 3대를 구성하여 안정성을 높힘
+- 개발환경이나 소규모 환경에선 마스터와 노드를 분리하지 않고 같은 서버에 구성
+- **마스터의 구성요소 :**
+
+![image](https://user-images.githubusercontent.com/58541635/89495810-0723cc00-d7f4-11ea-8a86-e18c97bc2a21.png)
+
+###### kube-apiserver (API 서버)
+
+- 모든 요청을 처리하는 마스터의 핵심모듈
+- kubectl 의 요청뿐 아니라 내부모듈의 요청도 처리하며 권한을 체크하여 요청을 거부할 수 있다
+- 원하는 상태를 key-value 저장소에 저장, 저장된 상태를 조회하는 일을 함
+- Pod 을 노드에 할당하고 상태를 체크하는 일은 다른 모듈로 분리되어 있음
+- 노드에서 실행 중인 컨테이너의 로그를 보여주고 명령을 보내는 등 (디버거 역할 또한 수행)
+
+
+
+###### etcd (분산 데이터 저장소 )
+
+- RAFT 알고리즘을 이용한 key-value 저장소
+- 여러 개로 분산하여 복제할 수 있기 떄문에 안정성이 높고 속도도 빠른 편
+- 클러스터의 모든 설정, 상태 데이터는 여기 저장, 나머지 모듈은 stateless하게 동작하여 etcd만 잘 백업해두면 언제든 클러스터 복구 가능
+- 오직 API 서버와 통신하고 다른 모듈을 API 서버 거쳐서 etcd 데이터에 접근
+
+
+
+###### Scheduler, Controller
+
+- API 서버는 요청을 받으면 etcd 저장소와 통신할 뿐 실제로 상태를 바꾸는 건 Scheduler 와 Controller
+
+1. kube-scheduler
+
+   - 스케줄러는 할당되지 않은 Pod 을 여러가지 조건(필요한 자원, 라벨)에 따라 적절한 노드서버에 할당
+
+2. kube-controller-manager
+
+   - Kubernetes 내의 거의 모든 Object의 상태를 관리
+
+   - Object별로 철저하게 분업화 : 
+
+     Deployment 는 ReplicaSet을 생성 / ReplicaSet은 Pod 생성 / Pod 은 scheduler 가 관리
+
+3. cloud-controller-manager
+
+   - AWS, GCE, Azure등 클라우드에 특화된 모듈
+   - Node 추가삭제와 로드 밸런서를 연결하거나 Volume 붙이기
+
+
+
+
+
+##### Node
+
+- 노드서버는 마스터 서버와 통신하면서 필요한 Pod을 생성하고 네트워크와 볼륨을 설정
+- 실제 컨테이너들이 생성되는 곳으로 수백, 수천대로 확장할 수 있다.
+- 각각의 서버에 라벨을 붙여 사용목적(GPU특화, SSD 서버 등)을 정의할 수 있다.
+
+
+
+##### Kubectl
+
+- API 서버는 json 또는 protobuf 형식을 이용한 http 통신을 지원
+- 그대로 쓰면 불편하여 `kubectl`이라는 명령행 도구를 사용
 
 ### [표준 용어집](https://kubernetes.io/ko/docs/reference/glossary/?all=true#term-cluster-architect)
 
@@ -90,9 +195,7 @@
 
   [컨트리뷰터](https://kubernetes.io/ko/docs/reference/glossary/?all=true#term-contributor)가 기여한 것에 대한 사용권을 오픈 소스 프로젝트에 허락하는 계약 조건.
 
-- 
-
-  **Cloud Native Computing Foundation (CNCF)**
+- **Cloud Native Computing Foundation (CNCF)**
 
   The Cloud Native Computing Foundation (CNCF) builds sustainable ecosystems and fosters a community around [projects](https://www.cncf.io/projects/) that orchestrate containers as part of a microservices architecture.Kubernetes is a CNCF project.
 
