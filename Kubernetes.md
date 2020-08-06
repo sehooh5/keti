@@ -89,6 +89,13 @@
 
 ![image](https://user-images.githubusercontent.com/58541635/89495620-a0061780-d7f3-11ea-9bb0-2adb1c0c1dd7.png)
 
+##### Kubectl
+
+- API 서버는 json 또는 protobuf 형식을 이용한 http 통신을 지원
+- 그대로 쓰면 불편하여 `kubectl`이라는 명령행 도구를 사용
+
+
+
 ##### Master
 
 - 마스터 서버는 다양한 모듈이 확장성을 고려하여 기능별로 쪼개져있음
@@ -148,13 +155,78 @@
 - 노드서버는 마스터 서버와 통신하면서 필요한 Pod을 생성하고 네트워크와 볼륨을 설정
 - 실제 컨테이너들이 생성되는 곳으로 수백, 수천대로 확장할 수 있다.
 - 각각의 서버에 라벨을 붙여 사용목적(GPU특화, SSD 서버 등)을 정의할 수 있다.
+- **노드의 구성요소** : 
+
+![image](https://user-images.githubusercontent.com/58541635/89497723-e198c180-d7f7-11ea-8c3e-6a5e2c73c389.png)
+
+###### kublet
+
+- 노드에 할당된 Pod 의 생명주기를 관리
+- Pod 생성, 내부 컨테이너에 이상 확인하며 주기적으로 마스터에 상태 전달
+- API서버의 요청을 받아 컨테이너의 로그를 전달하거나 특정 명령을 대신 수행하기도 함
 
 
 
-##### Kubectl
+###### kube-proxy
 
-- API 서버는 json 또는 protobuf 형식을 이용한 http 통신을 지원
-- 그대로 쓰면 불편하여 `kubectl`이라는 명령행 도구를 사용
+- proxy 는 Pod 으로 연결되는 네트워크를 관리
+- iptables를 설정하는 방식으로 변경, 최근은 IPVS 지원
+
+
+
+##### 추상화
+
+- 컨테이너 = 도커
+
+
+
+#### 하나의 Pod이 생성되는 과정
+
+- 관리자가 애플리케이션을 배포하기 위해 RepicaSet 을 생성하면 다음과 같은 과정을 거쳐  Pod 생성
+
+![image](https://user-images.githubusercontent.com/58541635/89498866-05f59d80-d7fa-11ea-88e4-093a9d981cbd.png)
+
+- 각 모듈을 서로 통신하지 않고 **Only! API 서버와 통신**
+- API 서버를 통해 etcd에 저장된 상태를 체크하고 현재 상태와 원하는 상태가 다르면 필요한 작업을 수행
+
+##### 상세 수행과정
+
+###### 1. kubectl
+
+- ReplicaSet 명세를 YAML 파일로 정의하고 kubectl 도구를 이용하여 API 서버에 명령을 전달
+
+1. API 서버는 새로운 ReplicaSet Object를 etcd에 저장
+
+###### 2. kube Controller
+
+2. Kube Controller 에 포함된 ReplicaSet Controller 가 RepicaSet을 감시하다가 ReplicaSet에 정의된 Label 	Selector 조건을 만족하는 Pod이 존재하는지 체크
+
+3. 해당하는 Label의 Pod이 없으면 ReplicaSet의 Pod 템플릿을 보고 새로운 Pod(no assign)을 생성.
+
+   생성은 API 서버에 전달하고 API 서버는 etcd에 저장
+
+###### 3. Scheduler
+
+4. Scheduler 는 할당되지 않은(no assign)  Pod 이 있는지 체크
+5. 할당되지 않은 Pod이 있으면 조건에 맞는 Node를 찾아 해당 Pod을 할당
+
+###### 4. Kubelet
+
+6. Kubelet은 자신의 Node에 할당되었지만 아직 생성되지 않은 Pod이 있는지 체크
+
+8. 생성되지 않은 Pod이 있으면 명세를 보고 Pod을 생성
+
+- Pod의 상태를 주기적으로 API 서버에 전달
+
+
+
+- 위 과정은 ReplicaSet 이지만 DaemonSet도 동일한 방식으로 동작
+
+- DaemonSet Controller 와 Scheduler가 전체 노드에 대해 Pod을 할당하면 
+
+  kubelet이 자기 노드에 할당된 Pod을 생성
+
+
 
 ### [표준 용어집](https://kubernetes.io/ko/docs/reference/glossary/?all=true#term-cluster-architect)
 
