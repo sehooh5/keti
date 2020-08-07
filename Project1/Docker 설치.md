@@ -72,7 +72,15 @@ $ sudo usermod -aG docker $USER
 
 
 
-### 도커 데몬 드라이버 교체(사용안함)
+### 반드시 스왑 메모리 비활성화
+
+```
+sudo swapoff -a
+```
+
+
+
+### 도커 데몬 드라이버 교체
 
 - from `cgroupfs` to `systemd`
 
@@ -93,3 +101,4 @@ $ sudo usermod -aG docker $USER
   ```
 
   
+

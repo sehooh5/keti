@@ -49,7 +49,7 @@ sudo ufw disable
 
 - `ifconfig`  로 해당 네트워크 환경 확인
 
-- GUI : `Network` 환경 설정 검색 후 변경 가능
+- **GUI : `Network` 환경 설정 검색 후 변경 가능**(이거 사용했음)
 
   CLI : 아래 처럼 수정해줘야 함
 
@@ -80,7 +80,13 @@ sudo ufw disable
   
   ```
 
-  
+- 네트워크 재시작
+
+```bash
+sudo /etc/init.d/networking restart
+```
+
+
 
 ### apt-get update 명령 시 주소를 못찾아올 때
 
