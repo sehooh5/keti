@@ -97,7 +97,7 @@ kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
 
 
 
-### 여기서 자꾸 에러가 떠서 진행이 안되엇다
+### **여기서 자꾸 에러가 떠서 진행이 안되엇다
 
 - 도커와 kubernetes간 cgroup 이 일치하지 않아서 그럼, `systemd`로 변경했는데도 안되서 아래 내용을 추가해봤다
 - 아래 명령어 실행하여 해당 내용 추가
@@ -131,19 +131,85 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 
 
 
-### Pod 네트워크 구성
+### **설치 확인
+
+- 아래 명령어로 잘 구성되었는지 확인한다
+
+```bash
+# 확인 명령어
+kubectl get nodes
+## 응답
+NAME         STATUS     ROLES     AGE       VERSION
+kubemaster   NotReady   master    4m        v1.18.6
+```
+
+- 아직 NotReady 상태이다
+- 만약 이 때, <mark>에러메시지</mark>가 뜨면 아래처럼 해결해준다
+
+```bash
+# Error message 
+Unable to connect to the server: x509: certificate signed by unkown authority~~
+
+# 해결 방법
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
+
+
+
+## **Pending 풀어주기
+
+- coredns 가 Pending 상태인데 `kube-router`가 준비가 안된상태이기 때문이다
+
+```bash
+# kubectl get pods --all-namespaces 
+NAMESPACE     NAME                                 READY     STATUS    RESTARTS   AGE
+kube-system   coredns-78fcdf6894-cmw4z             0/1       Pending   0          4m
+kube-system   coredns-78fcdf6894-stgvv             0/1       Pending   0          4m
+kube-system   etcd-kubemaster                      1/1       Running   0          3m
+kube-system   kube-apiserver-kubemaster            1/1       Running   0          4m
+kube-system   kube-controller-manager-kubemaster   1/1       Running   0          4m
+kube-system   kube-proxy-72lhm                     1/1       Running   0          4m
+kube-system   kube-scheduler-kubemaster            1/1       Running   0          4m
+
+# kube-router 설정
+KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
+KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter-all-features.yaml
+```
+
+
+
+### **Pod 네트워크 구성 (status Ready 가능하게됨)
 
 - Pod 이 서로 통신할 수 있도록 Network Add-on을 설치한다
 
+```bash
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentaion/kube-flannel.yml
 ```
-# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentaion/kube-flannel.yml
+
+
+
+- **Master Node 세팅 완료**
+
+---
+
+## Worker Nodes 세팅
+
+- Docker 설치 후 Master 와 동일한 방법으로 세팅 후 **Join**
+- Worker Node 에서 아래 명령어 실행
+
+```bash
+# 이 명령어는 Master 세팅 시 맨 아래 출력됨
+kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
+    --discovery-token-ca-cert-hash sha256:7f1758ca4cfd117cda27099644cbe4ef672559a47ab33dce8dd87ddf2e8bea1c
 ```
+
+
 
 
 
 ---
 
-### 설치 실패 시 초기화 방법
+### **설치 실패 시 초기화 방법
 
 ```
 
@@ -170,4 +236,14 @@ $ systemctl restart kublet
 
 $ reboot 
 ```
+
+
+
+---
+
+## Kubernetes 명령어
+
+- Nodes 확인 : `kubectl get nodes`
+- pods 확인 : `kubectl get pods --all-namespaces`
+- 
 
