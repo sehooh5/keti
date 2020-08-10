@@ -4,6 +4,14 @@
 
 
 
+### product_uuid 확인
+
+```
+sudo cat /sys/class/dmi/id/product_uuid
+```
+
+
+
 ### 신뢰할 수 있는 APT 키 추가
 
 ```bash
@@ -132,4 +140,34 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 ```
 
 
+
+---
+
+### 설치 실패 시 초기화 방법
+
+```
+
+# docker 초기화
+
+$ docker rm -f `docker ps -aq`
+
+$ docker volume rm `docker volume ls -q`
+$ umount /var/lib/docker/volumes
+$ rm -rf /var/lib/docker/
+
+$ systemctl restart docker 
+
+
+# k8s 초기화
+
+$ kubeadm reset
+
+$ systemctl restart kublet
+
+
+
+# iptables에 있는 데이터를 청소하기 위해
+
+$ reboot 
+```
 

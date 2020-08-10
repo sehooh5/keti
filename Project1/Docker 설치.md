@@ -17,8 +17,6 @@
   sudo apt-get update
   ```
 
-  
-
 - 오래된 버전 도커 삭제
 
   ```bash
