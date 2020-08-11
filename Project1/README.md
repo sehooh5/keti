@@ -91,3 +91,10 @@
 ### 0807
 
 - 진행중 :  Kubernetes 설정
+
+
+
+### 0810
+
+- 완료 : 3대 Kubernetes 설치 및 마스터(keti0), 워커 2대(keti1, keti2) 노드설정 완료
+- 오류 : keti2 연결 안됨(Status : Not Ready), Scheduler & Kube-Controller-manager : Unhealthy 상태
