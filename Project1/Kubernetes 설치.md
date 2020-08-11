@@ -258,4 +258,7 @@ $ reboot
 - pods 확인 : `kubectl get pods --all-namespaces`
 - 구성요소 확인 : `kubectl get componentstatuses`
 - Node 삭제 : 마스터에서 `kubectl delete node $NODENAME`
+- config 확인(scheduler, c-manager 확인) : `kubeadm config print init-defaults`
+- Node 세부사항 확인 : `kubectl --kubeconfig=$KUBE_CONFIG describe node $NODENAME (이것도 똑같은데..? kubectl describe node $NODENAME)`
+- 
 
