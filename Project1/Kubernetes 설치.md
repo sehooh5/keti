@@ -1,4 +1,6 @@
-# Kubernetes 설치
+# Kubernetes
+
+## Kubernetes 설치
 
 - Version : 1.14
 
@@ -115,14 +117,14 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 
 
 
-### kubectl 권한설정
+### kubectl 권한설정(*꼭 root 에서 나와서 설정해준다!)
 
 - 다음 명령어 실행로 `kubectl`권한 설정
 
   ```bash
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  $ mkdir -p $HOME/.kube
+  $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
 - `admin.conf` 파일은 `kubeadm init` 명령어 수행했을 때 생성
@@ -147,11 +149,20 @@ kubemaster   NotReady   master    4m        v1.18.6
 - 만약 이 때, <mark>에러메시지</mark>가 뜨면 아래처럼 해결해준다
 
 ```bash
-# Error message 
+## Error message. 1
 Unable to connect to the server: x509: certificate signed by unkown authority~~
 
 # 해결 방법
 export KUBECONFIG=/etc/kubernetes/admin.conf
+
+
+## Error message. 2 (자주 뜨는 에러!)
+<localhost:6443> was refuesed~~~~~~~~
+
+# 해결 방법
+sudo -i
+swappoff -a
+strace -eopenat kubectl version
 ```
 
 
@@ -194,7 +205,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 ## Worker Nodes 세팅
 
-- Docker 설치 후 Master 와 동일한 방법으로 세팅 후 **Join**
+- Docker 설치 후 Master 와 동일한 방법으로 Kubernetes 설치 후 **Join**
 - Worker Node 에서 아래 명령어 실행
 
 ```bash
@@ -228,7 +239,7 @@ $ systemctl restart docker
 
 $ kubeadm reset
 
-$ systemctl restart kublet
+$ systemctl restart kubelet
 
 
 
@@ -245,5 +256,6 @@ $ reboot
 
 - Nodes 확인 : `kubectl get nodes`
 - pods 확인 : `kubectl get pods --all-namespaces`
-- 
+- 구성요소 확인 : `kubectl get componentstatuses`
+- Node 삭제 : 마스터에서 `kubectl delete node $NODENAME`
 
