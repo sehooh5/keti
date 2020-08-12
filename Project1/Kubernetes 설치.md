@@ -216,9 +216,10 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 
 
 
-### scheduler, cm unhealthy 에러 고치기
+### scheduler, cm unhealthy 에러 고치기(문제없음 그냥 사용!)
 
 - https://github.com/rootsongjc/kubernetes-handbook/issues/36
+- https://github.com/kubernetes/kubeadm/issues/2222
 
 ---
 
@@ -306,4 +307,6 @@ $ kubectl [command] [type] [name] [flag]
 - deployment 확인 : `kubectl get deployments`
 - pod 확인 : `kubectl get pods -o wide`
 - 워커노드에서 컨테이너 통신 시도 : `curl http://10.244.x.x:8080`
+
+
 

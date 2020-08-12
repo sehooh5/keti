@@ -112,4 +112,25 @@
 
 ### 0812
 
-- 오류 : 재부팅하면 `kubectl` 명령어 시 port를 못찾을 때가 있음
+- 진행중 : Prometheus 란? , Granfana?, 동적으로 사용가능한 리소스 찾기
+
+- 오류 : 
+
+  - 재부팅하면 `kubectl` 명령어 시 port를 못찾을 때가 있음 - 시간지나면 해결
+  - 아직도 `kubectl get cs` : scheduler, c-m - unhealthy 상태
+
+- 완료 : master-worker(2 pc) 연결 완료
+
+- 앞으로 진행할 내용
+
+  
+
+  1. 동적으로 리소스를 확인할 수 잇는지?
+  2. 프로메테우스, kubectl 이 찾을 수 있는 리소스 개수들
+
+  
+
+  결론 : 리소스 모니터링에 **프로메테우스 Granfana** 를 사용할 지 **k8s 내부 모듈**을 사용할지
+
+  
+
