@@ -91,3 +91,24 @@
 ### 0807
 
 - 진행중 :  Kubernetes 설정
+
+
+
+### 0810
+
+- 완료 : 3대 설치 완료
+
+- 오류 : 연동 되는데 not ready, unhealthy
+
+
+
+### 0811
+
+- 완료 : master 1 / worker 1 설치 완료,  배포완료
+- 오류 : unhealthy 여전히 뜨고 한 대는 join 안됨
+
+
+
+### 0812
+
+- 오류 : 재부팅하면 `kubectl` 명령어 시 port를 못찾을 때가 있음

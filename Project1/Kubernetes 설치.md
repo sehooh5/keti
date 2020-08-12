@@ -260,5 +260,10 @@ $ reboot
 - Node 삭제 : 마스터에서 `kubectl delete node $NODENAME`
 - config 확인(scheduler, c-manager 확인) : `kubeadm config print init-defaults`
 - Node 세부사항 확인 : `kubectl --kubeconfig=$KUBE_CONFIG describe node $NODENAME (이것도 똑같은데..? kubectl describe node $NODENAME)`
-- 
+- 토큰 리스트 보기 : `kubeadm token list`
+- 토큰 생성하기 : `kubeadm token create`
+- deployment(배포) 명령어로 배포 : `kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1`
+- deployment 확인 : `kubectl get deployments`
+- pod 확인 : `kubectl get pods -o wide`
+- 워커노드에서 컨테이너 통신 시도 : `curl http://10.244.x.x:8080`
 
