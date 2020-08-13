@@ -34,8 +34,27 @@
 2. 스크랩 된 모든 샘플을 로컬에 저장하고 데이터에 대한 규칙을 실행하여 기존 데이터에서 새 시계열을 집계 및 기록하거나 경고를 생성
 3. Granfana 또는 기타 API 소비자를 사용하여 수집 된 데이터를 시각화
 
+
+
 ## Prometheus 를 이용한 모니터링
 
 - 전체 인프라 환경과 Application 에 대한 모니터링을 하는것이 중요
 - 인프라 전체적인 가시성을 확보해야 Application 에 대한 가용성과 안정성 확보
 - 고도화된 Cloud Native System 구축 시 사용하는 지표로 활용
+
+![image-20200813111711833](/Users/seho/Library/Application Support/typora-user-images/image-20200813111711833.png)
+
+- Cloud Native 환경에서의 모니터링은 Kubernetes API를 통해 동적으로 확장된 서버 endpoint 를 discovery 하는 방식으로 운영, 이후에 Monitoring backend 에서 discovery 한 endpoint 를 통해 metric 을 수집
+
+
+
+## Kubernetes Monitoring Pipeline
+
+- Core Metric Pipeline
+- Monitoring
+
+
+
+### Core Metric Pipeline
+
+- k8s 관련 구성 요소를 직접 관리하는 파이프 라인
