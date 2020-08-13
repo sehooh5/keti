@@ -9,9 +9,10 @@
 ---
 
 - ubuntu : 18.04
-
 - kubernetes : 1.14
 - docker : 최신버전 19.03.12 (현, 2020.08.04)
+- Prometheus : 
+- Grafana : 
 
 
 
@@ -97,6 +98,10 @@
 
 ### 0810
 
+<<<<<<< HEAD
+- 완료 : 3대 Kubernetes 설치 및 마스터(keti0), 워커 2대(keti1, keti2) 노드설정 완료
+- 오류 : keti2 연결 안됨(Status : Not Ready), Scheduler & Kube-Controller-manager : Unhealthy 상태
+=======
 - 완료 : 3대 설치 완료
 
 - 오류 : 연동 되는데 not ready, unhealthy
@@ -134,3 +139,4 @@
 
   
 
+>>>>>>> e5ac9a084e301b14184af2bdfc9909dd55aae6d8
