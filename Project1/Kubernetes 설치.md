@@ -1,4 +1,6 @@
-# Kubernetes 설치
+# Kubernetes
+
+## Kubernetes 설치
 
 - Version : 1.14
 
@@ -115,14 +117,14 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 
 
 
-### kubectl 권한설정
+### kubectl 권한설정(*꼭 root 에서 나와서 설정해준다!)
 
 - 다음 명령어 실행로 `kubectl`권한 설정
 
   ```bash
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  $ mkdir -p $HOME/.kube
+  $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
 - `admin.conf` 파일은 `kubeadm init` 명령어 수행했을 때 생성
@@ -147,16 +149,25 @@ kubemaster   NotReady   master    4m        v1.18.6
 - 만약 이 때, <mark>에러메시지</mark>가 뜨면 아래처럼 해결해준다
 
 ```bash
-# Error message 
+## Error message. 1
 Unable to connect to the server: x509: certificate signed by unkown authority~~
 
 # 해결 방법
 export KUBECONFIG=/etc/kubernetes/admin.conf
+
+
+## Error message. 2 (자주 뜨는 에러!) 
+<localhost:6443> was refuesed~~~~~~~~
+
+# 해결 방법 : 그냥 기다리면 되거나 아래
+sudo -i
+swappoff -a
+strace -eopenat kubectl version
 ```
 
 
 
-## **Pending 풀어주기
+## **(구지 안해도됨)Pending 풀어주기
 
 - coredns 가 Pending 상태인데 `kube-router`가 준비가 안된상태이기 때문이다
 
@@ -171,7 +182,7 @@ kube-system   kube-controller-manager-kubemaster   1/1       Running   0        
 kube-system   kube-proxy-72lhm                     1/1       Running   0          4m
 kube-system   kube-scheduler-kubemaster            1/1       Running   0          4m
 
-# kube-router 설정
+# kube-router 설
 KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter.yaml
 KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter-all-features.yaml
 ```
@@ -194,7 +205,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 ## Worker Nodes 세팅
 
-- Docker 설치 후 Master 와 동일한 방법으로 세팅 후 **Join**
+- Docker 설치 후 Master 와 동일한 방법으로 Kubernetes 설치 후 **Join**
 - Worker Node 에서 아래 명령어 실행
 
 ```bash
@@ -205,7 +216,10 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 
 
 
+### scheduler, cm unhealthy 에러 고치기(문제없음 그냥 사용!)
 
+- https://github.com/rootsongjc/kubernetes-handbook/issues/36
+- https://github.com/kubernetes/kubeadm/issues/2222
 
 ---
 
@@ -213,7 +227,7 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 
 ```
 
-# docker 초기화
+- docker 초기화
 
 $ docker rm -f `docker ps -aq`
 
@@ -221,14 +235,14 @@ $ docker volume rm `docker volume ls -q`
 $ umount /var/lib/docker/volumes
 $ rm -rf /var/lib/docker/
 
-$ systemctl restart docker 
+# systemctl restart docker 
 
 
-# k8s 초기화
+- k8s 초기화
 
-$ kubeadm reset
+# kubeadm reset
 
-$ systemctl restart kublet
+$ systemctl restart kubelet
 
 
 
@@ -241,9 +255,58 @@ $ reboot
 
 ---
 
-## Kubernetes 명령어
+## Kubernetes 명령어 [(공식문서)](https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/)
+
+### kuberctl 명령어
+
+- 쿠버네티스는 `kubectl` 이라는 CLI 명령어를 통해서 쿠버네티스 및 클러스터 관리, 디버그 및 트러블 슈팅을 할 수 있다
+- 기본적 명령어는 기본적으로 아래와 같다
+
+```bash
+$ kubectl [command] [type] [name] [flag]
+```
+
+- `command` : 자원에서 실행하려는 동작
+  - `create` : 생성
+  - `get` : 정보 가져오기
+  - `describe` : 자세한 상태 정보
+  - `delete` : 삭제
+- `type` : 자원 타입
+  - `pod` : Pod
+  - `service` : 서비스(네트워크)
+- `name` : 자원 이름
+- `flag` : 옵션
+
+
+
+### kubectl 기본 사용법
+
+- `run` : 특정 이미지를 가지고 pod을 생성
+
+  ```bash
+  $ kubectl run [Pod Name] --generator=[Repolication Controller 지정] --image=[사용할 이미지] --port=[포트 정보]
+  ```
+
+- pod의 서비스 생성
+
+  ```bash
+  $ kubectl expose pod echoserver --type=NodePort
+  ```
+
+  
 
 - Nodes 확인 : `kubectl get nodes`
 - pods 확인 : `kubectl get pods --all-namespaces`
-- 
+- 구성요소 확인 : `kubectl get componentstatuses`
+- Node 삭제 : 마스터에서 `kubectl delete node $NODENAME`
+- config 확인(scheduler, c-manager 확인) : `kubeadm config print init-defaults`
+- Node 세부사항 확인 : `kubectl --kubeconfig=$KUBE_CONFIG describe node $NODENAME (이것도 똑같은데..? kubectl describe node $NODENAME)`
+- 토큰 리스트 보기 : `kubeadm token list`
+- 토큰 생성하기 : `kubeadm token create`
+- deployment(배포) 명령어로 배포 : `kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1`
+- deployment 확인 : `kubectl get deployments`
+- pod 확인 : `kubectl get pods -o wide`
+- 워커노드에서 컨테이너 통신 시도 : `curl http://10.244.x.x:8080`
+
+
 
