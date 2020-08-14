@@ -6,14 +6,6 @@
 
 
 
-### product_uuid 확인
-
-```
-sudo cat /sys/class/dmi/id/product_uuid
-```
-
-
-
 ### 신뢰할 수 있는 APT 키 추가
 
 ```bash
