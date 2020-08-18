@@ -36,6 +36,22 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 ### *Helm Chart 설치
 
+- [HELM_CHAR]를 [RELEASE_NAME]으로 쿠버네티스 클러스터안에 배포
+
+  ```bash
+  ## $ helm install [RELEASE_NAME] [HELM_CHART]
+  
+  $ helm install prometheus stable/prometheus
+  ```
+
+- 배포된 릴리즈 목록 조회 : 
+
+  ```
+  $ helm ls
+  ```
+
+- 
+
 
 
 - [참고]([https://medium.com/finda-tech/prometheus%EB%9E%80-cf52c9a8785f](https://medium.com/finda-tech/prometheus란-cf52c9a8785f))
