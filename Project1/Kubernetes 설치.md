@@ -123,6 +123,16 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 
 - 즉, Master 노드에서만 `kubectl` 명령어를 사용가능하며, 다른 노드에서 사용하고 싶을때는 admin.conf 파일을 복사해서 사용한다
 
+- 
+
+### Pod 네트워크 구성 - Flannel
+
+- Pod 이 서로 통신할 수 있도록 Network Add-on(여기선 Flannel)을 설치한다
+
+```bash
+$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
 
 
 ### **설치 확인
@@ -180,14 +190,6 @@ KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercon
 ```
 
 
-
-### **Pod 네트워크 구성 (status Ready 가능하게됨)
-
-- Pod 이 서로 통신할 수 있도록 Network Add-on을 설치한다
-
-```bash
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentaion/kube-flannel.yml
-```
 
 
 

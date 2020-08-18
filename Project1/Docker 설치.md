@@ -98,5 +98,5 @@ sudo swapoff -a
   $ sudo systemctl restart docker
   ```
 
-  
+- 잘 안되서 슈퍼계정 들어간 상태에서 실행했음 `#`
 
