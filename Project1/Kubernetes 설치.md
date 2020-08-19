@@ -251,6 +251,8 @@ $ reboot
 
 ## Kubernetes 명령어 [(공식문서)](https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/)
 
+- [참고](https://judo0179.tistory.com/66)
+
 ### kuberctl 명령어
 
 - 쿠버네티스는 `kubectl` 이라는 CLI 명령어를 통해서 쿠버네티스 및 클러스터 관리, 디버그 및 트러블 슈팅을 할 수 있다
@@ -285,6 +287,48 @@ $ kubectl [command] [type] [name] [flag]
 
   ```bash
   $ kubectl expose pod echoserver --type=NodePort
+  ```
+
+- kubeconfig 환경 변수 확인
+
+  ```bash
+  $ kubectl config view
+  ```
+
+- 서비스 확인
+
+  ```bash
+  $ kubectl get svc
+  ```
+
+- deployment 확인
+
+  ```bash
+  $ kubect get deployment
+  ```
+
+- 서비스 확인
+
+  ```bash
+  $ 
+  ```
+
+- 서비스 확인
+
+  ```bash
+  $ 
+  ```
+
+- 서비스 확인
+
+  ```bash
+  $ 
+  ```
+
+- 서비스 확인
+
+  ```bash
+  $ 
   ```
 
   

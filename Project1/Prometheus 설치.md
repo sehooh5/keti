@@ -55,7 +55,18 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 ### *** 설치 후 pending error 수정
 
 - [참고](https://gruuuuu.github.io/cloud/l-helm-basic/#)
-- 
+
+
+
+### **프로메테우스 Uninstall
+
+- 먼저 `helm` 으로 uninstall
+
+```
+helm uninstall [인스톨(release) 이름]
+```
+
+- docker 부터 k8s 까지 전부 삭제해준다 (방법은 k8s 문서에)
 
 
 
