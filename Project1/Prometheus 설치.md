@@ -229,3 +229,5 @@ helm uninstall [인스톨(release) 이름]
 - [호롤리를 참고해서 좀 더 자세했던 자료](https://tommypagy.tistory.com/187)
 - [Helm 사용 설치](https://waspro.tistory.com/588)
 
+
+
