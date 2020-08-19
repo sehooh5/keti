@@ -56,6 +56,7 @@
 - [전달받은 설치 문서 2**](https://medium.com/finda-tech/overview-8d169b2a54ff)
 - [설치 실패시 초기화방법](https://likefree.tistory.com/13)
 - [명령어 등 참고하면 좋은자료](https://zzsza.github.io/development/2018/04/17/docker-kubernetes/)
+- [정리 잘해놓은 블로그](https://tommypagy.tistory.com/180)
 
 
 
