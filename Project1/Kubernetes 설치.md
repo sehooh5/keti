@@ -227,7 +227,7 @@ $ docker rm -f `docker ps -aq`
 
 $ docker volume rm `docker volume ls -q`
 $ umount /var/lib/docker/volumes
-$ rm -rf /var/lib/docker/
+# rm -rf /var/lib/docker/
 
 # systemctl restart docker 
 
