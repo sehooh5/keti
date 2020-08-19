@@ -161,3 +161,8 @@
 - 진행중 : 프로메테우스 설치 후 image pull 안되는 에러 발생!
 - **내일중으로 해결할 것!!**
 
+
+
+### 0819
+
+- server, alertmanager - pending & exporter, pushgateway Imagepullbackoff 고치기!

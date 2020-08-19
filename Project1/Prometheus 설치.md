@@ -50,6 +50,11 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
   $ helm ls
   ```
 
+
+
+### *** 설치 후 pending error 수정
+
+- [참고](https://gruuuuu.github.io/cloud/l-helm-basic/#)
 - 
 
 
