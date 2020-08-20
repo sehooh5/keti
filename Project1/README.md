@@ -167,3 +167,10 @@
 ### 0819
 
 - server, alertmanager - pending & exporter, pushgateway Imagepullbackoff 고치기!
+- **프로메테우스 helm으로 설치완료**
+
+
+
+### 0820
+
+- 그라파나 설치하기
