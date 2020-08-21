@@ -898,7 +898,29 @@ prometheus-deployment-7bcb5ff899-h4rb7   1/1     Running   0          67m
 
 
 
+### Grafana 작동
 
+1. datasource 추가
+
+   - Add data source 로 이동 
+   - Prometheus 선택
+   - 연동할 프로메테우스 정보 기입, url 은 서비스의 ip 참고하여 적어주면 된다
+
+   ```bash
+   $ kubectl get svc -n monitoring
+   
+   NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+   grafana              NodePort   10.101.152.163   <none>        3000:30004/TCP   6m43s
+   prometheus-service   NodePort   10.101.196.111   <none>        8080:30003/TCP   73m
+   ```
+
+   - 여기서 `Save & Test` 버튼 눌렀을 때 "Data source is working" 메시지가 뜨면 됨
+
+2. Dashboard 추가
+
+   - Grafana Homepage -> Dashboard -> "kubernetes" 검색 후, 마음에드는 Dashboard 선택 하고  copy id 룰 눌러 대시보드의 id 복사
+   - Garafana UI 로 돌아와서 `Import` 
+   - 입력된 datasource 인 prometheus (이름은 본인이 저장한 것으로 나온다)를 넣어주면 완료
 
 
 
