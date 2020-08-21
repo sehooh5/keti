@@ -44,7 +44,7 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 
 
-### *Helm Chart 설치
+### Helm Chart 설치
 
 - [HELM_CHAR]를 [RELEASE_NAME]으로 쿠버네티스 클러스터안에 배포
 
@@ -68,9 +68,9 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 
 
-## Prometheus 설치
+## 1. Helm으로  Prometheus 설치
 
-### 바로 Prometheus 설치
+### Prometheus 설치
 
 - 설치 : 
 
@@ -212,7 +212,7 @@ http://[localhost]:31557
 
 
 
-## 직접 yaml 파일 작성하여 진행
+## *2. yaml 파일 작성하여 설치
 
 ### 제일 먼저 namespace 를 생성한다
 
@@ -231,7 +231,7 @@ $ kubectl create ns monitoring
 - 프로메테우스 컨테이너가 k8s API 에 접근할 수 있는 권한을 주기위해 Cluster Role 을 설정해주고 ClusterRoleBinding 해준다
 - 생성된 Cluster Role 은 monitoring namespace 의 기본 서비스 어카운트와 연동되어 권한을 부여한다
 
-```
+```yaml
 # prometheus-cluster-role.yaml
 
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -283,7 +283,7 @@ subjects:
   - **prometheus.rules** : 수집한 지표에 대한 알람 조건을 지정하여 특정 조건이 되면 AlertManager로 알람을 보낼 수 있음
   - **prometheus.yml** : 수집할 지표(metric)의 종류와 수집 주기등을 기입
 
-```bash
+```yaml
 # prometheus-config-map.yaml
 
 apiVersion: v1
@@ -460,7 +460,7 @@ data:
 
 - 프로메테우스의 이미지를 담은 pod을 담은 depolyment controller
 
-```
+```yaml
 # prometheus-deployment.yaml
 
 apiVersion: apps/v1
@@ -508,7 +508,7 @@ spec:
 - 프로메테우스가 수집하는 metric 은 쿠버네티스에서 기본적으로 제공하는 system metric 만 수집하는 것이 아니고 그 외의 것들도 수집하기 때문에 수집역할을 하는 에이전트를 따로 두어야 함
 - 그 역할을 해주는게 **node-exporter** 이고 각 노드에 하나씩 띄워야 하므로 <mark>**daemonSet**</mark>으로 구성해준다
 
-```
+```yaml
 # prometheus-node-exporter.yaml
 
 apiVersion: apps/v1
@@ -561,7 +561,7 @@ spec:
 - 여기서 port 번호는 8080 (grafana 에서도 사용)
 - nodePort  는 30003으로 본인이 임의 지정해준다
 
-```
+```yaml
 # prometheus-svc.yaml
 
 apiVersion: v1
@@ -620,11 +620,11 @@ prometheus-deployment-7bcb5ff899-h4rb7   1/1     Running   0          65s
 
 
 
-### kube-state-metrics 배포
+### kube-state-metrics 배포 위한 yaml 작성
 
 #### ClusterRole, ClusterRoleBinding
 
-```
+```yaml
 # kube-state-cluster-role.yaml
 
 apiVersion: rbac.authorization.k8s.io/v1
@@ -699,7 +699,7 @@ rules:
 
 #### ServiceAccount 생성
 
-```
+```yaml
 # kube-state-svcaccount.yaml
 
 apiVersion: v1
@@ -713,7 +713,7 @@ metadata:
 
 #### cube-state-metrics의 deployment 구성
 
-```
+```yaml
 # kube-state-deployment.yaml
 
 apiVersion: apps/v1
@@ -762,7 +762,7 @@ spec:
 
 #### kube-state-metrics의 서비스 생성
 
-```
+```yaml
 # kube-state-svc.yaml
 
 apiVersion: v1
@@ -787,7 +787,7 @@ spec:
 
 
 
-#### 배포
+### 배포
 
 ```
 $ kubectl apply -f kube-state-cluster-role.yaml
@@ -798,7 +798,7 @@ $ kubectl apply -f kube-state-svc.yaml
 
 
 
-#### 확인
+### 확인
 
 ```
 $ kubectl get pod -n kube-system
@@ -810,11 +810,103 @@ kube-state-metrics-59bd4d9d-nbfrq          1/1     Running   0          50s
 
 - 다시 Browser UI 를 확인하면 정상실행 되는것을 확인할 수 있다.
 
-# 0821 에 그라파나 연동 정리!!!
+
+
+
+
+## Grafana 연동
+
+- 프로메테오스의 데이터들을 시각화
+
+
+
+### yaml 파일 작성/배포하여 pod과 svc 생성
+
+- 여기서 nodePort : 30004 중요!!
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - name: grafana
+          containerPort: 3000
+        env:
+        - name: GF_SERVER_HTTP_PORT
+          value: "3000"
+        - name: GF_AUTH_BASIC_ENABLED
+          value: "false"
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Admin
+        - name: GF_SERVER_ROOT_URL
+          value: /
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port:   '3000'
+spec:
+  selector:
+    app: grafana
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30004
+```
+
+
+
+- 작성 후 배포 및 pod 확인
+
+```bash
+$ kubectl apply -f grafana.yaml
+
+$ kubectl get pod -n monitoring
+NAME                                     READY   STATUS    RESTARTS   AGE
+grafana-799c99855d-kxhkm                 1/1     Running   0          16s
+node-exporter-99w2v                      1/1     Running   0          66m
+node-exporter-f9q7f                      1/1     Running   0          66m
+prometheus-deployment-7bcb5ff899-h4rb7   1/1     Running   0          67m
+```
+
+
+
+- `localhost:30004` 로 Grafana 접속 가능!
+
+
+
+
+
+
+
+
 
 ---
 
-## **프로메테우스 Uninstall
+## 프로메테우스 Uninstall
 
 - 먼저 `helm` 으로 uninstall
 
