@@ -68,7 +68,7 @@ $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 
 
 
-## 1. Helm으로  Prometheus 설치
+## ~~1. Helm으로  Prometheus 설치~~
 
 ### Prometheus 설치
 
