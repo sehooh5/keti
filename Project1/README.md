@@ -110,7 +110,6 @@
 <<<<<<< HEAD
 - 완료 : 3대 Kubernetes 설치 및 마스터(keti0), 워커 2대(keti1, keti2) 노드설정 완료
 - 오류 : keti2 연결 안됨(Status : Not Ready), Scheduler & Kube-Controller-manager : Unhealthy 상태
-=======
 - 완료 : 3대 설치 완료
 
 - 오류 : 연동 되는데 not ready, unhealthy
@@ -203,3 +202,11 @@
 - k8s 의 마스터노드를 통해서 워커노드에게 명령 내릴수 잇도록
 
   (vlc rstp 명령)
+
+- 진행해야할 순서
+
+  1. Container 만드는데 OpenCV로 카메라 URL 열어서 받은 데이터가 있는지 없는지 
+  2. Camera 에 대한 CRD 작성하기
+  3. FLASK로 MJPEG/HTTP만들어서 전송해주기
+  4. 서비스 오픈하게끔
+  5. 웹서비스 구현

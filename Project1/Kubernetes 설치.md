@@ -164,6 +164,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 # 해결 방법 : 그냥 기다리면 되거나 아래
 sudo -i
 swappoff -a
+sudo vi /etc/fstab # 여기서 swapfile  관련된거 주석처리해주기!!(꼭)
 strace -eopenat kubectl version
 ```
 
