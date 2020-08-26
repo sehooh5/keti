@@ -448,10 +448,9 @@ $ sudo make install
 
 - /etc/ld.so.conf.d/ 디렉토리에 **/usr/local/lib**를 포함하는 설정파일이 있는지 확인합니다.
 
-
-
 ```bash
 $ cat /etc/ld.so.conf.d/*
+
 /usr/lib/x86_64-linux-gnu/libfakeroot
 # libc default configuration
 /usr/local/lib
@@ -483,45 +482,36 @@ $ sudo ldconfig
 
 ### 5. OpenCV 설치 결과 확인
 
-OpenCV 3과 달리 opencv대신에 opencv4를 옵션으로 사용하여 pkg-config를 실행해야 컴파일할 수 있습니다. 
-
-$ g++ -o facedetect /usr/local/share/opencv4/samples/cpp/facedetect.cpp $(pkg-config opencv4 --libs --cflags)
-
-
-
-
-
-실행시켜보면 얼굴 인식이 됩니다. 
-
-$ ./facedetect --cascade="/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade="/usr/local/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml" --scale=1.3
-
-
-
-
-
-다음 포스팅도 참고하세요. 
-
-
-
- Visual Studio Code에서 CMake 사용하여 OpenCV 코드 컴파일 하기https://webnautes.tistory.com/933  
-
-
-
-
-
 ## 5.2. Python
 
-\1. python 2.x와 python 3x에서 opencv 라이브러리를 사용가능한지는 다음처럼 확인합니다.
+1. python 2.x와 python 3x에서 opencv 라이브러리를 사용가능한지는 다음처럼 확인합니다. 각각 OpenCV 버전이 출력되어야 합니다. 
 
-각각 OpenCV 버전이 출력되어야 합니다. 
+```bash
+$ python
+
+>>>import cv2
+>>>cv2.__version
+'4.2.0'
+
+-----------------------------------------
+
+$ python3
+
+>>>import cv2
+>>>cv2.__version
+'4.2.0'
+
+```
 
 
 
-webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python Python 2.7.17 (default, Nov 7 2019, 10:07:09) [GCC 7.4.0] on linux2Type "help", "copyright", "credits" or "license" for more information.>>> import cv2>>> cv2.__version__'4.2.0'>>> 
 
 
 
 
+```bash
+
+```
 
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python3 Python 3.6.9 (default, Nov 7 2019, 10:44:02) [GCC 8.3.0] on linuxType "help", "copyright", "credits" or "license" for more information.>>> import cv2>>> cv2.__version__'4.2.0'>>> 
 
@@ -533,6 +523,10 @@ webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python3 Python 3.6.9 (defaul
 
 
 
+```bash
+
+```
+
 sudo rm -rf ~ /.local/lib/python3.6/site-packages/cv2
 
 
@@ -542,6 +536,10 @@ sudo rm -rf ~ /.local/lib/python3.6/site-packages/cv2
 \2. 기존 OpenCV 3를 삭제 후 진행했다면 다음과 같은 에러가 날 수 있습니다.
 
 
+
+```bash
+
+```
 
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python Python 2.7.17 (default, Nov 7 2019, 10:07:09) [GCC 7.4.0] on linux2 Type "help", "copyright", "credits" or "license" for more information. >>> import cv2 Traceback (most recent call last):  File "<stdin>", line 1, in <module> ImportError: libopencv_reg.so.3.4: cannot open shared object file: No such file or directory
 
@@ -553,6 +551,10 @@ webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python Python 2.7.17 (defaul
 
 
 
+```bash
+
+```
+
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ sudo cp /usr/local/python/cv2/python-2.7/cv2.so /usr/local/lib/python2.7/dist-packages/  webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ sudo cp /usr/local/python/cv2/python-2.7/cv2.so /usr/lib/python2.7/dist-packages/  webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ sudo cp /usr/local/python/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so /usr/lib/python3/dist-packages  webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ sudo cp /usr/local/python/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so /usr/local/lib/python3.6/dist-packages
 
 
@@ -563,11 +565,19 @@ webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ sudo cp /usr/local/python/cv
 
 
 
+```bash
+
+```
+
 $ python /usr/local/share/opencv4/samples/python/facedetect.py --cascade "/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade "/usr/local/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml" /dev/video0
 
 
 
 
+
+```bash
+
+```
 
 $  python3 /usr/local/share/opencv4/samples/python/facedetect.py --cascade "/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade "/usr/local/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml" /dev/video0
 
@@ -583,6 +593,10 @@ python2
 
 
 
+```bash
+
+```
+
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ python /usr/local/share/opencv4/samples/python/facedetect.py --cascade "/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade "/usr/local/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml" /dev/video0 face detection using haar cascades USAGE:  facedetect.py [--cascade <cascade_fn>] [--nested-cascade <cascade_fn>] [<video_source>] [ INFO:0] Initialize OpenCL runtime...
 
 
@@ -593,6 +607,10 @@ python3
 
 
 
+```bash
+
+```
+
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$  python3 /usr/local/share/opencv4/samples/python/facedetect.py --cascade "/usr/local/share/opencv4/haarcascades/haarcascade_frontalface_alt.xml" --nested-cascade "/usr/local/share/opencv4/haarcascades/haarcascade_eye_tree_eyeglasses.xml" /dev/video0 face detection using haar cascades USAGE:  facedetect.py [--cascade <cascade_fn>] [--nested-cascade <cascade_fn>] [<video_source>] [ INFO:0] Initialize OpenCL runtime...
 
 
@@ -602,5 +620,9 @@ webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$  python3 /usr/local/share/op
 \4. 이제 필요 없어진 컴파일에 사용했던 opencv 소스코드 디렉토리를 삭제합니다.
 
 
+
+```bash
+
+```
 
 webnautes@webnautes-pc:~/opencv/opencv-4.2.0/build$ cd webnautes@webnautes-pc:~$ rm -rf opencv
