@@ -1,4 +1,9 @@
-# Python 설치(Ubuntu)
+# Python 환경구성(Ubuntu)
+
+- Python 3.7.6
+- VS Code
+
+## Python 설치
 
 1. python 최신버전 확인
 
@@ -52,4 +57,65 @@
    $ python -V
    ```
 
-   
+
+
+---
+
+## VS Code
+
+1. curl 설치
+
+```bash
+$ sudo apt-get install curl
+```
+
+
+
+2. MS 의  GPG 키 다운로드해 /etc/apt/trusted.gpg.d/ 경로에 복사
+
+```bash
+$ sudo sh -c 'curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg'
+```
+
+
+
+3. 저장소 추가
+
+```bash
+$ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+```
+
+
+
+4. 저장소로 부터 패키지 목록 가져오기
+
+```bash
+$ sudo apt update
+```
+
+
+
+5. VS Code 설치
+
+```bash
+$ sudo apt install code
+```
+
+
+
+6. 터미널 또는 데스크톱 환경에서 실행
+
+```bash
+$ code
+```
+
+
+
+7. 만약 git error 뜨면 git 설치
+
+```bash
+$ sudo apt-get install git
+```
+
+
+
