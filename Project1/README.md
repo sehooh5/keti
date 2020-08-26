@@ -210,3 +210,11 @@
   3. FLASK로 MJPEG/HTTP만들어서 전송해주기
   4. 서비스 오픈하게끔
   5. 웹서비스 구현
+
+
+
+### 0826
+
+- python, vs code 설치
+- openCV 활용하여 비디오 끌어오기
+- container 만들어보기
