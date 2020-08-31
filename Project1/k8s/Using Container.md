@@ -78,10 +78,35 @@ Events:                   <none>
 
 
 
-6. 사용한 자원들 삭제
+6. 배포 롤백 및 사용한 자원들 삭제
 
-```bash
-$ kubectl delete deployment nginx
-$ kubectl delete service nginx
-```
+   - 배포 롤백
+
+     ```bash
+     $ kubectl rollout history deploy nginx(이름)
+     
+     # 아래 버전이 여러개 뜸
+     ~~
+     ~~~
+     
+     # 6번 자세히 보기
+     $ kubectl rollout history deploy nginx(이름) --revision=6
+     
+     # 직전 버전으로 돌아가기
+     $ kubectl rollout undo deploy nginx
+     
+     # 특정 버전으로 돌아가기
+     $ kubectl rollout undo deploy nginx --to-revision=3
+     ```
+
+     
+
+   - 삭제
+
+     ```bash
+     $ kubectl delete deployment nginx
+     $ kubectl delete service nginx
+     ```
+
+
 
