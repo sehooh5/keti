@@ -108,5 +108,19 @@ Events:                   <none>
      $ kubectl delete service nginx
      ```
 
+     
+
+   - 멈춤 / 재개
+
+     ```bash
+     # 멈춤
+     $ kubectl rollout pause deployment/nginx
+     
+     # 재개
+     $ kubectl rollout resume deployment/nginx
+     ```
+
+     
+
 
 

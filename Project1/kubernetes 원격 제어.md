@@ -35,3 +35,12 @@
 - [영어 자료 참고](https://arxiv.org/ftp/arxiv/papers/1901/1901.04946.pdf)
 
 ![image](https://user-images.githubusercontent.com/58541635/91115385-13010080-e6c5-11ea-87e0-d1da1e5a118e.png)
+
+
+
+
+
+
+
+## [지금 파이썬 배포에 활용하고 있는 사이트](https://lsjsj92.tistory.com/578)
+
