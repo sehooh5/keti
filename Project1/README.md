@@ -57,6 +57,7 @@
 - [설치 실패시 초기화방법](https://likefree.tistory.com/13)
 - [명령어 등 참고하면 좋은자료](https://zzsza.github.io/development/2018/04/17/docker-kubernetes/)
 - [정리 잘해놓은 블로그](https://tommypagy.tistory.com/180)
+- [전반적인 쿠버네티스 시작부터 활용까지 잘 정리](https://arisu1000.tistory.com/category/Kubernetes?page=1)
 
 
 
