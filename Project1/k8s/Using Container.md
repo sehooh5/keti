@@ -48,8 +48,32 @@ $ kubectl expose deployment nginx --port 80 --type=NodePort
    - 해당 서비스를 보면 내부 포트번호와 외부 번호를 사용하여 연동
 
 ```
+$ kubectl get services
+
+NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP        11d
+nginx        NodePort    10.99.161.36   <none>        80:32741/TCP   9s
+
+
+# describe 로 자세한 내용 확인
+$ kubectl describe service nginx
+Name:                     nginx
+Namespace:                default
+Labels:                   app=nginx
+Annotations:              <none>
+Selector:                 app=nginx
+Type:                     NodePort
+IP:                       10.99.161.36
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  32741/TCP
+Endpoints:                10.244.1.32:80,10.244.2.23:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
 
 ```
+
 
 
 
