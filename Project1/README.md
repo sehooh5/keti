@@ -224,7 +224,15 @@
 
 ### 0831
 
-- git 연동중
-- Contatiner 만들고 OpenCV 사용하는거 완성하기 
+- git 연동완료
+- Contatiner 만들고 OpenCV 사용하는거 연습
+
+
+
+### 0901
+
+- Container 작성하는거 완성하기
+
+
 
 ## 이제 Container 에 담아서 OpenCV 활용해서 데이터를 잘 받아오는지 하면됨.....Container 를 만들어 본적이 없으니까 만드는 방법부터 차근차근 알아보고 진행하면 될듯
