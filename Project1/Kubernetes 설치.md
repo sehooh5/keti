@@ -308,32 +308,6 @@ $ kubectl [command] [type] [name] [flag]
   $ kubect get deployment
   ```
 
-- 서비스 확인
-
-  ```bash
-  $ 
-  ```
-
-- 서비스 확인
-
-  ```bash
-  $ 
-  ```
-
-- 서비스 확인
-
-  ```bash
-  $ 
-  ```
-
-- 서비스 확인
-
-  ```bash
-  $ 
-  ```
-
-  
-
 - Nodes 확인 : `kubectl get nodes`
 - pods 확인 : `kubectl get pods --all-namespaces`
 - 구성요소 확인 : `kubectl get componentstatuses`

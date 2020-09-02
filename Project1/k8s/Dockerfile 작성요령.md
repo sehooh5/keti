@@ -17,3 +17,22 @@ Dockerfile의 명령은 위에서 아래로 차례대로 실행한다.
 ·     CMD : 컨테이너가 시작될 때마다 실행할 명령어(커맨드)를 설정, Dockerfile에서 한번만 사용할 수 있다.
 
 [출처](https://sungwookkang.com/1303)
+
+
+
+---
+
+## 도커 이미지 만들기
+
+[자료](https://suwoni-codelab.com/docker/2018/06/11/Docker-Dockerfile/)
+
+
+
+---
+
+### 도커 이름없는 이미지 지우기
+
+```
+$ docker rmi -f $(docker images -f "dangling=true" -a)
+```
+
