@@ -122,7 +122,7 @@ docker build -f Dockerfile -t sehooh5/hello-python:latest .
 
 ### 
 
-### Docker 에서 실행
+### Docker 에서 실행 
 
 - k8s 에서 실행하기 전 Docker 에서 작동하는지 확인
 - Docker 가 컨테이너에서 App을 실행하고 port 5001에 매핑
@@ -132,6 +132,26 @@ docker run -p 5001:5000 sehooh5/hello-python
 ```
 
 - `http://localhost:5001` 로 이동하면 "Hello from Python!"이 출력 됨
+
+
+
+### Docker 에 로그인 및 Image Push
+
+- login
+
+```
+docker login
+ # id
+ # pw
+```
+
+
+
+- push (여기서 sehooh5 와 도커 아이디가 같아야한다)
+
+```
+docker push sehooh5/hello-python
+```
 
 
 
