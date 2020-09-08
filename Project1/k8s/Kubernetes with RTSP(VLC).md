@@ -1,4 +1,4 @@
-# Kubernetes with VLC
+# Kubernetes with RTSP(VLC)
 
 ## 참고자료
 
