@@ -248,6 +248,7 @@ kubectl get service(=svc)
 
 - [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44)
 - [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv)
+- [OpenCV 공식문서](https://www.learnopencv.com/install-opencv-docker-image-ubuntu-macos-windows/)
 
 ## 이제 
 
