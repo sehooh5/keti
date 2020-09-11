@@ -244,7 +244,10 @@ kubectl get service(=svc)
 
 
 
+## OpenCV를 Docker  에서 활용
 
+- [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44)
+- [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv)
 
 ## 이제 
 
