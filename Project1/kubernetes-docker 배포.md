@@ -1,4 +1,4 @@
-# kubernetes 원격 제어
+# kubernetes-docker 배포
 
 - k8s에서 Master에서 명령을 내리고 Worker 에서 명령을 받아 실행할 수 있는지 고찰
 
@@ -23,7 +23,7 @@
 git clone https://github.com/JasonHaley/hello-python.git
 ```
 
-#### 
+ 
 
 2. 디렉토리 변경
 
@@ -119,8 +119,6 @@ docker build -f Dockerfile -t sehooh5/hello-python:latest .
   ```
 
 
-
-### 
 
 ### Docker 에서 실행 
 
@@ -233,92 +231,4 @@ kubectl get service(=svc)
 - `http://localhost:6000` 으로 이동하면 "Hello from Python!" 이 실행
   - 나는 실행이 되지 않아 service 를 확인해보니 PORT가 6000:31137 로 포워딩 된 것을 확인 했다. 따라서 `http://localhost:31137` 로 실행 가능했다 (워커노드에서도 동일하게 실행 가능)
 
-
-
-
-
-## VLC 실행
-
-- terminal 에서 명령어 실행 :  `vlc`
-- vlc 켜지면 `미디어 - 네트워크 스트림 열기` 에서 rstp 주소 입력
-
-
-
-## OpenCV를 Docker  에서 활용
-
-- [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44)
-- [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv)
-- [OpenCV 공식문서](https://www.learnopencv.com/install-opencv-docker-image-ubuntu-macos-windows/)
-
-## 이제 
-
-## 1. 마스터노드에서 실행을 시키면 워커노드에서 작동하게끔 만들어야 한다
-
-## 2. OpenCV 를 활용한 python App이 작동하는지 확인해야 한다
-
-
-
----
-
-## 참고자료
-
-
-
-### 외부에서 Pod의 웹 서비스에 접근하는 방법
-
-- https://developer.ibm.com/kr/cloud/container/2019/03/05/kubernetes_practice/
-- **영상 띄울수 있는 컨테이너를 만들고 ServiceType을 NodePort 로 하면 되지않을까?**
-
-
-
-### Ingress
-
-- 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 오브젝트
-- 일반적으로 HTTP를 관리
-
-
-
-
-
-### Service
-
-
-
-
-
-
-
-## OpenStack 사용 
-
-- [영어 자료 참고](https://arxiv.org/ftp/arxiv/papers/1901/1901.04946.pdf)
-
-![image](https://user-images.githubusercontent.com/58541635/91115385-13010080-e6c5-11ea-87e0-d1da1e5a118e.png)
-
-
-
-
-
----
-
-## [지금 파이썬 배포에 활용하고 있는 사이트](https://lsjsj92.tistory.com/578)
-
----
-
-### [아래내용](https://blog.naver.com/PostView.nhn?blogId=alice_k106&logNo=221341757624&redirect=Dlog&widgetTypeCall=true&directAccess=false)
-
-**1.1 쿠버네티스 프록시를 localhost로 돌리고 API 서버에 접근하는 방법 (kube proxy)**
-
-
-
-쿠버네티스 라이브러리를 사용하는 wrapper 애플리케이션을 Master 노드의 로컬에 둔 뒤, 이 애플리케이션이 localhost로 접근하면 쿠버네티스 클러스터를 제어할 수 있다.
-
----
-
-### [공식문서 파이썬 배포](https://kubernetes.io/blog/2019/07/23/get-started-with-kubernetes-using-python/)
-
----
-
-## [나중 flask 사용할 시 참고](https://m.blog.naver.com/PostView.nhn?blogId=wideeyed&logNo=221585566556&proxyReferer=https:%2F%2Fwww.google.com%2F)
-
----
 
