@@ -25,9 +25,9 @@
 
 ## OpenCV를 Docker  에서 활용
 
-- [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44)
+- [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44) : opencv-python Docker image 참고 문서가 있고, 도커 컨테이너 내에서 cv2 실행시 일어나는 오류에 대한 수정이 있음
 - [위 예제 활용한 페이지](https://smprlab.tistory.com/32)
-- [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv)
+- [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv) : 위 예제들에서 사용한 DockerHub image
 - [OpenCV 공식문서](https://www.learnopencv.com/install-opencv-docker-image-ubuntu-macos-windows/)
 
 ## 이제 
