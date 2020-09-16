@@ -9,21 +9,40 @@
 
 ### rtsp address
 
-- rtsp : // keti : keti1234@192.168.100.60 : 8805 / videoMain
-- rtsp : // keti : keti1234@192.168.100.70 : 8810 / videoMain
+- rtsp : // keti : keti1234@192.168.100.60 : 8805 / videoMain -> opencv1.py
+- rtsp : // keti : keti1234@192.168.100.70 : 8810 / videoMain -> opencv2.py
 
 
 
-## 기본 사용 방법
+### 구조
 
-### VLC 실행
+![image](https://user-images.githubusercontent.com/58541635/93307599-1f97f500-f83c-11ea-8378-c265da8f38f9.png)
 
-- terminal 에서 명령어 실행 :  `vlc`
-- vlc 켜지면 `미디어 - 네트워크 스트림 열기` 에서 rtsp 주소 입력
+
 
 
 
 ### OpenCV-python 파일을 도커라이징
+
+- Dockerfile
+
+  ```
+  
+  ```
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
