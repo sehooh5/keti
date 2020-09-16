@@ -21,22 +21,180 @@
 
 
 
+## 진행과정
+
+### opencv-python 파일
+- 기능 : cv2를 import 하여 해당 rtsp url 을 가지고 실시간 카메라 영상을 보여줌
+1. opencv1.py
+```
+import cv2
+
+url = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+cap = cv2.VideoCapture(url)
+
+while True:
+    # Image read
+    ret, image = cap.read()
+    # image show
+    cv2.imshow('stream', image)
+    # q 키를 누르면 종료
+    if cv2.waitKey(5) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+
+```
+2. opencv2.py
+```
+import cv2
+
+url = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+cap = cv2.VideoCapture(url)
+
+while True:
+    # Image read
+    ret, image = cap.read()
+    # image show
+    cv2.imshow('stream', image)
+    # q 키를 누르면 종료
+    if cv2.waitKey(5) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+```
+
 
 ### OpenCV-python 파일을 도커라이징
 
-- Dockerfile
+#### Dockerfile
 
   ```
-  
+FROM python:3.7
+MAINTAINER Josip Janzic <josip@jjanzic.com>
+
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        unzip \
+        yasm \
+        pkg-config \
+        libswscale-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavformat-dev \
+        libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install numpy
+
+WORKDIR /
+ADD . /workspace # 로컬의 현재 디렉터리를 workspace 라는 이름의 디렉터리로 복사
+ENV OPENCV_VERSION="4.1.0" # 4.1.1 버전이 오류나서 변경한 부분(하지만 아직 오류)
+RUN wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip \
+&& unzip ${OPENCV_VERSION}.zip \
+&& mkdir /opencv-${OPENCV_VERSION}/cmake_binary \
+&& cd /opencv-${OPENCV_VERSION}/cmake_binary \
+&& cmake -DBUILD_TIFF=ON \
+  -DBUILD_opencv_java=OFF \
+  -DWITH_CUDA=OFF \
+  -DWITH_OPENGL=ON \
+  -DWITH_OPENCL=ON \
+  -DWITH_IPP=ON \
+  -DWITH_TBB=ON \
+  -DWITH_EIGEN=ON \
+  -DWITH_V4L=ON \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_PERF_TESTS=OFF \
+  -DCMAKE_BUILD_TYPE=RELEASE \
+  -DCMAKE_INSTALL_PREFIX=$(python3.7 -c "import sys; print(sys.prefix)") \
+  -DPYTHON_EXECUTABLE=$(which python3.7) \
+  -DPYTHON_INCLUDE_DIR=$(python3.7 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+  -DPYTHON_PACKAGES_PATH=$(python3.7 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+  .. \
+&& make install \
+&& rm /${OPENCV_VERSION}.zip \
+&& rm -r /opencv-${OPENCV_VERSION}
+RUN ln -s \
+  /usr/local/python/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
+  /usr/local/lib/python3.7/site-packages/cv2.so
+EXPOSE 5001 # 혹시 포트를 사용하게될까바 5001로 컨테이너 포트번호 지정
+CMD ["python3", "workspace/opencv1.py"] # 시작하자마자 workspace 에 있는 opencv1.py 실행
+
   ```
 
+#### 도커 라이징 - 이미지 만들기
+```
+ docker build -f Dockerfile -t sehooh5/opencd-python:latest .
+```
+
+#### 도커 이미지 잘 실행되나 확인
+```
+  docker run --privileged -it --env DISPLAY=$DISPLAY --env="QT_X11_NO_MITSHM=1" -v /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix:ro -p 5002:5001 sehooh5/opencv-python5
+
+```
+- 여기서 바로 실행하게되면 오류가 뜬다..위 명령어 + bash 로 들어가서 잘 구성되었는지 확인해준다
+- 오류 해결 방법 : 도커 내에서 opencv-python 파일을 다시 받아주면 실행된다
+```
+  pip install opencv-python
+```
+
+- 오류 해결 후 python 파일 실행해보기
+```
+  cd workspace \
+  && python3 opencv1.py
+```
+
+
   
+### 도커 이미지를 배포하기 위한 deployment 작성
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: opencv-python-service5
+spec:
+  selector:
+    app: opencv-python5
+  ports:
+  - protocol: "TCP"
+    port: 6002
+    targetPort: 5002
+  type: LoadBalancer
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opencv-python5
+spec:
+  selector:
+    matchLabels:
+      app: opencv-python5
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: opencv-python5
+    spec:
+      containers:
+      - name: opencv-python5
+        image: sehooh5/opencv-python5:latest
+        imagePullPolicy: Always
+        command: ['sh', '-c', 'echo 'xxx && sleep 6000']
+        ports:
+        - containerPort: 5002
 
-
-
-
-
+```
+- 첫번째 단락은 웹 통신을 위한 Service(여기서는 LodaBalancer 타입)
+- 두번째 단락은 Deployment 로 데몬셋 형태로 3개의 Pod 을 배포한다(replicas : 3)
+- imagePullPoicy 를 Alway로 해줘야 CrashLoopBackOff 에러가 발생하지 않는다. 또한, sleep 명령으로 잠시 쉬게끔 해주어야 한다
+- 배포 후 잘 배포되었는지 워커노드가서 container 확인 혹은 마스터에서 pod 확인
 
 
 
