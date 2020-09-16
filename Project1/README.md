@@ -289,4 +289,9 @@
 ### 0916
 
 - 컨테이너 환경에서 opencv-python을 다시 다운받아야 실행 가능, 왜?
-- 
+- Docker Images : 
+  - opencv-docker1 : 처음으로 open 적용된
+  - opencv-docker2 : 워크스페이스 추가
+  - opencv-python3 : kubectl 배포중 CrashLoopBackOff 오류 발생 제거
+  - opencv-python4 : 워크스페이스에서 열리지 않은것들 수정, 파일들 복사
+  - opencv-python5 : CrashLoopBackOff 다시 발생, deployment 에 천천히 만드는 sleep 명령어 삽입
