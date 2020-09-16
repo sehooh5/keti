@@ -23,6 +23,14 @@
 
 
 
+### OpenCV-python 파일을 도커라이징
+
+
+
+
+
+## 참고 자료들
+
 ## OpenCV를 Docker  에서 활용
 
 - [잘 다룬 예제 및 참고 페이지](https://curioso365.tistory.com/44) : opencv-python Docker image 참고 문서가 있고, 도커 컨테이너 내에서 cv2 실행시 일어나는 오류에 대한 수정이 있음
