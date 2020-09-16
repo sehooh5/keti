@@ -26,7 +26,7 @@
 ### opencv-python 파일
 - 기능 : cv2를 import 하여 해당 rtsp url 을 가지고 실시간 카메라 영상을 보여줌
 1. opencv1.py
-```
+```python
 import cv2
 
 url = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
@@ -45,7 +45,7 @@ cv2.destroyAllWindows()
 
 ```
 2. opencv2.py
-```
+```python
 import cv2
 
 url = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
@@ -68,7 +68,7 @@ cv2.destroyAllWindows()
 
 #### Dockerfile
 
-  ```
+  ```dockerfile
 FROM python:3.7
 MAINTAINER Josip Janzic <josip@jjanzic.com>
 
@@ -130,30 +130,31 @@ CMD ["python3", "workspace/opencv1.py"] # 시작하자마자 workspace 에 있�
 
 #### 도커 라이징 - 이미지 만들기
 ```
- docker build -f Dockerfile -t sehooh5/opencd-python:latest .
+$ docker build -f Dockerfile -t sehooh5/opencd-python:latest .
 ```
 
 #### 도커 이미지 잘 실행되나 확인
 ```
-  docker run --privileged -it --env DISPLAY=$DISPLAY --env="QT_X11_NO_MITSHM=1" -v /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix:ro -p 5002:5001 sehooh5/opencv-python5
+$  docker run --privileged -it --env DISPLAY=$DISPLAY --env="QT_X11_NO_MITSHM=1" -v /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix:ro -p 5002:5001 sehooh5/opencv-python5
 
 ```
 - 여기서 바로 실행하게되면 오류가 뜬다..위 명령어 + bash 로 들어가서 잘 구성되었는지 확인해준다
 - 오류 해결 방법 : 도커 내에서 opencv-python 파일을 다시 받아주면 실행된다
 ```
-  pip install opencv-python
+ # pip install opencv-python
 ```
 
 - 오류 해결 후 python 파일 실행해보기
 ```
-  cd workspace \
-  && python3 opencv1.py
+#  cd workspace \
+#  && python3 opencv1.py
 ```
 
 
-  
+
 ### 도커 이미지를 배포하기 위한 deployment 작성
-```
+
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -190,7 +191,9 @@ spec:
         ports:
         - containerPort: 5002
 
+
 ```
+
 - 첫번째 단락은 웹 통신을 위한 Service(여기서는 LodaBalancer 타입)
 - 두번째 단락은 Deployment 로 데몬셋 형태로 3개의 Pod 을 배포한다(replicas : 3)
 - imagePullPoicy 를 Alway로 해줘야 CrashLoopBackOff 에러가 발생하지 않는다. 또한, sleep 명령으로 잠시 쉬게끔 해주어야 한다
@@ -204,9 +207,9 @@ spec:
 
 
 
+---
 
-
-## 참고 자료들
+## 참고자료
 
 ## OpenCV를 Docker  에서 활용
 
@@ -214,18 +217,6 @@ spec:
 - [위 예제 활용한 페이지](https://smprlab.tistory.com/32)
 - [Docker hub 에 다른사람들도 참고한 리포](https://hub.docker.com/r/jjanzic/docker-python3-opencv) : 위 예제들에서 사용한 DockerHub image
 - [OpenCV 공식문서](https://www.learnopencv.com/install-opencv-docker-image-ubuntu-macos-windows/)
-
-## 이제 
-
-## 1. 마스터노드에서 실행을 시키면 워커노드에서 작동하게끔 만들어야 한다
-
-## 2. OpenCV 를 활용한 python App이 작동하는지 확인해야 한다
-
-
-
----
-
-## 참고자료
 
 
 
@@ -241,25 +232,11 @@ spec:
 - 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 오브젝트
 - 일반적으로 HTTP를 관리
 
-
-
-
-
-### Service
-
-
-
-
-
-
-
 ## OpenStack 사용 
 
 - [영어 자료 참고](https://arxiv.org/ftp/arxiv/papers/1901/1901.04946.pdf)
 
 ![image](https://user-images.githubusercontent.com/58541635/91115385-13010080-e6c5-11ea-87e0-d1da1e5a118e.png)
-
-
 
 
 
