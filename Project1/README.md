@@ -295,3 +295,10 @@
   - opencv-python3 : kubectl 배포중 CrashLoopBackOff 오류 발생 제거
   - opencv-python4 : 워크스페이스에서 열리지 않은것들 수정, 파일들 복사
   - opencv-python5 : CrashLoopBackOff 다시 발생, deployment 에 천천히 만드는 sleep 명령어 삽입
+
+
+
+### 0917
+
+- 이제까지 과정 정리 후 pdf 변환
+- 질문 정리
