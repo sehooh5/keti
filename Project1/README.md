@@ -309,3 +309,9 @@
 
 - docker image : sehooh5/opencv-python7 이 제대로된 이미지 = 작동 가능
   - opencv-python 을 재 컴파일한 것이 아닌 전부 받아서 했더니 됐다
+
+
+
+### 0919
+
+- 외국인 개발자 코드를 가지고 실행시켜보기 - flask 는 설치 되었고 카메라 연동하면 됨
