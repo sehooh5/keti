@@ -302,3 +302,10 @@
 
 - 이제까지 과정 정리 후 pdf 변환
 - 질문 정리
+
+
+
+### 0918
+
+- docker image : sehooh5/opencv-python7 이 제대로된 이미지 = 작동 가능
+  - opencv-python 을 재 컴파일한 것이 아닌 전부 받아서 했더니 됐다
