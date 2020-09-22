@@ -321,4 +321,9 @@
 ### 0922
 
 - Flask 를 활용하여 MPEG/HTTP Streaming 하는 파일 만들기
+- 현재 미구엘 코드 사용중
+  -  app.py, camera_opencv.py 사용
+  - rtsp주소를 수동으로 입력하여 웹페이지에 스트리밍되게 완료
+    - 사이즈 조절
+    - 여러개 동시에 스트리밍? 
 
