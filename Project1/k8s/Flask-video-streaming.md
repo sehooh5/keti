@@ -4,7 +4,12 @@
 
 
 
+## Miguel 개발자 자료 해석
 
+### 필요한 파이썬 지식
+
+- `b` : byte 로 만들어 준다 (ex. b'hello')
+- `mimetype` :
 
 
 
