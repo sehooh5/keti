@@ -23,8 +23,14 @@ def select():
 
 @app.route('/1')
 def camera1():
-    """Video 1 streaming"""
+    """Camera1 streaming"""
     return render_template('camera1.html')
+
+
+@app.route('/2')
+def camera2():
+    """Camera2 streaming"""
+    return render_template('camera2.html')
 
 
 def gen(camera):
