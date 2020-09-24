@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 
 # import camera driver
 if os.environ.get('CAMERA'):
@@ -21,16 +21,19 @@ def select():
     return render_template('select.html')
 
 
-@app.route('/1')
-def camera1():
+@app.route('/cam', methods=['GET'])
+def camera():
     """Camera1 streaming"""
-    return render_template('camera1.html')
+    # url 의 파라미터 값을 가져오는 방법
+    no = request.args.get('no')
+    print('number = '+request.args.get('no'))
+    if no == '1':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+        print(os.environ['OPENCV_CAMERA_SOURCE'])
+    elif no == '2':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
 
-
-@app.route('/2')
-def camera2():
-    """Camera2 streaming"""
-    return render_template('camera2.html')
+    return render_template('camera.html')
 
 
 def gen(camera):

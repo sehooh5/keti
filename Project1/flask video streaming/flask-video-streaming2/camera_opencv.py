@@ -6,6 +6,7 @@ from base_camera import BaseCamera
 class Camera(BaseCamera):
     video_source = 0
     print("0")
+
     def __init__(self):
         print("1")
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
