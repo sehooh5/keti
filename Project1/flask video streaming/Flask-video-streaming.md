@@ -39,13 +39,17 @@
 #!/usr/bin/env python
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 
-# import camera driver
-if os.environ.get('CAMERA'):
-    Camera = import_module('camera_' + os.environ['CAMERA']).Camera
-else:
-    from camera import Camera
+# 1. import camera driver
+# if os.environ.get('CAMERA'):
+#     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
+# else:
+#     from camera import Camera
+
+# 2. 카메라 opencv 로 처음부터 지정
+Camera = import_module('camera_opencv').Camera
+
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
@@ -54,9 +58,23 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def select():
     """Video streaming home page."""
-    return render_template('index.html')
+    return render_template('select.html')
+
+
+@app.route('/cam', methods=['GET'])
+def camera():
+    """Camera1 streaming"""
+    # url 의 파라미터 값을 가져오는 방법
+    no = request.args.get('no')
+    # print('number = '+request.args.get('no'))
+    if no == '1':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+    elif no == '2':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+
+    return render_template('camera.html')
 
 
 def gen(camera):
@@ -97,6 +115,7 @@ from base_camera import BaseCamera
 class Camera(BaseCamera):
     video_source = 0
     print("0")
+
     def __init__(self):
         print("1")
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
@@ -116,14 +135,12 @@ class Camera(BaseCamera):
             raise RuntimeError('Could not start camera.')
 
         while True:
-            # read current frame        
+            # read current frame
             _, img = camera.read()
             print(camera.read())
-            # print(img) ... return  decode frame
-            # print(_) ... return True or False
 
             # encode as a jpeg image and return it
-        yield cv2.imencode('.jpg', img)[1].tobytes()
+            yield cv2.imencode('.jpg', img)[1].tobytes()
 
 ```
 
@@ -239,6 +256,95 @@ class BaseCamera(object):
                 print('Stopping camera thread due to inactivity.')
                 break
         BaseCamera.thread = None
+
+```
+
+
+
+
+
+### Dockerfile
+
+```dockerfile
+FROM python:3.7
+
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        unzip \
+        yasm \
+        pkg-config \
+        libswscale-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavformat-dev \
+        libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install click Flask itsdangerous Jinja2 MarkupSafe Werkzeug numpy
+
+WORKDIR /
+ADD . /workspace
+ENV OPENCV_VERSION="4.1.0"
+RUN pip install opencv-python
+RUN ln -s \
+  /usr/local/python/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
+  /usr/local/lib/python3.7/site-packages/cv2.so
+
+EXPOSE 5000
+CMD ["python", "workspace/app.py"]
+
+
+```
+
+
+
+
+
+### deployment.yaml
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-opencv-service
+spec:
+  selector:
+    app: flask-opencv
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 5000
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-opencv
+spec:
+  selector:
+    matchLabels:
+      app: flask-opencv
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: flask-opencv
+    spec:
+      containers:
+        - name: flask-opencv
+          image: sehooh5/flask-opencv:latest
+          imagePullPolicy: Always
+          command: ["sh", "-c", "echo xxx && sleep 6000"]
+          ports:
+            - containerPort: 5000
 
 ```
 
