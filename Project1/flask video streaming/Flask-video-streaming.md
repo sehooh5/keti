@@ -265,6 +265,12 @@ class BaseCamera(object):
 
 ### Dockerfile
 
+- 도커 이미지 빌드를 위한 Dockerfile
+- 기본적인 패키지들과 `requirement.txt` 를 인식을 못해서 직접 인스톨해주었다
+- `Working Directory` 를 복사해서 `workspace` 란 폴더로 지정해주었다
+- 여기서는 Flask 를 사용하기 때문에 자동으로 포트번호가 5000 이지만, EXPOSE로 다시 지정해주었다
+- 도커 실행과 동시에 `app.py` 파일이 실행되게끔 하였다
+
 ```dockerfile
 FROM python:3.7
 
@@ -308,6 +314,9 @@ CMD ["python", "workspace/app.py"]
 
 
 ### deployment.yaml
+
+- k8s 배포를 위한 `deployment.yaml` 
+- port 번호는 아직 확실하게 지정하지 않았고, 서비스를 NodePort 를 사용해 외부와 통신 가능
 
 ```yaml
 apiVersion: v1
