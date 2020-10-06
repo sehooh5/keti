@@ -28,7 +28,7 @@ class Camera(BaseCamera):
         while True:
             # read current frame
             _, img = camera.read()
-            print(camera.read()
+            print(camera.read())
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
