@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: flask-opencv
-          image: sehooh5/flask-opencv:latest
+          image: sehooh5/flask-opencv2:latest
           imagePullPolicy: Always
           command: ["sh", "-c", "echo xxx && sleep 6000"]
           ports:
