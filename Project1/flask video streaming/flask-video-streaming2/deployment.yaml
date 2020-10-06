@@ -7,7 +7,7 @@ spec:
     app: flask-opencv
   ports:
     - protocol: "TCP"
-      port: 5000
+      port: 6000
       targetPort: 5000
   type: NodePort
 
@@ -20,7 +20,7 @@ spec:
   selector:
     matchLabels:
       app: flask-opencv
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: flask-opencv
-          image: sehooh5/flask-opencv2:latest
+          image: sehooh5/flask-opencv4:latest
           imagePullPolicy: Always
           command: ["sh", "-c", "echo xxx && sleep 6000"]
           ports:
