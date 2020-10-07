@@ -24,11 +24,13 @@ class Camera(BaseCamera):
         camera = cv2.VideoCapture(Camera.video_source)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
-
+        else:
+            print("Video Streaming On !")
         while True:
             # read current frame
             _, img = camera.read()
-            print(camera.read())
+            # print(img) ... return  decode frame
+            # print(_) ... return True or False
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()

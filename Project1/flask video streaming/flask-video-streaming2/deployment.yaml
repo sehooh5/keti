@@ -7,8 +7,9 @@ spec:
     app: flask-opencv
   ports:
     - protocol: "TCP"
-      port: 6000
+      port: 6060
       targetPort: 5000
+      nodePort: 30001
   type: NodePort
 
 ---
@@ -28,8 +29,7 @@ spec:
     spec:
       containers:
         - name: flask-opencv
-          image: sehooh5/flask-opencv4:latest
+          image: sehooh5/flask-opencv7:latest
           imagePullPolicy: Always
-          command: ["sh", "-c", "echo xxx && sleep 6000"]
           ports:
             - containerPort: 5000

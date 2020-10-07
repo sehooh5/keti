@@ -21,13 +21,15 @@ RUN apt-get update \
 
 RUN pip install click Flask itsdangerous Jinja2 MarkupSafe Werkzeug numpy
 
-WORKDIR /
-ADD . /workspace
+RUN mkdir /app
+WORKDIR /app
+ADD . /app/
 ENV OPENCV_VERSION="4.1.0"
 RUN pip install opencv-python
 RUN ln -s \
   /usr/local/python/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
   /usr/local/lib/python3.7/site-packages/cv2.so
 
-CMD ["python", "workspace/app.py"]
+EXPOSE 5000
+CMD ["python", "/app/app.py"]
 
