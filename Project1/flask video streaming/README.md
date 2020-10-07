@@ -1,8 +1,9 @@
 # Flask-video-streaming
 
-- Flask 를 사용, 도커 컨테이너를 만들어 웹 서비스를 Get, Post 방식으로 전달
+- Flask 를 사용
+- Kubernetes 를 사용하여 배포
 
-## Miguel 개발자 자료 해석
+
 
 ### 필요한 파이썬 지식
 
@@ -20,6 +21,8 @@
   - `os.environ['HOME']`
   - `os.environ.get('CAMERA')`
 - 터미널에서 `CAMERA=opencv` 로 환경 설정을 해줄 수 있다
+
+
 
 ### Code
 
@@ -300,7 +303,14 @@ CMD ["python", "workspace/app.py"]
 ### deployment.yaml
 
 - k8s 배포를 위한 `deployment.yaml`
+
 - port 번호는 아직 확실하게 지정하지 않았고, 서비스를 NodePort 를 사용해 외부와 통신 가능
+
+- <mark>1. 앞으로 ReplicaSet 사용하지 않을 것이다..우린 지정해서 사용해야함</mark>
+
+  <mark>2. NodePort 지정 : url 정보 사용할 때 지정된 것 사용하려고..</mark>
+
+  <mark>3. sleep 하는 명령어 있었는데 사용하면 k8s 내 앱 제대로 실행 안되서 지움</mark>
 
 ```yaml
 apiVersion: v1
@@ -312,8 +322,9 @@ spec:
     app: flask-opencv
   ports:
     - protocol: "TCP"
-      port: 5000
+      port: 6060
       targetPort: 5000
+      nodePort: 30001
   type: NodePort
 
 ---
@@ -325,7 +336,7 @@ spec:
   selector:
     matchLabels:
       app: flask-opencv
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -335,14 +346,14 @@ spec:
         - name: flask-opencv
           image: sehooh5/flask-opencv:latest
           imagePullPolicy: Always
-          command: ["sh", "-c", "echo xxx && sleep 6000"]
           ports:
             - containerPort: 5000
+
 ```
 
-## 문제점
 
-1. Flask 의 웹서버를 사용하는 경우 한번에 하나의 연결만 처리 가능..한개의 스트림만 작동 가능
+
+
 
 ---
 
