@@ -2,8 +2,6 @@
 
 - Flask 를 사용, 도커 컨테이너를 만들어 웹 서비스를 Get, Post 방식으로 전달
 
-
-
 ## Miguel 개발자 자료 해석
 
 ### 필요한 파이썬 지식
@@ -16,16 +14,12 @@
     - `multipart` : 복합문서
     - `x-` : 정식으로 표준화되지 않은 형식
     - `boundary` : 복합문서 내의 각 문서들을 구별하는 분리자를 지정
-    - 예를 들어 gif 이미지를 MIME 형식에 적용하면 하나의 gif 를 표시하고 다음에 다른 gif  가 그것을 대치하고 여러 파일들이 계속 대체하여 애니메이션 구현
+    - 예를 들어 gif 이미지를 MIME 형식에 적용하면 하나의 gif 를 표시하고 다음에 다른 gif 가 그것을 대치하고 여러 파일들이 계속 대체하여 애니메이션 구현
     - 쉽게 말해서 영상이 스트리밍되는 시점이 바로 이 시점(?)
 - `os` : 환경설정에 대한 정보를 가져올 수 있다
   - `os.environ['HOME']`
   - `os.environ.get('CAMERA')`
 - 터미널에서 `CAMERA=opencv` 로 환경 설정을 해줄 수 있다
-
-
-
-
 
 ### Code
 
@@ -97,8 +91,6 @@ if __name__ == '__main__':
 
 ```
 
-
-
 #### camera_opencv.py
 
 - opencv 를 사용하여 영상을 읽어서 이미지를 `.jpg` 로 인코딩해주는 파일
@@ -133,18 +125,18 @@ class Camera(BaseCamera):
         camera = cv2.VideoCapture(Camera.video_source)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
-
+        else:
+            print("Video Streaming On !")
         while True:
             # read current frame
             _, img = camera.read()
-            print(camera.read())
+            # print(img) ... return  decode frame
+            # print(_) ... return True or False
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
 
 ```
-
-
 
 #### base_camera.py
 
@@ -259,10 +251,6 @@ class BaseCamera(object):
 
 ```
 
-
-
-
-
 ### Dockerfile
 
 - 도커 이미지 빌드를 위한 Dockerfile
@@ -309,13 +297,9 @@ CMD ["python", "workspace/app.py"]
 
 ```
 
-
-
-
-
 ### deployment.yaml
 
-- k8s 배포를 위한 `deployment.yaml` 
+- k8s 배포를 위한 `deployment.yaml`
 - port 번호는 아직 확실하게 지정하지 않았고, 서비스를 NodePort 를 사용해 외부와 통신 가능
 
 ```yaml
@@ -354,12 +338,7 @@ spec:
           command: ["sh", "-c", "echo xxx && sleep 6000"]
           ports:
             - containerPort: 5000
-
 ```
-
-
-
-
 
 ## 문제점
 
@@ -376,6 +355,3 @@ spec:
 3. [Miguel 자료 기초](https://blog.miguelgrinberg.com/post/video-streaming-with-flask)
 
 4. [Miguel 자료 opencv 심화](https://blog.miguelgrinberg.com/post/flask-video-streaming-revisited)
-
-   
-

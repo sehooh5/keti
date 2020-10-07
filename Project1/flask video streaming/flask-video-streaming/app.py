@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 from importlib import import_module
 import os
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 
-# import camera driver
-if os.environ.get('CAMERA'):
-    Camera = import_module('camera_' + os.environ['CAMERA']).Camera
-else:
-    from camera import Camera
+# 1. import camera driver
+# if os.environ.get('CAMERA'):
+#     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
+# else:
+#     from camera import Camera
+
+# 2. 카메라 opencv 로 처음부터 지정
+Camera = import_module('camera_opencv').Camera
+
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
@@ -21,10 +25,18 @@ def select():
     return render_template('select.html')
 
 
-@app.route('/1')
-def camera1():
-    """Video 1 streaming"""
-    return render_template('camera1.html')
+@app.route('/cam', methods=['GET'])
+def camera():
+    """Camera1 streaming"""
+    # url 의 파라미터 값을 가져오는 방법
+    no = request.args.get('no')
+    # print('number = '+request.args.get('no'))
+    if no == '1':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+    elif no == '2':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+
+    return render_template('camera.html')
 
 
 def gen(camera):
