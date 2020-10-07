@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: flask-opencv
-          image: sehooh5/flask-opencv7:latest
+          image: sehooh5/flask-opencv:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
