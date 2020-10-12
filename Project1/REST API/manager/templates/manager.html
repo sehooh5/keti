@@ -7,35 +7,53 @@
   <body>
     <h1>Camera Manager</h1>
     <hr />
-    <form action="http://localhost:30021/cam1" id="worker1">
+    <form action="http://0.0.0.0:5001" id="worker1" method="POST">
       Worker 1<br />
-      <select name="no">
+      <select name="url">
         <option selected>Select CAM</option>
-        <option value="1">CAM 1</option>
-        <option value="2">CAM 2</option>
-        <option value="3">CAM 3</option>
+        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
+          CAM 1
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 2
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 3
+        </option>
       </select>
       <input type="submit" value="Select" />
     </form>
     <br /><br />
-    <form action="http://localhost:30022/cam2" id="worker2">
+    <form action="http://0.0.0.0:5002" id="worker2" method="POST">
       Worker 2<br />
-      <select name="no">
+      <select name="url">
         <option selected>Select CAM</option>
-        <option value="1">CAM 1</option>
-        <option value="2">CAM 2</option>
-        <option value="3">CAM 3</option>
+        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
+          CAM 1
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 2
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 3
+        </option>
       </select>
       <input type="submit" value="Select" />
     </form>
     <br /><br />
-    <form action="http://localhost:30023/cam3" id="worker3">
+    <form action="http://0.0.0.0:5003" id="worker3" method="POST">
       Worker 3<br />
-      <select name="no">
+      <select name="url">
         <option selected>Select CAM</option>
-        <option value="1">CAM 1</option>
-        <option value="2">CAM 2</option>
-        <option value="3">CAM 3</option>
+        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
+          CAM 1
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 2
+        </option>
+        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
+          CAM 3
+        </option>
       </select>
       <input type="submit" value="Select" />
     </form>

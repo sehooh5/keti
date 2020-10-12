@@ -9,15 +9,11 @@ Camera = import_module('camera_opencv').Camera
 app = Flask(__name__)
 
 
-@app.route('/cam2', methods=['GET'])
+@app.route('/', methods=['GET'])
 def viewer():
     """Camera1 streaming"""
-    no = request.args.get('no')
-
-    if no == '1':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
-    elif no == '2':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+    url = request.args.get('url')
+    os.environ['OPENCV_CAMERA_SOURCE'] = url
     return render_template('viewer.html')
 
 

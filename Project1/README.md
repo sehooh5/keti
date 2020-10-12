@@ -411,9 +411,16 @@
 
 ### 1008
 
-- Demonset 혹은 노드별 Deploy 배포방법 공부
-- REST API 공부
-- 공부는 약 1주일    
+- ~~Demonset 혹은 노드별 Deploy 배포방법 공부~~
+- ~~REST API 공부~~
+- ~~공부는 약 1주일~~    
+- 현재 새로운 폴더를 만들어서 manager / viewer 나누어서 실행 중
+  - 배포 해봤는데 방법을 좀 다르게 해야함
+  - ~~지금은 camera_opencv.py 에서 Camera class 를 다르게 지정하는 방법 하는중~~
+  - 지금은 manager 에 url 값을 바로 카메라 주소 써서 보내는데 이것도 안될듯
 
 
 
+### 1012
+
+- POST 방법으로 form date 보내고 받는거로 해보기(url 이 변경되지 않음)
