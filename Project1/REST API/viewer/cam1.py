@@ -9,12 +9,15 @@ Camera = import_module('camera_opencv').Camera
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def viewer():
     """Camera1 streaming"""
-    url = request.args.get('url')
-    os.environ['OPENCV_CAMERA_SOURCE'] = url
-    return render_template('viewer.html')
+    url = request.form['url']
+    if url == 'NA':
+        return render_template('index.html')
+    else:
+        os.environ['OPENCV_CAMERA_SOURCE'] = url
+        return render_template('viewer.html')
 
 
 def gen(camera):

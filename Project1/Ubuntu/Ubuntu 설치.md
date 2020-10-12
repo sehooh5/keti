@@ -107,3 +107,19 @@ sudo /etc/init.d/networking restart
   명령어 치면 변경이 몇개 되었는지 나오고 `:wq`로 저장하고 빠져나오기
 
 - 나는 wifi 연결이 아니라 이더넷으로 연결되어있어서 온라인이 아니어서 오류났었던것
+
+
+
+
+
+### 내부 이더넷으로 인해 외부 인터넷 끊길 시
+
+```
+- 아래 수정
+$ sudo vim /etc/default/avahi-daemon
+
+- 1 -> 0 으로 수정
+AVAHI_DAEMON_DETECT_LOCAL=0
+
+```
+

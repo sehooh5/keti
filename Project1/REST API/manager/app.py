@@ -10,6 +10,7 @@ app = Flask(__name__)
 def select():
     """Video streaming home page."""
     return render_template('manager.html')
+#!/usr/bin/env python
 
 
 if __name__ == '__main__':
