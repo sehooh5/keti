@@ -60,3 +60,8 @@
 2. Viewer App 은 해당 URL 값을 받아 해당 영상을 스트리밍 해준다
 3. Viewer App 은 노드별로 각각 다른 NodePort 번호를 갖고 있다
 
+4. SSE (Server-Sent Events)
+
+
+
+## SSE 를 이용한 실시간 웹앱
