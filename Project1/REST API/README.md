@@ -64,4 +64,17 @@
 
 
 
-## SSE 를 이용한 실시간 웹앱
+## ~~SSE 를 이용한 실시간 웹앱~~
+
+- ~~서버가  HTTP 연결을 열린 상태로 유지하고 필요할 때 마다 클라이언트에게 데이터를 줄 수 있게 해주는 서버 푸시 기술~~
+- ~~[sse 예제 : 기본 시간 문자열이 브라우저에 갱신됨](http://tcpschool.com/html/html5_api_sse)~~ 
+
+
+
+## Flask_socketio 사용
+
+- [원본 예제](https://codeburst.io/building-your-first-chat-application-using-flask-in-7-minutes-f98de4adfa5d)
+- [원본 예제 사용한 한글 예제](https://1532468.github.io/bucket/AS_Flask_2_Socket/)
+
+
+
