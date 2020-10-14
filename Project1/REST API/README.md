@@ -74,7 +74,7 @@
 ## Flask_socketio 사용 -> 폴더 이동
 
 - [원본 예제](https://codeburst.io/building-your-first-chat-application-using-flask-in-7-minutes-f98de4adfa5d)
-- [원본 예제 사용한 한글 예제](https://1532468.github.io/bucket/AS_Flask_2_Socket/)
+- [원본 예제 사용한 한글 예제](https://1532468.github.io/bucket/AS_Flask_2_Socket/)s
 
 
 
