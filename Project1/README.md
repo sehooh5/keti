@@ -441,4 +441,7 @@
 
 ### 1014
 
-- Flask-socketio 익숙해지기
+- ~~Flask-socketio 익숙해지기~~
+- 현재는 WebSocket 으로 변경해서 진행하고있음
+  - button 형식으로 눌러서, 서버에서  url 값을 os.environ 에 설정하는 방식으로 하는중
+  - 현재 생각하는 방식은 client(1개)에서 값을 넘겨주는데, Streaming app 의 서버를 3개 열어주는형식

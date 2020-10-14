@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket demo</title>
+    <style type="text/css">
+      .buttons {
+        font-size: 1em;
+        display: flex;
+        {% comment %} justify-content: center; {% endcomment %}
+      }
+      .button,
+
+      .button {
+        cursor: pointer;
+        user-select: none;
+      }
+      .cam1 {
+        color: red;
+      }
+      .cam2 {
+        color: green;
+      }
+      .cam2 {
+        color: blue;
+      }
+      .value {
+        min-width: 1em;
+      }
+      .state {
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Worker1</h3>
+    <div class="buttons">
+      <div class="cam1">cam1</div>
+      <div class="cam2">cam2</div>
+      <div class="cam3">cam3</div>
+    </div>
+    <div class="value">?</div>
+    <div class="state"><span class="users">?</span> online</div>
+    <script>
+      var cam1 = document.querySelector(".cam1"),
+        cam2 = document.querySelector(".cam2"),
+        cam3 = document.querySelector(".cam3"),
+        value = document.querySelector(".value"),
+        users = document.querySelector(".users"),
+        websocket = new WebSocket("ws://127.0.0.1:6789/");
+      cam1.onclick = function (event) {
+        websocket.send(JSON.stringify({ action: "cam1" }));
+      };
+      cam2.onclick = function (event) {
+        websocket.send(JSON.stringify({ action: "cam2" }));
+      };
+      cam3.onclick = function (event) {
+        websocket.send(JSON.stringify({ action: "cam3" }));
+      };
+      {% comment %} websocket.onmessage = function (event) {
+        data = JSON.parse(event.data);
+        console.log(data); //{type: "state", value: 0} 처음엔 type : user
+        switch (data.type) {
+          case "state":
+            value.textContent = data.value;
+            break;
+          case "users":
+            users.textContent =
+              data.count.toString() + " user" + (data.count == 1 ? "" : "s");
+            break;
+          default:
+            console.error("unsupported event", data);
+        }
+      }; {% endcomment %}
+    </script>
+  </body>
+</html>

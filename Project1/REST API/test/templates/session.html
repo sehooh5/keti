@@ -8,43 +8,53 @@
     <div class="message_holder"></div>
 
     <form action="" method="POST">
-      <input type="text" class="username" placeholder="User Name" />
-      <input type="text" class="message" placeholder="Messages" />
-      <input type="submit" />
+      Worker 1<br />
+      <select id="w1" name="url">
+        <option selected>Select CAM</option>
+        <option
+          class="cam1"
+          value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain"
+        >
+          CAM 1
+        </option>
+        <option
+          class="cam2"
+          value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+        >
+          CAM 2
+        </option>
+        <option
+          class="cam3"
+          value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+        >
+          CAM 3
+        </option>
+      </select>
+      <input type="submit" class="url" value="Select" />
     </form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript">
-      var socket = io.connect("http://0.0.0.0:5001");
+      var socket = io.connect("http://0.0.0.0:5000");
 
       socket.on("connect", function () {
         socket.emit("my event", {
-          data: "User Connected",
+          message: "User Connected",
         });
         var form = $("form").on("submit", function (e) {
           e.preventDefault();
-          let user_name = $("input.username").val();
-          let user_input = $("input.message").val();
+          let url = $("#w1 option:selected").val(); // 중요! 선택된 옵션값 사용하기
           socket.emit("my event", {
-            user_name: user_name,
-            message: user_input,
+            url: url,
           });
-          $("input.message").val("").focus();
         });
       });
       socket.on("my response", function (msg) {
         console.log(msg);
         if (typeof msg.user_name !== "undefined") {
           $("h3").remove();
-          $("div.message_holder").append(
-            '<div><b style="color: #000">' +
-              msg.user_name +
-              "</b> " +
-              msg.message +
-              "</div>"
-          );
         }
       });
     </script>
