@@ -6,10 +6,7 @@
       .buttons {
         font-size: 1em;
         display: flex;
-        {% comment %} justify-content: center; {% endcomment %}
       }
-      .button,
-
       .button {
         cursor: pointer;
         user-select: none;
@@ -56,7 +53,7 @@
       cam3.onclick = function (event) {
         websocket.send(JSON.stringify({ action: "cam3" }));
       };
-      {% comment %} websocket.onmessage = function (event) {
+      swebsocket.onmessage = function (event) {
         data = JSON.parse(event.data);
         console.log(data); //{type: "state", value: 0} 처음엔 type : user
         switch (data.type) {
@@ -70,7 +67,7 @@
           default:
             console.error("unsupported event", data);
         }
-      }; {% endcomment %}
+      };
     </script>
   </body>
 </html>

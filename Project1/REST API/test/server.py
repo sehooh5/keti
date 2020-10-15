@@ -48,6 +48,7 @@ async def counter(websocket, path):
         await websocket.send(state_event())
         async for message in websocket:
             data = json.loads(message)
+            print(str(data))
             if data["action"] == "cam1":
                 STATE["value"] -= 1
                 os.environ['OPENCV_CAMERA_SOURCE'] = "rtsp://keti:keti1234@192.168.100.70:8810/videoMain"

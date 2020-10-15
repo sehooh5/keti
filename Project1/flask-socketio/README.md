@@ -2,6 +2,8 @@
 
 - flask-socketio  라이브러리를 사용하여 실시간으로 상호작용 할 수 있게 한다
 - [참고](https://bokyeong-kim.github.io/python/flask/2020/05/09/flask(1).html)
+- [Documents](https://flask-socketio.readthedocs.io/en/latest/)
+- [참고해보기](https://github.com/AhmedBhati/video-streaming-with-flask-socketio)
 
 
 

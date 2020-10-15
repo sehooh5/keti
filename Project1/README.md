@@ -452,3 +452,6 @@
 
 - Websocket  방법
   - 클라이언트에서 여러 port 로 넘길수 있는지?
+- ~~[이 방법으로 구현하기 - flask socketio](https://learn.alwaysai.co/build-your-own-video-streaming-server-with-flask-socketio)~~
+- 기존 test  폴더에 flask-socketio 로 다시 진행중 (main.py- manager.html, viewer.html)
+

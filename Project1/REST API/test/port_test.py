@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def select():
-    return render_template('client.html')
+    return render_template('manager.html')
 
 
 if __name__ == '__main__':
