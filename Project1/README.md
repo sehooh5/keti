@@ -453,5 +453,15 @@
 - Websocket  방법
   - 클라이언트에서 여러 port 로 넘길수 있는지?
 - ~~[이 방법으로 구현하기 - flask socketio](https://learn.alwaysai.co/build-your-own-video-streaming-server-with-flask-socketio)~~
-- 기존 test  폴더에 flask-socketio 로 다시 진행중 (main.py- manager.html, viewer.html)
+- 기존 test  폴더에 flask-socketio 로 다시 진행중 (main.py - session.html + manager.html, viewer.html)
 
+
+
+### 1019
+
+- ~~기존 test  폴더에 flask-socketio 로 다시 진행중 (main.py - session.html + manager.html, viewer.html)~~
+- ~~**현재**, LiveStream 폴더로 진행중~~
+- 일단 socket 사용 중지!!,,,,,,,,
+  1. 기존 방식으로 진행하되 stop 기능이 들어가서 **카메라 전환**이 잘 될 수 있도록!
+  2. 카메라 스트리밍 크기 조절할 수 있도록 알아두기
+  3. **UI 디자인** 깔끔하게

@@ -4,7 +4,7 @@ from importlib import import_module
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+app.config['SECRET_KEY'] = 'keti'
 socketio = SocketIO(app)
 
 
@@ -23,7 +23,8 @@ def handle_my_custom_event(json, methods=['POST']):
     # print(str(json['url']))
     if 'url' in str(json):
         url = str(json['url'])
-        print(url)
+        os.environ['URL'] = url
+        print("os.environ['URL'] : " + os.environ['URL'])  # 여기까지 했음!!!
     socketio.emit('my response', json)
 
 
