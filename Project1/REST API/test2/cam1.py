@@ -9,15 +9,17 @@ Camera = import_module('camera_opencv').Camera
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['POST'])
 def viewer():
-    """Camera1 streaming"""
-    if request.method == 'GET':
-        return render_template('index.html')
-    elif request.method == 'POST':
-        url = request.form['url']
-        os.environ['OPENCV_CAMERA_SOURCE'] = url
-        return render_template('viewer.html')
+    """streaming"""
+    cam_no = request.form['cam_no']
+    worker_no = request.form['worker_no']
+    if cam_no == 'cam1':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+        return render_template('cam1.html', cam_no=cam_no, worker_no=worker_no)
+    elif cam_no == 'cam2':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+        return render_template('cam2.html', cam_no=cam_no, worker_no=worker_no)
 
 
 def gen(camera):
@@ -36,4 +38,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5003)
+    app.run(host='0.0.0.0', threaded=True, port=5001)

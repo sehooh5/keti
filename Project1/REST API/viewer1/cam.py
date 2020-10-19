@@ -11,13 +11,15 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def viewer():
-    """Camera1 streaming"""
-    url = request.form['url']
-    if url == 'NA':
-        return render_template('index.html')
-    else:
-        os.environ['OPENCV_CAMERA_SOURCE'] = url
-        return render_template('viewer.html')
+    """streaming"""
+    cam_no = request.form['cam_no']
+    worker_no = request.form['worker_no']
+    if cam_no == 'cam1':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+        return render_template('cam1.html', cam_no=cam_no, worker_no=worker_no)
+    elif cam_no == 'cam2':
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+        return render_template('cam2.html', cam_no=cam_no, worker_no=worker_no)
 
 
 def gen(camera):

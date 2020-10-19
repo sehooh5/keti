@@ -7,65 +7,44 @@
   <body>
     <h1>Camera Manager</h1>
     <hr />
+    <p>Worker 1</p>
     <form
       action="http://0.0.0.0:5001"
       id="worker1"
       method="POST"
-      target="_blank\"
+      target="_parent\"
     >
-      <!--<form action="http://localhost:30021" id="worker1" method="POST">-->
-      Worker 1<br />
-      <select name="url">
-        <option selected>Select CAM</option>
-        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
-          CAM 1
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 2
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 3
-        </option>
-      </select>
-      <input type="submit" value="Select" />
+      <button type="submit" formmethod="POST" name="cam_no" value="cam1">
+        CAM 1
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="cam2">
+        CAM 2
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="stop">
+        STOP
+      </button>
+      <input type="hidden" name="worker_no" value="Worker 1" />
     </form>
-    <form action="http://0.0.0.0:5001" method="POST" target="_blank">
-      <input type="hidden" name="url" value="NA" />
-      <input type="submit" value="Viewer" />
-    </form>
+
     <br /><br />
-    <form action="http://0.0.0.0:5002" id="worker2" method="POST">
-      Worker 2<br />
-      <select name="url">
-        <option selected>Select CAM</option>
-        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
-          CAM 1
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 2
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 3
-        </option>
-      </select>
-      <input type="submit" value="Select" />
-    </form>
-    <br /><br />
-    <form action="http://localhost:30023" id="worker3" method="POST">
-      Worker 3<br />
-      <select name="url">
-        <option selected>Select CAM</option>
-        <option value="rtsp://keti:keti1234@192.168.100.70:8810/videoMain">
-          CAM 1
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 2
-        </option>
-        <option value="rtsp://keti:keti1234@192.168.100.60:8805/videoMain">
-          CAM 3
-        </option>
-      </select>
-      <input type="submit" value="Select" />
+
+    <p>Worker 2</p>
+    <form
+      action="http://0.0.0.0:5002"
+      id="worker2"
+      method="POST"
+      target="_top\"
+    >
+      <button type="submit" formmethod="POST" name="cam_no" value="cam1">
+        CAM 1
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="cam2">
+        CAM 2
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="stop">
+        STOP
+      </button>
+      <input type="hidden" name="worker_no" value="Worker 2" />
     </form>
   </body>
 </html>

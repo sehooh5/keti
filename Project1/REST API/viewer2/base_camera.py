@@ -1,6 +1,5 @@
 import time
 import threading
-import os
 try:
     from greenlet import getcurrent as get_ident
 except ImportError:
@@ -14,7 +13,6 @@ class CameraEvent(object):
     """An Event-like class that signals all active clients when a new frame is
     available.
     """
-
     def __init__(self):
         self.events = {}
 
@@ -96,15 +94,11 @@ class BaseCamera(object):
             BaseCamera.frame = frame
             BaseCamera.event.set()  # send signal to clients
             time.sleep(0)
-            # print(os.environ['OPENCV_CAMERA_SOURCE'])
+
             # if there hasn't been any clients asking for frames in
             # the last 10 seconds then stop the thread
             if time.time() - BaseCamera.last_access > 10:
                 frames_iterator.close()
                 print('Stopping camera thread due to inactivity.')
-                break
-            if os.environ['CAMERA_STOP'] == 'stop':
-                frames_iterator.close()
-                print('Stopping camera thread due to STOP!.')
                 break
         BaseCamera.thread = None
