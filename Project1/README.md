@@ -465,3 +465,15 @@
   1. 기존 방식으로 진행하되 stop 기능이 들어가서 **카메라 전환**이 잘 될 수 있도록!
   2. 카메라 스트리밍 크기 조절할 수 있도록 알아두기
   3. **UI 디자인** 깔끔하게
+
+
+
+### 1020
+
+- 어떻게든 돌아가는 형태 완성 - <u>검사받기</u>
+  - /manager - manager.html, app.py
+  - /viewer -  cam1.html, cam2.html, cam1-1.py, cam1-2.py (+ camera_opencv.py, base_camera.py * 2개씩)
+- 할 것
+  1. 카메라 스트리밍 크기 조절할 수 있게
+  2. UI 디자인 깔끔하게
+  3. 기억안남
