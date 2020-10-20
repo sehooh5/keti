@@ -14,17 +14,17 @@ def viewer():
     """streaming"""
     cam_no = request.form['cam_no']
     worker_no = request.form['worker_no']
-    if cam_no == 'cam1':
+    if cam_no == 'Camera1':
         os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
         os.environ['CAMERA_STOP'] = 'None'
         return render_template('cam2.html', cam_no=cam_no, worker_no=worker_no)
-    elif cam_no == 'cam2':
+    elif cam_no == 'Camera2':
         os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
         os.environ['CAMERA_STOP'] = 'None'
         return render_template('cam2.html', cam_no=cam_no, worker_no=worker_no)
     elif cam_no == 'stop':
         os.environ['CAMERA_STOP'] = 'stop'
-        return render_template('cam2.html', cam_no=cam_no, worker_no=worker_no)
+        return render_template('cam2.html', cam_no="Camera Loading...", worker_no=worker_no)
 
 
 def gen(camera):
