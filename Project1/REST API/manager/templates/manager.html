@@ -513,17 +513,39 @@
         background: rgba(255, 255, 255, 0);
         filter: alpha(opacity=0);
       }
+
+      .panel {
+        border-radius: 20px;
+        border-style: solid #19191a;
+        border-width: 5px;
+        width: 430px;
+        hight: 500px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        margin: 0 auto;
+        background: linear-gradient(
+          #1e1e20 0%,
+          #1e1e20 10%,
+          #1e1e20 50%,
+          #1e1e20 100%
+        );
+        box-shadow: 4px 4px #19191a;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
   <body>
-    <h1 style="font-size: 40px; color: grey">Camera Controller</h1>
+    <br />
+    <h1 style="font-size: 50px; color: grey">Camera Controller</h1>
+    <br />
+
     <!-- Worker1 -->
-    <span>
+    <div class="panel">
       <h2 style="font-size: 30px; color: grey">Worker Server 1</h2>
       <br />
       <span style="font-size: 20px; color: grey">Camera1</span>
-      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <span style="font-size: 20px; color: grey">Camera2</span>
       <br />
       <!-- Worker1- CAM1 -->
@@ -589,13 +611,15 @@
           </span>
         </span>
       </span>
+    </div>
 
+    <br /><br /><br /><br />
+    <div class="panel">
       <!-- Worker2 -->
-
       <h2 style="font-size: 30px; color: grey">Worker Server 2</h2>
-      <br /><br />
+      <br />
       <span style="font-size: 20px; color: grey">Camera1</span>
-      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       <span style="font-size: 20px; color: grey">Camera2</span>
       <br />
       <!-- Worker2 - CAM1 -->
@@ -661,9 +685,7 @@
           </span>
         </span>
       </span>
-    </span>
-    <br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br />
+    </div>
 
     <!-- 카메라 실질적으로 작동하는 form tag (display:none)-->
     <div id="w1" style="display: none">

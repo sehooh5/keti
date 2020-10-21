@@ -24,4 +24,6 @@ class Camera(BaseCamera):
             print("Video Streaming On !")
         while True:
             _, img = camera.read()
+            img = cv2.resize(img, dsize=(1280, 720),
+                             interpolation=cv2.INTER_LINEAR)
             yield cv2.imencode('.jpg', img)[1].tobytes()

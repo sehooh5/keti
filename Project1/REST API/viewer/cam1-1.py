@@ -17,11 +17,11 @@ def viewer():
     if cam_no == 'Camera1':
         os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
         os.environ['CAMERA_STOP'] = 'None'
-        return render_template('cam1.html', cam_no=cam_no, worker_no=worker_no)
+        return render_template('cam1.html', cam_no="CCTV Camera-1", worker_no=worker_no)
     elif cam_no == 'Camera2':
         os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
         os.environ['CAMERA_STOP'] = 'None'
-        return render_template('cam1.html', cam_no=cam_no, worker_no=worker_no)
+        return render_template('cam1.html', cam_no="CCTV Camera-2", worker_no=worker_no)
     elif cam_no == 'stop':
         os.environ['CAMERA_STOP'] = 'stop'
         return render_template('cam1.html', cam_no="Camera Loading...", worker_no=worker_no)
