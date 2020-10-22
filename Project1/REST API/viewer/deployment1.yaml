@@ -29,7 +29,7 @@ spec:
       nodeName: keti1-worker1
       containers:
         - name: viewer1
-          image: sehooh5/viewr1:latest
+          image: sehooh5/viewer1:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5001

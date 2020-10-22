@@ -31,5 +31,5 @@ RUN ln -s \
   /usr/local/lib/python3.7/site-packages/cv2.so
 
 EXPOSE 5001
-CMD ["python", "/app/cam1.py"]
+CMD ["python", "/app/cam1-1.py"]
 

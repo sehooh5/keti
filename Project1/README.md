@@ -71,6 +71,18 @@
 
 
 
+#### Flask video streaming
+
+- [Miguel 자료](https://blog.miguelgrinberg.com/post/flask-video-streaming-revisited/page/4)
+
+
+
+#### CSS
+
+- [on / off 똑딱이](https://freshdesignweb.com/css3-buttons/)
+
+
+
 ## 진행 단계(daily)
 
 ### 2020
@@ -490,4 +502,16 @@
   - 대신, 듀얼 모니터 가능
 - ~~opencv 사이즈 조절하기~~ **완료**
 - 우분투 동영상 캡쳐 가능한지 : Ctrl +Alt +Shift + r
+- **쿠버네티스에 앱 배포하기!!**
+  - 도커환경에서 실행되는 것 확인했음
+
+
+
+### 1022
+
+- ~~k8s 에 배포 실패, 수정하기~~
+  - **k8s 에 배포 완료!!** 
+    - manager : 30000
+    - viewer1 : 30021
+    - viewer2 : 30022
 
