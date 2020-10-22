@@ -514,4 +514,7 @@
     - manager : 30000
     - viewer1 : 30021
     - viewer2 : 30022
+- **Grafana - Prometheus** 작동 확인
+  - Granfana : 30004
+  - Prometheus : 30003
 
