@@ -11,11 +11,12 @@
 - ubuntu : 18.04
 - kubernetes : 1.14
 - docker : 최신버전 19.03.12 (현, 2020.08.04)
-- Prometheus : 
-- Grafana : 
+- Prometheus 
+- Grafana 
 - OpenCV
 - VLC
 - RTSP
+- Flask : 1.0.2
 
 
 
@@ -523,3 +524,4 @@
 ### 1023
 
 - 김책임님 가이드 주시면 개발 내용 정리하기!
+
