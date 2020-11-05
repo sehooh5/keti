@@ -22,11 +22,28 @@
 
 ---
 
-- [소켓 가장 기본 자료](https://pymotw.com/2/socket/tcp.html)
 - [CppPythonSocket github](https://github.com/OleguerCanal/cpp-python_socket)
+
+
+
+#### kinect 사용하기
+
+- [Kinect 영상 출력 기초 git**](https://github.com/limgm/PyKinect2)
+- [OpenCV 를 이용해 Kinect 영상 입력 받기](https://t9t9.com/489)
+
+
+
+#### socket 사용하기 
+
 - [TCP 소켓을 사용하여 웹캠 이미지 송수신](https://webnautes.tistory.com/1382)
   - [기본 TCP 소켓 통신](https://webnautes.tistory.com/1381) : 전부 실행해봤음
-- [OpenCV 를 이용해 Kinect 영상 입력 받기](https://t9t9.com/489)
+- [소켓 가장 기본 자료](https://pymotw.com/2/socket/tcp.html)
+
+
+
+#### Socket 사용해 영상 전송
+
+- [python 코드로 된 카메라 영상 전송](https://m.blog.naver.com/PostView.nhn?blogId=dldudcks1779&logNo=222024824853&categoryNo=70&proxyReferer=https:%2F%2Fwww.google.com%2F)
 
 
 
@@ -82,7 +99,8 @@
 #### 1105
 
 - 진행 순서
-  - `pykinectv2` 사용하는거 찾아보고 영상 작동되는지 확인하기
+  - ~~`pykinectv2` 사용하는거 찾아보고 영상 작동되는지 확인하기~~
+    - C://Pykinect2 에 kinect.py 로 컬러, depth영상만 출력중
   - 영상을 opencv 로 ? 혹은 바이너리 데이터리 변경?
   - 그 데이터를 소켓통신으로 전송하기(python)
   - python - cpp 소켓 통신으로 전환하기

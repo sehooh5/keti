@@ -1,38 +1,19 @@
-# import the necessary modules
-import freenect
+import sys
+from copy import deepcopy
+import queue
+from collections import deque
+import csv
+import torch
 import cv2
+import datetime
 import numpy as np
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from pathlib import Path
 
-# function to get RGB image from kinect
-
-
-def get_video():
-    array, _ = freenect.sync_get_video()
-    array = cv2.cvtColor(array, cv2.COLOR_RGB2BGR)
-    return array
-
-# function to get depth image from kinect
-
-
-def get_depth():
-    array, _ = freenect.sync_get_depth()
-    array = array.astype(np.uint8)
-    return array
-
-
-if __name__ == "__main__":
-    while 1:
-        # get a frame from RGB camera
-        frame = get_video()
-        # get a frame from depth sensor
-        depth = get_depth()
-        # display RGB image
-        cv2.imshow('RGB image', frame)
-        # display depth image
-        cv2.imshow('Depth image', depth)
-
-        # quit program when 'esc' key is pressed
-        k = cv2.waitKey(5) & 0xFF
-        if k == 27:
-            break
-    cv2.destroyAllWindows()
+from time import time
+from tqdm import tqdm
+from pyKiinectv2_github import PyKinectRuntime, PyKinectV2
+from pyKiinectv2_github.PyKinectV2 import *
