@@ -38,6 +38,7 @@
 - [TCP 소켓을 사용하여 웹캠 이미지 송수신](https://webnautes.tistory.com/1382)
   - [기본 TCP 소켓 통신](https://webnautes.tistory.com/1381) : 전부 실행해봤음
 - [소켓 가장 기본 자료](https://pymotw.com/2/socket/tcp.html)
+- [소켓 기본적인 작동 세부적인 내용 확인 가능](https://itholic.github.io/python-socket/)
 
 
 
@@ -101,8 +102,9 @@
 - 진행 순서
   - ~~`pykinectv2` 사용하는거 찾아보고 영상 작동되는지 확인하기~~
     - C://Pykinect2 에 kinect.py 로 컬러, depth영상만 출력중
-  - 영상을 opencv 로 ? 혹은 바이너리 데이터리 변경?
-  - 그 데이터를 소켓통신으로 전송하기(python)
+  - ~~영상을 opencv 로 ? 혹은 바이너리 데이터리 변경?~~
+  - ~~그 데이터를 소켓통신으로 전송하기(python)~~
+    - 1106 내용
   - python - cpp 소켓 통신으로 전환하기
 
 
@@ -110,5 +112,17 @@
 #### 1106
 
 - 방법1 : kinect -> opencv 로 바꾸기
+
 - 방법2 : kinect 를 바로 socket 으로 전송
+
 - socket 전송 완료 되면 python - cpp 로 변환
+
+- 현재 : 
+
+  - ~~kinect_server2.py - kinect_client2.py 로 진행중~~ git에 server - client 로 진행중
+
+  - depth 도 실행 가능하나 지금은 더 명확한 컬러로 진행중
+
+  - server :  카메라에서 영상 데이터 가져오고 변환
+
+    client :  데이터를 가지고 영상 출력
