@@ -105,3 +105,10 @@
   - 그 데이터를 소켓통신으로 전송하기(python)
   - python - cpp 소켓 통신으로 전환하기
 
+
+
+#### 1106
+
+- 방법1 : kinect -> opencv 로 바꾸기
+- 방법2 : kinect 를 바로 socket 으로 전송
+- socket 전송 완료 되면 python - cpp 로 변환
