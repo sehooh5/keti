@@ -19,7 +19,7 @@ print('연결 성공')
 # print("b'"+str(test).split("//")[3])
 # print("츨력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 data = b""  # 수신한 데이터를 넣을 변수
-payload_size = struct.calcsize(">L")  # = 8
+payload_size = struct.calcsize(">L 302s")  # = 8
 
 while True:
     # 프레임 수신
@@ -30,15 +30,17 @@ while True:
     data = data[payload_size:]
 
     # 텍스트 출력
-    msg_size = struct.unpack(">L", packed_msg_size)[0]
-    print(msg_size)
+    msg_size = struct.unpack(">L 302s", packed_msg_size)[0]
+    msg_text = struct.unpack(">L 302s", packed_msg_size)[1]
+    print(msg_text)
+    # print(msg_size)
     print(type(msg_size))
     while len(data) < msg_size:
         data += client_socket.recv(4096)
     frame_data = data[:msg_size]
     # print(msg_size)
     data = data[msg_size:]
-    print(data)
+    # print(data)
     print("(CL)Frame Size : {}".format(msg_size))  # 프레임 크기 출력
 
     # 역직렬화(de-serialization) : 직렬화된 파일이나 바이트를 원래의 객체로 복원하는 것

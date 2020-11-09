@@ -67,5 +67,5 @@ while True:
         print("Frame Size : ", size)
 
         # 데이터(프레임) 전송
-        client_conn.sendall(struct.pack(">L", size) + data)
-        # client_conn.sendall(size.encode() + text.encode() + data)
+        # client_conn.sendall(struct.pack(">L", size) + data)
+        client_conn.sendall(size_str.encode() + text.encode() + data)

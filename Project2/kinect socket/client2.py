@@ -13,32 +13,32 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((ip, port))
 print('연결 성공')
 
-# test = client_socket.recv(4096)
-# print(str(test).split("//")[1])
-# print(str(test).split("//")[2])
-# print("b'"+str(test).split("//")[3])
-# print("츨력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+test = client_socket.recv(4096)
+print(str(test).split("//")[1])
+print(str(test).split("//")[2])
+print(type("b'"+str(test).split("//")[3]))
+print("츨력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 data = b""  # 수신한 데이터를 넣을 변수
+print(type(data))
 payload_size = struct.calcsize(">L")  # = 8
 
 while True:
-    # 프레임 수신
-    while len(data) < payload_size:
-        data += client_socket.recv(4096)
-    packed_msg_size = data[:payload_size]
-    # print(packed_msg_size)
-    data = data[payload_size:]
+    # # 프레임 수신
+    # while len(data) < payload_size:
+    #     data += client_socket.recv(4096)
+    # packed_msg_size = data[:payload_size]
+    # # print(packed_msg_size)
+    # data = data[payload_size:]
 
     # 텍스트 출력
-    msg_size = struct.unpack(">L", packed_msg_size)[0]
-    print(msg_size)
-    print(type(msg_size))
+    test = client_socket.recv(4096)
+    print(test)
+    msg_size = int(str(data).split("//")[1])
     while len(data) < msg_size:
         data += client_socket.recv(4096)
     frame_data = data[:msg_size]
     # print(msg_size)
     data = data[msg_size:]
-    print(data)
     print("(CL)Frame Size : {}".format(msg_size))  # 프레임 크기 출력
 
     # 역직렬화(de-serialization) : 직렬화된 파일이나 바이트를 원래의 객체로 복원하는 것

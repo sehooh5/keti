@@ -44,7 +44,18 @@ while True:
         color_frame = kinect.get_last_color_frame()
         depth_frame = kinect.get_last_depth_frame()
         # text data
-        text = 'TEXT' + '//'
+        text = """Cam_Info_List
+        -UID: camera0x11
+        -Name: camera01
+        -Type: 2D Color Camera
+        -Location: Underground Parking(B2)
+        -Resolution: 1920x1080
+        -FrameRate: 10fps
+        Event_Info_List
+        -StartTime: start_time
+        -EndTime: end_time
+        -EventID: eventid """
+        print(len(text))
         text_len = str(len(text))
         format = f'>L {text_len}s'
 
@@ -67,5 +78,5 @@ while True:
         print("Frame Size : ", size)
 
         # 데이터(프레임) 전송
-        client_conn.sendall(struct.pack(">L", size) + data)
+        client_conn.sendall(struct.pack(">L 302s", size, text.encode()) + data)
         # client_conn.sendall(size.encode() + text.encode() + data)
