@@ -3,10 +3,7 @@ import cv2
 import pickle
 import struct
 import numpy as np
-import utils_PyKinectV2 as utils
-from pykinect2.PyKinectV2 import *
-from pykinect2 import PyKinectV2
-from pykinect2 import PyKinectRuntime
+
 
 ip = '127.0.0.1'  # ip 주소
 port = 50001  # port 번호
@@ -26,6 +23,7 @@ while True:
         data += client_socket.recv(4096)
     packed_msg_size = data[:payload_size]
     data = data[payload_size:]
+
     msg_size = struct.unpack(">L", packed_msg_size)[0]
     while len(data) < msg_size:
         data += client_socket.recv(4096)

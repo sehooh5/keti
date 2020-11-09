@@ -29,25 +29,35 @@ kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color |
 depth_width, depth_height = kinect.depth_frame_desc.Width, kinect.depth_frame_desc.Height
 # Default: 1920, 1080
 color_width, color_height = kinect.color_frame_desc.Width, kinect.color_frame_desc.Height
+# print(type(kinect.color_frame_desc.Width))
 
 
 # 인코드 파라미터
 # jpg의 경우 cv2.IMWRITE_JPEG_QUALITY를 이용하여 이미지의 품질을 설정
-encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 10]
 
 while True:
     if kinect.has_new_color_frame() and \
             kinect.has_new_depth_frame():
-
+        # data
+        # streaming data
         color_frame = kinect.get_last_color_frame()
         depth_frame = kinect.get_last_depth_frame()
+        # text data
+        text = 'Text Sening Test Finished!!'
 
+        # data 정제
         color_img = color_frame.reshape(
             ((color_height, color_width, 4))).astype(np.uint8)
+
+        # data Resize (1080, 1920, 4) into half (540, 960, 4)
+        color_img_resize = cv2.resize(color_img, (0, 0), fx=0.5, fy=0.5)
+
         # depth_img = depth_frame.reshape(
         #     ((depth_height, depth_width))).astype(np.uint16)
 
-        result, color_frame = cv2.imencode('.png', color_img, encode_param)
+        result, color_frame = cv2.imencode(
+            '.png', color_img_resize, encode_param)
         # print(color_frame)
         data = pickle.dumps(color_frame, 0)
         size = len(data)
