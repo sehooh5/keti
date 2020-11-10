@@ -29,7 +29,6 @@ kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color |
 depth_width, depth_height = kinect.depth_frame_desc.Width, kinect.depth_frame_desc.Height
 # Default: 1920, 1080
 color_width, color_height = kinect.color_frame_desc.Width, kinect.color_frame_desc.Height
-# print(type(kinect.color_frame_desc.Width))
 
 
 # 인코드 파라미터
@@ -39,15 +38,22 @@ encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 10]
 while True:
     if kinect.has_new_color_frame() and \
             kinect.has_new_depth_frame():
-        # data
         # streaming data
         color_frame = kinect.get_last_color_frame()
         depth_frame = kinect.get_last_depth_frame()
         # text data
-        text = 'TEXT' + '//'
-        text_len = str(len(text))
-        format = f'>L {text_len}s'
-
+        text = """Cam_Info_List
+    -UID: camera0x11
+    -Name: camera01
+    -Type: 3D Depth Camera
+    -Location: Underground Parking(B2)
+    -Resolution: 512X424
+    -FrameRate: 10fps
+Event_Info_List
+    -StartTime: 2020:11:10:13:55:34
+    -EndTime: 2020:11:10:13:55:39
+    -EventID: 10"""
+        print(len(text))
         # data 정제
         color_img = color_frame.reshape(
             ((color_height, color_width, 4))).astype(np.uint8)
@@ -60,12 +66,9 @@ while True:
 
         result, color_frame = cv2.imencode(
             '.png', color_img_resize, encode_param)
-        # print(color_frame)
         data = pickle.dumps(color_frame, 0)
         size = len(data)
-        size_str = "//"+str(size) + "//"
         print("Frame Size : ", size)
 
         # 데이터(프레임) 전송
-        client_conn.sendall(struct.pack(">L", size) + data)
-        # client_conn.sendall(size.encode() + text.encode() + data)
+        client_conn.sendall(struct.pack(">L 280s", size, text.encode()) + data)

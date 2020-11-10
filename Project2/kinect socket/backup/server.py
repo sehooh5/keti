@@ -3,10 +3,18 @@ import socket
 import struct
 import pickle
 import numpy as np
+import os
 import utils_PyKinectV2 as utils
 from pykinect2.PyKinectV2 import *
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
+
+# text data
+text = 'TEXT'
+text_len = str(len(text))
+format = f'>L {text_len}s'
+os.environ['FORMAT'] = format
+print(os.environ['FORMAT'])
 
 
 ip = '127.0.0.1'  # ip 주소
@@ -14,8 +22,10 @@ port = 50001  # port 번호
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # 소켓 객체를 생성
 server_socket.bind((ip, port))  # 바인드(bind) : 소켓에 주소, 프로토콜, 포트를 할당
-server_socket.listen(10)  # 연결 수신 대기 상태(리스닝 수(동시 접속) 설정)
+server_socket.listen(10)  # 연결 수신 대기 상태(리스닝 수(동시 접속) 설정)\
+
 print('클라이언트 연결 대기')
+
 
 # 연결 수락(클라이언트 소켓 주소를 반환)
 client_conn, client_addr = server_socket.accept()
@@ -43,21 +53,6 @@ while True:
         # streaming data
         color_frame = kinect.get_last_color_frame()
         depth_frame = kinect.get_last_depth_frame()
-        # text data
-        text = """Cam_Info_List
-        -UID: camera0x11
-        -Name: camera01
-        -Type: 2D Color Camera
-        -Location: Underground Parking(B2)
-        -Resolution: 1920x1080
-        -FrameRate: 10fps
-        Event_Info_List
-        -StartTime: start_time
-        -EndTime: end_time
-        -EventID: eventid """
-        print(len(text))
-        text_len = str(len(text))
-        format = f'>L {text_len}s'
 
         # data 정제
         color_img = color_frame.reshape(
@@ -78,5 +73,5 @@ while True:
         print("Frame Size : ", size)
 
         # 데이터(프레임) 전송
-        client_conn.sendall(struct.pack(">L 302s", size, text.encode()) + data)
+        client_conn.sendall(struct.pack(">L", size) + data)
         # client_conn.sendall(size.encode() + text.encode() + data)
