@@ -48,6 +48,30 @@
 
 
 
+#### ~~python embeding to cpp~~사용안함
+
+- [Embeding 필요한 종속성 설정](https://kjk92.tistory.com/28)
+- [한줄한줄 파이썬 명령어로 가능하게끔 한 자료](https://m.blog.naver.com/PostView.nhn?blogId=wwwkasa&logNo=220527874475&proxyReferer=https:%2F%2Fwww.google.com%2F)
+
+
+
+#### C++ 사용
+
+- [C++ socket 통신](https://nowonbun.tistory.com/736)
+- [C++ opencv](https://nowonbun.tistory.com/745)
+
+
+
+### C++ Project 디렉터리 및 링커 추가
+
+---
+
+- 프로젝트 속성 > vc++ 디렉토리 > python include 폴더와 libs 폴더 추가
+  - C/C++ : C:\Python27\include;
+  - 라이브러리 디렉토리 : $(LibraryPath);C:\Python39\libs;C:\Python39\Lib;
+- OpenCV 설치 및 Path 추가 (v 4.4.0)
+  - 
+
 ### Document
 
 ---
@@ -148,3 +172,21 @@
 - ~~server, client 3으로 text 전달하는거 (사이즈 알때) 구현하기~~
   - back up 에 다른 파일들 백업 완료
   - 사이즈 고정! 전제 하에 전송 가능하게 완료
+- python -> cpp 변환하기
+  - include <Python.h> 로 자바에서 한줄한줄 쓰듯이 하면 된다...?
+  - [ C 로 파이썬 모듈 끌어오기](http://blog.tcltk.co.kr/?p=2851)
+
+
+
+#### 1111
+
+- 일단 cpp 에 대한...공부먼저........
+- cpp 는 VS 로 실행을 하고 Python 을 실행 가능할 수 있게 Embeding 해줌
+- python 3.9 설치하고 opencv4.4.0 설치해서, 그 lib, include 사용해서 진행중
+  - 하지만, cv2랑 numpy import error 가 c에서 실행될때 나는듯
+
+
+
+#### 1112
+
+- C++에서 코드 다시짜기

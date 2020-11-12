@@ -2,7 +2,6 @@ import socket
 import cv2
 import pickle
 import struct
-import numpy as np
 
 
 ip = '127.0.0.1'  # ip 주소
