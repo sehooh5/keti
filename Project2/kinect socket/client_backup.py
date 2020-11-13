@@ -43,9 +43,6 @@ while True:
     cv2.imshow('TCP_Frame_Socket', frame)
 
     # 1초 마다 키 입력 상태를 받음
-    if cv2.waitKey(1) == ord('q'):  # q를 누르면 client 만 종료
+    if cv2.waitKey(1) == ord('q'):  # q를 입력하면 종료
         client_socket.send('1'.encode())
-        client_socket.shutdown(socket.SHUT_WR)
-    elif cv2.waitKey(1) == ord('x'):  # x를 누르면 둘 다 종료
-        client_socket.send('2'.encode())
         client_socket.shutdown(socket.SHUT_WR)
