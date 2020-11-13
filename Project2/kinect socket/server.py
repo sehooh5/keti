@@ -9,8 +9,8 @@ from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
 
 
-ip = '127.0.0.1'  # ip 주소
-port = 50001  # port 번호
+ip = '192.168.0.71'  # ip 주소
+port = 8080  # port 번호
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # 소켓 객체를 생성
 server_socket.bind((ip, port))  # 바인드(bind) : 소켓에 주소, 프로토콜, 포트를 할당
@@ -53,11 +53,10 @@ Event_Info_List
     -StartTime: 2020:11:10:13:55:34
     -EndTime: 2020:11:10:13:55:39
     -EventID: 10"""
-        print(len(text))
+
         # data 정제
         color_img = color_frame.reshape(
             ((color_height, color_width, 4))).astype(np.uint8)
-
         # data Resize (1080, 1920, 4) into half (540, 960, 4)
         color_img_resize = cv2.resize(color_img, (0, 0), fx=0.5, fy=0.5)
 
@@ -66,9 +65,14 @@ Event_Info_List
 
         result, color_frame = cv2.imencode(
             '.png', color_img_resize, encode_param)
+
+        # ***pickle.dumps()*** : data 직렬화
         data = pickle.dumps(color_frame, 0)
-        size = len(data)
+        # print(data)
+        size = len(data)  # 약 950,000 byte
         print("Frame Size : ", size)
+        print(text.encode())
 
         # 데이터(프레임) 전송
+        # struct.pack() :
         client_conn.sendall(struct.pack(">L 280s", size, text.encode()) + data)
