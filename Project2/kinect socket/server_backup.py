@@ -68,12 +68,14 @@ Event_Info_List
 
         result, depth_frame = cv2.imencode(
             '.png', depth_colormap, encode_param)
-
+        # print(type(depth_frame))
         # ***pickle.dumps()*** : data 직렬화
         data = pickle.dumps(depth_frame, 0)
         # print(data)
         size = len(data)  # 약 950,000 byte
         print("Frame Size : ", size)
+        # print(depth_colormap)
+        # print(depth_frame)
 
         # 데이터(프레임) 전송
         # struct.pack() :
