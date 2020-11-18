@@ -221,7 +221,35 @@
 #### 1118
 
 - 계속해서 서버는 켜두는 기능 완료
+
 - 데이터끼리 구분하려다가 일단 보류
+
 - 와이어 샤크 설치해서 데이터 어떻게 넘어가는지 확인해서 전달
+
 - 할 것 : 
+
   - UI 에 서버 추가하는 방식 고고
+
+  - UI 코드에서 depth 영상 및 텍스트 데이터 찾아서 하기
+
+  - ```
+            # 카메라 키는 작업
+            kinect_sources = PyKinectV2.FrameSourceTypes_Color | PyKinectV2.FrameSourceTypes_Depth
+            self.kinect = PyKinectRuntime.PyKinectRuntime(kinect_sources)
+            depth_width, depth_height = self.kinect.depth_frame_desc.Width, self.kinect.depth_frame_desc.Height
+            while True:
+                if self.kinect.has_new_depth_frame:
+                    depth_frame = self.kinect.get_last_depth_frame()
+                    depth_img = np.array(depth_frame, np.uint16,
+                                         copy=False).reshape((424, 512))
+                    depth_img2 = (depth_img / 256).astype(np.uint8)
+                    depth_colormap = make_DEP_colormap(depth_img2).copy()
+                    cv2.imshow('test', depth_colormap)
+                key = cv2.waitKey(30)
+                if key == 27:  # Press esc to break the loop
+                    break
+            self.kinect.close()
+            cv2.destroyAllWindows()
+    ```
+
+  - 
