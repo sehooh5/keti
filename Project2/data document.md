@@ -107,26 +107,6 @@ server()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### client.py
 
 ```python
@@ -181,12 +161,7 @@ while True:
     elif cv2.waitKey(1) == ord('x'):  # x를 누르면 둘 다 종료
         client_socket.send('2'.encode())
         client_socket.shutdown(socket.SHUT_WR)
-
 ```
-
-
-
-
 
 
 
@@ -242,10 +217,6 @@ while True:
 
 
 
-
-
-
-
 ### Struct
 
 - [sturct document](https://docs.python.org/3/library/struct.html)
@@ -270,3 +241,48 @@ while True:
       - b'\x00\x0e\x9e\xdfCam_Info_List\n    -UID: camera0x11\n    -Name: camera01\n    -Type: 3D Depth Camera\n    -Location: Underground Parking(B2)\n    -Resolution: 512X424\n    -FrameRate: 10fps\nEvent_Info_List\n    -StartTime: 2020:11:10:13:55:34\n    -EndTime: 2020:11:10:13:55:39\n    -EventID: 10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
     - **struct.unpack**(">L 280s", packed_msg_size):
       - (958175, b'Cam_Info_List\n    -UID: camera0x11\n    -Name: camera01\n    -Type: 3D Depth Camera\n    -Location: Underground Parking(B2)\n    -Resolution: 512X424\n    -FrameRate: 10fps\nEvent_Info_List\n    -StartTime: 2020:11:10:13:55:34\n    -EndTime: 2020:11:10:13:55:39\n    -EventID: 10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### **encode() / decode()**
+
+- UTF-8 로 인코딩 및 디코딩
+
+- **인코딩** 예시 : str 객체 -> bytes 객체
+
+  ```python
+  # 파이썬 기본 인코딩 방식 : UTF-8
+  사용 : "한글".encode() 
+  결과값 : b'\xed\x95\x9c\xea\xb8\x80'
+  
+  사용 : "한글".encode("UTF-8") 
+  결과값 : b'\xed\x95\x9c\xea\xb8\x80'
+  
+  # b'' 형식의 의미 = byte 객체
+  사용 : type(b'\xed\x95\x9c\xea\xb8\x80') # type 함수는 객체의 type 을 반환
+  결과값 : <class 'bytes'>
+  
+  ```
+
+- **디코딩** 예시 : bytes 객체 -> str 객체
+
+  ```python
+  # UTF-8 바이트 객체를 str 객체로 디코딩
+  사용 : b'\xed\x95\x9c\xea\xb8\x80'.decode() 
+  결과값 : '한글'
+  ```
+
+  
+

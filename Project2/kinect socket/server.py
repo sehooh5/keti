@@ -7,20 +7,12 @@ import utils_PyKinectV2 as utils
 from pykinect2.PyKinectV2 import *
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
-import json
 
-ip = '127.0.0.1'  # ip 주소 '192.168.0.71'
-port = 50001  # port 번호
+ip = '192.168.0.71'  # ip 주소
+port = 8080  # port 번호
 server_socket = socket.socket(
     socket.AF_INET, socket.SOCK_STREAM)  # 소켓 객체를 생성
 server_socket.bind((ip, port))  # 바인드(bind) : 소켓에 주소, 프로토콜, 포트를 할당
-
-
-class NumpyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return json.JSONEncoder.default(self, obj)
 
 
 def server():
@@ -60,7 +52,7 @@ def server():
         -Location: Underground Parking(B2)
         -Resolution: 512X424
         -FrameRate: 10fps
-Event_Info_List
+    Event_Info_List
         -StartTime: 2020:11:10:13:55:34
         -EndTime: 2020:11:10:13:55:39
         -EventID: 10"""
@@ -78,24 +70,17 @@ Event_Info_List
 
             result, depth_frame = cv2.imencode(
                 '.png', depth_colormap, encode_param)
-            print(depth_frame)
+
             # ***pickle.dumps()*** : data 직렬화
             data = pickle.dumps(depth_frame, 0)
             # print(data)
             size = len(data)  # 약 950,000 byte
             print("Frame Size : ", size)
 
-            # test 해보기
-            test_data = {'size': size, 'text': text, 'data': depth_frame}
-            json_data = json.dumps(test_data, cls=NumpyEncoder)
-            # print(json_data)
-            # json_load = json.loads(json_data)
-            # data_resotred = np.asarray(json_load["text"])
-            # print(data_resotred)
-
             # 데이터(프레임) 전송
             # struct.pack() :
-            client_conn.sendall(json_data.encode())
+            client_conn.sendall(struct.pack(
+                ">L 280s", size, text.encode()) + data)
             msg = client_conn.recv(2).decode()
             print(msg)
             if msg == "1":  # client 만 종료하고 server 재 실행
