@@ -53,7 +53,7 @@ while msg == "0":
 Event_Info_List
     -StartTime: 2020:11:10:13:55:34
     -EndTime: 2020:11:10:13:55:39
-    -EventID: 10</text>"""
+    -EventID: 10<text>"""
 
         # scolor_img = color_frame.reshape(((color_height, depth_width, 4))).astype(np.uint8)
         # data Resize (1080, 1920, 4) into half (540, 960, 4)
@@ -71,11 +71,10 @@ Event_Info_List
 
         # ***pickle.dumps()*** : data 직렬화
         data = pickle.dumps(depth_frame, 0)
-        # print(data)
-        size = len(data)  # 약 950,000 byte
+        size = len(data)+10  # 11 은
         print("Frame Size : ", size)
-        print(data)
+        # print(data)
         # 데이터(프레임) 전송
         # struct.pack() :
-        client_conn.sendall(
-            text.encode() + "<png>".encode() + data + "</png>".encode())
+        client_conn.sendall(struct.pack(
+            ">L 282s", size, text.encode()) + "<png>".encode() + data + "<png>".encode())

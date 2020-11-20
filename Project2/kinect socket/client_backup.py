@@ -23,9 +23,7 @@ while True:
     packed_msg_size = data[:payload_size]
     data = data[payload_size:]
 
-    # frame size 출력 : print(msg_size)
     msg_size = struct.unpack(">L 280s", packed_msg_size)[0]
-    # 텍스트 출력 : print(msg_text)
     msg_text = struct.unpack(">L 280s", packed_msg_size)[1].decode()
     # print(msg_text)
     while len(data) < msg_size:
