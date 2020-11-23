@@ -48,6 +48,13 @@
 
 
 
+#### QT-Python TCP/IP 영상통신
+
+- [c++(c) - python(S) 통신](https://hellobird.tistory.com/290)
+- [QT TCP Python 예제](https://oceancoding.blogspot.com/2019/05/blog-post_23.html)
+
+
+
 #### ~~python embeding to cpp~~사용안함
 
 - [Embeding 필요한 종속성 설정](https://kjk92.tistory.com/28)
@@ -288,4 +295,10 @@
 - 할 것 : 
   - 라이브 키면 서버 연동되면서 그 데이터를 사용하기.....
     - 서버가 켜져도 UI 는 사용할 수 잇게
-  - 
+  - **test_qt.py  로 멀티 스레드 하는거 연습해보고 적용하기!!**
+
+
+
+#### 1124
+
+- 멀티 스레드 구현하기
