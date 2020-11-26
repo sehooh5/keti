@@ -68,7 +68,7 @@ def server():
                 depth_img, alpha=255/1500), cv2.COLORMAP_JET)
 
             result, depth_frame = cv2.imencode(
-                '.png', depth_colormap, encode_param)
+                '.jpg', depth_colormap, encode_param)
 
             # ***pickle.dumps()*** : data 직렬화
             data = pickle.dumps(depth_frame, 0)

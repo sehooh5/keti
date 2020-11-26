@@ -326,4 +326,5 @@
 #### 1126
 
 - 오늘 다시 협업해보고 내일 안되면 방문
-- 
+- server : server_tag.py
+- client : client.py in deepview

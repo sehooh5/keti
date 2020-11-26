@@ -35,9 +35,7 @@ def server():
     # 인코드 파라미터
     # jpg의 경우 cv2.IMWRITE_JPEG_QUALITY를 이용하여 이미지의 품질을 설정
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 10]
-    msg = client_conn.recv(2).decode()
-    print(msg)
-    while msg == "0":
+    while True:
         if kinect.has_new_color_frame() and \
                 kinect.has_new_depth_frame():
             # streaming data
@@ -68,18 +66,16 @@ def server():
             depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(
                 depth_img, alpha=255/1500), cv2.COLORMAP_JET)
 
+            # 프레임 데이터 정제
             result, depth_frame = cv2.imencode(
-                '.png', depth_colormap, encode_param)
-
-            # ***pickle.dumps()*** : data 직렬화
-            data = pickle.dumps(depth_frame, 0)
-            size = len(data)+len(text)+10  # 10은 <png> 마커 두 개의 값
+                '.jpg', depth_colormap, encode_param)
+            data = "<jpg>".encode()+pickle.dumps(depth_frame, 0)+"<jpg>".encode()
+            size = len(data)+len(text)
             print("Frame Size : ", size)
-            # print(data)
-            # 데이터(프레임) 전송
-            # struct.pack() :
+
+            # 데이터 전송
             client_conn.sendall(struct.pack(
-                ">L", size) + text + "<png>".encode() + data + "<png>".encode())
+                ">L", size) + text + data)
             msg = client_conn.recv(2).decode()
             print(msg)
             if msg == "1":  # client 만 종료하고 server 재 실행
