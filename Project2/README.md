@@ -338,3 +338,4 @@
 - 완료 (deepview : server_jpg.py / client_jpg.py)
   - 소켓 멀티 스레드로 구성
   - jpg 파일 전송하는 서버, 클라이언트 만들어보고 다누시스와 연동
+  - Deepview/JPG2 에 컬러 입힌 이미지 잇어서 그거 사용
