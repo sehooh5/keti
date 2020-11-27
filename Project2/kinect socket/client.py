@@ -4,8 +4,8 @@ import pickle
 import struct
 
 
-ip = '123.214.186.231'  # ip 주소
-port = 8080  # port 번호
+ip = '192.168.0.71'  # ip 주소
+port = 50001  # port 번호
 
 # 소켓 객체를 생성 및 연결
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -13,32 +13,30 @@ client_socket.connect((ip, port))
 print('연결 성공')
 
 data = b""  # 수신한 데이터를 넣을 변수
-payload_size = struct.calcsize(">L 282s")  # = 8
+payload_size = struct.calcsize(">L")
 
 while True:
     client_socket.send('0'.encode())
     # 프레임 수신
-    while len(data) < payload_size:
+    while len(data) < 8:
         data += client_socket.recv(4096)
     packed_msg_size = data[:payload_size]
-
     data = data[payload_size:]
-    # size
-    msg_size = struct.unpack(">L 282s", packed_msg_size)[0]
-    # text
-    msg_text = struct.unpack(">L 282s", packed_msg_size)[1]
-    # msg_text = msg_text.split(b'<text>')[1]  # <text> 구분자로 내용만 추출
+    # size data
+    msg_size = struct.unpack(">L", packed_msg_size)[0]
+
     while len(data) < msg_size:
         data += client_socket.recv(4096)
-    frame_data = data[:msg_size]
+    all_data = data[:msg_size]
+    text_data = all_data.split(b'<text>')[1]  # text data 만 추출
+    frame_data = all_data.split(b'<jpg>')[1]  # frame data 만 추출
     data = data[msg_size:]
-    # frame_data = frame_data.split(b'<png>')[1]  # <png> 구분자로 내용만 추출
     print("(CL)Frame Size : {}".format(msg_size))  # 프레임 크기 출력
+    # print(text_data.decode())
 
     # 역직렬화(de-serialization) : 직렬화된 파일이나 바이트를 원래의 객체로 복원하는 것
     # 직렬화되어 있는 binary file로 부터 객체로 역직렬화
-    frame = pickle.loads(frame_data.split(b'<png>')[
-                         1], fix_imports=True, encoding="bytes")
+    frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
     frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)  # 프레임 디코딩
 
     # 영상 출력
