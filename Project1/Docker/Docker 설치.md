@@ -25,15 +25,15 @@
 
 - 패키지 설치
 
-```bash
-sudo apt-get update && sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
-```
+  ```
+  sudo apt-get update && sudo apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      software-properties-common
+  ```
 
-
+  
 
 ## 패키지 저장소 추가
 
