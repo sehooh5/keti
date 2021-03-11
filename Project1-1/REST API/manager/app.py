@@ -22,7 +22,8 @@ def write_docker():
 def upload_file():
     if request.method == 'POST':
         docker = request.form['docker']
-        folder = request.form['folder']
+        folder_name = request.form['folder']
+        docker_name = request.form['docker_name']
 
         # file 작성부분
         f = open('Dockerfile')
