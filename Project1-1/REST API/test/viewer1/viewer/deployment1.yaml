@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: viewer1-service
+spec:
+  selector:
+    app: viewer1
+  ports:
+    - protocol: "TCP"
+      port: 6001
+      targetPort: 5001
+      nodePort: 30021
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viewer1
+spec:
+  selector:
+    matchLabels:
+      app: viewer1
+  template:
+    metadata:
+      labels:
+        app: viewer1
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: viewer1
+          image: sehooh5/viewr1:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
