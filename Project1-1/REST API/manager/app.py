@@ -21,12 +21,13 @@ def write_docker():
 @app.route('/saveDocker', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        docker = request.form['docker']
+        docker_file = request.form['docker']
         folder_name = request.form['folder']
         docker_name = request.form['docker_name']
 
         # file 작성부분
-        f = open('Dockerfile')
+        f = open(docker_name, 'w')
+        f.write(docker_file)
     return render_template('write_docker.html')
 
 
