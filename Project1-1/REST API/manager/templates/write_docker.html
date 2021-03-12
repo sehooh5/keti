@@ -2,47 +2,20 @@
     <body>
         <form action = "http://localhost:5000/saveDocker" method="POST"
         enctype="multipart/form-data">
-            <p>
+            <p>Folder : 
                 <input type="radio" name="folder" value="manager" checked> manager 
                 <input type="radio" name="folder" value="viewer" > viewer
             </p>
-            <p><input type="text" name="docker_name" value="Dockerfile"></p>
-            <p><textarea cols="80" rows="35" name="docker">
-FROM python:3.7
 
-RUN apt-get update \
-    && apt-get install -y \
-        build-essential \
-        cmake \
-        git \
-        wget \
-        unzip \
-        yasm \
-        pkg-config \
-        libswscale-dev \
-        libtbb2 \
-        libtbb-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
-        libavformat-dev \
-        libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+            <p>Type : 
+                <input type="radio" name="type" value="dockerfile" checked> Dockerfile 
+                <input type="radio" name="type" value="deployment" > deployment
+            </p>
 
-RUN pip install click Flask itsdangerous Jinja2 MarkupSafe Werkzeug numpy
+            <p>File Name : <input type="text" name="docker_name" value=""></p>
 
-RUN mkdir /app
-WORKDIR /app
-ADD . /app/
-ENV OPENCV_VERSION="4.1.0"
-RUN pip install opencv-python
-RUN ln -s \
-  /usr/local/python/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so \
-  /usr/local/lib/python3.7/site-packages/cv2.so
-
-EXPOSE 5001
-CMD ["python", "/app/cam1-1.py"]
-            </textarea></p>
+            <p>Contents : <textarea cols="80" rows="35" name="docker"></textarea></p>
+            
             <p><input type="submit"/></p>
         </form>
     </body>
