@@ -20,6 +20,15 @@
 
 
 
+### 시행착오
+
+#### JS
+
+- textarea 에 텍스트 파일을 불러오면 개행처리가 안되는 오류
+  - 참고 : https://www.javaer101.com/ko/article/20078859.html
+
+
+
 
 
 ## Daily
