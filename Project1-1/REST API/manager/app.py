@@ -24,7 +24,7 @@ def upload_file():
         docker_file = request.form['docker']
         folder_name = request.form['folder']
         docker_name = request.form['docker_name']
-
+        print(docker_file)
         # file 작성부분
         f = open(
             f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{docker_name}', 'w')

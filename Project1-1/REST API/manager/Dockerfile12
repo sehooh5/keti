@@ -1,0 +1,1 @@
+FROM python:3.7RUN pip install Flask RUN mkdir /appWORKDIR /appADD . /app/EXPOSE 5000CMD ["python", "/app/app.py"]
