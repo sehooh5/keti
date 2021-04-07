@@ -177,3 +177,9 @@
 #### 0402
 
 - KubeEdge 사용하는 방법, 실례 찾아보기(다음주까지)
+
+
+
+#### 0407
+
+- Dockerfile, Deployment 배포하는 기능 Web app 수정하는거 진행
