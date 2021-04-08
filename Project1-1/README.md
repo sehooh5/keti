@@ -183,3 +183,28 @@
 #### 0407
 
 - Dockerfile, Deployment 배포하는 기능 Web app 수정하는거 진행
+
+
+
+#### 0408
+
+- 교육 정보
+
+  1. **tta 아카데미**
+
+    - 교육명	[LSD459] 제1차 Kubernetes Application Developer 교육
+    - 교육장소	TTA 9층 교육장  		교육시간	09:30 ~17:30
+    - 교육기간	2021.05.12 ~2021.05.14	접수기간	2021.04.06 ~2021.04.28
+    - 교육비	1,925,000원    	
+    - 교육담당자	장수영 ((010-9886-7313))	정원	25명
+    - URL : https://edu.tta.or.kr/edc/TTAReqstView.do?eventId=EVENT_00000000002221
+
+
+  2. **멀티캠퍼스** 
+
+    - 교육명	[Live] DevOps를 위한 도커와 쿠버네티스
+    - 교육장소	라이브 스트리밍  		교육시간	09:30 ~17:30
+    - 교육기간	2021.05.10 ~2021.05.14	
+    - 교육비	1,300,000원 + 교재비 45,000원    	
+    - 교육담당자	장수영 ((010-9886-7313))	정원	15명
+    - URL : https://www.multicampus.com/em/enrolment/courseDetai?p_menu=NzUjU1VC&p_gubun=Qw==&corsCd=FA008K&corsYr=2021&corsDgrCd=10105
