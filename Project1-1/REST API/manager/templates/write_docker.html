@@ -33,8 +33,7 @@
             function openTextFile() {
                 var input = document.createElement("input");
                 input.type = "file";
-                input.accept = "*"; // 확장자가 xxx, yyy
-                 일때, ".xxx, .yyy"
+                input.accept = "*"; // 확장자가 xxx, yyy일때, ".xxx, .yyy"
                 input.onchange = function (event) {
                     processFile(event.target.files[0]);
                 };

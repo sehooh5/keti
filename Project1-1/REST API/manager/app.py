@@ -23,11 +23,11 @@ def upload_file():
     if request.method == 'POST':
         docker_file = request.form['docker']
         folder_name = request.form['folder']
-        docker_name = request.form['docker_name']
+        file_name = request.form['fileName']
         print(docker_file)
         # file 작성부분
         f = open(
-            f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{docker_name}', 'w')
+            f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{file_name}', 'w')
         f.write(docker_file)
         f.close()
     return render_template('write_docker.html')
