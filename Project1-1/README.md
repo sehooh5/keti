@@ -192,7 +192,7 @@
 
 
 
-1. **tta 아카데미**
+1. **tta 아카데미**(한국정보통신기술협회)
 
 ```
   - 교육명	[LSD459] 제1차 Kubernetes Application Developer 교육
@@ -206,9 +206,9 @@
 
   2. **멀티캠퍼스** 
 
-    - 교육명	[Live] DevOps를 위한 도커와 쿠버네티스
+    - 교육명	DevOps를 위한 도커와 쿠버네티스
     - 교육장소	라이브 스트리밍  		교육시간	09:30 ~17:30
-    - 교육기간	2021.05.10 ~2021.05.14	
+    - 교육기간	2021.07.05 ~2021.07.09	
     - 교육비	1,300,000원 + 교재비 45,000원    	
     - 교육담당자	장수영 ((010-9886-7313))	정원	15명
-    - URL : https://www.multicampus.com/em/enrolment/courseDetai?p_menu=NzUjU1VC&p_gubun=Qw==&corsCd=FA008K&corsYr=2021&corsDgrCd=10105
+    - URL : https://www.multicampus.com/em/enrolment/courseDetai?p_menu=NzUjU1VC&p_gubun=Qw==&corsCd=Q33320&corsYr=2021&corsDgrCd=10101
