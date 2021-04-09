@@ -212,3 +212,9 @@
     - 교육비	1,300,000원 + 교재비 45,000원    	
     - 교육담당자	장수영 ((010-9886-7313))	정원	15명
     - URL : https://www.multicampus.com/em/enrolment/courseDetai?p_menu=NzUjU1VC&p_gubun=Qw==&corsCd=Q33320&corsYr=2021&corsDgrCd=10101
+
+
+#### 0409
+
+- Dockerfile, Deployment 배포하는 기능 Web app 수정
+- 앞으로 진행할 방향
