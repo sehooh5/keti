@@ -214,7 +214,15 @@
     - URL : https://www.multicampus.com/em/enrolment/courseDetai?p_menu=NzUjU1VC&p_gubun=Qw==&corsCd=Q33320&corsYr=2021&corsDgrCd=10101
 
 
+
 #### 0409
 
 - Dockerfile, Deployment 배포하는 기능 Web app 수정
+  - 파일 작성하면 저장할때 (f.write()기능) 자동으로 띄어쓰기가 되는데, 안되게끔 할 수 있나?
 - 앞으로 진행할 방향
+
+
+
+#### 0413
+
+- Dockerfile, Deployment 저장기능은 가능 **but, 매 저장할 때 마다 행띄어쓰기가 적용되는 현상**
