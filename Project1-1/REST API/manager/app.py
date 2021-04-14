@@ -15,7 +15,7 @@ def select():
 
 @app.route('/writeDocker')
 def write_docker():
-    return render_template('write_docker.html')
+    return render_template('write_doc.html')
 
 
 @app.route('/saveDocker', methods=['GET', 'POST'])
@@ -24,13 +24,14 @@ def upload_file():
         docker_file = request.form['docker']
         folder_name = request.form['folder']
         file_name = request.form['fileName']
-        print(docker_file)
+        # print(docker_file)
+
         # file 작성부분
         f = open(
             f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{file_name}', 'w')
         f.write(docker_file)
         f.close()
-    return render_template('write_docker.html')
+    return render_template('apply_doc.html')
 
 
 if __name__ == '__main__':

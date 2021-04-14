@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Dokcerfile and Deployment Apply</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+
+            function openTextFile() {
+                var input = document.createElement("input");
+                input.type = "file";
+                input.accept = "*"; // 확장자가 xxx, yyy일때, ".xxx, .yyy"
+                input.onchange = function (event) {
+                    processFile(event.target.files[0]);
+                };
+                input.click(); 
+            }
+
+            function processFile(file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    //이 부분을 고쳐주니 띄어쓰기가 적용되었다
+                    var textArea = document.getElementById("output");
+                    textArea.value = e.target.result;
+                };
+                reader.readAsText(file, "utf-8");
+            }
+
+        </script>
+        <h2>Apply files</h2>
+        <hr>
+        <button onclick="openTextFile()">Open</button>
+        <form action = "http://localhost:5000/saveDocker" method="POST"
+        enctype="multipart/form-data">
+
+            <p>File Name : <input type="text" name="fileName" value=""></p>
+
+            <p>Contents :<pre></pre></p>
+            <p><textarea cols="80" rows="35" name="docker" id="output"></textarea></p>
+            
+            <p><input type="submit" value="apply"/></p>
+        </form>
+
+    </body>
+</html>
