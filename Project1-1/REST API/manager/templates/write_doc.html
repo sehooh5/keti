@@ -7,7 +7,8 @@
 
             function fileCheck() {
 				//input file 태그.
-				var file = document.getElementById('input');
+				var file = document.getElementById('input').value;
+                console.log(file)
 				//파일 경로.
 				var filePath = file.value;
 				//전체경로를 \ 나눔.
