@@ -5,32 +5,6 @@
     <body>
         <script type="text/javascript">
 
-            function fileCheck() {
-				//input file 태그.
-				var file = document.getElementById('input').value;
-                console.log(file)
-				//파일 경로.
-				var filePath = file.value;
-				//전체경로를 \ 나눔.
-				var filePathSplit = filePath.split('\\'); 
-				//전체경로를 \로 나눈 길이.
-				var filePathLength = filePathSplit.length;
-				//마지막 경로를 .으로 나눔.
-				var fileNameSplit = filePathSplit[filePathLength-1].split('.');
-				//파일명 : .으로 나눈 앞부분
-				var fileName = fileNameSplit[0];
-				//파일 확장자 : .으로 나눈 뒷부분
-				var fileExt = fileNameSplit[1];
-				//파일 크기
-				var fileSize = file.files[0].size;
-
-				console.log('파일 경로 : ' + filePath);
-				console.log('파일명 : ' + fileName);
-				console.log('파일 확장자 : ' + fileExt);
-				console.log('파일 크기 : ' + fileSize);
-
-			}
-
             function openTextFile() {
                 var input = document.createElement("input");
                 input.type = "file";
@@ -39,15 +13,17 @@
                     processFile(event.target.files[0]);
                 };
                 input.click(); 
-                fileCheck();
+                
             }
 
             function processFile(file) {
                 var reader = new FileReader();
-                reader.onload = function (e) {
-                    //이 부분을 고쳐주니 띄어쓰기가 적용되었다
+                reader.onload = function (e) {     
                     var textArea = document.getElementById("output");
+                    var fileName = document.getElementById("fileName");
+
                     textArea.value = e.target.result;
+                    fileName.value = file.name;
                 };
                 reader.readAsText(file, "utf-8");
             }
@@ -62,13 +38,13 @@
                 <input type="radio" name="folder" value="manager" checked> manager 
                 <input type="radio" name="folder" value="viewer" > viewer
             </p>
-
+            
             <p>Type : 
                 <input type="radio" name="type" value="dockerfile" checked> Dockerfile 
                 <input type="radio" name="type" value="deployment" > deployment
             </p>
 
-            <p>File Name : <input type="text" name="fileName" value=""></p>
+            <p>File Name : <input type="text" name="fileName" id="fileName"></p>
 
             <p>Contents :<pre></pre></p>
             <p><textarea cols="80" rows="35" name="file" id="output"></textarea></p>

@@ -25,7 +25,6 @@ def upload_file():
         file = request.form['file']
         folder_name = request.form['folder']
         file_name = request.form['fileName']
-        # print(docker_file)
 
         # file 작성부분
         f = open(
@@ -39,7 +38,14 @@ def upload_file():
 def apply():
     # 테스트 해보는중
     # 1. os 모듈사용
-    os.system("mkdir my_working")
+    #os.system("mkdir my_working")
+
+    if request.method == 'POST':
+        file = request.form['file']
+        fileName = request.form['fileName']
+        fileType = request.form['type']
+        os.system("echo %s" % fileType)
+        os.system("echo %s" % fileName)
 
     # 2. subprocess 모듈사용
     # subprocess.call('echo hi, Worker', shell=True)

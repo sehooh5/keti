@@ -17,10 +17,12 @@
 
             function processFile(file) {
                 var reader = new FileReader();
-                reader.onload = function (e) {
-                    //이 부분을 고쳐주니 띄어쓰기가 적용되었다
+                reader.onload = function (e) {     
                     var textArea = document.getElementById("output");
+                    var fileName = document.getElementById("fileName");
+
                     textArea.value = e.target.result;
+                    fileName.value = file.name;
                 };
                 reader.readAsText(file, "utf-8");
             }
@@ -32,11 +34,16 @@
         <form action = "http://localhost:5000/apply" method="POST"
         enctype="multipart/form-data">
 
-            <p>File Name : <input type="text" name="fileName" value=""></p>
+            <p>Type : 
+                <input type="radio" name="type" value="dockerfile" checked> Dockerfile 
+                <input type="radio" name="type" value="deployment" > deployment
+            </p>
+
+            <p>File Name : <input type="text" name="fileName" id="fileName"></p>
 
             <p>Contents :<pre></pre></p>
             
-            <p><textarea cols="80" rows="35" name="docker" id="output"></textarea></p>
+            <p><textarea cols="80" rows="35" name="file" id="output"></textarea></p>
             
             <p><input type="submit" value="apply"/></p>
         </form>
