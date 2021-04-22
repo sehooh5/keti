@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from importlib import import_module
-import os
 from flask import Flask, render_template, Response, request
+import os
+import subprocess
 
 app = Flask(__name__)
 
@@ -13,15 +14,15 @@ def select():
 #!/usr/bin/env python
 
 
-@app.route('/writeDocker')
-def write_docker():
+@app.route('/writeFile')
+def write_file():
     return render_template('write_doc.html')
 
 
-@app.route('/saveDocker', methods=['GET', 'POST'])
+@app.route('/saveFile', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        docker_file = request.form['docker']
+        file = request.form['file']
         folder_name = request.form['folder']
         file_name = request.form['fileName']
         # print(docker_file)
@@ -29,8 +30,20 @@ def upload_file():
         # file 작성부분
         f = open(
             f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{file_name}', 'w')
-        f.write(docker_file)
+        f.write(file)
         f.close()
+    return render_template('apply_doc.html')
+
+
+@app.route('/apply', methods=['GET', 'POST'])
+def apply():
+    # 테스트 해보는중
+    # 1. os 모듈사용
+    os.system("mkdir my_working")
+
+    # 2. subprocess 모듈사용
+    # subprocess.call('echo hi, Worker', shell=True)
+
     return render_template('apply_doc.html')
 
 

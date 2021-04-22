@@ -56,7 +56,7 @@
         <h2>Write files</h2>
         <hr>
         <button onclick="openTextFile()">Open</button>
-        <form action = "http://localhost:5000/saveDocker" method="POST"
+        <form action = "http://localhost:5000/saveFile" method="POST"
         enctype="multipart/form-data">
             <p>Folder : 
                 <input type="radio" name="folder" value="manager" checked> manager 
@@ -71,7 +71,7 @@
             <p>File Name : <input type="text" name="fileName" value=""></p>
 
             <p>Contents :<pre></pre></p>
-            <p><textarea cols="80" rows="35" name="docker" id="output"></textarea></p>
+            <p><textarea cols="80" rows="35" name="file" id="output"></textarea></p>
             
             <p><input type="submit" value="save"/></p>
         </form>
