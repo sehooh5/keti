@@ -43,9 +43,7 @@ def apply():
     if request.method == 'POST':
         file = request.form['file']
         fileName = request.form['fileName']
-        #fileType = request.form['type']
-#        fType = request.
-        #os.system("echo %s" % fileType)
+
         os.system("echo %s" % fileName)
 
     # 2. subprocess 모듈사용
@@ -61,7 +59,7 @@ def build():
         file = request.form['file']
         fileName = request.form['fileName']
         os.system("echo %s" % fileName)
-
+        print("build")
     return render_template('function_test.html')
 
 

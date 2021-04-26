@@ -285,6 +285,8 @@
 #### 0426
 
 - apply 기능 되는지 확인하고 
+  - ~~apply, build, push 기능의 url 을 전부 다르게 했는데 아마 합쳐서 1개의 url 사용하고 submit tag의 name이나 value 로 구분해서 function 을 다르게 해야할듯~~
+  - apply, build, push 기능은 자바스크립트 function 주가해서 **구현완료**
 - k8s 서버에서 작동 되는지도 확인
 - 확인 되면 카메라까지 연결하고 기존 작업 작동되는지 확인
 - 전부 확인 되면, 1개 화면에 모든 기능 합치고 
