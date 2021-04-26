@@ -253,18 +253,39 @@
 #### 0422
 
 - 오픈 기능 파일명 불러오는거는 하지말고 일단 **apply 기능 완성하기**
+
   - 오픈 시 파일명 불러오기 해야해서 다시 할것 !
+
   - apply 기능은 os.system 명령어 실행 가능한 것은 확인했고, dockerfile 이미지 만들기 되는지 확인(서버컴에서)
-  - 만들어야 하는 기능
+
+  - 만들어야 하는 기능 (현재 **주요 기능** 버튼 생기고 없어지는거 완성)
+
     - Docker : 
-      - build
-      - push (push하려면 docker login 해야함)
+
+      - **build**
+      - **push** (push하려면 docker login 해야함)
       - 추가 : images(이미지 확인), run(해당 컨테이너 실행)
+
     - deployment : 
-      - apply
+
+      - **apply**
+
     - kubectl : 
+
       - kubectl get pods
       - kubectl get deployment
       - kubectl get svc
+
+      
+
 - **같은 화면에서 컨트롤(기존기능), 도커 및 deployment 파일 작성, apply 기능 모두 작동하게 만들기**
 
+
+
+#### 0426
+
+- apply 기능 되는지 확인하고 
+- k8s 서버에서 작동 되는지도 확인
+- 확인 되면 카메라까지 연결하고 기존 작업 작동되는지 확인
+- 전부 확인 되면, 1개 화면에 모든 기능 합치고 
+- CSS 작업

@@ -43,14 +43,37 @@ def apply():
     if request.method == 'POST':
         file = request.form['file']
         fileName = request.form['fileName']
-        fileType = request.form['type']
-        os.system("echo %s" % fileType)
+        #fileType = request.form['type']
+#        fType = request.
+        #os.system("echo %s" % fileType)
         os.system("echo %s" % fileName)
 
     # 2. subprocess 모듈사용
     # subprocess.call('echo hi, Worker', shell=True)
 
-    return render_template('apply_doc.html')
+    return render_template('function_test.html')
+
+
+@app.route('/build', methods=['GET', 'POST'])
+def build():
+
+    if request.method == 'POST':
+        file = request.form['file']
+        fileName = request.form['fileName']
+        os.system("echo %s" % fileName)
+
+    return render_template('function_test.html')
+
+
+@app.route('/push', methods=['GET', 'POST'])
+def push():
+
+    if request.method == 'POST':
+        file = request.form['file']
+        fileName = request.form['fileName']
+        os.system("echo %s" % fileName)
+
+    return render_template('function_test.html')
 
 
 if __name__ == '__main__':

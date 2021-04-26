@@ -26,7 +26,20 @@
                 };
                 reader.readAsText(file, "utf-8");
             }
+            
+            function toggleFuction(file){
+                const docker_div = document.getElementById("docker_function");
+                const k8s_div = document.getElementById("k8s_function");
 
+                console.log(file)
+                if(file == 'docker'){
+                    docker_div.style.display='block';
+                    k8s_div.style.display='none';
+                }else if(file == 'deployment'){
+                    docker_div.style.display='none';
+                    k8s_div.style.display='block';
+                };
+            }
         </script>
         <h2>Apply files</h2>
         <hr>
@@ -35,8 +48,8 @@
         enctype="multipart/form-data">
 
             <p>Type : 
-                <input type="radio" name="type" value="dockerfile" checked> Dockerfile 
-                <input type="radio" name="type" value="deployment" > deployment
+                <input type="button" name="type" id="docker_type" value="dockerfile" onclick="toggleFuction('docker')">
+                <input type="button" name="type" id="deployment_type" value="deployment" onclick="toggleFuction('deployment')">
             </p>
 
             <p>File Name : <input type="text" name="fileName" id="fileName"></p>
@@ -45,7 +58,15 @@
             
             <p><textarea cols="80" rows="35" name="file" id="output"></textarea></p>
             
-            <p><input type="submit" value="apply"/></p>
+            <div id="docker_function" style="display:none;">
+                <input type="submit" class="func" name="build" value="build" />
+                <input type="submit" class="func" name="push" value="push" />
+            </div>
+            
+            <div id="k8s_function" style="display:none;">
+                <input type="submit" class="func" name="apply" value="apply"/>
+            </div>
+
         </form>
 
     </body>
