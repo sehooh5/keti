@@ -54,12 +54,16 @@ def apply():
 
 @app.route('/build', methods=['GET', 'POST'])
 def build():
-
+    print("@@@ docker build start @@@")
     if request.method == 'POST':
-        file = request.form['file']
-        fileName = request.form['fileName']
-        os.system("echo %s" % fileName)
-        print("build")
+        folder_name = request.form['folder']
+        file_name = request.form['fileName']
+        path = os.getcwd().replace("manager", f'{folder_name}/')
+        print(f"@@@ docker path = {path} @@@")
+        print(f"docker build -f {file_name} -t sehooh5/build_test:latest ")
+        os.system(
+            f"docker build -f {file_name} -t sehooh5/build_test:latest {path}")
+        print("@@@ building success!! @@@")
     return render_template('function_test.html')
 
 
