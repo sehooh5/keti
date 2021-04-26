@@ -27,8 +27,8 @@ def upload_file():
         file_name = request.form['fileName']
 
         # file 작성부분
-        f = open(
-            f'C:/Users/KETI/Desktop/keti/Project1-1/REST API/{folder_name}/{file_name}', 'w')
+        f = open(os.getcwd().replace(
+            "manager", f'{folder_name}/{file_name}'), 'w')
         f.write(file)
         f.close()
     return render_template('apply_doc.html')
