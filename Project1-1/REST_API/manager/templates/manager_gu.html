@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SELECT</title>
+  </head>
+  <body>
+    <h1>Camera Manager</h1>
+    <hr />
+    <p>Worker 1</p>
+    <form
+      action="http://0.0.0.0:5001"
+      id="worker1"
+      method="POST"
+      target="_tparen\"
+    >
+      <button type="submit" formmethod="POST" name="cam_no" value="cam1">
+        CAM 1
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="cam2">
+        CAM 2
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="stop">
+        STOP
+      </button>
+      <input type="hidden" name="worker_no" value="Worker 1" />
+    </form>
+
+    <br /><br />
+
+    <p>Worker 2</p>
+    <form
+      action="http://0.0.0.0:5002"
+      id="worker2"
+      method="POST"
+      target="_top\"
+    >
+      <button type="submit" formmethod="POST" name="cam_no" value="cam1">
+        CAM 1
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="cam2">
+        CAM 2
+      </button>
+      <button type="submit" formmethod="POST" name="cam_no" value="stop">
+        STOP
+      </button>
+      <input type="hidden" name="worker_no" value="Worker 2" />
+    </form>
+  </body>
+</html>
