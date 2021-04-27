@@ -50,10 +50,11 @@
         </script>
         <h2>Apply files</h2>
         <hr>
+
         <button onclick="openTextFile()">Open</button>
         <form action = "" method="POST"
         enctype="multipart/form-data" id="funcURL">
-
+            <input type="submit" class="func" name="signin" value="signin" onclick="funcURL('signin')">
             <p>Folder : 
                 <input type="radio" name="folder" value="manager" checked> manager 
                 <input type="radio" name="folder" value="viewer" > viewer
@@ -64,6 +65,7 @@
                 <input type="button" name="type" id="deployment_type" value="deployment" onclick="toggleFuction('deployment')">
             </p>
 
+            <p>Docker Name : <input type="text" name="dockerName" id="dockerName"></p>
             <p>File Name : <input type="text" name="fileName" id="fileName"></p>
 
             <p>Contents :<pre></pre></p>

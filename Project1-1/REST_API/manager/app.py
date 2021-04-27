@@ -38,7 +38,7 @@ def upload_file():
 def apply():
     # 테스트 해보는중
     # 1. os 모듈사용
-    #os.system("mkdir my_working")
+    # os.system("mkdir my_working")
 
     if request.method == 'POST':
         file = request.form['file']
@@ -52,30 +52,71 @@ def apply():
     return render_template('function_test.html')
 
 
+@app.route('/signin', methods=['POST'])
+def signin():
+
+    pass
+
+    return render_template('docker_login.html')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    docker_id = request.form['docker_id']
+    docker_pwd = request.form['docker_pwd']
+    os.system(f"docker login -u {docker_id} -p {docker_pwd}")
+
+    return render_template('apply_doc.html')
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+
+    os.system("docker logout")
+
+    return render_template('apply_doc.html')
+
+
 @app.route('/build', methods=['GET', 'POST'])
 def build():
-    print("@@@ docker build start @@@")
+    print("========= docker build start =========")
+
     if request.method == 'POST':
         folder_name = request.form['folder']
         file_name = request.form['fileName']
+        docker_name = request.form['dockerName']
         path = os.getcwd().replace("manager", f'{folder_name}/')
-        print(
-            f"docker build -f {file_name} -t sehooh5/build_test:latest {path}")
-        os.system(
-            f"docker build -f {file_name} -t sehooh5/build_test:latest {path}")
-        print("@@@ building success!! @@@")
-    return render_template('function_test.html')
+
+        if folder_name == 'manager':
+            os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+            os.system(
+                f"docker build -f {file_name} -t sehooh5/{docker_name}:latest {path}")
+        else:
+            os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
+            os.system(
+                f"docker build -f {file_name} -t sehooh5/{docker_name}:latest {path}")
+        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+
+    print("========= docker build success =========")
+    return render_template('apply_doc.html')
 
 
 @app.route('/push', methods=['GET', 'POST'])
 def push():
 
-    if request.method == 'POST':
-        file = request.form['file']
-        fileName = request.form['fileName']
-        os.system("ls")
+    folder_name = request.form['folder']
+    docker_name = request.form['dockerName']
 
-    return render_template('function_test.html')
+    if folder_name == 'manager':
+        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+        os.system(f"docker push sehooh5/{docker_name}:latest")
+    else:
+        os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
+        os.system(f"docker push sehooh5/{docker_name}:latest")
+    os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+
+    return render_template('apply_doc.html')
 
 
 if __name__ == '__main__':

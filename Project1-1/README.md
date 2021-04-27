@@ -292,9 +292,40 @@
 - k8s 서버에서 작동 되는지도 확인 **app_ubuntu.py 에서 다시 코드 바꿔서 진행중(패스경로때문)**
   - 윈도우에서 안됐던 스크립트 명령도 실행 됨(ls 사용되는지 확인해봤음)
   - 추후에 3개 function 에 대한 자세한 메소드 완성하기
-    - **build 진행중 ###### 여기부터~!!!!!!!!!!!!!!!!**
-      - unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/keti0/keti/Project1-1/REST_API/manager/Dockerfile1: no such file or directory
-      - **이 에러 해결하기**
-- 확인 되면 카메라까지 연결하고 기존 작업 작동되는지 확인
+    - ~~build 진행중 ###### 여기부터~!!!!!!!!!!!!!!!!~~
+      - ~~unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/keti0/keti/Project1-1/REST_API/manager/Dockerfile1: no such file or directory~~
+      - ~~이 에러 해결하기~~ 해결 완료
+      - **path 가 os.system() 으로 실행하면 해당 디렉토리 내에서만 실행되는데, os.chdir() 로 디렉토리를 변경해서 실행시킬 수 있다.**
+- 확인 되면 카메라까지 연결하고 기존 작업 작동되는지 확인 **박사님 계실때 확인 후 연결 다시하기**
 - 전부 확인 되면, 1개 화면에 모든 기능 합치고 
 - CSS 작업
+
+
+
+#### 0427
+
+- ~~build 진행중 ###### 여기부터~!!!!!!!!!!!!!!!!~~
+
+  - ~~unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/keti0/keti/Project1-1/REST_API/manager/Dockerfile1: no such file or directory~~
+  - ~~이 에러 해결하기~~ 해결 완료
+  - **path 가 os.system() 으로 실행하면 해당 디렉토리 내에서만 실행되는데, os.chdir() 로 디렉토리를 변경해서 실행시킬 수 있다.**
+
+- ~~**push 진행중**~~
+
+  - push 이전에 login, logout 기능 신설(도커 로그인 해야 push  가능)
+  - 로그인은 새 창에서 해서 다시 apply files화면으로 넘어옴
+  - push 되는 것까지 확인했음!
+
+- **apply 부터 진행하면 됩니다!!!**
+
+  
+
+#### 0428
+
+- **apply 부터 진행하면 됩니다!!!**
+- 확인 되면 카메라까지 연결하고 기존 작업 작동되는지 확인 **박사님 계실때 확인 후 연결 다시하기**
+- 전부 확인 되면, 1개 화면에 모든 기능 합치고 
+- CSS 작업
+
+
+
