@@ -11,6 +11,47 @@
 
 
 
+### Process
+
+---
+
+#### 1. Docker Desktop 설치
+
+
+
+#### 2. Ubuntu 설치
+
+- cmd 창에서 Docker 설치되엇는지 -v 확인 후 
+- apt-get ubuntu 실행
+  - 사실 그냥 진행되는데 git bash, power shell, cmd 창에서 docker 사용 가능
+
+
+
+#### 3. 3D_Object_detection_1차변환
+
+- zip 파일 둘다 풀고 진행
+  - 1번에는 `drive 데이터`
+  - 2 번에는 `main.py`
+
+
+
+#### 4. 3D_Object_detection_2차변환
+
+- conda 실행시에는 작업자 권한으로 실행할 것!
+
+- 아래 명령어로 설정
+  - conda env create --file environment.yaml
+                                             (environment.yaml에 명시된 가상환경을 만듭니다.)
+  - conda activate NIA_test                                   (NIA_test 가상환경을 실행합니다.)
+  - pip install --user opencv-python                           (명시된 라이브러리를 설치합니다.)
+  - pip install --user open3d
+  - pip install --user pypcd
+  - pip install --user natsort
+- python 파일 data 위치 폴더 생성 및 변경 후 위치 설정 제대로 해줌
+- **이 다음부터 진행하면 됨**
+
+
+
 ### Spec
 
 ---
@@ -30,7 +71,9 @@
 
 
 
+E:\TTA_01\docker_images
 
+scrin/dev-spconv
 
 
 
