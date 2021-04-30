@@ -54,7 +54,13 @@
 
 #### 5. OpenPCDet 진행
 
-- 
+- 로컬환경에 옴긴 후 도커라이징할 것
+
+- ```
+  $ docker run -e NVIDIA_VISIBLE_DEVICES=0,1,2,3 -i -t -d --shm-size=64gb --name pcdet-test5 --mount type=bind,source=C:\Windows,target=/workspace scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779
+  ```
+
+  - `source=` 설정만 제대로해주면 될듯
 
 
 
@@ -104,6 +110,7 @@ scrin/dev-spconv
   - test 폴더 환경구성 완료 
   - 테스트 진행햇는데 데이터가 없어서 실패
 - 첫번째 과제 - 컴퓨터 바꿔서 진행
+  - 환경설정은 완료했고 폴더를 로컬로 옴긴 후 실행(다음주)
 
 
 
