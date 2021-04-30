@@ -11,9 +11,7 @@
 
 
 
-### Process
-
----
+## Process
 
 #### 1. Docker Desktop 설치
 
@@ -52,9 +50,7 @@
 
 
 
-### Spec
-
----
+## Spec
 
 
 
@@ -77,9 +73,7 @@ scrin/dev-spconv
 
 
 
-### Daily
-
----
+## Daily
 
 #### 0428
 
@@ -91,6 +85,13 @@ scrin/dev-spconv
 
 - 해당 테스트를 진행할 수 있는 Docke Image 를 Window 환경에 build 하기
   - 폴더 내 `pcdet-image.tar` 파일 사용
+
+
+
+#### 0430
+
+- 두번째 주신 과제
+  - test 폴더 환경구성 완료 
 
 
 
