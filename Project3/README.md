@@ -46,7 +46,17 @@
   - pip install --user pypcd
   - pip install --user natsort
 - python 파일 data 위치 폴더 생성 및 변경 후 위치 설정 제대로 해줌
-- **이 다음부터 진행하면 됨**
+- `python NIA_data_convert.py` 실행
+  - 폴더들은 생성되는데 제대로 된 이미지들이 없어서 데이터들은 텅 빈상태 아래 에러
+  - ![image](https://user-images.githubusercontent.com/58541635/116641226-3fcd8c00-a9a7-11eb-9d0a-7406512d4223.png)
+
+
+
+#### 5. OpenPCDet 진행
+
+- 
+
+
 
 
 
@@ -92,6 +102,8 @@ scrin/dev-spconv
 
 - 두번째 주신 과제
   - test 폴더 환경구성 완료 
+  - 테스트 진행햇는데 데이터가 없어서 실패
+- 첫번째 과제 - 컴퓨터 바꿔서 진행
 
 
 
