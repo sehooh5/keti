@@ -117,9 +117,31 @@ scrin/dev-spconv
 #### 0503
 
 - 오늘 진행 순서
+
   1. 박사님 컴퓨터에서 새로 들어온 데이터 테스트 컴퓨터로 옮기기(혹은 그 자리에서 테스트?)
+
   2. 옮기고 변환툴 사용해서 데이터 변환시키기(두번째 주신 과제)
+
   3. 변환된 데이터를 사용해서 첫번째 과제 진행
+
      - 데이터는 새로 받은 데이터
+
      - 컨테이너 생성 시 옮겨놓은 워킹 디렉토리 옮겨서 사용
+
+     - 명령어 변경(`--runtime=nvidia` 안됨)
+
+       ```
+       docker run -e NVIDIA_VISIBLE_DEVICES=0,1,2,3 -i -t -d --shm-size=64gb --name pcdet-test5 --mount type=bind,source=C:\Windows,target=/workspace scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779
+       ```
+
+       
+
+- 현재 내 컴퓨터에서 다시 데이터 생성하는 작업 진행중
+
+  - 테스트환경은 완성 되어있고
+  - 테스트 돌리고 나오는 데이터들 (calib, image_2, label_2, velodyne 의 폴더) 테스팅 컴퓨터로 옮겨서 사용
+    - 데이터 사이즈가 클거같은데.. 일단 테스트 돌려보기
+    - 네개의 폴더로 데이터들 잘 생성되는중
+      - 1분에 4개 데이터 처리중(총 728개 182분 예정)
+  - `NIA_test_original` 폴더에 데이터들 잇으니 이 데이터를로 변환 1부터 시작하면 됨
 
