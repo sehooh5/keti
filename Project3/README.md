@@ -41,7 +41,7 @@
   - conda env create --file environment.yaml
                                              (environment.yaml에 명시된 가상환경을 만듭니다.)
   - conda activate NIA_test                                   (NIA_test 가상환경을 실행합니다.)
-  - pip install --user opencv-python                           (명시된 라이브러리를 설치합니다.)
+  - pip insta ll --user opencv-python                           (명시된 라이브러리를 설치합니다.)
   - pip install --user open3d
   - pip install --user pypcd
   - pip install --user natsort
@@ -113,4 +113,13 @@ scrin/dev-spconv
   - 환경설정은 완료했고 폴더를 로컬로 옴긴 후 실행(다음주)
 
 
+
+#### 0503
+
+- 오늘 진행 순서
+  1. 박사님 컴퓨터에서 새로 들어온 데이터 테스트 컴퓨터로 옮기기(혹은 그 자리에서 테스트?)
+  2. 옮기고 변환툴 사용해서 데이터 변환시키기(두번째 주신 과제)
+  3. 변환된 데이터를 사용해서 첫번째 과제 진행
+     - 데이터는 새로 받은 데이터
+     - 컨테이너 생성 시 옮겨놓은 워킹 디렉토리 옮겨서 사용
 
