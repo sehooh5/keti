@@ -64,6 +64,18 @@
 
 
 
+#### 6. 도커 run 명령어
+
+- ```
+  docker run -e NVIDIA_VISIBLE_DEVICES=0 -i -t -d --runtime=nvidia --shm-size=64gb --name pcdet-test --mount type=bind,source=/mnt/usb/TTA_01/docker_images/OpenPCDet,target=/workspace/OpenPCDet scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779
+  ```
+
+- ```
+  nvidia-docker run -e NVIDIA_VISIBLE_DEVICES=0 -i -t -d --shm-size=64gb --name nia-pcdet-test --mount type=bind,source=/ndata/sanghun,target=/workspace scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779
+  ```
+
+
+
 
 
 ## Spec
@@ -162,3 +174,42 @@ scrin/dev-spconv
 
   - 내컴퓨터 크롬 마지막 1,2번 블로그 보면서 해결해보기
 
+- 한글파일 명령어 모음
+
+  - ```
+    o 알고리즘 학습 방법
+    
+    - 본 과제에서 제안된 모델을 학습하기 위해서는 Docker Hub나 AIHub에서 Docker Image를 받아 설치할 환경과, 학습된 모델, Kitti format으로 변형한 데이터 셋의 다운로드가 필요하다.
+    
+    - [docker pull scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779] 을 통해 spconv가 설치 완료된 docker 이미지를 받거나, AIHub의 [139.특수환경 자율주행 3D/03.AI모델/1.라이다 기반 주변 차량 인식 기술/3. 도커 이미지/pcdet-image.tar]를 받아 spconv가 설치 완료된 docker 이미지를 받는다.
+    
+    - 받은 도커 이미지를 컨테이너로 실행 시킨다. 사용자의 GPU할당 방식과 서버 storage 방식에 따라 명령어는 달라질 수 있다. 예시 명령어는 다음과 같다.
+    [docker run -e NVIDIA_VISIBLE_DEVICES=0,1,2,3 -i -t -d --runtime=nvidia --shm-size=64gb --name nia-pcdet-test --mount type=bind,source=/ndata/sanghun,target=/workspace scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779]
+    
+    - [docker attach pcdet] 또는 [docker exec -it pcdet /bin/bash]으로 컨테이너에 접속한다.
+    
+    - [139.특수환경 자율주행 3D/03.AI모델/1. 라이다 기반주변 차량 인식 기술/3. 도커 이미지/OpenPCDet.zip] 서 벤치마크 코드와 학습 모델이 포함된 알집 파일을 다운받아 압축 해제한다.
+    
+    - [139.특수환경 자율주행 3D/03.AI모델/4. 전체 데이터셋/Object_Detection_Dataset.zip]의 Dataset을 다운 받아 [OpenPCDet/data/kitti/training/]에 다음과 같은 형태가 되도록 압축을 해제해 위치시킨다
+    
+    - [OpenPCDet/]로 이동해 [pip install -r requirements.txt]를 실행한다.
+    
+    - [python setup.py develop]를 실행한다.
+    
+     
+    
+    
+    
+    
+    
+    - Test
+    [OpenPCDet/tools/]로 이동하여 각 모델에 대해 아래의 명령어를 실행시킨다.
+    python test.py --cfg_file cfgs/kitti_models/pointpillar.yaml --batch_size 1 --ckpt pointpillar_nia.pth —save_to_file
+    python test.py --cfg_file cfgs/kitti_models/pointrcnn.yaml --batch_size 1 --ckpt pointrcnn_nia.pth —save_to_file
+    python test.py --cfg_file cfgs/kitti_models/pv_rcnn.yaml --batch_size 1 --ckpt pv_rcnn_nia.pth —save_to_file
+    python test.py --cfg_file cfgs/kitti_models/second.yaml --batch_size 1 --ckpt second_nia.pth —save_to_file
+    
+    - 테스트 결과는 [OpenPCDet/output/kitti_models/{모델명}/default/eval/epoch_no_number/val/default]에 위치한다. 테스트 결과의 예시는 다음과 같다.
+    ```
+
+  - 
