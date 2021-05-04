@@ -174,6 +174,10 @@ scrin/dev-spconv
 
   - 내컴퓨터 크롬 마지막 1,2번 블로그 보면서 해결해보기
 
+- [nvidia-docker 설치(공식문서 url)](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
+  - docker 설치도 중간에 url 있음
+
 - 한글파일 명령어 모음
 
   - ```
