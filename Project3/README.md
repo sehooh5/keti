@@ -216,4 +216,10 @@ scrin/dev-spconv
     - 테스트 결과는 [OpenPCDet/output/kitti_models/{모델명}/default/eval/epoch_no_number/val/default]에 위치한다. 테스트 결과의 예시는 다음과 같다.
     ```
 
-  - 
+
+
+
+#### 0505
+
+- 광운대 서버에서 테스트 완료 
+
