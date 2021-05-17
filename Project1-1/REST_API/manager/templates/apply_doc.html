@@ -30,14 +30,21 @@
             function toggleFuction(file){
                 const docker_div = document.getElementById("docker_function");
                 const k8s_div = document.getElementById("k8s_function");
+                const docker_name = document.getElementById("docker_name");
+                const k8s_name = document.getElementById("k8s_name");
 
                 //console.log(file)
                 if(file == 'docker'){
                     docker_div.style.display='block';
                     k8s_div.style.display='none';
+                    docker_name.style.display='block';
+                    k8s_name.style.display='none';
+                    
                 }else if(file == 'deployment'){
                     docker_div.style.display='none';
                     k8s_div.style.display='block';
+                    docker_name.style.display='none';
+                    k8s_name.style.display='block';
                 };
             }
 
@@ -65,7 +72,13 @@
                 <input type="button" name="type" id="deployment_type" value="deployment" onclick="toggleFuction('deployment')">
             </p>
 
+            <div id="docker_name" style="display:none;">
             <p>Docker Name : <input type="text" name="dockerName" id="dockerName"></p>
+            </div>
+            <div id="k8s_name" style="display:none;">
+            <p>Deployment Name : <input type="text" name="deployName" id="deployName"></p>
+            </div>
+
             <p>File Name : <input type="text" name="fileName" id="fileName"></p>
 
             <p>Contents :<pre></pre></p>

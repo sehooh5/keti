@@ -36,9 +36,6 @@ def upload_file():
 
 @app.route('/apply', methods=['GET', 'POST'])
 def apply():
-    # 테스트 해보는중
-    # 1. os 모듈사용
-    # os.system("mkdir my_working")
 
     if request.method == 'POST':
         file = request.form['file']
@@ -46,10 +43,7 @@ def apply():
 
         os.system("echo %s" % fileName)
 
-    # 2. subprocess 모듈사용
-    # subprocess.call('echo hi, Worker', shell=True)
-
-    return render_template('function_test.html')
+    return render_template('apply_doc.html')
 
 
 @app.route('/signin', methods=['POST'])
