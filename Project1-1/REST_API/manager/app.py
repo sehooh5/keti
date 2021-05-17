@@ -38,15 +38,22 @@ def upload_file():
 def apply():
 
     if request.method == 'POST':
-        file = request.form['file']
-        fileName = request.form['fileName']
+        file_name = request.form['fileName']
+        folder_name = request.form['folder']
 
-        os.system("echo %s" % fileName)
+        if folder_name == 'manager':
+            os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+            os.system(f"kubectl apply -f {file_name}")
+        else:
+            os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
+            os.system(f"kubectl apply -f {file_name}")
+        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
+        os.system("echo %s" % file_name)
 
     return render_template('apply_doc.html')
 
 
-@app.route('/signin', methods=['POST'])
+@ app.route('/signin', methods=['POST'])
 def signin():
 
     pass
@@ -54,7 +61,7 @@ def signin():
     return render_template('docker_login.html')
 
 
-@app.route('/login', methods=['POST'])
+@ app.route('/login', methods=['POST'])
 def login():
 
     docker_id = request.form['docker_id']
@@ -64,7 +71,7 @@ def login():
     return render_template('apply_doc.html')
 
 
-@app.route('/logout', methods=['POST'])
+@ app.route('/logout', methods=['POST'])
 def logout():
 
     os.system("docker logout")
@@ -72,7 +79,7 @@ def logout():
     return render_template('apply_doc.html')
 
 
-@app.route('/build', methods=['GET', 'POST'])
+@ app.route('/build', methods=['GET', 'POST'])
 def build():
     print("========= docker build start =========")
 
@@ -80,7 +87,6 @@ def build():
         folder_name = request.form['folder']
         file_name = request.form['fileName']
         docker_name = request.form['dockerName']
-        path = os.getcwd().replace("manager", f'{folder_name}/')
 
         if folder_name == 'manager':
             os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
@@ -96,7 +102,7 @@ def build():
     return render_template('apply_doc.html')
 
 
-@app.route('/push', methods=['GET', 'POST'])
+@ app.route('/push', methods=['GET', 'POST'])
 def push():
 
     folder_name = request.form['folder']
