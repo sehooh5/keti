@@ -74,6 +74,10 @@
   nvidia-docker run -e NVIDIA_VISIBLE_DEVICES=0 -i -t -d --shm-size=64gb --name nia-pcdet-test --mount type=bind,source=/ndata/sanghun,target=/workspace scrin/dev-spconv:f22dd9aee04e2fe8a9fe35866e52620d8d8b3779
   ```
 
+#### 
+
+#### 7. 전체 과정은 `Full_test` 에 저장되어있음
+
 
 
 
@@ -94,10 +98,6 @@
      - calibration, annotation : .txt
 
 
-
-E:\TTA_01\docker_images
-
-scrin/dev-spconv
 
 
 
