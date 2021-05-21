@@ -15,6 +15,8 @@
 ### Project1
 
 - kubernetes 활용
+  - Docker
+  - Prometheus, Grafana
 - CCTV 제어
 
 
