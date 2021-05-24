@@ -2,6 +2,7 @@
 
 - PyQt5 를 시작하는 과정
 - 기본적인 과정부터 프로젝트 적용까지
+- [참고 사이트](https://wikidocs.net/21920)
 - 개발 환경 : 
   - Windows 10 pro
   - Python3
@@ -17,9 +18,15 @@
 - 필요 설치 : 
   - PyCharm : 파이썬 개발에 가장 널리 사용되는 통합 개발 환경(IDE) - 나는 VsCode
   - Anaconda
--  
 
 
+
+### tutorial
+
+---
+
+- 01_open_window
+- 02_add_favicon
 
 
 
