@@ -21,12 +21,34 @@
 
 
 
+
+
 ### tutorial
 
 ---
 
-- 01_open_window
-- 02_add_favicon
+- [01_open_window](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/01_open_window.md)
+- [02_add_favicon](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/02_add_favicon.md)
+- [03_close_window](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/03_close_window.md)
+- [04_toggle_tooltip](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/04_toggle_tooltip.md)
+- [05_statusBar](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/05_statusBar.md)
+- [06_menuBar](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/06_menuBar.md)
+- [07_toolBar](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/07_toolBar.md)
+- [08_center_window](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/08_center_window.md)
+- [09_date_time](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/09_date_time.md)
+- [10_set_style](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/tutorial/10_set_style.md)
+
+
+
+### layout
+
+---
+
+- [01_absolute_positioning](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/layout/01_absolute_positioning.md)
+
+
+
+
 
 
 
@@ -39,6 +61,7 @@
 #### 0524
 
 - PyQt5 시작
+- 
 
 
 
@@ -58,3 +81,4 @@
 
 - 25일 진행사항 계속 진행
 - 튜토리얼 또한 진행
+  - 튜토리얼 10 완료
