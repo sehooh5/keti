@@ -45,8 +45,8 @@
 ---
 
 - [01_absolute_positioning](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/layout/01_absolute_positioning.md)
-
-
+- [02_box_layout](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/layout/02_box_layout.md)
+- [03_grid_layout](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/layout/03_grid_layout.md)
 
 
 
