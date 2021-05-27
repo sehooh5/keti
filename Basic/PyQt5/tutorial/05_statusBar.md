@@ -49,3 +49,5 @@ if __name__ == '__main__':
     - 텍스트가 사라지게 하고 싶으면 : 
       - `clearMessage()` 메서드를 사용
       - `showMessage()` 메서드에 텍스트가 표시되는 시간을 설정
+    - `currentMessage()`  : 현재 상태바에 표시되는 메세지 텍스트를 갖고 올 때
+    - QStatusBar 클래스는 상태바에 표시되는 메세지가 바뀔 때 마다 messageChanged() 시그널을 발생
