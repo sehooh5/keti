@@ -9,9 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def select():
-    """Video streaming home page."""
     return render_template('manager.html')
-#!/usr/bin/env python
 
 
 @app.route('/writeFile')
