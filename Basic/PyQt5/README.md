@@ -54,7 +54,8 @@
 
 ---
 
-- 
+- [01_QPushButton](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/01_QPushButton.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
 
 
 
