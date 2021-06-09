@@ -56,6 +56,25 @@
 
 - [01_QPushButton](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/01_QPushButton.md)
 - [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [03_QCheckBox](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/03_QCheckBox.md)
+- [04_QRadioButton](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/04_QRadioButton.md)
+- [05_QComboBox](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/05_QComboBox.md)
+- [06_QLineEdit](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/06_QLineEdit.md)
+- [07_QProgressBar](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/07_QProgressBar.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
+- [02_QLabel](https://github.com/sehooh5/keti/blob/master/Basic/PyQt5/widget/02_QLabel.md)
 
 
 
