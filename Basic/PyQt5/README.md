@@ -144,6 +144,6 @@
 
     - 탭1 - 스트리밍 및 기능
     - 탭2 - 모니터링 화면을 탭 안에 구현할 수 있는지 
-      - qwebview 와 qwebengineview 사용하는 방법으로 진행해보는중
+      - qwebengine 모듈 pip install 후 사용
 
     

@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, \
-    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton
+    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton, QLabel, QLineEdit, QGridLayout
+from PyQt5.QtCore import Qt
+
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QUrl
 
 
 class MainWindow(QMainWindow):
@@ -29,6 +33,10 @@ class MainWindow(QMainWindow):
         button4 = QPushButton('Docker Image push', self)
         button5 = QPushButton('Kubernetes Apply', self)
 
+        # 도커 이미지 이름
+        lbl = QLabel('Docker Image Name : ', self)
+        qle = QLineEdit()
+
         # 레이아웃 만들기
         vbox = QVBoxLayout()
         vbox.addStretch(1)
@@ -36,6 +44,8 @@ class MainWindow(QMainWindow):
         vbox.addStretch(1)
         vbox.addWidget(button2)
         vbox.addStretch(1)
+        vbox.addWidget(lbl)
+        vbox.addWidget(qle)
         vbox.addWidget(button3)
         vbox.addStretch(1)
         vbox.addWidget(button4)
@@ -43,30 +53,30 @@ class MainWindow(QMainWindow):
         vbox.addWidget(button5)
         vbox.addStretch(6)
 
+        # test
+        lbl2 = QLabel('Docker Image11: ', self)
+        lbl3 = QLabel('Docker Image22: ', self)
+
+        grid = QGridLayout()
+        grid.addWidget(lbl2, 0, 0)
+        grid.addWidget(lbl3, 2, 0)
+
         hbox = QHBoxLayout()
         hbox.addLayout(vbox)
-        hbox.addStretch(8)
+        hbox.addLayout(grid)
+        hbox.addStretch(5)
 
         # 위젯에 레이아웃 추가하기
         tab = QWidget()
         tab.setLayout(hbox)
         return tab
 
+    # 모니터링 탭
     def make_tab2(self):
-        # 버튼 객체 만들기
-        check1 = QCheckBox('체크버튼1', self)
-        check2 = QCheckBox('체크버튼2', self)
-        check3 = QCheckBox('체트버튼3', self)
-
-        # 레이아웃 만들기
-        vbox = QVBoxLayout()
-        vbox.addWidget(check1)
-        vbox.addWidget(check2)
-        vbox.addWidget(check3)
-
-        # 위젯에 레이아웃 추가하기
-        tab = QWidget()
-        tab.setLayout(vbox)
+        # 위젯에 grafana 레이아웃 추가하기
+        tab = QWebEngineView()
+        tab.setUrl(
+            QUrl("https://grafana.com/"))  # 추후에 필요한 그라파나 url 변경해주기
         return tab
 
 
