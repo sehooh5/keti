@@ -54,8 +54,8 @@ class MainWindow(QMainWindow):
         vbox.addStretch(6)
 
         # test
-        lbl2 = QLabel('Docker Image11: ', self)
-        lbl3 = QLabel('Docker Image22: ', self)
+        lbl2 = QLabel('Docker Image1: ', self)
+        lbl3 = QLabel('Docker Image2: ', self)
 
         grid = QGridLayout()
         grid.addWidget(lbl2, 0, 0)
