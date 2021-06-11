@@ -54,12 +54,12 @@ class MainWindow(QMainWindow):
         vbox.addStretch(6)
 
         # test
-        lbl2 = QLabel('Docker Image1: ', self)
-        lbl3 = QLabel('Docker Image2: ', self)
+        edge_lbl1 = QLabel('Worker Edge 1: ', self)
+        edge_lbl2 = QLabel('Worker Edge 2: ', self)
 
         grid = QGridLayout()
-        grid.addWidget(lbl2, 0, 0)
-        grid.addWidget(lbl3, 2, 0)
+        grid.addWidget(edge_lbl1, 0, 0)
+        grid.addWidget(edge_lbl2, 2, 0)
 
         hbox = QHBoxLayout()
         hbox.addLayout(vbox)
