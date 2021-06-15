@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, \
-    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton, QLabel, QLineEdit, QGridLayout
+    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton, QLabel, QLineEdit, QGridLayout, QFileDialog
 from PyQt5.QtCore import Qt
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -89,10 +89,18 @@ class MainWindow(QMainWindow):
     # 파일 오픈 기능
     def btnFile_clicked(self):
         os.system("echo File button clicked!!")
+        fname = QFileDialog.getOpenFileName(self, 'Open File', '',
+                                            'All File(*);; html File(*.html *.htm)')
+        if fname[0]:
+            f = open(fname[0], 'r', encoding='UTF8')
+            with f:
+                data = f.read()
+                os.environ['data'] = data
 
     # 도커 이미지 빌드 기능
     def btnBuild_clicked(self):
         os.system("echo Build button clicked!!")
+        print(os.environ['data'])
 
     # 도커 이미지 푸시 기능
     def btnPush_clicked(self):
