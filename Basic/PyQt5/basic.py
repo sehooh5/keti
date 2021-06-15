@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
 
+import os
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -28,10 +30,19 @@ class MainWindow(QMainWindow):
     def make_tab1(self):
         # 버튼 객체 만들기
         button1 = QPushButton('Login', self)
+        button1.clicked.connect(self.btnLogin_clicked)
+
         button2 = QPushButton('File', self)
+        button2.clicked.connect(self.btnFile_clicked)
+
         button3 = QPushButton('Docker Image Build', self)
+        button3.clicked.connect(self.btnBuild_clicked)
+
         button4 = QPushButton('Docker Image push', self)
+        button4.clicked.connect(self.btnPush_clicked)
+
         button5 = QPushButton('Kubernetes Apply', self)
+        button5.clicked.connect(self.btnApply_clicked)
 
         # 도커 이미지 이름
         lbl = QLabel('Docker Image Name : ', self)
@@ -70,6 +81,26 @@ class MainWindow(QMainWindow):
         tab = QWidget()
         tab.setLayout(hbox)
         return tab
+
+    # 도커 로그인 기능
+    def btnLogin_clicked(self):
+        os.system("echo Login button clicked!!")
+
+    # 파일 오픈 기능
+    def btnFile_clicked(self):
+        os.system("echo File button clicked!!")
+
+    # 도커 이미지 빌드 기능
+    def btnBuild_clicked(self):
+        os.system("echo Build button clicked!!")
+
+    # 도커 이미지 푸시 기능
+    def btnPush_clicked(self):
+        os.system("echo Push button clicked!!")
+
+    # deployment 배포 기능
+    def btnApply_clicked(self):
+        os.system("echo Apply button clicked!!")
 
     # 모니터링 탭
     def make_tab2(self):
