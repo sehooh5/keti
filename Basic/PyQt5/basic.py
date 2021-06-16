@@ -112,7 +112,6 @@ class MainWindow(QMainWindow):
 
         file_name = os.environ['fname']
         docker_name = os.environ['docker_name']
-        print(docker_name)
         os.chdir(os.environ['fpath'])
         os.system(
             f"docker build -f {file_name} -t sehooh5/{docker_name}:latest")
@@ -121,7 +120,13 @@ class MainWindow(QMainWindow):
     def btnPush_clicked(self):
         os.system("echo Push button clicked!!")
 
+        docker_name = os.environ['docker_name']
+        os.chdir(os.environ['fpath'])
+        os.system(
+            f"docker push sehooh5/{docker_name}:latest")
+
     # deployment 배포 기능
+
     def btnApply_clicked(self):
         os.system("echo Apply button clicked!!")
 
