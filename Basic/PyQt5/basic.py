@@ -46,7 +46,8 @@ class MainWindow(QMainWindow):
 
         # 도커 이미지 이름
         lbl = QLabel('Docker Image Name : ', self)
-        qle = QLineEdit()
+        qle = QLineEdit(self)
+        qle.textChanged[str].connect(self.onChanged)
 
         # 레이아웃 만들기
         vbox = QVBoxLayout()
@@ -82,6 +83,9 @@ class MainWindow(QMainWindow):
         tab.setLayout(hbox)
         return tab
 
+    def onChanged(self, text):
+        os.environ['docker_name'] = text
+
     # 도커 로그인 기능
     def btnLogin_clicked(self):
         os.system("echo Login button clicked!!")
@@ -92,15 +96,26 @@ class MainWindow(QMainWindow):
         fname = QFileDialog.getOpenFileName(self, 'Open File', '',
                                             'All File(*);; html File(*.html *.htm)')
         if fname[0]:
+            os.environ['fpath'] = os.path.split(fname[0])[0]
+            os.environ['fname'] = os.path.split(fname[0])[1]
+            print(os.environ['fname'])
+            print(os.environ['fpath'])
             f = open(fname[0], 'r', encoding='UTF8')
             with f:
                 data = f.read()
                 os.environ['data'] = data
 
     # 도커 이미지 빌드 기능
+
     def btnBuild_clicked(self):
         os.system("echo Build button clicked!!")
-        print(os.environ['data'])
+
+        file_name = os.environ['fname']
+        docker_name = os.environ['docker_name']
+        print(docker_name)
+        os.chdir(os.environ['fpath'])
+        os.system(
+            f"docker build -f {file_name} -t sehooh5/{docker_name}:latest")
 
     # 도커 이미지 푸시 기능
     def btnPush_clicked(self):
