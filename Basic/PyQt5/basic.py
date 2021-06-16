@@ -130,7 +130,13 @@ class MainWindow(QMainWindow):
     def btnApply_clicked(self):
         os.system("echo Apply button clicked!!")
 
+        file_name = os.environ['fname']
+        os.chdir(os.environ['fpath'])
+        os.system(
+            f"kubectl apply -f {file_name}")
+
     # 모니터링 탭
+
     def make_tab2(self):
         # 위젯에 grafana 레이아웃 추가하기
         tab = QWebEngineView()
