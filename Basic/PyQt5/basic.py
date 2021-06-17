@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, \
-    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton, QLabel, QLineEdit, QGridLayout, QFileDialog
+    QTabWidget, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox, QRadioButton, QLabel, QLineEdit, QGridLayout, QFileDialog, QDialog
 from PyQt5.QtCore import Qt
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -22,6 +22,9 @@ class MainWindow(QMainWindow):
         tabs.addTab(self.make_tab1(), 'Function')
         tabs.addTab(self.make_tab2(), 'Monitoring')
 
+        # QDialog 설정(로그인)
+        self.dialog = QDialog()
+
         # QMainWindow 추가
         self.setCentralWidget(tabs)
         self.resize(1500, 950)
@@ -31,6 +34,8 @@ class MainWindow(QMainWindow):
         # 버튼 객체 만들기
         button1 = QPushButton('Login', self)
         button1.clicked.connect(self.btnLogin_clicked)
+        button1_2 = QPushButton('Logout', self)
+        button1_2.clicked.connect(self.btnLogout_clicked)
 
         button2 = QPushButton('File', self)
         button2.clicked.connect(self.btnFile_clicked)
@@ -49,12 +54,17 @@ class MainWindow(QMainWindow):
         qle = QLineEdit(self)
         qle.textChanged[str].connect(self.onChanged)
 
+        # 파일이름 및 경로 보여주기
+        self.path_lbl = QLabel("파일 정보", self)
+
         # 레이아웃 만들기
         vbox = QVBoxLayout()
         vbox.addStretch(1)
         vbox.addWidget(button1)
+        vbox.addWidget(button1_2)
         vbox.addStretch(1)
         vbox.addWidget(button2)
+        vbox.addWidget(self.path_lbl)
         vbox.addStretch(1)
         vbox.addWidget(lbl)
         vbox.addWidget(qle)
@@ -90,6 +100,51 @@ class MainWindow(QMainWindow):
     def btnLogin_clicked(self):
         os.system("echo Login button clicked!!")
 
+        # 라벨 및 타이핑
+        id_lbl = QLabel("ID", self.dialog)
+        pwd_lbl = QLabel("Password", self.dialog)
+        id_qle = QLineEdit(self.dialog)
+        pwd_qle = QLineEdit(self.dialog)
+        pwd_qle.setEchoMode(QLineEdit.Password)  # 패스워드 숨김 설정
+        id_qle.textChanged[str].connect(self.id_onChanged)
+        pwd_qle.textChanged[str].connect(self.pw_onChanged)
+
+        # 위치 설정
+        id_lbl.move(60, 25)
+        id_qle.move(60, 40)
+        pwd_lbl.move(60, 70)
+        pwd_qle.move(60, 85)
+
+        # 로그인 버튼 추가
+        btnDialog = QPushButton("login", self.dialog)
+        btnDialog.move(100, 120)
+        btnDialog.clicked.connect(self.dialog_login)
+
+        # QDialog 세팅
+        self.dialog.setWindowTitle('Docker Login')
+        self.dialog.setWindowModality(Qt.ApplicationModal)
+        self.dialog.resize(300, 200)
+        self.dialog.show()
+
+    # id 입력
+    def id_onChanged(self, text):
+        os.environ['id'] = text
+
+    # pw 입력
+    def pw_onChanged(self, text):
+        os.environ['pwd'] = text
+
+    # Dialog 로그인 닫기 이벤트
+    def dialog_login(self):
+        docker_id = os.environ['id']
+        docker_pwd = os.environ['pwd']
+        os.system(f"docker login -u {docker_id} -p {docker_pwd}")
+        self.dialog.close()
+
+    def btnLogout_clicked(self):
+        os.system("echo Logout button clicked!!")
+        os.system("docker logout")
+
     # 파일 오픈 기능
     def btnFile_clicked(self):
         os.system("echo File button clicked!!")
@@ -98,15 +153,16 @@ class MainWindow(QMainWindow):
         if fname[0]:
             os.environ['fpath'] = os.path.split(fname[0])[0]
             os.environ['fname'] = os.path.split(fname[0])[1]
+
             print(os.environ['fname'])
             print(os.environ['fpath'])
             f = open(fname[0], 'r', encoding='UTF8')
             with f:
                 data = f.read()
                 os.environ['data'] = data
+                self.path_lbl.setText(fname[0])
 
     # 도커 이미지 빌드 기능
-
     def btnBuild_clicked(self):
         os.system("echo Build button clicked!!")
 
@@ -122,12 +178,10 @@ class MainWindow(QMainWindow):
         os.system("echo Push button clicked!!")
 
         docker_name = os.environ['docker_name']
-        os.chdir(os.environ['fpath'])
         os.system(
             f"docker push sehooh5/{docker_name}:latest")
 
     # deployment 배포 기능
-
     def btnApply_clicked(self):
         os.system("echo Apply button clicked!!")
 
@@ -137,7 +191,6 @@ class MainWindow(QMainWindow):
             f"kubectl apply -f {file_name}")
 
     # 모니터링 탭
-
     def make_tab2(self):
         # 위젯에 grafana 레이아웃 추가하기
         tab = QWebEngineView()
