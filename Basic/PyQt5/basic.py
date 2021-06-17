@@ -113,8 +113,9 @@ class MainWindow(QMainWindow):
         file_name = os.environ['fname']
         docker_name = os.environ['docker_name']
         os.chdir(os.environ['fpath'])
+        print(f"docker build -f {file_name} -t sehooh5/{docker_name}:latest .")
         os.system(
-            f"docker build -f {file_name} -t sehooh5/{docker_name}:latest")
+            f"docker build -f {file_name} -t sehooh5/{docker_name}:latest .")
 
     # 도커 이미지 푸시 기능
     def btnPush_clicked(self):
