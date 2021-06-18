@@ -442,3 +442,4 @@
 - 전체 회의 후 스트리밍 보여주기 참고: 
   -  https://webnautes.tistory.com/1290 (영상종류 2개)
   - https://blog.xcoda.net/104 (기본)
+- 카메라 연결 꼭 해야함!!
