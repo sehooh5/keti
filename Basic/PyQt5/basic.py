@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         # 윈도우 설정
         self.setGeometry(50, 50, 100, 100)  # x, y, w, h
-        self.setWindowTitle('Basic Application')
+        self.setWindowTitle('CCTV Control Application')
 
         # Tab Widget
         tabs = QTabWidget()
