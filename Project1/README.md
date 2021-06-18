@@ -565,6 +565,6 @@
 
 - UI 초안 및 추가기능 완료
 - 새롭게 시작 :
-  - 영상 릴레이서버 구성
+  - 영상,메타정보를 전달하는 릴레이서버 구성
     - `CCTV(server) - Edge(client+server) - VMS(client)` 형태의 구성
 
