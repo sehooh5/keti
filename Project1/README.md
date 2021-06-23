@@ -580,4 +580,16 @@
 
 #### 0623
 
-- 릴레이서버 구축 : Wowza  찾아보는중
+- 릴레이서버 구축 : 
+  - Wowza  찾아보는중
+    - 와우자는 완성된 프로그램인듯?
+  - Gstreamer - python(ubuntu 기반)
+    - https://dkant.net/2019/05/17/Gstreamer01/
+    - 이 서버내용대로 worker1, 2 딴에서 relay server 가 돌아가면 될듯
+      - relay server 도커로 만든 후 k8s 로 worker1,2 에 배포
+
+
+
+#### 0624
+
+- 위 내용 중 Gstreamer 개념으로 테스트배드 구축하기
