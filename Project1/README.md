@@ -585,7 +585,8 @@
     - 와우자는 완성된 프로그램인듯?
   - Gstreamer - python(ubuntu 기반)
     - https://dkant.net/2019/05/17/Gstreamer01/
-    - 이 서버내용대로 worker1, 2 딴에서 relay server 가 돌아가면 될듯
+    - 이 서버내용대로 worker1, 2 딴에서 relay server 가 돌아가면 될듯 
+      - 먼저 테스트해서 위 내용대로 잘 작동하는지 master 에서 구현 후
       - relay server 도커로 만든 후 k8s 로 worker1,2 에 배포
 
 
