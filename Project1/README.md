@@ -594,4 +594,5 @@
 #### 0624
 
 - 위 내용 중 Gstreamer 개념으로 테스트배드 구축하기
-  - 
+  - [내 작업 내용](https://github.com/sehooh5/keti/blob/master/Project1/relayserver/gstreamer.md)
+
