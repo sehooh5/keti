@@ -152,5 +152,13 @@ if __name__ == '__main__':
 	loop.run()
 ```
 
+- 자꾸 gi 모듈이 없다고 에러남
 
+  ```
+  $ pip install PyGObject 
+  
+  -> 입력해서 설치해주니 일단 넘어가는데 또 에러!
+  ```
+
+  
 
