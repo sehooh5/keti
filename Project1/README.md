@@ -595,4 +595,12 @@
 
 - 위 내용 중 Gstreamer 개념으로 테스트배드 구축하기
   - [내 작업 내용](https://github.com/sehooh5/keti/blob/master/Project1/relayserver/gstreamer.md)
+- 잘 안됨
+
+
+
+#### 0625
+
+- 일단 쉘에서는 카메라 켜짐, 파이선파일도 에러는 고친듯
+- 그다음 파이썬 예제 찾아보고 이어서해보기
 
