@@ -1,6 +1,7 @@
 #  READEME
 
 - Dell PowerEdge Server R740 사용하기
+- 도커 파일 및 k8s  배포를 위한 추가기능 설계
 
 
 
