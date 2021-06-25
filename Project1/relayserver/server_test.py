@@ -1,13 +1,13 @@
-
-from gi.repository import Gst, GstRtspServer, GObject, GLib
+from gi.repository import GLib, Gst, GstRtspServer, GObject
 import sys
-import gi
-gi.require_version('Gst', '1.0')
 
+import gi
+
+gi.require_version('Gst', '1.0')
 
 if __name__ == '__main__':
     loop = GLib.MainLoop()
-    # GObject.threads_init()
+# GObject.threads_init()
     Gst.init(None)
 
     class MyFactory(GstRtspServer.RTSPMediaFactory):
@@ -16,8 +16,11 @@ if __name__ == '__main__':
 
         def do_create_element(self, url):
             spec = """
-			rtspsrc location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=200 ! rtph264depay ! h264parse ! autovideosink
-			"""
+			filesrc location=test.mp4 ! qtdemux name=demux
+			demux.video_0 ! queue ! rtph264pay pt=96 name=pay0
+			demux.audio_0 ! queue ! rtpmp4apay pt=97 name=pay1
+			demux.subtitle_0 ! queue ! rtpgstpay pt=98 name=pay2
+            """
             return Gst.parse_launch(spec)
 
     class GstServer():
