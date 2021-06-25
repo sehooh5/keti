@@ -604,6 +604,8 @@
 
 - 일단 쉘에서는 카메라 켜짐, 파이선파일도 에러는 고친듯
 - 그다음 파이썬 예제 찾아보고 이어서해보기
-- 깃허브에  rtsp-simple-server 보고 하는중
-  - 주소 : https://github.com/aler9/rtsp-simple-server
+- ~~깃허브에  rtsp-simple-server 보고 하는중~~
+  - ~~주소 : https://github.com/aler9/rtsp-simple-server~~ 일단 보류
+- version 오류 뜨는거는 무시해도 되는거같은데, 일단 텍스트파일로 저장하면 에러 해결
+- 지금은 일단 돌아는 가는거같은데 ..... server 구동되는지 확인 + 클라이언트 연결하는거 하면될듯
 
