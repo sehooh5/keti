@@ -588,6 +588,7 @@
     - 이 서버내용대로 worker1, 2 딴에서 relay server 가 돌아가면 될듯 
       - 먼저 테스트해서 위 내용대로 잘 작동하는지 master 에서 구현 후
       - relay server 도커로 만든 후 k8s 로 worker1,2 에 배포
+  - [관련 논문](http://koreascience.or.kr/article/CFKO200724737420524.pdf)
 
 
 
@@ -603,4 +604,6 @@
 
 - 일단 쉘에서는 카메라 켜짐, 파이선파일도 에러는 고친듯
 - 그다음 파이썬 예제 찾아보고 이어서해보기
+- 깃허브에  rtsp-simple-server 보고 하는중
+  - 주소 : https://github.com/aler9/rtsp-simple-server
 
