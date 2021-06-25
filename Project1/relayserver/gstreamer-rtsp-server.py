@@ -1,8 +1,8 @@
 
-from gi.repository import Gst, GstRtspServer, GObject, GLib
-import sys
 import gi
-gi.require_version('Gst', '1.0')
+import sys
+gi.require_versions({'Gst': '1.0', 'GstRtspServer': '1.0'})
+from gi.repository import Gst, GstRtspServer, GObject, GLib
 
 
 if __name__ == '__main__':
@@ -29,6 +29,9 @@ if __name__ == '__main__':
             m = self.server.get_mount_points()
             m.add_factory("/test", f)
             self.server.attach(None)
+            print("bye")
 
     s = GstServer()
     loop.run()
+
+
