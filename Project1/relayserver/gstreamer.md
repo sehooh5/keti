@@ -165,11 +165,35 @@ if __name__ == '__main__':
 
 
 
-- 지금 이 코드로 CLI 에서는 영상이 떴다
+- 지금 이 명령으로 CLI 에서는 영상이 떴다
 
   - ```
     gst-launch-1.0 rtspsrc location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=100 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! videoscale ! video/x-raw,width=640,height=480 ! autovideosink
     ```
+
+    ​	
+
+  - 아래 두개 명령어로 서버, 클라이언트 기능이 되고잇음
+
+    - 하지만 capture.mp4 라는 파일이 잇어야 가능한듯
+
+    - Publish astream
+
+      `````
+      gst-launch-1.0 rtspclientsink name=s location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=100 filesrc location=capture.mp4 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! videoscale ! video/x-raw,width=640,height=480 ! autovideosink
+      ```
+
+    - Open the stream
+
+      ```
+      gst-launch-1.0 rtspsrc location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain  name=s s. ! application/x-rtp,media=video ! decodebin ! autovideosink s. ! application/x-rtp,media=audio ! decodebin ! audioconvert ! audioresample ! autoaudiosink
+      ```
+
+      
+
+
+
+
 
 
 
@@ -213,7 +237,9 @@ if __name__ == '__main__':
     
     ```
 
-    
+
+
+
 
 
 
