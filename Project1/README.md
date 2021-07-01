@@ -614,4 +614,8 @@
 #### 0701
 
 - gstreamer 다시 시작
+- `relayserver` repository
+  - server_test2.py : test video on -> auto off
+  - server_test.py : stopped in CLI
+  - 
 

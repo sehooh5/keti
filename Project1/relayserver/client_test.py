@@ -14,11 +14,7 @@ if __name__ == '__main__':
     Gst.init(None)
 
     pipeline = Gst.parse_launch("""
-	 mp4mux name=mux ! filesink location=capture.mp4
-	 rtspsrc location=rtsp://localhost:3002/test latency=0 name=d
-	 d. ! capsfilter caps="application/x-rtp,media=video" ! queue ! rtph264depay ! avdec_h264 ! x264enc bitrate=2100 threads=4 ! mux.video_0
-	 d. ! capsfilter caps="application/x-rtp,media=audio" ! queue ! rtpmp4adepay ! mux.audio_0
-	 d. ! capsfilter caps="application/x-rtp,media=application" ! queue ! rtpgstdepay ! mux.subtitle_0
+	 rtspsrc location=rtsp://localhost:3002/test latency=200 ! rtph264depay ! h264parse ! autovideosink
 	""")
 
     pipeline.set_state(Gst.State.PLAYING)

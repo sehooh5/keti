@@ -1,8 +1,8 @@
 
+from gi.repository import Gst, GstRtspServer, GObject, GLib
 import gi
 import sys
 gi.require_versions({'Gst': '1.0', 'GstRtspServer': '1.0'})
-from gi.repository import Gst, GstRtspServer, GObject, GLib
 
 
 if __name__ == '__main__':
@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
         def do_create_element(self, url):
             spec = """
-			rtspsrc location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=200 ! rtph264depay ! h264parse ! autovideosink
+			rtspsrc location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=100 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! videoscale ! video/x-raw,width=640,height=480 ! autovideosink
 			"""
             return Gst.parse_launch(spec)
 
@@ -33,5 +33,3 @@ if __name__ == '__main__':
 
     s = GstServer()
     loop.run()
-
-
