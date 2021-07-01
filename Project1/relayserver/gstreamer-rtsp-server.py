@@ -23,7 +23,7 @@ if __name__ == '__main__':
     class GstServer():
         def __init__(self):
             self.server = GstRtspServer.RTSPServer()
-            self.server.set_service("3002")
+            self.server.set_service("3333")
             f = MyFactory()
             f.set_shared(True)
             m = self.server.get_mount_points()
