@@ -617,5 +617,14 @@
 - `relayserver` repository
   - server_test2.py : test video on -> auto off
   - server_test.py : stopped in CLI
-  - 
+- CLI using : OK
+
+
+
+
+
+#### 0702
+
+- Wowza start
+- Using CLI improve
 
