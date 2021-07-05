@@ -628,3 +628,14 @@
 - Wowza start
 - Using CLI improve
 
+
+
+#### 0705
+
+- wowza start with developer license
+  - made basic
+    - vod sample check
+    - live... how to connect my rtsp address to wowza
+  - improve about JAVA environ
+  - [refo blog](https://m.blog.naver.com/PostView.naver?blogId=woliver&logNo=221833439445&targetKeyword=&targetRecommendationCode=1)
+
