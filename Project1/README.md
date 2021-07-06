@@ -644,3 +644,10 @@
 #### 0706
 
 - Wowza keep going
+- what shoud i use for relay server?
+
+
+
+#### 0707
+
+- meeting for next step
