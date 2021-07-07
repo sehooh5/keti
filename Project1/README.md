@@ -654,3 +654,4 @@
 - wowza ing
   - 다시 rtsp 사용하는 예제 보면서 시작해보기
 - git push default setting
+- [HLS 멀티뷰 시스템 관련 논문](https://www.koreascience.or.kr/article/JAKO201734963727796.pdf)
