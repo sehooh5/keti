@@ -653,5 +653,9 @@
 - meeting for next step
 - wowza ing
   - 다시 rtsp 사용하는 예제 보면서 시작해보기
+  - rtsp://192.168.0.29:1935/live/test01.stream 주소로 vlc 플레이어 사용해서 보여지는데 된건가?
+    - https://www.wowza.com/docs/how-to-re-stream-video-from-an-ip-camera-rtsp-rtp-re-streaming 이거보고 따라함
+    - [해당 내용으로 유튜브 스트리밍 하는 방법](https://www.youtube.com/watch?v=9AYCwibnjDE) : 내일부터 스트리밍 가능
+    - 
 - git push default setting
 - [HLS 멀티뷰 시스템 관련 논문](https://www.koreascience.or.kr/article/JAKO201734963727796.pdf)
