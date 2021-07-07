@@ -656,6 +656,7 @@
   - rtsp://192.168.0.29:1935/live/test01.stream 주소로 vlc 플레이어 사용해서 보여지는데 된건가?
     - https://www.wowza.com/docs/how-to-re-stream-video-from-an-ip-camera-rtsp-rtp-re-streaming 이거보고 따라함
     - [해당 내용으로 유튜브 스트리밍 하는 방법](https://www.youtube.com/watch?v=9AYCwibnjDE) : 내일부터 스트리밍 가능
-    - 
+    - [페북 라이브로 스트리밍 성공](https://www.youtube.com/watch?v=ZRWTnmHof_g)
+  - **페북 라이브로 스트리밍 넘기는거까지 완성햇음!!**
 - git push default setting
 - [HLS 멀티뷰 시스템 관련 논문](https://www.koreascience.or.kr/article/JAKO201734963727796.pdf)
