@@ -652,3 +652,4 @@
 
 - meeting for next step
 - wowza ing
+  - 다시 rtsp 사용하는 예제 보면서 시작해보기
