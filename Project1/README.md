@@ -660,3 +660,10 @@
   - **페북 라이브로 스트리밍 넘기는거까지 완성햇음!!**
 - git push default setting
 - [HLS 멀티뷰 시스템 관련 논문](https://www.koreascience.or.kr/article/JAKO201734963727796.pdf)
+
+
+
+#### 0708
+
+- 페북 라이브 스트리밍 한것 토대로 진
+
