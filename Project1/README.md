@@ -651,6 +651,7 @@
 #### 0707
 
 - meeting for next step
+- [와우자 기본적 내용 잘 정리된 블로그](https://help.iwinv.kr/manual/read.html?idx=679)
 - wowza ing
   - 다시 rtsp 사용하는 예제 보면서 시작해보기
   - rtsp://192.168.0.29:1935/live/test01.stream 주소로 vlc 플레이어 사용해서 보여지는데 된건가?
@@ -660,6 +661,7 @@
   - **페북 라이브로 스트리밍 넘기는거까지 완성햇음!!**
 - git push default setting
 - [HLS 멀티뷰 시스템 관련 논문](https://www.koreascience.or.kr/article/JAKO201734963727796.pdf)
+- [와우자 리스트리밍 관련 논문](http://koreascience.kr/article/CFKO201130533389393.pdf)
 
 
 
@@ -673,4 +675,12 @@
 
 - wowaz improve
 - rtsp://keti:keti1234@192.168.100.60:8805/videoMain 새로운 카메라까지 동시 연결하는중
+  - 연결 완료 후 두개의 카메라 두개의 클라이언트로 따로 전송 완료
+
+
+
+#### 0712
+
+- 완성된것 박사님 보여드리고 연결이 어떻게 구성되어있는지 보고드리기!
+- 그 전에 live edge 사용하는거 진행해보고 다음단계로
 

@@ -108,7 +108,21 @@
   - rtsp://keti:keti1234@192.168.100.70:8810/videoMain
   - rtsp://keti:keti1234@192.168.100.60:8805/videoMain
 - wowza server
-  - 
+  - 1 : rtsp://10.244.0.1:1935/live/test01.stream
+  - 2 : rtsp://10.244.0.1:1935/live/test02.stream
+- client
+  - 1 연결 facebook : https://www.facebook.com/100001353957413/videos/295556955588810?comment_id=Y29tbWVudDoyOTU1NTY5NTU1ODg4MTBfMjk1NTY0ODk1NTg4MDE2
+  - 2  연결 youtube  :https://www.youtube.com/watch?v=Rq2NUbr92Yk
+
+
+
+
+
+#### Live Edge
+
+- Live 어플리케이션의 종류
+
+  ![image](https://user-images.githubusercontent.com/58541635/125048904-5ac12880-e0db-11eb-992d-67af68dfb4d6.png)
 
 
 
