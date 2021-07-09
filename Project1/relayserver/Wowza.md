@@ -2,6 +2,7 @@
 
 - wowza 를 활용하여 릴레이서버를 구축
 - 릴레이 서버 구축 후 클라이언트에 연결하여 스트리밍(페이스북, 유튜브 등)
+- 기본 형태 :`rtsp camera` - `wowza server` - `client`
 
 
 
@@ -88,5 +89,28 @@
 - [페이스북에 스트리밍하기](https://www.youtube.com/watch?v=ZRWTnmHof_g)
 - [유튜브에 스트리밍하기](https://www.youtube.com/watch?v=9AYCwibnjDE)
 
-####  
+
+
+
+
+
+
+### Diagram
+
+---
+
+
+
+#### 기본 형태
+
+- `rtsp camera` - `wowza server` - `client`
+- rtsp camera : 
+  - rtsp://keti:keti1234@192.168.100.70:8810/videoMain
+  - rtsp://keti:keti1234@192.168.100.60:8805/videoMain
+- wowza server
+  - 
+
+
+
+
 

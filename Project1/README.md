@@ -672,4 +672,5 @@
 #### 0709
 
 - wowaz improve
+- rtsp://keti:keti1234@192.168.100.60:8805/videoMain 새로운 카메라까지 동시 연결하는중
 
