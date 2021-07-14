@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Dokcerfile and Deployment Apply</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+
+            function openTextFile() {
+                var input = document.createElement("input");
+                input.type = "file";
+                input.accept = "*"; // 확장자가 xxx, yyy일때, ".xxx, .yyy"
+                input.onchange = function (event) {
+                    processFile(event.target.files[0]);
+                };
+                input.click(); 
+            }
+
+            function processFile(file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {     
+                    var textArea = document.getElementById("output");
+                    var fileName = document.getElementById("fileName");
+
+                    textArea.value = e.target.result;
+                    fileName.value = file.name;
+
+                };
+                reader.readAsText(file, "utf-8");
+            }
+            
+            function toggleFuction(file){
+                const docker_div = document.getElementById("docker_function");
+                const k8s_div = document.getElementById("k8s_function");
+                const docker_name = document.getElementById("docker_name");
+
+                //console.log(file)
+                if(file == 'docker'){
+                    docker_div.style.display='block';
+                    k8s_div.style.display='none';
+                    docker_name.style.display='block';
+                    
+                }else if(file == 'deployment'){
+                    docker_div.style.display='none';
+                    k8s_div.style.display='block';
+                    docker_name.style.display='none';
+                };
+            }
+
+            function funcURL(f){
+                const funcURL = document.getElementById("funcURL");
+                funcURL.action = "http://localhost:5000/"+f;
+                //alert(funcURL.action)
+            }
+
+        </script>
+        <h2>Apply files</h2>
+        <hr>
+
+        <button onclick="openTextFile()">Open</button>
+        <form action = "" method="POST"
+        enctype="multipart/form-data" id="funcURL">
+            <input type="submit" class="func" name="signin" value="signin" onclick="funcURL('signin')">
+            <p>Folder : 
+                <input type="radio" name="folder" value="manager" checked> manager 
+                <input type="radio" name="folder" value="viewer" > viewer
+            </p>
+
+            <p>Type : 
+                <input type="button" name="type" id="docker_type" value="dockerfile" onclick="toggleFuction('docker')">
+                <input type="button" name="type" id="deployment_type" value="deployment" onclick="toggleFuction('deployment')">
+            </p>
+
+            <div id="docker_name" style="display:none;">
+            <p>Dockerfile Name : <input type="text" name="dockerName" id="dockerName"></p>
+            </div>
+
+            <p>File Name : <input type="text" name="fileName" id="fileName"></p>
+
+            <p>Contents :<pre></pre></p>
+            
+            <p><textarea cols="80" rows="35" name="file" id="output"></textarea></p>
+            
+            <div id="docker_function" style="display:none;">
+                <input type="submit" class="func" name="build" value="build" onclick="funcURL('build')"/>
+                <input type="submit" class="func" name="push" value="push" onclick="funcURL('push')"/>
+            </div>
+            
+            <div id="k8s_function" style="display:none;">
+                <input type="submit" class="func" name="apply" value="apply" onclick="funcURL('apply')"/>
+            </div>
+
+        </form>
+
+    </body>
+</html>
