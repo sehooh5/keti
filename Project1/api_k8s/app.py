@@ -11,10 +11,13 @@ app = Flask(__name__)
 def index():
     return render_template('api_k8s.html')
 
-
+# 엣지 클러스터 구성
+## 1. 마스터 엣지 먼저 세팅 / args : ip address
+## 2. 마스터 엣지 연결할 수 있는 응답내용 받아오기
+## 3. 마스터 세팅되면 워커노드로가서 해당 응답내용으로 워커노드 설정
 @app.route('/set_masterEdge')
 def set_masterEdge():
-
+    
     return render_template('api_k8s.html')
 
 
