@@ -12,10 +12,10 @@ def index():
     return render_template('api_k8s.html')
 
 
-@app.route('/get_edgeList')
-def get_edgeList():
-    
-    return render_template('write_doc.html')
+@app.route('/set_masterEdge')
+def set_masterEdge():
+
+    return render_template('api_k8s.html')
 
 
 @app.route('/saveFile', methods=['GET', 'POST'])
