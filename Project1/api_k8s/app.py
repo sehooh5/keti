@@ -78,7 +78,7 @@ def disconnect_device():
 @app.route('/get_uploadSwList', methods=['GET'])
 def get_uploadSwList():
 
-    # 응답부분
+    # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -89,7 +89,7 @@ def get_uploadSwList():
 @app.route('/get_uploadSwiNFO', methods=['POST'])
 def get_uploadSwiNFO():
 
-    # 응답부분
+    # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -105,12 +105,223 @@ def add_newUploadSw():
     type = request.form['type']
     desc = request.form['desc']
     
+    # db 저장 부분
+    ## (구현해야함)
+
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        sid = "0xs1"
+    )
+    return res
+
+# 2.8 마스터 서버에 업로드된 SW 정보수정
+@app.route('/update_uploadSw', methods=['POST'])
+def update_uploadSw():
+    sid = request.form['sid']
+    name = request.form['name']
+    fname = request.form['fname']
+    copyright = request.form['copyright']
+    type = request.form['type']
+    desc = request.form['desc']
+    
+    # db 업데이트 부분
+    ## (구현해야함)
+
     # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공"
     )
     return res
+
+# 2.9 마스터 서버에 업로드된 SW 삭제
+@app.route('/update_uploadSw', methods=['POST'])
+def update_uploadSw():
+    sid = request.form['sid']
+    
+    # db 삭제 부분
+    ## (구현해야함)
+
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
+
+# 2.10 마스터/워커 서버에 배포된 SW 목록 조회
+@app.route('/get_deploySwList', methods=['POST'])
+def get_deploySwList():
+    sid = request.form['sid'] # 일단 이렇게 진행하는데 왜 sid인지?
+    
+    # db 불러오는 부분
+    ## (구현해야함)
+
+    # 응답부분 (List 구현해야함)
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
+
+# 2.11 마스터/워커 서버에 배포된 SW 정보 등록
+@app.route('/add_newDeploySwInfo', methods=['POST'])
+def add_newDeploySwInfo():
+    sid = request.form['sid']
+    wid = request.form['wid']
+
+    # db 불러오는 부분
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
+
+# 2.12 마스터/워커 서버에 배포된 SW 삭제
+@app.route('/remove_deploySwInfo', methods=['POST'])
+def remove_deploySwInfo():
+    sid = request.form['sid']
+    wid = request.form['wid']
+
+    # db 불러오는 부분
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
+
+# 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
+@app.route('/get_servicePort', methods=['GET'])
+def get_servicePort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "6001"
+    )
+    return res
+
+# 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
+@app.route('/get_targetPort', methods=['GET'])
+def get_targetPort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "5001"
+    )
+    return res
+
+# 2.15 마스터 서버의 사용 가능한 노드 포트 조회
+@app.route('/get_nodePort', methods=['GET'])
+def get_nodePort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "30001"
+    )
+    return res
+
+# 3.1 워커 엣지서버 이름 조회
+@app.route('/get_edgeName', methods=['GET'])
+def get_edgeName():
+
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        name = "Worker "
+    )
+    return res
+
+# 3.2 엣지서버에 디바이스 연결
+@app.route('/connect_device', methods=['POST'])
+def connect_device():
+    eid = request.form['eid']
+    did = request.form['did']   
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+    )
+    return res
+
+# 3.3 엣지서버에 연결된 디바이스 연결 해지
+@app.route('/disconnect_device', methods=['POST'])
+def disconnect_device():
+    eid = request.form['eid']
+    did = request.form['did']   
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+    )
+    return res
+
+# 3.4 마스터 서버의 사용가능한 서비스 포트 조회
+@app.route('/get_servicePort', methods=['GET'])
+def get_servicePort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "6001"
+    )
+    return res
+
+# 3.5 마스터 서버의 사용 가능한 타깃 포트 조회
+@app.route('/get_targetPort', methods=['GET'])
+def get_targetPort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "5001"
+    )
+    return res
+
+# 3.6 마스터 서버의 사용 가능한 노드 포트 조회
+@app.route('/get_nodePort', methods=['GET'])
+def get_nodePort():
+    # port 번호 찾는 기능
+    ## (구현해야함)
+
+    # 응답부분 
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        port = "30001"
+    )
+    return res
+
+
 
 # DB관련
 # 현재있는 파일의 디렉토리 절대경로
