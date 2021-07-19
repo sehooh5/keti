@@ -2,7 +2,7 @@
 from importlib import import_module
 from flask import Flask, render_template, Response, request
 import os
-import subprocess
+from models import db
 
 app = Flask(__name__)
 
@@ -13,8 +13,16 @@ def index():
 
 # 2.1 신규 엣지 클러스터 추가 
 ## get_edgeInfo 사용
-@app.route('/add_newEdgeCluster')
+@app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
+    mid = request.form['mid']
+    wlist = request.form['wlist'] # list 로 받아서 여러개의 id 를 가져오거나 보내야 할수도잇음
+    mip = get_edgeInfo(mid).ip
+    # 마스터 엣지 구성
+    m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
+    # 워커 엣지에서 사용할 코드
+    w_input = m_message.split('root:')[-1]
+    ### 여기서 워커 id 가지고 원격으로 접속한 뒤 w_input 입력해주기? ###
     
     return render_template('api_k8s.html')
 
