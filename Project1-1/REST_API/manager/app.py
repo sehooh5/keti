@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 from importlib import import_module
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, jsonify
 import os
 import subprocess
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/')
@@ -14,32 +15,7 @@ def select():
 
 @app.route('/writeFile')
 def write_file():
-    test = """
-    [init] Using Kubernetes version: v1.16.3
-[preflight] Running pre-flight checks
-	[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at <https://kubernetes.io/docs/setup/cri/>
-	[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 19.03.4. Latest validated version: 18.09
-[preflight] Pulling images required for setting up a Kubernetes cluster
-[preflight] This might take a minute or two, depending on the speed of your internet connection
-...
-...
-[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
-[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
-[addons] Applied essential addon: CoreDNS
-[addons] Applied essential addon: kube-proxy
-Your Kubernetes control-plane has initialized successfully!
-To start using your cluster, you need to run the following as a regular user:
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  <https://kubernetes.io/docs/concepts/cluster-administration/addons/>
-Then you can join any number of worker nodes by running the following on each as root:
-kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
-    --discovery-token-ca-cert-hash sha256:701d4da5cbf67347595e0653b31a7f6625a130de72ad8881a108093afd06188b
-    """
-    print(test.split('root:')[-1])
+
     return render_template('write_doc.html')
 
 
