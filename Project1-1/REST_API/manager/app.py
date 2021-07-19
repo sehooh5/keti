@@ -15,7 +15,13 @@ def select():
 
 @app.route('/writeFile')
 def write_file():
-
+    print(jsonify(
+        code = "0000",
+        message = "처리 성공",
+        list = {
+            name = "이름"
+        }
+    ))
     return render_template('write_doc.html')
 
 

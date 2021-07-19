@@ -3,9 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class User(db.Model):
-    __tablename__ = 'user'
+class Software(db.Model):
+    __tablename__ = 'software'
     
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.String(32))
-    password = db.Column(db.String(128))    
+    sid = db.Column(db.String(16), primary_key=True)
+    name = db.Column(db.String(32))
+    fname = db.Column(db.String(128))
+    copyright = db.Column(db.String(128))
+    type = db.Column(db.String(128))
+    description = db.Column(db.String(128))
+    datetime = db.Column(db.DateTime)

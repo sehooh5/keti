@@ -10,6 +10,7 @@ app.config['JSON_AS_ASCII'] = False # jsonify 한글깨짐 해결
 
 @app.route('/')
 def index():
+  
     return render_template('api_k8s.html')
 
 # 2.1 신규 엣지 클러스터 추가 
@@ -18,12 +19,14 @@ def index():
 def add_newEdgeCluster():
     mid = request.form['mid']
     wlist = request.form['wlist'] # list 로 받아서 여러개의 id 를 가져오거나 보내야 할수도잇음
-    mip = get_edgeInfo(mid).ip
-    # 마스터 엣지 구성
-    m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
-    # 워커 엣지에서 사용할 코드
-    w_input = m_message.split('root:')[-1]
-    ### 여기서 wlist 로 wid 가져와서 원격으로 접속한 뒤 w_input 입력해주기? ###
+    # ### 일단 기능은 빼고 껍데기만 만들어 놓기 --->
+    # # 마스터 엣지 ip 불러오기
+    # mip = get_edgeInfo(mid).ip
+    # # 마스터 엣지 구성
+    # m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
+    # # 워커 엣지에서 사용할 코드
+    # w_input = m_message.split('root:')[-1]
+    # ### 여기서 wlist 로 wid 가져와서 원격으로 접속한 뒤 w_input 입력해주기? ###
 
     
     # 응답부분
@@ -33,105 +36,81 @@ def add_newEdgeCluster():
     )
     return res
 
-
+# 2.2 마스터 엣지 서버 이름 조회
 @app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
-    if request.method == 'POST':
-        file = request.form['file']
-        folder_name = request.form['folder']
-        file_name = request.form['fileName']
+    
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공",
+        name = "Master 1"
+    )
+    return res
 
-        # file 작성부분
-        f = open(os.getcwd().replace(
-            "manager", f'{folder_name}/{file_name}'), 'w')
-        f.write(file)
-        f.close()
-    return render_template('apply_doc.html')
+# 2.3 엣지서버에 디바이스 연결
+@app.route('/connect_device', methods=['POST'])
+def connect_device():
+    eid = request.form['eid']
+    did = request.form['eid']
+    
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
 
+# 2.4 엣지서버에 연결된 디바이스 연결 해지
+@app.route('/disconnect_device', methods=['POST'])
+def disconnect_device():
+    eid = request.form['eid']
+    did = request.form['did']
+    
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
 
-@app.route('/apply', methods=['GET', 'POST'])
-def apply():
+# 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
+@app.route('/get_uploadSwList', methods=['GET'])
+def get_uploadSwList():
 
-    if request.method == 'POST':
-        file_name = request.form['fileName']
-        folder_name = request.form['folder']
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
 
-        if folder_name == 'manager':
-            os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-            os.system(f"kubectl apply -f {file_name}")
-        else:
-            os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
-            os.system(f"kubectl apply -f {file_name}")
-        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-        os.system("echo %s" % file_name)
+# 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
+@app.route('/get_uploadSwiNFO', methods=['POST'])
+def get_uploadSwiNFO():
 
-    return render_template('apply_doc.html')
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
 
-
-@ app.route('/signin', methods=['POST'])
-def signin():
-
-    pass
-
-    return render_template('docker_login.html')
-
-
-@ app.route('/login', methods=['POST'])
-def login():
-
-    docker_id = request.form['docker_id']
-    docker_pwd = request.form['docker_pwd']
-    os.system(f"docker login -u {docker_id} -p {docker_pwd}")
-
-    return render_template('apply_doc.html')
-
-
-@ app.route('/logout', methods=['POST'])
-def logout():
-
-    os.system("docker logout")
-
-    return render_template('apply_doc.html')
-
-
-@ app.route('/build', methods=['GET', 'POST'])
-def build():
-    print("========= docker build start =========")
-
-    if request.method == 'POST':
-        folder_name = request.form['folder']
-        file_name = request.form['fileName']
-        docker_name = request.form['dockerName']
-
-        if folder_name == 'manager':
-            os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-            os.system(
-                f"docker build -f {file_name} -t sehooh5/{docker_name}:latest {path}")
-        else:
-            os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
-            os.system(
-                f"docker build -f {file_name} -t sehooh5/{docker_name}:latest {path}")
-        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-
-    print("========= docker build success =========")
-    return render_template('apply_doc.html')
-
-
-@ app.route('/push', methods=['GET', 'POST'])
-def push():
-
-    folder_name = request.form['folder']
-    docker_name = request.form['dockerName']
-
-    if folder_name == 'manager':
-        os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-        os.system(f"docker push sehooh5/{docker_name}:latest")
-    else:
-        os.chdir("/home/keti0/keti/Project1-1/REST_API/viewer")
-        os.system(f"docker push sehooh5/{docker_name}:latest")
-    os.chdir("/home/keti0/keti/Project1-1/REST_API/manager")
-
-    return render_template('apply_doc.html')
+# 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
+@app.route('/add_newUploadSw', methods=['POST'])
+def add_newUploadSw():
+    name = request.form['name']
+    fname = request.form['fname']
+    copyright = request.form['copyright']
+    type = request.form['type']
+    desc = request.form['desc']
+    
+    # 응답부분
+    res = jsonify(
+        code = "0000",
+        message = "처리 성공"
+    )
+    return res
 
 # DB관련
 # 현재있는 파일의 디렉토리 절대경로

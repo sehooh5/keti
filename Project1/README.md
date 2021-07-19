@@ -718,7 +718,75 @@
 #### 0719
 
 - 엣지 클러스터 추가부터 시작..
+
 - DB 만들고 시작해보기 
+
   - flask-sqlalchemy 로 시작
-- 
+
+- 기능 STOP!! 일단 껍데기만 먼저 만들기!!
+
+- 누나 예제
+
+  - get
+
+    ```python
+    app.get("/get_edgeInfo", function (req, res) {
+        dbclient.connect(url, function (err, db) {
+            if (err) throw err;
+            db.collection("edgeserver").findOne({
+                id: req.query.id
+            }, function (err, result) {
+                if (result != null) {
+                    res.json({
+                        code: "0000",
+                        message: "처리 성공",
+                        id: result.id,
+                        name: result.name,
+                        type: result.type,
+                        ip: result.ip,
+                        port: result.port,
+                        gps: result.gps
+                    })
+                } else {
+                    res.json(error_code.error9999d);
+                }
+            })
+            db.close()
+        })
+    });
+    ```
+
+  - post
+
+    ```python
+    app.post("/add_newEdge", function (req, res) {
+        dbclient.connect(url, function (err, db) {
+            if (err) throw err;
+            let doc = db.collection("edgeserver").update({
+                id: req.body.id,
+                name: req.body.name,
+                type: req.body.type,
+                ip: req.body.ip,
+                port: req.body.port,
+                gps: req.body.gps
+            }, req.body, {
+                upsert: true
+            }, function (err, result) {
+                res.json({
+                    code: "0000",
+                    message: "처리성공",
+                    id: req.body.id
+                })
+            })
+            db.close()
+        })
+    });
+    ```
+
+
+
+#### 0720
+
+- 껍데기는 다 만들어놨으니 
+- flask - DB 연동하는 부분부터 다시 공부하면서 시작
 
