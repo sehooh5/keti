@@ -827,7 +827,32 @@
 #### 0721
 
 - 질문 : 
+
   - 2.16~ , 3.4~ 의  사용가능한 포트 조회하는 부분은 같은 내용인데 필요한지?
+
 - 외부 api 와 연동해보고 해당 정보가 어떻게 들어오는지(아마도 json) 확인하고 어떻게 사용할 것인지?
+
   - [urllib.request 사용하여 json 불러오는 예제](https://da-nika.tistory.com/14)
   - [json data 사용하는 예제](https://devpouch.tistory.com/33)
+
+- 진행 : 
+
+  - SW DB 두개 만들기
+
+    - | 이름        | 타입   | 필수 | 예제값                 | 설명               |
+      | ----------- | ------ | ---- | ---------------------- | ------------------ |
+      | sid         | String |      | “0xs1”                 | 소프트웨어 고유 ID |
+      | name        | String |      | “분석 SW”              | 소프트웨어 명      |
+      | fname       | String |      | “content”              | 소프트웨어 파일 명 |
+      | copyright   | String |      | “KETI”                 | 저작권자           |
+      | type        | String |      | “Container”            | 타입               |
+      | description | String |      | “영상 분석 소프트웨어” | 설명               |
+      | datetime    | String |      | “2021-07-08”           | 업로드 날자        |
+
+    - | 이름 | 타입   | 필수 | 예제값 | 설명                  |
+      | ---- | ------ | ---- | ------ | --------------------- |
+      | sid  | String |      | “0xs1” | Master/Worker 서버 ID |
+      | wid  | String |      | “0xw1” | 소프트웨어 id         |
+
+  - 포스트맨 사용해보기
+
