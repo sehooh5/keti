@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Software_up(db.Model):
+class SW_up(db.Model):
     __tablename__ = 'software_up'
     
     sid = db.Column(db.String(32), primary_key=True)

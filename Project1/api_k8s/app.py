@@ -2,7 +2,10 @@
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
 import os
-from models import db
+from models import db, SW_up
+import datetime as dt
+import string 
+import random 
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # jsonify 한글깨짐 해결
@@ -106,14 +109,25 @@ def get_uploadSwiNFO():
     return res
 
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
-@app.route('/add_newUploadSw', methods=['POST'])
+@app.route('/add_newUploadSw', methods=['GET'])
 def add_newUploadSw():
-    name = request.form['name']
-    fname = request.form['fname']
-    copyright = request.form['copyright']
-    type = request.form['type']
-    desc = request.form['desc']
+#    name = request.form['name']
+#    fname = request.form['fname']
+#    copyright = request.form['copyright']
+#    type = request.form['type']
+#    desc = request.form['desc']
+    _LENGTH = 4 # 12자리 # 숫자 + 대소문자 
+    string_pool = string.ascii_letters + string.digits 
+
+    # 랜덤한 문자열 생성 
+    sid = ""
+    for i in range(_LENGTH) :
+        sid += random.choice(string_pool) # 랜덤한 문자열 하나 선택 
     
+    
+    s1 = SW_up(sid=sid, name="hi", fname="hifname", copyright="hicopy", type="hitype", description="hidesc")
+    db.session.add(s1)
+    db.session.commit
     # db 저장 부분
     ## (구현해야함)
 
@@ -248,88 +262,6 @@ def get_nodePort():
         port = "30001"
     )
     return res
-
-# 3.1 워커 엣지서버 이름 조회
-# @app.route('/get_edgeName', methods=['GET'])
-# def get_edgeName():
-
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#         name = "Worker "
-#     )
-#     return res
-
-# 3.2 엣지서버에 디바이스 연결
-# @app.route('/connect_device', methods=['POST'])
-# def connect_device():
-#     eid = request.form['eid']
-#     did = request.form['did']   
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#     )
-#     return res
-
-# 3.3 엣지서버에 연결된 디바이스 연결 해지
-# @app.route('/disconnect_device', methods=['POST'])
-# def disconnect_device():
-#     eid = request.form['eid']
-#     did = request.form['did']   
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#     )
-#     return res
-
-# 3.4 마스터 서버의 사용가능한 서비스 포트 조회
-# @app.route('/get_servicePort', methods=['GET'])
-# def get_servicePort():
-#     # port 번호 찾는 기능
-#     ## (구현해야함)
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#         port = "6001"
-#     )
-#     return res
-
-# # 3.5 마스터 서버의 사용 가능한 타깃 포트 조회
-# @app.route('/get_targetPort', methods=['GET'])
-# def get_targetPort():
-#     # port 번호 찾는 기능
-#     ## (구현해야함)
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#         port = "5001"
-#     )
-#     return res
-
-# # 3.6 마스터 서버의 사용 가능한 노드 포트 조회
-# @app.route('/get_nodePort', methods=['GET'])
-# def get_nodePort():
-#     # port 번호 찾는 기능
-#     ## (구현해야함)
-
-#     # 응답부분 
-#     res = jsonify(
-#         code = "0000",
-#         message = "처리 성공",
-#         port = "30001"
-#     )
-#     return res
-
 
 
 # DB관련

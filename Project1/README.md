@@ -834,6 +834,7 @@
 
   - [urllib.request 사용하여 json 불러오는 예제](https://da-nika.tistory.com/14)
   - [json data 사용하는 예제](https://devpouch.tistory.com/33)
+  - [sqlalchemy 사용](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sys3948&logNo=221624837865)
 
 - 진행 : 
 
@@ -854,5 +855,16 @@
       | sid  | String |      | “0xs1” | Master/Worker 서버 ID |
       | wid  | String |      | “0xw1” | 소프트웨어 id         |
 
-  - 포스트맨 사용해보기
+  - 포스트맨 사용해보기 - 못함
 
+  - DB에 들어가는거는 확인햇다 DB browser for sqlite 설치함
+
+- 질문 : 
+
+  - api 들이 실행될때 직접적인 기능들이 실행되어야 하는것인지? 기능 실행부분은 다른곳에? (ex 1번기능)
+
+
+
+#### 0722
+
+- 2.7 그대로진행하고 sid 만드는 부분했으니 그 다음부터 진행
