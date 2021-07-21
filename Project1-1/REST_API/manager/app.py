@@ -15,14 +15,27 @@ def select():
 
 @app.route('/writeFile')
 def write_file():
-    print(jsonify(
+    s = """NAME STATUS ROLES AGE VERSION
+keti0-master Ready master 336d v1.18.8
+keti1-worker1 Ready 336d v1.18.6
+keti2-worker2 Ready 336d v1.18.6"""
+
+    s_split = s.split('\n')
+    len_s = len(s_split)
+
+    n_list = s_split[1:len_s]
+    names = []
+    for x in n_list:
+        nx = {"name" : x.split(' ')[0]}
+        names.append(nx)
+
+    res = jsonify(
         code = "0000",
         message = "처리 성공",
-        list = {
-            name = "이름"
-        }
-    ))
-    return render_template('write_doc.html')
+        nlist = names
+    )
+    print("담기긴한다 ㅎㅎ")
+    return res
 
 
 @app.route('/saveFile', methods=['GET', 'POST'])

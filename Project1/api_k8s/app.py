@@ -36,15 +36,24 @@ def add_newEdgeCluster():
     )
     return res
 
-# 2.2 마스터 엣지 서버 이름 조회
+# 엣지 서버들 이름 조회
 @app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
-    
+    nodes = os.system(f"kubectl get node")
+    nodes_split = s.split('\n')
+    len_nodes = len(nodes_split)
+
+    name_list = nodes_split[1:len_nodes] 
+    names = []
+    for name in node_list:
+        n = {"name" : name.split(' ')[0]}
+        names.append(n)
+
     # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공",
-        name = "Master 1"
+        nlist = names
     )
     return res
 
@@ -137,8 +146,8 @@ def update_uploadSw():
     return res
 
 # 2.9 마스터 서버에 업로드된 SW 삭제
-@app.route('/update_uploadSw', methods=['POST'])
-def update_uploadSw():
+@app.route('/remove_uploadSw', methods=['POST'])
+def remove_uploadSw():
     sid = request.form['sid']
     
     # db 삭제 부분
@@ -241,85 +250,85 @@ def get_nodePort():
     return res
 
 # 3.1 워커 엣지서버 이름 조회
-@app.route('/get_edgeName', methods=['GET'])
-def get_edgeName():
+# @app.route('/get_edgeName', methods=['GET'])
+# def get_edgeName():
 
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-        name = "Worker "
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#         name = "Worker "
+#     )
+#     return res
 
 # 3.2 엣지서버에 디바이스 연결
-@app.route('/connect_device', methods=['POST'])
-def connect_device():
-    eid = request.form['eid']
-    did = request.form['did']   
+# @app.route('/connect_device', methods=['POST'])
+# def connect_device():
+#     eid = request.form['eid']
+#     did = request.form['did']   
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#     )
+#     return res
 
 # 3.3 엣지서버에 연결된 디바이스 연결 해지
-@app.route('/disconnect_device', methods=['POST'])
-def disconnect_device():
-    eid = request.form['eid']
-    did = request.form['did']   
+# @app.route('/disconnect_device', methods=['POST'])
+# def disconnect_device():
+#     eid = request.form['eid']
+#     did = request.form['did']   
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#     )
+#     return res
 
 # 3.4 마스터 서버의 사용가능한 서비스 포트 조회
-@app.route('/get_servicePort', methods=['GET'])
-def get_servicePort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+# @app.route('/get_servicePort', methods=['GET'])
+# def get_servicePort():
+#     # port 번호 찾는 기능
+#     ## (구현해야함)
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-        port = "6001"
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#         port = "6001"
+#     )
+#     return res
 
-# 3.5 마스터 서버의 사용 가능한 타깃 포트 조회
-@app.route('/get_targetPort', methods=['GET'])
-def get_targetPort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+# # 3.5 마스터 서버의 사용 가능한 타깃 포트 조회
+# @app.route('/get_targetPort', methods=['GET'])
+# def get_targetPort():
+#     # port 번호 찾는 기능
+#     ## (구현해야함)
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-        port = "5001"
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#         port = "5001"
+#     )
+#     return res
 
-# 3.6 마스터 서버의 사용 가능한 노드 포트 조회
-@app.route('/get_nodePort', methods=['GET'])
-def get_nodePort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+# # 3.6 마스터 서버의 사용 가능한 노드 포트 조회
+# @app.route('/get_nodePort', methods=['GET'])
+# def get_nodePort():
+#     # port 번호 찾는 기능
+#     ## (구현해야함)
 
-    # 응답부분 
-    res = jsonify(
-        code = "0000",
-        message = "처리 성공",
-        port = "30001"
-    )
-    return res
+#     # 응답부분 
+#     res = jsonify(
+#         code = "0000",
+#         message = "처리 성공",
+#         port = "30001"
+#     )
+#     return res
 
 
 

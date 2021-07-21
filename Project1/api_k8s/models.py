@@ -1,12 +1,13 @@
 # models.py
+from sqlalchemy import Column, DateTime, String
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Software(db.Model):
-    __tablename__ = 'software'
+class Software_up(db.Model):
+    __tablename__ = 'software_up'
     
-    sid = db.Column(db.String(16), primary_key=True)
+    sid = db.Column(db.String(32), primary_key=True)
     name = db.Column(db.String(32))
     fname = db.Column(db.String(128))
     copyright = db.Column(db.String(128))
