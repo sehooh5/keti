@@ -873,8 +873,28 @@
 
 #### 0726
 
-- 2.7 마무리 짓기
 - [sqlalchemy engine 추가하고 사용하기](https://yujuwon.tistory.com/entry/SQLAlchemy-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
 - [sqlalchemy 사용](https://edykim.com/ko/post/getting-started-with-sqlalchemy-part-1/)
 - [실질적으로 select 찾아서 사용한 부분](https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/)
-- 2.8까지 완료
+- API 완성목록
+  - 2.1 : 아직 k8s 기능 구현 안됨
+  - 2.2 : O, k8s 구현했지만 쿠버네티스에서 사용안해봄
+  - 2.3 : X
+  - 2.4 : X
+  - 2.5 : X
+  - 2.6 : O
+  - 2.7 : O
+  - 2.8 : O
+  - 2.9 : O
+  - 2.10 : O
+  - 2.11 : O
+  - 2.12 : O
+  - 2.13 : X, 아래부터 포트조회
+  - 2.14 : X
+  - 2.15 : X
+
+
+
+#### 0727
+
+- 2.5부터 시작하면 될듯?

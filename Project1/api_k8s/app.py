@@ -2,7 +2,7 @@
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
 import os
-from models import db, SW_up
+from models import db, SW_up, Server, Server_SW
 import datetime as dt
 import string 
 import random
@@ -99,6 +99,8 @@ def disconnect_device():
 @app.route('/get_uploadSwList', methods=['GET'])
 def get_uploadSwList():
 
+
+
     # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
@@ -109,23 +111,35 @@ def get_uploadSwList():
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
 @app.route('/get_uploadSwiNFO', methods=['POST'])
 def get_uploadSwiNFO():
+    sid = request.form['sid']
+
+    name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    copyright = db.session.query(SW_up.copyright).filter(SW_up.sid == sid).first()[0]
+    type = db.session.query(SW_up.type).filter(SW_up.sid == sid).first()[0]
+    desc = db.session.query(SW_up.description).filter(SW_up.sid == sid).first()[0]
 
     # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
-        message = "처리 성공"
+        message = "처리 성공",
+        name = name,
+        fname = fname,
+        copyright = copyright,
+        type = type,
+        description = desc
     )
     return res
 
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
-@app.route('/add_newUploadSw', methods=['GET'])
+@app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-#    name = request.form['name']
-#    fname = request.form['fname']
-#    copyright = request.form['copyright']
-#    type = request.form['type']
-#    desc = request.form['desc']
-
+    desc = request.form['name']
+    fname = request.form['fname']
+    copyright = request.form['copyright']
+    type = request.form['type']
+    desc = request.form['desc']
+    
     # 1. sid 생성
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid) # sid 중복된게 있는지 찾아줌
@@ -138,7 +152,7 @@ def add_newUploadSw():
         print(f"using {sid}")
     
     # 2. software_up 테이블에 데이터 저장
-    sw = SW_up(sid=sid, name="hi", fname="hifname", copyright="hicopy", type="hitype", description="hidesc")    
+    sw = SW_up(sid=sid, name=name, fname=fname, copyright=copyright, type=type, description=desc)    
     db.session.add(sw)
     db.session.commit
 
@@ -150,24 +164,24 @@ def add_newUploadSw():
     )
     return res
 
+
 # 2.8 마스터 서버에 업로드된 SW 정보수정
 @app.route('/update_uploadSw', methods=['POST'])
 def update_uploadSw():
-    # sid = request.form['sid']
-    # name = request.form['name']
-    # fname = request.form['fname']
-    # copyright = request.form['copyright']
-    # type = request.form['type']
-    # desc = request.form['desc']
+    sid = request.form['sid']
+    name = request.form['name']
+    fname = request.form['fname']
+    copyright = request.form['copyright']
+    type = request.form['type']
+    desc = request.form['desc']
     
-    # update 부분인데 입력값은 위에처럼 받아와야함
-    sw = db.session.query(SW_up).filter(SW_up.sid == "test").update({
-        'sid': 'test2',
-         'name': 'update',
-         'fname': 'new_fname',
-         'copyright': 'new_copright',
-         'type': 'new_type',
-         'description': 'new_desc'
+    sw = db.session.query(SW_up).filter(SW_up.sid == sid).update({
+         'sid': sid,
+         'name': name,
+         'fname': fname,
+         'copyright': copyright,
+         'type': type,
+         'description': desc
          })
     db.session.commit()
 
@@ -178,13 +192,16 @@ def update_uploadSw():
     )
     return res
 
+
 # 2.9 마스터 서버에 업로드된 SW 삭제
 @app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
     sid = request.form['sid']
-    
-    # db 삭제 부분
-    ## (구현해야함)
+    print(sid)
+    sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
+    print(sw)
+    db.session.delete(sw)
+    db.session.commit()
 
     # 응답부분
     res = jsonify(
@@ -197,14 +214,21 @@ def remove_uploadSw():
 @app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
     sid = request.form['sid'] # 일단 이렇게 진행하는데 왜 sid인지?
-    
-    # db 불러오는 부분
-    ## (구현해야함)
+    sw_list = []
+
+    s = db.session.query(Server_SW.wid).filter(sid == Server_SW.sid).all() 
+    for sw in s:
+        Key = "wid"
+        Value = sw[0]
+        string = {Key : Value}
+        sw_list.append(string)
+        
 
     # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
-        message = "처리 성공"
+        message = "처리 성공",
+        swList = sw_list
     )
     return res
 
@@ -213,9 +237,15 @@ def get_deploySwList():
 def add_newDeploySwInfo():
     sid = request.form['sid']
     wid = request.form['wid']
+    
+    # server data 임의로 넣어주고잇음
+#    ser = Server(sid = "master1")
+#    db.session.add(ser)
+#    db.session.commit
 
-    # db 불러오는 부분
-    ## (구현해야함)
+    s = Server_SW(sid = sid, wid = wid)
+    db.session.add(s)
+    db.session.commit
 
     # 응답부분 
     res = jsonify(
@@ -230,8 +260,10 @@ def remove_deploySwInfo():
     sid = request.form['sid']
     wid = request.form['wid']
 
-    # db 불러오는 부분
-    ## (구현해야함)
+    sw = db.session.query(Server_SW).filter(Server_SW.sid == sid, Server_SW.wid == wid).first()
+    print(sw)
+    db.session.delete(sw)
+    db.session.commit()
 
     # 응답부분 
     res = jsonify(
