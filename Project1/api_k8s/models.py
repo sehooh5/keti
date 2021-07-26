@@ -13,4 +13,3 @@ class SW_up(db.Model):
     copyright = db.Column(db.String(128))
     type = db.Column(db.String(128))
     description = db.Column(db.String(128))
-    datetime = db.Column(db.DateTime)

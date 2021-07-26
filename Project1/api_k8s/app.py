@@ -5,11 +5,20 @@ import os
 from models import db, SW_up
 import datetime as dt
 import string 
-import random 
+import random
+
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # jsonify 한글깨짐 해결
 
+# 랜덤한 문자열 생성 
+_LENGTH = 4 # 12자리 # 숫자 + 대소문자 
+string_pool = string.ascii_letters + string.digits 
+def sid_maker():
+    sid = ""    
+    for i in range(_LENGTH) :
+        sid += random.choice(string_pool) 
+    return sid
 
 @app.route('/')
 def index():
@@ -116,41 +125,51 @@ def add_newUploadSw():
 #    copyright = request.form['copyright']
 #    type = request.form['type']
 #    desc = request.form['desc']
-    _LENGTH = 4 # 12자리 # 숫자 + 대소문자 
-    string_pool = string.ascii_letters + string.digits 
 
-    # 랜덤한 문자열 생성 
-    sid = ""
-    for i in range(_LENGTH) :
-        sid += random.choice(string_pool) # 랜덤한 문자열 하나 선택 
+    # 1. sid 생성
+    sid = sid_maker()
+    q = db.session.query(SW_up).get(sid) # sid 중복된게 있는지 찾아줌
+
+    while q != None :
+        print("sid 생성")
+        sid = sid_maker()
+        break
+    else :
+        print(f"using {sid}")
     
-    
-    s1 = SW_up(sid=sid, name="hi", fname="hifname", copyright="hicopy", type="hitype", description="hidesc")
-    db.session.add(s1)
+    # 2. software_up 테이블에 데이터 저장
+    sw = SW_up(sid=sid, name="hi", fname="hifname", copyright="hicopy", type="hitype", description="hidesc")    
+    db.session.add(sw)
     db.session.commit
-    # db 저장 부분
-    ## (구현해야함)
 
     # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공",
-        sid = "0xs1"
+        sid = sid
     )
     return res
 
 # 2.8 마스터 서버에 업로드된 SW 정보수정
 @app.route('/update_uploadSw', methods=['POST'])
 def update_uploadSw():
-    sid = request.form['sid']
-    name = request.form['name']
-    fname = request.form['fname']
-    copyright = request.form['copyright']
-    type = request.form['type']
-    desc = request.form['desc']
+    # sid = request.form['sid']
+    # name = request.form['name']
+    # fname = request.form['fname']
+    # copyright = request.form['copyright']
+    # type = request.form['type']
+    # desc = request.form['desc']
     
-    # db 업데이트 부분
-    ## (구현해야함)
+    # update 부분인데 입력값은 위에처럼 받아와야함
+    sw = db.session.query(SW_up).filter(SW_up.sid == "test").update({
+        'sid': 'test2',
+         'name': 'update',
+         'fname': 'new_fname',
+         'copyright': 'new_copright',
+         'type': 'new_type',
+         'description': 'new_desc'
+         })
+    db.session.commit()
 
     # 응답부분
     res = jsonify(

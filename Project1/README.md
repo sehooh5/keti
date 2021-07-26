@@ -874,3 +874,7 @@
 #### 0726
 
 - 2.7 마무리 짓기
+- [sqlalchemy engine 추가하고 사용하기](https://yujuwon.tistory.com/entry/SQLAlchemy-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+- [sqlalchemy 사용](https://edykim.com/ko/post/getting-started-with-sqlalchemy-part-1/)
+- [실질적으로 select 찾아서 사용한 부분](https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/)
+- 2.8까지 완료
