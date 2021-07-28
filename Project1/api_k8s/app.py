@@ -20,6 +20,12 @@ def sid_maker():
         sid += random.choice(string_pool) 
     return sid
 
+def port_maker(len):
+    port = ""    
+    for i in range(len) :
+        port += random.choice(string.digits) 
+    return port
+
 @app.route('/')
 def index():
   
@@ -99,12 +105,35 @@ def disconnect_device():
 @app.route('/get_uploadSwList', methods=['GET'])
 def get_uploadSwList():
 
+    sid_list = db.session.query(SW_up.sid).all()
+    name_list = db.session.query(SW_up.name).all()
+    fname_list = db.session.query(SW_up.fname).all()
+    copyright_list = db.session.query(SW_up.copyright).all()
+    type_list = db.session.query(SW_up.type).all()
+    desc_list = db.session.query(SW_up.description).all()
+    dt_list = db.session.query(SW_up.datetime).all()
+    
+    sw_list = []
+    for sid, name, fname, copyright, type, desc, datetime in zip(sid_list, name_list, fname_list, copyright_list, type_list, desc_list, dt_list): 
+        dt = datetime[0].strftime('%Y-%m-%d')
+        sw = {
+        "sid" : sid[0],
+        "name": name[0],
+        "fname": fname[0],
+        "copyright": copyright[0],
+        "type": type[0],
+        "description": desc[0],
+        "datetime": dt
+        }
+        sw_list.append(sw)
+        
 
 
     # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
-        message = "처리 성공"
+        message = "처리 성공",
+        list = sw_list
     )
     return res
 
@@ -118,6 +147,8 @@ def get_uploadSwiNFO():
     copyright = db.session.query(SW_up.copyright).filter(SW_up.sid == sid).first()[0]
     type = db.session.query(SW_up.type).filter(SW_up.sid == sid).first()[0]
     desc = db.session.query(SW_up.description).filter(SW_up.sid == sid).first()[0]
+    dt = db.session.query(SW_up.datetime).filter(SW_up.sid == sid).first()[0]
+
 
     # 응답부분 (List 구현해야함)
     res = jsonify(
@@ -127,14 +158,15 @@ def get_uploadSwiNFO():
         fname = fname,
         copyright = copyright,
         type = type,
-        description = desc
+        description = desc,
+        datetime = dt.strftime('%Y-%m-%d')
     )
     return res
 
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-    desc = request.form['name']
+    name = request.form['name']
     fname = request.form['fname']
     copyright = request.form['copyright']
     type = request.form['type']
@@ -172,8 +204,9 @@ def update_uploadSw():
     name = request.form['name']
     fname = request.form['fname']
     copyright = request.form['copyright']
-    type = request.form['type']
+    type = request.form['type']    
     desc = request.form['desc']
+
     
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).update({
          'sid': sid,
@@ -273,44 +306,86 @@ def remove_deploySwInfo():
     return res
 
 # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
-@app.route('/get_servicePort', methods=['GET'])
+@app.route('/get_servicePort', methods=['POST'])
 def get_servicePort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+    sid = request.form['sid']
+
+    p_list = db.session.query(Server_SW.serviceport).filter(Server_SW.sid == sid).all()
+    port_list = []
+    for p in p_list:
+        port = p[0]
+        port_list.append(port)
+    
+    port = f"6{port_maker(3)}"
+    while True:
+        if port in port_list:
+            port = f"6{port_maker(3)}"
+            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+        else : 
+            print(f"해당 포트번호 사용 : {port}")
+            break
 
     # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
-        port = "6001"
+        port = port
     )
     return res
 
 # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
-@app.route('/get_targetPort', methods=['GET'])
+@app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+    sid = request.form['sid']
+
+    p_list = db.session.query(Server_SW.targetport).filter(Server_SW.sid == sid).all()
+    port_list = []
+    for p in p_list:
+        port = p[0]
+        port_list.append(port)
+    
+    port = f"5{port_maker(3)}"
+    while True:
+        if port in port_list:
+            port = f"5{port_maker(3)}"
+            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+        else : 
+            print(f"해당 포트번호 사용 : {port}")
+            break
 
     # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
-        port = "5001"
+        port = port
     )
     return res
 
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
-@app.route('/get_nodePort', methods=['GET'])
+@app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
-    # port 번호 찾는 기능
-    ## (구현해야함)
+    sid = request.form['sid']
+
+    p_list = db.session.query(Server_SW.nodeport).filter(Server_SW.sid == sid).all()
+    port_list = []
+    for p in p_list:
+        port = p[0]
+        port_list.append(port)
+        
+    port = f"3{port_maker(4)}"
+    while True:
+        if port in port_list:
+            port = f"3{port_maker(4)}"
+            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+        else : 
+            print(f"해당 포트번호 사용 : {port}")
+            break
 
     # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
-        port = "30001"
+        port = port
     )
     return res
 
