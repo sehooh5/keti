@@ -26,6 +26,7 @@ def port_maker(len):
         port += random.choice(string.digits) 
     return port
 
+
 @app.route('/')
 def index():
   
@@ -46,7 +47,7 @@ def add_newEdgeCluster():
     # w_input = m_message.split('root:')[-1]
     # ### 여기서 wlist 로 wid 가져와서 원격으로 접속한 뒤 w_input 입력해주기? ###
 
-        res = jsonify(
+    res = jsonify(
         code = "0000",
         message = "처리 성공"
     )
