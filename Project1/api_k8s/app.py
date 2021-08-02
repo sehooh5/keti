@@ -47,20 +47,23 @@ def add_newEdgeCluster():
     wlist = request.form['wlist'] 
     
     ## 추가구현 필요 ## 
-    # API 연동해서 해당 값 가져오기
+    # API 연동해서 해당 값 가져오기 - wlist 사용
     # 1. 모든 워커노드의 ip, name, password 불러오기 - 여기서 name,pwd 는 로그인을 위한 것들
     wip = get_edgeInfo(wid).ip
     wname = get_edgeInfo(wname).id
     wpwd = get_edgeInfo(wid).pwd
+
     # 마스터 엣지 구성
     m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_message.split('root:')[-1]
+
     ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
     cli.connect(wip, port=22, username=wname, password=wpwd)
     stdin, stdout, stderr = cli.exec_command(w_input)
     time.sleep(10.0) # 엣지 한개 연결할때마다 쉬어줘야하는데 시간은 변경될 수 있음
     cli.close()
+    print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 
     res = jsonify(
         code = "0000",
