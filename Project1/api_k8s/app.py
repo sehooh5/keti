@@ -46,9 +46,7 @@ def add_newEdgeCluster():
     # w_input = m_message.split('root:')[-1]
     # ### 여기서 wlist 로 wid 가져와서 원격으로 접속한 뒤 w_input 입력해주기? ###
 
-    
-    # 응답부분
-    res = jsonify(
+        res = jsonify(
         code = "0000",
         message = "처리 성공"
     )
@@ -67,7 +65,6 @@ def get_edgeName():
         n = {"name" : name.split(' ')[0]}
         names.append(n)
 
-    # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -81,7 +78,11 @@ def connect_device():
     eid = request.form['eid']
     did = request.form['eid']
     
-    # 응답부분
+    ## 추가구현 필요 ## 
+    # 1. 예지누나 API 연결
+    # 2. did (디바이스 아이디)로 device의 url 가져와서 
+    # 3. 가져온 url 로 카메라 연결시켜주기
+
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -94,7 +95,10 @@ def disconnect_device():
     eid = request.form['eid']
     did = request.form['did']
     
-    # 응답부분
+    ## 추가구현 필요 ## 
+    # 디바이스 연결 해지할 때 eid, did 필요할지는 모르겠는데
+    # 전부 구현하고 연결한 후 작동하는지 확인하면서 진행
+
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -127,9 +131,6 @@ def get_uploadSwList():
         }
         sw_list.append(sw)
         
-
-
-    # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -149,8 +150,6 @@ def get_uploadSwiNFO():
     desc = db.session.query(SW_up.description).filter(SW_up.sid == sid).first()[0]
     dt = db.session.query(SW_up.datetime).filter(SW_up.sid == sid).first()[0]
 
-
-    # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -188,7 +187,6 @@ def add_newUploadSw():
     db.session.add(sw)
     db.session.commit
 
-    # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -218,7 +216,6 @@ def update_uploadSw():
          })
     db.session.commit()
 
-    # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -236,7 +233,6 @@ def remove_uploadSw():
     db.session.delete(sw)
     db.session.commit()
 
-    # 응답부분
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -256,8 +252,6 @@ def get_deploySwList():
         string = {Key : Value}
         sw_list.append(string)
         
-
-    # 응답부분 (List 구현해야함)
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -280,7 +274,6 @@ def add_newDeploySwInfo():
     db.session.add(s)
     db.session.commit
 
-    # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -298,7 +291,6 @@ def remove_deploySwInfo():
     db.session.delete(sw)
     db.session.commit()
 
-    # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공"
@@ -325,7 +317,6 @@ def get_servicePort():
             print(f"해당 포트번호 사용 : {port}")
             break
 
-    # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -353,7 +344,6 @@ def get_targetPort():
             print(f"해당 포트번호 사용 : {port}")
             break
 
-    # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -371,7 +361,7 @@ def get_nodePort():
     for p in p_list:
         port = p[0]
         port_list.append(port)
-        
+
     port = f"3{port_maker(4)}"
     while True:
         if port in port_list:
@@ -381,7 +371,6 @@ def get_nodePort():
             print(f"해당 포트번호 사용 : {port}")
             break
 
-    # 응답부분 
     res = jsonify(
         code = "0000",
         message = "처리 성공",
@@ -412,4 +401,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000)
