@@ -6,10 +6,17 @@ from models import db, SW_up, Server, Server_SW
 import datetime as dt
 import string 
 import random
+import paramiko
+import getpass
+import time
 
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # jsonify 한글깨짐 해결
+
+# 다른 서버에 명령 보낼때 사용
+cli = paramiko.SSHClient()
+cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
 # 랜덤한 문자열 생성 
 _LENGTH = 4 # 12자리 # 숫자 + 대소문자 
@@ -37,15 +44,23 @@ def index():
 @app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
     mid = request.form['mid']
-    wlist = request.form['wlist'] # list 로 받아서 여러개의 id 를 가져오거나 보내야 할수도잇음
-    # ### 일단 기능은 빼고 껍데기만 만들어 놓기 --->
-    # # 마스터 엣지 ip 불러오기
-    # mip = get_edgeInfo(mid).ip
-    # # 마스터 엣지 구성
-    # m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
-    # # 워커 엣지에서 사용할 코드
-    # w_input = m_message.split('root:')[-1]
-    # ### 여기서 wlist 로 wid 가져와서 원격으로 접속한 뒤 w_input 입력해주기? ###
+    wlist = request.form['wlist'] 
+    
+    ## 추가구현 필요 ## 
+    # API 연동해서 해당 값 가져오기
+    # 1. 모든 워커노드의 ip, name, password 불러오기 - 여기서 name,pwd 는 로그인을 위한 것들
+    wip = get_edgeInfo(wid).ip
+    wname = get_edgeInfo(wname).id
+    wpwd = get_edgeInfo(wid).pwd
+    # 마스터 엣지 구성
+    m_output = os.system(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
+    # 마스터 - 워커 연결해주는 명령어
+    w_input = m_message.split('root:')[-1]
+    ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
+    cli.connect(wip, port=22, username=wname, password=wpwd)
+    stdin, stdout, stderr = cli.exec_command(w_input)
+    time.sleep(10.0) # 엣지 한개 연결할때마다 쉬어줘야하는데 시간은 변경될 수 있음
+    cli.close()
 
     res = jsonify(
         code = "0000",
