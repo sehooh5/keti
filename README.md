@@ -9,6 +9,7 @@
 ### Basic
 
 - 기본 IT 용어 및 활용 기술에 대한 기본 Document 적 자료
+- 쿠버네티스, PyQt5 등 리서치 자료
 
 
 
@@ -18,7 +19,10 @@
   - Docker
   - Prometheus, Grafana
 - CCTV 제어
+  - REST API 활용
+  - opencv활용해 카메라 연동
 - rtsp relay server
+- k8s 클러스터 구성 및 SW 배포를 위한 API 구성
 
 
 
@@ -44,15 +48,3 @@
   - Ubuntu 20.04.2 LTS
   - 개발언어 : Python 
   - 프레임워크 : Pytorch
-
-
-
-### DigitalTwin
-
-- Digital Twin 기술에 대한 탐색
-
-
-
-### KubeEdge, Microk8s
-
-- KubeEdge, Microk8s에 대한 기초자료 서칭 및 공유
