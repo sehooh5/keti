@@ -184,6 +184,7 @@ def get_uploadSwiNFO():
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
+    print("들어옴")
     name = request.form['name']
     fname = request.form['fname']
     copyright = request.form['copyright']
@@ -195,11 +196,11 @@ def add_newUploadSw():
     q = db.session.query(SW_up).get(sid) # sid 중복된게 있는지 찾아줌
 
     while q != None :
-        print("sid 생성")
         sid = sid_maker()
+        print(f"ID를 재생성합니다 : {sid}")
         break
     else :
-        print(f"using {sid}")
+        print(f"해당 ID를 사용 : {sid}")
     
     # 2. software_up 테이블에 데이터 저장
     sw = SW_up(sid=sid, name=name, fname=fname, copyright=copyright, type=type, description=desc)    
@@ -217,7 +218,7 @@ def add_newUploadSw():
 # 2.8 마스터 서버에 업로드된 SW 정보수정
 @app.route('/update_uploadSw', methods=['POST'])
 def update_uploadSw():
-    sid = request.form['sid']
+    sid = request.form['sid'] ## sid 는 입력값이 아닌 해당 sw 클릭 시 가져오게끔해야할듯?
     name = request.form['name']
     fname = request.form['fname']
     copyright = request.form['copyright']
@@ -261,7 +262,7 @@ def remove_uploadSw():
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
 @app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
-    sid = request.form['sid'] # 일단 이렇게 진행하는데 왜 sid인지?
+    sid = request.form['sid'] 
     sw_list = []
 
     s = db.session.query(Server_SW.wid).filter(sid == Server_SW.sid).all() 
@@ -420,4 +421,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run()
