@@ -18,8 +18,8 @@ app.config['JSON_AS_ASCII'] = False # jsonify 한글깨짐 해결
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
-# 랜덤한 문자열 생성 
-_LENGTH = 4 # 12자리 # 숫자 + 대소문자 
+# 랜덤한 문자열 생성기
+_LENGTH = 4 
 string_pool = string.ascii_letters + string.digits 
 def sid_maker():
     sid = ""    
@@ -27,6 +27,7 @@ def sid_maker():
         sid += random.choice(string_pool) 
     return sid
 
+# 포트번호 생성
 def port_maker(len):
     port = ""    
     for i in range(len) :
