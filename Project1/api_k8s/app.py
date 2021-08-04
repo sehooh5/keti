@@ -46,7 +46,7 @@ def add_newEdgeCluster():
     mid = request.form['mid']
     wlist = request.form['wlist'] 
     
-    ## 추가구현 필요 ## 
+    ## 추가구현 필요 ## 밑에는 예시
     # API 연동해서 해당 값 가져오기 - wlist 사용
     # 1. 모든 워커노드의 ip, name, password 불러오기 - 여기서 name,pwd 는 로그인을 위한 것들
     wip = get_edgeInfo(wid).ip
