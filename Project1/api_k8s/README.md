@@ -9,7 +9,7 @@
 
 
 
-### 파일 내용
+### Files
 
 - `app.py` : 작성한 API 전체 내용
 - `models.py` : sqlalchemy 사용한 DB 내용

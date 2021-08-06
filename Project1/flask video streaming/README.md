@@ -5,6 +5,8 @@
 
 
 
+
+
 ### 필요한 파이썬 지식
 
 ---
@@ -21,6 +23,8 @@
   - `os.environ['HOME']`
   - `os.environ.get('CAMERA')`
 - 터미널에서 `CAMERA=opencv` 로 환경 설정을 해줄 수 있다
+
+
 
 
 
@@ -94,6 +98,8 @@ if __name__ == '__main__':
 
 ```
 
+
+
 #### camera_opencv.py
 
 - opencv 를 사용하여 영상을 읽어서 이미지를 `.jpg` 로 인코딩해주는 파일
@@ -140,6 +146,8 @@ class Camera(BaseCamera):
             yield cv2.imencode('.jpg', img)[1].tobytes()
 
 ```
+
+
 
 #### base_camera.py
 
@@ -254,6 +262,10 @@ class BaseCamera(object):
 
 ```
 
+
+
+
+
 ### Dockerfile
 
 - 도커 이미지 빌드를 위한 Dockerfile
@@ -299,6 +311,10 @@ CMD ["python", "workspace/app.py"]
 
 
 ```
+
+
+
+
 
 ### deployment.yaml
 
@@ -356,6 +372,8 @@ spec:
 
 
 ---
+
+
 
 ## 참고 자료
 

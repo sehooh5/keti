@@ -185,6 +185,8 @@ spec:
 
 ---
 
+
+
 ## 참고자료
 
 ## OpenCV를 Docker  에서 활용
@@ -208,6 +210,8 @@ spec:
 - 클러스터 내의 서비스에 대한 외부 접근을 관리하는 API 오브젝트
 - 일반적으로 HTTP를 관리
 
+
+
 ## OpenStack 사용 
 
 - [영어 자료 참고](https://arxiv.org/ftp/arxiv/papers/1901/1901.04946.pdf)
@@ -216,35 +220,15 @@ spec:
 
 
 
----
+## 기타 참고
 
-## [지금 파이썬 배포에 활용하고 있는 사이트](https://lsjsj92.tistory.com/578)
+- [파이썬 장고 웹페이지 배포](https://lsjsj92.tistory.com/578)
 
----
+- [공식문서 파이썬 배포](https://kubernetes.io/blog/2019/07/23/get-started-with-kubernetes-using-python/)
 
-### [아래내용](https://blog.naver.com/PostView.nhn?blogId=alice_k106&logNo=221341757624&redirect=Dlog&widgetTypeCall=true&directAccess=false)
+- [나중 flask 사용할 시 참고](https://m.blog.naver.com/PostView.nhn?blogId=wideeyed&logNo=221585566556&proxyReferer=https:%2F%2Fwww.google.com%2F)
 
-**1.1 쿠버네티스 프록시를 localhost로 돌리고 API 서버에 접근하는 방법 (kube proxy)**
+- [실제 OpenCV, RSTP, DOCKER 사용된 프로젝트](https://towardsdatascience.com/real-time-and-video-processing-object-detection-using-tensorflow-opencv-and-docker-2be1694726e5)
 
-
-
-쿠버네티스 라이브러리를 사용하는 wrapper 애플리케이션을 Master 노드의 로컬에 둔 뒤, 이 애플리케이션이 localhost로 접근하면 쿠버네티스 클러스터를 제어할 수 있다.
-
----
-
-### [공식문서 파이썬 배포](https://kubernetes.io/blog/2019/07/23/get-started-with-kubernetes-using-python/)
-
----
-
-## [나중 flask 사용할 시 참고](https://m.blog.naver.com/PostView.nhn?blogId=wideeyed&logNo=221585566556&proxyReferer=https:%2F%2Fwww.google.com%2F)
-
----
-
-## [실제 OpenCV, RSTP, DOCKER 사용된 프로젝트](https://towardsdatascience.com/real-time-and-video-processing-object-detection-using-tensorflow-opencv-and-docker-2be1694726e5)
-
----
-
-## [웹캠-도커 연결](https://www.mlr2d.org/contents/docker/06_dockercontainersetupexamples_webcam_audio)
-
----
+- [웹캠-도커 연결](https://www.mlr2d.org/contents/docker/06_dockercontainersetupexamples_webcam_audio)
 
