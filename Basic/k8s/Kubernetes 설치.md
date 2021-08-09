@@ -123,7 +123,8 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 
 - 즉, Master 노드에서만 `kubectl` 명령어를 사용가능하며, 다른 노드에서 사용하고 싶을때는 admin.conf 파일을 복사해서 사용한다
 
-- 
+  
+
 
 ### Pod 네트워크 구성 - Flannel
 
