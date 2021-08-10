@@ -199,6 +199,8 @@ KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercon
 
 ---
 
+
+
 ## Worker Nodes 세팅
 
 - Docker 설치 후 Master 와 동일한 방법으로 Kubernetes 설치 후 **Join**
@@ -212,10 +214,26 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 
 
 
-### scheduler, cm unhealthy 에러 고치기(문제없음 그냥 사용!)
+### Token 재생성 명령문
 
-- https://github.com/rootsongjc/kubernetes-handbook/issues/36
-- https://github.com/kubernetes/kubeadm/issues/2222
+- ```
+  $ kubeadm token create (생성)
+  $ kubeadm token list (확인)
+  ```
+
+
+
+### Hash 확인하는 명령문
+
+- ```$d
+  $ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+  ```
+
+  - 응답이 오는데 값이 최초의 값과 동일하다
+
+
+
+
 
 ---
 
