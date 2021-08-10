@@ -3,8 +3,8 @@ import sys
 import paramiko
 import getpass
 import time
-# kubeadm join 192.168.0.29:6443 --token m33kvg.xta9556i5lobye1v \
-#    --discovery-token-ca-cert-hash sha256:288c16783a76640c705faa77c170272e02b06668d3b8b00732d3bad3c0527cb1
+# kubeadm join 192.168.0.29:6443 --token c4irqp.e98nn28lxg0dxo94 \
+#     --discovery-token-ca-cert-hash sha256:089092f3d63ee6d040806d3cdb77dbdfba47f2314358774bbc6d184f9c7941d6
 
 # 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
@@ -16,8 +16,8 @@ wip = sys.argv[1]
 wname = sys.argv[2]
 wpwd = sys.argv[3]
 # 나중에 마스터 설정할때 나오는 명령문으로 바꿔줘야함
-w_input = "sudo kubeadm join 192.168.0.29:6443 --token m33kvg.xta9556i5lobye1v \
-    --discovery-token-ca-cert-hash sha256:288c16783a76640c705faa77c170272e02b06668d3b8b00732d3bad3c0527cb1"
+w_input = "sudo kubeadm join 192.168.0.29:6443 --token c4irqp.e98nn28lxg0dxo94 \
+    --discovery-token-ca-cert-hash sha256:089092f3d63ee6d040806d3cdb77dbdfba47f2314358774bbc6d184f9c7941d6"
 cli.connect(wip, port=22, username=wname, password=wpwd)
 
 stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
@@ -34,3 +34,4 @@ cli.close()
 # $ mkdir -p $HOME/.kube
 # $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 # $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
