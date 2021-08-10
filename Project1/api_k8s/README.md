@@ -15,4 +15,6 @@
 - `models.py` : sqlalchemy 사용한 DB 내용
 - `ssh_test.py` : ssh 명령을 다른 컴퓨터에 전달하는 테스트 내용
 - `using_API.py` : API 를 직접적으로 사용해보는 예제
+- `k8s_delete.py` : k8s 노드 삭제하는 기능
+- `k8s_join.py` : k8s 노드 추가하는 내용
 
