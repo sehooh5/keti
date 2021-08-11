@@ -214,7 +214,7 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 
 
 
-### join 시 멈춤
+### join 시 멈춤 에러 해결
 
 - api-server 연결이 안된다면서 멈추는데 마스터에서 6433 포트 방화벽을 해제해줘야함
 
@@ -302,7 +302,7 @@ $ reboot
 
 - [참고](https://judo0179.tistory.com/66)
 
-### kuberctl 명령어
+### kubectl 명령어
 
 - 쿠버네티스는 `kubectl` 이라는 CLI 명령어를 통해서 쿠버네티스 및 클러스터 관리, 디버그 및 트러블 슈팅을 할 수 있다
 - 기본적 명령어는 기본적으로 아래와 같다
