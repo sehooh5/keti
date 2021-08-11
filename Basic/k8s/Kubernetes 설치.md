@@ -191,11 +191,11 @@ KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercon
 KUBECONFIG=/etc/kubernetes/admin.conf kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kubeadm-kuberouter-all-features.yaml
 ```
 
-
-
-
-
 - **Master Node 세팅 완료**
+
+
+
+
 
 ---
 
@@ -213,6 +213,35 @@ kubeadm join 192.168.100.5:6443 --token 813ucf.89bo9j9mfk6pm4vx \
 ```
 
 
+
+### join 시 멈춤
+
+- api-server 연결이 안된다면서 멈추는데 마스터에서 6433 포트 방화벽을 해제해줘야함
+
+- 명령어 : 
+
+  ```
+  $ sudo firewall-cmd --add-port=6443/tcp --permanent
+  $ sudo firewall-cmd --reload
+  $ sudo firewall-cmd --list-all
+  
+  <확인>
+  public
+    target: default
+    icmp-block-inversion: no
+    interfaces: 
+    sources: 
+    services: dhcpv6-client ssh
+    ports: 6443/tcp <---- Here
+    protocols: 
+    masquerade: no
+    forward-ports: 
+    source-ports: 
+    icmp-blocks: 
+    rich rules:
+  ```
+
+  
 
 ### Token 재생성 명령문
 
