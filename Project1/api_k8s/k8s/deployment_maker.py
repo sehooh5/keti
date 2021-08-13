@@ -12,41 +12,42 @@ import sys
 
 def making(sw_name, port, target_port, node_port, node_name, docker_id):
 
-    deployment = f"""apiVersion: v1
-    kind: Service
-    metadata:
-    name: {sw_name}-service
-    spec:
-    selector:
-        app: {sw_name}
-    ports:
-        - protocol: "TCP"
-        port: {port}
-        targetPort: {target_port}
-        nodePort: {node_port}
-    type: NodePort
+    deployment = f"""
+apiVersion: v1
+kind: Service
+metadata:
+  name: {sw_name}-service
+spec:
+  selector:
+    app: {sw_name}
+  ports:
+    - protocol: "TCP"
+      port: {port}
+      targetPort: {target_port}
+      nodePort: {node_port}
+  type: NodePort
 
-    ---
-    apiVersion: apps/v1
-    kind: Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {sw_name}
+spec:
+  selector:
+    matchLabels:
+      app: {sw_name}
+  template:
     metadata:
-    name: {sw_name}
-    spec:
-    selector:
-        matchLabels:
+      labels:
         app: {sw_name}
-    template:
-        metadata:
-        labels:
-            app: {sw_name}
-        spec:
-        nodeName: {node_name}
-        containers:
-            - name: {sw_name}
-            image: {docker_id}/{sw_name}:latest
-            imagePullPolicy: Always
-            ports:
-                - containerPort: {target_port}"""
+    spec:
+      nodeName: {node_name}
+      containers:
+        - name: {sw_name}
+          image: {docker_id}/{sw_name}:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {target_port}"""
     print(deployment)
 
     return deployment
