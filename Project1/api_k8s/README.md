@@ -22,4 +22,7 @@
   - `deployment_maker.py` : deployment 를 전달받은 값으로 만들어주는 기능
   - `deploy.py` : 만들어진 deployment.yaml 으로 배포하는 내용
   - `delete.py` : 배포된 yaml 파일로 삭제하는 내용
+- `docker` directory : 
+  - `build.py` : 도커 이미지 생성
+  - `push.py` : 도커 이미지 도커허브로 push 
 
