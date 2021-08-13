@@ -8,7 +8,7 @@ file = sys.argv[2]
 
 def delete():
 
-    m_output = os.system(f"kubectl delete -f {url}/{file}")
+    output = os.system(f"kubectl delete -f {url}/{file}")
 
 
 delete()

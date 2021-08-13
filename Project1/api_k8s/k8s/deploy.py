@@ -8,7 +8,7 @@ file = sys.argv[2]
 
 def deploy():
 
-    m_output = os.system(f"kubectl apply -f {url}/{file}")
+    output = os.system(f"kubectl apply -f {url}/{file}")
 
 
 deploy()
