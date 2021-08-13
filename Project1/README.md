@@ -1000,6 +1000,9 @@
 - docker image가 마스터 노드에 잇을때 배포가 가능한지 (docker hub 에 올리지 않음)
   - 역시나 imagePullBackOff
     - 모든 노드에 이미지가 pull 되어잇어야한다....
+  - 일단은 도커허브에 올려서 사용하는 방향으로..
+- k8s 폴더에 배포, 삭제하는 기능 추가
+- deployment_maker.py 파일 기능 수정 완료
 
 
 
