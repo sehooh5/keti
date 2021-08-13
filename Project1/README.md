@@ -998,6 +998,8 @@
 #### 0813
 
 - docker image가 마스터 노드에 잇을때 배포가 가능한지 (docker hub 에 올리지 않음)
+  - 역시나 imagePullBackOff
+    - 모든 노드에 이미지가 pull 되어잇어야한다....
 
 
 

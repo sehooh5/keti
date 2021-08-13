@@ -136,7 +136,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Docum
 
 
 
-### **설치 확인
+### 설치 확인
 
 - 아래 명령어로 잘 구성되었는지 확인한다
 

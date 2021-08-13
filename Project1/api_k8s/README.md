@@ -14,7 +14,12 @@
 - `app.py` : 작성한 API 전체 내용
 - `models.py` : sqlalchemy 사용한 DB 내용
 - `ssh_test.py` : ssh 명령을 다른 컴퓨터에 전달하는 테스트 내용
+- `ssh_reboot.py` : ssh 리부팅 명령
 - `using_API.py` : API 를 직접적으로 사용해보는 예제
-- `k8s_delete.py` : k8s 노드 삭제하는 기능
-- `k8s_join.py` : k8s 노드 추가하는 내용
+- `k8s` directory : 
+  - `delete_node.py` : k8s 노드 삭제하는 기능
+  - `join.py` : k8s 노드 추가하는 내용
+  - `deployment_maker.py` : deployment 를 전달받은 값으로 만들어주는 기능
+  - `deploy.py` : 만들어진 deployment.yaml 으로 배포하는 내용
+  - `delete.py` : 배포된 yaml 파일로 삭제하는 내용
 
