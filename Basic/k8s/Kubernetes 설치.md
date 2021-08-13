@@ -171,7 +171,52 @@ strace -eopenat kubectl version
 
 
 
-## **(구지 안해도됨)Pending 풀어주기
+### 에러슈팅 : kube-controller-manager, kube-scheduler Unhealthy
+
+- /etc/kubernetes/manifests 경로로 이동
+
+  ```
+  cd /etc/kubernetes/manifests
+  ```
+
+- `kube-controller-manager.yaml` , `kube-scheduler.yaml` 을 열고, --port=0 을 주석처리
+
+  ```yaml
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: null
+    labels:
+      component: kube-controller-manager
+      tier: control-plane
+    name: kube-controller-manager
+    namespace: kube-system
+  spec:
+    containers:
+    - command:
+      - kube-controller-manager
+      - --authentication-kubeconfig=/etc/kubernetes/controller-manager.conf
+      - --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf
+      - --bind-address=127.0.0.1
+      - --client-ca-file=/etc/kubernetes/pki/ca.crt
+      - --cluster-name=kubernetes
+      - --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt
+      - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
+      - --controllers=*,bootstrapsigner,tokencleaner
+      - --kubeconfig=/etc/kubernetes/controller-manager.conf
+      - --leader-elect=true
+        #    - --port=0
+      - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+      - --root-ca-file=/etc/kubernetes/pki/ca.crt
+      - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+      - --use-service-account-credentials=true
+      image: k8s.gcr.io/kube-controller-manager:v1.20.2
+      imagePullPolicy: IfNotPresent
+  ```
+
+  
+
+### **(구지 안해도됨)Pending 풀어주기
 
 - coredns 가 Pending 상태인데 `kube-router`가 준비가 안된상태이기 때문이다
 
