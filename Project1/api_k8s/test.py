@@ -1,7 +1,8 @@
-from k8s import deployment_maker
-from docker import build
-import os
+import response
+import sys
 
+code = sys.argv[1]
 
-os.system(f"mkdir hi")
-os.system(f"mkdir hi2")
+msg = response.response_message(code)
+
+print(msg)
