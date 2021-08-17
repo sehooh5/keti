@@ -44,10 +44,8 @@ def index():
 
     return render_template('api_k8s.html')
 
-# 2.1 신규 엣지 클러스터 추가
-# get_edgeInfo 사용
 
-
+# 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
     mid = request.form['mid']
@@ -66,6 +64,12 @@ def add_newEdgeCluster():
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_message.split('root:')[-1]
 
+    # 마스터에서 설정해줘야 하는 내용
+    os.system("mkdir -p $HOME/.kube")
+    os.system("sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+
     ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
     cli.connect(wip, port=22, username=wname, password=wpwd)
     stdin, stdout, stderr = cli.exec_command(w_input)
@@ -79,9 +83,8 @@ def add_newEdgeCluster():
     )
     return res
 
+
 # 엣지 서버들 이름 조회
-
-
 @app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
     # 그냥 호스트네임 알고싶으면 이 방법
@@ -105,9 +108,8 @@ def get_edgeName():
     )
     return res
 
+
 # 2.3 엣지서버에 디바이스 연결
-
-
 @app.route('/connect_device', methods=['POST'])
 def connect_device():
     eid = request.form['eid']
@@ -124,9 +126,8 @@ def connect_device():
     )
     return res
 
+
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
-
-
 @app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
     eid = request.form['eid']
@@ -142,9 +143,8 @@ def disconnect_device():
     )
     return res
 
+
 # 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
-
-
 @app.route('/get_uploadSwList', methods=['GET'])
 def get_uploadSwList():
 
@@ -177,9 +177,8 @@ def get_uploadSwList():
     )
     return res
 
+
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
-
-
 @app.route('/get_uploadSwiNFO', methods=['POST'])
 def get_uploadSwiNFO():
     sid = request.form['sid']
@@ -205,9 +204,8 @@ def get_uploadSwiNFO():
     )
     return res
 
+
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
-
-
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
     print("들어옴")
@@ -285,9 +283,8 @@ def remove_uploadSw():
     )
     return res
 
+
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
-
-
 @app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
     sid = request.form['sid']
@@ -307,9 +304,8 @@ def get_deploySwList():
     )
     return res
 
+
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
-
-
 @app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
     sid = request.form['sid']
@@ -322,7 +318,7 @@ def add_newDeploySwInfo():
 
     s = Server_SW(sid=sid, wid=wid)
     db.session.add(s)
-    db.session.commit
+    db.session.commit()
 
     res = jsonify(
         code="0000",
@@ -330,9 +326,8 @@ def add_newDeploySwInfo():
     )
     return res
 
+
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
-
-
 @app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
     sid = request.form['sid']
@@ -380,9 +375,8 @@ def get_servicePort():
     )
     return res
 
+
 # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
-
-
 @app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
     sid = request.form['sid']
@@ -410,9 +404,8 @@ def get_targetPort():
     )
     return res
 
+
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
-
-
 @app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
     sid = request.form['sid']

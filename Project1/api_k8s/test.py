@@ -1,7 +1,7 @@
 from k8s import deployment_maker
 from docker import build
+import os
 
-# deploy = deployment_maker.making(
-#     "sw", "6001", "5001", "30001", "keti-node", "seho")
-build.build("/home/keti0/keti/Project1/api_k8s/manager",
-            "Dockerfile", "sehooh5", "manager")
+
+os.system(f"mkdir hi")
+os.system(f"mkdir hi2")
