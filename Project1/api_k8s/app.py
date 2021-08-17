@@ -207,7 +207,6 @@ def get_uploadSwiNFO():
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-    print("들어옴")
     name = request.form['name']
     fname = request.form['fname']
     copyright = request.form['copyright']
@@ -220,6 +219,7 @@ def add_newUploadSw():
 
     while q != None:
         sid = sid_maker()
+        q = db.session.query(SW_up).get(sid)
         print(f"ID를 재생성합니다 : {sid}")
         break
     else:
