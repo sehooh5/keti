@@ -29,9 +29,8 @@ def sid_maker():
         sid += random.choice(string_pool)
     return sid
 
+
 # 포트번호 생성
-
-
 def port_maker(len):
     port = ""
     for i in range(len):
