@@ -9,13 +9,14 @@
 
 
 
-### Files
+### `API_K8S` directory
 
 - `app.py` : 작성한 API 전체 내용
 - `models.py` : sqlalchemy 사용한 DB 내용
 - `ssh_test.py` : ssh 명령을 다른 컴퓨터에 전달하는 테스트 내용
 - `ssh_reboot.py` : ssh 리부팅 명령
 - `using_API.py` : API 를 직접적으로 사용해보는 예제
+- `response.py` : API 응답코드에 대한 메시지 처리 기능
 - `k8s` directory : 
   - `delete_node.py` : k8s 노드 삭제하는 기능
   - `join.py` : k8s 노드 추가하는 내용
