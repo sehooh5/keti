@@ -1028,6 +1028,12 @@
 #### 0819
 
 - add_newEdgeCluster 와 연동되는 기능 수정 및 테스트
+  -  join 기능 `join.py` 에서 완벽하게 3개의 서버 클러스터링 완료
+  - 해당 기능에서도 추가하였음
+  - 하지만 나중에 list 받아와서 처리해야함
+- `delete_node.py` 수정중에 있음
+  - whname 이 3개로 다른변수들과 숫자가 달라서 처리 어떻게할지 `test.py` 에서 테스트중
+  - `test.py` 의 kubeadm reset 부분이 잘 작동하지 않음
 
 
 
