@@ -75,8 +75,10 @@ def add_newEdgeCluster():
 
     ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
     cli.connect(wip, port=22, username=wname, password=wpwd)
-    stdin, stdout, stderr = cli.exec_command(w_input)
-    time.sleep(2.0)  # 엣지 한개 연결할때마다 쉬어줘야하는데 시간은 변경될 수 있음
+    stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
+    stdin.write('keti\n')
+    stdin.flush()
+    time.sleep(2.0)
     cli.close()
     print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 

@@ -12,10 +12,10 @@ os.system(
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-# 나중에 입력받는 값으로 바꿔줘야함
-wip = sys.argv[1]
-wname = sys.argv[2]
-wpwd = sys.argv[3]
+# 나중에 입력받는 값으로 바꿔줘야함, master 노드는 if 로 걸러서 따로처리해줘야함
+wip = sys.argv[2]
+wname = sys.argv[3]
+wpwd = sys.argv[4]
 
 cli.connect(wip, port=22, username=wname, password=wpwd)
 
