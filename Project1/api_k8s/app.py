@@ -3,7 +3,7 @@ from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
 import os
 from models import db, SW_up, Server, Server_SW
-import datetime as dt
+import response
 import string
 import random
 import paramiko
@@ -61,18 +61,22 @@ def add_newEdgeCluster():
     m_output = os.system(
         f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
-    w_input = m_message.split('root:')[-1]
+    w_input = m_output.split('root:')[-1]
 
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
+    time.sleep(2.0)
     os.system("sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    time.sleep(2.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    time.sleep(2.0)
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+    time.sleep(2.0)
 
     ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
     cli.connect(wip, port=22, username=wname, password=wpwd)
     stdin, stdout, stderr = cli.exec_command(w_input)
-    time.sleep(10.0)  # 엣지 한개 연결할때마다 쉬어줘야하는데 시간은 변경될 수 있음
+    time.sleep(2.0)  # 엣지 한개 연결할때마다 쉬어줘야하는데 시간은 변경될 수 있음
     cli.close()
     print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 
