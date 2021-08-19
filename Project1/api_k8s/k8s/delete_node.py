@@ -5,26 +5,29 @@ import getpass
 import time
 
 
-arg = sys.argv[1]
-os.system(
-    f"kubectl delete node {arg}")
-
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-# 나중에 입력받는 값으로 바꿔줘야함, master 노드는 if 로 걸러서 따로처리해줘야함
-wip = sys.argv[2]
-wname = sys.argv[3]
-wpwd = sys.argv[4]
+mname = sys.argv[1]
 
-cli.connect(wip, port=22, username=wname, password=wpwd)
+wip = ["192.168.0.32", "192.168.0.33"]
+wname = ["keti1", "keti2"]
+whname = ["keti0-master", "keti1-worker1", "keti2-worker2"]
+wpwd = ["keti", "keti"]
 
-stdin, stdout, stderr = cli.exec_command("sudo kubeadm reset", get_pty=True)
-stdin.write('keti\n')
-stdin.flush()
+for ip, name, pwd in zip(wip, wname, wpwd):
 
-lines = stdout.readlines()
-print(''.join(lines))
+    os.system(f"kubectl delete node {arg}")
 
-time.sleep(2.0)
-cli.close()
+    cli.connect(ip, port=22, username=name, password=pwd)
+
+    stdin, stdout, stderr = cli.exec_command(
+        "sudo kubeadm reset", get_pty=True)
+    stdin.write('keti\n')
+    stdin.flush()
+
+    lines = stdout.readlines()
+    print(''.join(lines))
+
+    time.sleep(2.0)
+    cli.close()
