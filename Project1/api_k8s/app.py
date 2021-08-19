@@ -57,11 +57,12 @@ def add_newEdgeCluster():
     wname = get_edgeInfo(wname).id
     wpwd = get_edgeInfo(wid).pwd
 
+    mip = "192.168.0.29"
     # 마스터 엣지 구성
     m_output = os.system(
         f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
-    w_input = m_output.split('root:')[-1]
+    w_input = m_output.split('root:')[-1].lstrip()
 
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
@@ -73,13 +74,23 @@ def add_newEdgeCluster():
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
     time.sleep(2.0)
 
-    ### 여기서 wlist 로 wid 차례대로 가져와서 원격으로 접속한 뒤 w_input 입력해주기 ###
-    cli.connect(wip, port=22, username=wname, password=wpwd)
-    stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
-    stdin.write('keti\n')
-    stdin.flush()
-    time.sleep(2.0)
-    cli.close()
+    # 나중에 진짜 리스트 받아와서 처리해줘야함
+    wip = ["192.168.0.32", "192.168.0.33"]
+    wname = ["keti1", "keti2"]
+    wpwd = ["keti", "keti"]
+    w_input = f"sudo {w_input}"
+
+    for ip, name, pwd in zip(wip, wname, wpwd):
+
+        cli.connect(ip, port=22, username=name, password=pwd)
+        stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
+        stdin.write('keti\n')
+        stdin.flush()
+        lines = stdout.readlines()
+        print(''.join(lines))
+        time.sleep(2.0)
+        cli.close()
+
     print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 
     res = jsonify(
