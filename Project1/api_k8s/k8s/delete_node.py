@@ -8,21 +8,21 @@ import time
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-mname = sys.argv[1]
+# mname = sys.argv[1]
 
 wip = ["192.168.0.32", "192.168.0.33"]
 wname = ["keti1", "keti2"]
-whname = ["keti0-master", "keti1-worker1", "keti2-worker2"]
+whname = ["keti1-worker1", "keti2-worker2"]
 wpwd = ["keti", "keti"]
 
-for ip, name, pwd in zip(wip, wname, wpwd):
+for ip, name, hname, pwd in zip(wip, wname, whname, wpwd):
 
-    os.system(f"kubectl delete node {arg}")
+    os.system(f"kubectl delete node {hname}")
 
     cli.connect(ip, port=22, username=name, password=pwd)
 
     stdin, stdout, stderr = cli.exec_command(
-        "sudo kubeadm reset", get_pty=True)
+        "echo y | sudo kubeadm reset", get_pty=True)
     stdin.write('keti\n')
     stdin.flush()
 

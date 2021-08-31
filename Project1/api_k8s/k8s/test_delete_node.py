@@ -11,9 +11,13 @@ cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 # os.system(f"kubectl delete node keti1-worker1")
 
 cli.connect("192.168.0.32", port=22, username="keti1", password="keti")
-stdin, stdout, stderr = cli.exec_command("kubeadm reset")
-stdin.write('y\n')
+stdin, stdout, stderr = cli.exec_command(
+    "echo y | sudo kubeadm reset", get_pty=True)
+stdin.write('keti\n')
+
 stdin.flush()
+
+
 lines = stdout.readlines()
 print(''.join(lines))
 

@@ -136,6 +136,10 @@ def connect_device():
     # 2. did (디바이스 아이디)로 device의 url 가져와서
     # 3. 가져온 url 로 카메라 연결시켜주기
 
+    # 필요한 것
+    # 1. nodeport (ex. 30021)
+    # 2.
+
     res = jsonify(
         code="0000",
         message="처리 성공"
