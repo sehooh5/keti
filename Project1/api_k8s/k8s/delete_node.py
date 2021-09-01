@@ -10,10 +10,10 @@ cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # mname = sys.argv[1]
 
-wip = ["192.168.0.32", "192.168.0.33"]
-wname = ["keti1", "keti2"]
-whname = ["keti1-worker1", "keti2-worker2"]
-wpwd = ["keti", "keti"]
+wip = ["192.168.100.5", "192.168.100.6", "192.168.100.7"]
+wname = ["keti0", "keti1", "keti2"]
+whname = ["keti0-master", "keti1-worker1", "keti2-worker2"]
+wpwd = ["keti", "keti", "keti"]
 
 for ip, name, hname, pwd in zip(wip, wname, whname, wpwd):
 
