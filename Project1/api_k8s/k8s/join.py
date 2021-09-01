@@ -26,7 +26,7 @@ import subprocess
 # cli.close()
 
 
-mip = "192.168.100.5"
+mip = "192.168.0.29"
 # sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.29
 # 마스터 엣지 구성
 m_output = os.popen(
@@ -49,7 +49,7 @@ time.sleep(2.0)
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-wip = ["192.168.100.6", "192.168.100.7"]
+wip = ["192.168.0.32", "192.168.0.33"]
 wname = ["keti1", "keti2"]
 wpwd = ["keti", "keti"]
 w_input = f"sudo {w_input}"
