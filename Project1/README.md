@@ -1096,4 +1096,12 @@
   - 기능 : API 로 주어진 url 을 가지고 해당 노드에 해당 카메라 연결
   - 배포 : 각 노드에 배포
   - 참고 : flask video streaming 앱 구동이 되고있고 이 앱을 변형시켜서 제작할 예정
+- 소켓서버로 다시 구성해야할듯...
+  - socket flask server 시작
+  - [flask-soketio server-client 예제](https://heodolf.tistory.com/125)
+  - [기본 다큐먼트](https://flask-socketio.readthedocs.io/en/latest/getting_started.html) : 이거보고 간단한 프로그램 만듬
+- 소켓서버로 구성 완료 : `connect_device` 폴더에 있음
+- 전체 구성 : 
+  - `app.py` : socketio 에서는 클라이언트 개념으로 connect_device API 작동하면 해당 nodeport와 device_url 을 서버에 전달
+  - 새로운 카메라앱 : 서버 개념으로 계속 노드포트에 켜져있을 것이며 `app.py`에서 해당 정보들이 넘어오면 해당 카메라를 연결하게 된다
 
