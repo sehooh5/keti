@@ -1101,7 +1101,16 @@
   - [flask-soketio server-client 예제](https://heodolf.tistory.com/125)
   - [기본 다큐먼트](https://flask-socketio.readthedocs.io/en/latest/getting_started.html) : 이거보고 간단한 프로그램 만듬
 - 소켓서버로 구성 완료 : `connect_device` 폴더에 있음
-- 전체 구성 : 
+- 현재 구성 : 
+  - CLIENT(`socket_test` 폴더) : 
+    - index.html : nodeport, device_url 을 입력할수 있음
+    - client_flask.py : flask 로 구성된 client 로 최종 `app.py` 의 connect_device API 를 수행
+  - SERVER(`connect_device` 폴더) :
+    - device_app.py : 소켓 서버로 client 에서 오는 정보를 계속 받고, 그 정보로 camera 연결
+- 궁극적인 구성 : 
   - `app.py` : socketio 에서는 클라이언트 개념으로 connect_device API 작동하면 해당 nodeport와 device_url 을 서버에 전달
   - 새로운 카메라앱 : 서버 개념으로 계속 노드포트에 켜져있을 것이며 `app.py`에서 해당 정보들이 넘어오면 해당 카메라를 연결하게 된다
+- 카메라 disconnect 기능 구현중
+  - 서버에서 카메라가 계속 구동중이면 socketio 로 연결이 안되서 stop 명령을 보낼수가 없음..어떻게..?
+  - 멀티쓰레드 소켓 쓰면 될까?
 
