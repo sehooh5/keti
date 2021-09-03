@@ -13,15 +13,13 @@ socketio = SocketIO(app)
 
 
 @socketio.on('nodeport')
-def handle_message(data):
+def handle_nodeport(data):
     print('received nodeport: ' + data)
 
 
 @socketio.on('device_url')
-def handle_message(data):
+def handle_device_url(data):
     os.environ['OPENCV_CAMERA_SOURCE'] = data
-    print(os.environ['OPENCV_CAMERA_SOURCE'])
-    print('received device url: ' + data)
 
 
 @app.route('/')
@@ -62,4 +60,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0", port=5000)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
