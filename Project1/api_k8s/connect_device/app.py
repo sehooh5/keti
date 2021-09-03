@@ -2,21 +2,26 @@
 from importlib import import_module
 import os
 from flask import Flask, render_template, Response, request
+from flask_socketio import SocketIO, send
 
-# 1. import camera driver
-# if os.environ.get('CAMERA'):
-#     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
-# else:
-#     from camera import Camera
-
-# 2. 카메라 opencv 로 처음부터 지정
 Camera = import_module('camera_opencv').Camera
 
 
-# Raspberry Pi camera module (requires picamera package)
-# from camera_pi import Camera
-
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'SEHO_Flask'
+socketio = SocketIO(app)
+
+
+@socketio.on('nodeport')
+def handle_message(data):
+    print('received nodeport: ' + data)
+
+
+@socketio.on('device_url')
+def handle_message(data):
+    os.environ['OPENCV_CAMERA_SOURCE'] = data
+    print(os.environ['OPENCV_CAMERA_SOURCE'])
+    print('received device url: ' + data)
 
 
 @app.route('/')
@@ -30,11 +35,13 @@ def camera():
     """Camera1 streaming"""
     # url 의 파라미터 값을 가져오는 방법
     no = request.args.get('no')
-    # print('number = '+request.args.get('no'))
-    if no == '1':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
-    elif no == '2':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
+
+    # device_url = os.environ['OPENCV_CAMERA_SOURCE']
+    print(os.environ['OPENCV_CAMERA_SOURCE'])
+    # if no == '1':
+    #     os.environ['OPENCV_CAMERA_SOURCE'] = device_url
+    # elif no == '2':
+    #     os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.100.60:8805/videoMain'
 
     return render_template('camera.html')
 
@@ -55,4 +62,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
+    socketio.run(app, host="0.0.0.0", port=5000)

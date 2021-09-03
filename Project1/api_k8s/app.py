@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
+import requests
 import os
 from models import db, SW_up, Server, Server_SW
 import response
@@ -9,6 +10,7 @@ import random
 import paramiko
 import getpass
 import time
+import socketio
 
 
 app = Flask(__name__)
@@ -128,8 +130,8 @@ def get_edgeName():
 # 2.3 엣지서버에 디바이스 연결
 @app.route('/connect_device', methods=['POST'])
 def connect_device():
-    eid = request.form['eid']
-    did = request.form['eid']
+    # eid = request.form['eid']
+    # did = request.form['eid']
 
     ## 추가구현 필요 ##
     # 1. 예지누나 API 연결
@@ -137,8 +139,18 @@ def connect_device():
     # 3. 가져온 url 로 카메라 연결시켜주기
 
     # 필요한 것
-    # 1. nodeport (ex. 30021)
-    # 2.
+    # 1. nodeport (ex. 30021) FROM eid
+    # 2. camera url FROM did
+    nodeport = "30000"
+    device_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+
+    sio = socketio.Client()
+    sio.connect('http://localhost:5000')
+
+    sio.emit('nodeport', nodeport)
+    sio.emit('device_url', device_url)
+    sio.sleep(5)
+    sio.disconnect()
 
     res = jsonify(
         code="0000",
@@ -146,12 +158,16 @@ def connect_device():
     )
     return res
 
+# 디바이스 연결 시 실제로 작동하는 부분
+
 
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
+
+
 @app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
-    eid = request.form['eid']
-    did = request.form['did']
+    # eid = request.form['eid']
+    # did = request.form['did']
 
     ## 추가구현 필요 ##
     # 디바이스 연결 해지할 때 eid, did 필요할지는 모르겠는데
