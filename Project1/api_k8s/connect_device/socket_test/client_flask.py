@@ -25,7 +25,7 @@ def connect_device():
     sio.emit('nodeport', nodeport)
     sio.emit('device_url', device_url)
 
-    sio.sleep(5)
+    sio.sleep(2)
     sio.disconnect()
 
     res = jsonify(

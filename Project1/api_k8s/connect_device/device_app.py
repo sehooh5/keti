@@ -20,6 +20,7 @@ def handle_nodeport(data):
 @socketio.on('device_url')
 def handle_device_url(data):
     os.environ['OPENCV_CAMERA_SOURCE'] = data
+    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
 
 
 @app.route('/')
