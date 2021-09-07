@@ -1137,3 +1137,18 @@
     - **여기서 render_template 이 아닌 그냥 정보만 보내는식으로? 하면 될듯...??**
     - **Disconnect 부분도 만들어야함**
 
+
+
+#### 0907
+
+- **manager_app.py 에 /test 부분은 포스트명령을 다른 포트로 보내기 성공**
+  - **사실상 이 방법이 api 에는 적합..다만 명령은 보내지는데 그 명령을 대상 서버에서 사용을 못함**
+  - 그런데 그 명령으로 실행시킬수는 없음..
+  - 이벤트 핸들링 서버를 만들어야 하나..?
+- **클라이언트 단에서 명령 보내서 해당 카메라 앱을 실행하는 방식으로..**
+  - worker node 당 모든 카메라에 대한 앱이 존재함 (cam1,2_no1.py)
+  - 클라이언트에서 worker id+camera app id 를 사용해 해당 camera app의 nodeport 를 찾아와서 연결
+- **타 API 와 연결 테스트 실시 /test_connect/socket_test/test_server.py** 
+- 연결 도중 json 으로 받아오는것을 이제 알았음 
+  - <mark>**다른 API들도 json 파싱해서 진행하는 방법으로 다 바꿔줘야함**</mark>
+
