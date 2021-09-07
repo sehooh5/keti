@@ -1149,6 +1149,17 @@
   - worker node 당 모든 카메라에 대한 앱이 존재함 (cam1,2_no1.py)
   - 클라이언트에서 worker id+camera app id 를 사용해 해당 camera app의 nodeport 를 찾아와서 연결
 - **타 API 와 연결 테스트 실시 /test_connect/socket_test/test_server.py** 
-- 연결 도중 json 으로 받아오는것을 이제 알았음 
+  - 연결 도중 json 으로 받아오는것을 이제 알았음 
   - <mark>**다른 API들도 json 파싱해서 진행하는 방법으로 다 바꿔줘야함**</mark>
+- <mark>**궁극적 목표 : 1. 마스터->워커로 device 연결/해제 가 가능해야한다..   2. 여러대 device 연결 **</mark>
+  - device 의 해당 url 주소가 전달되서 워커에서 사용되고 또 해지되게끔... : 이벤트 헨들링?
+  - [여러대 디바이스 연결 참고1](https://www.python2.net/questions-951811.htm)
+  - [여러대 디바이스 연결 참고2](https://www.python2.net/questions-1174062.htm)
 
+
+
+#### 0908
+
+- 서버 단에서 while if 로 진행해보기
+  - manager_app.py - /test
+  - 새롭게 app1.py 변경하든지 해서 진행해보기
