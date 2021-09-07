@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
+from flask_cors import CORS, cross_origin
 import requests
 import os
 from models import db, SW_up, Server, Server_SW
@@ -15,6 +16,7 @@ import socketio
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
+CORS(app)
 
 # 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
