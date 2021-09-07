@@ -1,8 +1,3 @@
-import response
-import sys
+import os
 
-code = sys.argv[1]
-
-msg = response.response_message(code)
-
-print(msg)
+os.system("export TEST=rtsp://102.1345.134.134.")

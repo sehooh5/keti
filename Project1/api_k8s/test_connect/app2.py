@@ -9,11 +9,6 @@ Camera = import_module('camera_opencv2').Camera
 app = Flask(__name__)
 
 
-@app.route("/i")
-def index():
-    return render_template('index.html')
-
-
 @app.route('/', methods=['POST'])
 def viewer():
     """streaming"""

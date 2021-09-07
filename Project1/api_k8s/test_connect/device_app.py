@@ -21,6 +21,7 @@ def handle_nodeport(data):
 def handle_device_url(data):
     os.environ['OPENCV_CAMERA_SOURCE'] = data
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
+    return render_template('camera.html')
 
 
 @app.route('/')
@@ -34,6 +35,7 @@ def camera():
     """Camera1 streaming"""
     # url 의 파라미터 값을 가져오는 방법
     no = request.args.get('no')
+    print("넘버 : ", no)
 
     # device_url = os.environ['OPENCV_CAMERA_SOURCE']
     print(os.environ['OPENCV_CAMERA_SOURCE'])

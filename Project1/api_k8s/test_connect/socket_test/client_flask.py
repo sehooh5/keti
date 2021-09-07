@@ -32,7 +32,7 @@ def connect_device():
         code="0000",
         message="처리 성공"
     )
-    return render_template('index.html')
+    return res
 
 
 @app.route("/disconnect_device", methods=['POST'])
