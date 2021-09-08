@@ -1163,3 +1163,4 @@
 - 서버 단에서 while if 로 진행해보기
   - manager_app.py - /test
   - 새롭게 app1.py 변경하든지 해서 진행해보기
+- 기본 api app.py 구동 되게끔 만들기
