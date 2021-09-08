@@ -1163,6 +1163,10 @@
 - 디바이스 서버 단에서 while if 로 진행해보기
   - manager_app.py - /test
   - 새롭게 app1.py 변경하든지 해서 진행해보기
+  - manager_app.py  /  open_cam1,2.py  / manager_app2.html 로 진행중
+    - post request 보내면 해당정보 받아서 각 port 에서 카메라 url 정보로 카메라 실행
+    - **하지만.. 한번 전달하면 카메라 구동중이여서 다른 전달을 받을수가 없음**
+      - 이부분 어떻게 해결할지가 관건...
 - 기본 api app.py 구동 되게끔 만들기
   - 완료
   - json 데이터로 받아오는거까지 완료
