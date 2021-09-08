@@ -1,6 +1,7 @@
 import cv2
 
-url = 'rtsp://root:keti@192.168.100.93/onvif-media/media.amp?rofile=profile_1_h264&sessiontimeout=60&streamtype=unicast'
+url = 'rtsp://keti:keti1234@192.168.100.70:8810/videoMain'
+# 'rtsp://root:keti@192.168.100.93/onvif-media/media.amp?rofile=profile_1_h264&sessiontimeout=60&streamtype=unicast'
 cap = cv2.VideoCapture(url)
 
 while True:
