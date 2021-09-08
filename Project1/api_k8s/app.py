@@ -51,8 +51,10 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-    mid = request.form['mid']
-    wlist = request.form['wlist']
+    json_data = request.get_json(silent=True)
+
+    mid = json_data['mid']
+    wlist = json_data['wlist']
 
     # 추가구현 필요 ## 밑에는 예시
     # API 연동해서 해당 값 가져오기 - wlist 사용
@@ -112,7 +114,7 @@ def get_edgeName():
 
     # 이 방법은 클러스터 전체 이름 가져오기
     nodes = os.system(f"kubectl get node")
-    nodes_split = s.split('\n')
+    nodes_split = nodes.split('\n')
     len_nodes = len(nodes_split)
 
     name_list = nodes_split[1:len_nodes]
@@ -132,8 +134,10 @@ def get_edgeName():
 # 2.3 엣지서버에 디바이스 연결
 @app.route('/connect_device', methods=['POST'])
 def connect_device():
-    # eid = request.form['eid']
-    # did = request.form['eid']
+    json_data = request.get_json(silent=True)
+
+    eid = json_data['eid']
+    did = json_data['eid']
 
     ## 추가구현 필요 ##
     # 1. 예지누나 API 연결
@@ -168,8 +172,10 @@ def connect_device():
 
 @app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
-    # eid = request.form['eid']
-    # did = request.form['did']
+    json_data = request.get_json(silent=True)
+
+    eid = json_data['eid']
+    did = json_data['did']
 
     ## 추가구현 필요 ##
     # 디바이스 연결 해지할 때 eid, did 필요할지는 모르겠는데
@@ -217,9 +223,11 @@ def get_uploadSwList():
 
 
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
-@app.route('/get_uploadSwiNFO', methods=['POST'])
+@app.route('/get_uploadSwInfo', methods=['POST'])
 def get_uploadSwiNFO():
-    sid = request.form['sid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
 
     name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
@@ -246,11 +254,13 @@ def get_uploadSwiNFO():
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-    name = request.form['name']
-    fname = request.form['fname']
-    copyright = request.form['copyright']
-    type = request.form['type']
-    desc = request.form['desc']
+    json_data = request.get_json(silent=True)
+
+    name = json_data['name']
+    fname = json_data['fname']
+    copyright = json_data['copyright']
+    type = json_data['type']
+    desc = json_data['desc']
 
     # 1. sid 생성
     sid = sid_maker()
@@ -281,12 +291,14 @@ def add_newUploadSw():
 # 2.8 마스터 서버에 업로드된 SW 정보수정
 @app.route('/update_uploadSw', methods=['POST'])
 def update_uploadSw():
-    sid = request.form['sid']  # sid 는 입력값이 아닌 해당 sw 클릭 시 가져오게끔해야할듯?
-    name = request.form['name']
-    fname = request.form['fname']
-    copyright = request.form['copyright']
-    type = request.form['type']
-    desc = request.form['desc']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']  # sid 는 입력값이 아닌 해당 sw 클릭 시 가져오게끔해야할듯?
+    name = json_data['name']
+    fname = json_data['fname']
+    copyright = json_data['copyright']
+    type = json_data['type']
+    desc = json_data['desc']
 
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).update({
         'sid': sid,
@@ -308,10 +320,12 @@ def update_uploadSw():
 # 2.9 마스터 서버에 업로드된 SW 삭제
 @app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
-    sid = request.form['sid']
-    print(sid)
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
+
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
-    print(sw)
+
     db.session.delete(sw)
     db.session.commit()
 
@@ -325,7 +339,9 @@ def remove_uploadSw():
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
 @app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
-    sid = request.form['sid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
     sw_list = []
 
     s = db.session.query(Server_SW.wid).filter(sid == Server_SW.sid).all()
@@ -346,8 +362,10 @@ def get_deploySwList():
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
 @app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
-    sid = request.form['sid']
-    wid = request.form['wid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
+    wid = json_data['wid']
 
     # server data 임의로 넣어주고잇음
 #    ser = Server(sid = "master1")
@@ -368,8 +386,10 @@ def add_newDeploySwInfo():
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
 @app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
-    sid = request.form['sid']
-    wid = request.form['wid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
+    wid = json_data['wid']
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
@@ -388,7 +408,9 @@ def remove_deploySwInfo():
 
 @app.route('/get_servicePort', methods=['POST'])
 def get_servicePort():
-    sid = request.form['sid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
 
     p_list = db.session.query(Server_SW.serviceport).filter(
         Server_SW.sid == sid).all()
@@ -417,7 +439,9 @@ def get_servicePort():
 # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
 @app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
-    sid = request.form['sid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
 
     p_list = db.session.query(Server_SW.targetport).filter(
         Server_SW.sid == sid).all()
@@ -446,7 +470,9 @@ def get_targetPort():
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
 @app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
-    sid = request.form['sid']
+    json_data = request.get_json(silent=True)
+
+    sid = json_data['sid']
 
     p_list = db.session.query(Server_SW.nodeport).filter(
         Server_SW.sid == sid).all()
@@ -494,4 +520,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', threaded=True, port=5000)

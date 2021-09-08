@@ -32,26 +32,22 @@ def connect_device_test():
 
     cam_no = request.form['cam_no']
     worker_no = request.form['worker_no']
-    if worker_no == "Worker 1":
-        nodeport = "5001"
-    elif worker_no == "Worker 2":
-        nodeport = "5002"
+    nodeport = request.form['nodeport']
 
     print(cam_no, worker_no, nodeport)
 
     data = {
         "cam_no": cam_no,
-        "worker_no": worker_no,
     }
 
-    res = requests.post("http://localhost:5001/test", data=json.dumps(data))
+    requests.post(f"http://localhost:{nodeport}/test", data=json.dumps(data))
 
-    # res = jsonify(
-    #     code="0000",
-    #     message="처리 성공"
-    # )
+    res = jsonify(
+        code="0000",
+        message="처리 성공"
+    )
     return res
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5000)
+    app.run(host='0.0.0.0', threaded=True, port=5051)
