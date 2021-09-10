@@ -199,17 +199,29 @@ def get_uploadSwList():
     type_list = db.session.query(SW_up.type).all()
     desc_list = db.session.query(SW_up.description).all()
     dt_list = db.session.query(SW_up.datetime).all()
-
+    print(sid_list)
     sw_list = []
-    for sid, name, fname, copyright, type, desc, datetime in zip(sid_list, name_list, fname_list, copyright_list, type_list, desc_list, dt_list):
-        dt = datetime[0].strftime('%Y-%m-%d')
+    for sid in sid_list:
+        #dt = datetime[0].strftime('%Y-%m-%d')
+        sid = sid[0]
+        name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
+        fname = db.session.query(SW_up.fname).filter(
+            SW_up.sid == sid).first()[0]
+        copyright = db.session.query(SW_up.copyright).filter(
+            SW_up.sid == sid).first()[0]
+        type = db.session.query(SW_up.type).filter(SW_up.sid == sid).first()[0]
+        desc = db.session.query(SW_up.description).filter(
+            SW_up.sid == sid).first()[0]
+        dt = db.session.query(SW_up.datetime).filter(
+            SW_up.sid == sid).first()[0]
+
         sw = {
-            "sid": sid[0],
-            "name": name[0],
-            "fname": fname[0],
-            "copyright": copyright[0],
-            "type": type[0],
-            "description": desc[0],
+            "sid": sid,
+            "name": name,
+            "fname": fname,
+            "copyright": copyright,
+            "type": type,
+            "description": desc,
             "datetime": dt
         }
         sw_list.append(sw)
@@ -226,10 +238,8 @@ def get_uploadSwList():
 @app.route('/get_uploadSwInfo', methods=['POST'])
 def get_uploadSwInfo():
     json_data = request.get_json(silent=True)
-    print("제이슨 데이터", json_data)
 
     sid = json_data['sid']
-    print(sid)
 
     name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
