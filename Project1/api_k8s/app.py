@@ -224,10 +224,12 @@ def get_uploadSwList():
 
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
 @app.route('/get_uploadSwInfo', methods=['POST'])
-def get_uploadSwiNFO():
+def get_uploadSwInfo():
     json_data = request.get_json(silent=True)
+    print("제이슨 데이터", json_data)
 
     sid = json_data['sid']
+    print(sid)
 
     name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
@@ -255,12 +257,13 @@ def get_uploadSwiNFO():
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
     json_data = request.get_json(silent=True)
-
+    print(json_data)
     name = json_data['name']
     fname = json_data['fname']
     copyright = json_data['copyright']
     type = json_data['type']
-    desc = json_data['desc']
+    desc = json_data['description']
+    # print()
 
     # 1. sid 생성
     sid = sid_maker()
@@ -298,7 +301,7 @@ def update_uploadSw():
     fname = json_data['fname']
     copyright = json_data['copyright']
     type = json_data['type']
-    desc = json_data['desc']
+    desc = json_data['description']
 
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).update({
         'sid': sid,
