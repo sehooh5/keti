@@ -60,12 +60,14 @@ def add_newEdgeCluster():
 
     json_data = request.get_json(silent=True)
     if json_data == None:
-        pass
+        return response.message("0021")
 
     mid = json_data['mid']
     wlist = json_data['wlist']
 
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    res = requests.get(f"{API_URL}/get_edgeInfo?mid={mid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
     mip = res.json()["ip"]
 
     # 마스터 엣지 구성
@@ -104,11 +106,7 @@ def add_newEdgeCluster():
 
         print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 엣지 서버들 이름 조회
@@ -140,6 +138,8 @@ def get_edgeName():
 def connect_device():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     eid = json_data['eid']
     did = json_data['eid']
@@ -169,20 +169,16 @@ def connect_device():
     # )
     # return res
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
-
-
 @ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     eid = json_data['eid']
     did = json_data['did']
@@ -191,11 +187,7 @@ def disconnect_device():
     # 디바이스 연결 해지할 때 eid, did 필요할지는 모르겠는데
     # 전부 구현하고 연결한 후 작동하는지 확인하면서 진행
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
@@ -249,6 +241,8 @@ def get_uploadSwList():
 def get_uploadSwInfo():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
 
@@ -279,6 +273,8 @@ def get_uploadSwInfo():
 def add_newUploadSw():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     name = json_data['name']
     fname = json_data['fname']
@@ -317,6 +313,8 @@ def add_newUploadSw():
 def update_uploadSw():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
     name = json_data['name']
@@ -335,11 +333,7 @@ def update_uploadSw():
     })
     db.session.commit()
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.9 마스터 서버에 업로드된 SW 삭제
@@ -347,6 +341,8 @@ def update_uploadSw():
 def remove_uploadSw():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
 
@@ -355,11 +351,7 @@ def remove_uploadSw():
     db.session.delete(sw)
     db.session.commit()
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
@@ -367,6 +359,8 @@ def remove_uploadSw():
 def get_deploySwList():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
     sw_list = []
@@ -391,6 +385,8 @@ def get_deploySwList():
 def add_newDeploySwInfo():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
     wid = json_data['wid']
@@ -399,11 +395,7 @@ def add_newDeploySwInfo():
     db.session.add(s)
     db.session.commit()
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
@@ -411,6 +403,8 @@ def add_newDeploySwInfo():
 def remove_deploySwInfo():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
     wid = json_data['wid']
@@ -421,11 +415,7 @@ def remove_deploySwInfo():
     db.session.delete(sw)
     db.session.commit()
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공"
-    )
-    return res
+    return response.message("0000")
 
 
 # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
@@ -433,6 +423,8 @@ def remove_deploySwInfo():
 def get_servicePort():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
 
@@ -465,6 +457,8 @@ def get_servicePort():
 def get_targetPort():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
 
@@ -497,6 +491,8 @@ def get_targetPort():
 def get_nodePort():
 
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
 
     sid = json_data['sid']
 
