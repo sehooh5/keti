@@ -2,6 +2,7 @@
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
+import json
 import requests
 import os
 from models import db, SW_up, Server, Server_SW
@@ -12,6 +13,7 @@ import paramiko
 import getpass
 import time
 import socketio
+import subprocess
 
 
 app = Flask(__name__)
@@ -42,6 +44,10 @@ def port_maker(len):
     return port
 
 
+# API URL
+API_URL = "http://123.214.186.231:4882"
+
+
 @app.route('/')
 def index():
 
@@ -51,25 +57,23 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
+
     json_data = request.get_json(silent=True)
+    if json_data == None:
+        pass
 
     mid = json_data['mid']
     wlist = json_data['wlist']
 
-    # 추가구현 필요 ## 밑에는 예시
-    # API 연동해서 해당 값 가져오기 - wlist 사용
-    # 1. 모든 워커노드의 ip, name, password 불러오기 - 여기서 name,pwd 는 로그인을 위한 것들
-    wip = get_edgeInfo(wid).ip
-    wname = get_edgeInfo(wname).id
-    wpwd = get_edgeInfo(wid).pwd
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    mip = res.json()["ip"]
 
-    mip = "192.168.0.29"
     # 마스터 엣지 구성
     m_output = os.system(
         f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
-
+    w_input = f"sudo {w_input}"
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
     time.sleep(2.0)
@@ -80,15 +84,16 @@ def add_newEdgeCluster():
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
     time.sleep(2.0)
 
-    # 나중에 진짜 리스트 받아와서 처리해줘야함
-    wip = ["192.168.0.32", "192.168.0.33"]
-    wname = ["keti1", "keti2"]
-    wpwd = ["keti", "keti"]
-    w_input = f"sudo {w_input}"
+    for w in wlist:
+        # 필요한 정보 얻기
+        wid = w["wid"]
+        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+        wip = res.json()["ip"]
+        wname = res.json()["name"]
+        wpwd = res.json()["type"]  # 지금은 type을 쓰지만 나중에 pwd 정보를 입력하고 저장된 정보를 사용
 
-    for ip, name, pwd in zip(wip, wname, wpwd):
-
-        cli.connect(ip, port=22, username=name, password=pwd)
+        # 워커노드와 연결
+        cli.connect(wip, port=22, username=wname, password=wpwd)
         stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
         stdin.write('keti\n')
         stdin.flush()
@@ -97,7 +102,7 @@ def add_newEdgeCluster():
         time.sleep(2.0)
         cli.close()
 
-    print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
+        print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
 
     res = jsonify(
         code="0000",
@@ -107,19 +112,18 @@ def add_newEdgeCluster():
 
 
 # 엣지 서버들 이름 조회
-@app.route('/get_edgeName', methods=['GET'])
+@ app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
-    # 그냥 호스트네임 알고싶으면 이 방법
-    # host_name = os.uname().nodename
 
-    # 이 방법은 클러스터 전체 이름 가져오기
-    nodes = os.system(f"kubectl get node")
+    nodes = subprocess.check_output(
+        "kubectl get node", shell=True).decode('utf-8')
+
     nodes_split = nodes.split('\n')
-    len_nodes = len(nodes_split)
+    len_nodes = len(nodes_split)-1
 
     name_list = nodes_split[1:len_nodes]
     names = []
-    for name in node_list:
+    for name in name_list:
         n = {"name": name.split(' ')[0]}
         names.append(n)
 
@@ -132,13 +136,14 @@ def get_edgeName():
 
 
 # 2.3 엣지서버에 디바이스 연결
-@app.route('/connect_device', methods=['POST'])
+@ app.route('/connect_device', methods=['POST'])
 def connect_device():
+
     json_data = request.get_json(silent=True)
 
     eid = json_data['eid']
     did = json_data['eid']
-
+    print(eid, did)
     ## 추가구현 필요 ##
     # 1. 예지누나 API 연결
     # 2. did (디바이스 아이디)로 device의 url 가져와서
@@ -147,16 +152,22 @@ def connect_device():
     # 필요한 것
     # 1. nodeport (ex. 30021) FROM eid
     # 2. camera url FROM did
-    nodeport = "30000"
-    device_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+    # nodeport = "30000"
+    # device_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
 
-    sio = socketio.Client()
-    sio.connect('http://localhost:5000')
+    # sio = socketio.Client()
+    # sio.connect('http://localhost:5000')
 
-    sio.emit('nodeport', nodeport)
-    sio.emit('device_url', device_url)
-    sio.sleep(5)
-    sio.disconnect()
+    # sio.emit('nodeport', nodeport)
+    # sio.emit('device_url', device_url)
+    # sio.sleep(5)
+    # sio.disconnect()
+
+    # res = jsonify(
+    #     code="0000",
+    #     message="처리 성공"
+    # )
+    # return res
 
     res = jsonify(
         code="0000",
@@ -164,14 +175,13 @@ def connect_device():
     )
     return res
 
-# 디바이스 연결 시 실제로 작동하는 부분
-
 
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
 
 
-@app.route('/disconnect_device', methods=['POST'])
+@ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
+
     json_data = request.get_json(silent=True)
 
     eid = json_data['eid']
@@ -189,7 +199,7 @@ def disconnect_device():
 
 
 # 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
-@app.route('/get_uploadSwList', methods=['GET'])
+@ app.route('/get_uploadSwList', methods=['GET'])
 def get_uploadSwList():
 
     sid_list = db.session.query(SW_up.sid).all()
@@ -199,10 +209,10 @@ def get_uploadSwList():
     type_list = db.session.query(SW_up.type).all()
     desc_list = db.session.query(SW_up.description).all()
     dt_list = db.session.query(SW_up.datetime).all()
-    print(sid_list)
+
     sw_list = []
     for sid in sid_list:
-        #dt = datetime[0].strftime('%Y-%m-%d')
+        # dt = datetime[0].strftime('%Y-%m-%d')
         sid = sid[0]
         name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
         fname = db.session.query(SW_up.fname).filter(
@@ -237,6 +247,7 @@ def get_uploadSwList():
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
 @app.route('/get_uploadSwInfo', methods=['POST'])
 def get_uploadSwInfo():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -266,14 +277,14 @@ def get_uploadSwInfo():
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
+
     json_data = request.get_json(silent=True)
-    print(json_data)
+
     name = json_data['name']
     fname = json_data['fname']
     copyright = json_data['copyright']
     type = json_data['type']
     desc = json_data['description']
-    # print()
 
     # 1. sid 생성
     sid = sid_maker()
@@ -304,9 +315,10 @@ def add_newUploadSw():
 # 2.8 마스터 서버에 업로드된 SW 정보수정
 @app.route('/update_uploadSw', methods=['POST'])
 def update_uploadSw():
+
     json_data = request.get_json(silent=True)
 
-    sid = json_data['sid']  # sid 는 입력값이 아닌 해당 sw 클릭 시 가져오게끔해야할듯?
+    sid = json_data['sid']
     name = json_data['name']
     fname = json_data['fname']
     copyright = json_data['copyright']
@@ -333,6 +345,7 @@ def update_uploadSw():
 # 2.9 마스터 서버에 업로드된 SW 삭제
 @app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -352,6 +365,7 @@ def remove_uploadSw():
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
 @app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -375,15 +389,11 @@ def get_deploySwList():
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
 @app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
     wid = json_data['wid']
-
-    # server data 임의로 넣어주고잇음
-#    ser = Server(sid = "master1")
-#    db.session.add(ser)
-#    db.session.commit
 
     s = Server_SW(sid=sid, wid=wid)
     db.session.add(s)
@@ -399,6 +409,7 @@ def add_newDeploySwInfo():
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
 @app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -416,11 +427,11 @@ def remove_deploySwInfo():
     )
     return res
 
+
 # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
-
-
 @app.route('/get_servicePort', methods=['POST'])
 def get_servicePort():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -452,6 +463,7 @@ def get_servicePort():
 # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
 @app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
@@ -483,6 +495,7 @@ def get_targetPort():
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
 @app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
+
     json_data = request.get_json(silent=True)
 
     sid = json_data['sid']
