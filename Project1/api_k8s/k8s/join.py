@@ -31,9 +31,10 @@ mip = "192.168.0.29"
 # 마스터 엣지 구성
 m_output = os.popen(
     f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}").read()
+print("print : ", m_output)
 # 마스터 - 워커 연결해주는 명령어
 w_input = m_output.split('root:')[-1].lstrip()
-print(w_input)
+print("print : ", w_input)
 # 마스터에서 설정해줘야 하는 내용
 os.system("mkdir -p $HOME/.kube")
 time.sleep(2.0)

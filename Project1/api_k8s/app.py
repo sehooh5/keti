@@ -61,11 +61,11 @@ def add_newEdgeCluster():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
+    print(json_data)
     mid = json_data['mid']
     wlist = json_data['wlist']
 
-    if mid == None:
+    if mid == None or wlist == None:
         return response.message("0015")
 
     res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
@@ -74,15 +74,16 @@ def add_newEdgeCluster():
     mip = res.json()["ip"]
 
     # 마스터 엣지 구성
-    m_output = os.system(
-        f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
+    m_output = subprocess.check_output(
+        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
+    # os.popen(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
     time.sleep(1.0)
-    os.system("sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
     time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     time.sleep(1.0)
@@ -97,11 +98,11 @@ def add_newEdgeCluster():
         res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
 
         wip = res.json()["ip"]
-        wname = res.json()["name"]
-        wpwd = res.json()["type"]  # 지금은 type을 쓰지만 나중에 pwd 정보를 입력하고 저장된 정보를 사용
-
+        host_name = res.json()["host_name"]
+        host_pwd = res.json()["host_pwd"]
+        print(host_name, host_pwd)
         # 워커노드와 연결
-        cli.connect(wip, port=22, username=wname, password=wpwd)
+        cli.connect(wip, port=22, username=host_name, password=host_pwd)
         stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
         stdin.write('keti\n')
         stdin.flush()
@@ -110,7 +111,7 @@ def add_newEdgeCluster():
         time.sleep(2.0)
         cli.close()
 
-        print(f"마스터노드와 {wname} 노드 연결...ip 주소 : {wip}")
+        print(f"마스터노드와 {host_name} 노드 연결...ip 주소 : {wip}")
 
     return response.message("0000")
 
@@ -151,10 +152,11 @@ def connect_device():
     did = json_data['eid']
     print(eid, did)
 
-    data = {
-        "cam_url": "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
-    }
-    requests.post(f"http://localhost:5555", data=json.dumps(data))
+    # data = {
+    #     "cam_url": "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+    # }
+    # requests.post(f"http://localhost:5555", data=json.dumps(data))
+
     ## 추가구현 필요 ##
     # 1. 예지누나 API 연결
     # 2. did (디바이스 아이디)로 device의 url 가져와서
