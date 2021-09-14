@@ -1207,9 +1207,22 @@
   - 일단 1개 노드에 여러대 카메라 연결하는거는 보류
   - 기존방법사용...
     - 워커노드에서 실행되고있는 viewer 웹앱에 명령을 보내는식..
-    - app.py - test_connect/app.py 와 연동중
+    - app.py - test_connect/app.py 와 연동중 // 잠깐 멈춤
 - 다시 기본 토대
   - Master에서 디바이스 연결/해제 API 작동시 Worker는 영상 릴레이서버 역할만 함
   - Client(VMS)는 본인의 명령어로 추후에 릴레이된 데이터를 읽어서 스트리밍!
   - 마지막에는 여러 카메라의 데이터를 릴레이 시킬수 있는 멀티 릴레이서버
+- [Yield, generator 기본 참고](https://tech.ssut.me/what-does-the-yield-keyword-do-in-python/)
+- [Yield, generator 기본 참고2 - 정리잘됨](https://yeomko.tistory.com/11)
+- **새롭게 M-W 로는 CAM에 대한 정보만 넘겨서 Worker 의 환경변수를 저장하는 방향으로 진행중**
+- 작동 완성 : 
+  - k8s/delete_node.py
+  - app.py - add_newEdgeCluster
+
+
+
+#### 0915
+
+- **새롭게 M-W 로는 CAM에 대한 정보만 넘겨서 Worker 의 환경변수를 저장하는 방향으로 진행중**
+  - 환경변수를 어떻게 영구적으로 등록하는지 
 
