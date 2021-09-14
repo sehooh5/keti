@@ -65,7 +65,10 @@ def add_newEdgeCluster():
     mid = json_data['mid']
     wlist = json_data['wlist']
 
-    res = requests.get(f"{API_URL}/get_edgeInfo?mid={mid}")
+    if mid == None:
+        return response.message("0015")
+
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
@@ -78,18 +81,21 @@ def add_newEdgeCluster():
     w_input = f"sudo {w_input}"
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(2.0)
+    time.sleep(1.0)
     os.system("sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    time.sleep(2.0)
+    time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    time.sleep(2.0)
+    time.sleep(1.0)
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(2.0)
+    time.sleep(1.0)
 
     for w in wlist:
         # 필요한 정보 얻기
         wid = w["wid"]
+        if wid == None:
+            return response.message("0015")
         res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+
         wip = res.json()["ip"]
         wname = res.json()["name"]
         wpwd = res.json()["type"]  # 지금은 type을 쓰지만 나중에 pwd 정보를 입력하고 저장된 정보를 사용
