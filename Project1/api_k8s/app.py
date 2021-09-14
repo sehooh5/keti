@@ -150,6 +150,11 @@ def connect_device():
     eid = json_data['eid']
     did = json_data['eid']
     print(eid, did)
+
+    data = {
+        "cam_url": "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+    }
+    requests.post(f"http://localhost:5555", data=json.dumps(data))
     ## 추가구현 필요 ##
     # 1. 예지누나 API 연결
     # 2. did (디바이스 아이디)로 device의 url 가져와서
@@ -279,6 +284,7 @@ def get_uploadSwInfo():
 def add_newUploadSw():
 
     json_data = request.get_json(silent=True)
+    print(json_data)
     if json_data == None:
         return response.message("0021")
 
@@ -315,8 +321,8 @@ def add_newUploadSw():
 
 
 # 2.8 마스터 서버에 업로드된 SW 정보수정
-@app.route('/update_uploadSw', methods=['POST'])
-def update_uploadSw():
+@app.route('/update_uploadSwInfo', methods=['POST'])
+def update_uploadSwInfo():
 
     json_data = request.get_json(silent=True)
     if json_data == None:
