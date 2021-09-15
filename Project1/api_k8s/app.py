@@ -402,8 +402,8 @@ def add_newDeploySwInfo():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']
-    wid = json_data['wid']
+    wid = json_data['wid']  # Server ID
+    sid = json_data['sid']  # SW ID
 
     s = Server_SW(sid=sid, wid=wid)
     db.session.add(s)
@@ -420,8 +420,8 @@ def remove_deploySwInfo():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']
     wid = json_data['wid']
+    sid = json_data['sid']
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
