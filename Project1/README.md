@@ -1229,7 +1229,20 @@
     - [리눅스 환경변수 정리](https://wooono.tistory.com/73)
     - .bashrc 에 있는 환경변수 덮어쓰기
     - sed 로 파일내 특정문자 찾아서 삭제 가능
-    - 삭제 : `sed -i '/TEST/d' ~/.bashrc`
-    - 추가 : `echo "export TEST=test1" >> ~/.bashrc`
+    - 삭제 : `sudo sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc`
+    - 추가 : `sudo echo "export OPENCV_CAMERA_SOURCE=test1" >> ~/.bashrc`
+    - 등록하는 거 완료 
+  - ssh 명령으로 Worker 의 OPENCV, STOP 환경변수 설정해주기 : `ssh_device.py`
+    - request_device.py, /test_connect/response_device.py
+    - 위 파일들로 정보 보내서 환경변수 설정하는건 됨
+      - source ~/.bashrc 명령어는 실행 안되는데 파일은 잘 바뀜
+    - 다만 sudo 입력시 비밀번호 없이하는거 좀 더 연구해봐야함
   - 정보 넘겨서 VMS서버 역할하는 앱 따로 구동해서 연결되는지 확인
+
+
+
+#### 0916
+
+- **다만 sudo 입력시 비밀번호 없이하는거 좀 더 연구해봐야함**
+- 정보 넘겨서(완) VMS서버 역할하는 앱 따로 구동해서 연결되는지 확인
 
