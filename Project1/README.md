@@ -1225,4 +1225,11 @@
 
 - **새롭게 M-W 로는 CAM에 대한 정보만 넘겨서 Worker 의 환경변수를 저장하는 방향으로 진행중**
   - 환경변수를 어떻게 영구적으로 등록하는지 
+    - [환경변수 설정 정리](https://blog.naver.com/PostView.nhn?isHttpsRedirect=true&blogId=koromoon&logNo=220793570727)
+    - [리눅스 환경변수 정리](https://wooono.tistory.com/73)
+    - .bashrc 에 있는 환경변수 덮어쓰기
+    - sed 로 파일내 특정문자 찾아서 삭제 가능
+    - 삭제 : `sed -i '/TEST/d' ~/.bashrc`
+    - 추가 : `echo "export TEST=test1" >> ~/.bashrc`
+  - 정보 넘겨서 VMS서버 역할하는 앱 따로 구동해서 연결되는지 확인
 
