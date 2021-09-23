@@ -1,0 +1,36 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: name-service
+spec:
+  selector:
+    app: name
+  ports:
+    - protocol: "TCP"
+      port: 30
+      targetPort: 60
+      nodePort: 700
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: name
+spec:
+  selector:
+    matchLabels:
+      app: name
+  template:
+    metadata:
+      labels:
+        app: name
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: name
+          image: sehooh5/name:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 60

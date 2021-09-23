@@ -8,7 +8,7 @@ import sys
 # sw_name = sys.argv[4]
 
 
-def build(url, file, docker_id, sw_name):
+def build(file, docker_id, sw_name):
 
     os.system(
-        f"docker build -f {url}/{file} -t {docker_id}/{sw_name}:latest .")
+        f"docker build -f {file} -t {docker_id}/{sw_name}:latest .")

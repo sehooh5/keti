@@ -14,6 +14,10 @@ import getpass
 import time
 import socketio
 import subprocess
+# docker folder
+from docker import build, push
+# k8s folder
+from k8s import deployment_maker as dm
 
 
 app = Flask(__name__)
@@ -296,6 +300,12 @@ def add_newUploadSw():
     type = json_data['type']
     desc = json_data['description']
 
+    # Docker image 생성
+    print("Docker image building......")
+    # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
+    build.build(fname, "sehooh5", fname)
+    push.push("sehooh5", fname)
+    print("Docker image built!!")
     # 1. sid 생성
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
@@ -360,6 +370,12 @@ def remove_uploadSw():
 
     sid = json_data['sid']
 
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    # Docker image delete
+    print(f"Docker image {fname} deleting...")
+    os.system(f"docker rmi sehooh5/{fname}")
+    print("Docker image deleted!!")
+
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
 
     db.session.delete(sw)
@@ -405,7 +421,25 @@ def add_newDeploySwInfo():
     wid = json_data['wid']  # Server ID
     sid = json_data['sid']  # SW ID
 
-    s = Server_SW(sid=sid, wid=wid)
+    # fname 불러오기
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    node_name = res.json()["nodename"]  # 나중에 들어오는 정보 확인해서 변경
+    port = "6000"  # port들은 나중에 port 입력 어떻게 하는지 보고 전달받은 값으로 변경
+    node_port = "30000"
+    target_port = "5000"
+    docker_id = "sehooh5"
+    dm.making(fname, port, target_port,
+              node_port, node_name, docker_id)
+
+    os.system(f"kubectl apply -f {fname}.yaml")
+
+    s = Server_SW(sid=sid, wid=wid, serviceport=port,
+                  nodeport=node_port, targetport=target_port)
     db.session.add(s)
     db.session.commit()
 
@@ -422,6 +456,10 @@ def remove_deploySwInfo():
 
     wid = json_data['wid']
     sid = json_data['sid']
+
+    # fname 불러오기
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    os.systme(f"kubectl delete -f {fname}.yaml")
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()

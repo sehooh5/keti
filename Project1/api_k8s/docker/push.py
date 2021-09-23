@@ -1,11 +1,8 @@
 import os
 import sys
 
-docker_id = sys.argv[1]
-sw_name = sys.argv[2]
 
-
-def push():
+def push(docker_id, sw_name):
 
     output = os.system(
         f"docker push {docker_id}/{sw_name}:latest .")
