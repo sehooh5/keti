@@ -1259,4 +1259,6 @@
 
 - sudo 연결 확인
 - 소프트웨어 API 확인 후 내일 연동
-- 
+  - docker login 이 되었다는 가정하에
+  - upload = docker image build + push / 해당 정보 데이터베이스에 저장
+  - deploy = k8s deployment making + deploy / 해당 정보 데이터 베이스에 저장
