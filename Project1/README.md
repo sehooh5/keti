@@ -1262,3 +1262,9 @@
   - docker login 이 되었다는 가정하에
   - upload = docker image build + push / 해당 정보 데이터베이스에 저장
   - deploy = k8s deployment making + deploy / 해당 정보 데이터 베이스에 저장
+
+
+
+#### 0924
+
+- sudo 작업 계속 진행
