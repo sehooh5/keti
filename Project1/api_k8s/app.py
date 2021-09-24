@@ -48,6 +48,20 @@ def port_maker(len):
     return port
 
 
+def node_port():
+    num = str(random.randint(0000, 2767))
+    if len(num) == 3:
+        print("nope", f"0{num}")
+        num = f"30{num}"
+    elif len(num) == 2:
+        num = f"300{num}"
+    elif len(num) == 1:
+        num = f"3000{num}"
+    else:
+        num = f"3{num}"
+    return num
+
+
 # API URL
 API_URL = "http://123.214.186.231:4882"
 
@@ -119,6 +133,80 @@ def add_newEdgeCluster():
 
     return response.message("0000")
 
+# (임의로 추가) 모니터링 구성
+
+
+@ app.route('/add_newMonitoring', methods=['GET'])
+def add_newMonitoring():
+
+    ips = []
+    names = []
+    hnames = []
+    pwds = []
+
+    return response.message("0000")
+
+
+# (임의로 추가) 클러스터 삭제
+@ app.route('/delete_edgeCluster', methods=['GET'])
+def delete_edgeCluster():
+
+    ips = []
+    names = []
+    hnames = []
+    pwds = []
+
+    json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
+    print(json_data)
+    mid = json_data['mid']
+    wlist = json_data['wlist']
+
+    if mid == None or wlist == None:
+        return response.message("0015")
+
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    ips.append(res.json()["ip"])
+    names.append(res.json()["name"])
+    hnames.append(res.json()["host_name"])
+    pwds.append(res.json()["host_pwd"])
+
+    for w in wlist:
+        # 필요한 정보 얻기
+        wid = w["wid"]
+        if wid == None:
+            return response.message("0015")
+        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+
+        ips.append(res.json()["ip"])
+        names.append(res.json()["name"])
+        hnames.append(res.json()["host_name"])
+        pwds.append(res.json()["host_pwd"])
+
+    print(names)
+
+    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
+
+        os.system(f"kubectl delete node {name}")
+
+        cli.connect(ip, port=22, username=hname, password=pwd)
+
+        stdin, stdout, stderr = cli.exec_command(
+            "echo y | sudo kubeadm reset", get_pty=True)
+        stdin.write('keti\n')
+        stdin.flush()
+
+        lines = stdout.readlines()
+        print(''.join(lines))
+
+        time.sleep(2.0)
+        cli.close()
+
+    return response.message("0000")
+
 
 # 엣지 서버들 이름 조회
 @ app.route('/get_edgeName', methods=['GET'])
@@ -153,7 +241,7 @@ def connect_device():
         return response.message("0021")
 
     eid = json_data['eid']
-    did = json_data['eid']
+    did = json_data['did']
     print(eid, did)
 
     # data = {
@@ -339,7 +427,7 @@ def update_uploadSwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
+    print(json_data)
     sid = json_data['sid']
     name = json_data['name']
     fname = json_data['fname']
@@ -417,21 +505,22 @@ def add_newDeploySwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
-    wid = json_data['wid']  # Server ID
-    sid = json_data['sid']  # SW ID
+    print("프린트 데이터: ", json_data)
+    wid = json_data['wid']  # SW ID
+    sid = json_data['sid']  # Server ID
 
     # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
 
     # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    node_name = res.json()["nodename"]  # 나중에 들어오는 정보 확인해서 변경
-    port = "6000"  # port들은 나중에 port 입력 어떻게 하는지 보고 전달받은 값으로 변경
-    node_port = "30000"
-    target_port = "5000"
+    node_name = res.json()["name"]  # 나중에 들어오는 정보 확인해서 변경
+    # port들은 나중에 port 입력 어떻게 하는지 보고 전달받은 값으로 변경
+    port = json_data['serviceport']
+    node_port = json_data['nodeport']
+    target_port = json_data['targetport']
     docker_id = "sehooh5"
     dm.making(fname, port, target_port,
               node_port, node_name, docker_id)
@@ -453,13 +542,13 @@ def remove_deploySwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
+    print(json_data)
     wid = json_data['wid']
     sid = json_data['sid']
 
     # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
-    os.systme(f"kubectl delete -f {fname}.yaml")
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
+    os.system(f"kubectl delete -f {fname}.yaml")
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
@@ -478,7 +567,13 @@ def get_servicePort():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']
+    cid = json_data['cid']
+    print(cid)
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    sid = res.json()["mid"]
 
     p_list = db.session.query(Server_SW.serviceport).filter(
         Server_SW.sid == sid).all()
@@ -512,7 +607,12 @@ def get_targetPort():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']
+    cid = json_data['cid']
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    sid = res.json()["mid"]
 
     p_list = db.session.query(Server_SW.targetport).filter(
         Server_SW.sid == sid).all()
@@ -546,7 +646,12 @@ def get_nodePort():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']
+    cid = json_data['cid']
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    sid = res.json()["mid"]
 
     p_list = db.session.query(Server_SW.nodeport).filter(
         Server_SW.sid == sid).all()
@@ -555,10 +660,11 @@ def get_nodePort():
         port = p[0]
         port_list.append(port)
 
-    port = f"3{port_maker(4)}"
+    port = node_port()
+
     while True:
         if port in port_list:
-            port = f"3{port_maker(4)}"
+            port = node_port()
             print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
         else:
             print(f"해당 포트번호 사용 : {port}")

@@ -2,35 +2,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: name-service
+  name: content-service
 spec:
   selector:
-    app: name
+    app: content
   ports:
     - protocol: "TCP"
-      port: 30
-      targetPort: 60
-      nodePort: 700
+      port: 6815
+      targetPort: 5722
+      nodePort: 31182
   type: NodePort
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: name
+  name: content
 spec:
   selector:
     matchLabels:
-      app: name
+      app: content
   template:
     metadata:
       labels:
-        app: name
+        app: content
     spec:
       nodeName: keti1-worker1
       containers:
-        - name: name
-          image: sehooh5/name:latest
+        - name: content
+          image: sehooh5/content:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 60
+            - containerPort: 5722
