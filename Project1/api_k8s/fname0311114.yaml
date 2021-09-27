@@ -1,0 +1,36 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fname0311114-service
+spec:
+  selector:
+    app: fname0311114
+  ports:
+    - protocol: "TCP"
+      port: 6871
+      targetPort: 5263
+      nodePort: 31253
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fname0311114
+spec:
+  selector:
+    matchLabels:
+      app: fname0311114
+  template:
+    metadata:
+      labels:
+        app: fname0311114
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: fname0311114
+          image: sehooh5/fname0311114:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5263
