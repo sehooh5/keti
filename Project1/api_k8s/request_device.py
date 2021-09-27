@@ -15,10 +15,12 @@ def select():
     return render_template('manager_app.html')
 
 
-@app.route('/test', methods=['GET'])
+@app.route('/test', methods=['POST'])
 def connect_device_test():
 
-    cam_no = request.args.get('cam_no')
+    json_data = request.get_json(silent=True)
+    cam_no = json_data['cam_no']
+    # cam_no = request.args.get('cam_no')
     # worker_no = request.form['worker_no']
     # nodeport = request.form['nodeport']
 
