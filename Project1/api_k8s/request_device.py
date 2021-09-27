@@ -26,7 +26,7 @@ def connect_device_test():
         "cam_no": cam_no,
     }
     print(data)
-    requests.post("http://localhost:5061", data=json.dumps(data))
+    requests.post("http://192.168.0.29:5061", data=json.dumps(data))
 
     res = jsonify(
         code="0000",

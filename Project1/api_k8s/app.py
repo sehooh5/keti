@@ -158,7 +158,7 @@ def add_newMonitoring():
 
 
 # (임의로 추가) 클러스터 삭제
-@ app.route('/delete_edgeCluster', methods=['GET'])
+@ app.route('/delete_edgeCluster', methods=['POST'])
 def delete_edgeCluster():
 
     ips = []
