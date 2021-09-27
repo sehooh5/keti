@@ -16,6 +16,7 @@ class Camera(BaseCamera):
     @staticmethod
     def set_video_source(source):
         print("2")
+        print("비디오 소스 : ", source)
         Camera.video_source = source
 
     @staticmethod
