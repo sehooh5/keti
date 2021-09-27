@@ -1,11 +1,7 @@
-import random
+import subprocess
 
-num = str(random.randint(0000, 2767))
-if len(num) == 3:
-    print("nope", f"0{num}")
-elif len(num) == 2:
-    print("nope", f"00{num}")
-elif len(num) == 1:
-    print("nope", f"00{num}")
-else:
-    print("okay", num)
+try:
+    output = subprocess.check_output(
+        "kubectl get ns monitoring", shell=True).decode('utf-8')
+except subprocess.CalledProcessError:
+    print("error")

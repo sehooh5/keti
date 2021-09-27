@@ -18,6 +18,7 @@ import subprocess
 from docker import build, push
 # k8s folder
 from k8s import deployment_maker as dm
+from k8s import monitoring_maker as mm
 
 
 app = Flask(__name__)
@@ -139,12 +140,21 @@ def add_newEdgeCluster():
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
 
-    ips = []
-    names = []
-    hnames = []
-    pwds = []
+    # 만약 monitoring namespace 가 존재하면 만들지 않고 바로 리턴하게끔
+    try:
+        output = subprocess.check_output(
+            "kubectl get ns monitoring", shell=True).decode('utf-8')
+    except subprocess.CalledProcessError:
+        output = "-1"
+    if output == "-1":
+        mm.making()
 
-    return response.message("0000")
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        url="http://192.168.0.29:30006"
+    )
+    return res
 
 
 # (임의로 추가) 클러스터 삭제
