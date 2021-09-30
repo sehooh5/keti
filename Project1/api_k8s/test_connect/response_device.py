@@ -11,9 +11,15 @@ Camera = import_module('camera_opencv').Camera
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST'])
-def viewer():
+@app.route('/streaming', methods=['GET'])
+def streaming():
     """streaming"""
+    return render_template('cam.html', cam_no="CCTV Camera", worker_no="keti1-worker1")
+
+
+@app.route('/', methods=['POST'])
+def get_info():
+    """getting cam information"""
 
     del_url = "echo keti | sudo sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
     del_stop = "echo keti | sudo sed -i '/CAMERA_STOP/d' ~/.bashrc"
@@ -27,8 +33,9 @@ def viewer():
         os.system(del_url)
         os.system(del_stop)
         os.system(
-            "sudo echo 'export OPENCV_CAMERA_SOURCE=rtsp://keti:keti1234@192.168.100.70:8810/videoMain' >> ~/.bashrc")
-        os.system("sudo echo 'export CAMERA_STOP=None' >> ~/.bashrc")
+            "echo keti | sudo echo 'export OPENCV_CAMERA_SOURCE=rtsp://keti:keti1234@192.168.100.70:8810/videoMain' >> ~/.bashrc")
+
+        os.system("echo keti | sudo echo 'export CAMERA_STOP=None' >> ~/.bashrc")
         os.system(refresh)
         res = "ㅎㅇ"
         return res
@@ -36,14 +43,18 @@ def viewer():
         os.system(del_url)
         os.system(del_stop)
         os.system(
-            "sudo echo 'export OPENCV_CAMERA_SOURCE=rtsp://keti:keti1234@192.168.100.60:8805/videoMain' >> ~/.bashrc")
-        os.system("sudo echo 'export CAMERA_STOP=None' >> ~/.bashrc")
+            "echo keti | sudo echo 'export OPENCV_CAMERA_SOURCE=rtsp://keti:keti1234@192.168.100.60:8805/videoMain' >> ~/.bashrc")
+        os.system("echo keti | sudo echo 'export CAMERA_STOP=None' >> ~/.bashrc")
         os.system(refresh)
         res = "ㅎㅇ2"
         return res
     elif cam_no == 'stop':
-        os.environ['CAMERA_STOP'] = 'stop'
-        return render_template('cam1.html', cam_no="Camera Loading...", worker_no=worker_no)
+        os.system(del_url)
+        os.system(del_stop)
+        os.system("echo keti | sudo echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
+        os.system(refresh)
+        res = "ㅎㅇ3"
+        return res
 
 
 def gen(camera):

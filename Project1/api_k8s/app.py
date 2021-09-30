@@ -134,9 +134,8 @@ def add_newEdgeCluster():
 
     return response.message("0000")
 
-# (임의로 추가) 모니터링 구성
 
-
+# (추가) 모니터링 구성
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
 
@@ -252,37 +251,20 @@ def connect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(eid, did)
 
-    # data = {
-    #     "cam_url": "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
-    # }
-    # requests.post(f"http://localhost:5555", data=json.dumps(data))
+    server = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
+    device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
 
-    ## 추가구현 필요 ##
-    # 1. 예지누나 API 연결
-    # 2. did (디바이스 아이디)로 device의 url 가져와서
-    # 3. 가져온 url 로 카메라 연결시켜주기
+    s_port = server.json()["port"]
+    s_ip = server.json()["ip"]
+    d_url = "rtsp://keti:keti1234@" + \
+        device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+    data = {
+        "url": d_url
+    }
 
-    # 필요한 것
-    # 1. nodeport (ex. 30021) FROM eid
-    # 2. camera url FROM did
-    # nodeport = "30000"
-    # device_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
-
-    # sio = socketio.Client()
-    # sio.connect('http://localhost:5000')
-
-    # sio.emit('nodeport', nodeport)
-    # sio.emit('device_url', device_url)
-    # sio.sleep(5)
-    # sio.disconnect()
-
-    # res = jsonify(
-    #     code="0000",
-    #     message="처리 성공"
-    # )
-    # return res
+    # 나중에 다시 수정
+    requests.post(f"http://{s_ip}:{s_port}", data=json.dumps(data))
 
     return response.message("0000")
 
