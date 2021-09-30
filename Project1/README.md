@@ -1296,7 +1296,15 @@
 
 #### 0928
 
-- connect_device ---- request_device.py 부분은 완료
+- connect_device ---- response_device.py 부분은 완료
   - disconnect_device 해야함
 - 영상처리 어떻게할지
 - 파일트랜스퍼부분
+
+
+
+#### 0930
+
+- disconnect_device API 일단 구성
+- 영상처리 어떻게할지 진행
+- 파일 트랜스퍼 찾아보고 진행
