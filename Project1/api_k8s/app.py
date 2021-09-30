@@ -264,7 +264,8 @@ def connect_device():
     }
 
     # 나중에 다시 수정
-    requests.post(f"http://{s_ip}:{s_port}", data=json.dumps(data))
+    requests.post(
+        f"http://{s_ip}:{s_port}/connect", data=json.dumps(data))
 
     return response.message("0000")
 
@@ -280,9 +281,19 @@ def disconnect_device():
     eid = json_data['eid']
     did = json_data['did']
 
-    ## 추가구현 필요 ##
-    # 디바이스 연결 해지할 때 eid, did 필요할지는 모르겠는데
-    # 전부 구현하고 연결한 후 작동하는지 확인하면서 진행
+    server = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
+    device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
+
+    s_port = server.json()["port"]
+    s_ip = server.json()["ip"]
+    d_url = "rtsp://keti:keti1234@" + \
+        device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+    data = {
+        "url": d_url
+    }
+
+    # 나중에 다시 수정
+    requests.post(f"http://{s_ip}:{s_port}/disconnect", data=json.dumps(data))
 
     return response.message("0000")
 
