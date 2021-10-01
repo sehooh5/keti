@@ -2,35 +2,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hifname-service
+  name: fname031-service
 spec:
   selector:
-    app: hifname
+    app: fname031
   ports:
     - protocol: "TCP"
-      port: 6879
-      targetPort: 5199
-      nodePort: 30831
+      port: 6280
+      targetPort: 5574
+      nodePort: 30127
   type: NodePort
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hifname
+  name: fname031
 spec:
   selector:
     matchLabels:
-      app: hifname
+      app: fname031
   template:
     metadata:
       labels:
-        app: hifname
+        app: fname031
     spec:
-      nodeName: keti1-worker1
+      nodeName: test-워커
       containers:
-        - name: hifname
-          image: sehooh5/hifname:latest
+        - name: fname031
+          image: sehooh5/fname031:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5199
+            - containerPort: 5574

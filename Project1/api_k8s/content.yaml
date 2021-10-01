@@ -8,9 +8,9 @@ spec:
     app: content
   ports:
     - protocol: "TCP"
-      port: 6318
-      targetPort: 5532
-      nodePort: 30779
+      port: 6505
+      targetPort: 5917
+      nodePort: 32758
   type: NodePort
 
 ---
@@ -27,10 +27,10 @@ spec:
       labels:
         app: content
     spec:
-      nodeName: keti2-worker2
+      nodeName: test-워커2
       containers:
         - name: content
           image: sehooh5/content:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5532
+            - containerPort: 5917

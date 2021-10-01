@@ -8,9 +8,9 @@ spec:
     app: content change
   ports:
     - protocol: "TCP"
-      port: 6201
-      targetPort: 5768
-      nodePort: 30473
+      port: 6683
+      targetPort: 5397
+      nodePort: 30910
   type: NodePort
 
 ---
@@ -27,10 +27,10 @@ spec:
       labels:
         app: content change
     spec:
-      nodeName: keti1-worker1
+      nodeName: test-워커2
       containers:
         - name: content change
           image: sehooh5/content change:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 5768
+            - containerPort: 5397

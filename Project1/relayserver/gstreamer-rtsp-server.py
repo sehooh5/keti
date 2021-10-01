@@ -16,7 +16,10 @@ if __name__ == '__main__':
 
         def do_create_element(self, url):
             spec = """
-			gst-launch-1.0 rtspclientsink name=s location=rtsp://keti:keti1234@192.168.100.70:8810/videoMain latency=100 filesrc location=capture.mp4 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! videoscale ! video/x-raw,width=640,height=480 ! autovideosink
+			filesrc location=test.mp4 ! qtdemux name=demux
+			demux.video_0 ! queue ! rtph264pay pt=96 name=pay0
+			demux.audio_0 ! queue ! rtpmp4apay pt=97 name=pay1
+			demux.subtitle_0 ! queue ! rtpgstpay pt=98 name=pay2
 			"""
             return Gst.parse_launch(spec)
 

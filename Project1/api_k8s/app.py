@@ -50,7 +50,7 @@ def port_maker(len):
 
 
 def node_port():
-    num = str(random.randint(0000, 2767))
+    num = str(random.randint(0000, 2766))
     if len(num) == 3:
         print("nope", f"0{num}")
         num = f"30{num}"
@@ -157,8 +157,8 @@ def add_newMonitoring():
 
 
 # (임의로 추가) 클러스터 삭제
-@ app.route('/delete_edgeCluster', methods=['POST'])
-def delete_edgeCluster():
+@ app.route('/remove_edgeCluster', methods=['POST'])
+def remove_edgeCluster():
 
     ips = []
     names = []

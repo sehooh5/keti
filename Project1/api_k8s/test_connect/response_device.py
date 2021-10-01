@@ -10,14 +10,15 @@ Camera = import_module('camera_opencv').Camera
 
 app = Flask(__name__)
 
-del_url = "echo keti | sudo sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
-del_stop = "echo keti | sudo sed -i '/CAMERA_STOP/d' ~/.bashrc"
+del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
+del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
 refresh = "source ~/.bashrc"
 
 
 @app.route('/streaming', methods=['GET'])
 def streaming():
     """streaming"""
+    print("환경변수 : ", os.environ['OPENCV_CAMERA_SOURCE'])
     return render_template('cam.html', cam_no="CCTV Camera", worker_no="keti1-worker1")
 
 
@@ -26,16 +27,20 @@ def connect():
     """getting cam information"""
     json_data = json.loads(request.get_data(), encoding='utf-8')
 
-    print("카메라 URL : ", json_data['url'])
-
+    #print("카메라 URL : ", json_data['url'])
     cam_url = json_data['url']
 
     os.system(del_url)
+
     os.system(del_stop)
     os.system(
-        "echo keti | sudo echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
-    os.system("echo keti | sudo echo 'export CAMERA_STOP=None' >> ~/.bashrc")
+        f"echo keti | sudo -S echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
+    print("프린트 해본다 : ", os.environ['OPENCV_CAMERA_SOURCE'])
+    os.system("echo keti | sudo -S echo 'export CAMERA_STOP=None' >> ~/.bashrc")
     os.system(refresh)
+
+    os.environ['OPENCV_CAMERA_SOURCE'] = cam_url
+    os.environ['CAMERA_STOP'] = "None"
     res = f"Camera connect with URL : {cam_url}"
     return res
 
@@ -49,9 +54,13 @@ def disconnect():
     cam_url = json_data['url']
     os.system(del_url)
     os.system(del_stop)
-    os.system("echo keti | sudo echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
+    os.system("echo keti | sudo -S echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
     os.system(refresh)
-    res = f"Camera connect with URL : {cam_url}"
+    os.environ['OPENCV_CAMERA_SOURCE'] = "None"
+    os.environ['CAMERA_STOP'] = "stop"
+    print(os.environ['OPENCV_CAMERA_SOURCE'])
+    print(os.environ['CAMERA_STOP'])
+    res = f"Camera disconnect with URL : {cam_url}"
     return res
 
 
@@ -71,4 +80,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5061)
+    app.run(host='0.0.0.0', threaded=True, port=5050)
