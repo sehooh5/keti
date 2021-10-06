@@ -35,12 +35,14 @@ def connect():
     os.system(del_stop)
     os.system(
         f"echo keti | sudo -S echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
-    print("프린트 해본다 : ", os.environ['OPENCV_CAMERA_SOURCE'])
+
     os.system("echo keti | sudo -S echo 'export CAMERA_STOP=None' >> ~/.bashrc")
     os.system(refresh)
 
     os.environ['OPENCV_CAMERA_SOURCE'] = cam_url
     os.environ['CAMERA_STOP'] = "None"
+    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
+    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'])
     res = f"Camera connect with URL : {cam_url}"
     return res
 
@@ -58,8 +60,8 @@ def disconnect():
     os.system(refresh)
     os.environ['OPENCV_CAMERA_SOURCE'] = "None"
     os.environ['CAMERA_STOP'] = "stop"
-    print(os.environ['OPENCV_CAMERA_SOURCE'])
-    print(os.environ['CAMERA_STOP'])
+    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
+    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'])
     res = f"Camera disconnect with URL : {cam_url}"
     return res
 

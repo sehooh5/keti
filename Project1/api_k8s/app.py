@@ -252,20 +252,29 @@ def connect_device():
     eid = json_data['eid']
     did = json_data['did']
 
-    server = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
 
-    s_port = server.json()["port"]
-    s_ip = server.json()["ip"]
+    # 노드포트 찾기위한 과정
+    wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
+    for wid in wids:
+        fname = db.session.query(SW_up.fname).filter(
+            SW_up.sid == wid[0]).first()[0]
+        if fname == "select_cam":
+            sw_id = wid[0]
+
+    nodeport = db.session.query(Server_SW.nodeport).filter(
+        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+    print("노드포트 출력 : ", nodeport)
+
+    # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videomain"
     data = {
         "url": d_url
     }
-
-    # 나중에 다시 수정
+    # 확인 필요
     requests.post(
-        f"http://{s_ip}:{s_port}/connect", data=json.dumps(data))
+        f"http://localshot:{nodeport}/connect", data=json.dumps(data))
 
     return response.message("0000")
 
@@ -281,19 +290,29 @@ def disconnect_device():
     eid = json_data['eid']
     did = json_data['did']
 
-    server = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
 
-    s_port = server.json()["port"]
-    s_ip = server.json()["ip"]
+    # 노드포트 찾기위한 과정
+    wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
+    for wid in wids:
+        fname = db.session.query(SW_up.fname).filter(
+            SW_up.sid == wid[0]).first()[0]
+        if fname == "select_cam":
+            sw_id = wid[0]
+
+    nodeport = db.session.query(Server_SW.nodeport).filter(
+        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+    print("노드포트 출력 : ", nodeport)
+
+    # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videomain"
     data = {
         "url": d_url
     }
-
-    # 나중에 다시 수정
-    requests.post(f"http://{s_ip}:{s_port}/disconnect", data=json.dumps(data))
+    # 확인 필요
+    requests.post(
+        f"http://localshot:{nodeport}/disconnect", data=json.dumps(data))
 
     return response.message("0000")
 
