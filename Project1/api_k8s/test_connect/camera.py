@@ -1,4 +1,8 @@
 import cv2
+import os
+
+url = "rtsp://keti:keti1234@192.168.100.70:8810/videoMain"
+print(os.environ['OPENCV_CAMERA_SOURCE'])
 
 
 def open(url):
@@ -16,3 +20,6 @@ def open(url):
             break
 
     cv2.destroyAllWindows()
+
+
+# open(url)
