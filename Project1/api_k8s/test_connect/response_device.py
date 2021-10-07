@@ -15,11 +15,20 @@ del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
 refresh = "source ~/.bashrc"
 
 
+@app.route('/', methods=['GET'])
+def index():
+    """index"""
+    return render_template('index.html')
+
+
 @app.route('/streaming', methods=['GET'])
 def streaming():
     """streaming"""
     print("환경변수 : ", os.environ['OPENCV_CAMERA_SOURCE'])
-    return render_template('cam.html', cam_no="CCTV Camera", worker_no="keti1-worker1")
+    if os.environ['CAMERA_STOP'] == "None":
+        return render_template('cam.html', cam_no="CCTV Camera", worker_no="keti1-worker1")
+    elif os.environ['CAMERA_STOP'] == "stop":
+        return render_template('cam_stop.html')
 
 
 @app.route('/connect', methods=['POST'])
@@ -31,11 +40,9 @@ def connect():
     cam_url = json_data['url']
 
     os.system(del_url)
-
     os.system(del_stop)
     os.system(
         f"echo keti | sudo -S echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
-
     os.system("echo keti | sudo -S echo 'export CAMERA_STOP=None' >> ~/.bashrc")
     os.system(refresh)
 

@@ -1,33 +1,16 @@
 <html>
   <head>
-    <title>API TEST</title>
+    <title>CAMERA TEST</title>
   </head>
   <body>
-    <h2>디바이스 정보 보내기</h2>
+    <h2>INDEX</h2>
     <hr />
-    <form action="http://localhost:5050/connect_device" method="post">
-      nodeport:<br />
-      <input type="text" name="nodeport" /><br />
-      device url:<br />
-      <input type="text" name="device_url" />
-      <br /><br />
+    <form
+      action="http://localhost:5050/streaming"
+      method="get"
+      target="_tparen\"
+    >
       <input type="submit" value="connect" />
     </form>
-    <hr />
-    <form action="http://localhost:5050/disconnect_device" method="post">
-      nodeport:<br />
-      <input type="text" name="nodeport" /><br />
-      device url:<br />
-      <input type="text" name="device_url" />
-      <br /><br />
-      <input type="submit" value="disconnect" />
-    </form>
-
-    <br /><br />
-    url :
-    <br />
-    rtsp://keti:keti1234@192.168.100.70:8810/videoMain
-    <br />
-    rtsp://keti:keti1234@192.168.100.60:8805/videoMain
   </body>
 </html>
