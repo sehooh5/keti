@@ -1372,6 +1372,28 @@
 
 - UI 생각해보고 진행해야할 부분
   - 처음에 index 로 카메라 선택 사용할때 nodeport 를 전달해주어야하는데 어떻게..?
-  - 그냥 opencv 창으로 띄워줘?
-- 환경변수 설정때 source refresh 안되는거 해결방법 잇나?
+  - ~~그냥 opencv 창으로 띄워줘?~~
+- ~~환경변수 설정때 source refresh 안되는거 해결방법 잇나?~~
+  - **"/bin/bash -c 'source ~/.bashrc'" 이렇게 해결**
+- 현재 다운로드는 파일 다운로드인데 폴더전체를 다운로드 할 수 있는지?
+  - 다운받은다음 도커 이미지 빌딩할때, 위치도 해당 fname 따라서 지정해줘야함..?
+    - type 에 따라 지정해줘도 될듯..도커파일은?
+  - deploy할때 deployment 파일은 app.py 에 잇어야하나? - 이건 맞는듯 나중에 확인 가능
+  - **일단 upload 시 zip 파일(docker+files)으로 받으면 압축풀고 도커이미지 생성까지 완료**
+- **UI**
+  - Index :
+    - 위치 : Master 노드
+    - 기능 : Master 에서 Worker1,2 로 카메라 켜주는 역할
+    - 필요조건 : Worker 노드에 배포된 Camera select 앱의 **nodeport** 를 알고 있어야함
+    - [버튼 CSS site](http://rwdb.kr/interactionbutton/)
+  - Camer select :
+    - 위치 : 각 Worker 노드
+    - 기능 : VMS 에서 전달된 Cam 정보를 전달받고 / 스트리밍 해주는 역할
 
+
+
+#### 1012
+
+- 전체적으로 잘 돌아가는지 테스트해야함....
+  - 예지누나랑 같이해야하는데ㅠ
+- k8s 관련한 새로운 과제 시작 : 금승우책임님
