@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
 del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
-refresh = "echo keti | sudo -S source ~/.bashrc"
+refresh = "/bin/bash -c 'source ~/.bashrc'"
 
 
 @app.route('/', methods=['GET'])

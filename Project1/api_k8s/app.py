@@ -410,6 +410,8 @@ def add_newUploadSw():
     type = json_data['type']
     desc = json_data['description']
 
+    # VMS 서버로부터 마스터서버로 파일 다운로드
+    requests.get(f"{API_URL}/download?filename={fname}")
     # Docker image 생성
     print("Docker image building......")
     # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
@@ -540,9 +542,13 @@ def add_newDeploySwInfo():
         return response.message(res.json()["code"])
     node_name = res.json()["name"]  # 나중에 들어오는 정보 확인해서 변경
     # port들은 나중에 port 입력 어떻게 하는지 보고 전달받은 값으로 변경
+
     port = json_data['serviceport']
     node_port = json_data['nodeport']
     target_port = json_data['targetport']
+    # select_cam 앱의 타겟포트 지정
+    if fname == "select_cam":
+        targetport = "5050"
     docker_id = "sehooh5"
     dm.making(fname, port, target_port,
               node_port, node_name, docker_id)

@@ -1,13 +1,11 @@
 import cv2
 import os
 
-url = "rtsp://keti:keti1234@192.168.100.70:8810/videoMain"
-print(os.environ['OPENCV_CAMERA_SOURCE'])
+print("카메라 설정 : ", os.environ['OPENCV_CAMERA_SOURCE'])
 
 
-def open(url):
-    print("Camera url :", url)
-    cap = cv2.VideoCapture(url)
+def open():
+    cap = cv2.VideoCapture(os.environ['OPENCV_CAMERA_SOURCE'])
 
     while True:
 
@@ -22,4 +20,4 @@ def open(url):
     cv2.destroyAllWindows()
 
 
-# open(url)
+open()
