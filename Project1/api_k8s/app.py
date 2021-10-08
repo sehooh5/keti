@@ -14,6 +14,7 @@ import getpass
 import time
 import socketio
 import subprocess
+import zipfile
 # docker folder
 from docker import build, push
 # k8s folder
@@ -409,9 +410,24 @@ def add_newUploadSw():
     copyright = json_data['copyright']
     type = json_data['type']
     desc = json_data['description']
-
+    filename = json_data['filename']
     # VMS 서버로부터 마스터서버로 파일 다운로드
-    requests.get(f"{API_URL}/download?filename={fname}")
+    if filename.find("zip") != -1:
+        print("here")
+        with open(filename, 'wb') as select_cam:
+            data = requests.get(f"{API_URL}/download?filename={filename}")
+            select_cam.write(data.content)
+
+        zip_ref = zipfile.ZipFile(f'./{filename}', 'r')
+        zip_ref.extractall(f'./{fname}')
+        zip_ref.close()
+        os.system(
+            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        os.system(f"docker push sehooh5/{fname}:latest .")
+    else:
+        with open(filename, 'wb') as fname:
+            data = requests.get(f"{API_URL}/download?filename={filename}")
+            fname.write(data.content)
     # Docker image 생성
     print("Docker image building......")
     # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
