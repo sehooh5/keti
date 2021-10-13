@@ -69,7 +69,7 @@
       }
 
       #w1:before {
-        content: "WORKER1";
+        content: "{{list[0]['nodename']}}";
         font-weight: bold;
       }
       #w1:after {
@@ -135,7 +135,7 @@
       }
 
       #w2:before {
-        content: "WORKER2";
+        content: "{{list[1]['nodename']}}";
         font-weight: bold;
       }
       #w2:after {
@@ -160,21 +160,19 @@
   </head>
   <body>
     <div class="title">WORKER NODE SELECT</div>
-
     <!-- button design -->
     <a
       class="download"
       id="w1"
-      href="http://192.168.0.29:5050/streaming"
+      href="http://192.168.0.29:{{list[0]['nodeport']}}/streaming"
       method="get"
       target="_tparen\"
     ></a>
-
-    <br />
+    <br /><br />
     <a
       class="download"
       id="w2"
-      href="http://192.168.0.29:5070/streaming"
+      href="http://192.168.0.29:{{list[0]['nodeport']}}/streaming"
       method="get"
       target="_top\"
     ></a>

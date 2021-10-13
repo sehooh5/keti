@@ -70,8 +70,80 @@ API_URL = "http://123.214.186.231:4882"
 
 @app.route('/')
 def index():
+    # 임시 json data
+    json_data = """
+{
+    "code": "0000",
+    "message": "처리 성공",
+    "list":
+    [{
+        "id": "614045dcee9585d76f6f9456",
+        "name": "keti1-worker1",
+        "type": "Master",
+        "ip": "203.253.130.1",
+        "port": 88,
+        "gps":
+          { 
+            "lat": "37.57",
+            "long": "126.98"
+          }
+     },
+     {
+        "id": "61444421b0d3db4f7320e387",
+        "name": "keti2-worker2",
+        "type": "Worker",
+        "ip": "203.253.130.2",
+        "port": 88,
+        "5G": "YES",
+        "gps":
+          { 
+            "lat": "38.57",
+            "long": "128.98"
+          }
+     }
+  ]
+}
+    """
+    json_data = json.loads(json_data)  # 이 데이터를 전달받은 데이터라고 가정
 
-    return render_template('api_k8s.html')
+    nodes = subprocess.check_output(
+        "kubectl get node", shell=True).decode('utf-8')
+
+    nodes_split = nodes.split('\n')
+    len_nodes = len(nodes_split)-1
+
+    name_list = nodes_split[1:len_nodes]
+    names = []
+    for name in name_list:
+        name = name.split(' ')[0]
+        if name.find('master') == -1:
+            # n = {"nodename": name}
+            names.append(name)
+    # API 호출해서 json data 를 받았다고 가정(나중에 수정해줘야함)
+    # json_data = requests.get(f"{API_URL}/get_edgeList")
+    datas = []
+    for list in json_data['list']:
+        name = list['name']
+        if name in names:
+            eid = list['id']
+            # print(name, eid)
+            wids = db.session.query(Server_SW.wid).filter(
+                eid == Server_SW.sid).all()
+            for wid in wids:
+                fname = db.session.query(SW_up.fname).filter(
+                    SW_up.sid == wid[0]).first()[0]
+                if fname == "select_cam":
+                    sw_id = wid[0]
+
+            nodeport = db.session.query(Server_SW.nodeport).filter(
+                Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+            # print(name, nodeport)
+            data = {"nodename": name, "nodeport": nodeport}
+            datas.append(data)
+
+    print(datas)
+
+    return render_template('index.html', list=datas)
 
 
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
@@ -564,7 +636,7 @@ def add_newDeploySwInfo():
     target_port = json_data['targetport']
     # select_cam 앱의 타겟포트 지정
     if fname == "select_cam":
-        targetport = "5050"
+        target_port = "5050"
     docker_id = "sehooh5"
     dm.making(fname, port, target_port,
               node_port, node_name, docker_id)
