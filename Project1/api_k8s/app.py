@@ -106,6 +106,7 @@ def index():
     """
     json_data = json.loads(json_data)  # 이 데이터를 전달받은 데이터라고 가정
 
+    # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
     nodes = subprocess.check_output(
         "kubectl get node", shell=True).decode('utf-8')
 
@@ -119,6 +120,7 @@ def index():
         if name.find('master') == -1:
             # n = {"nodename": name}
             names.append(name)
+            
     # API 호출해서 json data 를 받았다고 가정(나중에 수정해줘야함)
     # json_data = requests.get(f"{API_URL}/get_edgeList")
     datas = []
