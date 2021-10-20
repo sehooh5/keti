@@ -1,0 +1,207 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-detector
+  labels:
+    name: face-detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: face-detector
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: face-detector
+    spec:
+      securityContext:
+        fsGroup: 65534
+      hostname: face-detector
+      subdomain: default-subdomain
+      containers:
+      - name: face-detector
+        image: keticmr.iptime.org:22500/uc4-fd:kpi
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MY_APP_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: uc4-fd-config 
+              key: appconfig
+        ports:
+        - containerPort: 5000
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        accelerator: nvidia.2080ti
+        region-name: keti        
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feature-extractor
+  labels:
+    name: feature-extractor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: feature-extractor
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: feature-extractor
+    spec:
+      securityContext:
+        fsGroup: 65534
+      hostname: feature-extractor
+      subdomain: default-subdomain
+      containers:
+      - name: feature-extractor
+        image: keticmr.iptime.org:22500/uc4-fe:kpi
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MY_APP_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: uc4-fe-config 
+              key: appconfig
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        accelerator: nvidia.1080ti
+        region-name: keti
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-verifier-a
+  labels:
+    name: member-verifier-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: member-verifier-a
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: member-verifier-a
+    spec:
+      securityContext:
+        fsGroup: 65534
+      hostname: member-verifier-a
+      subdomain: default-subdomain
+      containers:
+      - name: member-verifier-a
+        image: keticmr.iptime.org:22500/uc4-mv:kpi
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MY_APP_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: uc4-mva-config 
+              key: appconfig
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        accelerator: nvidia.1660ti
+        region-name: keti
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-verifier-b
+  labels:
+    name: member-verifier-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: member-verifier-b
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: member-verifier-b
+    spec:
+      securityContext:
+        fsGroup: 65534
+      hostname: member-verifier-b
+      subdomain: default-subdomain
+      containers:
+      - name: member-verifier-b
+        image: keticmr.iptime.org:22500/uc4-mv:kpi
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MY_APP_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: uc4-mvb-config 
+              key: appconfig
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        region-name: keti
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uc4-mnt-deployment
+  labels:
+    name: uc4-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: uc4-monitoring
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: uc4-monitoring
+    spec:
+      containers:
+      - name: monitoring-flask
+        image: keticmr.iptime.org:22500/uc4-mnt-flask:kpi1.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MY_APP_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: uc4-mnt-config 
+              key: appconfig
+      - name: monitoring-nginx
+        image: keticmr.iptime.org:22500/uc4-mnt-nginx:v1.1
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/arch: amd64
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uc4-mqtt-deployment
+  labels:
+    name: uc4-mqtt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: uc4-mqtt
+  template:
+    metadata:
+      labels:
+        app: uc4
+        name: uc4-mqtt
+    spec:
+      hostname: mqtt-broker
+      subdomain: default-subdomain
+      containers:
+      - name: uc4-mqtt
+        image: keticmr.iptime.org:22500/uc4-mqttbroker
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1883
+      restartPolicy: Always
+      nodeSelector:
+        kubernetes.io/arch: amd64
+---
