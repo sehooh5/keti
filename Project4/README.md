@@ -43,5 +43,46 @@
 #### 1025
 
 - 각 노드에 이미지파일 build 상태 확인
+
 - yaml 파일 해석해보기
+
 - 배포 진행해보기
+
+  - service, configmap 은 배포 완료
+
+    - service 는 수정 x
+    - **conifgmap 의 처음 실시간 카메라 입력데이터 맨 밑의 주소로 고쳐줫음**
+
+  - deployment 배포시 에러
+
+    - **nodeSelector 부분 전부 수정해줬음**
+
+    - [같은 에러 해결한 한국 예시](https://nevido.tistory.com/315)
+
+    - nodeselector 대문자 혹은 true, false 오류여서 다른거로 바꿔줌
+
+    - taint, tolerate 에러
+
+      - kubectl taint nodes [nodename] [taint]- 로 삭제했더니 배포되는거 같은데
+
+      - 계쏙 Pending.....삭제도 terminating 에서 멈춤
+
+        - terminating 강제 종료 : 
+
+          ```kubectl -n <namespace> delete pods --grace-period=0 --force <pod_name>```
+
+- image 파일들은 tar 로 build 완료
+
+  - keti2 마스터
+  - keti0 워커 : facedetactor / feature extractor / monitoring-flask / monitoring-nginx / mqtt
+  - keti1 워커 : member-verifier
+
+- 먼저 각 노드에 대한 labeling 해주기
+
+  - kubectl label nodes [nodename] [key]=[value]
+
+
+
+#### 1026
+
+- deploy 할때 계속적으로 taint, toleration 문제인지 pending 됨...오류 수정 필요
