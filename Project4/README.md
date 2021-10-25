@@ -33,4 +33,15 @@
   - 쿠버네티스 클러스터링 완료
 - 전달받은 자료(이미지, yaml 등) 마스터로 이동 및 설치
 - 마스터에 vscode 설치 후 파일들 해석하기
-- image 파일들은 tar 로 build 하는 방법 찾아보고 진행시키기
+- image 파일들은 tar 로 build 완료
+  - keti2 마스터 : all images
+  - keti0 워커 : all images
+  - keti1 워커 : all images
+
+
+
+#### 1025
+
+- 각 노드에 이미지파일 build 상태 확인
+- yaml 파일 해석해보기
+- 배포 진행해보기
