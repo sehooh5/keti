@@ -93,3 +93,10 @@
 #### 1027
 
 - deploy 문제 해결중
+- schedule 원리 확인중
+
+
+
+#### 1028
+
+- deploy taint, toleration 지정 후에도 해결이 되지않고 계속 진행해봐야할듯..?
