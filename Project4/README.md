@@ -87,3 +87,9 @@
 
 - deploy 할때 계속적으로 taint, toleration 문제인지 pending 됨...오류 수정 필요
 - 계속 안됨 지속적 수정 필요
+
+
+
+#### 1027
+
+- deploy 문제 해결중
