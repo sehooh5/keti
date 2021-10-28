@@ -7,6 +7,20 @@
 
 
 
+### k8s 참고 자료
+
+---
+
+- node의 taint 확인 :
+  -  `kubectl get nodes -o json | jq '.items[].spec.taints' `
+- node에 taint 추가 및 삭제 :
+  - 추가 : `kubectl taint nodes <nodename> <key>=<value>:<effect>`
+  - 삭제 : `kubectl taint nodes <nodename> <key>-`
+- pod 종료시 계속 terminating 될 때 강제 종료 : 
+  - `kubectl -n <namespace> delete pods --grace-period=0 --force <pod_name>`
+
+
+
 ### 작업 일지
 
 ---
@@ -99,4 +113,7 @@
 
 #### 1028
 
-- deploy taint, toleration 지정 후에도 해결이 되지않고 계속 진행해봐야할듯..?
+- deploy taint, toleration 지정 후에도 해결이 되지않고 계속 진행
+  - 오류메시지 : 0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had taint {node.kubernetes.io/unreachable: }, that the pod didn't tolerate.
+- 원래 5G 과제 worker nodes 에는 taint 가 none 이다.. 지금 프로젝트 worker 에도 taint 없애기
+
