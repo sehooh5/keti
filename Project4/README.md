@@ -18,6 +18,8 @@
   - 삭제 : `kubectl taint nodes <nodename> <key>-`
 - pod 종료시 계속 terminating 될 때 강제 종료 : 
   - `kubectl -n <namespace> delete pods --grace-period=0 --force <pod_name>`
+- 각 노드에 대한 labeling 해주기
+  - `kubectl label nodes [nodename] [key]=[value]`
 
 
 
@@ -115,5 +117,21 @@
 
 - deploy taint, toleration 지정 후에도 해결이 되지않고 계속 진행
   - 오류메시지 : 0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had taint {node.kubernetes.io/unreachable: }, that the pod didn't tolerate.
+  - [똑같은 에러 해결하는 블로그](https://waspro.tistory.com/563)
 - 원래 5G 과제 worker nodes 에는 taint 가 none 이다.. 지금 프로젝트 worker 에도 taint 없애기
+  - 지우면 자꾸 자동으로 생김..
+  - **노드 전부 지우고 다시 클러스터링 구성하니 taint 문제 해결**
+- **mv pod만 keti1(그래픽카드 없음)에 배포하려 했는데, CrushLoopBackOff 에러떠서 그냥 모든 pod keti0(gpu O)에 배포했더니 모두 잘 돌아감**
 
+
+
+#### 1029
+
+- 현 상황 : 
+  - pod 은 모두 running 상태
+  - ~~port 30001 : nginx monitoring - start 눌러도 face detect 를 못함~~
+  - ~~port 30002 : flask monitoring - start 눌러도 face detect 를 못함~~
+  - 화면에 뿌려지는 UI 주소 : 182.252.132.39:9000
+  - re-deploy 두 번정도 해주고, 화면에 얼굴을 가까이 위치시키니 전부다 잘 **작동**
+  - 다만 화면에 보여지는 UI 가 연동이 안되는데 어떻게 연동되는지 월요일에 확인
+- 
