@@ -2,8 +2,21 @@
 
 - 5G 과제 클러스터 구성 및 SW 배포부분 API 작성
 - 환경
-  - python - flask
-  - sqlite - sqlalchemy : ORM 사용 가능
+  - 마스터, 워커 공통
+    - ubuntu : 18.04 이상
+    - kubernetes : 1.14 이상
+    - docker : 19.03.12 이상
+  - 마스터에서만
+    - Prometheus 
+    - Grafana 
+    - Python package and module
+      - flask
+      - flask_cors
+      - sqlite - sqlalchemy
+      - requests
+      - paramiko
+      - subprocess
+      - zipfile
 
 
 
