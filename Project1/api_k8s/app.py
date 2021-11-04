@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from importlib import import_module
+from typing import List
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
@@ -118,10 +119,11 @@ def index():
         if name.find('master') == -1:
             # n = {"nodename": name}
             names.append(name)
-            
+
     # API 호출해서 json data 를 받았다고 가정(나중에 수정해줘야함)
     # json_data = requests.get(f"{API_URL}/get_edgeList")
     datas = []
+    print(json_data['list'])
     for list in json_data['list']:
         name = list['name']
         if name in names:
@@ -757,6 +759,47 @@ def get_targetPort():
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
 @app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
+
+    json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
+
+    cid = json_data['cid']
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    sid = res.json()["mid"]
+
+    p_list = db.session.query(Server_SW.nodeport).filter(
+        Server_SW.sid == sid).all()
+    port_list = []
+    for p in p_list:
+        port = p[0]
+        port_list.append(port)
+
+    port = node_port()
+
+    while True:
+        if port in port_list:
+            port = node_port()
+            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+        else:
+            print(f"해당 포트번호 사용 : {port}")
+            break
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        port=port
+    )
+    return res
+
+# 2.18 마스터 서버의 사용 가능한 노드 포트 조회
+
+
+@app.route('/get_camApp', methods=['POST'])
+def get_camApp():
 
     json_data = request.get_json(silent=True)
     if json_data == None:
