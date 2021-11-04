@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uc4-fd-config
+data:
+  appconfig: |
+    {
+      "input": { 
+      "url": "http://192.168.0.9/mjpg/1/video.mjpg"
+      },
+      "output": {
+      "url": [{
+                "TYPE_FI": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_image"
+              },
+              {
+                "TYPE_FI_MNT": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_image_mnt"
+              },
+              {
+                "TYPE_FI_DT": "mqtt://broker.mqttdashboard.com:1883/sensinact/providers/UC4/services/TYPE_FI_DT/resources" 
+              },
+              {
+                "TYPE_FDP": "http://uc4-mnt.default:8001/face_detect"
+              }]
+      },
+      "ai_model": {
+              "url": "http://182.252.132.39:5000",
+              "model_name": "UC4_FaceDetector",
+              "model_version": "1.1"
+      },
+      "autostart": {
+          "value": "true"
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uc4-fe-config
+data:
+  appconfig: |
+    {
+      "input": { 
+      "url": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_image"
+      },
+      "output": {
+      "url": [{
+                "TYPE_FF": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_feature"
+              },
+              {
+                "TYPE_FEP": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_extract_mnt" 
+              }]
+      },
+      "ai_model": {
+              "url": "http://182.252.132.39:5000",
+              "model_name": "UC4_FeatureExtractor",
+              "model_version": "0.1"
+      },
+      "autostart": {
+      "value": "true"
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uc4-mva-config
+data:
+  appconfig: |
+    {
+      "input": { 
+      "url": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_feature"
+      },
+      "output": {
+      "url": [{
+                "TYPE_MR": "http://182.252.132.39:9000/result"
+              },
+              {
+                "TYPE_MR_DT": "mqtt://broker.mqttdashboard.com:1883/sensinact/providers/UC4/services/TYPE_MR_DT/resources"
+              },
+              {
+                "TYPE_MR_MNT": "http://uc4-mnt.default:8001/result"
+              }]
+      },
+      "ai_model": {
+              "url": "http://182.252.132.39:5000",
+              "model_name": "UC4_MemberVerifier_KETI",
+              "model_version": "3.75"
+      },
+      "autostart": {
+      "value": "true"
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uc4-mvb-config
+data:
+  appconfig: |
+    {
+      "input": { 
+      "url": "mqtt://mqtt-broker.default-subdomain.default.svc.cluster.local:1883/face_feature"
+      },
+      "output": {
+      "url": [{
+                "TYPE_MR": "http://182.252.132.39:9000/result"
+              },
+              {
+                "TYPE_MR_DT": "mqtt://broker.mqttdashboard.com:1883/sensinact/providers/UC4/services/TYPE_MR_DT/resources"
+              },
+              {
+                "TYPE_MR_MNT": "http://uc4-mnt.default:8001/result"
+              }]
+      },
+      "ai_model": {
+              "url": "http://182.252.132.39:5000",
+              "model_name": "UC4_MemberVerifier_SNU",
+              "model_version": "3.75"
+      },
+      "autostart": {
+      "value": "true"
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: uc4-mnt-config
+data:
+  appconfig: |
+    {
+      "mqtt_config": { 
+        "mqtt_broker_url": "mqtt-broker.default-subdomain.default.svc.cluster.local",
+        "mqtt_broker_port": 1883
+      },
+      "fd_config": {
+              "get_fps_url": "http://face-detector.default-subdomain.default.svc.cluster.local:5000/get_fps",
+              "set_fps_url": "http://face-detector.default-subdomain.default.svc.cluster.local:5000/set_fps?fps="
+      },
+      "ip_cam_config": {
+              "ip_cam_url": "http://ketihhc.iptime.org:5004/mjpg/1/video.mjpg"
+      },
+      "domain_config": {
+              "uc4_domain": "default-subdomain.default.svc.cluster.local:5000"
+      }
+    }
+---

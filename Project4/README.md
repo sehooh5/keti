@@ -7,6 +7,22 @@
 
 
 
+### k8s 참고 자료
+
+---
+
+- node의 taint 확인 :
+  -  `kubectl get nodes -o json | jq '.items[].spec.taints' `
+- node에 taint 추가 및 삭제 :
+  - 추가 : `kubectl taint nodes <nodename> <key>=<value>:<effect>`
+  - 삭제 : `kubectl taint nodes <nodename> <key>-`
+- pod 종료시 계속 terminating 될 때 강제 종료 : 
+  - `kubectl -n <namespace> delete pods --grace-period=0 --force <pod_name>`
+- 각 노드에 대한 labeling 해주기
+  - `kubectl label nodes [nodename] [key]=[value]`
+
+
+
 ### 작업 일지
 
 ---
@@ -14,3 +30,123 @@
 #### 1018
 
 - 금책임님팀 자료 받고 우리 쿠버네티스 클러스터 구성해서 실행시켜보는 작업
+- 일단 우분투 서버 3개 구성
+  - keti2 : 마스터노드 / 192.168.0.28
+  - keti0 : 그래픽카드 좋은 워커노드 / 192.168.0.71
+  - keti1 : 기타 워커노드 / 192.168.0.25
+
+
+
+#### 1019
+
+- 쿠버네티스 설치
+
+
+
+#### 1020
+
+- 쿠버네티스 클러스터링 후 해당 프로그램 진행시켜보기
+  - 쿠버네티스 클러스터링 완료
+- 전달받은 자료(이미지, yaml 등) 마스터로 이동 및 설치
+- 마스터에 vscode 설치 후 파일들 해석하기
+- image 파일들은 tar 로 build 완료
+  - keti2 마스터 : all images
+  - keti0 워커 : all images
+  - keti1 워커 : all images
+
+
+
+#### 1025
+
+- 각 노드에 이미지파일 build 상태 확인
+
+- yaml 파일 해석해보기
+
+- 배포 진행해보기
+
+  - service, configmap 은 배포 완료
+
+    - service 는 수정 x
+    - **conifgmap 의 처음 실시간 카메라 입력데이터 맨 밑의 주소로 고쳐줫음**
+
+  - deployment 배포시 에러
+
+    - **nodeSelector 부분 전부 수정해줬음**
+
+    - [같은 에러 해결한 한국 예시](https://nevido.tistory.com/315)
+
+    - nodeselector 대문자 혹은 true, false 오류여서 다른거로 바꿔줌
+
+    - taint, tolerate 에러
+
+      - kubectl taint nodes [nodename] [taint]- 로 삭제했더니 배포되는거 같은데
+
+      - 계쏙 Pending.....삭제도 terminating 에서 멈춤
+
+        - terminating 강제 종료 : 
+
+          ```kubectl -n <namespace> delete pods --grace-period=0 --force <pod_name>```
+
+- image 파일들은 tar 로 build 완료
+
+  - keti2 마스터
+  - keti0 워커 : facedetactor / feature extractor / monitoring-flask / monitoring-nginx / mqtt
+  - keti1 워커 : member-verifier
+
+- 먼저 각 노드에 대한 labeling 해주기
+
+  - kubectl label nodes [nodename] [key]=[value]
+
+
+
+#### 1026
+
+- deploy 할때 계속적으로 taint, toleration 문제인지 pending 됨...오류 수정 필요
+- 계속 안됨 지속적 수정 필요
+
+
+
+#### 1027
+
+- deploy 문제 해결중
+- schedule 원리 확인중
+
+
+
+#### 1028
+
+- deploy taint, toleration 지정 후에도 해결이 되지않고 계속 진행
+  - 오류메시지 : 0/3 nodes are available: 1 node(s) didn't match Pod's node affinity/selector, 2 node(s) had taint {node.kubernetes.io/unreachable: }, that the pod didn't tolerate.
+  - [똑같은 에러 해결하는 블로그](https://waspro.tistory.com/563)
+- 원래 5G 과제 worker nodes 에는 taint 가 none 이다.. 지금 프로젝트 worker 에도 taint 없애기
+  - 지우면 자꾸 자동으로 생김..
+  - **노드 전부 지우고 다시 클러스터링 구성하니 taint 문제 해결**
+- **mv pod만 keti1(그래픽카드 없음)에 배포하려 했는데, CrushLoopBackOff 에러떠서 그냥 모든 pod keti0(gpu O)에 배포했더니 모두 잘 돌아감**
+
+
+
+#### 1029
+
+- 현 상황 : 
+  - pod 은 모두 running 상태
+  - ~~port 30001 : nginx monitoring - start 눌러도 face detect 를 못함~~
+  - ~~port 30002 : flask monitoring - start 눌러도 face detect 를 못함~~
+  - 화면에 뿌려지는 UI 주소 : 182.252.132.39:9000
+  - re-deploy 두 번정도 해주고, 화면에 얼굴을 가까이 위치시키니 전부다 잘 **작동**
+  - 다만 화면에 보여지는 UI 가 연동이 안되는데 어떻게 연동되는지 월요일에 확인
+
+
+
+#### 1101
+
+- 영기씨 가능하면 UI 연동 가능한지 확인 후 말씀드리기
+- 프로젝트 전체 주소 :
+  - UI : 182.252.132.39:9000
+  - flask : 192.168.0.28:30002
+  - nginx : 192.168.0.28:30001
+
+
+
+#### 일단 프로젝트 잘 돌아가는거 확인되서 STOP, 추후 수정하던지 함
+
+- 옆팀에서 프로젝트 삭제하면 안되는데..ㅠ

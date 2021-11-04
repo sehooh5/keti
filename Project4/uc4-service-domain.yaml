@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc4-fd
+  labels:
+    run: uc4-fd
+spec:
+  selector:
+    name: face-detector
+  type: NodePort
+  ports:
+  - name: "uc4-fd-port"
+    port: 5000
+    targetPort: 5000
+    nodePort: 30005
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-subdomain
+spec:
+  selector:
+    app: uc4
+  clusterIP: None
+  ports:
+  - name: "foo"
+    port: 1234
+    targetPort: 1234
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-subdomain
+  namespace: uc4
+spec:
+  selector:
+    app: uc4
+  clusterIP: None
+  ports:
+  - name: "foo"
+    port: 1234
+    targetPort: 1234
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc4-mnt
+  labels:
+    run: uc4-mnt
+spec:
+  selector:
+    name: uc4-monitoring
+  type: NodePort
+  ports:
+  - name: "uc4-mnt-flask-port"
+    port: 8002
+    targetPort: 5000
+    nodePort: 30002
+    protocol: TCP
+  - name: "uc4-mnt-nginx-port"
+    port: 8001
+    targetPort: 80
+    nodePort: 30001
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc4-mqtt
+  labels:
+    run: uc4-mqtt
+spec:
+  selector:
+    name: uc4-mqtt
+  type: NodePort
+  ports:
+  - name: "uc4-mqtt-port"
+    port: 1883
+    targetPort: 1883
+    nodePort: 30010
+    protocol: TCP
+---
