@@ -1446,7 +1446,7 @@
 - connect / disconnect 500 ERROR 뜨는데 해결 필요함
   - 카메라오면 가능하게끔 만들기
 - index 부분 불러오는데 json 데이터 넘어오게끔,,, 설계서 수정해서 예지누나 전달드리기
-- add monitoring 부분 반환값에 url 고정인지? 고정이면 바꿔줘야함
+- ~~add monitoring 부분 반환값에 url 고정인지? 고정이면 바꿔줘야함~~
 
 
 
@@ -1455,6 +1455,20 @@
 #### 1105
 
 - 책임님께 전달사항 전달드리고 4일 내용 진행 계속
+- connect / disconnect 500 ERROR
+  - 현재 nodeport 를 찾아와서 실행시켜야하는데 여기서 에러가 나는듯
+    - 실제로 파일 배포해보면서 수정해야할듯?
+- ~~add_newUploadSw 500 ERROR~~
+  - ~~vms download api 가 작동을 안하는듯?~~
+
+
+
+#### 1108
+
+- index 부분 불러오는데 json 데이터 사용하지말고.. worker 이름들은 사용 가능하니까 worker 이름으로 예지누나 db 접근해서 찾아올수잇게끔..?
+- connect / disconnect 500 ERROR
+  - 현재 nodeport 를 찾아와서 실행시켜야하는데 여기서 에러가 나는듯
+    - 실제로 파일 배포해보면서 수정진행
 
 
 
