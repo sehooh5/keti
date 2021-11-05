@@ -14,6 +14,7 @@ import paramiko
 import time
 import subprocess
 import zipfile
+import socket
 # docker folder
 from docker import build, push
 # k8s folder
@@ -66,6 +67,10 @@ def node_port():
 # API URL
 API_URL = "http://123.214.186.231:4882"
 
+# IP 주소
+ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
+ip = ips.split(' ')[0]
+
 
 @app.route('/')
 def index():
@@ -82,7 +87,7 @@ def index():
         "ip": "203.253.130.1",
         "port": 88,
         "gps":
-          { 
+          {
             "lat": "37.57",
             "long": "126.98"
           }
@@ -95,7 +100,7 @@ def index():
         "port": 88,
         "5G": "YES",
         "gps":
-          { 
+          {
             "lat": "38.57",
             "long": "128.98"
           }
@@ -213,7 +218,6 @@ def add_newEdgeCluster():
 # (추가) 모니터링 구성
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
-
     # 만약 monitoring namespace 가 존재하면 만들지 않고 바로 리턴하게끔
     try:
         output = subprocess.check_output(
@@ -226,7 +230,7 @@ def add_newMonitoring():
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url="http://192.168.0.29:30006"
+        url=f"http://{ip}:30006"
     )
     return res
 
@@ -484,30 +488,32 @@ def add_newUploadSw():
     copyright = json_data['copyright']
     type = json_data['type']
     desc = json_data['description']
-    filename = json_data['filename']
+    filename = json_data['file']
     # VMS 서버로부터 마스터서버로 파일 다운로드
     if filename.find("zip") != -1:
-        print("here")
+        fname = filename[:-4]
+        print(fname)
         with open(filename, 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             select_cam.write(data.content)
+        print(select_cam)
 
-        zip_ref = zipfile.ZipFile(f'./{filename}', 'r')
-        zip_ref.extractall(f'./{fname}')
+        zip_ref = zipfile.ZipFile(filename)
+        zip_ref.extractall(fname)
         zip_ref.close()
         os.system(
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-        os.system(f"docker push sehooh5/{fname}:latest .")
+        os.system(f"docker push sehooh5/{fname}:latest")
     else:
-        with open(filename, 'wb') as fname:
+        with open(filename, 'wb') as filename:
             data = requests.get(f"{API_URL}/download?filename={filename}")
-            fname.write(data.content)
+            filename.write(data.content)
     # Docker image 생성
-    print("Docker image building......")
-    # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
-    build.build(fname, "sehooh5", fname)
-    push.push("sehooh5", fname)
-    print("Docker image built!!")
+    # print("Docker image building......")
+    # # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
+    # build.build(fname, "sehooh5", fname)
+    # push.push("sehooh5", fname)
+    # print("Docker image built!!")
     # 1. sid 생성
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
@@ -535,7 +541,7 @@ def add_newUploadSw():
 
 
 # 2.8 마스터 서버에 업로드된 SW 정보수정
-@app.route('/update_uploadSwInfo', methods=['POST'])
+@ app.route('/update_uploadSwInfo', methods=['POST'])
 def update_uploadSwInfo():
 
     json_data = request.get_json(silent=True)
@@ -563,7 +569,7 @@ def update_uploadSwInfo():
 
 
 # 2.9 마스터 서버에 업로드된 SW 삭제
-@app.route('/remove_uploadSw', methods=['POST'])
+@ app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
 
     json_data = request.get_json(silent=True)
@@ -587,7 +593,7 @@ def remove_uploadSw():
 
 
 # 2.10 마스터/워커 서버에 배포된 SW 목록 조회
-@app.route('/get_deploySwList', methods=['POST'])
+@ app.route('/get_deploySwList', methods=['POST'])
 def get_deploySwList():
 
     json_data = request.get_json(silent=True)
@@ -613,7 +619,7 @@ def get_deploySwList():
 
 
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
-@app.route('/add_newDeploySwInfo', methods=['POST'])
+@ app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
 
     json_data = request.get_json(silent=True)
@@ -654,7 +660,7 @@ def add_newDeploySwInfo():
 
 
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
-@app.route('/remove_deploySwInfo', methods=['POST'])
+@ app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
 
     json_data = request.get_json(silent=True)
@@ -801,38 +807,10 @@ def get_nodePort():
 @app.route('/get_camApp', methods=['POST'])
 def get_camApp():
 
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    cid = json_data['cid']
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    sid = res.json()["mid"]
-
-    p_list = db.session.query(Server_SW.nodeport).filter(
-        Server_SW.sid == sid).all()
-    port_list = []
-    for p in p_list:
-        port = p[0]
-        port_list.append(port)
-
-    port = node_port()
-
-    while True:
-        if port in port_list:
-            port = node_port()
-            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
-        else:
-            print(f"해당 포트번호 사용 : {port}")
-            break
-
     res = jsonify(
         code="0000",
         message="처리 성공",
-        port=port
+        port=f"{ip}:5000"
     )
     return res
 
