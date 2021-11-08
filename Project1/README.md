@@ -1459,7 +1459,7 @@
   - 현재 nodeport 를 찾아와서 실행시켜야하는데 여기서 에러가 나는듯
     - 실제로 파일 배포해보면서 수정해야할듯?
 - ~~add_newUploadSw 500 ERROR~~
-  - ~~vms download api 가 작동을 안하는듯?~~
+  - ~~vms download api~~
 
 
 
@@ -1470,6 +1470,15 @@
 - connect / disconnect 500 ERROR
   - 현재 nodeport 를 찾아와서 실행시켜야하는데 여기서 에러가 나는듯
     - 실제로 파일 배포해보면서 수정진행
+- SW upload 부분 `_` 사용이 안되서 수정해서 진행
+- SW deploy 부분 배포는 되는데 에러나서...다시 진행해야함
+
+
+
+#### 1110
+
+- 배포부분 배포는 되는데 error 계속 생김 수정필요!
+- device connect, disconnect 부분 - 배포한 후에 계속 진행하기
 
 
 
