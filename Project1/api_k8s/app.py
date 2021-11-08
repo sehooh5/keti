@@ -74,42 +74,6 @@ ip = ips.split(' ')[0]
 
 @app.route('/')
 def index():
-    # 임시 json data
-    json_data = """
-{
-    "code": "0000",
-    "message": "처리 성공",
-    "list":
-    [{
-        "id": "614045dcee9585d76f6f9456",
-        "name": "keti1-worker1",
-        "type": "Master",
-        "ip": "203.253.130.1",
-        "port": 88,
-        "gps":
-          {
-            "lat": "37.57",
-            "long": "126.98"
-          }
-     },
-     {
-        "id": "61444421b0d3db4f7320e387",
-        "name": "keti2-worker2",
-        "type": "Worker",
-        "ip": "203.253.130.2",
-        "port": 88,
-        "5G": "YES",
-        "gps":
-          {
-            "lat": "38.57",
-            "long": "128.98"
-          }
-     }
-  ]
-}
-    """
-    json_data = json.loads(json_data)  # 이 데이터를 전달받은 데이터라고 가정
-
     # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
     nodes = subprocess.check_output(
         "kubectl get node", shell=True).decode('utf-8')
@@ -125,15 +89,14 @@ def index():
             # n = {"nodename": name}
             names.append(name)
 
-    # API 호출해서 json data 를 받았다고 가정(나중에 수정해줘야함)
-    # json_data = requests.get(f"{API_URL}/get_edgeList")
+    # 해당 노드이름으로 노드ID 를 찾고, select_cam 의 nodeport 조회
     datas = []
-    print(json_data['list'])
-    for list in json_data['list']:
-        name = list['name']
-        if name in names:
-            eid = list['id']
-            # print(name, eid)
+    res = requests.get(f"{API_URL}/get_edgeList")
+    list = res.json()['list']
+    for n in list:
+        if n.get('name') in names:
+            nodename = n.get('name')
+            eid = n.get('id')
             wids = db.session.query(Server_SW.wid).filter(
                 eid == Server_SW.sid).all()
             for wid in wids:
@@ -144,11 +107,10 @@ def index():
 
             nodeport = db.session.query(Server_SW.nodeport).filter(
                 Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-            # print(name, nodeport)
-            data = {"nodename": name, "nodeport": nodeport}
+            data = {"nodename": nodename, "nodeport": nodeport}
             datas.append(data)
 
-    print(datas)
+    print("전송 데이터 : ", datas)
 
     return render_template('index.html', list=datas)
 
@@ -804,13 +766,13 @@ def get_nodePort():
 # 2.18 마스터 서버의 사용 가능한 노드 포트 조회
 
 
-@app.route('/get_camApp', methods=['POST'])
+@app.route('/get_camApp', methods=['GET'])
 def get_camApp():
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        port=f"{ip}:5000"
+        port=f"http://{ip}:5000"
     )
     return res
 
