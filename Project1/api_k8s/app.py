@@ -64,7 +64,7 @@ def node_port():
     return num
 
 
-# API URL
+# API URL "http://192.168.0.13:4882"
 API_URL = "http://123.214.186.231:4882"
 
 # IP 주소
@@ -89,7 +89,7 @@ def index():
             # n = {"nodename": name}
             names.append(name)
 
-    # 해당 노드이름으로 노드ID 를 찾고, select_cam 의 nodeport 조회
+    # 해당 노드이름으로 노드ID 를 찾고, select-cam 의 nodeport 조회
     datas = []
     res = requests.get(f"{API_URL}/get_edgeList")
     list = res.json()['list']
@@ -102,7 +102,7 @@ def index():
             for wid in wids:
                 fname = db.session.query(SW_up.fname).filter(
                     SW_up.sid == wid[0]).first()[0]
-                if fname == "select_cam":
+                if fname == "select-cam":
                     sw_id = wid[0]
 
             nodeport = db.session.query(Server_SW.nodeport).filter(
@@ -118,11 +118,10 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-
+    print("엣지 클러스터 구성중....")
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print(json_data)
     mid = json_data['mid']
     wlist = json_data['wlist']
 
@@ -137,7 +136,6 @@ def add_newEdgeCluster():
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
         f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
-    # os.popen(f"sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}")
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
@@ -152,7 +150,6 @@ def add_newEdgeCluster():
     time.sleep(1.0)
 
     for w in wlist:
-        # 필요한 정보 얻기
         wid = w["wid"]
         if wid == None:
             return response.message("0015")
@@ -162,6 +159,7 @@ def add_newEdgeCluster():
         host_name = res.json()["host_name"]
         host_pwd = res.json()["host_pwd"]
         print(host_name, host_pwd)
+
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
         stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
@@ -177,88 +175,7 @@ def add_newEdgeCluster():
     return response.message("0000")
 
 
-# (추가) 모니터링 구성
-@ app.route('/add_newMonitoring', methods=['GET'])
-def add_newMonitoring():
-    # 만약 monitoring namespace 가 존재하면 만들지 않고 바로 리턴하게끔
-    try:
-        output = subprocess.check_output(
-            "kubectl get ns monitoring", shell=True).decode('utf-8')
-    except subprocess.CalledProcessError:
-        output = "-1"
-    if output == "-1":
-        mm.making()
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        url=f"http://{ip}:30006"
-    )
-    return res
-
-
-# (임의로 추가) 클러스터 삭제
-@ app.route('/remove_edgeCluster', methods=['POST'])
-def remove_edgeCluster():
-
-    ips = []
-    names = []
-    hnames = []
-    pwds = []
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-    print(json_data)
-    mid = json_data['mid']
-    wlist = json_data['wlist']
-
-    if mid == None or wlist == None:
-        return response.message("0015")
-
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    ips.append(res.json()["ip"])
-    names.append(res.json()["name"])
-    hnames.append(res.json()["host_name"])
-    pwds.append(res.json()["host_pwd"])
-
-    for w in wlist:
-        # 필요한 정보 얻기
-        wid = w["wid"]
-        if wid == None:
-            return response.message("0015")
-        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
-
-        ips.append(res.json()["ip"])
-        names.append(res.json()["name"])
-        hnames.append(res.json()["host_name"])
-        pwds.append(res.json()["host_pwd"])
-
-    print(names)
-
-    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
-
-        os.system(f"kubectl delete node {name}")
-
-        cli.connect(ip, port=22, username=hname, password=pwd)
-
-        stdin, stdout, stderr = cli.exec_command(
-            "echo y | sudo kubeadm reset", get_pty=True)
-        stdin.write('keti\n')
-        stdin.flush()
-
-        lines = stdout.readlines()
-        print(''.join(lines))
-
-        time.sleep(2.0)
-        cli.close()
-
-    return response.message("0000")
-
-
-# 엣지 서버들 이름 조회
+# 2.2 엣지 서버 이름 조회 인터페이스
 @ app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
 
@@ -300,7 +217,7 @@ def connect_device():
     for wid in wids:
         fname = db.session.query(SW_up.fname).filter(
             SW_up.sid == wid[0]).first()[0]
-        if fname == "select_cam":
+        if fname == "select-cam":
             sw_id = wid[0]
 
     nodeport = db.session.query(Server_SW.nodeport).filter(
@@ -338,7 +255,7 @@ def disconnect_device():
     for wid in wids:
         fname = db.session.query(SW_up.fname).filter(
             SW_up.sid == wid[0]).first()[0]
-        if fname == "select_cam":
+        if fname == "select-cam":
             sw_id = wid[0]
 
     nodeport = db.session.query(Server_SW.nodeport).filter(
@@ -446,7 +363,6 @@ def add_newUploadSw():
         return response.message("0021")
 
     name = json_data['name']
-    fname = json_data['fname']
     copyright = json_data['copyright']
     type = json_data['type']
     desc = json_data['description']
@@ -454,15 +370,19 @@ def add_newUploadSw():
     # VMS 서버로부터 마스터서버로 파일 다운로드
     if filename.find("zip") != -1:
         fname = filename[:-4]
-        print(fname)
-        with open(filename, 'wb') as select_cam:
+        if "_" in fname:
+            fname = fname.replace("_", "-")
+
+        print("fname : ", fname)
+        with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             select_cam.write(data.content)
-        print(select_cam)
+        print("select_cam : ", select_cam)
 
-        zip_ref = zipfile.ZipFile(filename)
+        zip_ref = zipfile.ZipFile(f"{fname}.zip")
         zip_ref.extractall(fname)
         zip_ref.close()
+        print("complete!!")
         os.system(
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         os.system(f"docker push sehooh5/{fname}:latest")
@@ -470,13 +390,7 @@ def add_newUploadSw():
         with open(filename, 'wb') as filename:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             filename.write(data.content)
-    # Docker image 생성
-    # print("Docker image building......")
-    # # 1=Dockerfile, 2=sehooh5 고정, 3=docker image  name
-    # build.build(fname, "sehooh5", fname)
-    # push.push("sehooh5", fname)
-    # print("Docker image built!!")
-    # 1. sid 생성
+
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
 
@@ -587,25 +501,23 @@ def add_newDeploySwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print("프린트 데이터: ", json_data)
     wid = json_data['wid']  # SW ID
     sid = json_data['sid']  # Server ID
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-
+    if "_" in fname:
+        fname = fname.replace("_", "-")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    node_name = res.json()["name"]  # 나중에 들어오는 정보 확인해서 변경
-    # port들은 나중에 port 입력 어떻게 하는지 보고 전달받은 값으로 변경
-
+    node_name = res.json()["name"]
     port = json_data['serviceport']
     node_port = json_data['nodeport']
     target_port = json_data['targetport']
     # select_cam 앱의 타겟포트 지정
-    if fname == "select_cam":
+    if fname == "select-cam":
         target_port = "5050"
     docker_id = "sehooh5"
     dm.making(fname, port, target_port,
@@ -763,7 +675,90 @@ def get_nodePort():
     )
     return res
 
-# 2.18 마스터 서버의 사용 가능한 노드 포트 조회
+# (추가) 2.16 엣지 클러스터 삭제 인터페이스
+
+
+@ app.route('/remove_edgeCluster', methods=['POST'])
+def remove_edgeCluster():
+    print("엣지 클러스터 삭제중....")
+    ips = []
+    names = []
+    hnames = []
+    pwds = []
+
+    json_data = request.get_json(silent=True)
+    if json_data == None:
+        return response.message("0021")
+    print(json_data)
+    mid = json_data['mid']
+    wlist = json_data['wlist']
+
+    if mid == None or wlist == None:
+        return response.message("0015")
+
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    ips.append(res.json()["ip"])
+    names.append(res.json()["name"])
+    hnames.append(res.json()["host_name"])
+    pwds.append(res.json()["host_pwd"])
+
+    for w in wlist:
+        # 필요한 정보 얻기
+        wid = w["wid"]
+        if wid == None:
+            return response.message("0015")
+        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+
+        ips.append(res.json()["ip"])
+        names.append(res.json()["name"])
+        hnames.append(res.json()["host_name"])
+        pwds.append(res.json()["host_pwd"])
+
+    print(names)
+
+    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
+
+        os.system(f"kubectl delete node {name}")
+
+        cli.connect(ip, port=22, username=hname, password=pwd)
+
+        stdin, stdout, stderr = cli.exec_command(
+            "echo y | sudo kubeadm reset", get_pty=True)
+        stdin.write('keti\n')
+        stdin.flush()
+
+        lines = stdout.readlines()
+        print(''.join(lines))
+
+        time.sleep(2.0)
+        cli.close()
+
+    return response.message("0000")
+
+# (추가) 2.17 클러스터 모니터링 툴 추가 인터페이스
+
+
+@ app.route('/add_newMonitoring', methods=['GET'])
+def add_newMonitoring():
+    # 만약 monitoring namespace 가 존재하면 만들지 않고 바로 리턴하게끔
+    try:
+        output = subprocess.check_output(
+            "kubectl get ns monitoring", shell=True).decode('utf-8')
+    except subprocess.CalledProcessError:
+        output = "-1"
+    if output == "-1":
+        mm.making()
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        url=f"http://{ip}:30006"
+    )
+    return res
+
+# 2.18 카메라 연결화면 조회 인터페이스
 
 
 @app.route('/get_camApp', methods=['GET'])
@@ -772,7 +767,7 @@ def get_camApp():
     res = jsonify(
         code="0000",
         message="처리 성공",
-        port=f"http://{ip}:5000"
+        url=f"http://{ip}:5000"
     )
     return res
 

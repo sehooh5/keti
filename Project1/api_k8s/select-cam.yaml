@@ -1,0 +1,36 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: select-cam-service
+spec:
+  selector:
+    app: select-cam
+  ports:
+    - protocol: "TCP"
+      port: 6829
+      targetPort: 5050
+      nodePort: 32661
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: select-cam
+spec:
+  selector:
+    matchLabels:
+      app: select-cam
+  template:
+    metadata:
+      labels:
+        app: select-cam
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: select-cam
+          image: sehooh5/select-cam:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5050
