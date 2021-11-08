@@ -1465,7 +1465,8 @@
 
 #### 1108
 
-- index 부분 불러오는데 json 데이터 사용하지말고.. worker 이름들은 사용 가능하니까 worker 이름으로 예지누나 db 접근해서 찾아올수잇게끔..?
+- index 부분 불러오는데 json 데이터 사용하지말고.. worker 이름들은 사용 가능하니까 ~~worker 이름으로 예지누나 db 접근해서 찾아올수잇게끔..?~~
+  - DB사용은 안하고 get_edgeList API 호출해서, nodename 으로 ID 찾아서 진행하는거로 완성
 - connect / disconnect 500 ERROR
   - 현재 nodeport 를 찾아와서 실행시켜야하는데 여기서 에러가 나는듯
     - 실제로 파일 배포해보면서 수정진행
