@@ -523,7 +523,7 @@ def add_newDeploySwInfo():
     dm.making(fname, port, target_port,
               node_port, node_name, docker_id)
 
-    os.system(f"kubectl apply -f {fname}.yaml")
+    os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
 
     s = Server_SW(sid=sid, wid=wid, serviceport=port,
                   nodeport=node_port, targetport=target_port)

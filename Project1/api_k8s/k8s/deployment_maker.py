@@ -16,10 +16,10 @@ def making(sw_name, port, target_port, node_port, node_name, docker_id):
 apiVersion: v1
 kind: Service
 metadata:
-  name: {sw_name}-service
+  name: {sw_name}-{node_name}-service
 spec:
   selector:
-    app: {sw_name}
+    app: {sw_name}-{node_name}
   ports:
     - protocol: "TCP"
       port: {port}
@@ -31,26 +31,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {sw_name}
+  name: {sw_name}-{node_name}
 spec:
   selector:
     matchLabels:
-      app: {sw_name}
+      app: {sw_name}-{node_name}
   template:
     metadata:
       labels:
-        app: {sw_name}
+        app: {sw_name}-{node_name}
     spec:
       nodeName: {node_name}
       containers:
-        - name: {sw_name}
+        - name: {sw_name}-{node_name}
           image: {docker_id}/{sw_name}:latest
           imagePullPolicy: Always
           ports:
             - containerPort: {target_port}"""
     # print(deployment)
 
-    with open(f"{sw_name}.yaml", "w") as f:
+    with open(f"{sw_name}-{node_name}.yaml", "w") as f:
         f.write(deployment)
 
-    return f"{sw_name}.yaml"
+    return f"{sw_name}-{node_name}.yaml"
