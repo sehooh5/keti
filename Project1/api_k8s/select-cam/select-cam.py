@@ -92,7 +92,7 @@ class BaseCamera(object):
     @classmethod
     def _thread(cls):
         """Camera background thread."""
-        print('Starting camera thread.')
+        print('Starting camera thread.', flush=True)
         frames_iterator = cls.frames()
         for frame in frames_iterator:
             BaseCamera.frame = frame
@@ -100,11 +100,11 @@ class BaseCamera(object):
             time.sleep(0)
             if time.time() - BaseCamera.last_access > 10:
                 frames_iterator.close()
-                print('Stopping camera thread due to inactivity.')
+                print('Stopping camera thread due to inactivity.', flush=True)
                 break
             if os.environ['CAMERA_STOP'] == 'stop':
                 frames_iterator.close()
-                print('Stopping camera thread due to STOP!.')
+                print('Stopping camera thread due to STOP!.', flush=True)
                 break
         BaseCamera.thread = None
 # camera_opencv
@@ -112,7 +112,7 @@ class BaseCamera(object):
 
 class Camera(BaseCamera):
     video_source = 0
-    print("0")
+    print("0", flush=True)
 
     def __init__(self):
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
@@ -121,7 +121,7 @@ class Camera(BaseCamera):
 
     @staticmethod
     def set_video_source(source):
-        print("비디오 소스 : ", source)
+        print("비디오 소스 : ", source, flush=True)
         Camera.video_source = source
 
     @staticmethod
@@ -130,7 +130,7 @@ class Camera(BaseCamera):
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
         else:
-            print("Video Streaming On !")
+            print("Video Streaming On !", flush=True)
         while True:
             _, img = camera.read()
 
@@ -148,7 +148,7 @@ refresh = "/bin/bash -c 'source ~/.bashrc'"
 def streaming():
     """streaming"""
     cam_url = os.environ['OPENCV_CAMERA_SOURCE']
-    print("환경변수 : ", cam_url)
+    print("환경변수 : ", cam_url, flush=True)
 
     if cam_url.find("8810") == -1:
         cam_no = "CCTV Camera 2"
@@ -176,8 +176,8 @@ def connect():
 
     os.environ['OPENCV_CAMERA_SOURCE'] = cam_url
     os.environ['CAMERA_STOP'] = "None"
-    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
-    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'])
+    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
+    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera connect with URL : {cam_url}"
     return res
 
@@ -193,8 +193,8 @@ def disconnect():
     os.system(refresh)
     os.environ['OPENCV_CAMERA_SOURCE'] = "None"
     os.environ['CAMERA_STOP'] = "stop"
-    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'])
-    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'])
+    print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
+    print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera disconnect with URL : {cam_url}"
     return res
 
