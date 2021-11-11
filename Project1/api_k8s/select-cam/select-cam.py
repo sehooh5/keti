@@ -1,140 +1,17 @@
 #!/usr/bin/env python
 # 1
 # from base_camera import BaseCamera
-import cv2
-# 2
-import time
-import threading
+
 import os
-try:
-    from greenlet import getcurrent as get_ident
-except ImportError:
-    try:
-        from thread import get_ident
-    except ImportError:
-        from _thread import get_ident
+
 ###
 from importlib import import_module
-import os
+
 from flask import Flask, render_template, Response, request
 import json
 
-# 카메라 opencv 로 처음부터 지정
-# Camera = import_module('camera_opencv').Camera
 
-# 한개로 합치기 연습
-# base_camera.py
-
-
-class CameraEvent(object):
-    """An Event-like class that signals all active clients when a new frame is
-    available.
-    """
-
-    def __init__(self):
-        self.events = {}
-
-    def wait(self):
-        """Invoked from each client's thread to wait for the next frame."""
-        ident = get_ident()
-        if ident not in self.events:
-            self.events[ident] = [threading.Event(), time.time()]
-        return self.events[ident][0].wait()
-
-    def set(self):
-        """Invoked by the camera thread when a new frame is available."""
-        now = time.time()
-        remove = None
-        for ident, event in self.events.items():
-            if not event[0].isSet():
-                event[0].set()
-                event[1] = now
-            else:
-                if now - event[1] > 5:
-                    remove = ident
-        if remove:
-            del self.events[remove]
-
-    def clear(self):
-        """Invoked from each client's thread after a frame was processed."""
-        self.events[get_ident()][0].clear()
-
-
-class BaseCamera(object):
-    thread = None
-    frame = None
-    last_access = 0
-    event = CameraEvent()
-
-    def __init__(self):
-        """Start the background camera thread if it isn't running yet."""
-        if BaseCamera.thread is None:
-            BaseCamera.last_access = time.time()
-            BaseCamera.thread = threading.Thread(target=self._thread)
-            BaseCamera.thread.start()
-
-            while self.get_frame() is None:
-                time.sleep(0)
-
-    def get_frame(self):
-        """Return the current camera frame."""
-        BaseCamera.last_access = time.time()
-        BaseCamera.event.wait()
-        BaseCamera.event.clear()
-
-        return BaseCamera.frame
-
-    @staticmethod
-    def frames():
-        """"Generator that returns frames from the camera."""
-        raise RuntimeError('Must be implemented by subclasses.')
-
-    @classmethod
-    def _thread(cls):
-        """Camera background thread."""
-        print('Starting camera thread.', flush=True)
-        frames_iterator = cls.frames()
-        for frame in frames_iterator:
-            BaseCamera.frame = frame
-            BaseCamera.event.set()
-            time.sleep(0)
-            if time.time() - BaseCamera.last_access > 10:
-                frames_iterator.close()
-                print('Stopping camera thread due to inactivity.', flush=True)
-                break
-            if os.environ['CAMERA_STOP'] == 'stop':
-                frames_iterator.close()
-                print('Stopping camera thread due to STOP!.', flush=True)
-                break
-        BaseCamera.thread = None
-# camera_opencv
-
-
-class Camera(BaseCamera):
-    video_source = 0
-    print("0", flush=True)
-
-    def __init__(self):
-        if os.environ.get('OPENCV_CAMERA_SOURCE'):
-            Camera.set_video_source(os.environ['OPENCV_CAMERA_SOURCE'])
-        super(Camera, self).__init__()
-
-    @staticmethod
-    def set_video_source(source):
-        print("비디오 소스 : ", source, flush=True)
-        Camera.video_source = source
-
-    @staticmethod
-    def frames():
-        camera = cv2.VideoCapture(Camera.video_source)
-        if not camera.isOpened():
-            raise RuntimeError('Could not start camera.')
-        else:
-            print("Video Streaming On !", flush=True)
-        while True:
-            _, img = camera.read()
-
-            yield cv2.imencode('.jpg', img)[1].tobytes()
+Camera = import_module('camera_opencv').Camera
 
 
 app = Flask(__name__)

@@ -460,7 +460,7 @@ def remove_uploadSw():
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
     # Docker image delete
     print(f"Docker image {fname} deleting...")
-    os.system(f"docker rmi sehooh5/{fname}")
+    os.system(f"docker rmi -f sehooh5/{fname}")
     print("Docker image deleted!!")
 
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
@@ -546,10 +546,15 @@ def remove_deploySwInfo():
     print(json_data)
     wid = json_data['wid']
     sid = json_data['sid']
+    # 노드명 불러오기
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    node_name = res.json()["name"]
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    os.system(f"kubectl delete -f {fname}.yaml")
+    os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
