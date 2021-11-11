@@ -148,7 +148,7 @@ refresh = "/bin/bash -c 'source ~/.bashrc'"
 def streaming():
     """streaming"""
     cam_url = os.environ['OPENCV_CAMERA_SOURCE']
-    print("환경변수 : ", cam_url)
+    print("환경변수 : ", cam_url, flush=True)
 
     if cam_url.find("8810") == -1:
         cam_no = "CCTV Camera 2"

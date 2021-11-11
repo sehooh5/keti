@@ -1,3 +1,2 @@
 n = "select_cam"
-if "_" in n:
-    print(n.replace("_", "-"))
+print("환경변수 : ", n, flush=True)

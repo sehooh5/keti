@@ -112,129 +112,22 @@ def index():
 
     print("전송 데이터 : ", datas)
 
-    return render_template('index.html', list=datas)
-
-
-# 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
-@app.route('/add_newEdgeCluster', methods=['POST'])
-def add_newEdgeCluster():
-    print("엣지 클러스터 구성중....")
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-    mid = json_data['mid']
-    wlist = json_data['wlist']
-
-    if mid == None or wlist == None:
-        return response.message("0015")
-
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    mip = res.json()["ip"]
-
-    # 마스터 엣지 구성
-    m_output = subprocess.check_output(
-        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
-    # 마스터 - 워커 연결해주는 명령어
-    w_input = m_output.split('root:')[-1].lstrip()
-    w_input = f"sudo {w_input}"
-    # 마스터에서 설정해줘야 하는 내용
-    os.system("mkdir -p $HOME/.kube")
-    time.sleep(1.0)
-    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    time.sleep(1.0)
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    time.sleep(1.0)
-    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(1.0)
-
-    for w in wlist:
-        wid = w["wid"]
-        if wid == None:
-            return response.message("0015")
-        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
-
-        wip = res.json()["ip"]
-        host_name = res.json()["host_name"]
-        host_pwd = res.json()["host_pwd"]
-        print(host_name, host_pwd)
-
-        # 워커노드와 연결
-        cli.connect(wip, port=22, username=host_name, password=host_pwd)
-        stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
-        stdin.write('keti\n')
-        stdin.flush()
-        lines = stdout.readlines()
-        print(''.join(lines))
-        time.sleep(2.0)
-        cli.close()
-
-        print(f"마스터노드와 {host_name} 노드 연결...ip 주소 : {wip}")
-
-    return response.message("0000")
-
-
-# 2.2 엣지 서버 이름 조회 인터페이스
-@ app.route('/get_edgeName', methods=['GET'])
-def get_edgeName():
-
-    nodes = subprocess.check_output(
-        "kubectl get node", shell=True).decode('utf-8')
-
-    nodes_split = nodes.split('\n')
-    len_nodes = len(nodes_split)-1
-
-    name_list = nodes_split[1:len_nodes]
-    names = []
-    for name in name_list:
-        n = {"name": name.split(' ')[0]}
-        names.append(n)
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        nlist=names
-    )
-    return res
+    return render_template('index_test.html', list=datas)
 
 
 # 2.3 엣지서버에 디바이스 연결
 @ app.route('/connect_device', methods=['POST'])
 def connect_device():
 
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    eid = json_data['eid']
-    did = json_data['did']
-
-    device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-    edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
-    print(edge_ip)
-    # 노드포트 찾기위한 과정
-    wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
-    for wid in wids:
-        fname = db.session.query(SW_up.fname).filter(
-            SW_up.sid == wid[0]).first()[0]
-        if fname == "select-cam":
-            sw_id = wid[0]
-
-    nodeport = db.session.query(Server_SW.nodeport).filter(
-        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    print("노드포트 출력 : ", nodeport)
-
     # 디바이스 정보 추출
-    d_url = "rtsp://keti:keti1234@" + \
-        device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
+    d_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
 
     data = {
         "url": d_url
     }
     # 확인 필요
     requests.post(
-        f"http://192.168.0.29:{nodeport}/connect", data=json.dumps(data))
+        f"http://192.168.0.29:5050/connect", data=json.dumps(data))
 
     return response.message("0000")
 
@@ -243,37 +136,15 @@ def connect_device():
 @ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
 
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    eid = json_data['eid']
-    did = json_data['did']
-
-    device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-    edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
-    print(edge_ip)
-    # 노드포트 찾기위한 과정
-    wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
-    for wid in wids:
-        fname = db.session.query(SW_up.fname).filter(
-            SW_up.sid == wid[0]).first()[0]
-        if fname == "select-cam":
-            sw_id = wid[0]
-
-    nodeport = db.session.query(Server_SW.nodeport).filter(
-        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    print("노드포트 출력 : ", nodeport)
-
     # 디바이스 정보 추출
-    d_url = "rtsp://keti:keti1234@" + \
-        device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+    d_url = "rtsp://keti:keti1234@192.168.100.60:8805/videoMain"
+
     data = {
         "url": d_url
     }
-    # 확인 필요
+
     requests.post(
-        f"http://{edge_ip}:{nodeport}/disconnect", data=json.dumps(data))
+        f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
 
     return response.message("0000")
 
@@ -797,4 +668,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5000)
+    app.run(host='0.0.0.0', threaded=True, port=5555)
