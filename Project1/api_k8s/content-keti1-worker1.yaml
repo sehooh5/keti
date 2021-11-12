@@ -1,0 +1,36 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: content-keti1-worker1-service
+spec:
+  selector:
+    app: content-keti1-worker1
+  ports:
+    - protocol: "TCP"
+      port: 6655
+      targetPort: 5801
+      nodePort: 30552
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-keti1-worker1
+spec:
+  selector:
+    matchLabels:
+      app: content-keti1-worker1
+  template:
+    metadata:
+      labels:
+        app: content-keti1-worker1
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: content-keti1-worker1
+          image: sehooh5/content:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5801

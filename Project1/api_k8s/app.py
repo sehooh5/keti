@@ -209,10 +209,11 @@ def connect_device():
 
     eid = json_data['eid']
     did = json_data['did']
+    print(f"Connect Server [ID : {eid}] with Device [ID : {did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
-    print(edge_ip)
+
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
     for wid in wids:
@@ -223,11 +224,12 @@ def connect_device():
 
     nodeport = db.session.query(Server_SW.nodeport).filter(
         Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    print("노드포트 출력 : ", nodeport)
+    print(f"Using Nodeport : {nodeport}")
 
     # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
+    print(f"Device URL : {d_url}....")
 
     data = {
         "url": d_url
@@ -235,6 +237,7 @@ def connect_device():
     # 확인 필요
     requests.post(
         f"http://192.168.0.29:{nodeport}/connect", data=json.dumps(data))
+    print("Connecting completed!!")
 
     return response.message("0000")
 
@@ -249,10 +252,11 @@ def disconnect_device():
 
     eid = json_data['eid']
     did = json_data['did']
+    print(f"Discnnect Server [ID : {eid}] with Device [ID : {did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
-    print(edge_ip)
+
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
     for wid in wids:
@@ -263,17 +267,18 @@ def disconnect_device():
 
     nodeport = db.session.query(Server_SW.nodeport).filter(
         Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    print("노드포트 출력 : ", nodeport)
 
     # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+
     data = {
         "url": d_url
     }
     # 확인 필요
     requests.post(
         f"http://{edge_ip}:{nodeport}/disconnect", data=json.dumps(data))
+    print("Disconnecting completed!!")
 
     return response.message("0000")
 
@@ -506,11 +511,14 @@ def add_newDeploySwInfo():
         return response.message("0021")
     wid = json_data['wid']  # SW ID
     sid = json_data['sid']  # Server ID
+    print(
+        f"Kubernetes : Deploy Software [ID : {wid}] to Server [ID : {sid}]....")
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
     if "_" in fname:
         fname = fname.replace("_", "-")
+    print(f"File name is {fname}.....")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -523,15 +531,20 @@ def add_newDeploySwInfo():
     if fname == "select-cam":
         target_port = "5050"
     docker_id = "sehooh5"
-    dm.making(fname, port, target_port,
-              node_port, node_name, docker_id)
+    print("Making deployment...")
+    deployment = dm.making(fname, port, target_port,
+                           node_port, node_name, docker_id)
+    print("Deployment : ")
+    print(deployment)
 
     os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
+    print(f"Deploying {fname}-{node_name}.yaml.....")
 
     s = Server_SW(sid=sid, wid=wid, serviceport=port,
                   nodeport=node_port, targetport=target_port)
     db.session.add(s)
     db.session.commit()
+    print("Deploy Completed!!")
 
     return response.message("0000")
 
@@ -546,6 +559,9 @@ def remove_deploySwInfo():
     print(json_data)
     wid = json_data['wid']
     sid = json_data['sid']
+    print(
+        f"Kubernetes : Undeploy Software [ID : {wid}] to Server [ID : {sid}]  ....")
+
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -554,13 +570,16 @@ def remove_deploySwInfo():
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
+    print(
+        f"Undeploy Software [{fname}] from Server [{node_name}] ....")
+
     os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
-    print(sw)
     db.session.delete(sw)
     db.session.commit()
+    print("Undeploy Completed!!")
 
     return response.message("0000")
 

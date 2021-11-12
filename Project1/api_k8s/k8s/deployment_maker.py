@@ -53,4 +53,4 @@ spec:
     with open(f"{sw_name}-{node_name}.yaml", "w") as f:
         f.write(deployment)
 
-    return f"{sw_name}-{node_name}.yaml"
+    return deployment
