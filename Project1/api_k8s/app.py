@@ -396,10 +396,15 @@ def add_newUploadSw():
         print("Docker image building completed!! \n Docker image push to Docker hub..")
         os.system(f"docker push sehooh5/{fname}:latest")
         print("Docker image pushing completed!!")
+    # elif filename.find("prometheus"):
+    #     with open(filename, 'wb') as filename:
+    #         data = requests.get(f"{API_URL}/download?filename={filename}")
+    #         filename.write(data.content)
     else:
         with open(filename, 'wb') as filename:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             filename.write(data.content)
+        fname = filename
 
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
@@ -519,12 +524,6 @@ def add_newDeploySwInfo():
     sid = json_data['sid']  # Server ID
     print(
         f"Kubernetes : Deploy Software [{wid}] to Edge Server [{sid}]....")
-
-    # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    if "_" in fname:
-        fname = fname.replace("_", "-")
-    print(f"Software name is {fname}.....")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -533,8 +532,28 @@ def add_newDeploySwInfo():
     port = json_data['serviceport']
     node_port = json_data['nodeport']
     target_port = json_data['targetport']
+
+    # fname 불러오기
+    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
+    if "_" in fname:
+        fname = fname.replace("_", "-")
+    print(f"Software name is {fname}.....")
+    if fname.find("promethus"):
+        port = "8080"
+        target_port = "9090"
+        node_port = "30003"
+        mm.namespace()
+        mm.prometheus()
+        s = Server_SW(sid=sid, wid=wid, serviceport=port,
+                      nodeport=node_port, targetport=target_port)
+        db.session.add(s)
+        db.session.commit()
+        print("Deploy Completed!!")
+
+        return response.message("0000")
+
     # select_cam 앱의 타겟포트 지정
-    if fname == "select-cam":
+    elif fname == "select-cam":
         target_port = "5050"
     docker_id = "sehooh5"
     print("Making deployment...")
@@ -770,11 +789,11 @@ def remove_edgeCluster():
         time.sleep(2.0)
         cli.close()
 
-    print("Edge Cluster Deleted!!")
+    print("Edge Cluster Deleted!!!")
 
     return response.message("0000")
 
-# (추가) 2.17 클러스터 모니터링 툴 추가 인터페이스
+# 2.17 클러스터 모니터링 툴 추가 인터페이스
 
 
 @ app.route('/add_newMonitoring', methods=['GET'])
