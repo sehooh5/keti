@@ -209,7 +209,7 @@ def connect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(f"Connect Server [ID : {eid}] with Device [ID : {did}]....")
+    print(f"Connect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
@@ -252,7 +252,7 @@ def disconnect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(f"Discnnect Server [ID : {eid}] with Device [ID : {did}]....")
+    print(f"Discnnect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
@@ -364,9 +364,9 @@ def get_uploadSwInfo():
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
 @app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-
+    print("Start uploading a new software..")
     json_data = request.get_json(silent=True)
-    print(json_data)
+
     if json_data == None:
         return response.message("0021")
 
