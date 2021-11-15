@@ -381,19 +381,21 @@ def add_newUploadSw():
         if "_" in fname:
             fname = fname.replace("_", "-")
 
-        print("fname : ", fname)
+        print("Software name : ", fname)
         with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             select_cam.write(data.content)
-        print("select_cam : ", select_cam)
+        # print("select_cam : ", select_cam)
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
         zip_ref.extractall(fname)
         zip_ref.close()
-        print("complete!!")
+        print(f"{fname} file uploading completed!! \n Docker image building...")
         os.system(
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        print("Docker image building completed!! \n Docker image push to Docker hub..")
         os.system(f"docker push sehooh5/{fname}:latest")
+        print("Docker image pushing completed!!")
     else:
         with open(filename, 'wb') as filename:
             data = requests.get(f"{API_URL}/download?filename={filename}")
@@ -405,10 +407,10 @@ def add_newUploadSw():
     while q != None:
         sid = sid_maker()
         q = db.session.query(SW_up).get(sid)
-        print(f"ID를 재생성합니다 : {sid}")
+        print(f"Re-generating Software ID : {sid}")
         break
     else:
-        print(f"해당 ID를 사용 : {sid}")
+        print(f"Software ID : {sid}")
 
     # 2. software_up 테이블에 데이터 저장
     sw = SW_up(sid=sid, name=name, fname=fname,
@@ -455,7 +457,7 @@ def update_uploadSwInfo():
 # 2.9 마스터 서버에 업로드된 SW 삭제
 @ app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
-
+    print("Deleting Uploaded Software...")
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
@@ -463,6 +465,8 @@ def remove_uploadSw():
     sid = json_data['sid']
 
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    print(f"Software ID : {sid} \n Software name : {fname}")
+
     # Docker image delete
     print(f"Docker image {fname} deleting...")
     os.system(f"docker rmi -f sehooh5/{fname}")
@@ -472,6 +476,7 @@ def remove_uploadSw():
 
     db.session.delete(sw)
     db.session.commit()
+    print("Software deleted!!")
 
     return response.message("0000")
 
@@ -505,6 +510,7 @@ def get_deploySwList():
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
 @ app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
+    print("start deploying Software by Kubernetes...")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -512,13 +518,13 @@ def add_newDeploySwInfo():
     wid = json_data['wid']  # SW ID
     sid = json_data['sid']  # Server ID
     print(
-        f"Kubernetes : Deploy Software [ID : {wid}] to Server [ID : {sid}]....")
+        f"Kubernetes : Deploy Software [{wid}] to Edge Server [{sid}]....")
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
     if "_" in fname:
         fname = fname.replace("_", "-")
-    print(f"File name is {fname}.....")
+    print(f"Software name is {fname}.....")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -707,7 +713,7 @@ def get_nodePort():
 
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    print("엣지 클러스터 삭제중....")
+    print("Deleting Edge Cluster....")
     ips = []
     names = []
     hnames = []
@@ -716,9 +722,10 @@ def remove_edgeCluster():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print(json_data)
+
     mid = json_data['mid']
     wlist = json_data['wlist']
+    print(f"Master ID : {mid}...")
 
     if mid == None or wlist == None:
         return response.message("0015")
@@ -734,6 +741,7 @@ def remove_edgeCluster():
     for w in wlist:
         # 필요한 정보 얻기
         wid = w["wid"]
+        print(f"Worker ID : {wid}...")
         if wid == None:
             return response.message("0015")
         res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
@@ -743,7 +751,7 @@ def remove_edgeCluster():
         hnames.append(res.json()["host_name"])
         pwds.append(res.json()["host_pwd"])
 
-    print(names)
+    print(f"Edge Server List : {names}")
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
 
@@ -762,6 +770,8 @@ def remove_edgeCluster():
         time.sleep(2.0)
         cli.close()
 
+    print("Edge Cluster Deleted!!")
+
     return response.message("0000")
 
 # (추가) 2.17 클러스터 모니터링 툴 추가 인터페이스
@@ -769,14 +779,18 @@ def remove_edgeCluster():
 
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
-    # 만약 monitoring namespace 가 존재하면 만들지 않고 바로 리턴하게끔
+
     try:
         output = subprocess.check_output(
             "kubectl get ns monitoring", shell=True).decode('utf-8')
     except subprocess.CalledProcessError:
         output = "-1"
     if output == "-1":
+        print("Making Monitoring system by Prometheus and Grafana")
         mm.making()
+
+    print(
+        f"Monitoring tool making Completed.. \n Grafana url : http://{ip}:30006")
 
     res = jsonify(
         code="0000",
