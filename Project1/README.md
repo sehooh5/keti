@@ -1521,4 +1521,23 @@
     - UI 상에서 url+노드포트 찾아서 창 열어주는 방법으로 일단 진행
   - 프로메테우스 앱 업로드, 배포 하는 과정 보여주기 
   - 카메라 한대 더 추가해야함...need help
+  
 - print 해주는 내용들 채워주는중...
+
+- 프로메테우스 업로드, 배포부분 업데이트 완료..실제 작동하는지 확인해야함
+
+- 전체적 연동하는 과정에서 누나부분 /get_edgeInfo 부분 불러올때 에러가 나는데 확인 필요 내일!
+
+  - 에러내용 
+
+    ```ubu
+    requests.exceptions.ConnectionError: HTTPConnectionPool(host='123.214.186.231', port=4882): Max retries exceeded with url: /get_edgeInfo?id=61404604ee9585d76f6f9479 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc835715b90>: Failed to establish a new connection: [Errno 113] No route to host'))
+    ```
+
+
+
+#### 1116
+
+- 연동에서 에러나는 부분 고치고 
+  - 프로메테우스 앱 배포하는 과정부터 확인
+  - UI 없이 카메라 화면 열어주는 작업 진행
