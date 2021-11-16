@@ -16,9 +16,8 @@ def namespace():
     return "Created!!"
 
 
-def prometheus():
-    os.system("kubectl apply -f prometheus.yaml")
-    os.system("kubectl apply -f state_metrics.yaml")
+def prometheus(filename):
+    os.system(f"kubectl apply -f {filename}")
 
     return "Created!!"
 

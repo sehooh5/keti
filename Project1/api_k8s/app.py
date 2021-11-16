@@ -544,7 +544,7 @@ def add_newDeploySwInfo():
         target_port = "9090"
         node_port = "30003"
         mm.namespace()
-        mm.prometheus()
+        mm.prometheus(fname)
         s = Server_SW(sid=sid, wid=wid, serviceport=port,
                       nodeport=node_port, targetport=target_port)
         db.session.add(s)
