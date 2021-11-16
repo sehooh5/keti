@@ -65,7 +65,8 @@ def node_port():
 
 
 # API URL "http://192.168.0.13:4882"
-API_URL = "http://123.214.186.231:4882"
+# API_URL = "http://123.214.186.231:4882"
+API_URL = "http://192.168.0.69:4882"
 
 # IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
