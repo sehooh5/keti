@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Ambient intelligence for office environments</title>
+    <!-- <link rel="icon" href="img/fav.png" type="image/x-icon"> -->
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+
+    <!-- main css -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+
+    <!-- modernizr -->
+    <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="pre-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Preloader -->
+
+    <div class="container-fluid">
+        <!-- box header -->
+        <header class="box-header">
+            <div class="box-logo">
+                
+                <a href="/"><img src="{{url_for('static', filename='img/decenterLOGO.png')}}" width="20%" alt="Logo"></a>
+            </div>
+
+        </header>
+        <!-- end box header -->
+
+        <!-- box-intro -->
+        <section class="box-intro">
+            <div class="table-cell">
+                <h1 class="box-headline letters rotate-2">
+                    <span class="box-words-wrapper">
+                        <b class="is-visible NA">WELCOME.</b>
+                        <b class="A">GROUP A.</b>
+                        <b class="B">GROUP B.</b>
+                    </span>
+		        </h1>
+                <h5 class="res-text">Ambient intelligence for office environments</h5>
+            </div>
+
+            <!-- <div class="mouse">
+                <div class="scroll"></div>
+            </div> -->
+        </section>
+        <!-- end box-intro -->
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright">© DECENTER 2020</p>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    <!-- back to top -->
+    <a href="#0" class="cd-top"><i class="ion-android-arrow-up"></i></a>
+    <!-- end back to top -->
+
+
+
+    <!-- jQuery -->
+    <script src="{{url_for('static', filename='js/jquery-2.1.1.js')}}"></script>
+    <!--  plugins -->
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/animated-headline.js')}}"></script>
+
+
+    <!--  custom script -->
+    <script src="{{url_for('static', filename='js/custom.js')}}"></script>
+
+</body>
+
+</html>
