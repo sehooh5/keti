@@ -1539,15 +1539,23 @@
 #### 1116
 
 - ~~연동에서 에러나는 부분 고치고~~  완료(컴퓨터 IP, 즉 API IP 가 자꾸 변경되서..IP 고정 : 192.168.0.69)
-- 프로메테우스 앱 배포하는 과정부터 확인
+- 프로메테우스 앱 배포하는 과정부터 확인 <mark>**완성**</mark>
   - 프로메테우스, 스테이트 메트릭스 어디에 있는 파일이 실시되는지 확인
     - /k8s 에 있는 파일을 backup file 처리했음
     - 현재 node_selector.py - select 메소드 작업중인데..
       - 파일 경로를 /k8s 에 할지, 상위폴더에 할지...? **이거는 deployment maker.py 도 해당되는 내용**
+      - 파일경로는 
+        - **기본적으로 app.py 가 실행되는 위치에서 실행된다**
+
+
+
+#### 1117
+
+- prometheus 배포는 되니까, 배포삭제하는 부분도 백그라운드에서 실행되게끔 !!
 - UI 없이 카메라 화면 열어주는 작업 진행
 
 
 
 
 
-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
+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
