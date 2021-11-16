@@ -542,8 +542,8 @@ def add_newDeploySwInfo():
         fname = fname.replace("_", "-")
     print(f"Software name is {fname}.....")
 
-    if fname.find("promethus") == "1":
-        print(fname.find("promethus"))
+    if fname.find("prometheus") == 0:
+
         port = "8080"
         target_port = "9090"
         node_port = "30005"
@@ -561,7 +561,6 @@ def add_newDeploySwInfo():
 
     # select_cam 앱의 타겟포트 지정
     elif fname == "select-cam":
-        print("byyyeeeeeeeeeeeee")
         target_port = "5050"
     docker_id = "sehooh5"
     print("Making deployment...")

@@ -17,7 +17,7 @@ def namespace():
 
 
 def prometheus(filename):
-    os.system(f"kubectl apply -f {filename}")
+    os.system(f"kubectl apply -f ./k8s/{filename}")
 
     return "Created!!"
 
