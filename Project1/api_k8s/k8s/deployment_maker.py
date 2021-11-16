@@ -1,14 +1,6 @@
 import os
 import sys
 
-# 이 부분은 나중에 들어오는 값들을 받아와야함
-#sw_name = sys.argv[1]
-#port = sys.argv[2]
-#target_port = sys.argv[3]
-#node_port = sys.argv[4]
-#node_name = sys.argv[5]
-# docker_id = sys.argv[6]  # 나중에 로컬끼리 주고받는거면 필요없을수도잇음
-
 
 def making(sw_name, port, target_port, node_port, node_name, docker_id):
 
@@ -48,7 +40,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: {target_port}"""
-    # print(deployment)
 
     with open(f"{sw_name}-{node_name}.yaml", "w") as f:
         f.write(deployment)

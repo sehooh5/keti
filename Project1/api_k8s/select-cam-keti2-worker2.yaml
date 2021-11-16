@@ -8,9 +8,9 @@ spec:
     app: select-cam-keti2-worker2
   ports:
     - protocol: "TCP"
-      port: 6447
+      port: 6960
       targetPort: 5050
-      nodePort: 31912
+      nodePort: 32428
   type: NodePort
 
 ---

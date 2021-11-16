@@ -20,6 +20,7 @@ from docker import build, push
 # k8s folder
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
+from k8s import node_selector as ns
 
 
 app = Flask(__name__)
@@ -121,6 +122,7 @@ def index():
 def add_newEdgeCluster():
     print("엣지 클러스터 구성중....")
     json_data = request.get_json(silent=True)
+    print(json_data)
     if json_data == None:
         return response.message("0021")
     mid = json_data['mid']
@@ -159,7 +161,6 @@ def add_newEdgeCluster():
         wip = res.json()["ip"]
         host_name = res.json()["host_name"]
         host_pwd = res.json()["host_pwd"]
-        print(host_name, host_pwd)
 
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
@@ -402,10 +403,11 @@ def add_newUploadSw():
     #         data = requests.get(f"{API_URL}/download?filename={filename}")
     #         filename.write(data.content)
     else:
-        with open(filename, 'wb') as filename:
-            data = requests.get(f"{API_URL}/download?filename={filename}")
-            filename.write(data.content)
         fname = filename
+        print(f"filename : {fname}")
+        with open(filename, 'wb') as file:
+            data = requests.get(f"{API_URL}/download?filename={filename}")
+            file.write(data.content)
 
     sid = sid_maker()
     q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
@@ -539,10 +541,14 @@ def add_newDeploySwInfo():
     if "_" in fname:
         fname = fname.replace("_", "-")
     print(f"Software name is {fname}.....")
-    if fname.find("promethus"):
+
+    if fname.find("promethus") == "1":
+        print(fname.find("promethus"))
         port = "8080"
         target_port = "9090"
-        node_port = "30003"
+        node_port = "30005"
+        # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
+        ns.select(fname, node_name)
         mm.namespace()
         mm.prometheus(fname)
         s = Server_SW(sid=sid, wid=wid, serviceport=port,
@@ -555,6 +561,7 @@ def add_newDeploySwInfo():
 
     # select_cam 앱의 타겟포트 지정
     elif fname == "select-cam":
+        print("byyyeeeeeeeeeeeee")
         target_port = "5050"
     docker_id = "sehooh5"
     print("Making deployment...")
