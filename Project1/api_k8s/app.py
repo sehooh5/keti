@@ -241,7 +241,12 @@ def connect_device():
         f"http://192.168.0.29:{nodeport}/connect", data=json.dumps(data))
     print("Connecting completed!!")
 
-    return response.message("0000")
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        url=f"http://{edge_ip}:{nodeport}/streaming"
+    )
+    return res
 
 
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
@@ -282,7 +287,12 @@ def disconnect_device():
         f"http://{edge_ip}:{nodeport}/disconnect", data=json.dumps(data))
     print("Disconnecting completed!!")
 
-    return response.message("0000")
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        url=f"http://{edge_ip}:{nodeport}/streaming"
+    )
+    return res
 
 
 # 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
@@ -604,7 +614,8 @@ def remove_deploySwInfo():
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
     print(
         f"Undeploy Software [{fname}] from Server [{node_name}] ....")
-
+    if fname.find("prometheus") == 0:
+        os.system(f"kubectl delete -f {fname}")
     os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
 
     sw = db.session.query(Server_SW).filter(
