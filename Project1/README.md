@@ -1552,7 +1552,10 @@
 #### 1117
 
 - prometheus 배포는 되니까, 배포삭제하는 부분도 백그라운드에서 실행되게끔 !!
+  - remove_deploy API 에서 지워주게끔 했음
 - UI 없이 카메라 화면 열어주는 작업 진행
+  - connect_device, disconnect_device 에서 응답값에 url 추가해주면 될듯? (add_newMonitoring과 같음)
+  - **다만 서버가 3대로 늘어났을때...카메라 바뀌는것을 어떻게 보여줄것인가...**
 
 
 
