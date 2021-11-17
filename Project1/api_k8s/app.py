@@ -214,7 +214,10 @@ def connect_device():
     print(f"Connect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-    edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
+    device_name = device.json()["name"]
+
+    edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
+    edge_name = edge.json()["name"]
 
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
@@ -238,13 +241,14 @@ def connect_device():
     }
     # 확인 필요
     requests.post(
-        f"http://192.168.0.29:{nodeport}/connect", data=json.dumps(data))
-    print("Connecting completed!!")
+        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+    print("Connecting completed!! \n Camera streaming start...")
+    print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url=f"http://{edge_ip}:{nodeport}/streaming"
+        url=f"http://{ip}:{nodeport}/streaming"
     )
     return res
 
@@ -262,7 +266,10 @@ def disconnect_device():
     print(f"Discnnect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-    edge_ip = requests.get(f"{API_URL}/get_edgeInfo?id={eid}").json()["ip"]
+    device_name = device.json()["name"]
+
+    edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
+    edge_name = edge.json()["name"]
 
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
@@ -284,13 +291,14 @@ def disconnect_device():
     }
     # 확인 필요
     requests.post(
-        f"http://{edge_ip}:{nodeport}/disconnect", data=json.dumps(data))
-    print("Disconnecting completed!!")
+        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+    print("Disconnecting completed!! \n Camera streaming end...")
+    print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url=f"http://{edge_ip}:{nodeport}/streaming"
+        url=f"http://{ip}:{nodeport}/streaming"
     )
     return res
 
