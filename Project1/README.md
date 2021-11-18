@@ -1561,6 +1561,8 @@
 
 #### 1118
 
+- **깃 다시 둘다 시작하기!!**
+  - 깃 클론이 안됨..........
 - UI 없이 카메라 화면 열어주는 작업 이대로 진행해보고...두번째꺼는 고민
   - connect_device, disconnect_device 에서 응답값에 url 추가해주면 될듯? (add_newMonitoring과 같음)
   - **다만 서버가 3대로 늘어났을때...카메라 바뀌는것을 어떻게 보여줄것인가...**
@@ -1569,4 +1571,4 @@
 
 
 
-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
+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
