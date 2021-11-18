@@ -1566,6 +1566,11 @@
 - UI 없이 카메라 화면 열어주는 작업 이대로 진행해보고...두번째꺼는 고민
   - connect_device, disconnect_device 에서 응답값에 url 추가해주면 될듯? (add_newMonitoring과 같음)
   - **다만 서버가 3대로 늘어났을때...카메라 바뀌는것을 어떻게 보여줄것인가...**
+  - cam-select.py server 에서 
+    - streaming 기능을 connect 기능에 합쳐서
+    - post 명령이 오면 새롭게 refresh 가능하게끔...?
+    - app.py ----> connect/disconcnect 변경했고
+    - cam-select-test.py         두 파일로 진행
 
 
 
