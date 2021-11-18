@@ -239,7 +239,7 @@ def connect_device():
     data = {
         "url": d_url
     }
-    # 확인 필요
+
     requests.post(
         f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
     print("Connecting completed!! \n Camera streaming start...")
@@ -289,7 +289,7 @@ def disconnect_device():
     data = {
         "url": d_url
     }
-    # 확인 필요
+
     requests.post(
         f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
     print("Disconnecting completed!! \n Camera streaming end...")
