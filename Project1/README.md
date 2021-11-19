@@ -1574,6 +1574,14 @@
 
 
 
+#### 1119
 
+- cam 화면 auto refresh 하는 기능 구현중
+  - html head 에 `<meta http-equiv="refresh" content="5" />` 추가
+    - 5초마다 화면을 reload해줌
+    - ~~top은 되는데 , stop 에서 다시 streaming 이 안됨..~~
+  - 이제 구현은 되었는데 5초가 아닌 데이터가 변경되엇을때 reload되게끔
+- 더 생각해봐야할 것
+  - cam.html, cam_stop.html 도 합쳐줘야하지않을까..  [일단보류]
 
 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
