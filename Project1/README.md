@@ -1581,6 +1581,15 @@
     - 5초마다 화면을 reload해줌
     - ~~top은 되는데 , stop 에서 다시 streaming 이 안됨..~~
   - 이제 구현은 되었는데 5초가 아닌 데이터가 변경되엇을때 reload되게끔
+    - ajax 통신 + jquery setinterval()....안됨
+    - socket 을 사용해야할것같은데........해보기
+
+
+
+#### 11222
+
+- socket 사용해서 웹 페이지 refresh 비동기통신 해보기
+  - cam.html --- select-cam-test.py 두개로 테스트중
 
 
 
@@ -1588,4 +1597,4 @@
 
 
 
-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
+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

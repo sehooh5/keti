@@ -30,9 +30,9 @@ def streaming():
             cam_no = "CCTV Camera 3"
 
         if os.environ['CAMERA_STOP'] == "None":
-            return render_template('cam.html', cam_no=cam_no, worker_no=os.uname().nodename)
+            return render_template('cam.html', cam_no=cam_no, worker_no=os.uname().nodename, num=num)
         elif os.environ['CAMERA_STOP'] == "stop":
-            return render_template('cam_stop.html')
+            return render_template('cam_stop.html', worker_no=os.uname().nodename, num=num)
     else:
         return render_template('cam_stop.html')
 
@@ -56,6 +56,7 @@ def connect():
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera connect with URL : {cam_url}"
+
     return res
 
 
@@ -73,6 +74,7 @@ def disconnect():
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera disconnect with URL : {cam_url}"
+
     return res
 
 
