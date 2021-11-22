@@ -2,6 +2,7 @@
   <head>
     <!--<meta http-equiv="refresh" content="5" />-->
     <title>{{ worker_no }}</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
       body {
         font-family: arial, verdana, sans-serif;
@@ -26,10 +27,32 @@
   </head>
   <body>
     <br /><br /><br /><br />
-    <h1 style="font-size: 50px; color: grey">{{ cam_no }}</h1>
+    <h1 style="font-size: 50px; color: grey">{{ cam_name }}</h1>
     <br /><br /><br />
     <div class="rounded-borders">
       <img src="{{ url_for('video_feed') }}" />
     </div>
+
+    <script>
+      $(document).ready(function () {
+        // auto refresh page after 1 second
+        //setInterval("refresh()", 1000);
+      });
+      var gbl_data = "None";
+      function refresh() {
+        $.ajax({
+          type: "GET",
+          url: "/ajax_data",
+          data: {},
+          success: function (response) {
+            let data = response["data"];
+            if (data != gbl_data) {
+              gbl_data = data;
+              location.reload();
+            }
+          },
+        });
+      }
+    </script>
   </body>
 </html>

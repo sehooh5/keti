@@ -235,9 +235,11 @@ def connect_device():
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
     print(f"Device URL : {d_url}....")
+    d_name = device.json()["name"]
 
     data = {
-        "url": d_url
+        "url": d_url,
+        "name": d_name
     }
 
     # requests.post(

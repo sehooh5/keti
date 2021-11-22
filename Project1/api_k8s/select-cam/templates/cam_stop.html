@@ -1,7 +1,8 @@
 <html>
   <head>
-    <meta http-equiv="refresh" content="5" />
+    <!--<meta http-equiv="refresh" content="5" />-->
     <title>{{ worker_no }}</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
       body {
         font-family: arial, verdana, sans-serif;
@@ -28,5 +29,26 @@
     <br /><br /><br /><br />
     <h1 style="font-size: 50px; color: grey">Camera Stopped</h1>
     <br /><br /><br />
+    <script>
+      $(document).ready(function () {
+        // auto refresh page after 1 second
+        //setInterval("refresh()", 1000);
+      });
+      var gbl_data = "stop";
+      function refresh() {
+        $.ajax({
+          type: "GET",
+          url: "/ajax_data",
+          data: {},
+          success: function (response) {
+            let data = response["data"];
+            if (data != gbl_data) {
+              gbl_data = data;
+              location.reload();
+            }
+          },
+        });
+      }
+    </script>
   </body>
 </html>

@@ -1586,14 +1586,62 @@
 
 
 
-#### 11222
+#### 1122
 
 - socket 사용해서 웹 페이지 refresh 비동기통신 해보기
+
   - cam.html --- select-cam-test.py 두개로 테스트중
 
+    ```javascript
+    function show_article() {
+        $('#articleBox').empty();
+    
+        $.ajax({
+            type: "GET",
+            url: "/api/top",
+            data: {},
+            success: function (response) {
+              let articles = response['articles_list']
+              for (let i = 0; i < articles.length; i++) {
+                let article = articles[i];
+    
+                let code = article['category_code'];
+                let body = article['article_body'];
+                
+                let append_one = make_article(code, body);
+                
+                $('#articleBox').append(append_one);
+            }
+        });
+    }
+    ```
+
+- **화면 Refresh**
+
+  - ajax 로 1초마다 데이터 불러와서
+  - global 변수에 들어가있는 값과 다르면 refresh 해주기로 완성
+  - 완성된 내용 쿠버네티스로 배포해보기
+  - **내일 소켓으로 구현하는 방법 해보기.......**
+
+- **DEMS UI -  `디바이스 연결설정` 에 추가해야하는 내용**
+
+  - 연결 눌렀을 때 첫번째 클릭시에만
+    - return 되는 json data `url` 로 화면 띄우기
+  - 이후 클릭 시
+    - 기존과 같은 형태여도 괜찮음
 
 
 
+#### 1123
+
+- 화면 refresh
+  - - **내일 소켓으로 구현하는 방법 해보기.......**
+- **DEMS UI -  `디바이스 연결설정` 에 추가해야하는 내용**
+  - 연결 눌렀을 때 첫번째 클릭시에만
+    - return 되는 json data `url` 로 화면 띄우기
+  - 이후 클릭 시
+    - 기존과 같은 형태여도 괜찮음
+- 김책임님 카메라연결부분 진행
 
 
 

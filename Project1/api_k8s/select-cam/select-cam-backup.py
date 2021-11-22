@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+# 1
+# from base_camera import BaseCamera
+
 import os
+
+###
 from importlib import import_module
-from flask import Flask, render_template, Response, request, jsonify
+
+from flask import Flask, render_template, Response, request
 import json
 
 
@@ -17,25 +24,16 @@ refresh = "/bin/bash -c 'source ~/.bashrc'"
 @app.route('/streaming', methods=['GET'])
 def streaming():
     """streaming"""
+    cam_url = os.environ['OPENCV_CAMERA_SOURCE']
+    print("환경변수 : ", cam_url, flush=True)
 
-    if "OPENCV_CAMERA_SOURCE" in os.environ:
-        cam_url = os.environ['OPENCV_CAMERA_SOURCE']
-        print("Camera Name : ", os.environ['CAMERA_NAME'])
-        print("환경변수 : ", cam_url, flush=True)
-
-        cam_name = os.environ['CAMERA_NAME']
-        # if cam_url.find("8805") != -1:
-        #     cam_no = "CCTV Camera 1"
-        # elif cam_url.find("8810") != -1:
-        #     cam_no = "CCTV Camera 2"
-        # else:
-        #     cam_no = "CCTV Camera 3"
-
-        if os.environ['CAMERA_STOP'] == "None":
-            return render_template('cam.html', cam_name=cam_name, worker_no=os.uname().nodename)
-        elif os.environ['CAMERA_STOP'] == "stop":
-            return render_template('cam_stop.html', worker_no=os.uname().nodename)
+    if cam_url.find("8810") == -1:
+        cam_no = "CCTV Camera 2"
     else:
+        cam_no = "CCTV Camera 1"
+    if os.environ['CAMERA_STOP'] == "None":
+        return render_template('cam.html', cam_no=cam_no, worker_no=os.uname().nodename)
+    elif os.environ['CAMERA_STOP'] == "stop":
         return render_template('cam_stop.html')
 
 
@@ -45,9 +43,6 @@ def connect():
     json_data = json.loads(request.get_data(), encoding='utf-8')
 
     cam_url = json_data['url']
-    cam_name = json_data['name']
-
-    os.environ['CAMERA_NAME'] = cam_name
 
     os.system(del_url)
     os.system(del_stop)
@@ -61,7 +56,6 @@ def connect():
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera connect with URL : {cam_url}"
-
     return res
 
 
@@ -79,20 +73,6 @@ def disconnect():
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera disconnect with URL : {cam_url}"
-
-    return res
-
-
-@app.route('/ajax_data', methods=['GET'])
-def ajax_data():
-    data = os.environ['CAMERA_STOP']
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        data=data
-    )
-
     return res
 
 

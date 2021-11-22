@@ -1,13 +1,16 @@
 import os
 from importlib import import_module
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, jsonify
 import json
+from flask_socketio import SocketIO
 
 
 Camera = import_module('camera_opencv').Camera
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'SEHO_SOCKETIO'
+socketio = SocketIO(app)
 
 del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
 del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
@@ -20,19 +23,15 @@ def streaming():
 
     if "OPENCV_CAMERA_SOURCE" in os.environ:
         cam_url = os.environ['OPENCV_CAMERA_SOURCE']
+        print("Camera Name : ", os.environ['CAMERA_NAME'])
         print("환경변수 : ", cam_url, flush=True)
 
-        if cam_url.find("8805") != -1:
-            cam_no = "CCTV Camera 1"
-        elif cam_url.find("8810") != -1:
-            cam_no = "CCTV Camera 2"
-        else:
-            cam_no = "CCTV Camera 3"
+        cam_name = os.environ['CAMERA_NAME']
 
         if os.environ['CAMERA_STOP'] == "None":
-            return render_template('cam.html', cam_no=cam_no, worker_no=os.uname().nodename, num=num)
+            return render_template('cam.html', cam_name=cam_name, worker_no=os.uname().nodename)
         elif os.environ['CAMERA_STOP'] == "stop":
-            return render_template('cam_stop.html', worker_no=os.uname().nodename, num=num)
+            return render_template('cam_stop.html', worker_no=os.uname().nodename)
     else:
         return render_template('cam_stop.html')
 
@@ -43,6 +42,9 @@ def connect():
     json_data = json.loads(request.get_data(), encoding='utf-8')
 
     cam_url = json_data['url']
+    cam_name = json_data['name']
+
+    os.environ['CAMERA_NAME'] = cam_name
 
     os.system(del_url)
     os.system(del_stop)
@@ -78,6 +80,19 @@ def disconnect():
     return res
 
 
+@app.route('/ajax_data', methods=['GET'])
+def ajax_data():
+    data = os.environ['CAMERA_STOP']
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        data=data
+    )
+
+    return res
+
+
 def gen(camera):
     """Video streaming generator function."""
     while True:
@@ -93,5 +108,10 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
+@app.route('/')
+def sessions():
+    return render_template('session.html')
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5050)
+    socketio.run(app, port=5050)
