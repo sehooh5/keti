@@ -44,7 +44,6 @@
           data: {},
           success: function (response) {
             let data = response["data"];
-            console.log(data);
             if (data != gbl_data) {
               gbl_data = data;
               location.reload();

@@ -295,7 +295,7 @@ def disconnect_device():
     }
 
     requests.post(
-        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
     # requests.post(
     #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
     print("Disconnecting completed!! \n Camera streaming end...")

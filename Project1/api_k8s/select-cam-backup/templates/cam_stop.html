@@ -26,17 +26,13 @@
   </head>
   <body>
     <br /><br /><br /><br />
-    <h1 style="font-size: 50px; color: grey">{{ cam_name }}</h1>
+    <h1 style="font-size: 50px; color: grey">Camera Stopped</h1>
     <br /><br /><br />
-    <div class="rounded-borders">
-      <img src="{{ url_for('video_feed') }}" />
-    </div>
-
     <script>
       $(document).ready(function () {
         setInterval("refresh()", 1000);
       });
-      var gbl_data = "None";
+      var gbl_data = "stop";
       function refresh() {
         $.ajax({
           type: "GET",
@@ -44,7 +40,6 @@
           data: {},
           success: function (response) {
             let data = response["data"];
-            console.log(data);
             if (data != gbl_data) {
               gbl_data = data;
               location.reload();

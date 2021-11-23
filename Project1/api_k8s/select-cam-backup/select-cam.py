@@ -37,7 +37,6 @@ def streaming():
 def connect():
     """getting cam information"""
     json_data = json.loads(request.get_data(), encoding='utf-8')
-    print(f"json data : {json_data}", flush=True)
 
     cam_url = json_data['url']
     cam_name = json_data['name']
@@ -80,11 +79,7 @@ def disconnect():
 
 @app.route('/ajax_data', methods=['GET'])
 def ajax_data():
-
-    if "OPENCV_CAMERA_SOURCE" in os.environ:
-        data = os.environ['CAMERA_STOP']
-    else:
-        data = "stop"
+    data = os.environ['CAMERA_STOP']
 
     res = jsonify(
         code="0000",
