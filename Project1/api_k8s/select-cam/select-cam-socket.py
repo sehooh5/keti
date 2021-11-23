@@ -58,7 +58,7 @@ def connect():
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera connect with URL : {cam_url}"
-
+    handle_my_custom_event('connect')
     return res
 
 
@@ -113,5 +113,15 @@ def sessions():
     return render_template('session.html')
 
 
+@socketio.on('connect')
+def test_connect():
+    print("socket connected")
+
+
+@socketio.on('my event')
+def handle_my_custom_event(data):
+    socketio.emit('my response', data, broadcast=True)
+
+
 if __name__ == '__main__':
-    socketio.run(app, port=5050)
+    socketio.run(app, host='0.0.0.0', port=5050, debug=True)

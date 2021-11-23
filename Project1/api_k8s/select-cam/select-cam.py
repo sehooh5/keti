@@ -24,12 +24,6 @@ def streaming():
         print("환경변수 : ", cam_url, flush=True)
 
         cam_name = os.environ['CAMERA_NAME']
-        # if cam_url.find("8805") != -1:
-        #     cam_no = "CCTV Camera 1"
-        # elif cam_url.find("8810") != -1:
-        #     cam_no = "CCTV Camera 2"
-        # else:
-        #     cam_no = "CCTV Camera 3"
 
         if os.environ['CAMERA_STOP'] == "None":
             return render_template('cam.html', cam_name=cam_name, worker_no=os.uname().nodename)
