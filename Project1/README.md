@@ -1661,9 +1661,10 @@
   - cam1 : rtsp://keti:keti1234@192.168.0.60:8805
   - cam2 : rtsp://keti:keti1234@192.168.0.70:88
 - 추가 카메라 한대 더 있는데 혼자 힘으로 연결해보기
+  - 다음주 진행!
 - `디바이스 연결설정` UI 창 뜨는부분 전달 완료..예지누나 작업중
 
 
 
-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
+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
 
