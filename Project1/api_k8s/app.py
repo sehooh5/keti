@@ -246,10 +246,10 @@ def connect_device():
         "api_host": api_host
     }
 
-    # requests.post(
-    #     f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
     requests.post(
-        f"http://192.168.0.29:5050/connect", data=json.dumps(data))
+        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+    # requests.post(
+    #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
     print("Connecting completed!! \n Camera streaming start...")
     print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 
@@ -303,10 +303,10 @@ def disconnect_device():
         "api_host": api_host
     }
 
-    # requests.post(
-    #     f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
     requests.post(
-        f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
+        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+    # requests.post(
+    #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
     print("Disconnecting completed!! \n Camera streaming end...")
     print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 

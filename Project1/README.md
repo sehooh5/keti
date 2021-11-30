@@ -1680,8 +1680,11 @@
     - 만약 추가구현을 한다면 UI 밑부분에 연결된 node 누르면 화면 다시켜서 확인할 수 있게끔?
   - 2안 : 지금처럼 화면이 계속 켜지게끔
 - 브라우저가 켜져있고 꺼져있음을 알수있게끔 하는 .. 무언가 있을까?
+  - onunload 로 일단 구현완료
+
+- 도커 build 시 pip install 오류가 있어서 지금 안되느중....해결plz..
 
 
 
-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
+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
 
