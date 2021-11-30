@@ -70,6 +70,7 @@ API_URL = "http://192.168.0.69:4882"
 # IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
+port = "5000"
 
 os.environ['OPEN_WINDOW'] = "NO"
 
@@ -237,14 +238,18 @@ def connect_device():
         device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
     print(f"Device URL : {d_url}....")
     d_name = device.json()["name"]
+    api_host = f"{ip}:{port}"
 
     data = {
         "url": d_url,
-        "name": d_name
+        "name": d_name,
+        "api_host": api_host
     }
 
+    # requests.post(
+    #     f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
     requests.post(
-        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+        f"http://192.168.0.29:5050/connect", data=json.dumps(data))
     print("Connecting completed!! \n Camera streaming start...")
     print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 
@@ -291,13 +296,17 @@ def disconnect_device():
     # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+    api_host = f"{ip}:{port}"
 
     data = {
-        "url": d_url
+        "url": d_url,
+        "api_host": api_host
     }
 
+    # requests.post(
+    #     f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
     requests.post(
-        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+        f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
     print("Disconnecting completed!! \n Camera streaming end...")
     print(f"Edge server : {edge_name} ------ Camera : {device_name}")
 
@@ -865,6 +874,31 @@ def get_camApp():
     return res
 
 
+# (추가) 스트리밍 화면이 꺼지고 난 후 환경변수 설정
+@ app.route('/unload', methods=['GET'])
+def unload():
+    os.environ['OPEN_WINDOW'] = "NO"
+    print("OPEN_WINDOW : ", os.environ['OPEN_WINDOW'])
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        option=os.environ['OPEN_WINDOW']
+    )
+    return res
+
+
+@ app.route('/check', methods=['GET'])
+def check():
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        option=os.environ['OPEN_WINDOW']
+    )
+    return res
+
+
 # DB관련
 # 현재있는 파일의 디렉토리 절대경로
 basdir = os.path.abspath(os.path.dirname(__file__))
@@ -887,4 +921,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5000)
+    app.run(host='0.0.0.0', threaded=True, port=port)

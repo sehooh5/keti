@@ -2,6 +2,7 @@ import os
 from importlib import import_module
 from flask import Flask, render_template, Response, request, jsonify
 import json
+import requests
 
 
 Camera = import_module('camera_opencv').Camera
@@ -41,7 +42,9 @@ def connect():
 
     cam_url = json_data['url']
     cam_name = json_data['name']
+    api_host = json_data['api_host']
 
+    os.environ['API_HOST'] = api_host
     os.environ['CAMERA_NAME'] = cam_name
 
     os.system(del_url)
@@ -90,6 +93,23 @@ def ajax_data():
         code="0000",
         message="처리 성공",
         data=data
+    )
+
+    return res
+
+
+@app.route('/unload', methods=['GET'])
+def unload():
+
+    api_host = os.environ['API_HOST']
+    print(f"{api_host} ----- unloaded!")
+
+    requests.get(
+        f"http://{api_host}/unload")
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
     )
 
     return res
