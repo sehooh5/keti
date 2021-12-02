@@ -1698,10 +1698,12 @@
 
 #### 1202
 
-- 카메라 연결 이더넷-무선 충돌나는거 해결하는 방법잇나 찾아보기
+- **카메라 연결 이더넷-무선 충돌나는거 해결한듯!**
   - https://logon.tistory.com/747 : 18.04 버전에서는 ui로 변경이 안되서 command 로 변경
+  - `/etc/NetworkManager/system-connections/` 에 위치한 '유선랜 설정' 파일에서 [ip4] 에 추가
+    - `never-default=true`
 
 
 
-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
+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
 
