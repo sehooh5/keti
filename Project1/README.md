@@ -1696,5 +1696,11 @@
 
 
 
-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
+#### 1202
+
+- 카메라 연결 이더넷-무선 충돌나는거 해결하는 방법잇나 찾아보기
+
+
+
+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
 
