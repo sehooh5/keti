@@ -1711,5 +1711,11 @@
 
 
 
-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
+#### 1206
+
+- onunload 가 작동이 안될때가 많아서........고쳐야함.......왜안되는걸까
+
+
+
+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
 

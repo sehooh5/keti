@@ -72,7 +72,7 @@ ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
 port = "5000"
 
-os.environ['OPEN_WINDOW'] = "NO"
+# os.environ['OPEN_WINDOW'] = "NO"
 
 
 @app.route('/')
@@ -205,7 +205,7 @@ def get_edgeName():
 # 2.3 엣지서버에 디바이스 연결
 @ app.route('/connect_device', methods=['POST'])
 def connect_device():
-    print("open option : ", os.environ['OPEN_WINDOW'])
+    # print("open option : ", os.environ['OPEN_WINDOW'])
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -246,8 +246,10 @@ def connect_device():
         "api_host": api_host
     }
 
-    requests.post(
+    option = requests.post(
         f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+    option = option.text
+    print(f"option : {option}")
     # requests.post(
     #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
     print("Connecting completed!! \n Camera streaming start...")
@@ -258,7 +260,7 @@ def connect_device():
         message="처리 성공",
         url=f"http://{ip}:{nodeport}/streaming",
         sname=edge_name,
-        option=os.environ['OPEN_WINDOW']
+        option=option
     )
     return res
 
@@ -266,7 +268,7 @@ def connect_device():
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
 @ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
-    os.environ['OPEN_WINDOW'] = "YES"
+    # os.environ['OPEN_WINDOW'] = "YES"
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -303,8 +305,9 @@ def disconnect_device():
         "api_host": api_host
     }
 
-    requests.post(
+    option = requests.post(
         f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+
     # requests.post(
     #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
     print("Disconnecting completed!! \n Camera streaming end...")
@@ -888,8 +891,10 @@ def unload():
     return res
 
 
-@ app.route('/check', methods=['GET'])
-def check():
+@ app.route('/onload', methods=['GET'])
+def onload():
+    os.environ['OPEN_WINDOW'] = "YES"
+    print("OPEN_WINDOW : ", os.environ['OPEN_WINDOW'])
 
     res = jsonify(
         code="0000",
@@ -897,6 +902,17 @@ def check():
         option=os.environ['OPEN_WINDOW']
     )
     return res
+
+
+# @ app.route('/check', methods=['GET'])
+# def check():
+
+#     res = jsonify(
+#         code="0000",
+#         message="처리 성공",
+#         option=os.environ['OPEN_WINDOW']
+#     )
+#     return res
 
 
 # DB관련

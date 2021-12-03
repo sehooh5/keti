@@ -14,6 +14,8 @@ del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
 del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
 refresh = "/bin/bash -c 'source ~/.bashrc'"
 
+os.environ['OPEN_WINDOW'] = "NO"
+
 
 @app.route('/streaming', methods=['GET'])
 def streaming():
@@ -58,13 +60,13 @@ def connect():
     os.environ['CAMERA_STOP'] = "None"
     print("카메라 소스 : ", os.environ['OPENCV_CAMERA_SOURCE'], flush=True)
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
-    res = f"Camera connect with URL : {cam_url}"
 
-    return res
+    return os.environ['OPEN_WINDOW']
 
 
 @app.route('/disconnect', methods=['POST'])
 def disconnect():
+
     json_data = json.loads(request.get_data(), encoding='utf-8')
 
     cam_url = json_data['url']
@@ -78,7 +80,7 @@ def disconnect():
     print("카메라 스탑 상태 : ", os.environ['CAMERA_STOP'], flush=True)
     res = f"Camera disconnect with URL : {cam_url}"
 
-    return res
+    return os.environ['OPEN_WINDOW']
 
 
 @app.route('/ajax_data', methods=['GET'])
@@ -100,6 +102,7 @@ def ajax_data():
 
 @app.route('/unload', methods=['GET'])
 def unload():
+    os.environ['OPEN_WINDOW'] = "NO"
 
     api_host = os.environ['API_HOST']
     print(f"{api_host} ----- unloaded!")
