@@ -30,7 +30,7 @@
     <br /><br /><br />
     <script>
       $(document).ready(function () {
-        setInterval("refresh()", 1000);
+        setInterval("refresh()", 2000);
       });
       var gbl_data = "stop";
       function refresh() {
@@ -49,16 +49,22 @@
       }
 
       $(window).unload(function () {
-        unload();
+        closed();
       });
 
-      function unload() {
-        alert("unload!!!");
+      function closed() {
         $.ajax({
           type: "GET",
-          url: "/unload",
+          url: "/closed",
         });
       }
+
+      $(function () {
+        $.ajax({
+          type: "GET",
+          url: "/open",
+        });
+      });
     </script>
   </body>
 </html>

@@ -205,7 +205,6 @@ def get_edgeName():
 # 2.3 엣지서버에 디바이스 연결
 @ app.route('/connect_device', methods=['POST'])
 def connect_device():
-    # print("open option : ", os.environ['OPEN_WINDOW'])
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -268,7 +267,6 @@ def connect_device():
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
 @ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
-    # os.environ['OPEN_WINDOW'] = "YES"
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -878,28 +876,30 @@ def get_camApp():
 
 
 # (추가) 스트리밍 화면이 꺼지고 난 후 환경변수 설정
-@ app.route('/unload', methods=['GET'])
-def unload():
-    os.environ['OPEN_WINDOW'] = "NO"
-    print("OPEN_WINDOW : ", os.environ['OPEN_WINDOW'])
+@ app.route('/closed', methods=['GET'])
+def closed():
+    json_data = json.loads(request.get_data(), encoding='utf-8')
+    option = json_data['option']
+    print(f"Unloaded window!! option : {option}")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        option=os.environ['OPEN_WINDOW']
+        option=option
     )
     return res
 
 
-@ app.route('/onload', methods=['GET'])
-def onload():
-    os.environ['OPEN_WINDOW'] = "YES"
-    print("OPEN_WINDOW : ", os.environ['OPEN_WINDOW'])
+@ app.route('/opened', methods=['GET'])
+def opened():
+    json_data = json.loads(request.get_data(), encoding='utf-8')
+    option = json_data['option']
+    print(f"Loaded window!! option : {option}")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        option=os.environ['OPEN_WINDOW']
+        option=option
     )
     return res
 

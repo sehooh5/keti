@@ -100,15 +100,41 @@ def ajax_data():
     return res
 
 
-@app.route('/unload', methods=['GET'])
-def unload():
+@app.route('/open', methods=['GET'])
+def opened():
+    os.environ['OPEN_WINDOW'] = "YES"
+
+    data = {
+        "option": os.environ['OPEN_WINDOW'],
+    }
+
+    api_host = os.environ['API_HOST']
+    print(f"{api_host} ----- loaded!")
+
+    requests.get(
+        f"http://{api_host}/opened", data=json.dumps(data))
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+    )
+
+    return res
+
+
+@app.route('/closed', methods=['GET'])
+def closed():
     os.environ['OPEN_WINDOW'] = "NO"
+
+    data = {
+        "option": os.environ['OPEN_WINDOW'],
+    }
 
     api_host = os.environ['API_HOST']
     print(f"{api_host} ----- unloaded!")
 
     requests.get(
-        f"http://{api_host}/unload")
+        f"http://{api_host}/closed", data=json.dumps(data))
 
     res = jsonify(
         code="0000",
