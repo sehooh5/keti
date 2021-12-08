@@ -1727,9 +1727,11 @@
   - 금책임님 이미그레이션 한 과제도 정리가 필요함
     - 카메라 연결 문제
     - UI 관련 문제
-  - 5G 과제 한거 일단 보여드리고 그대로 진행할지?
+  - 5G 과제 한거 일단 완료.. 내일 보여드리기!
 
 
 
-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
+
+
+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
 
