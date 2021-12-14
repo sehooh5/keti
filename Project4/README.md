@@ -154,3 +154,149 @@
     - 주소 : https://169.254.213.166/operator/videostream.shtml?nbr=0&id=49
   - 내일 mjpg 설정해서 카메라 스트리밍 가능한지 확인하고 
   - config 파일 수정 후 배포해보기
+
+
+
+#### 1214
+
+- 10/29 상황과 같은 상황..pods running but dont face detect
+
+- pod running 상태
+
+  ![image](https://user-images.githubusercontent.com/58541635/145916715-b39e5d00-b3e0-47bd-9636-2989ae4f4556.png)
+
+- monitoring wep app 확인 - 아래 상태에서 멈춤(FD 안됨)
+
+  ![image](https://user-images.githubusercontent.com/58541635/145919379-da21c465-83c4-43de-880d-72e16be58b61.png)
+
+- log 확인
+
+  - fd log - pod 생성 직후
+
+    ```
+    Start server
+    Dec 14 01:27:06 program_name [10]: BaseClass Init called
+    Dec 14 01:27:06 program_name [10]: load_ai_model called
+     * Serving Flask app "decenter.ai.flask" (lazy loading)
+     * Environment: production
+    Dec 14 01:27:06 program_name [10]: set_model_Status : loading
+       WARNING: This is a development server. Do not use it in a production deployment.
+       Use a production WSGI server instead.
+     * Debug mode: off
+    Dec 14 01:27:06 program_name [10]: Starting new HTTP connection (1): 182.252.132.39:5000
+    Dec 14 01:27:06 program_name [10]:  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+    Dec 14 01:27:08 program_name [10]: http://182.252.132.39:5000 "GET /model_download?model_name=UC4_FaceDetector&model_version=1.1&model_split=Split_No&split_number=0& HTTP/1.1" 200 123661198
+    Dec 14 01:27:48 program_name [10]: calling MyClass - load_ai_model()
+    Dec 14 01:27:49 program_name [10]: extracting files...
+    WARNING:tensorflow:From /MyModel.py:51: The name tf.gfile.GFile is deprecated. Please use tf.io.gfile.GFile instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:51: The name tf.gfile.GFile is deprecated. Please use tf.io.gfile.GFile instead.
+    
+    WARNING:tensorflow:From /MyModel.py:52: The name tf.GraphDef is deprecated. Please use tf.compat.v1.GraphDef instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:52: The name tf.GraphDef is deprecated. Please use tf.compat.v1.GraphDef instead.
+    
+    WARNING:tensorflow:From /MyModel.py:57: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:57: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+    
+    WARNING:tensorflow:From /MyModel.py:63: The name tf.image.resize_image_with_pad is deprecated. Please use tf.compat.v1.image.resize_image_with_pad instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:63: The name tf.image.resize_image_with_pad is deprecated. Please use tf.compat.v1.image.resize_image_with_pad instead.
+    
+    WARNING:tensorflow:From /MyModel.py:69: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:69: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+    
+    WARNING:tensorflow:From /MyModel.py:71: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:71: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+    
+    2021-12-14 01:27:49.913989: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+    2021-12-14 01:27:49.933954: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3699850000 Hz
+    2021-12-14 01:27:49.934420: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x70dff70 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+    2021-12-14 01:27:49.934432: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+    2021-12-14 01:27:49.935207: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcuda.so.1'; dlerror: /usr/lib/x86_64-linux-gnu/libcuda.so.1: file too short; LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+    2021-12-14 01:27:49.935217: E tensorflow/stream_executor/cuda/cuda_driver.cc:318] failed call to cuInit: UNKNOWN ERROR (303)
+    2021-12-14 01:27:49.935227: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (face-detector): /proc/driver/nvidia/version does not exist
+    WARNING:tensorflow:From /MyModel.py:72: calling crop_and_resize_v1 (from tensorflow.python.ops.image_ops_impl) with box_ind is deprecated and will be removed in a future version.
+    Instructions for updating:
+    box_ind is deprecated, use box_indices instead
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:72: calling crop_and_resize_v1 (from tensorflow.python.ops.image_ops_impl) with box_ind is deprecated and will be removed in a future version.
+    Instructions for updating:
+    box_ind is deprecated, use box_indices instead
+    WARNING:tensorflow:From /MyModel.py:74: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+    
+    Dec 14 01:27:49 program_name [10]: From /MyModel.py:74: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+    
+    Dec 14 01:27:49 program_name [10]: model loading done
+    Dec 14 01:27:49 program_name [10]: set_model_Status : loaded
+    Dec 14 01:27:49 program_name [10]: Connecting to a dest
+    Dec 14 01:27:49 program_name [10]: using mqtt protocol for output
+    Dec 14 01:27:49 program_name [10]: output-connect
+    Dec 14 01:27:49 program_name [10]: Connecting to a dest
+    Dec 14 01:27:49 program_name [10]: using mqtt protocol for output
+    Dec 14 01:27:49 program_name [10]: output-connect
+    Dec 14 01:27:49 program_name [10]: Connecting to a dest
+    Dec 14 01:27:49 program_name [10]: using mqtt protocol for output
+    Dec 14 01:27:50 program_name [10]: get_autostart : true
+    Dec 14 01:27:50 program_name [10]: AUTOSTART = :true
+    http://182.252.132.39:5000/model_download?model_name=UC4_FaceDetector&model_version=1.1&model_split=Split_No&split_number=0&
+    Download URL: http://182.252.132.39:5000/model_download?model_name=UC4_FaceDetector&model_version=1.1&model_split=Split_No&split_number=0&
+    UC4_FaceDetector_1.1.zip
+    UC4_FaceDetector_1.1.zip is stored on local storage.
+    Dec 14 01:27:50 program_name [10]: output-connect
+    
+    ```
+
+  - fd log - 모니터링 툴 시작 후
+
+    ```
+    Dec 14 02:07:08 program_name [9]: Connecting to a dest
+    Dec 14 02:07:08 program_name [9]: using mqtt protocol for output
+    Dec 14 02:07:08 program_name [9]: output-connect
+    Dec 14 02:07:08 program_name [9]: Connecting to a dest
+    Dec 14 02:07:08 program_name [9]: using mqtt protocol for output
+    Dec 14 02:07:09 program_name [9]: get_autostart : true
+    Dec 14 02:07:09 program_name [9]: AUTOSTART = :true
+    Dec 14 02:07:09 program_name [9]: get_autostart : true
+    Dec 14 02:07:09 program_name [9]: starting compute_ai, HTTP and AUTOSTART
+    Dec 14 02:07:09 program_name [9]: get_model_Status : loaded
+    Dec 14 02:07:09 program_name [9]: compute_ai called
+    Dec 14 02:07:09 program_name [9]: retrieven input source from: http://169.254.213.166:5000/mjpg/1/video.mjpg
+    Dec 14 02:07:09 program_name [9]: calling MyClass - compute_ai()
+    Dec 14 02:07:10 program_name [9]: output-connect
+    Dec 14 02:07:11 program_name [9]: ------------starting image thread-------------
+    Dec 14 02:07:11 program_name [9]: reading input queue: 0
+    Dec 14 02:07:11 program_name [9]: video device open...
+    Dec 14 02:07:16 program_name [9]: processing a frame in a thread
+    Dec 14 02:07:16 program_name [9]: ***remaining input queue size: 0
+    Dec 14 02:07:18 program_name [9]: 1639447638.066611
+    Dec 14 02:07:18 program_name [9]: <class 'list'>
+    Dec 14 02:07:18 program_name [9]: result size: 45417
+    Dec 14 02:07:18 program_name [9]: Processing Time : 74.382 ms
+    Dec 14 02:07:18 program_name [9]: reading input queue: 0
+    Dec 14 02:07:19 program_name [9]: image proceesed, returning result
+    Dec 14 02:07:19 program_name [9]: fire_notification called
+    Dec 14 02:07:19 program_name [9]: Starting new HTTP connection (1): uc4-mnt.default:8001
+    Dec 14 02:07:44 program_name [9]: get fps received 
+    Dec 14 02:07:44 program_name [9]: get_fps: 30.0
+    Dec 14 02:07:44 program_name [9]: 10.244.2.17 - - [14/Dec/2021 02:07:44] "GET /get_fps HTTP/1.1" 200 -
+    Dec 14 02:07:51 program_name [9]: get fps received 
+    Dec 14 02:07:51 program_name [9]: get_fps: 30.0
+    Dec 14 02:07:51 program_name [9]: 10.244.2.17 - - [14/Dec/2021 02:07:51] "GET /get_fps HTTP/1.1" 200 -
+    http://182.252.132.39:5000/model_download?model_name=UC4_FaceDetector&model_version=1.1&model_split=Split_No&split_number=0&
+    Download URL: http://182.252.132.39:5000/model_download?model_name=UC4_FaceDetector&model_version=1.1&model_split=Split_No&split_number=0&
+    UC4_FaceDetector_1.1.zip
+    UC4_FaceDetector_1.1.zip is stored on local storage.
+    input source scheme : http
+    input source scheme is http
+    GENERATOR type returned
+    
+    ```
+
+- **일단 30001 에서 됐음**
+
+  - 카메라 주소 https 아닌 **http**사용
+  - 앱은 **30001** 포트로 실행했는데 아마 상관 없을듯
+  - 카메라 연결은 유선 사용하지 않고, 공유기 한 대를 공유하여 네트워크 구성

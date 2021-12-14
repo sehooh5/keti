@@ -1770,5 +1770,12 @@
 
 
 
+#### 1214
+
+- 일단 project4 는 실행 완료
+- console 창에 뿌려줄 내용들 project4 참고하여 추가해보기
+
+
+
 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
 
