@@ -1,0 +1,36 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: 메모파일-keti1-worker1-service
+spec:
+  selector:
+    app: 메모파일-keti1-worker1
+  ports:
+    - protocol: "TCP"
+      port: 6596
+      targetPort: 5478
+      nodePort: 30349
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 메모파일-keti1-worker1
+spec:
+  selector:
+    matchLabels:
+      app: 메모파일-keti1-worker1
+  template:
+    metadata:
+      labels:
+        app: 메모파일-keti1-worker1
+    spec:
+      nodeName: keti1-worker1
+      containers:
+        - name: 메모파일-keti1-worker1
+          image: sehooh5/메모파일:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5478

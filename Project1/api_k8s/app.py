@@ -14,14 +14,14 @@ import paramiko
 import time
 import subprocess
 import zipfile
-import socket
+import datetime
+import sys
 # docker folder
 from docker import build, push
 # k8s folder
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
-
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
@@ -75,7 +75,7 @@ port = "5000"
 # os.environ['OPEN_WINDOW'] = "NO"
 
 
-@app.route('/')
+@ app.route('/')
 def index():
     # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
     nodes = subprocess.check_output(
@@ -119,11 +119,15 @@ def index():
 
 
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
-@app.route('/add_newEdgeCluster', methods=['POST'])
+@ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-    print("엣지 클러스터 구성중....")
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: new edge cluster making...")
+
     json_data = request.get_json(silent=True)
-    print(json_data)
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: edge json data: {json_data}")
     if json_data == None:
         return response.message("0021")
     mid = json_data['mid']
@@ -136,6 +140,8 @@ def add_newEdgeCluster():
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: master server ip: {mip}")
 
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
@@ -172,8 +178,13 @@ def add_newEdgeCluster():
         print(''.join(lines))
         time.sleep(2.0)
         cli.close()
-
-        print(f"마스터노드와 {host_name} 노드 연결...ip 주소 : {wip}")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: worker server ip: {wip}")
+        print(
+            datetime.datetime.now().strftime(
+                "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: edge clustering completed !")
 
     return response.message("0000")
 
@@ -181,6 +192,9 @@ def add_newEdgeCluster():
 # 2.2 엣지 서버 이름 조회 인터페이스
 @ app.route('/get_edgeName', methods=['GET'])
 def get_edgeName():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: start")
 
     nodes = subprocess.check_output(
         "kubectl get node", shell=True).decode('utf-8')
@@ -194,6 +208,11 @@ def get_edgeName():
         n = {"name": name.split(' ')[0]}
         names.append(n)
 
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: edge name list: {names}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: end")
+
     res = jsonify(
         code="0000",
         message="처리 성공",
@@ -205,6 +224,9 @@ def get_edgeName():
 # 2.3 엣지서버에 디바이스 연결
 @ app.route('/connect_device', methods=['POST'])
 def connect_device():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: start")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -212,13 +234,16 @@ def connect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(f"Connect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     device_name = device.json()["name"]
 
     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     edge_name = edge.json()["name"]
+
+    print(
+        datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: connect Server [{edge_name}] with device [{device_name}]....")
 
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
@@ -230,12 +255,14 @@ def connect_device():
 
     nodeport = db.session.query(Server_SW.nodeport).filter(
         Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    print(f"Using Nodeport : {nodeport}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: using nodeport: {nodeport}")
 
     # 디바이스 정보 추출
     d_url = "rtsp://keti:keti1234@" + \
         device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
-    print(f"Device URL : {d_url}....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: device url: {d_url}")
     d_name = device.json()["name"]
     api_host = f"{ip}:{port}"
 
@@ -248,11 +275,14 @@ def connect_device():
     option = requests.post(
         f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
     option = option.text
-    print(f"option : {option}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: browser option: {option}")
     # requests.post(
     #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
-    print("Connecting completed!! \n Camera streaming start...")
-    print(f"Edge server : {edge_name} ------ Camera : {device_name}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: connecting completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}:server name : {edge_name} --- camera name : {device_name}")
 
     res = jsonify(
         code="0000",
@@ -267,6 +297,9 @@ def connect_device():
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
 @ app.route('/disconnect_device', methods=['POST'])
 def disconnect_device():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: start")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -274,13 +307,15 @@ def disconnect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(f"Discnnect Server [{eid}] with Device [{did}]....")
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     device_name = device.json()["name"]
 
     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     edge_name = edge.json()["name"]
+    print(
+        datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: disconnect Server [{edge_name}] with device [{device_name}]....")
 
     # 노드포트 찾기위한 과정
     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
@@ -308,8 +343,10 @@ def disconnect_device():
 
     # requests.post(
     #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
-    print("Disconnecting completed!! \n Camera streaming end...")
-    print(f"Edge server : {edge_name} ------ Camera : {device_name}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: disconnecting completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: server name : {edge_name} --- camera name :  {device_name}")
 
     res = jsonify(
         code="0000",
@@ -367,7 +404,7 @@ def get_uploadSwList():
 
 
 # 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
-@app.route('/get_uploadSwInfo', methods=['POST'])
+@ app.route('/get_uploadSwInfo', methods=['POST'])
 def get_uploadSwInfo():
 
     json_data = request.get_json(silent=True)
@@ -399,9 +436,11 @@ def get_uploadSwInfo():
 
 
 # 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
-@app.route('/add_newUploadSw', methods=['POST'])
+@ app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
-    print("Start uploading a new software..")
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: start uploading a new software")
     json_data = request.get_json(silent=True)
 
     if json_data == None:
@@ -418,7 +457,8 @@ def add_newUploadSw():
         if "_" in fname:
             fname = fname.replace("_", "-")
 
-        print("Software name : ", fname)
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: software name: {fname}")
         with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             select_cam.write(data.content)
@@ -427,7 +467,10 @@ def add_newUploadSw():
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
         zip_ref.extractall(fname)
         zip_ref.close()
-        print(f"{fname} file uploading completed!! \n Docker image building...")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: docker image building...")
         os.system(
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         print("Docker image building completed!! \n Docker image push to Docker hub..")
@@ -439,7 +482,8 @@ def add_newUploadSw():
     #         filename.write(data.content)
     else:
         fname = filename
-        print(f"filename : {fname}")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: software name: {fname}")
         with open(filename, 'wb') as file:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             file.write(data.content)
@@ -450,16 +494,21 @@ def add_newUploadSw():
     while q != None:
         sid = sid_maker()
         q = db.session.query(SW_up).get(sid)
-        print(f"Re-generating Software ID : {sid}")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: re-generating software ID : {sid}")
         break
     else:
-        print(f"Software ID : {sid}")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: software ID : {sid}")
 
     # 2. software_up 테이블에 데이터 저장
     sw = SW_up(sid=sid, name=name, fname=fname,
                copyright=copyright, type=type, description=desc)
     db.session.add(sw)
     db.session.commit
+
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software upload completed !")
 
     res = jsonify(
         code="0000",
@@ -500,7 +549,10 @@ def update_uploadSwInfo():
 # 2.9 마스터 서버에 업로드된 SW 삭제
 @ app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
-    print("Deleting Uploaded Software...")
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: deleting uploaded Software...")
+
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
@@ -508,18 +560,22 @@ def remove_uploadSw():
     sid = json_data['sid']
 
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
-    print(f"Software ID : {sid} \n Software name : {fname}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software ID : {sid} - software name : {fname}")
 
     # Docker image delete
-    print(f"Docker image {fname} deleting...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image {fname} deleting...")
     os.system(f"docker rmi -f sehooh5/{fname}")
-    print("Docker image deleted!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image deleted!!")
 
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
 
     db.session.delete(sw)
     db.session.commit()
-    print("Software deleted!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software deleted !")
 
     return response.message("0000")
 
@@ -553,15 +609,17 @@ def get_deploySwList():
 # 2.11 마스터/워커 서버에 배포된 SW 정보 등록
 @ app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
-    print("start deploying Software by Kubernetes...")
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
     wid = json_data['wid']  # SW ID
     sid = json_data['sid']  # Server ID
-    print(
-        f"Kubernetes : Deploy Software [{wid}] to Edge Server [{sid}]....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -575,7 +633,8 @@ def add_newDeploySwInfo():
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
     if "_" in fname:
         fname = fname.replace("_", "-")
-    print(f"Software name is {fname}.....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: software name is {fname}.....")
 
     if fname.find("prometheus") == 0:
 
@@ -598,20 +657,24 @@ def add_newDeploySwInfo():
     elif fname == "select-cam":
         target_port = "5050"
     docker_id = "sehooh5"
-    print("Making deployment...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Making deployment...")
     deployment = dm.making(fname, port, target_port,
                            node_port, node_name, docker_id)
-    print("Deployment : ")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
     os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
-    print(f"Deploying {fname}-{node_name}.yaml.....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
 
     s = Server_SW(sid=sid, wid=wid, serviceport=port,
                   nodeport=node_port, targetport=target_port)
     db.session.add(s)
     db.session.commit()
-    print("Deploy Completed!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deploy completed !")
 
     return response.message("0000")
 
@@ -619,15 +682,17 @@ def add_newDeploySwInfo():
 # 2.12 마스터/워커 서버에 배포된 SW 삭제
 @ app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start undeploying software by Kubernetes")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print(json_data)
     wid = json_data['wid']
     sid = json_data['sid']
-    print(
-        f"Kubernetes : Undeploy Software [ID : {wid}] to Server [ID : {sid}]  ....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {wid}] to server [ID : {sid}]")
 
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
@@ -637,8 +702,8 @@ def remove_deploySwInfo():
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    print(
-        f"Undeploy Software [{fname}] from Server [{node_name}] ....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{node_name}]")
     if fname.find("prometheus") == 0:
         os.system(f"kubectl delete -f {fname}")
     os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
@@ -647,21 +712,24 @@ def remove_deploySwInfo():
         Server_SW.sid == sid, Server_SW.wid == wid).first()
     db.session.delete(sw)
     db.session.commit()
-    print("Undeploy Completed!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: undeploy completed !")
 
     return response.message("0000")
 
 
 # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
-@app.route('/get_servicePort', methods=['POST'])
+@ app.route('/get_servicePort', methods=['POST'])
 def get_servicePort():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
 
     cid = json_data['cid']
-    print(cid)
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
     if res.json()["code"] != "0000":
@@ -679,9 +747,10 @@ def get_servicePort():
     while True:
         if port in port_list:
             port = f"6{port_maker(3)}"
-            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+            print(datetime.datetime.now().strftime(
+                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
         else:
-            print(f"해당 포트번호 사용 : {port}")
+            print(f"service port : {port}")
             break
 
     res = jsonify(
@@ -693,8 +762,11 @@ def get_servicePort():
 
 
 # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
-@app.route('/get_targetPort', methods=['POST'])
+@ app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -718,9 +790,11 @@ def get_targetPort():
     while True:
         if port in port_list:
             port = f"5{port_maker(3)}"
-            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+            print(datetime.datetime.now().strftime(
+                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
         else:
-            print(f"해당 포트번호 사용 : {port}")
+            print(datetime.datetime.now().strftime(
+                "%c")[:-4], f" {func}: target port : {port}")
             break
 
     res = jsonify(
@@ -732,8 +806,11 @@ def get_targetPort():
 
 
 # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
-@app.route('/get_nodePort', methods=['POST'])
+@ app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -758,9 +835,11 @@ def get_nodePort():
     while True:
         if port in port_list:
             port = node_port()
-            print(f"해당 포트번호는 사용중입니다. 포트번호를 재생성합니다 : {port}")
+            print(datetime.datetime.now().strftime(
+                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
         else:
-            print(f"해당 포트번호 사용 : {port}")
+            print(datetime.datetime.now().strftime(
+                "%c")[:-4], f" {func}: node port : {port}")
             break
 
     res = jsonify(
@@ -775,7 +854,10 @@ def get_nodePort():
 
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    print("Deleting Edge Cluster....")
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deleting edge cluster")
+
     ips = []
     names = []
     hnames = []
@@ -787,7 +869,8 @@ def remove_edgeCluster():
 
     mid = json_data['mid']
     wlist = json_data['wlist']
-    print(f"Master ID : {mid}...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: master server ID : {mid}")
 
     if mid == None or wlist == None:
         return response.message("0015")
@@ -803,7 +886,8 @@ def remove_edgeCluster():
     for w in wlist:
         # 필요한 정보 얻기
         wid = w["wid"]
-        print(f"Worker ID : {wid}...")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: worker ID : {wid}")
         if wid == None:
             return response.message("0015")
         res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
@@ -813,7 +897,8 @@ def remove_edgeCluster():
         hnames.append(res.json()["host_name"])
         pwds.append(res.json()["host_pwd"])
 
-    print(f"Edge Server List : {names}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: edge server list : {names}")
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
 
@@ -832,7 +917,8 @@ def remove_edgeCluster():
         time.sleep(2.0)
         cli.close()
 
-    print("Edge Cluster Deleted!!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: edge cluster deleted!!!")
 
     return response.message("0000")
 
@@ -841,6 +927,9 @@ def remove_edgeCluster():
 
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Grafana monitoring tool making")
 
     try:
         output = subprocess.check_output(
@@ -848,23 +937,26 @@ def add_newMonitoring():
     except subprocess.CalledProcessError:
         output = "-1"
     if output == "-1":
-        print("Making Monitoring system by Prometheus and Grafana")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
         mm.making()
 
-    print(
-        f"Monitoring tool making Completed.. \n Grafana url : http://{ip}:30006")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Monitoring tool making Completed")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Grafana url : http://{ip}:30006")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url=f"http://{ip}:30006"
+        url=f"http://{ip}:30006/d/JABGX_-mz/cluster-monitoring-for-kubernetes?orgId=1&refresh=10s"
     )
     return res
 
 # 2.18 카메라 연결화면 조회 인터페이스
 
 
-@app.route('/get_camApp', methods=['GET'])
+@ app.route('/get_camApp', methods=['GET'])
 def get_camApp():
 
     res = jsonify(
@@ -878,9 +970,14 @@ def get_camApp():
 # (추가) 스트리밍 화면이 꺼지고 난 후 환경변수 설정
 @ app.route('/closed', methods=['GET'])
 def closed():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start")
+
     json_data = json.loads(request.get_data(), encoding='utf-8')
     option = json_data['option']
-    print(f"Unloaded window!! option : {option}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Unloaded window! browser option : {option}")
 
     res = jsonify(
         code="0000",
@@ -892,9 +989,14 @@ def closed():
 
 @ app.route('/opened', methods=['GET'])
 def opened():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start")
+
     json_data = json.loads(request.get_data(), encoding='utf-8')
     option = json_data['option']
-    print(f"Loaded window!! option : {option}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Loaded window!! browser option : {option}")
 
     res = jsonify(
         code="0000",
@@ -904,15 +1006,16 @@ def opened():
     return res
 
 
-# @ app.route('/check', methods=['GET'])
-# def check():
+@ app.route('/check', methods=['GET'])
+def check():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Connect Server")
+    time.sleep(1)
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Connect Server")
 
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         option=os.environ['OPEN_WINDOW']
-#     )
-#     return res
+    return datetime.datetime.now().strftime("%c")[:-4], f"{func}: Connect Server"
 
 
 # DB관련
