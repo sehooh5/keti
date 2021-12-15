@@ -1783,5 +1783,11 @@
 
 
 
+#### 1215
+
+- DEMS 콘솔 화면 촬영 완료
+
+
+
 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
 
