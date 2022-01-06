@@ -2,7 +2,7 @@
 
 - 신규과제 자료조사
 - 무선 CCTV, 엣지 CCTV, 무선자가망 CCTV 에 대한 조사
-- 자료 출처 : IT find, 영상연구조합(KIIA) 등
+- 자료 출처 : IT find, 영상연구조합(KIIA), 보안뉴스, cctv뉴스 등
 
 
 
@@ -84,9 +84,34 @@
 
 ## 무선 자가망 CCTV
 
+- #### Cctv 감시카메라 내부망을 이용한 자치단체 무선자가통신망 시스템 및 구축 방법
+  - url : https://patents.google.com/patent/KR101764135B1/ko
+
+
+
+- #### 포항아파트 건설 현장 무선 자가망 구축[제이엠피 시스템]
+
+  - url : https://m.blog.naver.com/jmpsystems/221042990575
+  - JMP systems 사이트 : https://www.jmpsys.com/?page_id=278
+
+
+
+- #### 인천시, 스마트자가통신망 1단계 구축 완료
+
+  - url : https://www.boannews.com/media/view.asp?idx=100835&page=1&kind=2
+
+
+
+- #### **CCTV, 관제센터 기반으로 스마트한 구 만들어가는 ‘서초구청’**
+  - url : http://www.cctvnews.co.kr/news/articleView.html?idxno=100292
+
+
+
 - #### 지자체 최초 로라(LoRa)기반 무선자가망 구축에 성공한 사물인터넷 혁신
 
   - url : https://gnews.gg.go.kr/briefing/brief_sigun_view.do?BS_CODE=S017&number=76711
   - 현재는 무선 자가망 인프라를 통해 외부활동 시에도 어르신의 현재위치, 이동경로 등 위치종합정보와 활동량정보 수집이 가능하고, 약복용시간 알림, 행사/방문 알림 등 다양한 음성 알림 메시지 기능을 제공
   - 위치정보서비스, 스마트 미터링, 스마트 모니터링, 스마트 팜 등 다양한 서비스로의 확산
+
+
 
