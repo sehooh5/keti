@@ -1801,4 +1801,10 @@
 - 이사 후 컴퓨터 resetting 및 원격
 - 원격이 잘 연결이 안됨
   - keti0 : 아예 원격 연결이 안됨
+    - xrdp, xorg,  xfce4 설치
   - keti1 : 빈화면만 뜸
+    - xrdp, xfce4 설치, xorg 등등 설치하니까 시작은 됨
+    - 그런데 너무 느려서 사용하기 힘듬
+  - keti2 : 접속안되고 튕김
+    - xrdp, xorg  만 설치
+    - xfce4는 설치 안해봄
