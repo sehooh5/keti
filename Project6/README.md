@@ -17,6 +17,24 @@
 
 
 
+### 개발 환경
+
+---
+
+- Server : 
+  - Node.js
+- DB : 
+  - MongoDB
+- Container : 
+  - Docker
+- Deploy : 
+  - Kubernetes
+- Monitoring : 
+  - Prometheus
+  - Grafana
+
+
+
 ### daily
 
 ---
