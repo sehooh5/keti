@@ -118,5 +118,5 @@
 
 #### 0607
 
-- p.390 routes/users.js 부터 다시 시작
+- p.390 routes/users.js 부터 다시 시작 !!
 
