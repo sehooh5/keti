@@ -16,6 +16,16 @@
 
 
 
+## Repository
+
+#### tcp_ip_sample
+
+- server - client 간 채팅 수준의 socket 통신
+
+
+
+
+
 ## 진행 단계(daily)
 
 #### 0607
