@@ -24,6 +24,14 @@
 
 
 
+#### proto
+
+- tcp/ip 서버를 중심으로 sender에서 client 로 message를 전송
+- 문제발생 : 
+  - tcp/ip 서버가 계속 열려있게 하기
+
+
+
 
 
 ## 진행 단계(daily)
