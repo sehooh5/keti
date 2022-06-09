@@ -4,10 +4,9 @@ import time
 
 
 def send(sock):
-    while True:
-        sendData = input('>>>')
-        sock.send(sendData.encode('utf-8'))
-        time.sleep(1)
+    sendData = 'ok'
+    sock.send(sendData.encode('utf-8'))
+    time.sleep(1)
 
 
 def receive(sock):

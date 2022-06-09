@@ -10,9 +10,8 @@ def send(sock):
 
 
 def receive(sock):
-    while True:
-        recvData = sock.recv(1024)
-        print('상대방 :', recvData.decode('utf-8'))
+    recvData = sock.recv(1024)
+    print('상대방 :', recvData.decode('utf-8'))
 
 
 port = 8080
@@ -26,9 +25,8 @@ sender = threading.Thread(target=send, args=(sendSock,))
 receiver = threading.Thread(target=receive, args=(sendSock,))
 
 sender.start()
-
 receiver.start()
 
-while True:
-    time.sleep(1)
-    pass
+# while True:
+#     time.sleep(1)
+#     pass

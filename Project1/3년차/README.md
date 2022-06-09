@@ -32,6 +32,13 @@
 
 
 
+#### multiple_client
+
+- 다수의 클라이언트에서 1개의 서버로 메시지 전송
+  - server : socket 서버
+  - sender : edge server 로 메시지를 전달
+  - device : msg 를 최종적으로 전달받을 device
+
 
 
 ## 진행 단계(daily)
@@ -53,3 +60,19 @@
 - TCP/IP 서버 샘플 완성 후 보고
   - 기본 샘플은 완성
   - ~~채팅 샘플 만들어보고 완성하면 보고하기~~ 완성
+
+
+
+#### 0609
+
+- 어제 회의 토대로 socket 통신 구성해보기 1단계
+  - server 한개 - 클라이언트는 2종류 여러개가 메시지를 주고받게된다
+  - multiple_client 폴더에서 진행중
+    - json 으로 데이터를 주고받음
+    - type 으로 device와 server 를 구분
+    - 현재 server 와 device 로 구분되서 보내지고 있는거까지 확인
+  - 앞으로 해야할 것 : 
+    - device에 전달할 데이터 저장햇다가.. <mark>선입선출 가능해야함</mark>
+      - DB사용?
+      - 아니면 다른방법..? 
+    - device 에서 요청이오면 데이터 전달하기
