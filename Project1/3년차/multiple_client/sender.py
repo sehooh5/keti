@@ -5,9 +5,9 @@ port = 8080
 
 # 소켓 서버로 보낼 데이터
 data = {
-    'type': 'server',
+    'type': 'sender',
     'd_id': 'd1',
-    'msg': 'data from edge server2'
+    'msg': 'data from sender'
 }
 json_data = json.dumps(data)
 print(json_data)

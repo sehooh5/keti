@@ -16,11 +16,11 @@ while True:
     d_id = json_data['d_id']
     msg = json_data['msg']
     
-    if type == 'server':
-        # 서버로 메시지 전달
-        print('이 장치는 server 입니다!')
+    if type == 'sender':
+        # sender 로 response
+        print('이 장치는 sender 입니다!')
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
     else :
-        # device로 보낼 메시지 저장
+        # device로 메시지 전송
         print('이 장치는 device 입니다!')

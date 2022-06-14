@@ -7,7 +7,7 @@ port = 8080
 data = {
     'type': 'device',
     'd_id': 'd1',
-    'msg': 'data from edge server2'
+    'msg': 'data from device'
 }
 json_data = json.dumps(data)
 print(json_data)
