@@ -37,7 +37,13 @@
 - 다수의 클라이언트에서 1개의 서버로 메시지 전송
   - server : socket 서버
   - sender : edge server 로 메시지를 전달
-  - device : msg 를 최종적으로 전달받을 device
+  - device1,2,3 : msg 를 최종적으로 전달받을 device
+
+
+
+## reference
+
+- [python sqlite3 참고 블로그](https://hleecaster.com/python-sqlite3/)
 
 
 

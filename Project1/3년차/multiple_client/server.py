@@ -5,7 +5,8 @@ import sqlite3
 port = 8080
 
 # DB 생성 (오토 커밋)
-conn = sqlite3.connect("test.db", isolation_level=None)
+conn = sqlite3.connect("test2.db", isolation_level=None)
+
 # 커서 획득
 c = conn.cursor()
 
@@ -25,23 +26,52 @@ while True:
     if type == 'sender':
         # sender 로 response
         print('이 장치는 sender 입니다!')
-        print(f'이 장치의 메시지는 [Device ID : {d_id}] 로 전달됩니다!')
 
-        c.execute('select name from sqlite_master where type="table" and name="d1"')
+        c.execute(f'select name from sqlite_master where type="table" and name="{d_id}"')
         t_exist = c.fetchone()
-        if t_exist == 'None': #d_id 테이블이 없으면 테이블 생성
+        if t_exist == None: #d_id 테이블이 없으면 테이블 생성
+            print(f"{d_id} 테이블 생성")
             c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
                 (id integer PRIMARY KEY, msg text)")
         # d_id 테이블이 있으면 데이터 저장
-        c.execute(f"SELECT max(id) FROM {d_id}")
-        max_id = c.fetchone()[0] # 가장 큰 id 값
+        print(f"{d_id} 테이블에 데이터 저장")
+        # 테이블에 데이터가 있는지 없는지부터 확인
+        c.execute((f"SELECT COUNT(*) from {d_id}"))
+        count = c.fetchall()[0][0]
+        if count == 0:
+            mid = 1
+        else:
+            c.execute(f"SELECT max(id) FROM {d_id}")
+            mid = c.fetchone()[0] + 1  # 가장 큰 id 값
 
-        
-        
-
+        c.execute(f"INSERT INTO {d_id} \
+            VALUES(?,?)", (mid, msg))
+     
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
     else:
         # device로 메시지 전송
-        print('이 장치는 device 입니다!')
-        print(f'이 장치의 ID는 {d_id} 입니다!')
+        print(f'이 장치는 device {d_id} 입니다!')
+        # 테이블이 있는지 확인
+        c.execute(f'select name from sqlite_master where type="table" and name="{d_id}"')
+        t_exist = c.fetchone()
+        # 테이블이 없으면 생성
+        if t_exist == None:
+            print(f"{d_id} 테이블 생성")
+            c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
+                            (id integer PRIMARY KEY, msg text)")
+        c.execute(f"SELECT min(id) FROM {d_id}")
+        mid = c.fetchone()[0] # 가장 작은 id 값
+        # 테이블에 데이터가 없으면 None 을 response
+        if mid == None:
+            msg = "None"
+            client_socket.send(msg.encode('utf-8'))
+        else:
+            # device 로 전송할 메시지 추출
+            c.execute(f"SELECT msg FROM {d_id} WHERE id={mid}")
+            msg = c.fetchone()[0]
+            # 소켓 사용해서 전송
+            client_socket.send(msg.encode('utf-8'))
+            # db에서 data 삭제
+            c.execute(f"DELETE FROM {d_id} WHERE id=?", (mid,))
+
