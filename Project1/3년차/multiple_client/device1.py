@@ -10,16 +10,16 @@ def device():
     data = {
         'type': 'device',
         'd_id': 'd1',
-        'msg': 'data from device'
+        'msg': 'data from device d1'
     }
     json_data = json.dumps(data)
-    print(json_data)
+    # print(json_data)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect(('localhost', port))
     sock.send(json_data.encode('utf-8'))
     recvData = sock.recv(1024)
-    print('응답 : ', recvData)
-    threading.Timer(2, device).start()
+    print('응답 : ', recvData.decode('utf-8'))
+    threading.Timer(1, device).start()
 
 device()

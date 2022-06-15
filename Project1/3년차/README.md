@@ -98,4 +98,6 @@
 #### 0615
 
 - 선입선출 가능하게 DB연동 - SQLite3 사용중
-- 
+- 아래 내용대로 일단 완성 후 차일 보고
+  - ![image](https://user-images.githubusercontent.com/58541635/173778018-02f932f9-27df-44dd-ae73-e22dbc48085c.png)
+
