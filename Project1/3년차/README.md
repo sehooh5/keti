@@ -44,6 +44,7 @@
 ## reference
 
 - [python sqlite3 참고 블로그](https://hleecaster.com/python-sqlite3/)
+- [python socket 채팅 프로그램](https://seolin.tistory.com/98?category=762768)
 
 
 
@@ -101,3 +102,9 @@
 - 아래 내용대로 일단 완성 후 차일 보고
   - ![image](https://user-images.githubusercontent.com/58541635/173778018-02f932f9-27df-44dd-ae73-e22dbc48085c.png)
 
+
+
+#### 0616
+
+- 오전, 논문 피드백
+- 오후에 보고 드린 후 진행
