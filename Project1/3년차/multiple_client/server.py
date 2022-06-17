@@ -5,7 +5,7 @@ import sqlite3
 port = 8080
 
 # DB 생성 (오토 커밋)
-conn = sqlite3.connect("test2.db", isolation_level=None)
+conn = sqlite3.connect("test3.db", isolation_level=None)
 
 # 커서 획득
 c = conn.cursor()
@@ -29,7 +29,8 @@ while True:
 
         c.execute(f'select name from sqlite_master where type="table" and name="{d_id}"')
         t_exist = c.fetchone()
-        if t_exist == None: #d_id 테이블이 없으면 테이블 생성
+        # d_id 테이블이 없으면 테이블 생성
+        if t_exist == None:
             print(f"{d_id} 테이블 생성")
             c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
                 (id integer PRIMARY KEY, msg text)")
@@ -61,7 +62,8 @@ while True:
             c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
                             (id integer PRIMARY KEY, msg text)")
         c.execute(f"SELECT min(id) FROM {d_id}")
-        mid = c.fetchone()[0] # 가장 작은 id 값
+        # 가장 작은 id 값
+        mid = c.fetchone()[0]
         # 테이블에 데이터가 없으면 None 을 response
         if mid == None:
             msg = "None"
