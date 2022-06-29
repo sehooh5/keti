@@ -12,8 +12,8 @@
 - ubuntu : 18.04
 - kubernetes : 1.14
 - docker : 최신버전 19.03.12 (현, 2020.08.04)
-- Prometheus 
-- Grafana 
+- Prometheus
+- Grafana
 - OpenCV
 - VLC
 - RTSP
