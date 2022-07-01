@@ -205,5 +205,21 @@
 #### 0701
 
 - vlc 앱으로는 구동 완료
+
 - 커맨드라인에서 하는 방법 서칭하고 실행
+
+- 커맨드 라인으로 실행
+
+  - keti0 : 
+
+    - 주소 : 192.168.0.59
+    - 역할 : 카메라에서 rtsp 받아서 keti1에 rtp 전송하는 서버
+    - 명령어 : `cvlc -vvv rtsp://keti:keti1234@192.168.0.46:88/videoMain --sout="#rtp{dst=192.168.0.60,port=5004,mux=ts}" --no-sout-all --sout-keep  `
+
+  - keti1 : 
+
+    - 주소 : 192.168.0.60
+    - 역할 : rtp 받아서 rtsp 스트리밍하는 서버
+
+    - `cvlc -vvv rtp://192.168.0.60:5004 --sout="#rtp{sdp=rtsp://:8554/videoMain}" --no-sout-all --sout-keep`
 
