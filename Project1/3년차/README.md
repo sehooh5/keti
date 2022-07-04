@@ -45,6 +45,7 @@
 
 - [python sqlite3 참고 블로그](https://hleecaster.com/python-sqlite3/)
 - [python socket 채팅 프로그램](https://seolin.tistory.com/98?category=762768)
+- [VLC CLI 사용 예제](http://akshayc.com/blog/Stream-Audio-via-VLC/)
 
 
 
@@ -227,4 +228,15 @@
 
 #### 0704
 
-- 전체회의 후 진행
+- 재전송 서버 지속이 얼마나 되는지 확인
+- 카메라 세팅
+
+
+
+#### 0705
+
+- 카메라 오디오 제거하기
+- 프레임 레이트 확인하기
+- 초소형 PC 성능 좋은거 찾아보기
+- 블랙박스 wifi  가능한것 찾아보기
+
