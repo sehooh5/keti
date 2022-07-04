@@ -223,3 +223,8 @@
 
     - `cvlc -vvv rtp://192.168.0.60:5004 --sout="#rtp{sdp=rtsp://:8554/videoMain}" --no-sout-all --sout-keep`
 
+
+
+#### 0704
+
+- 전체회의 후 진행
