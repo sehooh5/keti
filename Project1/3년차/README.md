@@ -250,5 +250,15 @@
 
 #### 0707
 
-- 회의 후 진행
+- 회의 내용
+  - 앞으로 진행할 내용 : 
+    - 완성한 Device(CCTV-Server) --- TCP/IP Server --- Edge Server --- EDMS 통합하기
+    - EDMS 부분 구성하기
+      - DB 추가
+      - Device 등록
+      - Edge 등록
+      - Device-Edge 간 연결제어
+    - 결과물 : EDMS에서 명령을통해 Edge에서 RTSP Server 가 구성되고 재생되어야함
+- 확인한 내용 : 
+  - Edge 에서 rtsp 서버가 구성되기 전 실행시키고 무한 루프를 돌려놓는건 불가능
 
