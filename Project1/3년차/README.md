@@ -240,5 +240,15 @@
 - 프레임 레이트 확인하기
   - 30으로 수정완료
 - 초소형 PC 성능 좋은거 찾아보기
+  - 천차만별...기본 100이상 [예시](https://www.usashop.co.kr/goods/goods_view.php?goodsNo=1000035135&inflow=naver&NaPm=ct%3Dl57mtiwg%7Cci%3D760498f05ee6e5f686bb3ab4b4313631dfbad647%7Ctr%3Dslsl%7Csn%3D1212958%7Chk%3De89be7be25eeaa0dcea6c83032891ec9722ab70e)
 - 블랙박스 wifi  가능한것 찾아보기
+  - 기본적으로 앱을 통해 영상 스트리밍 및 저장
+  - [파인뷰](https://brand.naver.com/finevu/products/6022272258?NaPm=ct%3Dl57slkvc%7Cci%3Dc0b6646e785120697e5128b27f95aa0c93364f5a%7Ctr%3Dplac%7Csn%3D156008%7Chk%3Decd30e120cb48e84e4cf00bbb3ce59be06cf6e86)
+  - [한라홀딩스 오토비](https://www.11st.co.kr/products/2707281985?NaPm=ct=l57srgag|ci=7af5b8d9ba760da645730cd287effca710adc51b|tr=slsbrc|sn=17703|hk=a5e86f68de63cb7011c5c230b32ab591a959ab0d&utm_term=&utm_campaign=%B3%D7%C0%CC%B9%F6pc_%B0%A1%B0%DD%BA%F1%B1%B3%B1%E2%BA%BB&utm_source=%B3%D7%C0%CC%B9%F6_PC_PCS&utm_medium=%B0%A1%B0%DD%BA%F1%B1%B3)
+
+
+
+#### 0707
+
+- 회의 후 진행
 
