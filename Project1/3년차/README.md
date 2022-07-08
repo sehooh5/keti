@@ -287,7 +287,9 @@
     - keti1 : Edge 서버 역할로 최종 RTSP 서버
   - EDMS 부분 구성하기
     - DB 추가
-    - Device 등록
-    - Edge 등록
+    - **Device 등록** (완료)
+    - **Edge 등록** (완료)
     - Device-Edge 간 연결제어
+- 진행해야할 것 : 
+  - Device 및 Edge 등록 간단하게 구현되어있는거 추후 수정해야함
 
