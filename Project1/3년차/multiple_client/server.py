@@ -11,7 +11,7 @@ conn = sqlite3.connect("test3.db", isolation_level=None)
 c = conn.cursor()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('localhost', port))
+server_socket.bind(('192.168.0.20', port))
 while True:
     server_socket.listen()
     client_socket, addr = server_socket.accept()
