@@ -41,6 +41,20 @@
 
 
 
+#### EMDS 구성
+
+- DB
+  - Device
+    - id
+    - type
+  - Edge
+    - id
+    - type
+    - ip
+- Device-Edge 연결제어
+
+
+
 ## reference
 
 - [python sqlite3 참고 블로그](https://hleecaster.com/python-sqlite3/)
@@ -261,4 +275,19 @@
     - 결과물 : EDMS에서 명령을통해 Edge에서 RTSP Server 가 구성되고 재생되어야함
 - 확인한 내용 : 
   - Edge 에서 rtsp 서버가 구성되기 전 실행시키고 무한 루프를 돌려놓는건 불가능
+
+
+
+#### 0708
+
+- 진행중 :
+  - 하드웨어 설정 : 
+    - 메인 pc : EDMS (TCP/IP 서버 보유)
+    - keti0 : CCTV와 연결되어있는 서버
+    - keti1 : Edge 서버 역할로 최종 RTSP 서버
+  - EDMS 부분 구성하기
+    - DB 추가
+    - Device 등록
+    - Edge 등록
+    - Device-Edge 간 연결제어
 
