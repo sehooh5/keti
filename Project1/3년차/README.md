@@ -299,6 +299,17 @@
 #### 0714
 
 - socket 통신 되니까 이제 연결제어부분 시작
+- 진행중 : 
+  - `tcp_server.py` : edms / socket 통신으로 메시지(ip 등)을 전달하고 DB와 연동
+  - `msg_send.py` : edms / edms에서 msg를 보내는 역할
+  - `device1.py` : cctv-device / cctv와 연결되어있는 server로 d_id 를 갖고있고 해당 정보로 cctv의 rtsp주소와 edge server의 ip 를 응답받는다
 - 문제 : 
   - 내부망으로 바껴서 IP, 네트워크 변화 있음
+    - 동시에 외부망(wifi) 사용해서 해결
+  - `tcp_server.py` 에서 mid 변수가 int 가 아닌 str 로 인식이됨..(기존서버에서는 잘됨)
 
+
+
+#### 0715
+
+- 14일 문제에서 mid 변수 해결 후 진행

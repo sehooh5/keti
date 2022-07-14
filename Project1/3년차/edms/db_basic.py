@@ -23,23 +23,23 @@ if t_exist == None:
                     (id text PRIMARY KEY, type text, ip text)")
 
 # 1. 데이터 삽입
-if act == "i":
+if act == "insert":
     c.execute(f"INSERT INTO {t_name} \
         VALUES('{id}', '{t_name}', '{ip}')")
 # 2. 데이터 찾기
-elif act == "fa":
+elif act == "findall":
     c.execute(f"SELECT * FROM {t_name}")
     for row in c.fetchall(): # 전체 출력
         print(row)
 # 3. 데이터 조회(필터링)
-elif act == "f":
+elif act == "find":
     c.execute(f"SELECT * FROM {t_name} WHERE id='{id}'")
     print(c.fetchone())
 # 4. 데이터 수정하기 -- ## 나중에 수정해야함
-elif act == "u":
+elif act == "update":
     c.execute(f"UPDATE {t_name} SET type=? WHERE id=?", (f're_{t_name}', id))
 # 5. 데이터 삭제하기
-elif act == "r":
+elif act == "remove":
     c.execute(f"DELETE FROM {t_name} WHERE id='{id}'")
 
 # db commit
