@@ -52,7 +52,7 @@ while True:
             mid = c.fetchone()[0] + 1  # 가장 큰 id 값
         c.execute(f"INSERT INTO {d_id} \
             VALUES(?,?,?)", (mid, d_ip, e_ip))
-     
+
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
     else:
