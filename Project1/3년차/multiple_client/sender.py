@@ -19,7 +19,7 @@ data = {
 json_data = json.dumps(data)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('localhost', port))
+sock.connect(('192.168.0.20', port))
 sock.send(json_data.encode('utf-8'))
 recvData = sock.recv(1024)
 print('응답 : ', recvData.decode('utf-8'))

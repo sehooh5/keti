@@ -18,12 +18,12 @@ e_id = sys.argv[2]
 
 # d_id 로 DB 에서 device 의 rtsp 주소 찾기
 c.execute(f"SELECT ip FROM device WHERE id='{d_id}'")
-d_ip = c.fetchone()
+d_ip = c.fetchone()[0]
 print("Device IP : ", d_ip)
 
 # e_id 로 DB 에서 edge server 의 ip 주소 찾기
 c.execute(f"SELECT ip FROM edge WHERE id='{e_id}'")
-e_ip = c.fetchone()
+e_ip = c.fetchone()[0]
 print("Edge IP : ", e_ip)
 
 # 소켓 서버로 보낼 데이터

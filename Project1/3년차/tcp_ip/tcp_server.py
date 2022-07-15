@@ -20,13 +20,15 @@ while True:
     # 클라이언트로부터 메시지 받기
     recvData = client_socket.recv(65535)
     json_data = json.loads(recvData.decode(('utf-8')))
-    type = json_data['type'] 
-    d_id = json_data['d_id']
-    d_ip = json_data['d_ip']
-    e_id = json_data['e_id']
-    e_ip = json_data['e_ip']
+    type = json_data['type']
+
+
     
     if type == 'sender':
+        d_id = json_data['d_id']
+        d_ip = json_data['d_ip']
+        e_id = json_data['e_id']
+        e_ip = json_data['e_ip']
         # sender 로 response
         print('이 장치는 sender 입니다!')
 
@@ -44,15 +46,17 @@ while True:
         count = c.fetchall()[0][0]
         if count == 0:
             mid = 1
-            print(type(mid))
+            # print(type(mid))
         else:
             c.execute(f"SELECT max(id) FROM {d_id}")
             mid = c.fetchone()[0] + 1  # 가장 큰 id 값
-        c.execute(f"INSERT INTO {d_id} VALUES(?,?,?)", (mid, d_ip, e_ip))
+        c.execute(f"INSERT INTO {d_id} \
+            VALUES(?,?,?)", (mid, d_ip, e_ip))
      
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
     else:
+        d_id = json_data['d_id']
         # device로 메시지 전송
         print(f'이 장치는 device {d_id} 입니다!')
         # 테이블이 있는지 확인
