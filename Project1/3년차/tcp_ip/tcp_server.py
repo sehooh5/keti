@@ -55,7 +55,7 @@ while True:
 
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
-    else:
+    elif type == 'device':
         d_id = json_data['d_id']
         # device로 메시지 전송
         print(f'이 장치는 device {d_id} 입니다!')
@@ -67,6 +67,43 @@ while True:
             print(f"{d_id} 테이블 생성")
             c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
                             (id integer PRIMARY KEY, d_ip text, e_ip text)")
+        c.execute(f"SELECT min(id) FROM {d_id}")
+        # 가장 작은 id 값
+        mid = c.fetchone()[0]
+        # 테이블에 데이터가 없으면 None 을 response
+        if mid == None:
+            msg = "None"
+            client_socket.send(msg.encode('utf-8'))
+        else:
+            # device 에 연결될 카메라 rtsp 주소 추출 : d_ip
+            c.execute(f"SELECT d_ip FROM {d_id} WHERE id={mid}")
+            d_ip = c.fetchone()[0]
+            # edge server의 ip 추출 : d_ip
+            c.execute(f"SELECT e_ip FROM {d_id} WHERE id={mid}")
+            e_ip = c.fetchone()[0]
+            # 데이터의 json화
+            data = {
+                'd_ip': d_ip,
+                'e_ip': e_ip,
+            }
+            json_data = json.dumps(data)
+
+            # 소켓 사용해서 전송
+            client_socket.send(json_data.encode('utf-8'))
+            # db에서 data 삭제
+            c.execute(f"DELETE FROM {d_id} WHERE id=?", (mid,))
+    else :
+        e_id = json_data['e_id']
+        # edge로 메시지 전송
+        print(f'이 장치는 edge {e_id} 입니다!')
+        # 테이블이 있는지 확인
+        c.execute(f'select name from sqlite_master where type="table" and name="{e_id}"')
+        t_exist = c.fetchone()
+        # 테이블이 없으면 생성
+        if t_exist == None:
+            print(f"{e_id} 테이블 생성")
+            c.execute(f"CREATE TABLE IF NOT EXISTS {e_id} \
+                                    (id integer PRIMARY KEY, d_ip text, e_ip text)")
         c.execute(f"SELECT min(id) FROM {d_id}")
         # 가장 작은 id 값
         mid = c.fetchone()[0]

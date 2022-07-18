@@ -326,4 +326,7 @@
     - /tcp_ip/edge.py 만들어서 해볼까하는데 더 생각해야됨
       - device.py 에서 cvlc 명령이 실행된 뒤에 edge.py 에서 실행되어야함!!
     - 어떻게 해결할지 고민해보기 + 보고드리기
+- 진행중 : 
+  - edge 와 tcp server 간 통신
+  - device.py 에 cvlc 명령 부분에서 rtsp주소와 edge server주소를 변수로 입력하게끔 변경해야함
 
