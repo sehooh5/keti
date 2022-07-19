@@ -25,13 +25,11 @@ def edge():
     else:
         json_data = json.loads(recvData.decode(('utf-8')))
         print("json_data", json_data)
-        d_ip = json_data['d_ip']
-        print('d_ip : ', d_ip)
         e_ip = json_data['e_ip']
         print('e_ip : ', e_ip)
         
         # d_ip 의 rtsp 영상을 가지고 e_ip로 rtp 보내는 명령어
-        subprocess.call('cvlc -vvv rtsp://keti:keti1234@192.168.0.46:88/videoMain --sout="#rtp{dst=192.168.0.60,port=5004,mux=ts}" --no-sout-all --sout-keep', shell=True)
+        subprocess.call('cvlc -vvv rtp://%s:5004 --sout="#rtp{sdp=rtsp://:8554/videoMain}" --no-sout-all --sout-keep'%e_ip, shell=True)
 
     threading.Timer(1, edge).start()
 

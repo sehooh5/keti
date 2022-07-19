@@ -32,10 +32,11 @@ while True:
         # sender 로 response
         print('이 장치는 sender 입니다!')
 
+        # device table 생성 후 데이터 저장
         c.execute(f'select name from sqlite_master where type="table" and name="{d_id}"')
-        t_exist = c.fetchone()
+        dt_exist = c.fetchone()
         # d_id 테이블이 없으면 테이블 생성
-        if t_exist == None:
+        if dt_exist == None:
             print(f"{d_id} 테이블 생성")
             c.execute(f"CREATE TABLE IF NOT EXISTS {d_id} \
                 (id integer PRIMARY KEY, d_ip text, e_ip text)")
@@ -52,6 +53,27 @@ while True:
             mid = c.fetchone()[0] + 1  # 가장 큰 id 값
         c.execute(f"INSERT INTO {d_id} \
             VALUES(?,?,?)", (mid, d_ip, e_ip))
+
+        # edge table 생성 후 데이터 저장
+        c.execute(f'select name from sqlite_master where type="table" and name="{e_id}"')
+        et_exist = c.fetchone()
+        # e_id 테이블이 없으면 테이블 생성
+        if et_exist == None:
+            print(f"{e_id} 테이블 생성")
+            c.execute(f"CREATE TABLE IF NOT EXISTS {e_id} \
+                        (id integer PRIMARY KEY, e_ip text)")
+        # e_id 테이블이 있으면 데이터 저장
+        print(f"{e_id} 테이블에 데이터 저장")
+        # 테이블에 데이터가 있는지 없는지부터 확인
+        c.execute((f"SELECT COUNT(*) from {e_id}"))
+        count = c.fetchall()[0][0]
+        if count == 0:
+            mid = 1
+        else:
+            c.execute(f"SELECT max(id) FROM {e_id}")
+            mid = c.fetchone()[0] + 1  # 가장 큰 id 값
+        c.execute(f"INSERT INTO {e_id} \
+                    VALUES(?,?)", (mid, e_ip))
 
         sendData = 'ok'
         client_socket.send(sendData.encode('utf-8'))
@@ -103,8 +125,8 @@ while True:
         if t_exist == None:
             print(f"{e_id} 테이블 생성")
             c.execute(f"CREATE TABLE IF NOT EXISTS {e_id} \
-                                    (id integer PRIMARY KEY, d_ip text, e_ip text)")
-        c.execute(f"SELECT min(id) FROM {d_id}")
+                                    (id integer PRIMARY KEY, e_ip text)")
+        c.execute(f"SELECT min(id) FROM {e_id}")
         # 가장 작은 id 값
         mid = c.fetchone()[0]
         # 테이블에 데이터가 없으면 None 을 response
@@ -112,15 +134,11 @@ while True:
             msg = "None"
             client_socket.send(msg.encode('utf-8'))
         else:
-            # device 에 연결될 카메라 rtsp 주소 추출 : d_ip
-            c.execute(f"SELECT d_ip FROM {d_id} WHERE id={mid}")
-            d_ip = c.fetchone()[0]
             # edge server의 ip 추출 : d_ip
-            c.execute(f"SELECT e_ip FROM {d_id} WHERE id={mid}")
+            c.execute(f"SELECT e_ip FROM {e_id} WHERE id={mid}")
             e_ip = c.fetchone()[0]
             # 데이터의 json화
             data = {
-                'd_ip': d_ip,
                 'e_ip': e_ip,
             }
             json_data = json.dumps(data)
@@ -128,5 +146,5 @@ while True:
             # 소켓 사용해서 전송
             client_socket.send(json_data.encode('utf-8'))
             # db에서 data 삭제
-            c.execute(f"DELETE FROM {d_id} WHERE id=?", (mid,))
+            c.execute(f"DELETE FROM {e_id} WHERE id=?", (mid,))
 
