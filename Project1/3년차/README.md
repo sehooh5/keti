@@ -344,3 +344,21 @@
 
 
 
+#### 0720
+
+- 5G 모뎀
+  - [LG CNR-5G100](http://www.lguplusme.co.kr/page/s2_28)
+    - 200G/99,000원
+    - 2.4GHz/5GHz 두가지 Wifi 제공
+- 블랙박스
+  - GPS 위치정보 :
+    - 블랙박스 구매시 GPS모듈을 구매가능
+    - 그에 따른 위치정보 데이터를 활용하는 방법은?
+  - wifi 로 영상 데이터 : 
+    - wifi 동글 함께 구매 필요
+    - 모든 제품들이 해당 회사의 앱, 뷰어 등을 설치 후 사용 가능
+  - 제품 : 
+    - [파인뷰](https://brand.naver.com/finevu/products/6022272258?NaPm=ct%3Dl57slkvc%7Cci%3Dc0b6646e785120697e5128b27f95aa0c93364f5a%7Ctr%3Dplac%7Csn%3D156008%7Chk%3Decd30e120cb48e84e4cf00bbb3ce59be06cf6e86) : 5GHz 속도로 업데이트 및 영상 다운로드
+- 논문에서 블랙박스를 직접 개발한 경우[(링크)](https://koreascience.kr/article/CFKO201423965829244.pdf)
+- 이 논문에서는 블랙박스 대신 스마트폰, 패드를 사용[(링크)](https://koreascience.kr/article/JAKO201333651337175.pdf)
+
