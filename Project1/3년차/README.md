@@ -347,20 +347,34 @@
 #### 0720
 
 - 5G 모뎀
-  - [LG CNR-5G100](http://www.lguplusme.co.kr/page/s2_28)
+  - LG CNR-5G100
+    - 링크 : http://www.lguplusme.co.kr/page/s2_28
     - 200G/99,000원
     - 2.4GHz/5GHz 두가지 Wifi 제공
+  - KT 5G egg
+    - 링크 : https://shop.kt.com/unify/mobile.do?prodNo=WL00057791&pplId=0813
 - 블랙박스
   - GPS 위치정보 :
     - 블랙박스 구매시 GPS모듈을 구매가능
     - 그에 따른 위치정보 데이터를 활용하는 방법은?
   - wifi 로 영상 데이터 : 
     - wifi 동글 함께 구매 필요
-    - 모든 제품들이 해당 회사의 앱, 뷰어 등을 설치 후 사용 가능
-  - 제품 : 
-    - [파인뷰](https://brand.naver.com/finevu/products/6022272258?NaPm=ct%3Dl57slkvc%7Cci%3Dc0b6646e785120697e5128b27f95aa0c93364f5a%7Ctr%3Dplac%7Csn%3D156008%7Chk%3Decd30e120cb48e84e4cf00bbb3ce59be06cf6e86) : 5GHz 속도로 업데이트 및 영상 다운로드
-- 논문에서 블랙박스를 직접 개발한 경우[(링크)](https://koreascience.kr/article/CFKO201423965829244.pdf)
-- 이 논문에서는 블랙박스 대신 스마트폰, 패드를 사용[(링크)](https://koreascience.kr/article/JAKO201333651337175.pdf)
+    - 모든 제품들이 해당 회사의 앱, 뷰어 등을 설치 후 다운로드
+  - 제품링크 : 
+    - 파인뷰 :
+      - 링크 : https://brand.naver.com/finevu/products/6022272258
+      - 5GHz 속도로 업데이트 및 영상 다운로드
+    - 오토비 : 
+      - 링크 : http://www.11st.co.kr/products/2707281985/share
+    - 드림아이 : 
+      - https://smartstore.naver.com/gnetsystem/products/6817571059
+- 논문
+  - 웹서비스 기반 자동차 블랙박스 온라인 사고기록 확인 시스템 개발
+    - 링크 : https://koreascience.kr/article/CFKO201423965829244.pdf
+  - 모바일 클라우드를 이용한 차량용 블랙박스 영상 통합관리 시스템
+    - 링크 : https://koreascience.kr/article/JAKO201333651337175.pdf
+  - 차량용 블랙박스를 활용한 교통위반신고 자동화 방법
+    - 링크 : https://koreascience.kr/article/JAKO201433552234030.pdf
 
 
 
