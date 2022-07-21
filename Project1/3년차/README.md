@@ -367,7 +367,13 @@
     - 오토비 : 
       - 링크 : http://www.11st.co.kr/products/2707281985/share
     - 드림아이 : 
-      - https://smartstore.naver.com/gnetsystem/products/6817571059
+      - 링크 : https://smartstore.naver.com/gnetsystem/products/6817571059
+    - Type S(미국)
+      - 링크 : https://typesauto.com/products/type-s-drive-360-dash-cam-live-stream-bt530211
+      - 자체 앱 사용으로 유튜브, facebook 에 스트리밍 가능
+    - Black vue(미국)
+      - 링크 : https://shop.blackvue.com/product/dr750x-2ch-dms-lte-plus/
+      - 자체 Cloud 앱에 저장 가능
 - 논문
   - 웹서비스 기반 자동차 블랙박스 온라인 사고기록 확인 시스템 개발
     - 링크 : https://koreascience.kr/article/CFKO201423965829244.pdf
