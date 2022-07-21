@@ -362,3 +362,9 @@
 - 논문에서 블랙박스를 직접 개발한 경우[(링크)](https://koreascience.kr/article/CFKO201423965829244.pdf)
 - 이 논문에서는 블랙박스 대신 스마트폰, 패드를 사용[(링크)](https://koreascience.kr/article/JAKO201333651337175.pdf)
 
+
+
+#### 0721
+
+- 5G 모뎀 및 블랙박스 보고드리기
+
