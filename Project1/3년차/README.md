@@ -407,4 +407,8 @@
 #### 0727
 
 - 리서치 계속 진행 후 정리해서 자료로 남기기
+- 블랙박스
+  - GPI / 차량용 IP 카메라 
+    - http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
+    - RTSP, OnVIF, POE 지원
 
