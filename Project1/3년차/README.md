@@ -412,3 +412,12 @@
     - http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
     - RTSP, OnVIF, POE 지원
 
+
+
+#### 0801
+
+- 블랙박스 
+  - GPI Korea / 차량용 IP 카메라 
+    - http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
+    - RTSP, OnVIF, POE 지원
+
