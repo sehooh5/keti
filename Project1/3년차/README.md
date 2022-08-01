@@ -420,4 +420,10 @@
   - GPI Korea / 차량용 IP 카메라 
     - http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
     - RTSP, OnVIF, POE 지원
+  - 아이디스 / 소형 IP 카메라+모듈
+    - http://item.gmarket.co.kr/DetailView/Item.asp?goodscode=2367214347&GoodsSale=Y&jaehuid=200001169&NaPm=ct%3Dl6a6rkog%7Cci%3Dc6282270f259f864f715e5da14a668449750fd95%7Ctr%3Dslsl%7Csn%3D24%7Chk%3Da5e1d6bf3c817f90e17154e21837e75a8bb8eb5e
+    - RTSP, OnVIF, POE 지원
+- GPS 
+  - GPS 수신기 리서치
+  - GPS 수신기 활용하여 좌표를 사용할 수 있어야함
 
