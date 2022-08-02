@@ -433,6 +433,11 @@
 
 - GPS 
   - 아두이노 NEO-6M
-- GPS 대체 python 코드
-  - gps 폴더 내 `geo.py`
+- GPS 대체 코드
+  - Geoplugin 사용해서 IP 로케이션 찾는 방법 : 
+    - 해당 ip 를 가지고 위치를 찾는 방식
+    - gps 폴더 내 `geo.py`
+    - 집에 가면서 위치 이동될때마다 해보기
+  - ~~카카오 API 사용~~ 주소 필요해서 사용 안함
+    - 키 : 2e9a9ab884c6c5fbc7d5e13bb9b4818b
 
