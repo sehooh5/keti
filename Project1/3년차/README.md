@@ -473,5 +473,7 @@
 
       - 구매 링크 : https://smartstore.naver.com/mcuboard/products/5665912954
 
+      - GPS와 기존 서버를 바로 연결해서 사용 가능할듯
+
         
 
