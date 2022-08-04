@@ -456,7 +456,9 @@
 #### 0804
 
 - GPS 및 블랙박스 리서치
+
   - 블랙박스(소형 RTSP 카메라)
+
     - 아이디스 NC-V4211XJ
       - 설명 링크 : https://www.idisglobal.com/index/product_view/3058
       - 구매 링크 : http://auction.kr/iCdf_gm
@@ -464,7 +466,12 @@
       - http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
       - 카메라에 무선라우터와 유선연결 필요
       - 구매 시 업체 연락 필요(구매 사이트 없음)
+
   - GPS
-    - 라즈베리파이 GPS 모듈
+
+    - 라즈베리파이 GPS 모듈 EZ-0048
+
       - 구매 링크 : https://smartstore.naver.com/mcuboard/products/5665912954
+
+        
 
