@@ -475,4 +475,25 @@
 #### 0808
 
 - 특허 아이디어
+- 차량용 IP 전방 카메라
+  - 모델명 : GPCF-673A1GN
+  - 업체명 : GPI Korea
+  - 설명 링크 : http://www.gpikorea.com/kr/bbs/board.php?bo_table=pro03_kr&wr_id=2
+  - 구매 연락처 : sales@gpi360.com
+- GPS 모듈
+  - 모델명 : NT114990732
+  - 업체명 : Seeed
+  - 컴퓨존 구매 링크 : http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=462441&banner_check=naver&NaPm=ct%3Dl6kd5vrc%7Cci%3Dfd093879167a6893fee390d5f954430d0b4bf456%7Ctr%3Dsls%7Csn%3D116863%7Chk%3D8239548a655fb62b1811706391ec2596c77cc22a
+- 앞으로 일정
+  - 카메라, GPS 구매 되는데로 개발 착수
+    - ~~GPS 따로 한개 구매 후 책임님께 구매보고~~
+  - 기존 했던 CCTV 끊김 현상 step by step 으로 어느 부분에서 끊기는지 확인 및 문제점 찾기
+    - 유선으로도 연결해보기
+
+
+
+#### 0809
+
+- 기존 했던 CCTV 끊김 현상 step by step 으로 어느 부분에서 끊기는지 확인 및 문제점 찾기
+  - 유선으로도 연결해보기
 
