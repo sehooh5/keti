@@ -518,4 +518,6 @@
   - 카메라-PC 유선연결
 - AXIS 카메라 테스트
   - 카메라-PC 유선연결
+  - 유선 연결 후 rtp 전송
+    - cvlc -vvv rtsp://root:keti@169.254.147.5/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast --sout="#rtp{dst=192.168.0.60,port=5004,mux=ts}" --no-sout-all --sout-keep
 
