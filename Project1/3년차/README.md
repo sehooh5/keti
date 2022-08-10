@@ -516,8 +516,41 @@
     - 결과 : **끊김현상 없음**
 - AXIS 돔형 카메라 테스트
   - 카메라-PC 유선연결
-- AXIS 카메라 테스트
-  - 카메라-PC 유선연결
   - 유선 연결 후 rtp 전송
     - cvlc -vvv rtsp://root:keti@169.254.147.5/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast --sout="#rtp{dst=192.168.0.60,port=5004,mux=ts}" --no-sout-all --sout-keep
+    - **위 주소로 rtp전송, 미니 pc에서 rtsp 직접 스트리밍 모두 안됨...왜?**
+- AXIS 카메라 테스트
+  - 카메라-PC 유선연결
+
+
+
+#### 0810
+
+- AXIS 돔형 카메라 테스트
+  - 카메라-PC 유선연결
+    - 윈도우 pc에서는 연결 완료
+  - 유선 연결 후 rtp 전송
+    - cvlc -vvv rtsp://root:keti@169.254.147.5/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast --sout="#rtp{dst=192.168.0.60,port=5004,mux=ts}" --no-sout-all --sout-keep
+    - **위 주소로 rtp전송, 미니 pc에서 rtsp 직접 스트리밍 모두 안됨...왜?**
+      - 192.168.0.94 주소 사용법 알아보기
+- GPS 모듈 변경
+  - 변경 할 모듈 찾고
+  - 주문 취소 요청 드려야함!
+  - **일단 현재 제품으로 우분투 사용가능하다고 하여 진행중인데 데이터 완벽하게 안받아짐**
+
+
+
+#### 0811
+
+- GPS 모듈 데이터 받기 (EZ-0048)
+  - terminal 에서 안되면 일단 python 코드로 가능한지 해보기!!
+  - 참고 사이트
+    - 제품 정보(한글) : https://fishpoint.tistory.com/6484
+    - wiki 및 튜토리얼 : https://wiki.52pi.com/index.php?title=EZ-0048
+    - 기타 튜토리얼 : https://www.dfrobot.com/blog-772.html
+- AXIS 돔형 카메라 진행하기
+
+
+
+#### 
 
