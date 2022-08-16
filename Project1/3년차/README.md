@@ -550,7 +550,19 @@
     - wiki 및 튜토리얼 : https://wiki.52pi.com/index.php?title=EZ-0048
     - 기타 튜토리얼 : https://www.dfrobot.com/blog-772.html
 - AXIS 돔형 카메라 진행하기
-  - 실험실에 있는 카메라 주소 : 
+  - (유선) 내 자리에 있는 카메라 주소 : 
+    - 
+  - (무선) 실험실에 있는 카메라 주소 : 
+    - rtsp://192.168.0.93/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
+
+
+
+#### 0816
+
+- AXIS 돔형 카메라 진행하기
+  - (유선) 내 자리에 있는 카메라 주소 : 
+    - 
+  - (무선) 실험실에 있는 카메라 주소 : 
     - rtsp://192.168.0.93/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
 
 
