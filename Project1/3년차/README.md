@@ -559,11 +559,32 @@
 
 #### 0816
 
-- AXIS 돔형 카메라 진행하기
-  - (유선) 내 자리에 있는 카메라 주소 : 
-    - 
-  - (무선) 실험실에 있는 카메라 주소 : 
-    - rtsp://192.168.0.93/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
-
-
+- AXIS 돔형 카메라
+  - 유선연결 : 
+    - 카메라 주소 :  rtsp://root:keti@192.168.0.94/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
+    - 상태 : 
+      - 미니PC1 에 연결
+      - 3) 느림
+  - 무선연결(iptime 사용) : 
+    - 카메라 주소 :  rtsp://root:keti@192.168.0.94/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
+    - 상태 : 
+      - 메인 PC에 연결
+      - 1) http 연결 시 제일 딜레이가 적고
+      - 2) onvif 시 조금 느림
+      - 4) vlc 로 재생하는게 제일 느림
+- **AXIS 카메라**
+  - 주소 : rtsp://root:ketiabcs@192.168.0.120/axis-media/media.amp
+  - 무선 테스트 : 
+    - PC1 -> PC2 rtp 전송 : 가까이 사물있으면 끊김, 움직이는 사물이 멀리 있으면 덜 끊김
+    - 메인PC -> PC2 rtp 전송 :  끊김 훨씬 덜함
+- 진행 상황 : 
+  - 무선과 유선으로 연결해서 스트리밍 상태 확인 완료
+  - 유선 연결한 PC1 에서 PC2 로 재전송 해보기
+  - 보고 완료 후 오후에 양책임님 컴퓨터에 셋업해서 확인 필요
+- **GPS 데이터 받아오기**
+  - 참고 사이트
+    - 제품 정보(한글) : https://fishpoint.tistory.com/6484
+    - wiki 및 튜토리얼 : https://wiki.52pi.com/index.php?title=EZ-0048
+    - 기타 튜토리얼 : https://www.dfrobot.com/blog-772.html
+  - gps 계속 no fix 오류나는데 가져가서 테스트해보기
 
