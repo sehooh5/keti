@@ -1,7 +1,7 @@
 import serial
 import pynmea2
 
-def parseGPS(str):
+def parseGPS(message):
     if str.find('GGA') > 0:
         msg = pynmea2.parse(str)
         print(msg)
@@ -9,5 +9,5 @@ def parseGPS(str):
               f"-- Lon: {msg.lon} {msg.lon_dir} -- Altitude:{msg.altitude} {msg.altitude_units}")
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
 while True:
-    str = serialPort.readline()
-    parseGPS(str)
+    msg = serialPort.readline()
+    parseGPS(msg)
