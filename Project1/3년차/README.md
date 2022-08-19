@@ -641,4 +641,29 @@
       - pyserial, pynmea2 모듈 사용
         - pyserial : serial 데이터를 받아옴
         - pynmea2 : 받아온 gps GPGGA 데이터를 Parsing 해서 사용가능
+    - **parseGPS() 에 if 문에 안들어감 문제 해결해야함**
+- 프로젝트 총 네트워크 상황
+  - 카메라-PC
+    - 유선
+  - Edge Server
+    - 외부망 설정(수동으로 설정 해줘야함) 
+      - IP : 123.214.186.162
+      - Sub : 255.255.255.128
+      - GW : 123.214.186.129
+      - DNS : 128.126.63.1 / 210.220.163.82 / 210.94.0.73 / 210.20.163.82
+
+
+
+#### 0819
+
+- CCTV 거치대 찾아보기
+- 성능 좋은 미니 PC 찾아보기
+
+
+
+#### 0822
+
+- 휴가 낼껀지? 도시락 선택 
+  - https://docs.google.com/forms/d/e/1FAIpQLSfqooy9va0_Iq3CuInAI04sY6Pt__dBqNsUSpaT8sfb5nDc_g/viewform
+- 
 
