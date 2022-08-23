@@ -3,6 +3,7 @@ import pynmea2
 
 def parseGPS(message):
     if (message[0:6] == "$GPGGA"):
+        print("IN")
         msg = pynmea2.parse(message)
         print(msg)
         print (f"Timestamp: {msg.timestamp} -- Lat: {msg.lat} {msg.lat_dir} " \
