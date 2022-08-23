@@ -657,13 +657,36 @@
 #### 0819
 
 - CCTV 거치대 찾아보기
-- 성능 좋은 미니 PC 찾아보기
+
+- 미니 PC 찾아보기
+
+  - [Minix Technology Limited] NEO N42C-4 Plus N4100([링크](http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=809496&BigDivNo=&MediumDivNo=1005&DivNo=))
+
+    - 사이즈 : 139 * 139 * 35 mm
+    - 가격 : 305,000원
+
+  - [GIGABYTE] BRIX GB-BMCE-4500C([링크](http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=856164&BigDivNo=&MediumDivNo=1005&DivNo=))
+
+    - 사이즈 : 116.52 * 103 * 56.22 mm
+
+    - 가격 : 198,000원
+
+  - [ECS] LIVA Q1L N4200([링크](http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=878676&BigDivNo=&MediumDivNo=1005&DivNo=))
+
+    - 사이즈 : 74 * 74 * 34.6 mm
+    - 가격 : 279,000원
+
+  - Mele 미니 PC(구매대행)
+
+    - 사이즈 : 131 * 81 * 18.3 mm
+    - 가격 : 351,700원
+    - 링크 : https://smartstore.naver.com/alishop/products/6286680846
 
 
 
 #### 0822
 
-- 휴가 낼껀지? 도시락 선택 
+- 도시락
   - https://docs.google.com/forms/d/e/1FAIpQLSfqooy9va0_Iq3CuInAI04sY6Pt__dBqNsUSpaT8sfb5nDc_g/viewform
 - 
 
