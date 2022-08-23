@@ -2,11 +2,13 @@ import serial
 import pynmea2
 import datetime
 import getpass
+import os
 
 print(getpass.getuser())
 
 
 def parseGPS(message):
+    print(os.getlogin())
     message = message.decode('utf-8')
     if (message[0:6] == "$GPGGA"):
         msg = pynmea2.parse(message)
