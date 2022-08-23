@@ -2,7 +2,7 @@ import serial
 import pynmea2
 
 def parseGPS(message):
-    if (message.decode('utf-8')[0:6] == "GGA"):
+    if (message.decode('utf-8')[0:6] == "$GPGGA"):
         print("IN")
         msg = pynmea2.parse(message)
         print(msg)
