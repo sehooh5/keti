@@ -3,7 +3,7 @@ import pynmea2
 
 def parseGPS(message):
     print(message)
-    if (message[0:6] == "$GPGGA"):
+    if (message[0:6] == "GGA"):
         print("IN")
         msg = pynmea2.parse(message)
         print(msg)
