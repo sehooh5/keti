@@ -14,7 +14,7 @@ serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
 while True:
     msg = serialPort.readline()
     print(type(msg))
-    m = pynmea2.parse(msg)
+    m = pynmea2.parse(msg.decode('utf-8'))
     print(m)
 
     parseGPS(msg)
