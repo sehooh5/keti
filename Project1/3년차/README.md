@@ -717,13 +717,24 @@
     - IP : 123.214.186.162
     - 유선 외부망을 통해 rtsp 스트리밍
       - rtsp://123.214.186.162:8554/cctv1
-- GPS 진행할 것
-  - 미니PC(차량용 서버)에서 Edge Server 로 gps 정보 1초마다 전송
+- GPS 진행
+  - 미니PC(차량용 서버)에서 Edge Server 로 gps 정보 ~~1초마다 전송~~ 생성될 때 마다 전송
   - Edge Server 에서 gps 데이터를 보관해야함
   - GPS 정보 : 
-    - 연결된 차량 or cctv ID
+    - 연결된 차량 or cctv ID ---> 서버의 username 으로 대체
     - UTC 시간
     - GPS 정보
+
+
+
+#### 0824
+
+- GPS 데이터 client-server
+  - gps_client.py
+    - 현재 데이터는 모두 생성하고 사용가능
+    - 서버 구현되면 데이터를 보내야함
+  - gps_server.py
+    - 기본적 서버부터 구성부터 해야함 
 
 
 
