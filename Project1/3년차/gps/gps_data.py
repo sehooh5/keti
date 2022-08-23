@@ -2,6 +2,7 @@ import serial
 import pynmea2
 
 def parseGPS(message):
+    print(message)
     if (message[0:6] == "$GPGGA"):
         print("IN")
         msg = pynmea2.parse(message)
@@ -13,9 +14,9 @@ def parseGPS(message):
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
 while True:
     msg = serialPort.readline()
-    print(type(msg))
-    m = pynmea2.parse(msg.decode('utf-8'))
-    print(m)
+    # print(type(msg))
+    # m = pynmea2.parse(msg.decode('utf-8'))
+    # print(m)
 
     parseGPS(msg)
 
