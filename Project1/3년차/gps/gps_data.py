@@ -13,7 +13,12 @@ def parseGPS(message):
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=0.5)
 while True:
     msg = serialPort.readline()
+
+    m = pynmea2.parse(msg)
+    print(m)
+
     parseGPS(msg)
+
 
 
 ######### 현재 parseGPS if 문 안으로 안들어감 왜그런지 해결해야함!!!!
