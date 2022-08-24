@@ -4,7 +4,7 @@ import json
 port = 8080
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('192.168.0.20', port))
+server_socket.bind(("127.0.0.1", port))
 
 while True:
     server_socket.listen()
