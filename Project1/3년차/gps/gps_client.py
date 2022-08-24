@@ -42,7 +42,7 @@ def parseGPS(message):
     else :
         print("PASS")
 
-serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=1)
+serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
     msg = serialPort.readline()
     parseGPS(msg)
