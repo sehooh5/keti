@@ -13,7 +13,7 @@ def parseGPS(message):
 
 
     data = {
-        'type': 'device',
+        'type': 'gps',
         'd_id': 'd1',
     }
     json_data = json.dumps(data)

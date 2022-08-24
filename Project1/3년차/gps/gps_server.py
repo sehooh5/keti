@@ -5,11 +5,14 @@ port = 8088
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(("123.214.186.162", port))
+print("123.214.186.162:8080 서버 생성")
 
 while True:
+    print("True 문 들어옴")
     server_socket.listen()
     client_socket, addr = server_socket.accept()
-
+    print("client socket 연결됨")
+    
     # 클라이언트로부터 메시지 받기
     recvData = client_socket.recv(65535)
     json_data = json.loads(recvData.decode(('utf-8')))
