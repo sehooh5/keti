@@ -7,7 +7,7 @@ import json
 import threading
 import subprocess
 
-port = 8080
+port = 8088
 
 data = {
     'type': 'device',
@@ -15,7 +15,7 @@ data = {
 }
 json_data = json.dumps(data)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('210.94.0.73', port))
+sock.connect(('123.214.186.162', port))
 sock.send(json_data.encode('utf-8'))
 recvData = sock.recv(1024)
 data = recvData.decode(('utf-8'))
