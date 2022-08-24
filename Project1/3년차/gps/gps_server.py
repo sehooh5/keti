@@ -8,7 +8,6 @@ server_socket.bind(("123.214.186.162", port))
 print("123.214.186.162:8080 서버 생성")
 
 while True:
-    print("True 문 들어옴")
     server_socket.listen()
     client_socket, addr = server_socket.accept()
     print("client socket 연결됨")
@@ -20,7 +19,7 @@ while True:
     print(json_data)
 
     if type == 'gps':
-        print('gps 에서 데이터가 전달되었습니다!')
+        print('gps 에서 데이터가 !')
         sendData = 'GPS data uploaded!'
         client_socket.send(sendData.encode('utf-8'))
     elif type == 'vms':

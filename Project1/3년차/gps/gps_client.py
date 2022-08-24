@@ -37,8 +37,27 @@ def parseGPS(message):
         gps_alt = msg.altitude
         gps_alt_units = msg.altitude_units
 
-        print (f"ID: {gps_id} -- Timestamp: {gps_time} -- Lat: {gps_lat} {gps_lat_dir} " \
-              f"-- Lon: {gps_lon} {gps_lon_dir} -- Altitude:{gps_alt} {gps_alt_units}")
+        data = {
+            'type': 'gps',
+            'gps_id': os.getlogin(),
+            'gps_time': datetime.datetime.utcnow(),
+            'gps_lat': msg.lat,
+            'gps_lon': msg.lon,
+            'gps_lat_dir': msg.lat_dir,
+            'gps_lon_dir': msg.lon_dir,
+            'gps_alt': msg.altitude,
+            'gps_alt_units': msg.altitude_units
+        }
+        json_data = json.dumps(data)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect(('123.214.186.162', port))
+        sock.send(json_data.encode('utf-8'))
+        recvData = sock.recv(1024)
+        data = recvData.decode(('utf-8'))
+        print(data)
+
+        #print (f"ID: {gps_id} -- Timestamp: {gps_time} -- Lat: {gps_lat} {gps_lat_dir} " \
+        #      f"-- Lon: {gps_lon} {gps_lon_dir} -- Altitude:{gps_alt} {gps_alt_units}")
     else :
         print("PASS")
 
