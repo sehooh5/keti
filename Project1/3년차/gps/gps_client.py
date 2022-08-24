@@ -9,17 +9,6 @@ import subprocess
 
 port = 8088
 
-data = {
-    'type': 'device',
-    'd_id': 'd1',
-}
-json_data = json.dumps(data)
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('123.214.186.162', port))
-sock.send(json_data.encode('utf-8'))
-recvData = sock.recv(1024)
-data = recvData.decode(('utf-8'))
-
 def parseGPS(message):
 
 
