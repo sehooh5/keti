@@ -19,7 +19,7 @@ def gps():
     # did 추출
     # did = json_data['did']
     # 지금은 did 를 사용 안하지만 나중에는 이 아이디로 device ip 를 찾아서 요청해야함
-    g.gps_data = json_data
+    print(json_data['gps_time'])
 
     return "gps data uploaded!"
 
