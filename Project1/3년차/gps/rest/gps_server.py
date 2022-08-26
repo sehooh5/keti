@@ -16,7 +16,7 @@ def index():
 def gps():
     json_data = request.get_json(silent=True)
     # did 추출
-    did = json_data['did']
+    # did = json_data['did']
     print(json_data)
     # 지금은 did 를 사용 안하지만 나중에는 이 아이디로 device ip 를 찾아서 요청해야함
 
