@@ -14,6 +14,7 @@ def index():
 
 @app.route('/gps', methods=['POST'])
 def gps():
+    global json_data
     json_data = request.get_json(silent=True)
     # print(json_data)
     # did 추출
@@ -26,7 +27,7 @@ def gps():
 
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
-    print(dt)
+    print(json_data)
 
     return "OK"
 
