@@ -2,31 +2,27 @@ import serial
 import pynmea2
 import datetime
 import os
-from flask import Flask, render_template, Response, request, jsonify
+import socket
 import json
-import requests_test
-import response
+import threading
+import subprocess
 
-app = Flask(__name__)
-port = 5885
-
-@app.route('/')
-def index():
-    return "index"
-
-@app.route('/get_gpsInfo', methods=['GET'])
-def gps():
-    serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5)
-    msg = serialPort.readline()
-    res = parseGPS(msg)
-    print(res)
-
-    return res
-
-app.run(host="192.168.225.27",port=port)
-#192.168.225.27
+port = 8088
 
 def parseGPS(message):
+
+
+    data = {
+        'type': 'gps',
+        'd_id': 'd1',
+    }
+    json_data = json.dumps(data)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(('123.214.186.162', port))
+    sock.send(json_data.encode('utf-8'))
+    recvData = sock.recv(1024)
+    data = recvData.decode(('utf-8'))
+    print(data)
 
     message = message.decode('utf-8')
     if (message[0:6] == "$GPGGA"):
@@ -54,12 +50,19 @@ def parseGPS(message):
         }
         json_data = json.dumps(data)
         print(json_data)
-    return json_data
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect(('123.214.186.162', port))
+        sock.send(json_data.encode('utf-8'))
+        recvData = sock.recv(1024)
+        data = recvData.decode(('utf-8'))
+        print(data)
+
         #print (f"ID: {gps_id} -- Timestamp: {gps_time} -- Lat: {gps_lat} {gps_lat_dir} " \
         #      f"-- Lon: {gps_lon} {gps_lon_dir} -- Altitude:{gps_alt} {gps_alt_units}")
+    else :
+        print("PASS")
 
-
-#serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
-#while True:
-#    msg = serialPort.readline()
-#    parseGPS(msg)
+serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
+while True:
+    msg = serialPort.readline()
+    parseGPS(msg)
