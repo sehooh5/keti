@@ -24,7 +24,10 @@ def get_gpsData():
     did = request.args.get('did')
     print(did)
 
-    return json_data
+    if json_data :
+        return json_data
+    else:
+        return "Null of json_data"
 
 app.run(host="123.214.186.162",port=port)
 
