@@ -11,7 +11,7 @@ port = 8088
 def index():
     return "index"
 
-@app.route('/gps', method=['POST'])
+@app.route('/gps', methods=['POST'])
 def gps():
     json_data = request.get_json(silent=True)
     # did 추출

@@ -14,7 +14,7 @@ port = 5885
 def index():
     return "index"
 
-@app.route('/get_gpsInfo', method=['GET'])
+@app.route('/get_gpsInfo', methods=['GET'])
 def gps():
     serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5)
     msg = serialPort.readline()
@@ -23,7 +23,8 @@ def gps():
 
     return res
 
-app.run(host="192.168.225.27",port=port)
+app.run(host="localhost",port=port)
+#192.168.225.27
 
 def parseGPS(message):
 
