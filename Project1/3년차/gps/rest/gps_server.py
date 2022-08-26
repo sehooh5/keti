@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response, request, g, jsonify
 from flask_cors import CORS, cross_origin
 import json
 import sqlite3
+import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -79,6 +80,18 @@ def get_gpsData():
                 "dt": row[7]
             }
             json_data = json.dumps(data)
+        
+        # 이번 8/29 회의때는 임의의 정보 전달(상암 전자회관)
+        data = {
+            "lat": "37.580900",
+            "lat_dir": "N",
+            "lon": "126.888402",
+            "lon_dir": "E",
+            "alt": "79.5",
+            "alt_units": "M",
+            "dt": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
+        }
+        json_data = json.dumps(data)
 
         return json_data
 
