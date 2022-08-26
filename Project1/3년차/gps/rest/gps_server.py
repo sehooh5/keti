@@ -22,7 +22,7 @@ def gps():
     # 지금은 did 를 사용 안하지만 나중에는 이 아이디로 device ip 를 찾아서 요청해야함
 
 
-    return res
+    return "gps data uploaded!"
 
 app.run(host="123.214.186.162",port=port)
 
