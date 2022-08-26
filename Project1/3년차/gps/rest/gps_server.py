@@ -68,7 +68,17 @@ def get_gpsData():
         return msg
     else:
         c.execute(f"SELECT * FROM {did} WHERE id={mid}")
-        print(c[0])
+        for row in c:
+            json_data = {
+                "lat" : row[1],
+                "lat_dir": row[2],
+                "lon": row[3],
+                "lon_dir": row[4],
+                "alt": row[5],
+                "alt_units": row[6],
+                "dt": row[7]
+            }
+            print(json_data)
 
 
 
