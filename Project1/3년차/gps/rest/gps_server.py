@@ -69,7 +69,7 @@ def get_gpsData():
     else:
         c.execute(f"SELECT * FROM {did} WHERE id={mid}")
         for row in c:
-            json_data = {
+            data = {
                 "lat" : row[1],
                 "lat_dir": row[2],
                 "lon": row[3],
@@ -78,11 +78,12 @@ def get_gpsData():
                 "alt_units": row[6],
                 "dt": row[7]
             }
-            print(json_data)
+            json_data = json.dumps(data)
+
+        return json_data
 
 
 
-    return "ok"
 
 app.run(host="123.214.186.162",port=port)
 
