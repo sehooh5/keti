@@ -23,7 +23,7 @@ def gps():
 
     return res
 
-app.run(host="localhost",port=port)
+app.run(host="192.168.225.27",port=port)
 #192.168.225.27
 
 def parseGPS(message):
