@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
-import requests_test
 import response
 
 app = Flask(__name__)
