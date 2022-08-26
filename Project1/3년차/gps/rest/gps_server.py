@@ -50,7 +50,8 @@ def gps():
         c.execute(f"SELECT min(id) FROM {gps_id}")
         delete_id = c.fetchone()[0]
         c.execute(f"DELETE FROM {gps_id} WHERE id=?", (delete_id,))
-
+        if mid == 100:
+            mid = 1
 
     c.execute(f"INSERT INTO {gps_id} \
                 VALUES(?,?,?,?,?,?,?,?)", (mid, gps_lat, gps_lat_dir, gps_lon, gps_lon_dir, gps_alt, gps_alt_units, gps_time))
