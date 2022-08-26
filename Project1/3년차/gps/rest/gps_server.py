@@ -50,7 +50,7 @@ def gps():
         c.execute(f"SELECT min(id) FROM {gps_id}")
         delete_id = c.fetchone()[0]
         c.execute(f"DELETE FROM {gps_id} WHERE id=?", (delete_id,))
-        if mid == 100:
+        if mid == 100: # DB에 100번 이상 넘어가면 다시 1으로..
             mid = 1
 
     c.execute(f"INSERT INTO {gps_id} \
@@ -61,9 +61,17 @@ def gps():
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
     did = request.args.get('did')
-    json_data['gps_id']
+    c.execute(f"SELECT max(id) FROM {did}")
+    mid = c.fetchone()[0]
+    if mid == None:
+        msg="None"
+        return msg
+    else:
+        c.execute(f"SELECT * FROM {did} WHERE id={mid}")
+        data = c.fetchone()[0]
+        print(data)
 
-    return json_data
+    return data
 
 app.run(host="123.214.186.162",port=port)
 
