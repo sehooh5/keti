@@ -29,7 +29,7 @@ def parseGPS(message):
         msg = pynmea2.parse(message)
 
         gps_id = os.getlogin() # 서버의 username
-        gps_time = datetime.datetime.utcnow() # UTC 시간
+        gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S") # UTC 시간
         gps_lat = msg.lat
         gps_lon = msg.lon
         gps_lat_dir = msg.lat_dir
@@ -39,16 +39,17 @@ def parseGPS(message):
 
         data = {
             'type': 'gps',
-            'gps_id': os.getlogin(),
-            'gps_time': datetime.datetime.utcnow(),
-            'gps_lat': msg.lat,
-            'gps_lon': msg.lon,
-            'gps_lat_dir': msg.lat_dir,
-            'gps_lon_dir': msg.lon_dir,
-            'gps_alt': msg.altitude,
-            'gps_alt_units': msg.altitude_units
+            'gps_id': gps_id,
+            'gps_time': gps_time,
+            'gps_lat': gps_lat,
+            'gps_lon': gps_lon,
+            'gps_lat_dir': gps_lat_dir,
+            'gps_lon_dir': gps_lon_dir,
+            'gps_alt': gps_alt,
+            'gps_alt_units': gps_alt_units
         }
         json_data = json.dumps(data)
+        print(json_data)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect(('123.214.186.162', port))
         sock.send(json_data.encode('utf-8'))
