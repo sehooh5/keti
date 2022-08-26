@@ -39,8 +39,8 @@ def parseGPS(message):
         }
         json_data = json.dumps(data)
         print(json_data)
-        res = requests.post(url, data=json_data)
-        print("response : ", res )
+        res = requests.post(url, json=data)
+        print("response : ", res)
 
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
