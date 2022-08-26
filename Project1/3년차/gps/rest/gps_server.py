@@ -69,6 +69,7 @@ def get_gpsData():
     else:
         c.execute(f"SELECT * FROM {did} WHERE id={mid}")
         for row in c:
+            print("print:")
             print(row)
         data = c.fetchone()[0]
         print(data)
