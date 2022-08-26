@@ -24,7 +24,7 @@ def get_gpsData():
     did = request.args.get('did')
     print(did)
 
-    if json_data :
+    if json_data != 'Null' :
         return json_data
     else:
         return "Null of json_data"
