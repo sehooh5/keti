@@ -27,9 +27,9 @@ def gps():
 
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
-    print(json_data)
 
-    return "OK"
+
+    return json_data
 
 app.run(host="123.214.186.162",port=port)
 
