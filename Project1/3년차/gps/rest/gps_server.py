@@ -71,7 +71,7 @@ def get_gpsData():
         data = c.fetchone()[0]
         print(data)
 
-    return data
+    return "ok"
 
 app.run(host="123.214.186.162",port=port)
 
