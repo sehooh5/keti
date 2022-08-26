@@ -95,7 +95,20 @@ def get_gpsData():
 
         return json_data
 
+@app.route('/get_gps', methods=['GET'])
+def get_gps():
+    data = {
+        "lat": "37.580900",
+        "lat_dir": "N",
+        "lon": "126.888402",
+        "lon_dir": "E",
+        "alt": "79.5",
+        "alt_units": "M",
+        "dt": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
+    }
+    json_data = json.dumps(data)
 
+    return json_data
 
 
 app.run(host="123.214.186.162",port=port)

@@ -747,10 +747,19 @@
 
 #### 0826
 
-- 인텔리빅스에서 사용 가능한 rtsp 주소
+- 인텔리빅스에서 사용 가능한 rtsp 주소 및 gps rest api
+
   - rtsp://123.214.186.162:8554/videoMain
+
+  - http://123.214.186.162:8088/get_gpsData?did=keti0
+
+    
+
 - GPS
+
   - 소켓 사용하다가 지금 다시 REST API 형식으로 바꿈(rest 폴더에서 진행)
+    - gps_server.py : Edge 에서 동작하는 서버
+    - gps_client.py : cctv, 5G 모듈이 연결된 pc 에서 동작하는 client
 
 
 
