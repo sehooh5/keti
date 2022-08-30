@@ -749,9 +749,9 @@
 
 - 인텔리빅스에서 사용 가능한 rtsp 주소 및 gps rest api
 
-  - rtsp://123.214.186.162:8554/videoMain
+  - 카메라 주소 : rtsp://123.214.186.162:8554/videoMain
 
-  - http://123.214.186.162:8088/get_gpsData?did=keti0
+  - gps 요청 : http://123.214.186.162:8088/get_gps?did=keti0
 
     
 
@@ -762,6 +762,10 @@
     - gps_client.py : cctv, 5G 모듈이 연결된 pc 에서 동작하는 client
 
 
+
+#### 0830
+
+- 회의 토대로 스트리밍 및 GPS 내용 수정, 보완
 
 #### 
 

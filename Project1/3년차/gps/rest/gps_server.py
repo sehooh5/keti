@@ -97,6 +97,7 @@ def get_gpsData():
 
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
+
     data = {
         "lat": "37.580900",
         "lat_dir": "N",
