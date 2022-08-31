@@ -5,6 +5,7 @@ import datetime
 import os
 import socket
 import json
+import sys
 
 url = "http://123.214.186.162:8088"
 
@@ -39,10 +40,12 @@ def parseGPS(message):
         }
         json_data = json.dumps(data)
 
+        arg = sys.argv
+        res = requests.post(f'{url}/{arg}', json=data)
         # gps 데이터 저장 없이 삭제하는 API
         # res = requests.post(f'{url}/gps', json=data)
         # gps 데이터 DB에 저장하는 API
-        res = requests.post(f'{url}/gps_save', json=data)
+        # res = requests.post(f'{url}/gps_save', json=data)
 
         return res
 
