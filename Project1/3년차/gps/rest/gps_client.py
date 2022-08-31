@@ -40,9 +40,12 @@ def parseGPS(message):
         }
         json_data = json.dumps(data)
 
-        arg = sys.argv[1]
-        print(arg[1], type(arg[1]))
-        res = requests.post(f'{url}/{arg[1]}', json=data)
+        arg = sys.argv
+        print(arg, len(arg))
+        if len(arg) < 2 :
+            res = requests.post(f'{url}/gps}', json=data)
+        else :
+            res = requests.post(f'{url}/gps_save', json=data)
         # gps 데이터 저장 없이 삭제하는 API
         # res = requests.post(f'{url}/gps', json=data)
         # gps 데이터 DB에 저장하는 API
