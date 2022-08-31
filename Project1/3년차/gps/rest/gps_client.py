@@ -9,9 +9,9 @@ import sys
 
 url = "http://123.214.186.162:8088"
 
-data = {
-    "did": "keti0"
-}
+# data = {
+#     "did": "keti0"
+# }
 
 def parseGPS(message):
     message = message.decode('utf-8')
@@ -41,15 +41,12 @@ def parseGPS(message):
         json_data = json.dumps(data)
 
         arg = sys.argv
-        print(arg, len(arg))
+
+        # argument 에 따라 서버에 데이터 저장할지 안할지 선택
         if len(arg) < 2 :
             res = requests.post(f'{url}/gps', json=data)
         else :
             res = requests.post(f'{url}/gps_save', json=data)
-        # gps 데이터 저장 없이 삭제하는 API
-        # res = requests.post(f'{url}/gps', json=data)
-        # gps 데이터 DB에 저장하는 API
-        # res = requests.post(f'{url}/gps_save', json=data)
 
         return res
 
