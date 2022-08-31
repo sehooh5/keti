@@ -43,7 +43,7 @@ def parseGPS(message):
         arg = sys.argv
         print(arg, len(arg))
         if len(arg) < 2 :
-            res = requests.post(f'{url}/gps}', json=data)
+            res = requests.post(f'{url}/gps', json=data)
         else :
             res = requests.post(f'{url}/gps_save', json=data)
         # gps 데이터 저장 없이 삭제하는 API
