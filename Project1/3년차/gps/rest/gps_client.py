@@ -45,10 +45,10 @@ def parseGPS(message):
         # argument 에 따라 서버에 데이터 저장할지 안할지 선택
         if len(arg) < 2 :
             res = requests.post(f'{url}/gps', json=data)
-            print('GPS data loaded!')
+            print('GPS data is loaded!')
         else :
             res = requests.post(f'{url}/gps_save', json=data)
-            print('GPS data saved in Edge Server!')
+            print('GPS data is saved in Edge Server!')
         return res
 
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
