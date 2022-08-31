@@ -3,15 +3,10 @@ import serial
 import pynmea2
 import datetime
 import os
-import socket
-import json
 import sys
 
 url = "http://123.214.186.162:8088"
 
-# data = {
-#     "did": "keti0"
-# }
 
 def parseGPS(message):
     message = message.decode('utf-8')
@@ -38,7 +33,6 @@ def parseGPS(message):
             'gps_alt': gps_alt,
             'gps_alt_units': gps_alt_units
         }
-        json_data = json.dumps(data)
 
         arg = sys.argv
 
