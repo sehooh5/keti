@@ -6,7 +6,7 @@ import os
 import socket
 import json
 
-url = "http://123.214.186.162:8088/gps"
+url = "http://123.214.186.162:8088"
 
 data = {
     "did": "keti0"
@@ -38,8 +38,13 @@ def parseGPS(message):
             'gps_alt_units': gps_alt_units
         }
         json_data = json.dumps(data)
-        res = requests.post(url, json=data)
-        # print("response : ", res)
+
+        # gps 데이터 저장 없이 삭제하는 API
+        # res = requests.post(f'{url}/gps', json=data)
+        # gps 데이터 DB에 저장하는 API
+        res = requests.post(f'{url}/gps_save', json=data)
+
+        return res
 
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:

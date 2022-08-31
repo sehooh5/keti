@@ -59,6 +59,33 @@ def gps():
 
     return "OK"
 
+@app.route('/gps_save', methods=['POST'])
+def gps_save():
+    global json_data
+    json_data = request.get_json(silent=True)
+    gps_id = json_data['gps_id']
+    gps_lat = json_data['gps_lat']
+    gps_lat_dir = json_data['gps_lat_dir']
+    gps_lon = json_data['gps_lon']
+    gps_lon_dir = json_data['gps_lon_dir']
+    gps_alt = json_data['gps_alt']
+    gps_alt_units = json_data['gps_alt_units']
+    gps_time = json_data['gps_time']
+
+    # gps_id_save table 생성 후 데이터 저장
+    c.execute(f'select name from sqlite_master where type="table" and name="{gps_id}_save"')
+    dt_exist = c.fetchone()
+    # gps_id 테이블이 없으면 테이블 생성
+    if dt_exist == None:
+        print(f"{gps_id}_save 테이블 생성")
+        c.execute(f"CREATE TABLE IF NOT EXISTS {gps_id}_save \
+                        (gps_lat text, gps_lat_dir text, gps_lon text, gps_lon_dir text, gps_alt text, gps_alt_units text, gps_time text)")
+
+    c.execute(f"INSERT INTO {gps_id}_save \
+                VALUES(?,?,?,?,?,?,?)", (gps_lat, gps_lat_dir, gps_lon, gps_lon_dir, gps_alt, gps_alt_units, gps_time))
+
+    return "OK"
+
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
     did = request.args.get('did')
@@ -80,21 +107,10 @@ def get_gpsData():
                 "dt": row[7]
             }
             json_data = json.dumps(data)
-        
-        # 이번 8/29 회의때는 임의의 정보 전달(상암 전자회관)
-        data = {
-            "lat": "37.580900",
-            "lat_dir": "N",
-            "lon": "126.888402",
-            "lon_dir": "E",
-            "alt": "79.5",
-            "alt_units": "M",
-            "dt": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
-        }
-        json_data = json.dumps(data)
 
         return json_data
 
+# 이번 8/29 회의때는 임의의 정보 전달(상암 전자회관)
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
 
