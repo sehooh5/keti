@@ -57,7 +57,7 @@ def gps():
     c.execute(f"INSERT INTO {gps_id} \
                 VALUES(?,?,?,?,?,?,?,?)", (mid, gps_lat, gps_lat_dir, gps_lon, gps_lon_dir, gps_alt, gps_alt_units, gps_time))
 
-    return "OK"
+    return "GPS data is loaded!"
 
 @app.route('/gps_save', methods=['POST'])
 def gps_save():
@@ -84,7 +84,7 @@ def gps_save():
     c.execute(f"INSERT INTO {gps_id}_save \
                 VALUES(?,?,?,?,?,?,?)", (gps_lat, gps_lat_dir, gps_lon, gps_lon_dir, gps_alt, gps_alt_units, gps_time))
 
-    return "OK"
+    return "GPS data is saved in Edge Server!"
 
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
