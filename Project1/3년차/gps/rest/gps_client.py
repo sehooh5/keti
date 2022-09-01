@@ -13,7 +13,7 @@ def parseGPS(message):
     if (message[0:6] == "$GPGGA"):
         msg = pynmea2.parse(message)
 
-        if msg.lat == None :
+        if msg.lat == "" :
             print("위도 데이터 없음")
         gps_id = os.getlogin()  # 서버의 username
         gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")  # UTC 시간
