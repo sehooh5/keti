@@ -13,7 +13,8 @@ def parseGPS(message):
     if (message[0:6] == "$GPGGA"):
         msg = pynmea2.parse(message)
 
-
+        if msg.lat == None :
+            print("위도 데이터 없음")
         gps_id = os.getlogin()  # 서버의 username
         gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")  # UTC 시간
         gps_lat = msg.lat
@@ -46,10 +47,10 @@ def parseGPS(message):
             res = requests.post(f'{url}/gps_save', json=data)
             # print(res.text)
         return res
-    elif (message[0:6] == "$GPRMC"):
-        msg = pynmea2.parse(message)
-
-        print(f"lat : {msg.lat}, lon : {msg.lon}")
+    # elif (message[0:6] == "$GPRMC"):
+    #     msg = pynmea2.parse(message)
+    #
+    #     print(f"lat : {msg.lat}, lon : {msg.lon}")
 
 serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
