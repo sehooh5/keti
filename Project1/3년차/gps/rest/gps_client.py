@@ -52,7 +52,7 @@ def parseGPS(message):
     #
     #     print(f"lat : {msg.lat}, lon : {msg.lon}")
 
-serialPort = serial.Serial("/dev/ttyUSB0", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
+serialPort = serial.Serial("/dev/ttyUSB1", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
     msg = serialPort.readline()
     parseGPS(msg)
