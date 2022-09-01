@@ -14,39 +14,40 @@ def parseGPS(message):
         msg = pynmea2.parse(message)
 
         if msg.lat == "" :
-            print("위도 데이터 없음")
-        gps_id = os.getlogin()  # 서버의 username
-        gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")  # UTC 시간
-        gps_lat = msg.lat
-        gps_lon = msg.lon
-        gps_lat_dir = msg.lat_dir
-        gps_lon_dir = msg.lon_dir
-        gps_alt = msg.altitude
-        gps_alt_units = msg.altitude_units
-        print(f"lat : {gps_lat}, lon : {gps_lon}")
+            print("실내에서 GPS가 작동하지 않음")
+        else:
+            gps_id = os.getlogin()  # 서버의 username
+            gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")  # UTC 시간
+            gps_lat = msg.lat
+            gps_lon = msg.lon
+            gps_lat_dir = msg.lat_dir
+            gps_lon_dir = msg.lon_dir
+            gps_alt = msg.altitude
+            gps_alt_units = msg.altitude_units
+            print(f"lat : {gps_lat}, lon : {gps_lon}")
 
-        data = {
-            'type': 'gps',
-            'gps_id': gps_id,
-            'gps_time': gps_time,
-            'gps_lat': gps_lat,
-            'gps_lon': gps_lon,
-            'gps_lat_dir': gps_lat_dir,
-            'gps_lon_dir': gps_lon_dir,
-            'gps_alt': gps_alt,
-            'gps_alt_units': gps_alt_units
-        }
+            data = {
+                'type': 'gps',
+                'gps_id': gps_id,
+                'gps_time': gps_time,
+                'gps_lat': gps_lat,
+                'gps_lon': gps_lon,
+                'gps_lat_dir': gps_lat_dir,
+                'gps_lon_dir': gps_lon_dir,
+                'gps_alt': gps_alt,
+                'gps_alt_units': gps_alt_units
+            }
 
-        arg = sys.argv
+            arg = sys.argv
 
-        # argument 에 따라 서버에 데이터 저장할지 안할지 선택
-        if len(arg) < 2 :
-            res = requests.post(f'{url}/gps', json=data)
-            # print(res.text)
-        else :
-            res = requests.post(f'{url}/gps_save', json=data)
-            # print(res.text)
-        return res
+            # argument 에 따라 서버에 데이터 저장할지 안할지 선택
+            if len(arg) < 2 :
+                res = requests.post(f'{url}/gps', json=data)
+                # print(res.text)
+            else :
+                res = requests.post(f'{url}/gps_save', json=data)
+                # print(res.text)
+            return res
     # elif (message[0:6] == "$GPRMC"):
     #     msg = pynmea2.parse(message)
     #
