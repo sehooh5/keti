@@ -18,8 +18,8 @@ def parseGPS(message):
         else:
             gps_id = os.getlogin()  # 서버의 username
             gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")  # UTC 시간
-            gps_lat = msg.lat
-            gps_lon = msg.lon
+            gps_lat = str(int(msg.lat)/100)
+            gps_lon = str(int(msg.lon)/100)
             gps_lat_dir = msg.lat_dir
             gps_lon_dir = msg.lon_dir
             gps_alt = msg.altitude
