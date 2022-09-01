@@ -55,7 +55,8 @@ def parseGPS(message):
 
 for f_name in os.listdir('/dev'):
     if f_name.startswith('ttyUSB'):
-        print(f_name)
+        global f_name
+print(f_name)
 serialPort = serial.Serial("/dev/ttyUSB1", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
     msg = serialPort.readline()
