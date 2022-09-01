@@ -52,13 +52,11 @@ def parseGPS(message):
     #     msg = pynmea2.parse(message)
     #
     #     print(f"lat : {msg.lat}, lon : {msg.lon}")
-
 for f_name in os.listdir('/dev'):
     if f_name.startswith('ttyUSB'):
         global fname
         fname = f_name
-print(fname)
-serialPort = serial.Serial("/dev/ttyUSB1", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
+serialPort = serial.Serial(f"/dev/{fname}", 9600, timeout=5) # 임의로 5초 나중에 바꿔야함 1초로
 while True:
     msg = serialPort.readline()
     parseGPS(msg)
