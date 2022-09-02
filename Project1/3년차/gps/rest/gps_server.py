@@ -116,28 +116,18 @@ def get_gpsData():
 # 0902 // 1초마다 GPS 데이터 읽는 API
 @app.route('/gps_temp', methods=['POST'])
 def gps_temp():
-    json_data = request.get_json(silent=True)
-    print(json_data)
+    global temp_data
+    temp_data = request.get_json(silent=True)
+    print(temp_data)
 
-
-    return json_data
+    return temp_data
 
 
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
+    print(temp_data)
 
-    data = {
-        "lat": "37.580900",
-        "lat_dir": "N",
-        "lon": "126.888402",
-        "lon_dir": "E",
-        "alt": "79.5",
-        "alt_units": "M",
-        "dt": datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S")
-    }
-    json_data = json.dumps(data)
-
-    return json_data
+    return temp_data
 
 
 app.run(host="123.214.186.162",port=port)
