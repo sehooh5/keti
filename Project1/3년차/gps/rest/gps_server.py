@@ -118,7 +118,6 @@ def get_gpsData():
 def gps_temp():
     global temp_data
     temp_data = request.get_json(silent=True)
-    print(temp_data['dt'])
 
     return temp_data
 
