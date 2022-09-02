@@ -4,11 +4,7 @@ import time
 import os
 
 url = "http://123.214.186.162:8088"
-
-# DB 생성 (오토 커밋)
 conn = sqlite3.connect("tcp_test.db", isolation_level=None, check_same_thread=False)
-
-# 커서 획득
 c = conn.cursor()
 
 while True:

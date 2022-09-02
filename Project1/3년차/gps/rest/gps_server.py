@@ -118,14 +118,13 @@ def get_gpsData():
 def gps_temp():
     global temp_data
     temp_data = request.get_json(silent=True)
-    print(temp_data)
+    print(temp_data['dt'])
 
     return temp_data
 
-
+# 0902 // temp data get요청으로 gps json data 리턴
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
-    print(temp_data)
 
     return temp_data
 
