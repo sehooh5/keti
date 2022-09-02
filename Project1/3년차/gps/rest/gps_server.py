@@ -86,10 +86,13 @@ def gps_save():
 
     return "GPS data is saved in Edge Server!"
 
+
 @app.route('/get_gpsData', methods=['GET'])
 def get_gpsData():
     did = request.args.get('did')
-    c.execute(f"SELECT max(id) FROM {did}")
+    
+    # id 바꿔야함
+    c.execute(f"SELECT max(id) FROM {did}_save")
     mid = c.fetchone()[0]
     if mid == None:
         msg="None"
@@ -110,7 +113,7 @@ def get_gpsData():
 
         return json_data
 
-# 이번 8/29 회의때는 임의의 정보 전달(상암 전자회관)
+# 0902 // 1초마다 GPS 데이터 읽는 API
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
 
