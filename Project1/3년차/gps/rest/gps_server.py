@@ -114,6 +114,15 @@ def get_gpsData():
         return json_data
 
 # 0902 // 1초마다 GPS 데이터 읽는 API
+@app.route('/gps_temp', methods=['GET'])
+def gps_temp():
+    json_data = request.get_json(silent=True)
+    print(json_data)
+
+
+    return json_data
+
+
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
 
