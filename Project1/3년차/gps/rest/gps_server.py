@@ -113,7 +113,7 @@ def get_gpsData():
 
         return json_data
 
-# 0902 // 1초마다 GPS 데이터 읽는 API
+# 0902 // 1초마다 GPS client 에서 데이터송되는 API
 @app.route('/gps_temp', methods=['POST'])
 def gps_temp():
     global temp_data
@@ -126,6 +126,7 @@ def gps_temp():
 def get_gps():
     cid = request.args.get('cid')
     dt = datetime.datetime.utcnow().strftime("%d/%m/%Y, %H:%M:%S")
+
     if cid == temp_data['cid']:
         code = "0000"
         message = "처리 성공"
@@ -158,8 +159,9 @@ def get_gps():
             "message": message,
         }
     print(data)
+    json_data = json.loads(data)
 
-    return data
+    return json_data
 
 
 app.run(host="123.214.186.162",port=port)
