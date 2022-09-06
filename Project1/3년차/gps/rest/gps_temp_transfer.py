@@ -18,20 +18,19 @@ while True:
             else:
                 lat_row = str(round(float(row[0]) / 100 + 0.232578, 6))
                 lon_row = str(round(float(row[2]) / 100 + 0.353769, 6))
-                gps_id = os.getlogin()
+                cid = os.getlogin()
                 print(lat_row, lon_row)
 
                 data = {
-                    'gps_id': gps_id,
+                    "cid": cid,
                     "gps" : {
                         "lat": lat_row,
                         "lat_dir": row[1],
                         "lon": lon_row,
                         "lon_dir": row[3],
+                        "alt": row[4],
+                        "alt_units": row[5],
                     },
-                    "alt": row[4],
-                    "alt_units": row[5],
-                    "dt": row[6]
                 }
                 requests.post(f'{url}/gps_temp', json=data)
 

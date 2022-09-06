@@ -124,6 +124,10 @@ def gps_temp():
 # 0902 // temp data get요청으로 gps json data 리턴
 @app.route('/get_gps', methods=['GET'])
 def get_gps():
+    cid = request.args.get('cid')
+    dt = datetime.datetime.utcnow().strftime("%d/%m/%Y, %H:%M:%S")
+    if cid == temp_data['cid']:
+        print("cid 맞음")
 
     return temp_data
 
