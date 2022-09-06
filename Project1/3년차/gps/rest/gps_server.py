@@ -159,7 +159,7 @@ def get_gps():
             "message": message,
         }
     print(data)
-    json_data = json.loads(data)
+    json_data = json.dumps(data)
 
     return json_data
 
