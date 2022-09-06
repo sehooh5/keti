@@ -813,6 +813,47 @@
 
 #### 0902
 
-- 어제 저장된 GPS 정보 1초마다 Edge Server 로 전송하는 코드짜기
+- 어제 저장된 GPS 정보 1초마다 Edge Server 로 전송하는 코드짜기 - 완료
+
 - CCTV, 5G모듈, PC 를 모두 실험실에 세팅 - rtsp 영상 확인 완료
 
+- **완성 내용**
+
+  - 화요일부터 인텔리빅스에서 사용
+
+    - 영상 전송
+
+      - 주소 : rtsp://123.214.186.162:8554/videoMain
+      - 서버 운영 : 
+        - 미니pc : 
+          - `cvlc -vvv rtsp://root:keti1234@192.168.225.30:88/videoMain --sout="#rtp{dst=123.214.186.162,port=5004,mux=ts}" --no-sout-all --sout-keep  `
+        - Edge server :
+          - `cvlc -vvv rtp://123.214.186.162:5004 --sout="#rtp{sdp=rtsp://:8554/videoMain}" --no-sout-all --sout-keep`
+
+    - gps 데이터
+
+      - 주소 : http://123.214.186.162:8088/get_gps
+
+      - 데이터 response 예시 : 
+
+        - ```
+          {
+              "alt": "24.7",
+              "alt_units": "M",
+              "dt": "09/01/2022, 05:44:04",
+              "gps": {
+                  "lat": "37.598308",
+                  "lat_dir": "N",
+                  "lon": "126.841352",
+                  "lon_dir": "E"
+              },
+              "gps_id": "keti0"
+          }
+          ```
+
+      - 서버 운영 : 
+
+        - 미니pc :
+          - `python3 gps_temp_transer.py`
+        - Edge server : 
+          - `python3 gps_server.py`
