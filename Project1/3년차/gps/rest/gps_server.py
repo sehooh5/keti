@@ -136,11 +136,11 @@ def get_gps():
             "dt": dt,
             "gps": {
                 "lat": temp_data['gps']['lat'],
-                # "lat_dir": row[1],
-                # "lon": lon_row,
-                # "lon_dir": row[3],
-                # "alt": row[4],
-                # "alt_units": row[5],
+                "lat_dir": temp_data['gps']['lat_dir'],
+                "long": temp_data['gps']['lon'],
+                "long_dir": temp_data['gps']['lon_dir'],
+                "alt": temp_data['gps']['alt'],
+                "alt_units": temp_data['gps']['alt_units'],
             },
         }
     elif cid != temp_data['cid']:
