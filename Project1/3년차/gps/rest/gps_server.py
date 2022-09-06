@@ -127,9 +127,39 @@ def get_gps():
     cid = request.args.get('cid')
     dt = datetime.datetime.utcnow().strftime("%d/%m/%Y, %H:%M:%S")
     if cid == temp_data['cid']:
-        print("cid 맞음")
+        code = "0000"
+        message = "처리 성공"
+        data = {
+            "code": code,
+            "message": message,
+            "cid": temp_data['cid'],
+            "dt": dt,
+            "gps": {
+                "lat": temp_data['gps']['lat'],
+                # "lat_dir": row[1],
+                # "lon": lon_row,
+                # "lon_dir": row[3],
+                # "alt": row[4],
+                # "alt_units": row[5],
+            },
+        }
+    elif cid != temp_data['cid']:
+        code = "0003"
+        message = "ID 오류"
+        data = {
+            "code": code,
+            "message": message,
+        }
+    else:
+        code = "9999"
+        message = "기타 오류"
+        data = {
+            "code": code,
+            "message": message,
+        }
+    print(data)
 
-    return temp_data
+    return data
 
 
 app.run(host="123.214.186.162",port=port)
