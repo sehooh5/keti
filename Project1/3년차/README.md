@@ -1088,4 +1088,12 @@
 
 - 5G 모뎀 모델 선정
   - LG u+ 통해서 두개 모델 구매 후 요금제 별도 구매
-- 
+- 과제 전체 구성회의
+  - 진행 순서
+    - cvlc rtsp 재전송 명령을 python SW 로 구성하는데 여러대의 device 와 연결을 할 수 있는지 확인
+    - 미니PC 4대 - Master, Edge(worker), CCTV, BlackBox
+    - CCTV 1대
+    - BB 1대
+    - IP 는 5G 없이 내부망으로 진행
+    - 확보 후 작년 EDMS 서버 살려서 되는지 테스트해보기
+  - EDMS 에서 Edge 와 Device 들이 여러대 연결되어있으면 모든 Device 와 연결될 수 있게 구성할 수 있는지 확인
