@@ -1116,3 +1116,26 @@
     - CCTV  : rtsp://keti:keti1234@192.168.0.73:88/videoMain
   - keti2(M)
   - keti1(W)
+- 필요 명령 : 
+  - BB : 
+    - cvlc -vvv rtsp://admin:admin@192.168.0.101:554/h264 --sout="#rtp{dst=**192.168.0.99**,port=**5001**,mux=ts}" --no-sout-all --sout-keep
+  - CCTV : 
+    - cvlc -vvv rtsp://keti:keti1234@192.168.0.73:88/videoMain --sout="#rtp{dst=**192.168.0.99**,port=**5002**,mux=ts}" --no-sout-all --sout-keep
+  - Edge server :
+    - cvlc -vvv rtp://:**5001** --sout="#rtp{sdp=rtsp://:**8551**/videoMain}" --no-sout-all --sout-keep
+    - cvlc -vvv rtp://:**5002** --sout="#rtp{sdp=rtsp://:**8552**/videoMain}" --no-sout-all --sout-keep
+
+
+
+#### 0922
+
+- SW 배포와 Device 연결 부분 시나리오 구성
+
+  1. SW를 Device 선택 시 만듬 >>> SW 배포
+
+  2. SW를 배포 >>> Device 선택 시 정보들을 실행중인 Edge 의 Pod으로 전달 >>> Pod 은 해당 정보로 해당 Device 들을 RTSP 재전송 시작
+
+- 의문 : 
+
+  - Pod 은 독립적으로 실행되는데 Device 정보를 보낼수 있고 사용이 가능한지?
+  - Pod 의 Port 는 NodePort 인데 각 Device에서 RTP 전송시 보낼 수 있는지? 상관이 있는지?
