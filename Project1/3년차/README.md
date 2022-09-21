@@ -1108,3 +1108,11 @@
   - PC1,2 에서 Edge PC로 rtp 전송
   - Edge PC에서 [rtsp 재전송 SW] 각각 실행
   - 원래 PC에서 vlc 잘 실행되는지 확인
+- 구성 : 
+  - 카메라는 실험실에(추후에 5G 모뎀오면 위치 변경)
+  - BB - car01(실험실)
+    - BB  : rtsp://192.168.0.101:554/h264
+  - CCTV - cctv01
+    - CCTV  : rtsp://keti:keti1234@192.168.0.73:88/videoMain
+  - keti2(M)
+  - keti1(W)
