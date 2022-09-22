@@ -1133,9 +1133,69 @@
 
   1. SW를 Device 선택 시 만듬 >>> SW 배포
 
-  2. SW를 배포 >>> Device 선택 시 정보들을 실행중인 Edge 의 Pod으로 전달 >>> Pod 은 해당 정보로 해당 Device 들을 RTSP 재전송 시작
+  2. **SW를 배포 >>> Device 선택 시 정보들을 실행중인 Edge 의 Pod으로 전달 >>> Pod 은 해당 정보로 해당 Device 들을 RTSP 재전송 시작 (유력)**
 
 - 의문 : 
 
   - Pod 은 독립적으로 실행되는데 Device 정보를 보낼수 있고 사용이 가능한지?
+    - 외부에서 **nodeport** 로 rest server에 request 요청 가능
   - Pod 의 Port 는 NodePort 인데 각 Device에서 RTP 전송시 보낼 수 있는지? 상관이 있는지?
+    - **전년도에는 하지 않앗던 방식이라 해봐야함**
+
+- **2번 내용을 토대로한 SW**
+
+  1. rest server 
+
+  2. 요청 서버에서 Edge-Devices 선택 시 정보들을 json 형식으로 데이터를 받는다
+
+     - 예시 : 
+
+     - ```
+       {
+       	"d_list" : [
+       		{"d_id" : "cctv01"},
+       		{"d_id" : "cctv02"},
+       		{"d_id" : "car01"},
+       		{"d_id" : "car04"},
+       	]
+       }
+       ```
+
+  3. json 데이터를 파싱하여
+
+  4. d_list 내 데이터의 숫자를 파악
+
+  5. d_id 갯수만큼 rtsp 재전송 서버를 구동해준다
+
+- 진행중 : 
+
+  - SW 프로토타입 제작 시작
+
+    - **외부-내부 sw 로 request 요청이 안됨**
+
+    - 포트포워딩 설정
+
+      - ```
+        netsh interface portproxy add v4tov4 listenport=6100 listenaddress=123.214.186.244 connectport=5100 connectaddress=192.168.0.20
+        
+        netsh interface portproxy add v4tov4 listenport=6929 listenaddress=123.214.186.244 connectport=5929 connectaddress=192.168.0.20
+        ```
+
+    - 포트포워딩 해제
+
+      - ```
+        netsh interface portproxy delete v4tov4 listenport=6100 listenaddress=123.214.186.244
+        ```
+
+    - 포트포워딩 확인
+
+      - ```
+        netsh interface portproxy show v4tov4
+        ```
+
+        
+
+#### 0923
+
+- 계속 해당 sw 서버로 실행이 안된다!!!
+  - 포트포워딩? 방화벽? 왜 안되나...
