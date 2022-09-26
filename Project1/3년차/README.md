@@ -1153,10 +1153,10 @@
      - ```
        {
        	"d_list" : [
-       		{"d_id" : "cctv01"},
-       		{"d_id" : "cctv02"},
-       		{"d_id" : "car01"},
-       		{"d_id" : "car04"},
+       		{"d_id" : "cctv01", "rtp_port" : "5001"},
+       		{"d_id" : "cctv02", "rtp_port" : "5002"},
+       		{"d_id" : "car01", "rtp_port" : "5003"},
+       		{"d_id" : "car04", "rtp_port" : "5004"},
        	]
        }
        ```
@@ -1200,3 +1200,9 @@
 - 계속 해당 sw 서버로 실행이 안된다!!
   - 포트포워딩? 방화벽? 왜 안되나...
   - git 으로 pull 받아서 해당 pc 에서 실행해보자
+    - Edge 서버에 python module 설치 : flask, flask_cors
+    - 같은 ip 라 어차피 안됨
+  - 일단 네트워크 제외하고 진행
+- 진행 : 
+  - **디바이스-> 엣지로 rtp 전송하고있는 rtp_port 도 디바이스 DB에 저장해줘야함**
+  - 

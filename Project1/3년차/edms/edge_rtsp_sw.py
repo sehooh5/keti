@@ -18,10 +18,15 @@ print(ex_ip)
 def index():
     return "Index"
 
-@app.route('/device_ids', methods=['POST'])
-def device_ids():
-    json_data = request.get_json(silent=True)
-    print(json_data)
+@app.route('/act_device', methods=['POST'])
+def act_device():
+    json_data = request.get_json(silent=True)['d_list']
+    # print(json_data)
+    for data in json_data:
+        rtp_port = data['rtp_port']
+        rtsp_port = str(int(rtp_port)+3550)
+        print(f"rtp 포트번호 {rtp_port}와 rtsp 포트번호 {rtsp_port}로 실행 ")
+        os.system(f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
 
     return "200"
 
