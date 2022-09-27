@@ -13,7 +13,6 @@ CORS(app)
 # print(socket.gethostname()) # DESKTOP-5OUO6UM
 host_ip = socket.gethostbyname((socket.gethostname())) # 내부 IP : 192.168.0.20
 ex_ip = requests.get("https://api.ipify.org").text # 외부 IP : 123.214.186.244
-# print(ex_ip)
 
 @app.route('/')
 def index():
@@ -21,8 +20,15 @@ def index():
 
 @app.route('/act_device', methods=['POST'])
 def act_device():
-    json_data = request.get_json(silent=True)['d_list']
-    # print(json_data)
+    json_data = request.get_json(silent=True)
+    if json_data == None:
+        res = {
+            'code': '0020',
+            'message': '데이터 Missing 오류'
+        }
+        return json.dumps(res, ensure_ascii=False)
+    json_data = json_data['d_list']
+
     def act_cvlc(rtp_port, rtsp_port):
         os.system(
             f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
@@ -33,11 +39,6 @@ def act_device():
         print(f"rtp 포트번호 {rtp_port}와 rtsp 포트번호 {rtsp_port}로 실행 ")
         th = Thread(target=act_cvlc, args=(rtp_port, rtsp_port))
         th.start()
-        # os.system(f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
-        # p = Popen(f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
-        # p.terminate()
-
-
 
     return "200"
 
