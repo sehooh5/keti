@@ -1242,4 +1242,8 @@
   - 현재 서버 : 
     - keti2 : master / 192.168.0.28
     - keti1 : worker / 192.168.0.25
+  - cors 오류때문에 예지누나 서버에서 master 서버로 api 호출이 안됨, 오류내용 : 
+    - Access to fetch at 'http://192.168.0.28:5000/add_newEdgeCluster' from origin 'http://123.214.186.244:9998' has been blocked by CORS policy: The request client is not a secure context and the resource is in more-private address space `private`
+    - 해결 방법 : 
+      - chrome://flags/#block-insecure-private-network-requests 크롬 접속 후 disabled 변경
 

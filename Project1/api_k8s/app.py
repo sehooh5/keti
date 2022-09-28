@@ -854,7 +854,8 @@ def get_nodePort():
 
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-
+    json_data = request.get_json(silent=True)
+    print(json_data)
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
