@@ -1250,5 +1250,6 @@
       - cors 부분을 손봤는데 다시 원래대로 돌리니까 됨
   - 해결 해야할 것 : 
     - subprocess returned non-zero exit status 1
-    - paramiko unable to connect to port 22 on 102.168.0.28(마스터 서버로 명령실행 불가)
+      - sudo kubeadm reset 으로 master 도 지워가면서 해보기
+    - paramiko unable to connect to port 22 on 102.168.0.28(마스터, 워커 서버로 명령실행 불가)
 

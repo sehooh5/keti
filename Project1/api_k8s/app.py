@@ -171,7 +171,7 @@ def add_newEdgeCluster():
         wip = res.json()["ip"]
         host_name = res.json()["host_name"]
         host_pwd = res.json()["host_pwd"]
-
+        print(host_name, host_pwd)
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
         stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
