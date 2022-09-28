@@ -65,7 +65,7 @@ def node_port():
     return num
 
 
-API_URL = "http://192.168.0.69:4882"
+API_URL = "http://123.214.186.244:4882"
 
 # IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
@@ -854,7 +854,7 @@ def get_nodePort():
 
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    print("hi")
+
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
