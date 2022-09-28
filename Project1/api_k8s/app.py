@@ -25,7 +25,7 @@ from k8s import node_selector as ns
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
