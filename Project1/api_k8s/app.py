@@ -898,25 +898,25 @@ def remove_edgeCluster():
         hnames.append(res.json()["host_name"])
         pwds.append(res.json()["host_pwd"])
 
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: edge server list : {names}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: edge server list : {names}")
 
-        for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
+    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
 
-            os.system(f"kubectl delete node {name}")
+        os.system(f"kubectl delete node {name}")
 
-            cli.connect(ip, port=22, username=hname, password=pwd)
+        cli.connect(ip, port=22, username=hname, password=pwd)
 
-            stdin, stdout, stderr = cli.exec_command(
-                "echo y | sudo kubeadm reset", get_pty=True)
-            stdin.write('keti\n')
-            stdin.flush()
+        stdin, stdout, stderr = cli.exec_command(
+            "echo y | sudo kubeadm reset", get_pty=True)
+        stdin.write('keti\n')
+        stdin.flush()
 
-            lines = stdout.readlines()
-            print(''.join(lines))
+        lines = stdout.readlines()
+        print(''.join(lines))
 
-            time.sleep(2.0)
-            cli.close()
+        time.sleep(2.0)
+        cli.close()
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: edge cluster deleted!!!")
