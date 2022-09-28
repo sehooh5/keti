@@ -143,9 +143,6 @@ def add_newEdgeCluster():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: master server ip: {mip}")
 
-    m_output = subprocess.check_output(
-        "ls", shell=True).decode('utf-8')
-    print(m_output)
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
         f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
@@ -171,7 +168,7 @@ def add_newEdgeCluster():
         wip = res.json()["ip"]
         host_name = res.json()["host_name"]
         host_pwd = res.json()["host_pwd"]
-        print(host_name, host_pwd)
+
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
         stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)

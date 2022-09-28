@@ -1231,25 +1231,50 @@
 #### 0928
 
 - keti1 워커노드의 쿠버네티스 초기화 후 다시 join 해서 해보기! - 완료
+
 - 포트포워딩도 가능!
+
 - 진행 해야할 내용 : 
+
   - 이제 완성된 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
+
     - 마스터 노드에서 실행될 `app.py` 가 필요함
       - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
       - sw 배포(master -> worker)
       - 두 기능이 포함되어야함 
+
   - 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
+
   - 현재 서버 : 
+
     - keti2 : master / 192.168.0.28
     - keti1 : worker / 192.168.0.25
+
   - cors 오류때문에 예지누나 서버에서 master 서버로 api 호출이 안됨, 오류내용 : 
+
     - Access to fetch at 'http://192.168.0.28:5000/add_newEdgeCluster' from origin 'http://123.214.186.244:9998' has been blocked by CORS policy: The request client is not a secure context and the resource is in more-private address space `private`
     - 해결 방법 : 
       - chrome://flags/#block-insecure-private-network-requests 크롬 접속 후 disabled 변경
     - 요청은 위 방법으로 해결했는데 api 요청은 되는데 어떤 동작도 수행하지 않음
       - cors 부분을 손봤는데 다시 원래대로 돌리니까 됨
+
   - 해결 해야할 것 : 
+
     - subprocess returned non-zero exit status 1
+
       - sudo kubeadm reset 으로 master 도 지워가면서 해보기
+
     - paramiko unable to connect to port 22 on 102.168.0.28(마스터, 워커 서버로 명령실행 불가)
+
+      - 해당 서버에 ssh-server 가 설치되어 있지 않아 발생하는데, openssh-server 를 설치해서 22번 포트를 열어주면 된다
+
+      - ```
+        # openssh-server 설치
+        sudo apt-get install openssh-server
+        
+        # 22포트 열렸는지 확인
+        netstat -ntl
+        ```
+
+      - 
 
