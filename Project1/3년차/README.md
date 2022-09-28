@@ -1248,4 +1248,7 @@
       - chrome://flags/#block-insecure-private-network-requests 크롬 접속 후 disabled 변경
     - 요청은 위 방법으로 해결했는데 api 요청은 되는데 어떤 동작도 수행하지 않음
       - cors 부분을 손봤는데 다시 원래대로 돌리니까 됨
+  - 해결 해야할 것 : 
+    - subprocess returned non-zero exit status 1
+    - paramiko unable to connect to port 22 on 102.168.0.28(마스터 서버로 명령실행 불가)
 
