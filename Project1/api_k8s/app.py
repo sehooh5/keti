@@ -25,7 +25,7 @@ from k8s import node_selector as ns
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 
 # 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
@@ -854,7 +854,6 @@ def get_nodePort():
 
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    print("여기!!!!!!!!!!!")
     
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(

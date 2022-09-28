@@ -1246,4 +1246,5 @@
     - Access to fetch at 'http://192.168.0.28:5000/add_newEdgeCluster' from origin 'http://123.214.186.244:9998' has been blocked by CORS policy: The request client is not a secure context and the resource is in more-private address space `private`
     - 해결 방법 : 
       - chrome://flags/#block-insecure-private-network-requests 크롬 접속 후 disabled 변경
+    - 요청은 위 방법으로 해결했는데 api 요청은 되는데 어떤 동작도 수행하지 않음
 
