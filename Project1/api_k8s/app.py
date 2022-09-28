@@ -145,7 +145,7 @@ def add_newEdgeCluster():
 
     # 마스터 엣지 구성
     m_output = os.system(
-        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}",shell=True).decode('utf-8')
+        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}").decode('utf-8')
     print("print ::::: ", m_output)
 
     m_output = subprocess.check_output(
