@@ -1247,4 +1247,5 @@
     - 해결 방법 : 
       - chrome://flags/#block-insecure-private-network-requests 크롬 접속 후 disabled 변경
     - 요청은 위 방법으로 해결했는데 api 요청은 되는데 어떤 동작도 수행하지 않음
+      - cors 부분을 손봤는데 다시 원래대로 돌리니까 됨
 
