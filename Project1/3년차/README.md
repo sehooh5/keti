@@ -1250,7 +1250,7 @@
     - keti2 : master / 192.168.0.28
     - keti1 : worker / 192.168.0.25
 
-  - cors 오류때문에 예지누나 서버에서 master 서버로 api 호출이 안됨, 오류내용 : 
+  - cors 오류때문에 예지누나 서버에서 master 서버로 api 호출이 안됨, 오류내용 : 완료
 
     - Access to fetch at 'http://192.168.0.28:5000/add_newEdgeCluster' from origin 'http://123.214.186.244:9998' has been blocked by CORS policy: The request client is not a secure context and the resource is in more-private address space `private`
     - 해결 방법 : 
@@ -1264,7 +1264,7 @@
 
       - sudo kubeadm reset 으로 master 도 지워가면서 해보기
 
-    - paramiko unable to connect to port 22 on 102.168.0.28(마스터, 워커 서버로 명령실행 불가)
+    - paramiko unable to connect to port 22 on 102.168.0.28(마스터, 워커 서버로 명령실행 불가) - 완료
 
       - 해당 서버에 ssh-server 가 설치되어 있지 않아 발생하는데, openssh-server 를 설치해서 22번 포트를 열어주면 된다
 
@@ -1276,5 +1276,11 @@
         netstat -ntl
         ```
 
-      - 
+
+
+#### 0929
+
+- subprocess 는 지워가면서 계속 해보고
+- 지금은 마스터도 클러스터링 안함!!
+- 클러스터링 먼저 잘되게끔 해야함!
 
