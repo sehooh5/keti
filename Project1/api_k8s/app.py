@@ -906,23 +906,27 @@ def remove_edgeCluster():
         "%c")[:-4],f"{name} : delete node from cluster!")
         os.system(f"kubectl delete node {name}")
 
-        print(datetime.datetime.now().strftime(
-        "%c")[:-4],f"SSH Connect to {name}")
-        print(f"IP : {ip} / username : {hname} / password : {pwd}")
-        cli.connect(ip, port=22, username=hname, password=pwd,look_for_keys=False)
+        if name == "keti2":
+            os.system("echo 'keti' | echo y | sudo kubeadm reset")
+        else :
+            print(datetime.datetime.now().strftime(
+            "%c")[:-4],f"SSH Connect to {name}")
 
-        print(datetime.datetime.now().strftime(
-        "%c")[:-4],f"{name} : kubeadm reset!")
-        stdin, stdout, stderr = cli.exec_command(
-            "echo y | sudo kubeadm reset", get_pty=True)
-        stdin.write('keti\n')
-        stdin.flush()
+            print(f"IP : {ip} / username : {hname} / password : {pwd}")
+            cli.connect(ip, port=22, username=hname, password=pwd)
 
-        lines = stdout.readlines()
-        print(''.join(lines))
+            print(datetime.datetime.now().strftime(
+            "%c")[:-4],f"{name} : kubeadm reset!")
+            stdin, stdout, stderr = cli.exec_command(
+                "echo y | sudo kubeadm reset", get_pty=True)
+            stdin.write('keti\n')
+            stdin.flush()
 
-        time.sleep(2.0)
-        cli.close()
+            lines = stdout.readlines()
+            print(''.join(lines))
+
+            time.sleep(2.0)
+            cli.close()
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: edge cluster deleted!!!")
