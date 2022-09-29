@@ -32,6 +32,22 @@ def param():
 
     return "200"
 
+@app.route('/worker', methods=['GET'])
+def worker():
+    ip = '192.168.0.25'
+    hname = "keti1"
+    pwd = "keti"
+    cli.connect(ip, port=22, username=hname, password=pwd)
+    stdin, stdout, stderr = cli.exec_command("hostname", get_pty=True)
+    stdin.write('keti\n')
+    stdin.flush()
+    lines = stdout.readlines()
+    print(''.join(lines))
+
+    cli.close()
+
+    return "200"
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", threaded=True, port=5000)
 
