@@ -18,7 +18,10 @@ def index():
 
 @app.route('/param', methods=['GET'])
 def param():
-    cli.connect('192.168.0.28', port=22, username="keti2", password="keti")
+    ip = '192.168.0.28'
+    hname = "keti2"
+    pwd = "keti"
+    cli.connect(ip, port=22, username=hname, password=pwd)
     stdin, stdout, stderr = cli.exec_command("hostname", get_pty=True)
     stdin.write('keti\n')
     stdin.flush()
