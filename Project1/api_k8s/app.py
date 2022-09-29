@@ -902,11 +902,16 @@ def remove_edgeCluster():
         "%c")[:-4], f" {func}: edge server list : {names}")
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
-
+        print(datetime.datetime.now().strftime(
+        "%c")[:-4],f"{name} : delete node from cluster!")
         os.system(f"kubectl delete node {name}")
 
+        print(datetime.datetime.now().strftime(
+        "%c")[:-4],f"SSH Connect to {name}")
         cli.connect(ip, port=22, username=hname, password=pwd)
 
+        print(datetime.datetime.now().strftime(
+        "%c")[:-4],f"{name} : kubeadm reset!")
         stdin, stdout, stderr = cli.exec_command(
             "echo y | sudo kubeadm reset", get_pty=True)
         stdin.write('keti\n')
