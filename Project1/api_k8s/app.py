@@ -908,7 +908,7 @@ def remove_edgeCluster():
 
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"SSH Connect to {name}")
-        print(f"IP : {ip} /n username : {hname} /n password : {pwd}")
+        print(f"IP : {ip} / username : {hname} / password : {pwd}")
         cli.connect(ip, port=22, username=hname, password=pwd)
 
         print(datetime.datetime.now().strftime(

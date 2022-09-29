@@ -1280,7 +1280,9 @@
 
 #### 0929
 
-- subprocess 는 지워가면서 계속 해보고
-- 지금은 마스터도 클러스터링 안함!!
 - 클러스터링 먼저 잘되게끔 해야함!
+  - 클러스터링 잘됨
+- 클러스터 삭제가 안됨
+  - paramiko.ssh_exception.AuthenticationException: Authentication failed. 에러
+  - 
 
