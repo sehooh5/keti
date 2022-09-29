@@ -908,7 +908,8 @@ def remove_edgeCluster():
 
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"SSH Connect to {name}")
-        cli.connect(ip, port=22, username=hname, password=pwd, allow_agent=False, look_for_keys=False)
+        print(f"IP : {ip} /n username : {hname} /n password : {pwd}")
+        cli.connect(ip, port=22, username=hname, password=pwd)
 
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"{name} : kubeadm reset!")
