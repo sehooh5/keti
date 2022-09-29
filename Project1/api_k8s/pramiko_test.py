@@ -22,7 +22,7 @@ def param():
     hname = "keti2"
     pwd = "keti"
     cli.connect(ip, port=22, username=hname, password=pwd)
-    stdin, stdout, stderr = cli.exec_command("hostname", get_pty=True)
+    stdin, stdout, stderr = cli.exec_command("ls", get_pty=True)
     stdin.write('keti\n')
     stdin.flush()
     lines = stdout.readlines()
@@ -38,7 +38,7 @@ def worker():
     hname = "keti1"
     pwd = "keti"
     cli.connect(ip, port=22, username=hname, password=pwd)
-    stdin, stdout, stderr = cli.exec_command("hostname", get_pty=True)
+    stdin, stdout, stderr = cli.exec_command("ls", get_pty=True)
     stdin.write('keti\n')
     stdin.flush()
     lines = stdout.readlines()
