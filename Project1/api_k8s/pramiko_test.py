@@ -42,7 +42,7 @@ def worker():
     stdin.write('keti\n')
     stdin.flush()
     lines = stdout.readlines()
-    print(''.join(lines))
+    print("print : ",''.join(lines))
 
     cli.close()
 
