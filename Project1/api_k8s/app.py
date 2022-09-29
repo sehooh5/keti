@@ -905,7 +905,9 @@ def remove_edgeCluster():
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"{name} : delete node from cluster!")
         os.system(f"kubectl delete node {name}")
-
+        
+        # 0929 
+        # keti2(마스터)에서 ssh 연결시도시 Auth 에러떠서 따로 실행시킴
         if name == "keti2":
             os.system("echo 'keti' | echo y | sudo kubeadm reset")
         else :

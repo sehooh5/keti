@@ -1247,8 +1247,8 @@
 
   - 현재 서버 : 
 
-    - keti2 : master / 192.168.0.28
-    - keti1 : worker / 192.168.0.25
+    - **keti2 : master / 192.168.0.28**
+    - **keti1 : worker / 192.168.0.25**
 
   - cors 오류때문에 예지누나 서버에서 master 서버로 api 호출이 안됨, 오류내용 : 완료
 
@@ -1258,11 +1258,12 @@
     - 요청은 위 방법으로 해결했는데 api 요청은 되는데 어떤 동작도 수행하지 않음
       - cors 부분을 손봤는데 다시 원래대로 돌리니까 됨
 
-  - 해결 해야할 것 : 
+  - 해결 해야할 것 : (완료)
 
     - subprocess returned non-zero exit status 1
 
       - sudo kubeadm reset 으로 master 도 지워가면서 해보기
+        - **k8s 초기 설정 시 이미 master 가 설정되어있으면 에러 발생하는현상**
 
     - paramiko unable to connect to port 22 on 102.168.0.28(마스터, 워커 서버로 명령실행 불가) - 완료
 
@@ -1281,8 +1282,35 @@
 #### 0929
 
 - 클러스터링 먼저 잘되게끔 해야함!
-  - 클러스터링 잘됨
-- 클러스터 삭제가 안됨
-  - paramiko.ssh_exception.AuthenticationException: Authentication failed. 에러
-  - 
 
+  - 클러스터링 - 완료
+
+- 클러스터 삭제가 안됨 - 완료
+
+  - paramiko.ssh_exception.AuthenticationException: Authentication failed. 에러
+
+    - keti2(마스터)에서 paramiko ssh 연결시도시 Auth 에러떠서 if 문으로 분류해서 os.system으로 kubeadm reset 시켜줬음
+
+      ```
+              if name == "keti2":
+                  os.system("echo 'keti' | echo y | sudo kubeadm reset")
+      ```
+
+- Linux 에서 sudo 실행 시 비밀번호 미리 입력하는 방법
+
+  - ```
+    echo '비밀번호' | echo y(yes 도 사용가능) | sudo -S 명령어
+    ```
+
+
+
+#### 0930
+
+- 진행 해야할 내용 : 
+  - sw 업로드, 배포 - 작년에 했던 내용 토대로 누나 서버에서 어떻게 작동하는지 파악 후 진행
+  - 이제 완성된 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
+    - 마스터 노드에서 실행될 `app.py` 가 필요함
+      - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
+      - sw 배포(master -> worker)
+      - 두 기능이 포함되어야함 
+  - 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
