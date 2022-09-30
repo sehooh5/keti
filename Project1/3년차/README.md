@@ -1313,6 +1313,7 @@
     - 문제 발생
       - docker image 이름이 <none>으로 입력됨
       - docker push 실행이 되지 않음
+      - docker login  기능 실행 - try except 으로 error 캐치해서 처리
   - 이제 완성된 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
     - 마스터 노드에서 실행될 `app.py` 가 필요함
       - 작년꺼와 마찬가지로 sw 업로드(vms -> master)

@@ -19,7 +19,7 @@ RUN apt-get update \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install click flask flask_cors threading socket json requests
+RUN pip install flask flask_cors
 
 RUN mkdir /app
 WORKDIR /app
