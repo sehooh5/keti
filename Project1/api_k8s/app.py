@@ -476,18 +476,14 @@ def add_newUploadSw():
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         print("Docker image building completed!!")
         # docker login status 확인
-        # 로그인 되어있는지 확인
         try:
-            print("try!!")
-            d_login_status = subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-
+            print("Docker login status is Checking...")
+            subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
         except subprocess.CalledProcessError:
-            print("except!!")
-            print("Non-zero status !! ")
-
-        print("docker status : ", d_login_status)
-        print("Docker Login")
-        os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+            print("Docker login status : none")
+            # docker login 실행
+            print("Docker login..")
+            os.system("docker login -u sehooh5 -p @Dhtpgh1234")
         print("Docker image push to Docker hub..")
         os.system(f"docker push sehooh5/{fname}:latest")
         print("Docker image pushing completed!!")
