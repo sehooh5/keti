@@ -1309,6 +1309,10 @@
 - 진행 해야할 내용 : 
   - sw 업로드, 배포 - 작년에 했던 내용 토대로 5G_web 서버에서 어떻게 작동하는지 파악 후 진행
     - 내 pc에 `edge_rtsp_sw.zip` 파일이 5G_web 서버의 /openapi/uploads  폴더에 저장됨
+    - **잘 작동하는데 zip 파일에 `_`를 사용하면 안되고 `-`를 사용해야함!!**
+    - 문제 발생
+      - docker image 이름이 <none>으로 입력됨
+      - docker push 실행이 되지 않음
   - 이제 완성된 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
     - 마스터 노드에서 실행될 `app.py` 가 필요함
       - 작년꺼와 마찬가지로 sw 업로드(vms -> master)

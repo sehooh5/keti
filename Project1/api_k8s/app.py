@@ -461,7 +461,6 @@ def add_newUploadSw():
             "%c")[:-4], f"{func}: software name: {fname}")
         with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
-            print(data)
             select_cam.write(data.content)
         # print("select_cam : ", select_cam)
 
@@ -472,6 +471,7 @@ def add_newUploadSw():
             "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: docker image building...")
+        print(f"명령어 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest ."))
         os.system(
             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         print("Docker image building completed!! \n Docker image push to Docker hub..")
