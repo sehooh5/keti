@@ -3,7 +3,7 @@ import subprocess
 
 # 로그인 되어있는지 확인
 try:
-    subprocess.check_call("docker info | grep Username")
+    subprocess.check_call(["docker","info","|", "grep", "Username"])
 except subprocess.CalledProcessError:
     print(" Non-zero status  ")
 
