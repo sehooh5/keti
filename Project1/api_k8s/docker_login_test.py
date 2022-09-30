@@ -9,7 +9,7 @@ try:
 except subprocess.CalledProcessError:
     print("except!!")
     print("Non-zero status !! ")
-print(d_login_status)
+print("docker status : ", d_login_status)
 
 
 # 로그인 시도
