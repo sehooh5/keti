@@ -5,10 +5,11 @@ import subprocess
 try:
     print("try!!")
     d_login_status = subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-
 except subprocess.CalledProcessError:
-    print("except!!")
-    print("Non-zero status !! ")
+    print("docker login status : none")
+    os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+
+
 print("docker status : ", d_login_status)
 
 
