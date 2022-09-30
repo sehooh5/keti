@@ -461,6 +461,7 @@ def add_newUploadSw():
             "%c")[:-4], f"{func}: software name: {fname}")
         with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
+            print(data)
             select_cam.write(data.content)
         # print("select_cam : ", select_cam)
 
