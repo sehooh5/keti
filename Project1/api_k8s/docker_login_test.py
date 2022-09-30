@@ -2,7 +2,8 @@ import os
 import subprocess
 
 # 로그인 되어있는지 확인
-d_login_status=subprocess.check_output("docker info | grep Username", shell=True, errors="True").decode('utf-8')
+subprocess.run("docker info | grep Username", shell=True)
+d_login_status=subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
 #print(d_login_status)
 
 # 로그인 시도
