@@ -23,7 +23,7 @@ RUN pip install flask flask_cors
 
 RUN mkdir /app
 WORKDIR /app
-ADD ./edge_rtsp_sw /app/
+ADD ./edge-rtsp-sw /app/
 ENV OPENCV_VERSION="4.1.0"
 RUN pip install opencv-python
 RUN ln -s \
@@ -31,4 +31,4 @@ RUN ln -s \
   /usr/local/lib/python3.7/site-packages/cv2.so
 
 EXPOSE 5008
-CMD ["python", "/app/edge_rtsp_sw.py"]
+CMD ["python", "/app/edge-rtsp-sw.py"]

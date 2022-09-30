@@ -1312,11 +1312,25 @@
     - **잘 작동하는데 zip 파일에 `_`를 사용하면 안되고 `-`를 사용해야함!!**
     - 문제 발생
       - docker image 이름이 <none>으로 입력됨
+        - docker image building 이 제대로 안되서 그럼 수정해서 완료
       - docker push 실행이 되지 않음
       - docker login  기능 실행 - try except 으로 error 캐치해서 처리
   - 이제 완성된 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
-    - 마스터 노드에서 실행될 `app.py` 가 필요함
+    - 마스터 노드에서 실행될 `app.py` 가 필요함 - 기존 app.py 에서 진행중
       - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
       - sw 배포(master -> worker)
       - 두 기능이 포함되어야함 
   - 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
+
+
+
+#### 1004
+
+- 현재 완료 : 
+  - SW 가 upload되어 배포부터 시작하면 됨
+- 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
+  - 마스터 노드에서 실행될 `app.py` 가 필요함 - 기존 app.py 에서 진행중
+    - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
+    - sw 배포(master -> worker)
+    - 두 기능이 포함되어야함 
+- 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
