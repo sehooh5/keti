@@ -3,18 +3,21 @@ import os
 import json
 import socket
 import requests
-from flask import Flask, render_template, Response, request, jsonify
+from flask import Flask, render_template, Response, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 from threading import Thread
 
 app = Flask(__name__)
+
+
+
 # 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
 @app.route('/')
 def index():
-    return "Index"
+    return "index"
 
 @app.route('/param', methods=['GET'])
 def param():
@@ -49,5 +52,5 @@ def worker():
     return "200"
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", threaded=True, port=5000)
+    app.run(host="0.0.0.0", threaded=True, port=5050)
 
