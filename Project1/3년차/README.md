@@ -1342,13 +1342,31 @@
 #### 1005
 
 - 현재 완료 : 
+
   - SW 가 upload되어 배포부터 시작하면 됨
+  - docker image 는 생성(sw upload)되었으나 run 을 console 에서 실행 시 requests 모듈이 없다고 에러
+    - requests 모듈 install 명령을 Dockerfile 에 명시해둘 것 - 완료
+
 - 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
+
   - 마스터 노드에서 실행될 `app.py` 가 필요함 - 기존 app.py 에서 진행중
     - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
     - sw 배포(master -> worker)
     - 두 기능이 포함되어야함 
+
 - 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
+
 - 진행중 : 
-  - docker image 는 생성(sw upload)되었으나 run 을 console 에서 실행 시 requests 모듈이 없다고 에러
-    - requests 모듈 install 명령을 Dockerfile 에 명시해둘 것
+
+  - sw 배포중 오류 :  
+
+    - ```
+      Warning  FailedCreatePodSandBox  33s (x4 over 39s)   kubelet  (combined from similar events): Failed to create pod sandbox: rpc error: code = Unknown desc = failed to set up sandbox container "8d4142c7d138aaab04a1e57e35d2c61c1e2352490c9a4da36c68e013f0823342" network for pod "edge-rtsp-sw-keti1-59dd66fd7c-rqj4q": networkPlugin cni failed to set up pod "edge-rtsp-sw-keti1-59dd66fd7c-rqj4q_default" network: failed to delegate add: failed to set bridge addr: "cni0" already has an IP address different from 10.244.1.1/24
+      ```
+
+    - 해결 방법 : 
+
+      - 네트워크 (DNS) 문제로 ContainerCreating 에 멈춘 경우.
+        - 출처: https://crystalcube.co.kr/202 
+        - 따라해도 잘 안됨 -> master, worker 다 지울것!
+        - **다시 따라서 하는중!!! 오후에 다시 방법대로 다 지우고 시작해볼것!**
