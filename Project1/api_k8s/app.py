@@ -667,6 +667,8 @@ def add_newDeploySwInfo():
     # select_cam 앱의 타겟포트 지정
     elif fname == "select-cam":
         target_port = "5050"
+    elif fname == "edge-rtsp-sw":
+        target_port = "5008"
     docker_id = "sehooh5"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
