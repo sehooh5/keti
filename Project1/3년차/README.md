@@ -1344,19 +1344,10 @@
 - 현재 완료 : 
 
   - SW 가 upload되어 배포부터 시작하면 됨
+
   - docker image 는 생성(sw upload)되었으나 run 을 console 에서 실행 시 requests 모듈이 없다고 에러
+
     - requests 모듈 install 명령을 Dockerfile 에 명시해둘 것 - 완료
-
-- 소프트웨어 `/edms/edge_rtsp_sw.py` 가 Edge 에서 k8s 에 의해 배포되어 실행되고
-
-  - 마스터 노드에서 실행될 `app.py` 가 필요함 - 기존 app.py 에서 진행중
-    - 작년꺼와 마찬가지로 sw 업로드(vms -> master)
-    - sw 배포(master -> worker)
-    - 두 기능이 포함되어야함 
-
-- 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
-
-- 진행중 : 
 
   - sw 배포중 오류 :  
 
@@ -1367,6 +1358,117 @@
     - 해결 방법 : 
 
       - 네트워크 (DNS) 문제로 ContainerCreating 에 멈춘 경우.
+
+        - ```
+          # kubeadm reset
+          #systemctl stop kubelet
+          # systemctl stop docker
+          # rm -rf /var/lib/cni/
+          # rm -rf /var/lib/kubelet/*
+          # rm -rf /etc/cni/
+          # ifconfig cni0 down
+          # ifconfig flannel.1 down
+          # ifconfig docker0 down
+          # ip link delete cni0
+          # ip link delete flannel.1
+          ```
+
+        - 위 명령 실행 후 kubeadm 을 통한 init 처음부터 실행
+
+        - 따라해도 잘 안됨 -> master, worker 다 지울것! -완료
+
         - 출처: https://crystalcube.co.kr/202 
-        - 따라해도 잘 안됨 -> master, worker 다 지울것!
-        - **다시 따라서 하는중!!! 오후에 다시 방법대로 다 지우고 시작해볼것!**
+
+  - Edge에서 실행되고있는 Pod 실행 Index 주소 : 
+
+    - http://192.168.0.28:30453/
+      - NodePort : 30453(**포트포워딩으로 외부에서도 접속 가능하게 완료**)
+      - TargetPort : 5060(원본 edge-rtsp-sw.py에서 사용하는 Port)
+
+
+
+- 진행중 : 
+
+  - edge-rtsp-sw Pod 내부 메시지 : 
+
+    - ```
+      10.244.0.0 - - [05/Oct/2022 08:36:02] "POST /act_device HTTP/1.1" 200 -
+      sh: 1: cvlc: not found
+      sh: 1: cvlc: not found
+      ```
+
+    - **아마 sh와 cvlc 명령이 실행되지 않아서 발생하는것 같음,  해결해야함!!**
+
+
+
+- <mark>**전체 설계도**</mark>
+
+  - IP : 
+    - keti2(Master) : 192.168.0.28
+    - keti1(Worker) : 192.168.0.25
+    - cctv01 : 192.168.0.60 / rtsp://keti:keti1234@192.168.0.73:88/videoMain
+    - car01 : 192.168.0.96 / rtsp://192.168.0.101:554/h264
+
+  
+
+  - 디바이스들에서 SW가 실행되고 있는 keti1(W)로 rtp전송 명령어 : 
+
+    - cctv01 -> keti1(W) : 
+
+      ```
+      cvlc -vvv rtsp://keti:keti1234@192.168.0.73:88/videoMain --sout="#rtp{dst=192.168.0.25,port=5002,mux=ts}" --no-sout-all --sout-keep
+      ```
+
+    - car01 -> keti1(W) : 
+
+      ```
+      cvlc -vvv rtsp://192.168.0.101:554/h264 --sout="#rtp{dst=192.168.0.25,port=5001,m
+      ux=ts}" --no-sout-all --sout-keep
+      ```
+
+  - keti1에 배포된 SW의 Pod 으로 request 및 json 데이터 형식 : 
+
+    - request 요청 주소 : http://123.214.186.244:30453/act_device
+
+    - json 데이터 형식
+
+      ```
+      {
+      	"d_list" : [
+      		{"d_id" : "cctv01", "rtp_port" : "5002"},
+      		{"d_id" : "car01", "rtp_port" : "5001"}
+      	]
+      }
+      ```
+
+  - rtsp 재전송 주소 : 
+
+    - cctv01 : rtsp://123.214.186.244:8552/videoMain
+    - car01 : rtsp://123.214.186.244:8551/videoMain
+
+
+
+- **의문 :** 
+  - 만약 Worker  에서 실행되고있는 edge-rtsp-sw pod이 에러가 뜨면 어떻게?
+  - device 를 변경하고 싶을때는 어떻게?
+
+
+
+#### 1006
+
+- 진행중 : 
+  - edge-rtsp-sw Pod 내부 메시지 : 
+
+    ```
+    10.244.0.0 - - [05/Oct/2022 08:36:02] "POST /act_device HTTP/1.1" 200 -
+    sh: 1: cvlc: not found
+    sh: 1: cvlc: not found
+    ```
+
+    - **아마 sh와 cvlc 명령이 실행되지 않아서 발생하는것 같음,  해결해야함!!**
+
+
+
+- **의문 :** 
+  - 만약 Worker  에서 실행되고있는 edge-rtsp-sw pod이 에러가 뜨면 어떻게?
+  - device 를 변경하고 싶을때는 어떻게?
