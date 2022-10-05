@@ -1349,3 +1349,6 @@
     - sw 배포(master -> worker)
     - 두 기능이 포함되어야함 
 - 해당 파드(앱)의 노드포트를 vms 에서 알고있고, 노드포트로 앱에 디바이스 정보 전달해 rtsp 재전송 실행
+- 진행중 : 
+  - docker image 는 생성(sw upload)되었으나 run 을 console 에서 실행 시 requests 모듈이 없다고 에러
+    - requests 모듈 install 명령을 Dockerfile 에 명시해둘 것
