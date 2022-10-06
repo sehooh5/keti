@@ -1426,6 +1426,24 @@
       ux=ts}" --no-sout-all --sout-keep
       ```
 
+  
+
+  - keti1(W)에 배포된 Pod 에서 rtsp 명령어 : 
+
+    - car01
+
+      ```
+      cvlc -vvv rtp://:5001 --sout="#rtp{{sdp=rtsp://:8551/videoMain}}" --no-sout-all --sout-keep
+      ```
+
+    - cctv01
+
+      ```
+      cvlc -vvv rtp://:5002 --sout="#rtp{{sdp=rtsp://:8552/videoMain}}" --no-sout-all --sout-keep
+      ```
+
+    
+
   - keti1에 배포된 SW의 Pod 으로 request 및 json 데이터 형식 : 
 
     - request 요청 주소 : http://123.214.186.244:30453/act_device
@@ -1440,6 +1458,8 @@
       	]
       }
       ```
+
+    
 
   - rtsp 재전송 주소 : 
 
@@ -1456,7 +1476,7 @@
 
 #### 1006
 
-- 진행중 : 
+- 진행완료 : 
   - edge-rtsp-sw Pod 내부 메시지 : 
 
     ```
@@ -1466,12 +1486,35 @@
     ```
 
     - **아마 sh와 cvlc 명령이 실행되지 않아서 발생하는것 같음,  해결해야함!!** sw 를 변경해야할듯
-      - cvlc 인스톨 명령어를 dockerfile 에 명시
-      - sh는 어떻게?
+
+      - cvlc 인스톨 명령어를 dockerfile 에 명시, opencv 설치는 지웠음 
+
+        - k8s 에서 실행은 됨..하지만, pod이 root에서 실행되는데(?),  vlc 가 root에서 실행되지 않음
+
+          - 아래 명령어를 실행시키고하면, k8s 내부에서 실행하는건 확인 필요한데 일반적으로 console을 사용하면 된다
+
+            ```
+            $ sudo sed -i 's/geteuid/getppid/' /usr/bin/vlc
+            ```
+
+  - request 주소 변경 : http://123.214.186.244:31924/act_device
+
+  - 일단 안됨...... pod 내부에서 cvlc 명령어 실행중이긴 한듯
+
+
+
+- 진행해야할 것 :
+  - 지금 전송이 어떤 서버로 가는지, pod 이 사용하는 ip가 무엇인지 등등 이 필요함....
+  - 만약 고정ip가 된다면, sw를 변경해서 고정 ip의 카메라 정보를 가져올수 있는지?
 
 
 
 - **의문 :** 
   - 만약 Worker  에서 실행되고있는 edge-rtsp-sw pod이 에러가 뜨면 어떻게?
   - device 를 변경하고 싶을때는 어떻게?
+
+
+
+- **문제점 :** 
+  - edge-rtsp-sw 를 배포할때마다 해당 edge의 라우터 설정에서 포트포워딩 필요!
 

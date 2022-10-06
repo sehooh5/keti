@@ -28,10 +28,13 @@ def act_device():
         }
         return json.dumps(res, ensure_ascii=False)
     json_data = json_data['d_list']
-
+    print("전달받은 JSON 데이터 : ", json_data)
     def act_cvlc(rtp_port, rtsp_port):
+        print("전송받은 RTP PORT : ", rtp_port)
+        print("전송할 RTSP PORT : ", rtsp_port)
         os.system(
             f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
+        print("RTSP 스트리밍중...")
 
     for data in json_data:
         rtp_port = data['rtp_port']
