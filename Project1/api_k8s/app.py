@@ -876,6 +876,7 @@ def remove_edgeCluster():
     names = []
     hnames = []
     pwds = []
+    node_types = []
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -896,6 +897,7 @@ def remove_edgeCluster():
     names.append(res.json()["name"])
     hnames.append(res.json()["host_name"])
     pwds.append(res.json()["host_pwd"])
+    node_types.append(res.json()["type"])
 
     for w in wlist:
         # 필요한 정보 얻기
@@ -910,18 +912,19 @@ def remove_edgeCluster():
         names.append(res.json()["name"])
         hnames.append(res.json()["host_name"])
         pwds.append(res.json()["host_pwd"])
+        node_types.append(res.json()["type"])
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: edge server list : {names}")
 
-    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
+    for ip, name, hname, pwd, node_type in zip(ips, names, hnames, pwds, node_types):
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"{name} : delete node from cluster!")
         os.system(f"kubectl delete node {name}")
         
         # 0929 
         # keti2(마스터)에서 ssh 연결시도시 Auth 에러떠서 따로 실행시킴
-        if name == "keti2":
+        if node_type == "Master":
             os.system("echo 'keti' | echo y | sudo kubeadm reset")
         else :
             print(datetime.datetime.now().strftime(
