@@ -33,7 +33,7 @@ def act_device():
         print("전송받은 RTP PORT : ", rtp_port)
         print("전송할 RTSP PORT : ", rtsp_port)
         os.system(
-            f'cvlc -vvv rtp://:{rtp_port} --sout="#rtp{{sdp=rtsp://:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
+            f'cvlc -vvv rtp://123.214.186.244:{rtp_port} --sout="#rtp{{sdp=rtsp://123.214.186.244:{rtsp_port}/videoMain}}" --no-sout-all --sout-keep')
         print("RTSP 스트리밍중...")
 
     for data in json_data:

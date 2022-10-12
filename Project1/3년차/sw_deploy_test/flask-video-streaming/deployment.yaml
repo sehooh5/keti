@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-opencv-service
+spec:
+  selector:
+    app: flask-opencv
+  ports:
+    - protocol: "TCP"
+      port: 6060
+      targetPort: 5000
+      nodePort: 30001
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-opencv
+spec:
+  selector:
+    matchLabels:
+      app: flask-opencv
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask-opencv
+    spec:
+      containers:
+        - name: flask-opencv
+          image: sehooh5/flask-opencv:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
