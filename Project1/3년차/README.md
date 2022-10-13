@@ -1580,6 +1580,8 @@
 
 - 오전에 카메라 잘 작동하는지 확인하는 SW 만들고 배포하기
   - /3년차/sw_deploy_test 에서 flask-video-streaming 배포해보기
+  - ~~flask cors 모듈이 없다고 나와서 dockerfile에 명시해줘야함~~ 
+  - 잘되는데 cctv 01 화면으로 넘어가면 localhost 오류남
 - 오후까지 시나리오 잘 생각해보고 회의
 
 

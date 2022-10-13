@@ -23,7 +23,7 @@ RUN pip install click Flask itsdangerous Jinja2 MarkupSafe Werkzeug numpy
 
 RUN mkdir /app
 WORKDIR /app
-ADD . /app/
+ADD ./video-streaming /app/
 ENV OPENCV_VERSION="4.1.0"
 RUN pip install opencv-python
 RUN ln -s \

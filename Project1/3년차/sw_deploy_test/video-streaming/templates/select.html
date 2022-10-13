@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SELECT</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
       html,
       body {
@@ -57,13 +58,21 @@
       }
     </style>
   </head>
+  <script>
+    var url = window.location.origin+"/cam?no=";
+
+    function streaming(n){
+      console.log("host 주소 : " + url+n);
+      location.href = url+n;
+    }
+  </script>
   <body>
-    <button onclick="location.href = 'http://localhost:5058/cam?no=1'">
-      CCTV01
+    <button onclick="streaming(1);">
+      CCTV 01
     </button>
 
-    <button onclick="location.href = 'http://localhost:5058/cam?no=2'">
-      CAR01
+    <button onclick="streaming(2);">
+      CAR 01
     </button>
   </body>
 </html>
