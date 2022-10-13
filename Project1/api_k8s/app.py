@@ -669,6 +669,8 @@ def add_newDeploySwInfo():
         target_port = "5050"
     elif fname == "edge-rtsp-sw":
         target_port = "5060"
+    elif fname == "flask-video-streaming":
+        target_port = "5058"
     docker_id = "sehooh5"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
