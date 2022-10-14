@@ -1578,11 +1578,22 @@
 
 #### 1013
 
+- 수정해야될 내용 : 
+  - sw 업로드시 port(target port) 입력해주어야함
 - 오전에 카메라 잘 작동하는지 확인하는 SW 만들고 배포하기
   - /3년차/sw_deploy_test 에서 flask-video-streaming 배포해보기
   - ~~flask cors 모듈이 없다고 나와서 dockerfile에 명시해줘야함~~ 
   - 잘되는데 cctv 01 화면으로 넘어가면 localhost 오류남
+    - js 로 해결
+  - video-streaming sw 배포, 작동 완료
 - 오후까지 시나리오 잘 생각해보고 회의
+
+
+
+#### 1014
+
+- 3차년도 기술개발 실적 평가 방법
+  - /배경화면/5G과제/3년차_보고서 에 PPT로 간단하게 작성완료
 
 
 
