@@ -1578,7 +1578,6 @@
 
 #### 1013
 
-- - 
 - 오전에 카메라 잘 작동하는지 확인하는 SW 만들고 배포하기
   - /3년차/sw_deploy_test 에서 flask-video-streaming 배포해보기
   - ~~flask cors 모듈이 없다고 나와서 dockerfile에 명시해줘야함~~ 
@@ -1604,5 +1603,6 @@
   - Blackbox & GPS - PC - 5G Modem
   - CCTV - PC - 5G Modem
   - 현재 구성은 어떻게 할지 논의 후 진행
-- 
+- DEMS 변경안
+  - sw업로드후 배포할때 5로 시작하는 4개자리 targetport 번호 지정해주면서 배포하게끔..변경..!
 
