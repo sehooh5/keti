@@ -123,5 +123,52 @@
 
 
 
+### 1년차 진행내용
+
+---
+
+- 내 파트에서 DB 사용은 하지 않음
+- 쿠버네티스 클러스터링 및 AI SW 배포
+
+
+
+#### 1024
+
+- 무선엣지 진행
+  - 자동으로 추출 가능한지 먼저 알아보고 진행하기
+    - `pip freeze > requirements.txt` 명령어로 python 모듈 추출 가능
+    - 서박사님파이을 python 이 아닌 exe 로 받아서 실행하는거 하는중
+  - 서박사님 `main.py` 가 쿠버네티스 pod 으로 실행되었을때 실행이 어떻게 되는지 확인해보기
+    - [exe 파일 배포 시 도커에 대한 질의응답](https://www.inflearn.com/questions/27871)
+    - docker 에서 exe 게임 실행 시 바로 플레이되는거 보니 잘 실행되는듯? 계속 진행해보기
+  - 진행 순서 : 
+    1. window(master)-linux(worker) 를 클러스터링 할수 있는지 확인
+       - 있다 : 예지누나(master)-서박사님(worker) 클러스터링
+         - [리눅스(마스터)-윈도우(워커) 노드 클러스터링 하는 방법](https://people.wikimedia.org/~jayme/k8s-docs/v1.16/ko/docs/setup/production-environment/windows/user-guide-windows-nodes/)
+       - **없다 : 예지누나(web server)-새로운 PC(master)-서박사님(worker) 클러스터링**
+         - web server를 새로운PC(M)에서 실행하고 worker 와 클러스터링 하는 방향으로 하면 어떨지?
+    2. 기존 keti2(M)-keti1(W)에서 서박사님 SW 가 잘 작동하는지 확인
+       - dockerfile 작성 필요!
+    3. 1번에서 새롭게 클러스터링 된 시스템에서 기존 rtsp 프로그램이 잘 작동하는지 확인
+    4. 무선엣지 시스템에서 서박사님 SW 배포하고 잘 되는지 확인
+       - 화면이 자동으로 안뜰 수 있음.. web서버가 아닌 이런 경우에는 어떻게? 일단 서박사님 프로그램 완성되면 클러스터링 후 배포해보기
+  - 서박사님 `main.py` 돌리기 위해 pip install 리스트
+    - PyQt5
+    - torch
+    - ml-collections
+    - torchvision
+  - 현재 진행중 : 
+    - 1개 미니PC(edge01)에 쿠버네티스까지 **설치 완료**
+    - 서박사님 pc - edge01 의 역할 정하기
+      - 마스터노드 or 워커노드
+    - 1.web server 를 마스터노드에서 실행시킬지? or 2.기존 서버에서 실행시키고 마스터 노드에서 k8s 를 실행시킬 수 있는 API 서버를 실행시킬지? 정해야함
+      - 2번이 유력한데 2년차 app.py 의 형태와 비슷하게 진행
+      - **시나리오** : 
+        - 단말등록 : 기존의 클러스터링으로 worker node 추가하는 기능
+        - 엣지 AI 등록 : SW 업로드 기능
+        - 엣지 AI 배포 : SW 배포 기능
+
+
+
 
 
