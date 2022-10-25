@@ -21,14 +21,13 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc
 
-RUN pip3 install -r requirements.txt
-
 RUN mkdir /app
 WORKDIR /app
-ADD ./Weather_GUI_Edge /app/
+ADD . /app/
+RUN pip3 install -r requirements.txt
 RUN ln -s \
   /usr/local/python/cv2/python-3.8/cv2.cpython-37m-x86_64-linux-gnu.so \
   /usr/local/lib/python3.8/site-packages/cv2.so
 
 EXPOSE 5401
-CMD ["python3", "/app/app.py"]
+CMD ["python3", "/app/main.py"]

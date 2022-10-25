@@ -173,15 +173,50 @@
 #### 1025
 
 - **만들어야 하는 마스터노드에서 실행되는 API 서버 시나리오** : 
+
   - 단말등록 : 기존의 클러스터링으로 worker node 추가하는 기능
   - 엣지 AI 등록 : SW 업로드 기능
   - 엣지 AI 배포 : SW 배포 기능
+
 - 진행 완료 : 
+
   - 1개 미니PC(edge01)에 쿠버네티스까지 **설치 완료**
+
 - 진행중 : 
+
   - 서박사님 pc - edge01 의 역할 정하기
+
     - 마스터노드 or 워커노드
     - 아직 어떻게 진행할지 모르고, keti2-keti1 으로 잘 돌아가는지만 확인
+
   - 기존 keti2(M)-keti1(W)에서 서박사님 SW 가 잘 작동하는지 확인
-    - dockerfile 작성 필요!
+
+    - Project6/dockerfile/ 에 dockerfile 작성 해서 진행중
+
+    - docker run 실행 시 오류 내용 : 
+
+      ````cmd
+      QObject::moveToThread: Current thread (0x55db64d67940) is not the object's thread (0x55db684c3e00).
+      Cannot move to target thread (0x55db64d67940)
+      
+      qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "/usr/local/lib/python3.8/site-packages/cv2/qt/plugins" even though it was found.
+      This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+      
+      Available platform plugins are: xcb, eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx, webgl.
+      
+      Aborted (core dumped)
+      
+      ````
+
+      - docker 환경에서 display app 이 바로 실행이 되지 않아 생기는 에러인듯
+      - 해결 방법 : 
+        - xhost +local:docker ? xhost +local:root ? 
+        - 해결방법 찾고 내일부터 진행 후 오후에 서박사님과 회의
+
   - 기존 서버에서 실행시키고 마스터 노드에서 k8s 를 실행시킬 수 있는 API 서버를 만들어야함
+
+
+
+#### 1026
+
+- 해결방법 찾기
