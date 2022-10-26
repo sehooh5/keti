@@ -27,6 +27,7 @@ spec:
       labels:
         app: ai-test
     spec:
+      nodeName: keti1
       containers:
         - name: ai-test
           image: sehooh5/ai-test:latest
