@@ -9,7 +9,7 @@ spec:
     - protocol: "TCP"
       port: 6401
       targetPort: 5401
-      nodePort: 35401
+      nodePort: 32401
   type: NodePort
 
 ---
