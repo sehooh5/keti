@@ -220,3 +220,157 @@
 #### 1026
 
 - 해결방법 찾기
+
+  - [docker에서 컨테이너 GUI 실행하기](https://conservative-vector.tistory.com/entry/docker%EC%97%90%EC%84%9C-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-gui-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0)
+
+    - 우분투는 `Xorg`라는 그래픽 프로그램을 이용한다. 즉, 얘가 있어야 그래픽을 띄워줄 수 있다는 얘기.
+      그럼 도커에서 그래픽을 띄워주려면? 호스트의 자원을 공유하면 된다. 호스트의 Xorg를 컨테이너가 이용하면 된다는 말. 실행옵션을 추가해주면 컨테이너에서도 그래픽을 볼 수 있다.
+
+    - ![image](https://user-images.githubusercontent.com/58541635/197915019-b27dcd62-5b27-4bf3-9a55-a57a99eb812c.png)
+
+    - **XServer 공유하기**
+
+      - host의 XServer를 볼륨형태로 컨테이너와 공유하자. DISPLAY 환경 변수도 전달해줘야 한다.
+        유닉스 도메인 소켓을 이용하여 host의 XServer와 도커 컨테이너를 연결한다.  readonly옵션을 준다. XServer소켓은 `/tmp/.X11-unix`에 존재한다.
+
+        ```
+        $ docker run -it \
+        --volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+        -e DISPLAY=unix$DISPLAY \
+        sehooh5/ai-test
+        ```
+
+      - 호스트에서 도커가 xserver와 통신할 수 있도록 설정한다. 다른 터미널을 열고 작업한다.
+
+        ```
+        $ xhost +local:docker
+        ```
+
+      - 잘 안됨
+
+  - [Running QT GUI apps with Docker](http://tzutalin.blogspot.com/2017/06/running-qt-gui-apps-with-docker.html)
+
+    - 개발자가 사용한 도커파일 - 변경하진 않고 only 비교용
+
+      ```dockerfile
+      # Dockerfile to build Ubuntu:14.04 + Python2.7 + Qt4
+      FROM ubuntu:14.04
+      
+      MAINTAINER Python Builds Eng "tzu.ta.lin@gmail.com"
+      
+      # Sets language to UTF8 : this works in pretty much all cases
+      ENV LANG en_US.UTF-8
+      RUN locale-gen $LANG
+      ENV DOCKER_ANDROID_LANG en_US
+      
+      # Add some dep
+      RUN rm -rf /var/lib/apt/lists/*
+      RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y \
+        autoconf \
+        build-essential \
+        bzip2 \
+        curl \
+        gcc \
+        git \
+        groff \
+        lib32stdc++6 \
+        lib32z1 \
+        lib32z1-dev \
+        lib32ncurses5 \
+        lib32bz2-1.0 \
+        libc6-dev \
+        libgmp-dev \
+        libmpc-dev \
+        libmpfr-dev \
+        libxslt-dev \
+        libxml2-dev \
+        m4 \
+        make \
+        ncurses-dev \
+        ocaml \
+        openssh-client \
+        pkg-config \
+        python-software-properties \
+        rsync \
+        software-properties-common \
+        unzip \
+        wget \
+        zip \
+        zlib1g-dev \
+        cmake \
+        python-pip \
+        python2.7-dev \
+        python-qt4 \
+        pyqt4-dev-tools \
+        libffi-dev \
+        libssl-dev \
+        xvfb \
+        --no-install-recommends
+      
+      
+      RUN pip install lxml
+      # In order to upload to pypi
+      RUN pip install pyopenssl ndg-httpsclient pyasn1 twine
+      # Install wine
+      RUN dpkg --add-architecture i386
+      RUN apt-get update -y && apt-get install -y software-properties-common && add-apt-repository -y ppa:ubuntu-wine/ppa &&  apt-get update -y && apt-get install -y wine1.7 winetricks
+      ```
+
+    - 개발자의 명령어를 사용하니 켜지자마자 꺼지기까진 했다
+
+      ```cmd
+      # docker 에서 QT GUI 실행하는 명령어
+      $ docker run -it \
+      --device /dev/dri \ 
+      --user $(id -u) \
+      -e DISPLAY=unix$DISPLAY \
+      --workdir=$(pwd) \
+      --volume="/home/$USER:/home/$USER" \
+      --volume="/etc/group:/etc/group:ro" \
+      --volume="/etc/passwd:/etc/passwd:ro" \
+      --volume="/etc/shadow:/etc/shadow:ro" \
+      --volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      acb0aa74e757 # 여기만 변경해줌, 내가 사용한 docker image id
+      
+      ######## 아래는 에러 메시지 ########
+      # 첫줄 QStandardPaths: ~ 에러는 루트로 실행할 경우 발생되는 메시지로 무시 가능
+      QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-keti2'
+      libGL error: MESA-LOADER: failed to retrieve device information
+      libGL error: Version 4 or later of flush extension not found
+      libGL error: failed to load driver: i915
+      libGL error: failed to open /dev/dri/card0: No such file or directory
+      libGL error: failed to load driver: iris
+      Traceback (most recent call last):
+        File "/app/main.py", line 33, in run
+          model.load_state_dict(torch.load(weight_path, map_location=torch.device('cpu')))
+        File "/home/keti2/.local/lib/python3.8/site-packages/torch/serialization.py", line 699, in load
+          with _open_file_like(f, 'rb') as opened_file:
+        File "/home/keti2/.local/lib/python3.8/site-packages/torch/serialization.py", line 230, in _open_file_like
+          return _open_file(name_or_buffer, mode)
+        File "/home/keti2/.local/lib/python3.8/site-packages/torch/serialization.py", line 211, in __init__
+          super(_open_file, self).__init__(open(name, mode))
+      FileNotFoundError: [Errno 2] No such file or directory: 'ViT_models/checkpoint/test_checkpoint.bin'
+      ```
+
+      - 에러메시지 : 
+
+        - `QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-keti2'` : 루트로 실행할 경우 발생되는 메시지로 무시 가능
+        - `libGL error: failed to open /dev/dri/card0: No such file or directory`  : 에서 driver 설정이 안되서 오류가 발생한 듯
+          - 해결 방법 :
+            1. `$ xhost +local:docker` 를 실행시켜 docker 에서 연결가능하게 해준다
+            2. docker 명령어에 `--device /dev/dri`를 추가해준다
+        - 위 방법으로 docker를 실행하고 `/bin/bash` 로 컨테이너 내부를 확인해보니 `/app` 디렉토리가 없다...그러니 `FileNotFoundError`가 뜨는 듯 하다
+          - 해결 방법 : 
+            - docker 실행 명령어에서 `--workdir` 제거해주니 잘 돌아감
+
+      - **최종 docker 명령어 :** 
+
+        - ```cmd
+          $ docker run -it --device /dev/dri --user $(id -u) -e DISPLAY=unix$DISPLAY --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix acb0aa74e757
+          ```
+
+        - AI가 잘 실행된다
+
+        - 이제 문제점은 쿠버네티스 배포과정에서도 어떻게 잘 실행 될 것인가? docker run 할때 추가되는 것들을 어떻게 같이 실행되게 할 것인가?
+
