@@ -374,3 +374,69 @@
 
         - 이제 문제점은 쿠버네티스 배포과정에서도 어떻게 잘 실행 될 것인가? docker run 할때 추가되는 것들을 어떻게 같이 실행되게 할 것인가?
 
+          - 일단 k8s 배포를 하게되면 워커노드에서 pod 이 생성되고 실행이되면서 docker image 또한 pull 해서 가져오게 된다. 생성된 docker image 를 ssh를 통해 실행하게되면 가능할까?
+
+            - Worker -> Master 로 ssh 접속후 docker run 했을때 에러메시지
+
+              ```
+              # 첫번째 에러
+              qt.qpa.xcb: could not connect to display unix
+              
+              # ssh -XY 접속 후 두번째 에러
+              qt.qpa.xcb: could not connect to display unixlocalhost:10.0
+              ```
+
+          - docker build 시에 run에서 추가되는 옵션들을 추가할 수 있는지?
+
+          - 워커노드에서 docker pull 할 때 run에서 추가된 옵션들을 추가할 수 있는지?
+
+
+
+#### 1027
+
+- 진행 완료 : 
+
+  - docker run 으로 실행 시 pyQt5 GUI 실행 가능
+
+  - AI 를 도커 허브에 push 완료
+
+    - 현재 keti1(W) 에 배포완료, docker run 때 발생한 에러와 같은 에러발생
+
+      ```cmd
+      QObject::moveToThread: Current thread (0x5592328fcf70) is not the object's thread (0x559235e97540).
+      Cannot move to target thread (0x5592328fcf70)
+      
+      qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "/usr/local/lib/python3.8/site-packages/cv2/qt/plugins" even though it was found.
+      This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+      
+      Available platform plugins are: xcb, eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx, webgl.
+      
+      ```
+
+  - ssh 접속을 통해 docker images 를 실행시켜도 에러 발생
+
+    ```cmd
+    qt.qpa.xcb: could not connect to display unixlocalhost:10.0
+    qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+    This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+    
+    Available platform plugins are: eglfs, linuxfb, minimal, minimalegl, offscreen, vnc, wayland-egl, wayland, wayland-xcomposite-egl, wayland-xcomposite-glx, webgl, xcb.
+    ```
+
+    
+
+- 진행중 : 
+
+  - docker run 에서 사용한 **옵션들 배포시 혹은 이미지 빌드 시 사용 가능한지?** (금요일 회의)
+
+    ```cmd
+    $ docker run -it --device /dev/dri --user $(id -u) -e DISPLAY=unix$DISPLAY --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix acb0aa74e757
+    ```
+
+  - 아니면 배포 후에 pod 실행을 하는 방향으로...?!!
+
+
+
+#### 1028
+
+- dockerfile entrypoint, cmd 사용방법 확인해보고 해보기
