@@ -40,5 +40,10 @@ spec:
             - value: DISPLAY=unix$DISPLAY
               name: DISPLAY
           volumeMounts:
-            - mountPath: /home/$USER
-              name: config
+            - name: shared-data
+              mountPath: /home/$USER
+      volumes:
+        - name: USER
+          hostPath: /home/$USER
+          type: DirectoryOrCreate
+
