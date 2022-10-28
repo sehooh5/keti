@@ -7,7 +7,7 @@ services:
         volumes:
             - /home/$USER:/home/$USER
             - /etc/passwd:/etc/passwd:ro
-            -/tmp/.X11-unix:/tmp/.X11-unix
+            - /tmp/.X11-unix:/tmp/.X11-unix
         environment: 
             - DISPLAY=unix$DISPLAY
         ports:
