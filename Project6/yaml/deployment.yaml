@@ -38,5 +38,7 @@ spec:
             - containerPort: 5401
           env:
             - value: DISPLAY=unix$DISPLAY
+              name: DISPLAY
           volumeMounts:
             - mountPath: "/home/$USER:/home/$USER"
+              name: USER
