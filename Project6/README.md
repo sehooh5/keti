@@ -430,13 +430,24 @@
   - docker run 에서 사용한 **옵션들 배포시 혹은 이미지 빌드 시 사용 가능한지?** (금요일 회의)
 
     ```cmd
-    $ docker run -it --device /dev/dri --user $(id -u) -e DISPLAY=unix$DISPLAY --volume="/home/$USER:/home/$USER" --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --volume="/etc/sudoers.d:/etc/sudoers.d:ro" -v /tmp/.X11-unix:/tmp/.X11-unix acb0aa74e757
+    $ docker run \
+    --device /dev/dri \
+  --user $(id -u) \
+    -e DISPLAY=unix$DISPLAY \
+    --volume="/home/$USER:/home/$USER" \
+    --volume="/etc/group:/etc/group:ro" \
+    --volume="/etc/passwd:/etc/passwd:ro" \
+    --volume="/etc/shadow:/etc/shadow:ro" \
+    --volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    acb0aa74e757
     ```
-
+  
   - 아니면 배포 후에 pod 실행을 하는 방향으로...?!!
 
 
 
 #### 1028
 
-- dockerfile entrypoint, cmd 사용방법 확인해보고 해보기
+- dockerfile entrypoint, cmd 사용방법 확인해보고 해보기 or k8s deployment의 args 추가
+
