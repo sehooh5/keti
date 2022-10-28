@@ -451,3 +451,90 @@
 
 - dockerfile entrypoint, cmd 사용방법 확인해보고 해보기 or k8s deployment의 args 추가
 
+  - v1 - deployment.yaml
+
+    ```
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: ai-test-service
+    spec:
+      selector:
+        app: ai-test
+      ports:
+        - protocol: "TCP"
+          port: 6401
+          targetPort: 5401
+          nodePort: 32401
+      type: NodePort
+    
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ai-test
+    spec:
+      selector:
+        matchLabels:
+          app: ai-test
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: ai-test
+        spec:
+          nodeName: keti1
+          containers:
+            - name: ai-test
+              image: sehooh5/ai-test:latest
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 5401
+              args: ["--device","/dev/dri","--user","$(id -u)","-e","DISPLAY=unix$DISPLAY","-v","/home/$USER:/home/$USER","-v","/etc/group:/etc/group:ro","-v","/etc/passwd:/etc/passwd:ro","-v","/etc/shadow:/etc/shadow:ro","-v","/etc/sudoers.d:/etc/sudoers.d:ro","-v","/tmp/.X11-unix:/tmp/.X11-unix"]
+    ```
+
+  - v2 - deployment.yaml
+
+    ```
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: ai-test-service
+    spec:
+      selector:
+        app: ai-test
+      ports:
+        - protocol: "TCP"
+          port: 6401
+          targetPort: 5401
+          nodePort: 32401
+      type: NodePort
+    
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ai-test
+    spec:
+      selector:
+        matchLabels:
+          app: ai-test
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: ai-test
+        spec:
+          nodeName: keti1
+          containers:
+            - name: ai-test
+              image: sehooh5/ai-test:latest
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 5401
+              args:
+                - --device /dev/dri; --user $(id -u); -e DISPLAY=unix$DISPLAY; -v /home/$USER:/home/$USER; -v /etc/group:/etc/group:ro; -v /etc/passwd:/etc/passwd:ro; -v /etc/shadow:/etc/shadow:ro; -v /etc/sudoers.d:/etc/sudoers.d:ro; -v /tmp/.X11-unix:/tmp/.X11-unix;
+    ```
+
+    
+
