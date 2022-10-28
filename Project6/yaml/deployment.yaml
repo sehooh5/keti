@@ -32,7 +32,16 @@ spec:
         - name: ai-test
           image: sehooh5/ai-test:latest
           imagePullPolicy: Always
+          securityContext:
+            runAsUser: 1000
           ports:
             - containerPort: 5401
-          args: ["--device","/dev/dri","--user","$(id -u)","-e","DISPLAY=unix$DISPLAY","-v","/home/$USER:/home/$USER","-v","/etc/group:/etc/group:ro","-v","/etc/passwd:/etc/passwd:ro","-v","/etc/shadow:/etc/shadow:ro","-v","/etc/sudoers.d:/etc/sudoers.d:ro","-v","/tmp/.X11-unix:/tmp/.X11-unix"]
-
+          environment:
+            - DISPLAY=unix$DISPLAY
+          volumes:
+            - /home/$USER:/home/$USER
+            - /etc/group:/etc/group:ro
+            - /etc/passwd:/etc/passwd:ro
+            - /etc/shadow:/etc/shadow:ro
+            - /etc/sudoers.d:/etc/sudoers.d:ro
+            - /tmp/.X11-unix:/tmp/.X11-unix

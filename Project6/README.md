@@ -453,7 +453,7 @@
 
   - v1 - deployment.yaml
 
-    ```
+    ```yaml
     apiVersion: v1
     kind: Service
     metadata:
@@ -493,48 +493,26 @@
               args: ["--device","/dev/dri","--user","$(id -u)","-e","DISPLAY=unix$DISPLAY","-v","/home/$USER:/home/$USER","-v","/etc/group:/etc/group:ro","-v","/etc/passwd:/etc/passwd:ro","-v","/etc/shadow:/etc/shadow:ro","-v","/etc/sudoers.d:/etc/sudoers.d:ro","-v","/tmp/.X11-unix:/tmp/.X11-unix"]
     ```
 
-  - v2 - deployment.yaml
+    - pod 생성중 에러 : 
 
-    ```
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: ai-test-service
-    spec:
-      selector:
-        app: ai-test
-      ports:
-        - protocol: "TCP"
-          port: 6401
-          targetPort: 5401
-          nodePort: 32401
-      type: NodePort
-    
-    ---
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: ai-test
-    spec:
-      selector:
-        matchLabels:
-          app: ai-test
-      replicas: 1
-      template:
-        metadata:
-          labels:
-            app: ai-test
-        spec:
-          nodeName: keti1
-          containers:
-            - name: ai-test
-              image: sehooh5/ai-test:latest
-              imagePullPolicy: Always
-              ports:
-                - containerPort: 5401
-              args:
-                - --device /dev/dri; --user $(id -u); -e DISPLAY=unix$DISPLAY; -v /home/$USER:/home/$USER; -v /etc/group:/etc/group:ro; -v /etc/passwd:/etc/passwd:ro; -v /etc/shadow:/etc/shadow:ro; -v /etc/sudoers.d:/etc/sudoers.d:ro; -v /tmp/.X11-unix:/tmp/.X11-unix;
-    ```
+      ```cmd
+      Error: failed to start container "ai-test": 
+      Error response from daemon: 
+      OCI runtime create failed: 
+      container_linux.go:380: 
+      starting container process caused: 
+      exec: "--device": executable file not found in $PATH: unknown
+      ```
 
-    
 
+
+- [GUI 를 k8s를 사용해 배포하여 실패한 사례](https://stackoverflow.com/questions/56398680/is-it-possible-to-deploy-a-gui-application-using-kubernetes)
+  - Kubernetes is a cluster-management system that's typically used with dozens (or more!) of headless nodes. It doesn't really make sense to try to run a graphical application there: 
+
+
+
+- 예상방법 : 
+  - deployment 에 xserver를 사용해서 하는방법 
+  - dockerfile 에 docker run 의 args 를 명시할 수 있는지
+  - deployment 에 docker run 의 args 를 명시할 수 있는지
+  - 
