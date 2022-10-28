@@ -41,4 +41,4 @@ spec:
               name: DISPLAY
           volumeMounts:
             - mountPath: "/home/$USER:/home/$USER"
-              name: USER
+              name: U
