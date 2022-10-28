@@ -39,6 +39,6 @@ spec:
           env:
             - value: DISPLAY=unix$DISPLAY
               name: DISPLAY
-          volumeMounts:
-            - mountPath: "/home/$USER:/home/$USER"
-              name: U
+      volumes:
+        - name: USER
+          value: /home/$USER:/home/$USER
