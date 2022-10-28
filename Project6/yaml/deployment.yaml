@@ -45,5 +45,4 @@ spec:
       volumes:
         - name: USER
           hostPath: /home/$USER
-          type: DirectoryOrCreate
 

@@ -1,0 +1,15 @@
+version: '3'
+
+# 컨테이너의 이름을 정의합니다.
+services:
+    myservice1:
+        image: sehooh5/ai-test
+        volumes:
+            - /home/$USER:/home/$USER
+            - /etc/passwd:/etc/passwd:ro
+            -/tmp/.X11-unix:/tmp/.X11-unix
+        environment: 
+            - DISPLAY=unix$DISPLAY
+        ports:
+            - "5401:5401"
+        network_mode: "host"

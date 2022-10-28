@@ -512,7 +512,28 @@
 
 
 - 예상방법 : 
+
   - deployment 에 xserver를 사용해서 하는방법 
+
   - dockerfile 에 docker run 의 args 를 명시할 수 있는지
+
   - deployment 에 docker run 의 args 를 명시할 수 있는지
-  - 
+
+    - ```
+      - /home/$USER:/home/$USER
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/sudoers.d:/etc/sudoers.d:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      ```
+
+
+
+- docker 실행명령 : 
+
+  ```cmd
+  $ docker run --device /dev/dri --user $(id -u) -e DISPLAY -v /home/$USER:/home/$USER -v /etc/passwd:/etc/passwd:ro -v /tmp/.X11-unix:/tmp/.X11-unix acb0aa74e757
+  ```
+
+  
