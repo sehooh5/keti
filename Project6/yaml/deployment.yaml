@@ -36,7 +36,7 @@ spec:
             runAsUser: 1000
           ports:
             - containerPort: 5401
-          environment:
+          env:
             - DISPLAY=unix$DISPLAY
           volumeMounts:
             - mountPath: "/home/$USER:/home/$USER"
