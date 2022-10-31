@@ -542,3 +542,9 @@
   - 이유 : docker-k8s 환경에서 x11? xserver 연결을 해줘야함
   - docker 에서는 option 을 주어서 됐는데
   - k8s 에서 pod을 생성하는 과정에서 docker image 를 pull 하는데 여기서 option 을 줘야 할거 같은데 option 주는 방법을 모르겠음
+
+
+
+#### 1031
+
+- k8s 에 대한 세미나 준비
