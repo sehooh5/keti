@@ -590,3 +590,17 @@
 #### 1103
 
 - 도커 환경파일 수정방법 찾고 수정해보기
+
+  - [도커파일 작성 방법](https://freedeveloper.tistory.com/189)
+
+  - /project6/도커파일에 docker run options 추가
+
+    ```dockerfile
+    VOLUME ["/home/$USER"]
+    VOLUME ["/etc/passwd"]
+    VOLUME ["/tmp/.X11-unix"]
+    VOLUME ["/dev/dri"]
+    ENV DISPLAY=unix$DISPLAY
+    USER 1000	
+    ```
+
