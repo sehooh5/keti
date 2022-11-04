@@ -593,7 +593,7 @@
 
   - [도커파일 작성 방법](https://freedeveloper.tistory.com/189)
 
-  - /project6/도커파일에 docker run options 추가
+  - /project6/도커파일에 docker run options 추가(안됨)
 
     ```dockerfile
     VOLUME ["/home/$USER"]
@@ -604,3 +604,8 @@
     USER 1000	
     ```
 
+
+
+#### 1104
+
+- config 수정하는방법 계속 찾아보며 진행

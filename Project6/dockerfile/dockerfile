@@ -21,12 +21,12 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && sed -i 's/geteuid/getppid/' /usr/bin/vlc
 
+
 VOLUME ["/home/$USER"]
-VOLUME ["/etc/passwd"]
+VOLUME ["/etc/passwd:ro"]
 VOLUME ["/tmp/.X11-unix"]
 VOLUME ["/dev/dri"]
 ENV DISPLAY=unix$DISPLAY
-USER 1000
 
 RUN mkdir /app
 WORKDIR /app
@@ -36,6 +36,7 @@ RUN ln -s \
   /usr/local/python/cv2/python-3.8/cv2.cpython-37m-x86_64-linux-gnu.so \
   /usr/local/lib/python3.8/site-packages/cv2.so
 
+USER 1000
 
 EXPOSE 5401
 CMD ["python3", "/app/main.py"]
