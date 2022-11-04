@@ -609,3 +609,12 @@
 #### 1104
 
 - config 수정하는방법 계속 찾아보며 진행
+  - [docker-compose 사용](https://gursimarsm.medium.com/run-gui-applications-in-a-docker-container-ca625bad4638) - 안됨
+- 진행 사항 : 
+  1. Docker의 기본 환경 configuration에서 x11을 사용 가능하게 수정하여 사용
+     - 어떤 부분에서 config 설정이 가능한지 모름
+  2. Docker build 시 Dockerfile에서 옵션을 추가하여 이미지 자체가 x11 을 사용할 수 있도록
+     - dockerfile 옵션에 11/3일 처럼 옵션을 줬는데 같은 에러를 발생시키며 안됨
+  3. k8s으로 배포시 Docker 이미지를 사용할 때(Pull) 옵션을 주어서 x11 을 사용할 수 있도록
+     - 옵션을 줬는데 에러를 발생시키며  안됨
+
