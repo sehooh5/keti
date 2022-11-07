@@ -17,7 +17,7 @@ import zipfile
 import datetime
 import sys
 # docker folder
-from docker import build, push
+# from docker import build, push
 # k8s folder
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
