@@ -116,7 +116,7 @@ def index():
     return render_template('index.html', list=datas)
 
 
-# 2.7 마스터 서버에 업로드한 신규 소프트웨어 등록
+# 1 마스터 서버에 업로드한 신규 소프트웨어 등록
 @ app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
     func = sys._getframe().f_code.co_name
@@ -128,10 +128,13 @@ def add_newUploadSw():
         return response.message("0021")
 
     name = json_data['name']
+    # 최적환경
+    # 포트번호 - 근데 이건 배포할때 필요함
     copyright = json_data['copyright']
-    type = json_data['type']
+    type = json_data['type'] # 기능
     desc = json_data['description']
     filename = json_data['file']
+    sid = json_data['sid']
     # VMS 서버로부터 마스터서버로 파일 다운로드
     if filename.find("zip") != -1:
         fname = filename[:-4]
@@ -180,18 +183,7 @@ def add_newUploadSw():
             data = requests.get(f"{API_URL}/download?filename={filename}")
             file.write(data.content)
 
-    sid = sid_maker()
-    q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
 
-    while q != None:
-        sid = sid_maker()
-        q = db.session.query(SW_up).get(sid)
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: re-generating software ID : {sid}")
-        break
-    else:
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: software ID : {sid}")
 
     # 2. software_up 테이블에 데이터 저장
     sw = SW_up(sid=sid, name=name, fname=fname,
@@ -210,7 +202,7 @@ def add_newUploadSw():
     return res
 
 
-# 2.9 마스터 서버에 업로드된 SW 삭제
+# 2 마스터 서버에 업로드된 SW 삭제
 @ app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
     func = sys._getframe().f_code.co_name
@@ -244,33 +236,7 @@ def remove_uploadSw():
     return response.message("0000")
 
 
-# 2.10 마스터/워커 서버에 배포된 SW 목록 조회
-@ app.route('/get_deploySwList', methods=['POST'])
-def get_deploySwList():
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    sid = json_data['sid']
-    sw_list = []
-
-    s = db.session.query(Server_SW.wid).filter(sid == Server_SW.sid).all()
-    for sw in s:
-        Key = "wid"
-        Value = sw[0]
-        string = {Key: Value}
-        sw_list.append(string)
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        swList=sw_list
-    )
-    return res
-
-
-# 2.11 마스터/워커 서버에 배포된 SW 정보 등록
+# 3 워커 서버에 AI 배포
 @ app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
     func = sys._getframe().f_code.co_name
@@ -289,9 +255,10 @@ def add_newDeploySwInfo():
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     node_name = res.json()["name"]
-    port = json_data['serviceport']
-    node_port = json_data['nodeport']
-    target_port = json_data['targetport']
+    target_port = json_data['targetport']  # AI 등록 시 입력하는 port 번호
+    port = f"6{port_maker(3)}" # 중복 확인 안하고 그냥 생성
+    node_port = node_port() # 중복 확인 안하고 그냥 생성
+
 
     # fname 불러오기
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
@@ -300,30 +267,6 @@ def add_newDeploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
-    if fname.find("prometheus") == 0:
-
-        port = "8080"
-        target_port = "9090"
-        node_port = "30005"
-        # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
-        ns.select(fname, node_name)
-        mm.namespace()
-        mm.prometheus(fname)
-        s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                      nodeport=node_port, targetport=target_port)
-        db.session.add(s)
-        db.session.commit()
-        print("Deploy Completed!!")
-
-        return response.message("0000")
-
-    # select_cam 앱의 타겟포트 지정
-    elif fname == "select-cam":
-        target_port = "5050"
-    elif fname == "edge-rtsp-sw":
-        target_port = "5060"
-    elif fname == "video-streaming":
-        target_port = "5058"
     docker_id = "sehooh5"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
@@ -347,7 +290,7 @@ def add_newDeploySwInfo():
     return response.message("0000")
 
 
-# 2.12 마스터/워커 서버에 배포된 SW 삭제
+# 4 마스터/워커 서버에 배포된 SW 삭제
 @ app.route('/remove_deploySwInfo', methods=['POST'])
 def remove_deploySwInfo():
     func = sys._getframe().f_code.co_name
@@ -386,7 +329,7 @@ def remove_deploySwInfo():
     return response.message("0000")
 
 
-# 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
+# 5 마스터 서버의 사용 가능한 서비스 포트 조회
 @ app.route('/get_servicePort', methods=['POST'])
 def get_servicePort():
     func = sys._getframe().f_code.co_name
@@ -429,7 +372,7 @@ def get_servicePort():
     return res
 
 
-# 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
+# 6 마스터 서버의 사용 가능한 타깃 포트 조회
 @ app.route('/get_targetPort', methods=['POST'])
 def get_targetPort():
     func = sys._getframe().f_code.co_name
@@ -473,7 +416,7 @@ def get_targetPort():
     return res
 
 
-# 2.15 마스터 서버의 사용 가능한 노드 포트 조회
+# 7 마스터 서버의 사용 가능한 노드 포트 조회
 @ app.route('/get_nodePort', methods=['POST'])
 def get_nodePort():
     func = sys._getframe().f_code.co_name
@@ -516,190 +459,6 @@ def get_nodePort():
         port=port
     )
     return res
-
-# (추가) 2.16 엣지 클러스터 삭제 인터페이스
-
-
-@ app.route('/remove_edgeCluster', methods=['POST'])
-def remove_edgeCluster():
-    
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: deleting edge cluster")
-
-    ips = []
-    names = []
-    hnames = []
-    pwds = []
-    node_types = []
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    mid = json_data['mid']
-    wlist = json_data['wlist']
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: master server ID : {mid}")
-
-    if mid == None or wlist == None:
-        return response.message("0015")
-
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    ips.append(res.json()["ip"])
-    names.append(res.json()["name"])
-    hnames.append(res.json()["host_name"])
-    pwds.append(res.json()["host_pwd"])
-    node_types.append(res.json()["type"])
-
-    for w in wlist:
-        # 필요한 정보 얻기
-        wid = w["wid"]
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: worker ID : {wid}")
-        if wid == None:
-            return response.message("0015")
-        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
-
-        ips.append(res.json()["ip"])
-        names.append(res.json()["name"])
-        hnames.append(res.json()["host_name"])
-        pwds.append(res.json()["host_pwd"])
-        node_types.append(res.json()["type"])
-
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: edge server list : {names}")
-
-    for ip, name, hname, pwd, node_type in zip(ips, names, hnames, pwds, node_types):
-        print(datetime.datetime.now().strftime(
-        "%c")[:-4],f"{name} : delete node from cluster!")
-        os.system(f"kubectl delete node {name}")
-        
-        # 0929 
-        # keti2(마스터)에서 ssh 연결시도시 Auth 에러떠서 따로 실행시킴
-        if node_type == "Master":
-            os.system("echo 'keti' | echo y | sudo kubeadm reset")
-        else :
-            print(datetime.datetime.now().strftime(
-            "%c")[:-4],f"SSH Connect to {name}")
-
-            print(f"IP : {ip} / username : {hname} / password : {pwd}")
-            cli.connect(ip, port=22, username=hname, password=pwd)
-
-            print(datetime.datetime.now().strftime(
-            "%c")[:-4],f"{name} : kubeadm reset!")
-            stdin, stdout, stderr = cli.exec_command(
-                "echo y | sudo kubeadm reset", get_pty=True)
-            stdin.write('keti\n')
-            stdin.flush()
-
-            lines = stdout.readlines()
-            print(''.join(lines))
-
-            time.sleep(2.0)
-            cli.close()
-
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: edge cluster deleted!!!")
-
-    return response.message("0000")
-
-# 2.17 클러스터 모니터링 툴 추가 인터페이스
-
-
-@ app.route('/add_newMonitoring', methods=['GET'])
-def add_newMonitoring():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Grafana monitoring tool making")
-
-    try:
-        output = subprocess.check_output(
-            "kubectl get ns monitoring", shell=True).decode('utf-8')
-    except subprocess.CalledProcessError:
-        output = "-1"
-    if output == "-1":
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
-        mm.making()
-
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Monitoring tool making Completed")
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Grafana url : http://{ip}:30006")
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        url=f"http://{ip}:30006/d/JABGX_-mz/cluster-monitoring-for-kubernetes?orgId=1&refresh=10s"
-    )
-    return res
-
-# 2.18 카메라 연결화면 조회 인터페이스
-
-
-@ app.route('/get_camApp', methods=['GET'])
-def get_camApp():
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        url=f"http://{ip}:5000"
-    )
-    return res
-
-
-# (추가) 스트리밍 화면이 꺼지고 난 후 환경변수 설정
-@ app.route('/closed', methods=['GET'])
-def closed():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: start")
-
-    json_data = json.loads(request.get_data(), encoding='utf-8')
-    option = json_data['option']
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Unloaded window! browser option : {option}")
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        option=option
-    )
-    return res
-
-
-@ app.route('/opened', methods=['GET'])
-def opened():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: start")
-
-    json_data = json.loads(request.get_data(), encoding='utf-8')
-    option = json_data['option']
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Loaded window!! browser option : {option}")
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        option=option
-    )
-    return res
-
-
-@ app.route('/check', methods=['GET'])
-def check():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Connect Server")
-    time.sleep(1)
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Connect Server")
-
-    return datetime.datetime.now().strftime("%c")[:-4], f"{func}: Connect Server"
 
 
 # DB관련

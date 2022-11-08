@@ -659,8 +659,26 @@
   - app.py 와 비슷한 프로그램 만들기 
     - 세가지 기능만 구현
       1. 엣지 AI 등록(기존 add_uploadSW 기능 - docker)
+         - req : 
+           - name - 소프트웨어 명
+           - copyright - 저작권자
+           - type - 기능
+           - description - 설명
+           - file - zip파일(확인 필요)
+           - sid - ai sw id(확인 필요)
+         - res : 
+           - code
+           - message
+           - sid
       2. 엣지 AI 삭제(기존 delete_uploadSW 기능 - docker)
+         - req : 
+           - sid - 소프트웨어 id
       3. 엣지 AI 배포(기존 add_deploySW 기능 - k8s)
+         - req : 
+           - wid - sw id
+           - sid - 단말 id
+           - port
+    - 이미 클러스터링 되어있다는 가정 하에, 
 
 
 
