@@ -657,6 +657,10 @@
 
 - 진행중 :
   - app.py 와 비슷한 프로그램 만들기 
+    - 세가지 기능만 구현
+      1. 엣지 AI 등록(기존 add_uploadSW 기능 - docker)
+      2. 엣지 AI 삭제(기존 delete_uploadSW 기능 - docker)
+      3. 엣지 AI 배포(기존 add_deploySW 기능 - k8s)
 
 
 
