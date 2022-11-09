@@ -76,7 +76,6 @@ port = "5432"
 @ app.route('/')
 def index():
 
-
     return render_template('index.html')
 
 
@@ -92,7 +91,6 @@ def add_newUploadSw():
         return response.message("0021")
 
     name = json_data['name']
-    # 최적환경
     # 포트번호 - 근데 이건 배포할때 필요함
     copyright = json_data['copyright']
     type = json_data['type'] # 기능

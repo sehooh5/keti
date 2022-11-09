@@ -703,8 +703,19 @@
 
 #### 1109
 
-- 아침에 누나랑 회의 후 
-- api 연동 잘 되는지 확인
+- 아침 회의 후 
+- api 구동 및 포트포워딩 완료 
+  - api 연동 잘 되는지 확인
+- web app 실행
+  - /web/serer : `node server.js`
+  - /openapi/interface : `node interface.js`
+
+
+
+#### 1110
+
+- web app 과 연동하여 많은 수정 필요
+  - postman 으로 요청 보내면서 수정해보기
 
 
 
