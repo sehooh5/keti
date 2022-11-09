@@ -75,9 +75,9 @@ port = "5432"
 
 @ app.route('/')
 def index():
-    
 
-    return render_template('index.html', list=datas)
+
+    return render_template('index.html')
 
 
 # 1 마스터 서버에 업로드한 신규 소프트웨어 등록
