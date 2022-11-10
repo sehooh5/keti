@@ -83,57 +83,83 @@ def index():
 @ app.route('/add_newUploadSw', methods=['POST'])
 def add_newUploadSw():
     func = sys._getframe().f_code.co_name
-    dt = datetime.datetime.now().strftime("%c")[:-4]
-    print(dt, f"{func}: start uploading a new software")
-
-    # json 데이터 추출
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: start uploading a new software")
     json_data = request.get_json(silent=True)
+
     if json_data == None:
         return response.message("0021")
-    fileURL = json_data['fileURL']
 
-    # fileURL 에서 dockerfile 이름(fname)만 따로 추출하는 과정
-    fname = fileURL
+    name = json_data['name']
+    # 포트번호 - 근데 이건 배포할때 필요함
+    copyright = json_data['copyright']
+    type = json_data['type'] # 기능
+    desc = json_data['description']
+    filename = json_data['file']
+    sid = json_data['sid']
+    # VMS 서버로부터 마스터서버로 파일 다운로드
+    if filename.find("zip") != -1:
+        fname = filename[:-4]
+        if "_" in fname:
+            fname = fname.replace("_", "-")
 
-    return fname
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: software name: {fname}")
+        with open(f"{fname}.zip", 'wb') as select_cam:
+            data = requests.get(f"{API_URL}/download?filename={filename}")
+            select_cam.write(data.content)
+        # print("select_cam : ", select_cam)
 
-    # docker image build
-    print(dt, f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    os.system(
-        f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    print("Docker image building completed!!")
-
-    # docker login status 확인
-    try:
-        print("Docker login status is Checking...")
-        subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-    except subprocess.CalledProcessError:
-        print("Docker login status : none")
-        # docker login 실행
-        print("Docker login..")
-        os.system("docker login -u sehooh5 -p @Dhtpgh1234")
-    print("Docker image push to Docker hub..")
-    os.system(f"docker push sehooh5/{fname}:latest")
-    print("Docker image pushing completed!!")
-
-    # else:
-    #     fname = filename
-    #     print(datetime.datetime.now().strftime(
-    #         "%c")[:-4], f"{func}: software name: {fname}")
-    #     with open(filename, 'wb') as file:
+        zip_ref = zipfile.ZipFile(f"{fname}.zip")
+        zip_ref.extractall(fname)
+        zip_ref.close()
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: docker image building...")
+        print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        os.system(
+            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        print("Docker image building completed!!")
+        # docker login status 확인
+        try:
+            print("Docker login status is Checking...")
+            subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
+        except subprocess.CalledProcessError:
+            print("Docker login status : none")
+            # docker login 실행
+            print("Docker login..")
+            os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+        print("Docker image push to Docker hub..")
+        os.system(f"docker push sehooh5/{fname}:latest")
+        print("Docker image pushing completed!!")
+    # elif filename.find("prometheus"):
+    #     with open(filename, 'wb') as filename:
     #         data = requests.get(f"{API_URL}/download?filename={filename}")
-    #         file.write(data.content)
+    #         filename.write(data.content)
+    else:
+        fname = filename
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: software name: {fname}")
+        with open(filename, 'wb') as file:
+            data = requests.get(f"{API_URL}/download?filename={filename}")
+            file.write(data.content)
 
 
 
+    # 2. software_up 테이블에 데이터 저장
+    sw = SW_up(sid=sid, name=name, fname=fname,
+               copyright=copyright, type=type, description=desc)
+    db.session.add(sw)
+    db.session.commit
 
-    print(dt, f"{func}: software upload completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software upload completed !")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        dname=fname
+        sid=sid
     )
     return res
 
@@ -142,8 +168,8 @@ def add_newUploadSw():
 @ app.route('/remove_uploadSw', methods=['POST'])
 def remove_uploadSw():
     func = sys._getframe().f_code.co_name
-    dt = datetime.datetime.now().strftime("%c")[:-4]
-    print(dt, f"{func}: deleting uploaded Software...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: deleting uploaded Software...")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
@@ -152,18 +178,22 @@ def remove_uploadSw():
     sid = json_data['sid']
 
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
-    print(dt, f"{func}: software ID : {sid} - software name : {fname}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software ID : {sid} - software name : {fname}")
 
     # Docker image delete
-    print(dt, f"{func}: docker image {fname} deleting...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image {fname} deleting...")
     os.system(f"docker rmi -f sehooh5/{fname}")
-    print(dt, f"{func}: docker image deleted!!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image deleted!!")
 
     sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
 
     db.session.delete(sw)
     db.session.commit()
-    print(dt, f"{func}: software deleted !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software deleted !")
 
     return response.message("0000")
 
@@ -172,15 +202,16 @@ def remove_uploadSw():
 @ app.route('/add_newDeploySwInfo', methods=['POST'])
 def add_newDeploySwInfo():
     func = sys._getframe().f_code.co_name
-    dt = datetime.datetime.now().strftime("%c")[:-4]
-    print(dt, f" {func}: start deploying software by Kubernetes")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
     wid = json_data['wid']  # SW ID
     sid = json_data['sid']  # Server ID
-    print(dt, f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
     # 노드명 불러오기
     res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
     if res.json()["code"] != "0000":
@@ -195,23 +226,28 @@ def add_newDeploySwInfo():
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
     if "_" in fname:
         fname = fname.replace("_", "-")
-    print(dt, f" {func}: software name is {fname}.....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: software name is {fname}.....")
 
     docker_id = "sehooh5"
-    print(dt, f" {func}: Making deployment...")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: Making deployment...")
     deployment = dm.making(fname, port, target_port,
                            node_port, node_name, docker_id)
-    print(dt, f" {func}: ------ deployment ------ ")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
     os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
-    print(dt, f" {func}: deploying {fname}-{node_name}.yaml.....")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
 
     s = Server_SW(sid=sid, wid=wid, serviceport=port,
                   nodeport=node_port, targetport=target_port)
     db.session.add(s)
     db.session.commit()
-    print(dt, f" {func}: deploy completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deploy completed !")
 
     return response.message("0000")
 

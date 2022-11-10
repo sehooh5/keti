@@ -716,6 +716,24 @@
 
 - web app 과 연동하여 많은 수정 필요
   - postman 으로 요청 보내면서 수정해보기
+  - 최대한 db를 사용하지 않는 방식으로 진행
+  - API 기능 : 
+    - 엣지 AI 등록(기존 add_uploadSW 기능 - docker)
+      - req : 
+        - fileURL
+          - 기존 방식과 다르게 zip을 열 필요없이 fileURL의 dockerfile 을 실행시키기만 하면 된다
+          - **app.py 와 동일한 위치에 해당 폴더가 있고 그 안에 dockerfile이 존재해야함**
+      - res : 
+        - code
+        - message
+        - dname - docker image name(저장 필요)
+    - 엣지 AI 삭제(기존 delete_uploadSW 기능 - docker)
+      - req : 
+        - dname - docker image name
+    - 엣지 AI 배포(기존 add_deploySW 기능 - k8s)
+      - req : 
+        - dname - docker image name
+        - port
 
 
 
