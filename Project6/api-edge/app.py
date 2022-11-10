@@ -111,6 +111,8 @@ def add_newUploadSw():
         # docker login 실행
         print("Docker login..")
         os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+
+    # docker hub에 image push
     print("Docker image push to Docker hub..")
     os.system(f"docker push sehooh5/{fname}:latest")
     print("Docker image pushing completed!!")
@@ -125,11 +127,16 @@ def add_newUploadSw():
 
     print(dt, f"{func}: software upload completed !")
 
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        dname=fname
-    )
+    # res = jsonify(
+    #     code="0000",
+    #     message="처리 성공",
+    #     dname=fname
+    # )
+    res = json.dumps({
+        'code': '0000',
+        'message': '처리 성공',
+        'dname': fname
+    })
     return res
 
 
@@ -140,10 +147,10 @@ def remove_uploadSw():
     dt = datetime.datetime.now().strftime("%c")[:-4]
     print(dt, f"{func}: deleting uploaded Software...")
 
+    # json data 추출
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
     sid = json_data['sid']
 
     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
