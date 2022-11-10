@@ -95,27 +95,27 @@ def add_newUploadSw():
     # fileURL 에서 dockerfile 이름(fname)만 따로 추출하는 과정
     fname = fileURL.split('/')[-1]
 
-    # # docker image build
-    # print(dt, f"{func}: docker image building...")
-    # print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    # os.system(
-    #     f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    # print("Docker image building completed!!")
-    #
-    # # docker login status 확인
-    # try:
-    #     print("Docker login status is Checking...")
-    #     subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-    # except subprocess.CalledProcessError:
-    #     print("Docker login status : none")
-    #     # docker login 실행
-    #     print("Docker login..")
-    #     os.system("docker login -u sehooh5 -p @Dhtpgh1234")
-    #
-    # # docker hub에 image push
-    # print("Docker image push to Docker hub..")
-    # os.system(f"docker push sehooh5/{fname}:latest")
-    # print("Docker image pushing completed!!")
+    # docker image build
+    print(dt, f"{func}: docker image building...")
+    print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+    os.system(
+        f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+    print("Docker image building completed!!")
+
+    # docker login status 확인
+    try:
+        print("Docker login status is Checking...")
+        subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
+    except subprocess.CalledProcessError:
+        print("Docker login status : none")
+        # docker login 실행
+        print("Docker login..")
+        os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+
+    # docker hub에 image push
+    print("Docker image push to Docker hub..")
+    os.system(f"docker push sehooh5/{fname}:latest")
+    print("Docker image pushing completed!!")
 
     # else:
     #     fname = filename
@@ -127,16 +127,11 @@ def add_newUploadSw():
 
     print(dt, f"{func}: software upload completed !")
 
-    # res = jsonify(
-    #     code="0000",
-    #     message="처리 성공",
-    #     dname=fname
-    # )
-    res = json.dumps({
-        'code': '0000',
-        'message': '처리 성공',
-        'dname': fname
-    })
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        dname=fname
+    )
     return res
 
 
@@ -151,20 +146,12 @@ def remove_uploadSw():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    sid = json_data['sid']
-
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
-    print(dt, f"{func}: software ID : {sid} - software name : {fname}")
+    fname = json_data['dname']
 
     # Docker image delete
     print(dt, f"{func}: docker image {fname} deleting...")
     os.system(f"docker rmi -f sehooh5/{fname}")
     print(dt, f"{func}: docker image deleted!!")
-
-    sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
-
-    db.session.delete(sw)
-    db.session.commit()
     print(dt, f"{func}: software deleted !")
 
     return response.message("0000")

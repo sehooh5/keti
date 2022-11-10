@@ -726,7 +726,7 @@
       - res : 
         - code
         - message
-        - dname - docker image name(저장 필요)
+        - **dname - docker image name(저장 필요)**
     - 엣지 AI 삭제(기존 delete_uploadSW 기능 - docker)
       - req : 
         - dname - docker image name
