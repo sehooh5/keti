@@ -732,6 +732,7 @@
         - dname - docker image name
     - 엣지 AI 배포(기존 add_deploySW 기능 - k8s)
       - req : 
+        - nodename - 해당 단말 서버의 이름(ex, keti1)
         - dname - docker image name
         - port
 

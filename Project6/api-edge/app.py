@@ -164,42 +164,29 @@ def add_newDeploySwInfo():
     dt = datetime.datetime.now().strftime("%c")[:-4]
     print(dt, f" {func}: start deploying software by Kubernetes")
 
+    # json data 추출
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    wid = json_data['wid']  # SW ID
-    sid = json_data['sid']  # Server ID
-    print(dt, f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    node_name = res.json()["name"]
-    target_port = json_data['targetport']  # AI 등록 시 입력하는 port 번호
-    port = f"6{port_maker(3)}" # 중복 확인 안하고 그냥 생성
-    node_port = node_port() # 중복 확인 안하고 그냥 생성
+    fname = json_data['dname']  # SW ID
+    node_name = json_data['nodename']  # Server ID
+    target_port = json_data['port']  # AI 등록 시 입력하는 port 번호
 
-
-    # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    if "_" in fname:
-        fname = fname.replace("_", "-")
-    print(dt, f" {func}: software name is {fname}.....")
+    port = f"6{port_maker(3)}" # serviceport
+    node_port = node_port() # nodeport
+    print(dt, f" {func}: kubernetes : deploy software [{fname}] to edge Server [{node_name}]....")
 
     docker_id = "sehooh5"
     print(dt, f" {func}: Making deployment...")
+    
+    # deployment.yaml 생성
     deployment = dm.making(fname, port, target_port,
                            node_port, node_name, docker_id)
-    print(dt, f" {func}: ------ deployment ------ ")
+    print(dt, f" {func}: ------ deployment.yaml ------ ")
     print(deployment)
 
     os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
     print(dt, f" {func}: deploying {fname}-{node_name}.yaml.....")
-
-    s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                  nodeport=node_port, targetport=target_port)
-    db.session.add(s)
-    db.session.commit()
     print(dt, f" {func}: deploy completed !")
 
     return response.message("0000")
