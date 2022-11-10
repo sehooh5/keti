@@ -95,27 +95,27 @@ def add_newUploadSw():
     # fileURL 에서 dockerfile 이름(fname)만 따로 추출하는 과정
     fname = fileURL.split('/')[-1]
 
-    # docker image build
-    print(dt, f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    os.system(
-        f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-    print("Docker image building completed!!")
-
-    # docker login status 확인
-    try:
-        print("Docker login status is Checking...")
-        subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-    except subprocess.CalledProcessError:
-        print("Docker login status : none")
-        # docker login 실행
-        print("Docker login..")
-        os.system("docker login -u sehooh5 -p @Dhtpgh1234")
-
-    # docker hub에 image push
-    print("Docker image push to Docker hub..")
-    os.system(f"docker push sehooh5/{fname}:latest")
-    print("Docker image pushing completed!!")
+    # # docker image build
+    # print(dt, f"{func}: docker image building...")
+    # print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+    # os.system(
+    #     f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+    # print("Docker image building completed!!")
+    #
+    # # docker login status 확인
+    # try:
+    #     print("Docker login status is Checking...")
+    #     subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
+    # except subprocess.CalledProcessError:
+    #     print("Docker login status : none")
+    #     # docker login 실행
+    #     print("Docker login..")
+    #     os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+    #
+    # # docker hub에 image push
+    # print("Docker image push to Docker hub..")
+    # os.system(f"docker push sehooh5/{fname}:latest")
+    # print("Docker image pushing completed!!")
 
     # else:
     #     fname = filename
