@@ -93,10 +93,7 @@ def add_newUploadSw():
     fileURL = json_data['fileURL']
 
     # fileURL 에서 dockerfile 이름(fname)만 따로 추출하는 과정
-    f_len = fileURL.split('/')
     fname = fileURL.split('/')[-1]
-
-    return fname
 
     # docker image build
     print(dt, f"{func}: docker image building...")
@@ -125,9 +122,6 @@ def add_newUploadSw():
     #     with open(filename, 'wb') as file:
     #         data = requests.get(f"{API_URL}/download?filename={filename}")
     #         file.write(data.content)
-
-
-
 
     print(dt, f"{func}: software upload completed !")
 
