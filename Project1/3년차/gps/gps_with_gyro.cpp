@@ -137,7 +137,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 	length=read(fd,recv_buffer,length);
 	return length;
 }
-float a[3],w[3],Angle[3],h[3];
+float a[3],w[3],Angle[3],h[3], gps[3];
 void ParseData(char chr)
 {
 		static char chrBuf[100];
@@ -172,8 +172,8 @@ void ParseData(char chr)
 					for (i=0;i<3;i++) h[i] = (float)sData[i];
 					printf("h:%4.0f %4.0f %4.0f ",h[0],h[1],h[2]);
 				case 0x57:
-					for (i=0;i<7;i++) h[i] = (float)sData[i];
-					printf("h:%f %f %f ",h[0],h[1],h[2],h[3],h[4],h[5],h[6]));
+					for (i=0;i<6;i++) gps[i] = (float)sData[i];
+					printf("gps:%f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5]);
 
 					break;
 		}
@@ -185,7 +185,7 @@ int main(void)
     char r_buf[1024];
     bzero(r_buf,1024);
 
-    fd = uart_open(fd,"/dev/ttyUSB0");/*串口号/dev/ttySn,USB口号/dev/ttyUSBn */
+    fd = uart_open(fd,"/dev/ttyUSB2");/*串口号/dev/ttySn,USB口号/dev/ttyUSBn */
     if(fd == -1)
     {
         fprintf(stderr,"uart_open error\n");
