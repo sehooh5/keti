@@ -137,7 +137,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 	length=read(fd,recv_buffer,length);
 	return length;
 }
-float a[3],w[3],Angle[3],h[3], gps[3];
+float a[3],w[3],Angle[3],h[3], gps[6];
 void ParseData(char chr)
 {
 		static char chrBuf[100];
@@ -174,7 +174,6 @@ void ParseData(char chr)
 				case 0x57:
 					for (i=0;i<6;i++) gps[i] = (float)sData[i];
 					printf("gps:%f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5]);
-
 					break;
 		}
 		chrCnt=0;
