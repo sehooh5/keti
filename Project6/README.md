@@ -735,6 +735,8 @@
         - nodename - 해당 단말 서버의 이름(ex, keti1)
         - dname - docker image name
         - port
+- 일단 중단하고 5G GPS 모듈 테스트 먼저!!
+  - 현재 deploy 는 코드는 완성했는데 테스트 해봐야함!
 
 
 
