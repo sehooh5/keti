@@ -224,7 +224,7 @@ int main(void)
 	fp = fopen("Record.txt","w");
     while(1)
     {
-        ret = recv_data(fd,r_buf,110);
+        ret = recv_data(fd,r_buf,44);
         if(ret == -1)
         {
             fprintf(stderr,"uart read failed!\n");
