@@ -137,7 +137,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 	length=read(fd,recv_buffer,length);
 	return length;
 }
-float a[12],w[3],Angle[3],h[3], gps[6];
+float a[9],w[9],Angle[9],h[9],ph[9],gps[9],s[9],q[9],sp[9];
 void ParseData(char chr)
 {
 		static char chrBuf[100];
@@ -154,14 +154,13 @@ void ParseData(char chr)
 		memcpy(&sData[0],&chrBuf[2],8);
 
 		switch(chrBuf[1])
-
 		{
-		    printf(chrBuf[1]);
 				case 0x51:
-					for (i=0;i<13;i++) a[i] = (float)sData[i]/32768.0*16.0;
+					for (i=0;i<6;i++) a[i] = (float)sData[i]/32768.0*16.0;
+					for (i=6;i<8;i++) a[i] = (float)sData[i]/100;
 					time(&now);
-					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f "
-					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9],a[10],a[11],a[12]);
+					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
+					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8]);
 					break;
 				case 0x52:
 					for (i=0;i<3;i++) w[i] = (float)sData[i]/32768.0*2000.0;
