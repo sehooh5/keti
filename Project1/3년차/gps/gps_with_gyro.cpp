@@ -137,7 +137,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 	length=read(fd,recv_buffer,length);
 	return length;
 }
-float a[3],w[3],Angle[3],h[3], gps[6];
+float a[12],w[3],Angle[3],h[3], gps[6];
 void ParseData(char chr)
 {
 		static char chrBuf[100];
