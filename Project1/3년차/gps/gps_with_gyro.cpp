@@ -158,29 +158,33 @@ void ParseData(char chr)
 				case 0x51:
 					for (i=0;i<6;i++) a[i] = (float)sData[i]/32768.0*16.0;
 					for (i=6;i<8;i++) a[i] = (float)sData[i]/100;
-					a[9] = (float)sData[9];
 					time(&now);
-					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
-					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8]);
+					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
+					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7]);
 					break;
 				case 0x52:
 					for (i=0;i<6;i++) w[i] = (float)sData[i]/32768.0*2000.0;
 					for (i=6;i<8;i++) w[i] = (float)sData[i]/100;
-					printf("\n w:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f "
-					,w[0],w[1],w[2],w[3],w[4],w[5],w[6],w[7],w[8]);
+					printf("\n w:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
+					,w[0],w[1],w[2],w[3],w[4],w[5],w[6],w[7]);
 					break;
 				case 0x53:
 					for (i=0;i<6;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
 					for (i=6;i<8;i++) Angle[i] = (float)sData[i];
-					printf("\n A:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f "
-					,Angle[0],Angle[1],Angle[2],Angle[3],Angle[4],Angle[5],Angle[6],Angle[7],Angle[8]);
+					printf("\n A:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
+					,Angle[0],Angle[1],Angle[2],Angle[3],Angle[4],Angle[5],Angle[6],Angle[7]);
 					break;
 				case 0x54:
-					for (i=0;i<3;i++) h[i] = (float)sData[i];
-					printf("\n h:%4.0f %4.0f %4.0f ",h[0],h[1],h[2]);
+					for (i=0;i<8;i++) h[i] = (float)sData[i];
+					printf("\n h:%4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f"
+					,h[0],h[1],h[2],h[3],h[4],h[5],h[6],h[7]);
+				case 0x56:
+					for (i=0;i<8;i++) ph[i] = (float)sData[i];
+					printf("\n h:%f %f %f %f %f %f %f %f"
+					,ph[0],ph[1],ph[2],ph[3],ph[4],ph[5],ph[6],ph[7]);
 				case 0x57:
-					for (i=0;i<6;i++) gps[i] = (float)sData[i];
-					printf("\n gps:%f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5]);
+					for (i=0;i<8;i++) gps[i] = (float)sData[i]/100000000;
+					printf("\n gps:%f %f %f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5],gps[6],gps[7]);
 					break;
 		}
 		chrCnt=0;
