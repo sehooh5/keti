@@ -205,7 +205,7 @@ int main(void)
     bzero(r_buf,1024);
 
     fd = uart_open(fd,"/dev/ttyUSB2");/*串口号/dev/ttySn,USB口号/dev/ttyUSBn */
-    printf(fd);
+    printf("%d", fd);
     if(fd == -1)
     {
         fprintf(stderr,"uart_open error\n");
@@ -223,7 +223,7 @@ int main(void)
     while(1)
     {
         ret = recv_data(fd,r_buf,44);
-        printf(ret);
+        printf("%d", ret);
         if(ret == -1)
         {
             fprintf(stderr,"uart read failed!\n");
