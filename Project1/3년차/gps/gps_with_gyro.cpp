@@ -180,7 +180,7 @@ void ParseData(char chr)
 					,h[0],h[1],h[2],h[3],h[4],h[5],h[6],h[7]);
 				case 0x56:
 					for (i=0;i<8;i++) ph[i] = (float)sData[i];
-					printf("\n h:%f %f %f %f %f %f %f %f"
+					printf("\n ph:%f %f %f %f %f %f %f %f"
 					,ph[0],ph[1],ph[2],ph[3],ph[4],ph[5],ph[6],ph[7]);
 				case 0x57:
 					for (i=0;i<8;i++) gps[i] = (float)sData[i]/100000000;
