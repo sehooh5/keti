@@ -142,7 +142,7 @@ void ParseData(char chr)
 {
 		static char chrBuf[100];
 		static unsigned char chrCnt=0;
-		signed short sData[9];
+		signed short sData[4];
 		unsigned char i;
 		char cTemp=0;
 		time_t now;
@@ -224,7 +224,7 @@ int main(void)
 	fp = fopen("Record.txt","w");
     while(1)
     {
-        ret = recv_data(fd,r_buf,44);
+        ret = recv_data(fd,r_buf,110);
         if(ret == -1)
         {
             fprintf(stderr,"uart read failed!\n");
