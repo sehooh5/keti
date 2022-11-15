@@ -193,7 +193,7 @@ void ParseData(char chr)
 					break;
 				case 0x5A:
 					for (i=0;i<8;i++) sp[i] = (float)sData[i];
-					printf("\r\n Satellite Positioning:%f %f %f %f %f %f %f %f",sp[0],sp[1],sp[2],sp[3],sp[4],sp[5],sp[6],sp[7]);
+					printf("\r\n Satellite Positioning:%f %f %f %f %f %f %f %f\r\n",sp[0],sp[1],sp[2],sp[3],sp[4],sp[5],sp[6],sp[7]);
 					break;
 		}
 		chrCnt=0;
