@@ -163,12 +163,16 @@ void ParseData(char chr)
 					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8]);
 					break;
 				case 0x52:
-					for (i=0;i<3;i++) w[i] = (float)sData[i]/32768.0*2000.0;
-					printf("\n w:%7.3f %7.3f %7.3f ",w[0],w[1],w[2]);
+					for (i=0;i<6;i++) w[i] = (float)sData[i]/32768.0*2000.0;
+					for (i=6;i<8;i++) w[i] = (float)sData[i]/100;
+					printf("\n w:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f "
+					,w[0],w[1],w[2],w[3],w[4],w[5],w[6],w[7],w[8]);
 					break;
 				case 0x53:
-					for (i=0;i<3;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
-					printf("\n A:%7.3f %7.3f %7.3f ",Angle[0],Angle[1],Angle[2]);
+					for (i=0;i<6;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
+					for (i=6;i<8;i++) Angle[i] = (float)sData[i];
+					printf("\n A:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f "
+					,Angle[0],Angle[1],Angle[2],Angle[3],Angle[4],Angle[5],Angle[6],Angle[7],Angle[8]);
 					break;
 				case 0x54:
 					for (i=0;i<3;i++) h[i] = (float)sData[i];
