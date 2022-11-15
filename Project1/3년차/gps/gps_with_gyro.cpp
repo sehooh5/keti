@@ -156,47 +156,44 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-					for (i=0;i<6;i++) a[i] = (float)sData[i]/32768.0*16.0;
-					for (i=6;i<8;i++) a[i] = (float)sData[i]/100;
+					for (i=0;i<8;i++) a[i] = (float)sData[i];
 					time(&now);
-					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
+					printf("\r\nTime:%s Acc:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
 					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7]);
 					break;
 				case 0x52:
-					for (i=0;i<6;i++) w[i] = (float)sData[i]/32768.0*2000.0;
-					for (i=6;i<8;i++) w[i] = (float)sData[i]/100;
-					printf("\n w:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
+					for (i=0;i<8;i++) w[i] = (float)sData[i];
+					printf("\r\n Gyro:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
 					,w[0],w[1],w[2],w[3],w[4],w[5],w[6],w[7]);
 					break;
 				case 0x53:
-					for (i=0;i<6;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
-					for (i=6;i<8;i++) Angle[i] = (float)sData[i];
-					printf("\n A:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
+					for (i=0;i<8;i++) Angle[i] = (float)sData[i];
+					printf("\r\n Angle:%7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f %7.3f"
 					,Angle[0],Angle[1],Angle[2],Angle[3],Angle[4],Angle[5],Angle[6],Angle[7]);
 					break;
 				case 0x54:
 					for (i=0;i<8;i++) h[i] = (float)sData[i];
-					printf("\n h:%4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f"
+					printf("\r\n Magnetic%4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f %4.0f"
 					,h[0],h[1],h[2],h[3],h[4],h[5],h[6],h[7]);
 				case 0x56:
 					for (i=0;i<8;i++) ph[i] = (float)sData[i];
-					printf("\n ph:%f %f %f %f %f %f %f %f"
+					printf("\r\n Pressure:%f %f %f %f %f %f %f %f"
 					,ph[0],ph[1],ph[2],ph[3],ph[4],ph[5],ph[6],ph[7]);
 				case 0x57:
 					for (i=0;i<8;i++) gps[i] = (float)sData[i];
-					printf("\n gps:%f %f %f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5],gps[6],gps[7]);
+					printf("\r\n GPS:%f %f %f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5],gps[6],gps[7]);
 					break;
 				case 0x58:
 					for (i=0;i<8;i++) s[i] = (float)sData[i];
-					printf("\n s:%f %f %f %f %f %f %f %f",s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7]);
+					printf("\r\n Speed:%f %f %f %f %f %f %f %f",s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7]);
 					break;
 				case 0x59:
 					for (i=0;i<8;i++) q[i] = (float)sData[i];
-					printf("\n q:%f %f %f %f %f %f %f %f",q[0],q[1],q[2],q[3],q[4],q[5],q[6],q[7]);
+					printf("\r\n Quaternion:%f %f %f %f %f %f %f %f",q[0],q[1],q[2],q[3],q[4],q[5],q[6],q[7]);
 					break;
 				case 0x5A:
 					for (i=0;i<8;i++) sp[i] = (float)sData[i];
-					printf("\n sp:%f %f %f %f %f %f %f %f",sp[0],sp[1],sp[2],sp[3],sp[4],sp[5],sp[6],sp[7]);
+					printf("\r\n Satellite Positioning:%f %f %f %f %f %f %f %f",sp[0],sp[1],sp[2],sp[3],sp[4],sp[5],sp[6],sp[7]);
 					break;
 		}
 		chrCnt=0;
