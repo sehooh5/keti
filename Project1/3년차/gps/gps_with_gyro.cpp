@@ -158,6 +158,7 @@ void ParseData(char chr)
 				case 0x51:
 					for (i=0;i<6;i++) a[i] = (float)sData[i]/32768.0*16.0;
 					for (i=6;i<8;i++) a[i] = (float)sData[i]/100;
+					a[9] = (float)sData[9];
 					time(&now);
 					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f"
 					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8]);
