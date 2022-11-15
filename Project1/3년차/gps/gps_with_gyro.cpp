@@ -183,8 +183,20 @@ void ParseData(char chr)
 					printf("\n ph:%f %f %f %f %f %f %f %f"
 					,ph[0],ph[1],ph[2],ph[3],ph[4],ph[5],ph[6],ph[7]);
 				case 0x57:
-					for (i=0;i<8;i++) gps[i] = (float)sData[i]/100000000;
+					for (i=0;i<8;i++) gps[i] = (float)sData[i];
 					printf("\n gps:%f %f %f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5],gps[6],gps[7]);
+					break;
+				case 0x58:
+					for (i=0;i<8;i++) s[i] = (float)sData[i];
+					printf("\n s:%f %f %f %f %f %f %f %f",s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7]);
+					break;
+				case 0x59:
+					for (i=0;i<8;i++) q[i] = (float)sData[i];
+					printf("\n q:%f %f %f %f %f %f %f %f",q[0],q[1],q[2],q[3],q[4],q[5],q[6],q[7]);
+					break;
+				case 0x5A:
+					for (i=0;i<8;i++) sp[i] = (float)sData[i];
+					printf("\n sp:%f %f %f %f %f %f %f %f",sp[0],sp[1],sp[2],sp[3],sp[4],sp[5],sp[6],sp[7]);
 					break;
 		}
 		chrCnt=0;
