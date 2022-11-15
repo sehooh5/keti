@@ -155,25 +155,25 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-					for (i=0;i<10;i++) a[i] = (float)sData[i]/32768.0*16.0;
+					for (i=0;i<11;i++) a[i] = (float)sData[i]/32768.0*16.0;
 					time(&now);
-					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f "
-					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9]);
+					printf("\r\nT:%s a:%6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f %6.3f "
+					,asctime(localtime(&now)),a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7],a[8],a[9],a[10]);
 					break;
 				case 0x52:
 					for (i=0;i<3;i++) w[i] = (float)sData[i]/32768.0*2000.0;
-					printf("\nw:%7.3f %7.3f %7.3f ",w[0],w[1],w[2]);
+					printf("\n w:%7.3f %7.3f %7.3f ",w[0],w[1],w[2]);
 					break;
 				case 0x53:
 					for (i=0;i<3;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
-					printf("\nA:%7.3f %7.3f %7.3f ",Angle[0],Angle[1],Angle[2]);
+					printf("\n A:%7.3f %7.3f %7.3f ",Angle[0],Angle[1],Angle[2]);
 					break;
 				case 0x54:
 					for (i=0;i<3;i++) h[i] = (float)sData[i];
-					printf("\nh:%4.0f %4.0f %4.0f ",h[0],h[1],h[2]);
+					printf("\n h:%4.0f %4.0f %4.0f ",h[0],h[1],h[2]);
 				case 0x57:
 					for (i=0;i<6;i++) gps[i] = (float)sData[i];
-					printf("\ngps:%f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5]);
+					printf("\n gps:%f %f %f %f %f %f",gps[0],gps[1],gps[2],gps[3],gps[4],gps[5]);
 					break;
 		}
 		chrCnt=0;
