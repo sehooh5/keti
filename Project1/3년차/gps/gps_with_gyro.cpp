@@ -140,7 +140,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 float a[9],w[9],Angle[9],h[9],ph[9],gps[9],s[9],q[9],sp[9];
 void ParseData(char chr)
 {
-		static char chrBuf[100];
+		static char chrBuf[2000];
 		static unsigned char chrCnt=0;
 		signed short sData[9];
 		unsigned char i;
