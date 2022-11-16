@@ -13,6 +13,6 @@ while True:
         break
    else:
         print(oneByte)
-        buffer += oneByte.decode('utf-8')
+        buffer += oneByte.decode('cp949')
 
 print (buffer.strip())
