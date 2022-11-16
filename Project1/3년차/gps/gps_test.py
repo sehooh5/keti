@@ -4,7 +4,7 @@ ser = serial.Serial(port='/dev/ttyUSB2', baudrate=9600, parity=serial.PARITY_NON
                     stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
 if ser.readable():
     res = ser.readline()
-    print(res.decode('latin-1')[:len(res) - 1])
+    print(res.decode('cp949')[:len(res) - 1])
 
 # buffer=""
 # while True:
