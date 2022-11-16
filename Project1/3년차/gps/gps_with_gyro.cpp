@@ -230,7 +230,7 @@ int main(void)
             exit(EXIT_FAILURE);
         }
         // for 문의 r_buf[i] 가 늘어나야 될거같은???
-        printf("여기")
+        printf("여기");
 		for (int i=0;i<ret;i++) {printf(r_buf[i]);fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
         usleep(1000);
     }
