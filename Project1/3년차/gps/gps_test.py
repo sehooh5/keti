@@ -2,17 +2,18 @@ import serial
 
 ser = serial.Serial(port='/dev/ttyUSB2', baudrate=9600, parity=serial.PARITY_NONE,
                     stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
-if ser.readable():
-    res = ser.readline()
-    print(res.decode()[:len(res) - 1])
+# if ser.readable():
+#     res = ser.readline()
+#     print(res.decode()[:len(res) - 1])
 
-# buffer=""
-# while True:
-#    oneByte = ser.read(1)
-#    if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
-#         break
-#    else:
-#         print(oneByte)
-#         buffer += oneByte.decode('cp949')
-#
-# print (buffer.strip())
+buffer=""
+while True:
+   oneByte = ser.read(1)
+   if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
+        break
+   else:
+        data=bytes.hex(oneByte, ' ')
+        print(data)
+        buffer += oneByte.decode('cp949')
+
+print (buffer.strip())
