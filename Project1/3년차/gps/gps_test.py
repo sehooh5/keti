@@ -10,8 +10,9 @@ buffer=""
 while True:
    oneByte = ser.read(1)
    if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
-       break
+        break
    else:
-       buffer += oneByte.decode()
+        print(oneByte)
+        buffer += oneByte.decode()
 
 print (buffer.strip())
