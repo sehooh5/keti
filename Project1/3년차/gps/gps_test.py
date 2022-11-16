@@ -12,7 +12,7 @@ while True:
    if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
         break
    else:
-        data=bytes.hex(oneByte, ' ')
+        data=oneByte.hex()
         print(data)
         buffer += oneByte.decode('cp949')
 
