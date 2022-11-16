@@ -222,7 +222,7 @@ int main(void)
 	fp = fopen("Record.txt","w");
     while(1)
     {
-        ret = recv_data(fd,r_buf,99);
+        ret = recv_data(fd,r_buf,44);
         //printf("\r\nret %d", ret); // 30개 0 이후 32 혹은 14 라는 length와 함께 데이터 출력
         if(ret == -1)
         {

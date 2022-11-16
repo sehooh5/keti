@@ -12,6 +12,6 @@ while True:
    if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
         break
    else:
-        buffer += oneByte.decode('ascii')
+        buffer += oneByte.decode()
 
 print (buffer.strip())
