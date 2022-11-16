@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial(port='/dev/ttyUSB2', baudrate=9600, parity=serial.PARITY_NONE,
+ser = serial.Serial(port='/dev/serial0', baudrate=9600, parity=serial.PARITY_NONE,
                     stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
 # if ser.readable():
 #     res = ser.readline()
@@ -8,7 +8,6 @@ ser = serial.Serial(port='/dev/ttyUSB2', baudrate=9600, parity=serial.PARITY_NON
 
 buffer=""
 while True:
-   print(ser.read(1))
    oneByte = ser.read(1)
    if oneByte == b"\r":    #byte단위로 read, 구분자 '\r'
         break
