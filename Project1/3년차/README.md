@@ -1830,3 +1830,4 @@
 - window 에서 gps data setup 부터 시작
   - 1번 고장 / 2번은 gps original도 잘 들어옴
 - c++ 예제 변경해주신거부터 다시 코드 짜보기
+  - /gps/gps_with_gyro2.cpp 에서 진행
