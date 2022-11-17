@@ -187,7 +187,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[0x51] Acceleration Output start");
+				    printf("\r\n[0x51] Acceleration Output start\n");
 				    float ax;
 				    float ay;
 				    float az;
@@ -197,14 +197,14 @@ void ParseData(char chr)
                     for(i=0;i<8;i++)
                     {
                         tmp[i] = (float)chrBuf[i+2];
-                        printf("%f", tmp[i]);
+//                        printf("%f", tmp[i]);
                     }
-//                    ax = (float)((tmp[1]<<8)||tmp[0]);
-//                    ay = (float)((tmp[3]<<8)||tmp[2]);
-//                    az = (float)((tmp[5]<<8)||tmp[4]);
-//                    printf("\r\nax : %f", ax);
-//                    printf("\r\nay : %f", ay);
-//                    printf("\r\naz : %f", az);
+                    ax = (float)((tmp[1]<<8)||tmp[0]/32768*16);
+                    ay = (float)((tmp[3]<<8)||tmp[2]/32768*16);
+                    az = (float)((tmp[5]<<8)||tmp[4]/32768*16);
+                    printf("\r\nax : %f", ax);
+                    printf("\r\nay : %f", ay);
+                    printf("\r\naz : %f", az);
 
 // chrBuf 프린트해보기
 /*				    for(i=0;i<10;i++)
@@ -213,7 +213,7 @@ void ParseData(char chr)
 				        printf("%c", chrBuf[i]);
 				    }
 */
-				    printf("\r\n[0x51] Acceleration Output End");
+				    printf("\r\n[0x51] Acceleration Output End\n");
 				    break;
                 case 0x52:
 				    break;
