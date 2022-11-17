@@ -194,8 +194,8 @@ void ParseData(char chr)
 
 				    for(i=0;i<10;i++)
 				    {
-				        printf("\r\nchrBuf : ")
-				        printf("%s", chrBuf[i])
+				        printf("\r\nchrBuf : ");
+				        printf("%s", chrBuf[i]);
 				    }
 
 				    printf("\r\n[0x51] Acceleration Output End")
