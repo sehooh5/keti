@@ -175,7 +175,7 @@ void ParseData(char chr)
 
         // 데이터 변수 설정
         // 0x51
-        float ax; ay; az;
+        float ax ay az;
 
 		time_t now;
 		chrBuf[chrCnt++]=chr;
@@ -214,7 +214,7 @@ void ParseData(char chr)
 				    break;
 				case 0x57:
 
-					lon = get_lognitude(chrBuf);
+//					lon = get_lognitude(chrBuf);
 //					printf("\n lon : %d, dd: %f, mm : %f\n", lon, (float)(lon/100000000), (float)((lon%10000000)/100000));
 					break;
                 case 0x58:
