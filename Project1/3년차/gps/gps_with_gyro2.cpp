@@ -195,10 +195,10 @@ void ParseData(char chr)
 				    for(i=0;i<10;i++)
 				    {
 				        printf("\r\nchrBuf : ");
-				        printf("%s", chrBuf[i]);
+				        printf("%c", chrBuf[i]);
 				    }
 
-				    printf("\r\n[0x51] Acceleration Output End")
+				    printf("\r\n[0x51] Acceleration Output End");
 				    break;
                 case 0x52:
 				    break;
