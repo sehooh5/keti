@@ -187,7 +187,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[0x51] Acceleration Output start")
+				    printf("\r\n[0x51] Acceleration Output start");
 				    float ax;
 				    float ay;
 				    float az;
