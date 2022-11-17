@@ -168,13 +168,14 @@ void ParseData(char chr)
 {
 		static char chrBuf[100];
 		static unsigned char chrCnt=0;
-		signed short sData[4];
 		unsigned char i;
 		char cTemp=0;
-		// cmyang
-		unsigned int lon;
-		unsigned int lat;
-		// --
+		// 데이터 담을 tmp
+        signed short tmp[8];
+
+        // 데이터 변수 설정
+        // 0x51
+        float ax; ay; az;
 
 		time_t now;
 		chrBuf[chrCnt++]=chr;
@@ -182,47 +183,25 @@ void ParseData(char chr)
 		for (i=0;i<10;i++) cTemp+=chrBuf[i];
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
 
-		memcpy(&sData[0],&chrBuf[2],8);
 
 		switch(chrBuf[1])
 		{
 				case 0x51:
 				    printf("\r\n[0x51] Acceleration Output start\n");
-				    float ax;
-				    float ay;
-				    float az;
-
-                    signed short tmp[8];
 
                     for(i=0;i<8;i++)
                     {
                         tmp[i] = (signed short)chrBuf[i+2];
-                        printf("\r\ntmp %d ", tmp[i]);
                     }
-
                     ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
                     ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
                     az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
 
 
-//                    ax = (float)((float)(((tmp[1]<<8)|tmp[0])/32768)*16);
-//                    ay = (float)((float)(((tmp[3]<<8)|tmp[2])/32768)*16);
-//                    az = (float)((float)(((tmp[5]<<8)|tmp[4])/32768)*16);
-
-//                    ax = (float) (((tmp[1]<<8)|tmp[0])/32768*16);
-//                    ay = (float) (((tmp[3]<<8)|tmp[2])/32768*16);
-//                    az = (float) (((tmp[5]<<8)|tmp[4])/32768*16);
                     printf("\r\nax : %f", ax);
                     printf("\r\nay : %f", ay);
                     printf("\r\naz : %f", az);
 
-// chrBuf 프린트해보기
-/*				    for(i=0;i<10;i++)
-				    {
-				        printf("\r\nchrBuf : ");
-				        printf("%c", chrBuf[i]);
-				    }
-*/
 				    printf("\r\n[0x51] Acceleration Output End\n");
 				    break;
                 case 0x52:
@@ -234,16 +213,6 @@ void ParseData(char chr)
                 case 0x56:
 				    break;
 				case 0x57:
-//					printf(" %x", chrBuf[0]);
-//					printf("%x", chrBuf[1]);
-//					printf("%x", chrBuf[2]);
-//					printf("%x", chrBuf[3]);
-//					printf("%x", chrBuf[4]);
-//					printf("%x", chrBuf[5]);
-//					printf("%x", chrBuf[6]);
-//					printf("%x", chrBuf[7]);
-//					printf("%x", chrBuf[8]);
-//					printf("%x", chrBuf[9]);
 
 					lon = get_lognitude(chrBuf);
 //					printf("\n lon : %d, dd: %f, mm : %f\n", lon, (float)(lon/100000000), (float)((lon%10000000)/100000));
@@ -255,33 +224,6 @@ void ParseData(char chr)
                 case 0x5A:
 				    break;
 
-/*
-				case 0x50:
-				       printf(" \n********************************** \n");
-				       printf("YY : %02d, MM: %02d, %02d, %02d, %02d, %02d, %0d\n", (int)(chrBuf[2]), (int)(chrBuf[3]), (int)(chrBuf[4]), (int)(chrBuf[5]), (int)(chrBuf[6]), (int)(chrBuf[7]), (int)(((unsigned short)(chrBuf[9]<<8))|(unsigned short)chrBuf[8]));
-				       printf("********************************** \n");
-				       break;
-
-				case 0x51:
-					for (i=0;i<3;i++) a[i] = (float)sData[i]/32768.0*16.0;
-					time(&now);
-					printf("\r\nT:%s a:%6.3f %6.3f %6.3f ",asctime(localtime(&now)),a[0],a[1],a[2]);
-
-					break;
-				case 0x52:
-					for (i=0;i<3;i++) w[i] = (float)sData[i]/32768.0*2000.0;
-					printf("w:%7.3f %7.3f %7.3f ",w[0],w[1],w[2]);
-					break;
-				case 0x53:
-					for (i=0;i<3;i++) Angle[i] = (float)sData[i]/32768.0*180.0;
-					printf("A:%7.3f %7.3f %7.3f ",Angle[0],Angle[1],Angle[2]);
-					break;
-				case 0x54:
-					for (i=0;i<3;i++) h[i] = (float)sData[i];
-					printf("h:%4.0f %4.0f %4.0f ",h[0],h[1],h[2]);
-
-					break;
-*/
 		}
 		chrCnt=0;
 }

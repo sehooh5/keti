@@ -1829,5 +1829,8 @@
 
 - window 에서 gps data setup 부터 시작
   - 1번 고장 / 2번은 gps original도 잘 들어옴
+  - 2번 gps 잘 들어와서 location 데이터 확인
 - c++ 예제 변경해주신거부터 다시 코드 짜보기
   - /gps/gps_with_gyro2.cpp 에서 진행
+    - 코드 0x51번 완료 이것 토대로 진행하기
+    - 결과값은 float / 데이터 변환은 signed short
