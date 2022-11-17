@@ -189,8 +189,8 @@ void ParseData(char chr)
 				case 0x51:
 				    printf("\r\n[0x51] Acceleration Output start");
 				    unsigned int ax;
-				    float ay;
-				    float az;
+				    unsigned int ay;
+				    unsigned int az;
 
                     unsigned int tmp[8];
 
