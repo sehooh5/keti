@@ -199,9 +199,9 @@ void ParseData(char chr)
                         tmp[i] = (signed short)chrBuf[i+2];
                         printf("\r\ntmp %d ", tmp[i]);
                     }
-                    ax = (float)((float)(((tmp[1]<<8)|tmp[0])/32768))*16);
-                    ay = (float)((float)(((tmp[3]<<8)|tmp[2])/32768))*16);
-                    az = (float)((float)(((tmp[5]<<8)|tmp[4])/32768))*16);
+                    ax = (float)((float)(((tmp[1]<<8)|tmp[0])/32768)*16);
+                    ay = (float)((float)(((tmp[3]<<8)|tmp[2])/32768)*16);
+                    az = (float)((float)(((tmp[5]<<8)|tmp[4])/32768)*16);
 
 //                    ax = (float) (((tmp[1]<<8)|tmp[0])/32768*16);
 //                    ay = (float) (((tmp[3]<<8)|tmp[2])/32768*16);
