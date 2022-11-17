@@ -202,7 +202,7 @@ void ParseData(char chr)
 
                     ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
                     ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
-                    az = ((float)(((tmp[5]<<8)|tmp[4])/32768*16;
+                    az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
 
 
 //                    ax = (float)((float)(((tmp[1]<<8)|tmp[0])/32768)*16);
