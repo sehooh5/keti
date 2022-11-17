@@ -199,7 +199,11 @@ void ParseData(char chr)
                         tmp[i] = (unsigned int)chrBuf[i+2];
                     }
                     ax = ((tmp[1]<<8)||tmp[0]);
-                    printf("ax : %d", ax);
+                    ay = ((tmp[3]<<8)||tmp[2]);
+                    az = ((tmp[5]<<8)||tmp[4]);
+                    printf("\r\nax : %d", ax);
+                    printf("\r\nay : %d", ay);
+                    printf("\r\naz : %d", az);
 
 // chrBuf 프린트해보기
 /*				    for(i=0;i<10;i++)
