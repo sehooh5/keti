@@ -188,16 +188,26 @@ void ParseData(char chr)
 		{
 				case 0x51:
 				    printf("\r\n[0x51] Acceleration Output start");
-				    float ax;
+				    unsigned int ax;
 				    float ay;
 				    float az;
 
-				    for(i=0;i<10;i++)
+                    unsigned int tmp[8];
+
+                    for(i=0;i<8;i++)
+                    {
+                        tmp[i] = (unsigned int)chrBuf[i+2];
+                    }
+                    ax = ((tmp[1]<<8)||tmp[0]);
+                    printf("ax : %d", ax);
+
+// chrBuf 프린트해보기
+/*				    for(i=0;i<10;i++)
 				    {
 				        printf("\r\nchrBuf : ");
 				        printf("%c", chrBuf[i]);
 				    }
-
+*/
 				    printf("\r\n[0x51] Acceleration Output End");
 				    break;
                 case 0x52:
