@@ -197,7 +197,7 @@ void ParseData(char chr)
                     for(i=0;i<8;i++)
                     {
                         tmp[i] = (unsigned int)chrBuf[i+2];
-                        printf("%d", tmp[i]);
+                        printf("\r\ntmp %d ", tmp[i]);
                     }
                     ax = (float)((tmp[1]<<8)|tmp[0]);
                     ay = (float)((tmp[3]<<8)|tmp[2]);
