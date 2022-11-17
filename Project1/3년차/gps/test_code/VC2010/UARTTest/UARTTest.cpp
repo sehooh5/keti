@@ -1,4 +1,4 @@
-// UARTTest.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌÐòµÄÈë¿Úµã¡£
+// UARTTest.cpp : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµã¡£
 //
 
 #include "stdafx.h"
@@ -9,17 +9,13 @@
 #include "JY901.h"
 unsigned char ucComNo[2] ={0,0};
 
-int _tmain(int argc, _TCHAR* argv[])
+int _tmain()
 {
 	char chrBuffer[2000];
 	unsigned short usLength=0,usCnt=0;
 	unsigned long ulBaund=9600,ulComNo=3;
 	signed char cResult= 1;	
-	printf("ÇëÊäÈë´®¿ÚºÅ:\r\nCom = ");
-	scanf("%ld",&ulComNo);
-	printf("ÇëÊäÈë²¨ÌØÂÊ:(9600¡¢115200»òÆäËû)\r\nBaud = ");
-	scanf("%ld",&ulBaund);
-	printf("µÈ´ý´ò¿ª´®¿Ú%d...\r\n",ucComNo);
+
 	while(cResult!=0)
 	{
 		cResult = OpenCOMDevice(ulComNo,ulBaund);
@@ -33,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			JY901.CopeSerialData(chrBuffer,usLength);
 		}
-		Sleep(100);
+		Sleep(1000);
 		
 		if (usCnt++>=0)
 		{
@@ -56,7 +52,9 @@ int _tmain(int argc, _TCHAR* argv[])
 			printf("Longitude:%ldDeg%.5fm Lattitude:%ldDeg%.5fm\r\n",JY901.stcLonLat.lLon/10000000,(double)(JY901.stcLonLat.lLon % 10000000)/1e5,JY901.stcLonLat.lLat/10000000,(double)(JY901.stcLonLat.lLat % 10000000)/1e5);
 
 			printf("GPSHeight:%.1fm GPSYaw:%.1fDeg GPSV:%.3fkm/h\r\n\r\n",(float)JY901.stcGPSV.sGPSHeight/10,(float)JY901.stcGPSV.sGPSYaw/10,(float)JY901.stcGPSV.lGPSVelocity/1000);
-		}	
+
+
+		}
 		
 	}
 		return 0;
