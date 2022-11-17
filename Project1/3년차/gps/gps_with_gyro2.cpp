@@ -197,11 +197,11 @@ void ParseData(char chr)
                     for(i=0;i<8;i++)
                     {
                         tmp[i] = (unsigned int)chrBuf[i+2];
-//                        printf("%f", tmp[i]);
+                        printf("%f", tmp[i]);
                     }
-                    ax = (float)((tmp[1]<<8)||tmp[0]);
-                    ay = (float)((tmp[3]<<8)||tmp[2]);
-                    az = (float)((tmp[5]<<8)||tmp[4]);
+                    ax = (float)((tmp[1]<<8)|tmp[0]);
+                    ay = (float)((tmp[3]<<8)|tmp[2]);
+                    az = (float)((tmp[5]<<8)|tmp[4]);
                     printf("\r\nax : %f", (ax/32768*16));
                     printf("\r\nay : %f", (ay/32768*16));
                     printf("\r\naz : %f", (az/32768*16));
@@ -224,16 +224,16 @@ void ParseData(char chr)
                 case 0x56:
 				    break;
 				case 0x57:
-					printf(" %x", chrBuf[0]);
-					printf("%x", chrBuf[1]);
-					printf("%x", chrBuf[2]);
-					printf("%x", chrBuf[3]);
-					printf("%x", chrBuf[4]);
-					printf("%x", chrBuf[5]);
-					printf("%x", chrBuf[6]);
-					printf("%x", chrBuf[7]);
-					printf("%x", chrBuf[8]);
-					printf("%x", chrBuf[9]);
+//					printf(" %x", chrBuf[0]);
+//					printf("%x", chrBuf[1]);
+//					printf("%x", chrBuf[2]);
+//					printf("%x", chrBuf[3]);
+//					printf("%x", chrBuf[4]);
+//					printf("%x", chrBuf[5]);
+//					printf("%x", chrBuf[6]);
+//					printf("%x", chrBuf[7]);
+//					printf("%x", chrBuf[8]);
+//					printf("%x", chrBuf[9]);
 
 					lon = get_lognitude(chrBuf);
 //					printf("\n lon : %d, dd: %f, mm : %f\n", lon, (float)(lon/100000000), (float)((lon%10000000)/100000));
