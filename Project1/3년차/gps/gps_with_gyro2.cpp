@@ -187,7 +187,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[0x51] Acceleration Output start\n");
+				    printf("\r\n[0x51] Acceleration Output start");
 
                     for(i=0;i<8;i++)
                     {
@@ -198,10 +198,7 @@ void ParseData(char chr)
                     az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
 
 
-                    printf("\r\nax : %f", ax);
-                    printf("\r\nay : %f", ay);
-                    printf("\r\naz : %f", az);
-
+                    printf("\r\nax : %f ay : %f az : %f", ax, ay, az);
 				    printf("\r\n[0x51] Acceleration Output End\n");
 				    break;
                 case 0x52:
