@@ -192,11 +192,11 @@ void ParseData(char chr)
 				    float ay;
 				    float az;
 
-                    float tmp[8];
+                    unsigned int tmp[8];
 
                     for(i=0;i<8;i++)
                     {
-                        tmp[i] = (float)chrBuf[i+2];
+                        tmp[i] = (unsigned int)chrBuf[i+2];
 //                        printf("%f", tmp[i]);
                     }
                     ax = (float)((tmp[1]<<8)||tmp[0]/32768*16);
