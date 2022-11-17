@@ -192,18 +192,19 @@ void ParseData(char chr)
 				    float ay;
 				    float az;
 
-                    unsigned int tmp[8];
+                    float tmp[8];
 
                     for(i=0;i<8;i++)
                     {
-                        tmp[i] = (unsigned int)chrBuf[i+2];
+                        tmp[i] = (float)chrBuf[i+2];
+                        printf("%f", tmp[i])
                     }
-                    ax = (float)((tmp[1]<<8)||tmp[0]);
-                    ay = (float)((tmp[3]<<8)||tmp[2]);
-                    az = (float)((tmp[5]<<8)||tmp[4]);
-                    printf("\r\nax : %f", ax);
-                    printf("\r\nay : %f", ay);
-                    printf("\r\naz : %f", az);
+//                    ax = (float)((tmp[1]<<8)||tmp[0]);
+//                    ay = (float)((tmp[3]<<8)||tmp[2]);
+//                    az = (float)((tmp[5]<<8)||tmp[4]);
+//                    printf("\r\nax : %f", ax);
+//                    printf("\r\nay : %f", ay);
+//                    printf("\r\naz : %f", az);
 
 // chrBuf 프린트해보기
 /*				    for(i=0;i<10;i++)
