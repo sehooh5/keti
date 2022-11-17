@@ -175,7 +175,7 @@ void ParseData(char chr)
 
         // 데이터 변수 설정
         // 0x51
-        float ax ay az;
+        float ax; float ay; float az;
 
 		time_t now;
 		chrBuf[chrCnt++]=chr;
