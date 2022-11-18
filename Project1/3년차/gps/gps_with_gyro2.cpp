@@ -377,7 +377,6 @@ void ParseData(char chr)
                     float lat_dd = lat/100000000;
                     float lat_mm = (lat%100000000)/100000;
                     printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
-				    break;
 					break;
                 case 0x58:
 				    break;
