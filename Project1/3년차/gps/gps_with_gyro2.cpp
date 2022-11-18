@@ -177,7 +177,7 @@ float get_acceleration(char *chrBuf, int axis)
         return ay;
     }
     else if (axis==3){
-        printf("print az")
+        printf("print az");
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
     }
