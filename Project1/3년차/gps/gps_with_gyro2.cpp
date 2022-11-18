@@ -471,7 +471,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 		        case 0x50:
-		            printf("\r\n[[Data Output Start]]\r\n");
+		            printf("\r\n[[Data Output Start]]");
                     yy = get_time(chrBuf, 1);
                     mm = get_time(chrBuf, 2);
                     dd = get_time(chrBuf, 3);
