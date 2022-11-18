@@ -231,7 +231,7 @@ float get_angle(char *chrBuf, int num)
         return 999.999999;
     }
 }
-//0x52 Angular Velocity data 추출
+//0x54 Magnetic data 추출
 float get_magnetic(char *chrBuf, int num)
 {
     float mx; float my; float mz; float t;
@@ -243,15 +243,15 @@ float get_magnetic(char *chrBuf, int num)
     }
 
     if (num==1){
-        mx = ((float)((tmp[1]<<8)|tmp[0]))/32768*2000;
+        mx = ((float)((tmp[1]<<8)|tmp[0]));
         return mx;
     }
     else if (num==2){
-        my = ((float)((tmp[3]<<8)|tmp[2]))/32768*2000;
+        my = ((float)((tmp[3]<<8)|tmp[2]));
         return my;
     }
     else if (num==3){
-        mz = ((float)((tmp[5]<<8)|tmp[4]))/32768*2000;
+        mz = ((float)((tmp[5]<<8)|tmp[4]));
         return mz;
     }
     else if (num==4){
@@ -266,8 +266,8 @@ float get_magnetic(char *chrBuf, int num)
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
-float roll; float pitch; float yaw;//0x52
-float mx; float my; float mz;//0x53
+float roll; float pitch; float yaw;//0x53
+float mx; float my; float mz;//0x54
 
 // Parsing Data
 void ParseData(char chr)
