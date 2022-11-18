@@ -366,6 +366,37 @@ float get_quaternion(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x59 Quaternion data 추출
+float get_satelite(char *chrBuf, int num)
+{
+    float sn; float pdop; float hdop; float vdop;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        sn = ((float)((tmp[1]<<8)|tmp[0]));
+        return sn;
+    }
+    else if (num==2){
+        pdop = ((float)((tmp[3]<<8)|tmp[2]))/32768;
+        return pdop;
+    }
+    else if (num==3){
+        hdop = ((float)((tmp[5]<<8)|tmp[4]))/32768;
+        return hdop;
+    }
+    else if (num==4){
+        vdop = ((float)((tmp[7]<<8)|tmp[6]))/32768;
+        return vdop;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 
 // 변수 설정
@@ -376,7 +407,8 @@ float mx; float my; float mz;//0x54
 float press; float h; //0x56
 float lon; float lat; float lon_dd; float lat_dd; float lon_mm; float lat_mm;//0x57
 float gh; float gy; float gv;//0x58
-float q0; float q1; float q2; float q3;//0x58
+float q0; float q1; float q2; float q3;//0x59
+float sn; float pdop; float hdop; float vdop;//0x5a
 
 // Parsing Data
 void ParseData(char chr)
@@ -395,7 +427,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-//				    printf("\r\n[0x51] Acceleration Output");
+				    printf("\r\n[[Data Output Start]]");
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
@@ -454,6 +486,12 @@ void ParseData(char chr)
                     printf("[0x59] q0 : %f q2 : %f q3 : %f q4 : %f\r\n", q0, q1, q2, q3);
 				    break;
                 case 0x5A:
+                    sn = get_satelite(chrBuf, 1);
+                    pdop = get_satelite(chrBuf, 2);
+                    hdop = get_satelite(chrBuf, 3);
+                    vdop = get_satelite(chrBuf, 4);
+                    printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
+                    printf("[[Data Output End]]\r\n");
 				    break;
 
 		}
