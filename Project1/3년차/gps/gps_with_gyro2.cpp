@@ -181,7 +181,7 @@ float get_acceleration(char *chrBuf, int axis)
         return az;
     }
     else if (axis==4){
-        printf("\ndfasdf %d", (float)((tmp[7]<<8)|tmp[6]));
+        printf("\ndfasdf %f", (float)((tmp[7]<<8)|tmp[6]));
         az = ((float)((tmp[7]<<8)|tmp[6]))/100;
         return t;
     }
