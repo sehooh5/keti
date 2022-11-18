@@ -266,11 +266,11 @@ float get_magnetic(char *chrBuf, int num)
 float get_atmospheric(char *chrBuf, int num)
 {
     float press; float h;
-    signed int tmp[8];// int로 변경
+    signed short tmp[8];// int로 변경
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed int)chrBuf[i+2];// int로 변경
+        tmp[i] = (signed short)chrBuf[i+2];// int로 변경
     }
 
     if (num==1){
@@ -342,7 +342,7 @@ void ParseData(char chr)
                 case 0x56:
                     press = get_atmospheric(chrBuf,1);
                     h = get_atmospheric(chrBuf,2);
-                    printf("[0x54] press : %f h : %f\r\n", press, h);
+                    printf("[0x56] press : %f h : %f\r\n", press, h);
 				    break;
 				case 0x57:
 
