@@ -482,7 +482,6 @@ void ParseData(char chr)
                     printf("[0x50] %f %f %f %f %f %f %f\r\n", yy,mm,dd,hh,mi,ss,ms);
 		            break;
 				case 0x51:
-                    printf("\r\n[[Data Output Start]]\r\n");
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
@@ -490,7 +489,6 @@ void ParseData(char chr)
                     printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
 				    break;
                 case 0x52:
-//				    printf("\r\n[0x52] Angular Velocity Output");
                     wx = get_angular(chrBuf,1);
                     wy = get_angular(chrBuf,2);
                     wz = get_angular(chrBuf,3);
