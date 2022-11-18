@@ -141,7 +141,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 //0x50 Time data 추출
 float get_time(char *chrBuf, int num)
 {
-    float yy; float mm; float dd; float hh; float mi; float ss; float ms;
+    unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; float ms;//0x50
     signed short tmp[8];
     unsigned char i;
 
@@ -150,27 +150,27 @@ float get_time(char *chrBuf, int num)
     }
 
     if (num==1){
-        yy = (float)tmp[0];
+        yy = (unsigned int)tmp[0];
         return yy;
     }
     else if (num==2){
-        mm = (float)tmp[1];
+        mm = (unsigned int)tmp[1];
         return mm;
     }
     else if (num==3){
-        dd = (float)tmp[2];
+        dd = (unsigned int)tmp[2];
         return dd;
     }
     else if (num==4){
-        hh = (float)tmp[3];
+        hh = (unsigned int)tmp[3];
         return hh;
     }
     else if (num==5){
-        mi = (float)tmp[4];
+        mi = (unsigned int)tmp[4];
         return mi;
     }
     else if (num==6){
-        ss = (float)tmp[5];
+        ss = (unsigned int)tmp[5];
         return ss;
     }
     else if (num==7){
@@ -443,7 +443,7 @@ float get_satelite(char *chrBuf, int num)
 
 
 // 변수 설정
-float yy; float mm; float dd; float hh; float mi; float ss; float ms;//0x50
+unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; float ms;//0x50
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
@@ -472,14 +472,14 @@ void ParseData(char chr)
 		{
 		        case 0x50:
 		            printf("\r\n[[Data Output Start]]\r\n");
-                    yy = ((unsigned int)get_time(chrBuf, 1));
-                    mm = ((unsigned int)get_time(chrBuf, 2));
-                    dd = ((unsigned int)get_time(chrBuf, 3));
-                    hh = ((unsigned int)get_time(chrBuf, 4));
-                    mi = ((unsigned int)get_time(chrBuf, 5));
-                    ss = ((unsigned int)get_time(chrBuf, 6));
-                    ms = ((unsigned int)get_time(chrBuf, 7));
-                    printf("[0x50] %u %u %u %u %u %u %u\r\n", yy,mm,dd,hh,mi,ss,ms);
+                    yy = get_time(chrBuf, 1);
+                    mm = get_time(chrBuf, 2);
+                    dd = get_time(chrBuf, 3);
+                    hh = get_time(chrBuf, 4);
+                    mi = get_time(chrBuf, 5);
+                    ss = get_time(chrBuf, 6);
+                    ms = get_time(chrBuf, 7);
+                    printf("[0x50] %u %u %u %u %u %u %f\r\n", yy,mm,dd,hh,mi,ss,ms);
 		            break;
 				case 0x51:
                     ax = get_acceleration(chrBuf, 1);
