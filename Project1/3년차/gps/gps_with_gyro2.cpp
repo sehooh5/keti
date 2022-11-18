@@ -335,6 +335,38 @@ float get_groundSpeed(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x59 Quaternion data 추출
+float get_quaternion(char *chrBuf, int num)
+{
+    float q0; float q1; float q2; float q3;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        q0 = ((float)((tmp[1]<<8)|tmp[0]))/32768;
+        return q0;
+    }
+    else if (num==2){
+        q1 = ((float)((tmp[3]<<8)|tmp[2]))/32768;
+        return q1;
+    }
+    else if (num==3){
+        q2 = ((float)((tmp[5]<<8)|tmp[4]))/32768;
+        return q2;
+    }
+    else if (num==4){
+        q3 = ((float)((tmp[7]<<8)|tmp[6]))/32768;
+        return q3;
+    }
+    else{
+        return 999.999999;
+    }
+}
+
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
@@ -344,6 +376,7 @@ float mx; float my; float mz;//0x54
 float press; float h; //0x56
 float lon; float lat; float lon_dd; float lat_dd; float lon_mm; float lat_mm;//0x57
 float gh; float gy; float gv;//0x58
+float q0; float q1; float q2; float q3;//0x58
 
 // Parsing Data
 void ParseData(char chr)
@@ -414,6 +447,11 @@ void ParseData(char chr)
                     printf("[0x58] gh : %f gy : %f gv : %f\r\n", gh, gy, gv);
 				    break;
                 case 0x59:
+                    q0 = get_quaternion(chrBuf, 1);
+                    q1 = get_quaternion(chrBuf, 2);
+                    q2 = get_quaternion(chrBuf, 3);
+                    q3 = get_quaternion(chrBuf, 4);
+                    printf("[0x59] q0 : %f q2 : %f q3 : %f q4 : %f\r\n", q0, q1, q2, q3);
 				    break;
                 case 0x5A:
 				    break;
