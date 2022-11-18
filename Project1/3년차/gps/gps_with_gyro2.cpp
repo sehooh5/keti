@@ -158,7 +158,7 @@ unsigned int get_lognitude(char *chrBuf)
 	return lon;
 }
 //0x51 Acceleration data 추출
-float get_acceleration(char *chrBuf, string axis)
+float get_acceleration(char *chrBuf, inst axis)
 {
     float ax; float ay; float az;
     signed short tmp[8];
@@ -168,15 +168,15 @@ float get_acceleration(char *chrBuf, string axis)
     {
         tmp[i] = (signed short)chrBuf[i+2];
     }
-    if (axis=="x"){
+    if (axis==1){
         ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
         return ax;
     }
-    else if (axis=="y"){
+    else if (axis==2){
         ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
         return ay;
     }
-    else if (axis=="z"){
+    else if (axis==3){
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
     }
@@ -212,9 +212,9 @@ void ParseData(char chr)
 //                    {
 //                        tmp[i] = (signed short)chrBuf[i+2];
 //                    }
-                    ax = get_acceleration(chrBuf, "x");
-                    ay = get_acceleration(chrBuf, "y");
-                    az = get_acceleration(chrBuf, "z");
+                    ax = get_acceleration(chrBuf, 1);
+                    ay = get_acceleration(chrBuf, 2);
+                    az = get_acceleration(chrBuf, 3);
 //                    ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
 //                    ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
 //                    az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
