@@ -188,7 +188,7 @@ float get_acceleration(char *chrBuf, int num)
         return 999.999999;
     }
 }
-/0x51 Acceleration data 추출
+//0x51 Acceleration data 추출
 float get_angular(char *chrBuf, int num)
 {
     float wx; float wy; float wz; float t;
