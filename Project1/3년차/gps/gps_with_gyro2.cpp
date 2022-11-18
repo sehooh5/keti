@@ -141,7 +141,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 //0x50 Time data 추출
 float get_time(char *chrBuf, int num)
 {
-    unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; float ms;//0x50
+    unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
     signed short tmp[8];
     unsigned char i;
 
@@ -174,7 +174,7 @@ float get_time(char *chrBuf, int num)
         return ss;
     }
     else if (num==7){
-        ms = ((float)((tmp[7]<<8)|tmp[6]));
+        ms = ((unsigned int)((tmp[7]<<8)|tmp[6]));
         return ms;
     }
     else{
@@ -443,7 +443,7 @@ float get_satelite(char *chrBuf, int num)
 
 
 // 변수 설정
-unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; float ms;//0x50
+unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
@@ -479,7 +479,7 @@ void ParseData(char chr)
                     mi = get_time(chrBuf, 5);
                     ss = get_time(chrBuf, 6);
                     ms = get_time(chrBuf, 7);
-                    printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%f\r\n", yy,mm,dd,hh,mi,ss,ms);
+                    printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
 		            break;
 				case 0x51:
                     ax = get_acceleration(chrBuf, 1);
