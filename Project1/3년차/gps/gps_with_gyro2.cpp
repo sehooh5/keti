@@ -181,8 +181,8 @@ float get_acceleration(char *chrBuf, int axis)
         return az;
     }
     else if (axis==4){
-        printf("\n 7번 : ",tmp[6]);
-        printf("\n 8번 : ",tmp[7]);
+        printf("\n 7번 : %d",tmp[6]);
+        printf("\n 8번 : %d",tmp[7]);
         az = ((float)((tmp[7]<<8)|tmp[6]))/32768*16;
         return t;
     }
