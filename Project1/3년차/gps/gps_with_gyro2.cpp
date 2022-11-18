@@ -427,7 +427,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[[Data Output Start]]");
+				    printf("\r\n[[Data Output Start]]\r\n");
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
