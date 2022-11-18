@@ -137,26 +137,7 @@ int recv_data(int fd, char* recv_buffer,int length)
 	length=read(fd,recv_buffer,length);
 	return length;
 }
-float a[3],w[3],Angle[3],h[3];
 
-// gps long data 추출
-unsigned int get_lognitude(char *chrBuf)
-{
-	unsigned int lon;
-	unsigned int tmp[4];
-	int i;
-
-	for(i=0;i<4;i++)
-	{
-		tmp[i] = (unsigned int)chrBuf[i+2];
-
-	}
-
-	lon = ((tmp[3] << 24) || (tmp[2] << 16) || (tmp[1] << 8) || tmp[0]) ;
-
-
-	return lon;
-}
 //0x51 Acceleration data 추출
 float get_acceleration(char *chrBuf, int num)
 {
@@ -188,7 +169,7 @@ float get_acceleration(char *chrBuf, int num)
         return 999.999999;
     }
 }
-//0x51 Acceleration data 추출
+//0x52 Angular Velocity data 추출
 float get_angular(char *chrBuf, int num)
 {
     float wx; float wy; float wz; float t;
@@ -220,6 +201,10 @@ float get_angular(char *chrBuf, int num)
     }
 }
 
+// 변수 설정
+float ax; float ay; float az; float t; //0x51
+float wx; float wy; float wz; //0x52
+
 // Parsing Data
 void ParseData(char chr)
 {
@@ -232,9 +217,7 @@ void ParseData(char chr)
 		if (chrCnt<11) return;
 		for (i=0;i<10;i++) cTemp+=chrBuf[i];
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
-        // 변수 설정
-        float ax; float ay; float az; float t; //0x51
-        float wx; float wy; float wz; //0x52
+
 
 		switch(chrBuf[1])
 		{
