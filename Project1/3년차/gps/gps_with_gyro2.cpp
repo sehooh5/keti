@@ -158,7 +158,7 @@ unsigned int get_lognitude(char *chrBuf)
 	return lon;
 }
 //0x51 Acceleration data 추출
-float get_acceleration(char *chrBuf, int axis)
+float get_acceleration(char *chrBuf, int num)
 {
     float ax; float ay; float az; float t;
     signed short tmp[8];
@@ -168,19 +168,50 @@ float get_acceleration(char *chrBuf, int axis)
         tmp[i] = (signed short)chrBuf[i+2];
     }
 
-    if (axis==1){
+    if (num==1){
         ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
         return ax;
     }
-    else if (axis==2){
+    else if (num==2){
         ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
         return ay;
     }
-    else if (axis==3){
+    else if (num==3){
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
     }
-    else if (axis==4){
+    else if (num==4){
+        t = ((float)((tmp[7]<<8)|tmp[6]))/100;
+        return t;
+    }
+    else{
+        return 999.999999;
+    }
+}
+/0x51 Acceleration data 추출
+float get_angular(char *chrBuf, int num)
+{
+    float wx; float wy; float wz; float t;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        wx = ((float)((tmp[1]<<8)|tmp[0]))/32768*2000;
+        return wx;
+    }
+    else if (num==2){
+        wy = ((float)((tmp[3]<<8)|tmp[2]))/32768*2000;
+        return wy;
+    }
+    else if (num==3){
+        wz = ((float)((tmp[5]<<8)|tmp[4]))/32768*2000;
+        return wz;
+    }
+    else if (num==4){
         t = ((float)((tmp[7]<<8)|tmp[6]))/100;
         return t;
     }
@@ -201,22 +232,27 @@ void ParseData(char chr)
 		if (chrCnt<11) return;
 		for (i=0;i<10;i++) cTemp+=chrBuf[i];
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
-
-        float ax; float ay; float az; float t;
+        // 변수 설정
+        float ax; float ay; float az; float t; //0x51
+        float wx; float wy; float wz; //0x52
 
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[0x51] Acceleration Output start");
+				    printf("\r\n[0x51] Acceleration Output");
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
                     printf("\r\nax : %f ay : %f az : %f t : %f", ax, ay, az, t);
-				    printf("\r\n[0x51] Acceleration Output End\n");
 				    break;
                 case 0x52:
-
+				    printf("\r\n[0x52] Angular Velocity Output");
+                    wx = get_angular(chrBuf,1);
+                    wy = get_angular(chrBuf,2);
+                    wz = get_angular(chrBuf,3);
+                    t = get_angular(chrBuf,4);
+                    printf("\r\nwx : %f wy : %f wz : %f t : %f", wx, wy, wz, t);
 				    break;
 				case 0x53:
 				    break;
