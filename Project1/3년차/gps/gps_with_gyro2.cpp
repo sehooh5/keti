@@ -167,7 +167,7 @@ float get_acceleration(char *chrBuf, int axis)
     for(i=0;i<8;i++){
         tmp[i] = (signed short)chrBuf[i+2];
     }
-    
+
     if (axis==1){
         ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
         return ax;
@@ -179,6 +179,9 @@ float get_acceleration(char *chrBuf, int axis)
     else if (axis==3){
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
+    }
+    else{
+        return 0.1;
     }
 }
 
