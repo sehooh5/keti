@@ -181,7 +181,7 @@ float get_acceleration(char *chrBuf, int axis)
         return az;
     }
     else{
-        return 0.1;
+        return 999.999999;
     }
 }
 
