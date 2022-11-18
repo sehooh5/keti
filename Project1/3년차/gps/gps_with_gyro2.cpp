@@ -202,6 +202,8 @@ void ParseData(char chr)
 		for (i=0;i<10;i++) cTemp+=chrBuf[i];
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
 
+        float ax; float ay; float az; float t;
+        
 		switch(chrBuf[1])
 		{
 				case 0x51:
