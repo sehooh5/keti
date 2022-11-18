@@ -158,7 +158,7 @@ unsigned int get_lognitude(char *chrBuf)
 	return lon;
 }
 //0x51 Acceleration data 추출
-float get_acceleration(char *chrBuf, inst axis)
+float get_acceleration(char *chrBuf, int axis)
 {
     float ax; float ay; float az;
     signed short tmp[8];
