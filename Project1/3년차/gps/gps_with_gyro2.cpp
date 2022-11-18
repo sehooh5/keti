@@ -285,6 +285,29 @@ float get_atmospheric(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x57 GPS data 추출
+float get_gpsData(char *chrBuf, int num)
+{
+    float lon; float lat;
+    signed int tmp[8];// int로 변경
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed int)chrBuf[i+2];// int로 변경
+    }
+
+    if (num==1){
+        lon = (float)((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
+        return lon;
+    }
+    else if (num==2){
+        lat = ((float)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]));
+        return lat;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
@@ -292,6 +315,7 @@ float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
 float press; float h; //0x56
+float lon; float lat; //0x57
 
 // Parsing Data
 void ParseData(char chr)
@@ -345,9 +369,15 @@ void ParseData(char chr)
                     printf("[0x56] press : %f h : %f\r\n", press, h);
 				    break;
 				case 0x57:
+                    lon = get_gpsData(chrBuf,1);
+                    lat = get_gpsData(chrBuf,2);
 
-//					lon = get_lognitude(chrBuf);
-//					printf("\n lon : %d, dd: %f, mm : %f\n", lon, (float)(lon/100000000), (float)((lon%10000000)/100000));
+                    lon_dd = lon/100000000;
+                    lon_mm = (lon%100000000)/100000;
+                    lat_dd = lat/100000000;
+                    lat_mm = (lat%100000000)/100000;
+                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
+				    break;
 					break;
                 case 0x58:
 				    break;
