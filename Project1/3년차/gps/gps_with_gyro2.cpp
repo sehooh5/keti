@@ -313,7 +313,7 @@ void ParseData(char chr)
                     my = get_magnetic(chrBuf,2);
                     mz = get_magnetic(chrBuf,3);
                     t = get_magnetic(chrBuf,4);
-                    printf("[0x52] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
+                    printf("[0x54] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
 				    break;
                 case 0x56:
 				    break;
