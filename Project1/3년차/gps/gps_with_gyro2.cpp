@@ -411,7 +411,7 @@ void ParseData(char chr)
                     gh = get_groundSpeed(chrBuf,1);
                     gy = get_groundSpeed(chrBuf,2);
                     gv = get_groundSpeed(chrBuf,3);
-                    printf("[0x58] wx : %f wy : %f wz : %f\r\n", gh, gy, gv);
+                    printf("[0x58] gh : %f gy : %f gv : %f\r\n", gh, gy, gv);
 				    break;
                 case 0x59:
 				    break;
