@@ -324,7 +324,7 @@ float get_groundSpeed(char *chrBuf, int num)
         return gh;
     }
     else if (num==2){
-        gy = ((float)((tmp[3]<<8)|tmp[2]))10;
+        gy = ((float)((tmp[3]<<8)|tmp[2]))/10;
         return gy;
     }
     else if (num==3){
