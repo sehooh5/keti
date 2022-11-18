@@ -315,7 +315,7 @@ float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
 float press; float h; //0x56
-float lon; float lat; //0x57
+float lon; float lat; float lon_dd; float lat_dd; float lon_mm; float lat_mm;//0x57
 
 // Parsing Data
 void ParseData(char chr)
@@ -372,12 +372,12 @@ void ParseData(char chr)
                     lon = get_gpsData(chrBuf,1);
                     lat = get_gpsData(chrBuf,2);
 
-                    float lon_dd = lon/100000000;
-                    float lon_mm = (lon%100000000)/100000;
-                    float lat_dd = lat/100000000;
-                    float lat_mm = (lat%100000000)/100000;
+                    lon_dd = lon/100000000;
+                    lon_mm = (lon%100000000)/100000;
+                    lat_dd = lat/100000000;
+                    lat_mm = (lat%100000000)/100000;
                     printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
-					break;
+				    break;
                 case 0x58:
 				    break;
                 case 0x59:
