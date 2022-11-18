@@ -181,6 +181,8 @@ float get_acceleration(char *chrBuf, int axis)
         return az;
     }
     else if (axis==4){
+        printf("\n 7번 : ",tmp[6]);
+        printf("\n 8번 : ",tmp[7]);
         az = ((float)((tmp[7]<<8)|tmp[6]))/32768*16;
         return t;
     }
@@ -203,7 +205,7 @@ void ParseData(char chr)
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
 
         float ax; float ay; float az; float t;
-        
+
 		switch(chrBuf[1])
 		{
 				case 0x51:
