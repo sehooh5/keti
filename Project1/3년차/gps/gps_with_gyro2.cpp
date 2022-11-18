@@ -262,12 +262,36 @@ float get_magnetic(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x56 Atmospheric data 추출
+float get_atmospheric(char *chrBuf, int num)
+{
+    float press; float h;
+    signed int tmp[8];// int로 변경
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed int)chrBuf[i+2];// int로 변경
+    }
+
+    if (num==1){
+        press = (float)((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
+        return press;
+    }
+    else if (num==2){
+        h = (float)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
+        return h;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
+float press; float h; //0x56
 
 // Parsing Data
 void ParseData(char chr)
@@ -316,6 +340,9 @@ void ParseData(char chr)
                     printf("[0x54] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
 				    break;
                 case 0x56:
+                    press = get_atmospheric(chrBuf,1);
+                    h = get_atmospheric(chrBuf,2);
+                    printf("[0x54] press : %f h : %f\r\n", press, h);
 				    break;
 				case 0x57:
 
