@@ -231,11 +231,43 @@ float get_angle(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x52 Angular Velocity data 추출
+float get_magnetic(char *chrBuf, int num)
+{
+    float mx; float my; float mz; float t;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        mx = ((float)((tmp[1]<<8)|tmp[0]))/32768*2000;
+        return mx;
+    }
+    else if (num==2){
+        my = ((float)((tmp[3]<<8)|tmp[2]))/32768*2000;
+        return my;
+    }
+    else if (num==3){
+        mz = ((float)((tmp[5]<<8)|tmp[4]))/32768*2000;
+        return mz;
+    }
+    else if (num==4){
+        t = ((float)((tmp[7]<<8)|tmp[6]))/100;
+        return t;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x52
+float mx; float my; float mz;//0x53
 
 // Parsing Data
 void ParseData(char chr)
@@ -259,7 +291,7 @@ void ParseData(char chr)
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
-                    printf("ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
+                    printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
 				    break;
                 case 0x52:
 //				    printf("\r\n[0x52] Angular Velocity Output");
@@ -267,16 +299,21 @@ void ParseData(char chr)
                     wy = get_angular(chrBuf,2);
                     wz = get_angular(chrBuf,3);
                     t = get_angular(chrBuf,4);
-                    printf("wx : %f wy : %f wz : %f t : %f\r\n", wx, wy, wz, t);
+                    printf("[0x52] wx : %f wy : %f wz : %f t : %f\r\n", wx, wy, wz, t);
 				    break;
 				case 0x53:
                     roll = get_angle(chrBuf,1);
                     pitch = get_angle(chrBuf,2);
                     yaw = get_angle(chrBuf,3);
                     t = get_angle(chrBuf,4);
-                    printf("roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
+                    printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
 				    break;
 				case 0x54:
+                    mx = get_magnetic(chrBuf,1);
+                    my = get_magnetic(chrBuf,2);
+                    mz = get_magnetic(chrBuf,3);
+                    t = get_magnetic(chrBuf,4);
+                    printf("[0x52] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
 				    break;
                 case 0x56:
 				    break;
