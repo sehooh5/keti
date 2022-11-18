@@ -308,6 +308,33 @@ float get_gpsData(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x58 Ground Speed data 추출
+float get_groundSpeed(char *chrBuf, int num)
+{
+    float gh; float gy; float gv;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        gh = ((float)((tmp[1]<<8)|tmp[0]))/10;
+        return gh;
+    }
+    else if (num==2){
+        gy = ((float)((tmp[3]<<8)|tmp[2]))10;
+        return gy;
+    }
+    else if (num==3){
+        gv = ((float)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]))/1000;
+        return gv;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
@@ -316,6 +343,7 @@ float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
 float press; float h; //0x56
 float lon; float lat; float lon_dd; float lat_dd; float lon_mm; float lat_mm;//0x57
+float gh; float gy; float gv;//0x58
 
 // Parsing Data
 void ParseData(char chr)
@@ -380,6 +408,10 @@ void ParseData(char chr)
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
 				    break;
                 case 0x58:
+                    gh = get_groundSpeed(chrBuf,1);
+                    gy = get_groundSpeed(chrBuf,2);
+                    gv = get_groundSpeed(chrBuf,3);
+                    printf("[0x58] wx : %f wy : %f wz : %f\r\n", gh, gy, gv);
 				    break;
                 case 0x59:
 				    break;
