@@ -168,13 +168,13 @@ float get_acceleration(char *chrBuf, char axis)
     {
         tmp[i] = (signed short)chrBuf[i+2];
     }
-    if axis=="x":
+    if (axis=="x"):
         ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
         return ax;
-    else if axis=="y":
+    else if (axis=="y"):
         ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
         return ay;
-    else if axis=="z":
+    else if (axis=="z"):
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
 }
