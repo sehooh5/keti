@@ -1834,3 +1834,10 @@
   - /gps/gps_with_gyro2.cpp 에서 진행
     - 코드 0x51번 완료 이것 토대로 진행하기
     - 결과값은 float / 데이터 변환은 signed short
+
+
+
+#### 1118
+
+- /gps/gps_with_gyro2.cpp
+  - 0x51 수정보고 그것 토대로 모든 데이터 진행

@@ -148,19 +148,35 @@ unsigned int get_lognitude(char *chrBuf)
 
 	for(i=0;i<4;i++)
 	{
-//		printf("**** %x ****", chrBuf[i+2]);
-
 		tmp[i] = (unsigned int)chrBuf[i+2];
 
-//		printf("%d", tmp[i]);
 	}
-
-//	printf("\n");
 
 	lon = ((tmp[3] << 24) || (tmp[2] << 16) || (tmp[1] << 8) || tmp[0]) ;
 
 
 	return lon;
+}
+//0x51 Acceleration data 추출
+float get_acceleration(char *chrBuf, axis)
+{
+    float ax; float ay; float az;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++)
+    {
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+    if axis=="x":
+        ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
+        return ax;
+    else if axis=="y":
+        ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
+        return ay;
+    else if axit=="z":
+        az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
+        return az;
 }
 
 // Parsing Data
@@ -193,9 +209,12 @@ void ParseData(char chr)
                     {
                         tmp[i] = (signed short)chrBuf[i+2];
                     }
-                    ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
-                    ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
-                    az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
+                    ax = get_acceleration(chrBuf, "x");
+                    ay = get_acceleration(chrBuf, "y");
+                    az = get_acceleration(chrBuf, "z");
+//                    ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
+//                    ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
+//                    az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
 
 
                     printf("\r\nax : %f ay : %f az : %f", ax, ay, az);
