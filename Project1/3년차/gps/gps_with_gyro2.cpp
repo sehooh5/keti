@@ -259,7 +259,7 @@ void ParseData(char chr)
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
-                    printf("\r\nax : %f ay : %f az : %f t : %f", ax, ay, az, t);
+                    printf("ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
 				    break;
                 case 0x52:
 //				    printf("\r\n[0x52] Angular Velocity Output");
@@ -267,14 +267,14 @@ void ParseData(char chr)
                     wy = get_angular(chrBuf,2);
                     wz = get_angular(chrBuf,3);
                     t = get_angular(chrBuf,4);
-                    printf("\r\nwx : %f wy : %f wz : %f t : %f", wx, wy, wz, t);
+                    printf("wx : %f wy : %f wz : %f t : %f\r\n", wx, wy, wz, t);
 				    break;
 				case 0x53:
                     roll = get_angle(chrBuf,1);
                     pitch = get_angle(chrBuf,2);
                     yaw = get_angle(chrBuf,3);
                     t = get_angle(chrBuf,4);
-                    printf("\r\nroll : %f pitch : %f yaw : %f t : %f", roll, pitch, yaw, t);
+                    printf("roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
 				    break;
 				case 0x54:
 				    break;
