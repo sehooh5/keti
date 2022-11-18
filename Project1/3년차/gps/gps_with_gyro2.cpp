@@ -200,10 +200,42 @@ float get_angular(char *chrBuf, int num)
         return 999.999999;
     }
 }
+//0x53 Angle data 추출
+float get_angle(char *chrBuf, int num)
+{
+    float roll; float pitch; float yaw; float t;
+    signed short tmp[8];
+    unsigned char i;
+
+    for(i=0;i<8;i++){
+        tmp[i] = (signed short)chrBuf[i+2];
+    }
+
+    if (num==1){
+        roll = ((float)((tmp[1]<<8)|tmp[0]))/32768*180;
+        return roll;
+    }
+    else if (num==2){
+        pitch = ((float)((tmp[3]<<8)|tmp[2]))/32768*180;
+        return pitch;
+    }
+    else if (num==3){
+        yaw = ((float)((tmp[5]<<8)|tmp[4]))/32768*180;
+        return yaw;
+    }
+    else if (num==4){
+        t = ((float)((tmp[7]<<8)|tmp[6]))/100;
+        return t;
+    }
+    else{
+        return 999.999999;
+    }
+}
 
 // 변수 설정
 float ax; float ay; float az; float t; //0x51
 float wx; float wy; float wz; //0x52
+float roll; float pitch; float yaw;//0x52
 
 // Parsing Data
 void ParseData(char chr)
@@ -222,7 +254,7 @@ void ParseData(char chr)
 		switch(chrBuf[1])
 		{
 				case 0x51:
-				    printf("\r\n[0x51] Acceleration Output");
+//				    printf("\r\n[0x51] Acceleration Output");
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
@@ -230,7 +262,7 @@ void ParseData(char chr)
                     printf("\r\nax : %f ay : %f az : %f t : %f", ax, ay, az, t);
 				    break;
                 case 0x52:
-				    printf("\r\n[0x52] Angular Velocity Output");
+//				    printf("\r\n[0x52] Angular Velocity Output");
                     wx = get_angular(chrBuf,1);
                     wy = get_angular(chrBuf,2);
                     wz = get_angular(chrBuf,3);
@@ -238,6 +270,11 @@ void ParseData(char chr)
                     printf("\r\nwx : %f wy : %f wz : %f t : %f", wx, wy, wz, t);
 				    break;
 				case 0x53:
+                    roll = get_angle(chrBuf,1);
+                    pitch = get_angle(chrBuf,2);
+                    yaw = get_angle(chrBuf,3);
+                    t = get_angle(chrBuf,4);
+                    printf("\r\nroll : %f pitch : %f yaw : %f t : %f", roll, pitch, yaw, t);
 				    break;
 				case 0x54:
 				    break;
