@@ -472,13 +472,13 @@ void ParseData(char chr)
 		{
 		        case 0x50:
 		            printf("\r\n[[Data Output Start]]\r\n");
-                    yy = (unsigned int)get_time(chrBuf, 1);
-                    mm = (unsigned int)get_time(chrBuf, 2);
-                    dd = (unsigned int)get_time(chrBuf, 3);
-                    hh = (unsigned int)get_time(chrBuf, 4);
-                    mi = (unsigned int)get_time(chrBuf, 5);
-                    ss = (unsigned int)get_time(chrBuf, 6);
-                    ms = (unsigned int)get_time(chrBuf, 7);
+                    yy = ((unsigned int)get_time(chrBuf, 1));
+                    mm = ((unsigned int)get_time(chrBuf, 2));
+                    dd = ((unsigned int)get_time(chrBuf, 3));
+                    hh = ((unsigned int)get_time(chrBuf, 4));
+                    mi = ((unsigned int)get_time(chrBuf, 5));
+                    ss = ((unsigned int)get_time(chrBuf, 6));
+                    ms = ((unsigned int)get_time(chrBuf, 7));
                     printf("[0x50] %u %u %u %u %u %u %u\r\n", yy,mm,dd,hh,mi,ss,ms);
 		            break;
 				case 0x51:
