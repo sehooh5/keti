@@ -160,7 +160,7 @@ unsigned int get_lognitude(char *chrBuf)
 //0x51 Acceleration data 추출
 float get_acceleration(char *chrBuf, int axis)
 {
-    float ax; float ay; float az; float t;
+    float ax; float ay; float az;
     signed short tmp[8];
     unsigned char i;
 
@@ -180,10 +180,6 @@ float get_acceleration(char *chrBuf, int axis)
         az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
         return az;
     }
-    else if (axis==4){
-        az = ((float)((tmp[7]<<8)|tmp[6]))/32768*16;
-        return t;
-    }
     else{
         return 999.999999;
     }
@@ -196,25 +192,41 @@ void ParseData(char chr)
 		static unsigned char chrCnt=0;
 		unsigned char i;
 		char cTemp=0;
+		// 데이터 담을 tmp
+        signed short tmp[8];
+
+        // 데이터 변수 설정
+        // 0x51
+        float ax; float ay; float az;
+
 		time_t now;
 		chrBuf[chrCnt++]=chr;
 		if (chrCnt<11) return;
 		for (i=0;i<10;i++) cTemp+=chrBuf[i];
 		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
 
+
 		switch(chrBuf[1])
 		{
 				case 0x51:
 				    printf("\r\n[0x51] Acceleration Output start");
+
+//                    for(i=0;i<8;i++)
+//                    {
+//                        tmp[i] = (signed short)chrBuf[i+2];
+//                    }
                     ax = get_acceleration(chrBuf, 1);
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
-                    t = get_acceleration(chrBuf, 4);
-                    printf("\r\nax : %f ay : %f az : %f t : %f", ax, ay, az, t);
+//                    ax = ((float)((tmp[1]<<8)|tmp[0]))/32768*16;
+//                    ay = ((float)((tmp[3]<<8)|tmp[2]))/32768*16;
+//                    az = ((float)((tmp[5]<<8)|tmp[4]))/32768*16;
+
+
+                    printf("\r\nax : %f ay : %f az : %f", ax, ay, az);
 				    printf("\r\n[0x51] Acceleration Output End\n");
 				    break;
                 case 0x52:
-
 				    break;
 				case 0x53:
 				    break;

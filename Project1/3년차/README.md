@@ -1841,3 +1841,5 @@
 
 - /gps/gps_with_gyro2.cpp
   - 0x51 수정보고 그것 토대로 모든 데이터 진행
+  - gps_with_gyro2_bu.cpp 
+    - 0x51 수정 전 자료 포함
