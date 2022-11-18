@@ -479,7 +479,7 @@ void ParseData(char chr)
                     mi = (unsigned int)get_time(chrBuf, 5);
                     ss = (unsigned int)get_time(chrBuf, 6);
                     ms = (unsigned int)get_time(chrBuf, 7);
-                    printf("[0x50] %f %f %f %f %f %f %f\r\n", yy,mm,dd,hh,mi,ss,ms);
+                    printf("[0x50] %d %d %d %d %d %d %d\r\n", yy,mm,dd,hh,mi,ss,ms);
 		            break;
 				case 0x51:
                     ax = get_acceleration(chrBuf, 1);
