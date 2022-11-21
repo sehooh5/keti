@@ -510,9 +510,10 @@ void ParseData(char chr)
                     printf("[0x54] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
 				    break;
                 case 0x56:
-                    press = (unsigned int)(get_atmospheric(chrBuf,1));
+                    press = get_atmospheric(chrBuf,1);
+                    press2 = (unsigned int)press
                     h = get_atmospheric(chrBuf,2);
-                    printf("[0x56] press : %lx h : %lf\r\n", press, h);
+                    printf("[0x56] press : %lx h : %lf\r\n", press2, h);
 				    break;
 				case 0x57:
                     lon = get_gpsData(chrBuf,1);
