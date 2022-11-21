@@ -344,7 +344,7 @@ double get_gpsData(char *chrBuf, int num)
         return lon;
     }
     else if (num==2){
-        lat = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]));
+        lat = ((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
         return lat;
     }
     else{
@@ -520,7 +520,7 @@ void ParseData(char chr)
 
                     lon_dd = lon/100000000;
 //                    lon_mm = (((double)lon)%100000000)/100000;
-                    lat_dd = lat/10000000;
+                    lat_dd = lat/100000000;
 //                    lat_mm = (((double)lat)%100000000)/100000;
                     printf("[0x57] lon : %f lat : %f\r\n",lon_dd,lat_dd);
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
