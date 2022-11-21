@@ -520,7 +520,7 @@ void ParseData(char chr)
 
                     lon_dd = lon/100000000;
 //                    lon_mm = (((double)lon)%100000000)/100000;
-                    lat_dd = lat/100000000;
+                    lat_dd = lat/10000000;
 //                    lat_mm = (((double)lat)%100000000)/100000;
                     printf("[0x57] lon : %f lat : %f\r\n",lon_dd,lat_dd);
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
