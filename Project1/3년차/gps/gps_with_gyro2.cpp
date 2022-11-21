@@ -332,11 +332,11 @@ float get_atmospheric(char *chrBuf, int num)
 double get_gpsData(char *chrBuf, int num)
 {
     double lon; double lat;
-    signed int tmp[8];// int로 변경
+    unsigned int tmp[8];// int로 변경
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed int)chrBuf[i+2];// int로 변경
+        tmp[i] = (unsigned int)chrBuf[i+2];// int로 변경
     }
 
     if (num==1){
@@ -522,7 +522,7 @@ void ParseData(char chr)
 //                    lon_mm = (((double)lon)%100000000)/100000;
                     lat_dd = lat/100000000;
 //                    lat_mm = (((double)lat)%100000000)/100000;
-                    printf("[0x57] lon : %e lat : %e\r\n",lon_dd,lat_dd);
+                    printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
 				    break;
                 case 0x58:
