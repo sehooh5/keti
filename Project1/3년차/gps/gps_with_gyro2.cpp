@@ -306,7 +306,7 @@ float get_magnetic(char *chrBuf, int num)
     }
 }
 //0x56 Atmospheric data 추출
-void get_atmospheric(char *chrBuf, int num)
+float get_atmospheric(char *chrBuf, int num)
 {
     long press; double h;
     signed int tmp[8];// int로 변경
