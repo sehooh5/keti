@@ -255,7 +255,8 @@ float get_angle(char *chrBuf, int num)
     }
 
     if (num==1){
-        roll = ((float)((tmp[1]<<8)|tmp[0]))/32768*180;
+        roll = (tmp[1]<<8)|tmp[0];
+//        roll = ((float)((tmp[1]<<8)|tmp[0]))/32768*180;
         return roll;
     }
     else if (num==2){
@@ -503,7 +504,7 @@ void ParseData(char chr)
                     pitch = get_angle(chrBuf,2);
                     yaw = get_angle(chrBuf,3);
                     t = get_angle(chrBuf,4);
-                    printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
+                    printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", ((float)roll)/32768*180, pitch, yaw, t);
 				    break;
 				case 0x54:
                     mx = get_magnetic(chrBuf,1);
