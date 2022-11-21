@@ -372,7 +372,7 @@ double get_groundSpeed(char *chrBuf, int num)
     }
     else if (num==3){
         gv = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]))/1000;
-        print(gv)
+        printf("### %lf",gv);
         return gv;
     }
     else{
