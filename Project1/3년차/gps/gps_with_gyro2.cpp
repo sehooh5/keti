@@ -511,7 +511,7 @@ void ParseData(char chr)
 				    break;
                 case 0x56:
                     press = get_atmospheric(chrBuf,1);
-                    press2 = (unsigned int)press
+                    press2 = (unsigned int)press;
                     h = get_atmospheric(chrBuf,2);
                     printf("[0x56] press : %lx h : %lf\r\n", press2, h);
 				    break;
