@@ -511,9 +511,9 @@ void ParseData(char chr)
 				    break;
                 case 0x56:
                     press = get_atmospheric(chrBuf,1);
-                    press2 = (unsigned int)press;
+                    pressure = (unsigned int)press;
                     h = get_atmospheric(chrBuf,2);
-                    printf("[0x56] press : %lx h : %lf\r\n", press2, h);
+                    printf("[0x56] press : %lx h : %lf\r\n", pressure, h);
 				    break;
 				case 0x57:
                     lon = get_gpsData(chrBuf,1);
