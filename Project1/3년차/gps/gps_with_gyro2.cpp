@@ -355,11 +355,11 @@ double get_gpsData(char *chrBuf, int num)
 double get_groundSpeed(char *chrBuf, int num)
 {
     double gh; double gy; double gv;
-    signed short tmp[8];
+    unsigned int tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed short)chrBuf[i+2];
+        tmp[i] = (unsigned int)chrBuf[i+2];
     }
 
     if (num==1){
