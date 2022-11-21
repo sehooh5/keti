@@ -321,7 +321,7 @@ double get_atmospheric(char *chrBuf, int num)
         return press;
     }
     else if (num==2){
-        h = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]))/100;
+        h = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]));
         return h;
     }
     else{
