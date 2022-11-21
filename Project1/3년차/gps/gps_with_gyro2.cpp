@@ -321,7 +321,7 @@ double get_atmospheric(char *chrBuf, int num)
         return press;
     }
     else if (num==2){
-        h = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]));
+        h = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4])/100);
         return h;
     }
     else{
@@ -486,7 +486,7 @@ void ParseData(char chr)
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
-                    printf("[0x51] ax : %.3f ay : %.3f az : %.3f t : %f\r\n", ax, ay, az, t);
+                    printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
 				    break;
                 case 0x52:
                     wx = get_angular(chrBuf,1);
@@ -512,7 +512,7 @@ void ParseData(char chr)
                 case 0x56:
                     press = get_atmospheric(chrBuf,1);
                     h = get_atmospheric(chrBuf,2);
-                    printf("[0x56] press : %f h : %f\r\n", press, h);
+                    printf("[0x56] press : %lx h : %lf\r\n", press, h);
 				    break;
 				case 0x57:
                     lon = get_gpsData(chrBuf,1);
