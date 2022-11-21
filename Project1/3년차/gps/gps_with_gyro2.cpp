@@ -486,7 +486,7 @@ void ParseData(char chr)
                     ay = get_acceleration(chrBuf, 2);
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
-                    printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
+                    printf("[0x51] ax : %.3f ay : %.3f az : %.3f t : %f\r\n", ax, ay, az, t);
 				    break;
                 case 0x52:
                     wx = get_angular(chrBuf,1);
@@ -582,7 +582,7 @@ int main(void)
             exit(EXIT_FAILURE);
         }
 		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
-        usleep(100);
+        usleep(1000);
     }
 
     ret = uart_close(fd);
