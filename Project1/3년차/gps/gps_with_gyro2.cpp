@@ -344,7 +344,7 @@ double get_gpsData(char *chrBuf, int num)
         return lon;
     }
     else if (num==2){
-        lat = ((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
+        lat = (double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
         return lat;
     }
     else{
