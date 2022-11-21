@@ -346,7 +346,7 @@ double get_gpsData(char *chrBuf, int num)
     }
     else if (num==2){
         lat = (double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
-        printf("\r\n* lat base : %lf\r\n", lat);
+        printf("* lat base : %lf\r\n\r\n", lat);
         return lat;
     }
     else{
