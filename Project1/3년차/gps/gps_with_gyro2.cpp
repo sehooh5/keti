@@ -520,7 +520,7 @@ void ParseData(char chr)
                     lon = get_gpsData(chrBuf,1);
                     lat = get_gpsData(chrBuf,2);
 
-                    lon_dd = lon/100000000;
+                    lon_dd = lon/10000000;
 //                    lon_mm = (((double)lon)%100000000)/100000;
                     lat_dd = lat/100000000;
 //                    lat_mm = (((double)lat)%100000000)/100000;
