@@ -471,8 +471,7 @@ void ParseData(unsigned char chr)
 		chrBuf[chrCnt++]=chr;
 
 
-               if((int)chr < 0x00)
-                  printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
+        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
 
 		if (chrCnt<11) return;
@@ -555,7 +554,7 @@ void ParseData(unsigned char chr)
                     gh = get_groundSpeed(chrBuf,1);
                     gy = get_groundSpeed(chrBuf,2);
                     gv = get_groundSpeed(chrBuf,3);
-                    printf("[0x58] gpsHeight : %.1fm gpsYaw : %.1fDeg gpsV : %.3fkm/h\r\n", gh, gy, gv);
+                    printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
                     memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x59:
