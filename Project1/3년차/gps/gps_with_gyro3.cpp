@@ -359,7 +359,7 @@ float get_groundSpeed(unsigned char *chrBuf, int num)
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned int)chrBuf[i+2];
+        tmp[i] = (unsigned char)chrBuf[i+2];
     }
 
     if (num==1){
