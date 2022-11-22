@@ -309,11 +309,11 @@ float get_magnetic(char *chrBuf, int num)
 float get_atmospheric(char *chrBuf, int num)
 {
     float press; float h;
-    signed int tmp[8];// int로 변경
+    signed short tmp[8];// int로 변경
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed int)chrBuf[i+2];// int로 변경
+        tmp[i] = (signed short)chrBuf[i+2];// int로 변경
     }
 
     if (num==1){
@@ -416,11 +416,11 @@ float get_quaternion(char *chrBuf, int num)
 float get_satelite(char *chrBuf, int num)
 {
     float sn; float pdop; float hdop; float vdop;
-    unsigned short tmp[8];
+    signed short tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned short)chrBuf[i+2];
+        tmp[i] = (signed short)chrBuf[i+2];
     }
 
     if (num==1){
