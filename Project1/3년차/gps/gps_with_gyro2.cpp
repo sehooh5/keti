@@ -467,8 +467,8 @@ void ParseData(char chr)
 		time_t now;
 		chrBuf[chrCnt++]=chr;
 		if (chrCnt<11) return;
-//		for (i=0;i<10;i++) cTemp+=chrBuf[i];
-//		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
+		for (i=0;i<10;i++) cTemp+=chrBuf[i];
+		if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10])) {printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);memcpy(&chrBuf[0],&chrBuf[1],10);chrCnt--;return;}
 
 
 		switch(chrBuf[1])
