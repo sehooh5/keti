@@ -190,7 +190,7 @@ float get_acceleration(unsigned char *chrBuf, int num)
 
     for(i=0;i<8;i++){
         tmp[i] = (signed short)chrBuf[i+2];
-        print("tmp %d\n", tmp[i])
+        print("*********tmp %d\n", tmp[i])
     }
 
     if (num==1){
