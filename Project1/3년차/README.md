@@ -1903,7 +1903,9 @@
   [0x57] lon : 126.532892 lat : 42.949673
   [0x58] gpsHeight : 429496736.0 gpsYaw : 429496736.0 gpsV : 0.000
   
-  # 0x58 데이터 tmp변수를 unsigned int 에서 signed int 로 바꿨을때
+  # gps 데이터 tmp변수를 unsigned int 에서 signed int 로 바꿨을때
+  [0x57] lon : 126.532901 lat : -0.000004
+  [0x58] gpsHeight : -6.2 gpsYaw : -9.9 gpsV : 0.000
   ```
 
   - lon 데이터라도 잘 나올 때를 보면 [1]번째 데이터는 잘 들어오고 [2]번째 데이터가 비슷한 형식으로 들어오는 것을 볼 수 있다..왜??
