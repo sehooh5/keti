@@ -1930,8 +1930,8 @@
   - [0x58] Time: O
   - [0x51] Acceleration : X -> (**signed char**)chrBuf[i+2] 로 수정해서 O
   - [0x52] Angular Velocity : △ -> (**signed char**)chrBuf[i+2] 로 수정해서 O
-  - [0x53] Angle: △
-  - [0x54] Magnetic : X
+  - [0x53] Angle: △ -> 확인 필요
+  - [0x54] Magnetic : X -> (**signed char**)chrBuf[i+2] 로 수정해도 X
   - [0x56] Atmospheric Pressure and Height : O
   - [0x57] Longitude and Latitude : O
   - [0x58] Ground Speed :  △
