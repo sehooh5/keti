@@ -416,7 +416,7 @@ float get_quaternion(char *chrBuf, int num)
 float get_satelite(char *chrBuf, int num)
 {
     float sn; float pdop; float hdop; float vdop;
-    signed short tmp[8];
+    unsigned short tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){

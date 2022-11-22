@@ -1891,7 +1891,7 @@
 - gps 데이터 값
 
   ```
-  # lon 데이터만 잘 나올때
+  # lon 데이터만 잘 나올때 (tmp변수 unsigned int)
   [0x57] lon : 126.5328980 lat : 42.949664
   [0x58] gpsHeight : 62.9 gpsYaw : 429496736.0 gpsV : 0.000
   
@@ -1903,8 +1903,12 @@
   [0x57] lon : 126.532892 lat : 42.949673
   [0x58] gpsHeight : 429496736.0 gpsYaw : 429496736.0 gpsV : 0.000
   
-  # gps 데이터 tmp변수를 unsigned int 에서 signed int 로 바꿨을때
+  # 57,58 gps 데이터 tmp변수를 unsigned int 에서 signed int 로 바꿨을때
   [0x57] lon : 126.532901 lat : -0.000004
+  [0x58] gpsHeight : -6.2 gpsYaw : -9.9 gpsV : 0.000
+  
+  # 57 gps 데이터 tmp변수를 unsigned short 로 바꿨을때
+  [0x57] lon : 126.536899 lat : 38.587592
   [0x58] gpsHeight : -6.2 gpsYaw : -9.9 gpsV : 0.000
   ```
 
