@@ -339,9 +339,6 @@ double get_gpsData(unsigned char *chrBuf, int num)
         tmp[i] = (unsigned int)chrBuf[i+2];// int로 변경
     }
 
-//        printf("lon %x %x %x %x \n", chrBuf[5], chrBuf[4], chrBuf[3], chrBuf[2]);
-//        printf("lat %02x %02x %02x %02x \n", chrBuf[9], chrBuf[8], chrBuf[7], chrBuf[6]);
-
     if (num==1){
         lon = ((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
         printf("\r\n* lon base : %lf\r\n", lon);
@@ -471,7 +468,7 @@ void ParseData(unsigned char chr)
 		chrBuf[chrCnt++]=chr;
 
 
-        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
+//        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
 
 		if (chrCnt<11) return;
@@ -545,8 +542,8 @@ void ParseData(unsigned char chr)
                     lon = get_gpsData(chrBuf,1);
                     lat = get_gpsData(chrBuf,2);
 
-                    lon_dd = ((double)lon)/10000000;
-                    lat_dd = ((double)lat)/10000000;
+                    lon_dd = (int)(lon/10000000);
+                    lat_dd = (int)(lat/10000000);
                     printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
 			        memset(chrBuf, 0x00, 2000);
 				    break;
