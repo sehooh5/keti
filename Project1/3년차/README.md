@@ -1925,6 +1925,19 @@
   - 전체 데이터 잘 들어오면 확인 후 python 으로 이전과 같이 Edge로 전송 할수 있도록!!
   - **GPS 차량 촬영 때 영상데이터 및 GPS 값 Edge에 저장해야함**
 
+- 데이터 값 확인 : 
+
+  - [0x58] Time: O
+  - [0x51] Acceleration : X
+  - [0x52] Angular Velocity : △
+  - [0x53] Angle: △
+  - [0x54] Magnetic : X
+  - [0x56] Atmospheric Pressure and Height : O
+  - [0x57] Longitude and Latitude : O
+  - [0x58] Ground Speed :  △
+  - [0x59] Quaternion : △
+  - [0x5a] Satellite Positioning Accuracy : △
+
 
 
 #### 
