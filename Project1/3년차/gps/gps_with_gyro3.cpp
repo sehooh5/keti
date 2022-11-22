@@ -185,11 +185,11 @@ float get_time(unsigned char *chrBuf, int num)
 float get_acceleration(unsigned char *chrBuf, int num)
 {
     float ax; float ay; float az; float t;
-    signed short tmp[8];
+    unsigned short tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed short)chrBuf[i+2];
+        tmp[i] = (unsigned short)chrBuf[i+2];
     }
 
     if (num==1){
@@ -332,21 +332,19 @@ float get_atmospheric(unsigned char *chrBuf, int num)
 double get_gpsData(unsigned char *chrBuf, int num)
 {
     double lon; double lat;
-    unsigned int tmp[8];// int로 변경
+    unsigned int tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned int)chrBuf[i+2];// int로 변경
+        tmp[i] = (unsigned int)chrBuf[i+2];
     }
 
     if (num==1){
         lon = ((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
-        printf("\r\n* lon base : %lf\r\n", lon);
         return lon;
     }
     else if (num==2){
         lat = ((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
-        printf("* lat base : %lf\r\n\r\n", lat);
         return lat;
     }
     else{
