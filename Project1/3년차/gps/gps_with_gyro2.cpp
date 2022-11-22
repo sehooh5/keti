@@ -355,26 +355,26 @@ double get_gpsData(char *chrBuf, int num)
     }
 }
 //0x58 Ground Speed data 추출
-double get_groundSpeed(char *chrBuf, int num)
+float get_groundSpeed(char *chrBuf, int num)
 {
-    double gh; double gy; double gv;
-    unsigned short tmp[8];
+    float gh; float gy; float gv;
+    signed int tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned short)chrBuf[i+2];
+        tmp[i] = (signed int)chrBuf[i+2];
     }
 
     if (num==1){
-        gh = ((double)((tmp[1]<<8)|tmp[0]))/10;
+        gh = ((float)((tmp[1]<<8)|tmp[0]))/10;
         return gh;
     }
     else if (num==2){
-        gy = ((double)((tmp[3]<<8)|tmp[2]))/10;
+        gy = ((float)((tmp[3]<<8)|tmp[2]))/10;
         return gy;
     }
     else if (num==3){
-        gv = ((double)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]))/1000;
+        gv = ((float)((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]))/1000;
         return gv;
     }
     else{
@@ -453,7 +453,7 @@ float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
 float press; float h; //0x56
 double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm;//0x57
-double gh; double gy; double gv;//0x58
+float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
@@ -529,9 +529,9 @@ void ParseData(char chr)
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
 				    break;
                 case 0x58:
-                    gh = (double)get_groundSpeed(chrBuf,1);
-                    gy = (double)get_groundSpeed(chrBuf,2);
-                    gv = (double)get_groundSpeed(chrBuf,3);
+                    gh = get_groundSpeed(chrBuf,1);
+                    gy = get_groundSpeed(chrBuf,2);
+                    gv = get_groundSpeed(chrBuf,3);
                     printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
 				    break;
                 case 0x59:
