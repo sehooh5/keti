@@ -529,9 +529,9 @@ void ParseData(char chr)
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
 				    break;
                 case 0x58:
-                    gh = get_groundSpeed(chrBuf,1);
-                    gy = get_groundSpeed(chrBuf,2);
-                    gv = get_groundSpeed(chrBuf,3);
+                    gh = (double)get_groundSpeed(chrBuf,1);
+                    gy = (double)get_groundSpeed(chrBuf,2);
+                    gv = (double)get_groundSpeed(chrBuf,3);
                     printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
 				    break;
                 case 0x59:
