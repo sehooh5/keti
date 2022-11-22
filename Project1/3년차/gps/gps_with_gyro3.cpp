@@ -332,45 +332,22 @@ float get_atmospheric(unsigned char *chrBuf, int num)
 double get_gpsData(unsigned char *chrBuf, int num)
 {
     double lon; double lat;
-    unsigned short tmp[8];// int로 변경
+    unsigned int tmp[8];// int로 변경
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned short)chrBuf[i+2];// int로 변경
+        tmp[i] = (unsigned int)chrBuf[i+2];// int로 변경
     }
 
-        printf("lon %x %x %x %x \n", chrBuf[5], chrBuf[4], chrBuf[3], chrBuf[2]);
-        printf("lat %02x %02x %02x %02x \n", chrBuf[9], chrBuf[8], chrBuf[7], chrBuf[6]);
-
-
-
-
-        if(chrBuf[7] == 0xff)
-        	printf("*************** 0xff ************ \n");
-
-
-        if(chrBuf[7] == 0xf5)
-        	printf("*************** 0xf5 ************ \n");
-
-        if(chrBuf[7] == 0x05)
-        	printf("*************** 0x05 ************ \n");
-
-
+//        printf("lon %x %x %x %x \n", chrBuf[5], chrBuf[4], chrBuf[3], chrBuf[2]);
+//        printf("lat %02x %02x %02x %02x \n", chrBuf[9], chrBuf[8], chrBuf[7], chrBuf[6]);
 
     if (num==1){
-//        printf("lon %x %x %x %x \n", chrBuf[5], chrBuf[4], chrBuf[3], chrBuf[2]);
-//        printf("lat %x %x %x %x \n", chrBuf[9], chrBuf[8], chrBuf[7], chrBuf[6]);
-
-
         lon = ((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
-//        lon = (double)((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
         printf("\r\n* lon base : %lf\r\n", lon);
         return lon;
     }
     else if (num==2){
-//        printf("lon %x %x %x %x \n", chrBuf[5], chrBuf[4], chrBuf[3], chrBuf[2]);
-//        printf("lat %x %x %x %x \n", chrBuf[9], chrBuf[8], chrBuf[7], chrBuf[6]);
-
         lat = ((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
         printf("* lat base : %lf\r\n\r\n", lat);
         return lat;
@@ -482,12 +459,11 @@ float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
-static unsigned char chrBuf[2000];
+static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
 // Parsing Data
 void ParseData(unsigned char chr)
 {
-//		static char chrBuf[2000];
 		static unsigned char chrCnt=0;
 		unsigned char i;
 		unsigned char cTemp=0;
@@ -571,11 +547,8 @@ void ParseData(unsigned char chr)
                     lat = get_gpsData(chrBuf,2);
 
                     lon_dd = ((double)lon)/10000000;
-//                    lon_mm = (((double)lon)%100000000)/100000;
                     lat_dd = ((double)lat)/10000000;
-//                    lat_mm = (((double)lat)%100000000)/100000;
                     printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
-//                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
 			memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x58:
@@ -612,18 +585,13 @@ void ParseData(unsigned char chr)
 // main 동작
 int main(void)
 {
-
-
-
-
-
-    unsigned char r_buf[1024];
+    unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
     bzero(r_buf,1024);
 
 
     memset(chrBuf, 0x00, 2000);
 
-    fd = uart_open(fd,"/dev/ttyUSB6");/*串口号/dev/ttySn,USB口号/dev/ttyUSBn */
+    fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
     if(fd == -1)
     {
         fprintf(stderr,"uart_open error\n");
