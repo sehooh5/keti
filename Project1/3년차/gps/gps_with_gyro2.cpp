@@ -309,11 +309,11 @@ float get_magnetic(char *chrBuf, int num)
 float get_atmospheric(char *chrBuf, int num)
 {
     float press; float h;
-    unsigned int tmp[8];// int로 변경
+    unsigned short tmp[8];// int로 변경
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned int)chrBuf[i+2];// int로 변경
+        tmp[i] = (unsigned short)chrBuf[i+2];// int로 변경
     }
 
     if (num==1){
