@@ -542,20 +542,20 @@ void ParseData(unsigned char chr)
                     printf("[0x56] press : %f h : %f\r\n", press, h);
                     memset(chrBuf, 0x00, 2000);
 				    break;
-		case 0x57:
+		        case 0x57:
                     lon = get_gpsData(chrBuf,1);
                     lat = get_gpsData(chrBuf,2);
 
                     lon_dd = ((double)lon)/10000000;
                     lat_dd = ((double)lat)/10000000;
                     printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
-			memset(chrBuf, 0x00, 2000);
+			        memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x58:
                     gh = get_groundSpeed(chrBuf,1);
                     gy = get_groundSpeed(chrBuf,2);
                     gv = get_groundSpeed(chrBuf,3);
-                    printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
+                    printf("[0x58] gpsHeight : %.1fm gpsYaw : %.1fDeg gpsV : %.3fkm/h\r\n", gh, gy, gv);
                     memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x59:
