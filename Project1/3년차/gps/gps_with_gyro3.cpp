@@ -546,7 +546,7 @@ void ParseData(unsigned char chr)
                     lat_dd = (int)(lat/10000000);
                     lon_mm = ((lon-lon_dd)/100000)/60;
                     printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
-                    printf("lon _ mm : ", (double)lon_mm);
+                    printf("lon _ mm : %lf", (double)lon_mm);
 			        memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x58:
