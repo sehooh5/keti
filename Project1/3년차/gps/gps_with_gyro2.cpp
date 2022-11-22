@@ -255,8 +255,7 @@ float get_angle(char *chrBuf, int num)
     }
 
     if (num==1){
-        roll = (tmp[1]<<8)|tmp[0];
-//        roll = ((float)((tmp[1]<<8)|tmp[0]))/32768*180;
+        roll = ((float)((tmp[1]<<8)|tmp[0]))/32768*180;
         return roll;
     }
     else if (num==2){
@@ -359,11 +358,11 @@ double get_gpsData(char *chrBuf, int num)
 float get_groundSpeed(char *chrBuf, int num)
 {
     float gh; float gy; float gv;
-    unsigned int tmp[8];
+    signed int tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (unsigned int)chrBuf[i+2];
+        tmp[i] = (signed int)chrBuf[i+2];
     }
 
     if (num==1){
@@ -504,7 +503,7 @@ void ParseData(char chr)
                     pitch = get_angle(chrBuf,2);
                     yaw = get_angle(chrBuf,3);
                     t = get_angle(chrBuf,4);
-                    printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", ((float)roll)/32768*180, pitch, yaw, t);
+                    printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
 				    break;
 				case 0x54:
                     mx = get_magnetic(chrBuf,1);
