@@ -282,7 +282,7 @@ float get_magnetic(unsigned char *chrBuf, int num)
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed short)chrBuf[i+2];
+        tmp[i] = (signed char)chrBuf[i+2];
     }
 
     if (num==1){

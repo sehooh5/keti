@@ -1928,8 +1928,8 @@
 - 데이터 값 확인 : 
 
   - [0x58] Time: O
-  - [0x51] Acceleration : X -> signed char 로 수정해서 O
-  - [0x52] Angular Velocity : △
+  - [0x51] Acceleration : X -> (**signed char**)chrBuf[i+2] 로 수정해서 O
+  - [0x52] Angular Velocity : △ -> (**signed char**)chrBuf[i+2] 로 수정해서 O
   - [0x53] Angle: △
   - [0x54] Magnetic : X
   - [0x56] Atmospheric Pressure and Height : O
