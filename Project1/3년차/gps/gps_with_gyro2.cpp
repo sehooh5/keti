@@ -460,7 +460,7 @@ float sn; float pdop; float hdop; float vdop;//0x5a
 // Parsing Data
 void ParseData(char chr)
 {
-		static char chrBuf[2000];
+		static char chrBuf[100];
 		static unsigned char chrCnt=0;
 		unsigned char i;
 		char cTemp=0;
