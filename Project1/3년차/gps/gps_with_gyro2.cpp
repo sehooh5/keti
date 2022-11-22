@@ -340,13 +340,13 @@ double get_gpsData(char *chrBuf, int num)
     }
 
     if (num==1){
-        lon = (tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0];
+        lon = ((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
 //        lon = (double)((tmp[3]<<24)|(tmp[2]<<16)|(tmp[1]<<8)|tmp[0]);
         printf("\r\n* lon base : %lf\r\n", lon);
         return lon;
     }
     else if (num==2){
-        lat = (tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4];
+        lat = ((tmp[7]<<24)|(tmp[6]<<16)|(tmp[5]<<8)|tmp[4]);
         printf("* lat base : %lf\r\n\r\n", lat);
         return lat;
     }
