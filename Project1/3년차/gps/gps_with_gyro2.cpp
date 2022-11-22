@@ -358,11 +358,11 @@ double get_gpsData(char *chrBuf, int num)
 float get_groundSpeed(char *chrBuf, int num)
 {
     float gh; float gy; float gv;
-    signed int tmp[8];
+    unsigned short tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed int)chrBuf[i+2];
+        tmp[i] = (unsigned short)chrBuf[i+2];
     }
 
     if (num==1){
@@ -523,7 +523,7 @@ void ParseData(char chr)
 
                     lon_dd = ((double)lon)/10000000;
 //                    lon_mm = (((double)lon)%100000000)/100000;
-                    lat_dd = ((double)lat)/100000000;
+                    lat_dd = ((double)lat)/10000000;
 //                    lat_mm = (((double)lat)%100000000)/100000;
                     printf("[0x57] lon : %lf lat : %lf\r\n",lon_dd,lat_dd);
 //                    printf("[0x57] lon : %f.%f lat : %f.%f\r\n",lon_dd,lon_mm,lat_dd,lat_mm);
