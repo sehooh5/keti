@@ -1934,9 +1934,18 @@
   - [0x54] Magnetic : X -> (**signed char**)chrBuf[i+2] 로 수정해도 X
   - [0x56] Atmospheric Pressure and Height : O
   - [0x57] Longitude and Latitude : O
-  - [0x58] Ground Speed :  △
-  - [0x59] Quaternion : △
-  - [0x5a] Satellite Positioning Accuracy : △
+  - [0x58] Ground Speed :  △ (변경 X)
+  - [0x59] Quaternion : △ (변경 X)
+  - [0x5a] Satellite Positioning Accuracy : △ (변경 X)
+
+
+
+#### 1122
+
+- 데이터 작업은 여기까지 하고 다음 진행
+- 앞으로 할 것 : 
+  - 전체 데이터 잘 들어오면 확인 후 python 으로 이전과 같이 Edge로 전송 할수 있도록!!
+  - **GPS 차량 촬영 때 영상데이터 및 GPS 값 Edge에 저장해야는 코드 만들어야함**
 
 
 
