@@ -485,10 +485,7 @@ void ParseData(unsigned char chr)
 		unsigned char cTemp=0;
 		time_t now;
 		chrBuf[chrCnt++]=chr;
-
-
 //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
-
 
 		if (chrCnt<11) return;
 		for (i=0;i<10;i++) cTemp += chrBuf[i];
@@ -594,8 +591,8 @@ void ParseData(unsigned char chr)
 				    break;
 
 		}
+		printf("*******%u\n", yy);
 		chrCnt=0;
-
 		memset(chrBuf, 0x00, 2000);
 }
 
