@@ -1,3 +1,6 @@
-import ctypes
+import json
 
-a= ctypes.CDLL("./liba.so")
+f = open("test.txt", "r")
+line = f.readline()
+print(line)
+f.close()
