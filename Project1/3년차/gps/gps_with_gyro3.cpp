@@ -578,12 +578,13 @@ void ParseData(unsigned char chr)
                     printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
                     printf("[[Data Output End]]\r\n");
                     memset(chrBuf, 0x00, 2000);
+                    cout << str;
+		            str = "";
 				    break;
 
 		}
 		chrCnt=0;
-		cout << str;
-		str = "";
+
 		memset(chrBuf, 0x00, 2000);
 }
 
