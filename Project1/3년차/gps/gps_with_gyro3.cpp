@@ -5,7 +5,6 @@
 #include<assert.h>
 #include<termios.h>
 #include<string.h>
-#include<string>
 #include<sys/time.h>
 #include<time.h>
 #include<sys/types.h>
@@ -455,8 +454,8 @@ float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
-std::string data;
-data = "";
+
+string str = "";
 static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
 // Parsing Data
@@ -496,7 +495,7 @@ void ParseData(unsigned char chr)
                     ms = get_time(chrBuf, 7);
                     printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
 
-                    data.append(yy);
+                    str.append(yy);
                     memset(chrBuf, 0x00, 2000);
 
 		            break;
@@ -617,7 +616,7 @@ int main(void)
             exit(EXIT_FAILURE);
         }
 		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
-		printf("**** %s ******");
+		printf("**** %s ******", str);
         usleep(1000);
     }
 
