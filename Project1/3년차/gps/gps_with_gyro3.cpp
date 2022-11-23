@@ -582,6 +582,8 @@ void ParseData(unsigned char chr)
 
 		}
 		chrCnt=0;
+		cout << str;
+		str = "";
 		memset(chrBuf, 0x00, 2000);
 }
 
@@ -619,7 +621,6 @@ int main(void)
             exit(EXIT_FAILURE);
         }
 		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
-		cout << str;
         usleep(1000);
     }
 
