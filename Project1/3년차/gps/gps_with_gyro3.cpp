@@ -591,7 +591,7 @@ void ParseData(unsigned char chr)
 				    break;
 
 		}
-		printf("*******%u\n", yy);
+
 		chrCnt=0;
 		memset(chrBuf, 0x00, 2000);
 }
@@ -635,7 +635,7 @@ int main(void)
 		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
         usleep(1000);
     }
-
+    printf("*******%u\n", yy);
     ret = uart_close(fd);
     if(ret == -1)
     {
