@@ -9,6 +9,8 @@ def read_file():
     return line
 
 while True:
+    i = 0;
     data = read_file()
     print(data)
-    break;
+    if i == 1:
+        break;
