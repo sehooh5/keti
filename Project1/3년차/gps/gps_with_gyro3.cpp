@@ -496,7 +496,7 @@ void ParseData(unsigned char chr)
                     ms = get_time(chrBuf, 7);
                     printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
 
-                    str.append(yy);
+                    str.append("hi");
                     memset(chrBuf, 0x00, 2000);
 
 		            break;
