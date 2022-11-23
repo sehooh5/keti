@@ -1,6 +1,22 @@
 #include <stdio.h>
 #include <curl/curl.h>
 
+#include <iostream>
+#include "json/json.h"
+
+std::string str;
+
+{
+    Json::Value root;
+    root["id"] = "SH";
+    root["name"] = "SEHO";
+    root["age"] = 10000;
+    root["hasCar"] = false;
+
+    Json::StyledWriter writer;
+    str = writer.srite(root);
+    std::cout << str << std::ednl << std::endl;
+}
 
 
 
