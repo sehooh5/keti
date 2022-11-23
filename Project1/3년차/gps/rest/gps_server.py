@@ -22,11 +22,13 @@ def index():
 @app.route('/test', methods=['POST'])
 def test():
     json_data = request.get_json(silent=True)
-    # lat=json_data['gps']['lat_dd']+json_data['gps']['lat_mm']
+    lat_dd = json_data['gps']['lat_dd']
+    lat_mm = json_data['gps']['lat_mm']
+    print(lat_dd)
+    print(type(lat_mm))
     # lon = json_data['gps']['lon_dd'] + json_data['gps']['lon_mm']
-    #
+
     # print(f"lon : {lon}, lat : {lat}")
-    print(json_data)
     return "good"
 
 @app.route('/gps', methods=['POST'])
