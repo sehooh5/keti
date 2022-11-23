@@ -603,6 +603,7 @@ void ParseData(unsigned char chr)
                     fout << "\"gps\":{\"lat\":" << lat_final << ",\"lon\":" << lon_final <<  "},";
                     fout << "\"groundSpeed\":{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "},";
                     fout << "\"quaternion\":{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
+                    fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
                     fout << "}" << endl;
 //                    fout << endl;
                     fout.close();
