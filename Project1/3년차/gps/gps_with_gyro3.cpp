@@ -507,6 +507,7 @@ void ParseData(unsigned char chr)
                     t = get_acceleration(chrBuf, 4);
                     printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
 
+                    str.append(" bye!!");
                     memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x52:
