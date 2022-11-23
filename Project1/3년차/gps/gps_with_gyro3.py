@@ -5,7 +5,7 @@ import json
 def read_file():
     f = open("test.txt", "r")
     line = f.readline()
-    f.close
+    # f.close
     return line
 
 while True:
