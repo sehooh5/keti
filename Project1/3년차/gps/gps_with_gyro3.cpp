@@ -5,6 +5,7 @@
 #include<assert.h>
 #include<termios.h>
 #include<string.h>
+#include<string>
 #include<sys/time.h>
 #include<time.h>
 #include<sys/types.h>
