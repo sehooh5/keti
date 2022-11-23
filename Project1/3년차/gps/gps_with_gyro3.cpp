@@ -632,10 +632,10 @@ int main(void)
             fprintf(stderr,"uart read failed!\n");
             exit(EXIT_FAILURE);
         }
-		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
+		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);printf("*******%u\n", yy);}
         usleep(1000);
     }
-    printf("*******%u\n", yy);
+
     ret = uart_close(fd);
     if(ret == -1)
     {
