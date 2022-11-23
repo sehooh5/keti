@@ -13,6 +13,6 @@ while True:
     i = 0;
     data = read_file()
     print(data)
-    time.sleep(1)
+    time.sleep(0.5)
     if i == 1:
         break;
