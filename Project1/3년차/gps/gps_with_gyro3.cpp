@@ -10,6 +10,7 @@
 #include<sys/types.h>
 #include<errno.h>
 #include<string>
+#include<iostream>
 
 static int ret;
 static int fd;
