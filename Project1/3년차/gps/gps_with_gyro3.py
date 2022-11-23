@@ -1,7 +1,14 @@
 import json
 
-while True:
+
+
+def read_file():
     f = open("test.txt", "r")
     line = f.readline()
-    print(line)
-f.close
+    f.close
+    return line
+
+while True:
+    data = read_file()
+    print(data)
+    break;
