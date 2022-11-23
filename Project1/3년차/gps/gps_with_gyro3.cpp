@@ -148,6 +148,8 @@ int file_write()
     fout << endl;
 
     fout.close();
+
+    return 0;
 }
 int recv_data(int fd, unsigned char* recv_buffer,int length)
 {
