@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <curl/curl.h>
 
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<assert.h>
+#include<termios.h>
+#include<string.h>
+#include<sys/time.h>
+#include<time.h>
+#include<sys/types.h>
+#include<errno.h>
+
 unsigned char i;
 
 for (i=0;i<10;i++)
