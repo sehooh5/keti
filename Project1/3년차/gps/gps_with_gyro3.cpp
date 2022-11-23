@@ -594,12 +594,12 @@ void ParseData(unsigned char chr)
                     ofstream fout;
                     fout.open("test.txt");
                     fout << "{";
-                    fout << "{\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
-                    fout << "{\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
-                    fout << "{\"angular\":{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
-                    fout << "{\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
-                    fout << "{\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
-                    fout << "{\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
+                    fout << "\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
+                    fout << "\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
+                    fout << "\"angular\":{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
+                    fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
+                    fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
+                    fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
 
                     fout << "}" << endl;
 //                    fout << endl;
