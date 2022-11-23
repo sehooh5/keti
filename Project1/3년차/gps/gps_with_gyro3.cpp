@@ -9,8 +9,9 @@
 #include<time.h>
 #include<sys/types.h>
 #include<errno.h>
-#include<string>
+
 #include<iostream>
+#include<fstream>
 
 static int ret;
 static int fd;
@@ -133,6 +134,18 @@ int send_data(int  fd, char *send_buffer,int length)
 {
 	length=write(fd,send_buffer,length*sizeof(unsigned char));
 	return length;
+}
+int file_write()
+{
+    ofstream fout;
+
+    fout.open("test.txt");
+
+    for(int i=0;i<10;i++)
+        fout << i << "\n";
+    fout << endl;
+    
+    fout.close();
 }
 int recv_data(int fd, unsigned char* recv_buffer,int length)
 {
@@ -456,8 +469,8 @@ float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
-using namespace std;
-string str = "";
+//using namespace std;
+//string str = "";
 static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
 // Parsing Data
@@ -496,10 +509,6 @@ void ParseData(unsigned char chr)
                     ss = get_time(chrBuf, 6);
                     ms = get_time(chrBuf, 7);
                     printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
-                    string s_yy=to_string(yy);
-                    cout << typeid(s_yy).name() << "\n";
-                    cout << s_yy << "\n";
-//                    str.append(f"%s",(string)yy);
                     memset(chrBuf, 0x00, 2000);
 
 		            break;
@@ -509,8 +518,6 @@ void ParseData(unsigned char chr)
                     az = get_acceleration(chrBuf, 3);
                     t = get_acceleration(chrBuf, 4);
                     printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
-
-                    str.append(" bye!!");
                     memset(chrBuf, 0x00, 2000);
 				    break;
                 case 0x52:
@@ -580,8 +587,6 @@ void ParseData(unsigned char chr)
                     printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
                     printf("[[Data Output End]]\r\n");
                     memset(chrBuf, 0x00, 2000);
-                    cout << str;
-		            str = "";
 				    break;
 
 		}
