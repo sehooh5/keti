@@ -12,7 +12,8 @@ def read_file():
     return json_data
 
 j = read_file()
-print(j['gps']['lat_dd'])
+print(type(j['gps']['lat_dd']))
+print(type(j['gps']['lat_mm']))
 
 ## 무한 루프
 # while True:
