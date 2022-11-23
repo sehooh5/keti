@@ -1946,6 +1946,9 @@
 - 앞으로 할 것 : 
   - 전체 데이터 잘 들어오면 확인 후 python 으로 이전과 같이 Edge로 전송 할수 있도록!!
   - **GPS 차량 촬영 때 영상데이터 및 GPS 값 Edge에 저장해야는 코드 만들어야함**
+- 진행중 : 
+  - /gps/cpp_http_test.cpp -> /gps/rest/gps_server.py 로 post 전송 완료
+    - 이제 cpp 에서 json으로 데이터 만들어서 보내는 것 진행 후 gps_with_gyro.cpp 에 적용
 
 
 

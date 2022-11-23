@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <curl/curl.h>
 
+int i;
+
+for (i=0;i<10;i++)
+{
+    main();
+}
+
 int main(void)
 {
   CURL *curl;
