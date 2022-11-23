@@ -21,11 +21,12 @@ def index():
 
 @app.route('/test', methods=['POST'])
 def test():
-    test_data = None
-    if request.headers['Content-Type'] == 'application/json':
-        test_data=request.data.decode('utf-8')
-        print(test_data, type(test_data))
-    return test_data
+    json_data = request.get_json(silent=True)
+    lat=json_data['gps']['lat_dd']+json_data['gps']['lat_mm']
+    lon = json_data['gps']['lon_dd'] + json_data['gps']['lon_mm']
+
+    print(f"lon : {lon}, lat : {lat}")
+    return "good"
 
 @app.route('/gps', methods=['POST'])
 def gps():
