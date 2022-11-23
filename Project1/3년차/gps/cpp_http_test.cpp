@@ -40,6 +40,4 @@ int main(void)
   curl_global_cleanup(); // curl_global_init 과 세트
   return 0;
 
-  }
-
 }
