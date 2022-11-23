@@ -600,7 +600,9 @@ void ParseData(unsigned char chr)
                     fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
                     fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
                     fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
-
+                    fout << "\"gps\":{\"lat\":" << lat_final << ",\"lon\":" << lon_final <<  "},";
+                    fout << "\"groundSpeed\":{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "},";
+                    fout << "\"quaternion\":{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
                     fout << "}" << endl;
 //                    fout << endl;
                     fout.close();
