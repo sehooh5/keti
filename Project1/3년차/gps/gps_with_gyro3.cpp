@@ -456,7 +456,7 @@ float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
 
-string str = "";
+std::string str = "";
 static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
 // Parsing Data
