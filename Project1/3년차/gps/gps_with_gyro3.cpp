@@ -588,6 +588,7 @@ void ParseData(unsigned char chr)
                     printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
                     printf("[[Data Output End]]\r\n");
                     memset(chrBuf, 0x00, 2000);
+                    printf("*******%u\n", yy);
 				    break;
 
 		}
@@ -633,7 +634,6 @@ int main(void)
             exit(EXIT_FAILURE);
         }
 		for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
-		printf("*******%u\n", yy);
         usleep(1000);
     }
 
