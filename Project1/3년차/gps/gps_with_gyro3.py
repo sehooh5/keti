@@ -1,16 +1,18 @@
 import json
+import time
 
 
 
 def read_file():
     f = open("test.txt", "r")
     line = f.read()
-    # f.close
+    f.close
     return line
 
 while True:
     i = 0;
     data = read_file()
     print(data)
+    time.slee(1)
     if i == 1:
         break;
