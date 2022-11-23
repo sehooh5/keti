@@ -18,6 +18,8 @@ static int fd;
 
 #define BAUD 9600 //115200 for JY61 ,9600 for others
 
+using namespace std;
+
 int uart_open(int fd,const char *pathname)
 {
     fd = open(pathname, O_RDWR|O_NOCTTY);
@@ -144,7 +146,7 @@ int file_write()
     for(int i=0;i<10;i++)
         fout << i << "\n";
     fout << endl;
-    
+
     fout.close();
 }
 int recv_data(int fd, unsigned char* recv_buffer,int length)
@@ -469,7 +471,7 @@ float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
 
-//using namespace std;
+
 //string str = "";
 static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
