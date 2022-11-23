@@ -8,7 +8,8 @@ def read_file():
     line = f.read()
     json_data = json.loads(line)
     lat=json_data['gps']['lat_dd']+json_data['gps']['lat_mm']
-    print(lat)
+    lon = json_data['gps']['lon_dd'] + json_data['gps']['lon_mm']
+
     f.close
     return json_data
 
