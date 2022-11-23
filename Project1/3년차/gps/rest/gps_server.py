@@ -16,7 +16,14 @@ c = conn.cursor()
 
 @app.route('/')
 def index():
+    json_data = request.get_json(silent=True)
     return "index"
+
+@app.route('/test', methods=['POST'])
+def test():
+    data = request.get_json(silent=True)
+    print(data)
+    return data
 
 @app.route('/gps', methods=['POST'])
 def gps():
