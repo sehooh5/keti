@@ -15,7 +15,7 @@ int main(void)
   struct curl_slist *list = NULL;
 
   if(curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, "http://123.214.186.162:8088/"); //webserver ip 주소와 포트번호, flask 대상 router
+    curl_easy_setopt(curl, CURLOPT_URL, "http://123.214.186.162:8088/test"); //webserver ip 주소와 포트번호, flask 대상 router
 
     list = curl_slist_append(list, "Content-Type: application/json"); // content-type 정의 내용 list에 저장
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list); // content-type 설정
