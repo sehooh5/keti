@@ -348,9 +348,9 @@ float get_atmospheric(unsigned char *chrBuf, int num)
     }
 }
 //0x57 GPS data 추출
-double get_gpsData(unsigned char *chrBuf, int num)
+float get_gpsData(unsigned char *chrBuf, int num)
 {
-    double lon; double lat;
+    float lon; float lat;
     unsigned int tmp[8];
     unsigned char i;
 
@@ -468,7 +468,7 @@ float wx; float wy; float wz; //0x52
 float roll; float pitch; float yaw;//0x53
 float mx; float my; float mz;//0x54
 float press; float h; //0x56
-double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
+float lon; float lat; float lon_dd; float lat_dd; float lon_mm; float lat_mm; float lon_final; float lat_final;//0x57
 float gh; float gy; float gv;//0x58
 float q0; float q1; float q2; float q3;//0x59
 float sn; float pdop; float hdop; float vdop;//0x5a
@@ -599,7 +599,7 @@ void ParseData(unsigned char chr)
                     fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
                     fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
                     fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
-                    fout << "\"gps\":{\"lat\":\"" << (float)lat_final << "\",\"lon\":\"" << (float)lon_final <<  "\"},";
+                    fout << "\"gps\":{\"lat\":" << lat_final << ",\"lon\":" << lon_final <<  "},";
                     fout << "\"groundSpeed\":{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "},";
                     fout << "\"quaternion\":{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
                     fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
