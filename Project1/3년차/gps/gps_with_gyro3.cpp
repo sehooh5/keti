@@ -604,7 +604,7 @@ void ParseData(unsigned char chr)
 int main(void)
 {
     //추가
-    file_write()
+    file_write();
 
     unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
     bzero(r_buf,1024);
