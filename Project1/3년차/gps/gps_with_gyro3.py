@@ -11,7 +11,8 @@ def read_file():
     f.close
     return json_data
 
-read_file()
+j = read_file()
+print(j['gps']['lat_dd'])
 
 ## 무한 루프
 # while True:
