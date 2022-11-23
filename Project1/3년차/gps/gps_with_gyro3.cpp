@@ -496,8 +496,10 @@ void ParseData(unsigned char chr)
                     ss = get_time(chrBuf, 6);
                     ms = get_time(chrBuf, 7);
                     printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
-
-                    str.append(f"%s",(string)yy);
+                    string s_yy=to_string(yy);
+                    cout << typeid(s_yy).name() << "\n";
+                    cout << s_yy << "\n";
+//                    str.append(f"%s",(string)yy);
                     memset(chrBuf, 0x00, 2000);
 
 		            break;
