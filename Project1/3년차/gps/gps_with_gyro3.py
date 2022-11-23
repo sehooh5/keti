@@ -21,7 +21,7 @@ while True:
     i = 0;
     data = read_file()
     res = requests.post(f'{url}/test', json=data)
-
+    print(res)
     time.sleep(0.5)
     if i == 1:
         break;
