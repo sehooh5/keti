@@ -12,6 +12,7 @@ def read_file():
     f.close
     return json_data
 
+read_file()
 # j = read_file()
 # print(type(j['gps']['lat_dd']))
 # print(type(j['gps']['lat_mm']))
