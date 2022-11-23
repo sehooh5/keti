@@ -593,7 +593,7 @@ void ParseData(unsigned char chr)
                     //file 작성
                     ofstream fout;
                     fout.open("test.txt");
-                    fout << "{" << "\n";
+                    fout << "{";
                     fout << "{'time':{'yy':'" << yy << "','mm':'" << mm << "','dd':'" << dd << "','hh':'" << hh << "','mi':'" << mi << "','ss':'" << ss << "','ms':'" << ms << "'}," << "\n";
                     fout << "}" << endl;
 //                    fout << endl;
