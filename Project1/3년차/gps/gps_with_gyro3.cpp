@@ -588,20 +588,21 @@ void ParseData(unsigned char chr)
                     printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
                     printf("[[Data Output End]]\r\n");
                     memset(chrBuf, 0x00, 2000);
+                    printf("*******%u\n", ss);
+
+                    //file 작성
+                    ofstream fout;
+                    fout.open("test.txt");
+                    fout << yy << "\n";
+                    fout << mm << "\n";
+                    fout << endl;
+                    fout.close();
 
 				    break;
 
 		}
-        printf("*******%u\n", ss);
-//        ofstream fout;
-//
-//        fout.open("test.txt");
-//
-//        for(int i=0;i<10;i++)
-//            fout << i << "\n";
-//        fout << endl;
-//
-//        fout.close();
+
+
 		chrCnt=0;
 		memset(chrBuf, 0x00, 2000);
 }
