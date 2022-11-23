@@ -6,13 +6,18 @@ import time
 def read_file():
     f = open("test.txt", "r")
     line = f.read()
+    json_data = json.loads(line)
+    print(json_data)
     f.close
-    return line
+    return json_data
 
-while True:
-    i = 0;
-    data = read_file()
-    print(data)
-    time.sleep(0.5)
-    if i == 1:
-        break;
+read_file()
+
+## 무한 루프
+# while True:
+#     i = 0;
+#     data = read_file()
+#     print(data)
+#     time.sleep(0.5)
+#     if i == 1:
+#         break;
