@@ -382,11 +382,11 @@ float get_groundSpeed(unsigned char *chrBuf, int num)
 float get_quaternion(unsigned char *chrBuf, int num)
 {
     float q0; float q1; float q2; float q3;
-    signed short tmp[8];
+    unsigned short tmp[8];
     unsigned char i;
 
     for(i=0;i<8;i++){
-        tmp[i] = (signed char)chrBuf[i+2];
+        tmp[i] = (unsigned short)chrBuf[i+2];
     }
 
     if (num==1){
