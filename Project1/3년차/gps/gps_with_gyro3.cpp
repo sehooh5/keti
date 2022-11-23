@@ -9,6 +9,7 @@
 #include<time.h>
 #include<sys/types.h>
 #include<errno.h>
+#include<string>
 
 static int ret;
 static int fd;
