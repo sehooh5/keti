@@ -1,3 +1,4 @@
+import sys
 import json
 import time
 import requests
@@ -20,7 +21,13 @@ def read_file():
 while True:
     i = 0;
     data = read_file()
-    res = requests.post(f'{url}/gwg', json=data)
+
+    arg = sys.argv
+    if len(arg) > 0 :
+        res = requests.post(f'{url}/gwg_save', json=data)
+    else:
+        res = requests.post(f'{url}/gwg', json=data)
+
     print(res)
     time.sleep(0.5)
     if i == 1:
