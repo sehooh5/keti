@@ -592,6 +592,7 @@ void ParseData(unsigned char chr)
                     //file 작성
                     ofstream fout;
                     fout.open("test.txt");
+                    fout.precision(6);
                     fout << "{";
                     fout << "\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
                     fout << "\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
