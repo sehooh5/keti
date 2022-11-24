@@ -12,7 +12,7 @@ for row in c:
     num = row[0]
 
 while True:
-    for num in range(0, num):
+    for num in range(1, num+1):
         if num == 1:
             print("데이터 초기화")
         c.execute(f"SELECT * FROM gwg_save WHERE ROWID={num}")
