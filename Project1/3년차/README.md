@@ -1974,6 +1974,7 @@
       - 전달받은 gwg 데이터 DB에 저장(현재 DB : gwg_text.db)
       - gwg_temp_transfer 에서 전달받은 데이터 변수 저장 후 get요청시 전달
       - 인텔리빅스에서 요청할때 주소[GET] : http://123.214.186.162:8088/get_gwg
+      - 실시간 연동시 요청 주소[GET] : http://123.214.186.162:8088/get_gwgData
     - gwg_temp_transfer.py : gwg_text.db 의 데이터 읽어서 다시 gwg_server로 전송
 - 해야할 것 : 
   - 블랙박스 영상데이터 -> Edge 전송 후 저장해야함!!
