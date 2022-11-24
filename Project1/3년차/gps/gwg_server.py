@@ -106,23 +106,11 @@ def gwg_save():
 
 @app.route('/get_gwgData', methods=['GET'])
 def get_gwgData():
+    global gwg_data
 
-    c.execute(f"SELECT * FROM gwg_save")
-    for row in c:
-        print(row[1]," ")
-        data = {
-            "lat" : row[1],
-            "lat_dir": row[2],
-            "lon": row[3],
-            "lon_dir": row[4],
-            "alt": row[5],
-            "alt_units": row[6],
-            "dt": row[7]
-        }
-    #     json_data = json.dumps(data)
-    #
-    return data
+    return gwg_data
 
+## 저장된 데이터로 진행하는 내용
 # 1124 // 1초마다 GPS client 에서 데이터송되는 API
 @app.route('/gwg_temp', methods=['POST'])
 def gwg_temp():
@@ -131,11 +119,12 @@ def gwg_temp():
 
     return temp_data
 
-# 1124 // temp data get요청으로 gps json data 리턴
+# 1124 // temp data get요청으로 gwg json data 리턴
 @app.route('/get_gwg', methods=['GET'])
 def get_gwg():
     global temp_data
     j_data = json.dumps(temp_data)
+
     return j_data
 
 

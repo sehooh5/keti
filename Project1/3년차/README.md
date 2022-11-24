@@ -1946,7 +1946,7 @@
 - 앞으로 할 것 : 
   - 전체 데이터 잘 들어오면 확인 후 python 으로 이전과 같이 Edge로 전송 할수 있도록!!
   - **GPS 차량 촬영 때 영상데이터 및 GPS 값 Edge에 저장해야는 코드 만들어야함**
-  - DEMS 영상 캡처 시 항상 사용 가능한 카메라 주소 변경해줘야함 
+  - ~~DEMS 영상 캡처 시 항상 사용 가능한 카메라 주소 변경해줘야함~~ 
     - 아마도 video-streaming 파일
 - 진행중 : 
   - /gps/cpp_http_test.cpp -> /gps/rest/gps_server.py 로 post 전송 완료
@@ -1959,8 +1959,13 @@
 
 #### 1124
 
-- **gps_server 에서 잘 받아오긴하는데 gps 소수점 데이터가 다 들어오지 않음 어떻게 된건지 확인 필요!~!!**
+- ~~**gps_server 에서 잘 받아오긴하는데 gps 소수점 데이터가 다 들어오지 않음 어떻게 된건지 확인 필요!~!!**~~
 - 시스템 구조
+  - 5G CCTV
+    - 서버이름 : keti-5g-0
+    - 주소 : rtsp://root:keti1234@192.168.225.30:88/videoMain
+  - 5G BlackBox
+    - <mark>**5G 모뎀 연결 후 주소 업데이트 필요**</mark>
   - GPS server
     - gps_with_gyro3.cpp : gwg 시리얼 데이터 추출 후 txt 파일로 저장
     - gps_with_gyro3.py : txt파일 읽고 Edge server 로 전송 **(저장하려면 py 실행시 arg 줘야함!)**
@@ -1968,7 +1973,13 @@
     - gwg_server.py : 
       - 전달받은 gwg 데이터 DB에 저장(현재 DB : gwg_text.db)
       - gwg_temp_transfer 에서 전달받은 데이터 변수 저장 후 get요청시 전달
+      - 인텔리빅스에서 요청할때 주소[GET] : http://123.214.186.162:8088/get_gwg
     - gwg_temp_transfer.py : gwg_text.db 의 데이터 읽어서 다시 gwg_server로 전송
+- 해야할 것 : 
+  - 블랙박스 영상데이터 -> Edge 전송 후 저장해야함!!
+    - vlc 플레이어로 영상 저장 후 저장된 파일으로 스트리밍 가능
+  - 확인 필요 : 
+    - 5G CCTV - 5G 모뎀 연결여부
 
 
 
