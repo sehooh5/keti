@@ -95,11 +95,11 @@ def gwg_save():
                         press real, h real,\
                         lon real, lat real,\
                         gh real, gy real, gv real,\
-                        q0 real, q1 real, q2 real, q3 real\
+                        q0 real, q1 real, q2 real, q3 real,\
                         snum int, pdop float, hdop float, vdop float)")
 #34
     c.execute(f"INSERT INTO gwg_save \
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop))
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop))
 
     return "GPS and Gyro data is saved in Edge Server!"
 
