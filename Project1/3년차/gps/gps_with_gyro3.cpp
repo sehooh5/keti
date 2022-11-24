@@ -599,8 +599,7 @@ void ParseData(unsigned char chr)
                     fout << fixed;
                     fout.precision(6);
                     fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
-                    fout << fixed;
-                    fout.precision(6);
+
                     fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
                     fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
                     fout << "\"gps\":{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "},";
@@ -608,7 +607,6 @@ void ParseData(unsigned char chr)
                     fout << "\"quaternion\":{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
                     fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
                     fout << "}" << endl;
-//                    fout << endl;
                     fout.close();
 
 				    break;
