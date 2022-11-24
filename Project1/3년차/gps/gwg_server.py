@@ -124,50 +124,32 @@ def get_gwgData():
     return data
 
 # 1124 // 1초마다 GPS client 에서 데이터송되는 API
-@app.route('/gps_temp', methods=['POST'])
-def gps_temp():
+@app.route('/gwg_temp', methods=['POST'])
+def gwg_temp():
     global temp_data
     temp_data = request.get_json(silent=True)
-
+    print(temp_data)
     return temp_data
 
 # 1124 // temp data get요청으로 gps json data 리턴
-@app.route('/get_gps', methods=['GET'])
-def get_gps():
-    cid = request.args.get('cid')
-    dt = datetime.datetime.utcnow().strftime("%d/%m/%Y, %H:%M:%S")
+@app.route('/get_gwg', methods=['GET'])
+def get_gwg():
 
-    if cid == temp_data['cid']:
-        code = "0000"
-        message = "처리 성공"
-        data = {
-            "code": code,
-            "message": message,
-            "cid": temp_data['cid'],
-            "dt": dt,
-            "gps": {
-                "lat": temp_data['gps']['lat'],
-                "lat_dir": temp_data['gps']['lat_dir'],
-                "long": temp_data['gps']['lon'],
-                "long_dir": temp_data['gps']['lon_dir'],
-                "alt": temp_data['gps']['alt'],
-                "alt_units": temp_data['gps']['alt_units'],
-            },
-        }
-    elif cid != temp_data['cid']:
-        code = "0003"
-        message = "ID 오류"
-        data = {
-            "code": code,
-            "message": message,
-        }
-    else:
-        code = "9999"
-        message = "기타 오류"
-        data = {
-            "code": code,
-            "message": message,
-        }
+    code = "0000"
+    message = "처리 성공"
+    data = {
+        "code": code,
+        "message": message,
+        "gps": {
+            "lat": temp_data['gps']['lat'],
+            "lat_dir": temp_data['gps']['lat_dir'],
+            "long": temp_data['gps']['lon'],
+            "long_dir": temp_data['gps']['lon_dir'],
+            "alt": temp_data['gps']['alt'],
+            "alt_units": temp_data['gps']['alt_units'],
+        },
+    }
+
     print(data)
     json_data = json.dumps(data)
 

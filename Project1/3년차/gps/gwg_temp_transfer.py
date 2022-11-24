@@ -17,7 +17,6 @@ while True:
             print("데이터 초기화")
         c.execute(f"SELECT * FROM gwg_save WHERE ROWID={num}")
         for row in c:
-            print(num)
             data = {
                 "time" : {"yy":row[0], "mm":row[1],"dd":row[2],"hh":row[3],"mi":row[4],"ss":row[5],"ms":row[6]},
                 "acc" : {"ax":row[7],"ay":row[8],"az":row[9]},
@@ -30,9 +29,9 @@ while True:
                 "quaternion": {"q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]},
                 "satelite": {"snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]}
             }
-            print(data)
-            print(type(row[30]))
-            # requests.post(f'{url}/gps_temp', json=data)
+            # print(data)
+
+            requests.post(f'{url}/gwg_temp', json=data)
 
         time.sleep(1)
 
