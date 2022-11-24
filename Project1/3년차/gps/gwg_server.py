@@ -47,16 +47,18 @@ def gwg():
     snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
 
 
-    print(f"yy : {yy}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}\n"
-          f"ax : {ax}, ay : {ay}, az : {ay}\n"
-          f"wx : {wx}, wy : {wy}, wz : {wy}\n"
-          f"roll : {roll}, pitch : {pitch}, yaw : {yaw}\n"
-          f"mx : {mx}, my : {my}, mz : {my}\n"
-          f"press : {press}, h : {h}\n"
-          f"lon : {lon}, lat : {lat}\n"
-          f"gh : {gh}, gy : {gy}, gv : {gv}\n"
-          f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
-          f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
+    print(f"[DATA PRINT OUT]\n"
+          f"yy : {type(yy)}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}\n"
+          f"ax : {type(ax)}, ay : {ay}, az : {ay}\n"
+          f"wx : {type(wx)}, wy : {wy}, wz : {wy}\n"
+          f"roll : {type(roll)}, pitch : {pitch}, yaw : {yaw}\n"
+          f"mx : {type(mx)}, my : {my}, mz : {my}\n"
+          f"press : {type(press)}, h : {h}\n"
+          f"lon : {type(lon)}, lat : {lat}\n"
+          f"gh : {type(gh)}, gy : {gy}, gv : {gv}\n"
+          f"q0 : {type(q0)}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
+          f"snum : {type(snum)}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
+
     return "GPS and Gyro data loaded!!"
 
 
@@ -67,13 +69,16 @@ def gwg_save():
     gwg_data = json.loads(data)
 
     # gwg data 데이터 추출해서 변수에 저장
-    # gps_lat = json_data['gps_lat']
-    # gps_lat_dir = json_data['gps_lat_dir']
-    # gps_lon = json_data['gps_lon']
-    # gps_lon_dir = json_data['gps_lon_dir']
-    # gps_alt = json_data['gps_alt']
-    # gps_alt_units = json_data['gps_alt_units']
-    # gps_time = json_data['gps_time']
+    yy, mm, dd, hh, mi, ss, ms = gwg_data['time']['yy'], gwg_data['time']['mm'], gwg_data['time']['dd'], gwg_data['time']['hh'], gwg_data['time']['mi'], gwg_data['time']['ss'], gwg_data['time']['ms']
+    ax, ay, az = gwg_data['acc']['ax'], gwg_data['acc']['ay'], gwg_data['acc']['az']
+    wx, wy, wz = gwg_data['angular']['wx'], gwg_data['angular']['wy'], gwg_data['angular']['wz']
+    roll, pitch, yaw = gwg_data['angle']['roll'], gwg_data['angle']['pitch'], gwg_data['angle']['yaw']
+    mx, my, mz = gwg_data['magnetic']['mx'], gwg_data['magnetic']['my'], gwg_data['magnetic']['mz']
+    press, h = gwg_data['atmospheric']['press'], gwg_data['atmospheric']['h']
+    lat, lon = round(gwg_data['gps']['lat_dd'] + gwg_data['gps']['lat_mm'], 6), round(gwg_data['gps']['lon_dd'] + gwg_data['gps']['lon_mm'], 6)
+    gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
+    q0, q1, q2, q3 = gwg_data['quaternion']['q0'], gwg_data['quaternion']['q1'], gwg_data['quaternion']['q2'], gwg_data['quaternion']['q3']
+    snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
 
     # gwg_save table 생성 후 데이터 저장 - 여기선 gps_id 관계없이 그냥 단일 gwg_save 테이블에 저장
     c.execute(f'select name from sqlite_master where type="table" and name="gwg_save"')
