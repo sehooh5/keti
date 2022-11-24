@@ -591,13 +591,13 @@ void ParseData(unsigned char chr)
 
                     //file 작성
                     ofstream fout;
-                    fout.open("test.txt", ios::app);
-                    fout.precision(6);
-                    fout.setf(ios_base:: fixed);
+                    fout.open("test.txt");
                     fout << "{";
                     fout << "\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
                     fout << "\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
                     fout << "\"angular\":{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
+                    fout << fixed;
+                    fout.precision(6);
                     fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
                     fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
                     fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
