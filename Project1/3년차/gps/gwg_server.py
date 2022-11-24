@@ -93,7 +93,7 @@ def gwg_save():
                         roll real, pitch real, yaw real,\
                         mx real, my real, mz real,\
                         press real, h real,\
-                        lat real, lon real,\
+                        lon real, lat real,\
                         gh real, gy real, gv real,\
                         q0 real, q1 real, q2 real, q3 real,\
                         snum int, pdop float, hdop float, vdop float)")
