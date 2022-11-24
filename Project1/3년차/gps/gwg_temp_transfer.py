@@ -18,6 +18,8 @@ while True:
         c.execute(f"SELECT * FROM gwg_save WHERE ROWID={num}")
         for row in c:
             data = {
+                "code": "0000",
+                "message": "처리 성공",
                 "time" : {"yy":row[0], "mm":row[1],"dd":row[2],"hh":row[3],"mi":row[4],"ss":row[5],"ms":row[6]},
                 "acc" : {"ax":row[7],"ay":row[8],"az":row[9]},
                 "angular": {"wx": row[10], "wy": row[11], "wz": row[12]},
