@@ -25,13 +25,38 @@ def gwg():
     global gwg_data
     gwg_data = json.loads(data)
 
-
+    # 50 time
     yy, mm, dd, hh, mi, ss, ms = gwg_data['time']['yy'], gwg_data['time']['mm'], gwg_data['time']['dd'], gwg_data['time']['hh'], gwg_data['time']['mi'], gwg_data['time']['ss'], gwg_data['time']['ms']
-    print(yy,mm,dd,hh,mi,ss,ms)
-    lon = round(gwg_data['gps']['lon_dd'] + gwg_data['gps']['lon_mm'], 6)
-    lat = round(gwg_data['gps']['lat_dd'] + gwg_data['gps']['lat_mm'], 6)
+    # 51 acceleration
+    ax, ay, az = gwg_data['acc']['ax'], gwg_data['acc']['ay'], gwg_data['acc']['az']
+    # 52 angular
+    wx, wy, wz = gwg_data['angular']['wx'], gwg_data['angular']['wy'], gwg_data['angular']['wz']
+    # 53 angle
+    roll, pitch, yaw = gwg_data['angle']['roll'], gwg_data['angle']['pitch'], gwg_data['angle']['yaw']
+    # 54 magnetic
+    mx, my, mz = gwg_data['magnetic']['mx'], gwg_data['magnetic']['my'], gwg_data['magnetic']['mz']
+    # 56 atmospheric
+    press, h = gwg_data['atmospheric']['press'], gwg_data['atmospheric']['h']
+    # 57 gps
+    lat, lon = round(gwg_data['gps']['lat_dd'] + gwg_data['gps']['lat_mm'], 6), round(gwg_data['gps']['lon_dd'] + gwg_data['gps']['lon_mm'], 6)
+    # 58 groundSpeed
+    gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
+    # 59 quaternion
+    q0, q1, q2, q3 = gwg_data['quaternion']['q0'], gwg_data['quaternion']['q1'], gwg_data['quaternion']['q2'], gwg_data['quaternion']['q3']
+    # 5a satelite
+    snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
 
-    print(f"lon : {lon}, lat : {lat}")
+
+    print(f"yy : {yy}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}"
+          f"ax : {ax}, ay : {ay}, az : {ay}"
+          f"wx : {wx}, wy : {wy}, wz : {wy}"
+          f"roll : {roll}, pitch : {pitch}, yaw : {yaw}"
+          f"mx : {mx}, my : {my}, mz : {my}"
+          f"press : {press}, h : {h}"
+          f"lon : {lon}, lat : {lat}"
+          f"gh : {gh}, gy : {gy}, gv : {gv}"
+          f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}"
+          f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}")
     return "GPS and Gyro data loaded!!"
 
 
