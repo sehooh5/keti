@@ -1960,6 +1960,15 @@
 #### 1124
 
 - **gps_server 에서 잘 받아오긴하는데 gps 소수점 데이터가 다 들어오지 않음 어떻게 된건지 확인 필요!~!!**
+- 시스템 구조
+  - GPS server
+    - gps_with_gyro3.cpp : gwg 시리얼 데이터 추출 후 txt 파일로 저장
+    - gps_with_gyro3.py : txt파일 읽고 Edge server 로 전송
+  - Edge Server
+    - gwg_server.py : 
+      - 전달받은 gwg 데이터 DB에 저장(현재 DB : gwg_text.db)
+      - gwg_temp_transfer 에서 전달받은 데이터 변수 저장 후 get요청시 전달
+    - gwg_temp_transfer.py : gwg_text.db 의 데이터 읽어서 다시 gwg_server로 전송
 
 
 
