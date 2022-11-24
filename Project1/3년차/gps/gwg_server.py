@@ -47,16 +47,16 @@ def gwg():
     snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
 
 
-    print(f"yy : {yy}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}"
-          f"ax : {ax}, ay : {ay}, az : {ay}"
-          f"wx : {wx}, wy : {wy}, wz : {wy}"
-          f"roll : {roll}, pitch : {pitch}, yaw : {yaw}"
-          f"mx : {mx}, my : {my}, mz : {my}"
-          f"press : {press}, h : {h}"
-          f"lon : {lon}, lat : {lat}"
-          f"gh : {gh}, gy : {gy}, gv : {gv}"
-          f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}"
-          f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}")
+    print(f"yy : {yy}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}\n"
+          f"ax : {ax}, ay : {ay}, az : {ay}\n"
+          f"wx : {wx}, wy : {wy}, wz : {wy}\n"
+          f"roll : {roll}, pitch : {pitch}, yaw : {yaw}\n"
+          f"mx : {mx}, my : {my}, mz : {my}\n"
+          f"press : {press}, h : {h}\n"
+          f"lon : {lon}, lat : {lat}\n"
+          f"gh : {gh}, gy : {gy}, gv : {gv}\n"
+          f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
+          f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
     return "GPS and Gyro data loaded!!"
 
 
