@@ -107,8 +107,9 @@ def gwg_save():
 @app.route('/get_gwgData', methods=['GET'])
 def get_gwgData():
     global gwg_data
+    j_data = json.dumps(gwg_data)
 
-    return gwg_data
+    return j_data
 
 ## 저장된 데이터로 진행하는 내용
 # 1124 // 1초마다 GPS client 에서 데이터송되는 API
