@@ -18,19 +18,14 @@ while True:
         c.execute(f"SELECT * FROM gwg_save WHERE ROWID={num}")
         for row in c:
             print(num)
-            print(row[0], row[1], row[2], row[3], row[4], row[5])
-                # data = {
-                #     "cid": cid,
-                #     "gps" : {
-                #         "lat": lat_row,
-                #         "lat_dir": row[1],
-                #         "lon": lon_row,
-                #         "lon_dir": row[3],
-                #         "alt": row[4],
-                #         "alt_units": row[5],
-                #     },
-                # }
-                # requests.post(f'{url}/gps_temp', json=data)
+            data = {
+                "time" : {"yy":row[0], "mm":row[1],"dd":row[2],"hh":row[3],"mi":row[4],"ss":row[5],"ms":row[6]}
+                ,
+            }
+            print(data)
+            print(type(row[0]))
+            print(type(data))
+            # requests.post(f'{url}/gps_temp', json=data)
 
         time.sleep(1)
 
