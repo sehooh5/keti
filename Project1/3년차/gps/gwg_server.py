@@ -106,79 +106,22 @@ def gwg_save():
 
 @app.route('/get_gwgData', methods=['GET'])
 def get_gwgData():
-    did = request.args.get('did')
-    
-    # id 바꿔야함
-    c.execute(f"SELECT max(id) FROM {did}_save")
-    mid = c.fetchone()[0]
-    if mid == None:
-        msg="None"
-        return msg
-    else:
-        c.execute(f"SELECT * FROM {did} WHERE id={mid}")
-        for row in c:
-            data = {
-                "lat" : row[1],
-                "lat_dir": row[2],
-                "lon": row[3],
-                "lon_dir": row[4],
-                "alt": row[5],
-                "alt_units": row[6],
-                "dt": row[7]
-            }
-            json_data = json.dumps(data)
 
-        return json_data
-
-# # 0902 // 1초마다 GPS client 에서 데이터송되는 API
-# @app.route('/gps_temp', methods=['POST'])
-# def gps_temp():
-#     global temp_data
-#     temp_data = request.get_json(silent=True)
-#
-#     return temp_data
-#
-# # 0902 // temp data get요청으로 gps json data 리턴
-# @app.route('/get_gps', methods=['GET'])
-# def get_gps():
-#     cid = request.args.get('cid')
-#     dt = datetime.datetime.utcnow().strftime("%d/%m/%Y, %H:%M:%S")
-#
-#     if cid == temp_data['cid']:
-#         code = "0000"
-#         message = "처리 성공"
-#         data = {
-#             "code": code,
-#             "message": message,
-#             "cid": temp_data['cid'],
-#             "dt": dt,
-#             "gps": {
-#                 "lat": temp_data['gps']['lat'],
-#                 "lat_dir": temp_data['gps']['lat_dir'],
-#                 "long": temp_data['gps']['lon'],
-#                 "long_dir": temp_data['gps']['lon_dir'],
-#                 "alt": temp_data['gps']['alt'],
-#                 "alt_units": temp_data['gps']['alt_units'],
-#             },
-#         }
-#     elif cid != temp_data['cid']:
-#         code = "0003"
-#         message = "ID 오류"
-#         data = {
-#             "code": code,
-#             "message": message,
-#         }
-#     else:
-#         code = "9999"
-#         message = "기타 오류"
-#         data = {
-#             "code": code,
-#             "message": message,
-#         }
-#     print(data)
-#     json_data = json.dumps(data)
-#
-#     return json_data
+    c.execute(f"SELECT * FROM gwg_save")
+    for row in c:
+        data = {
+            "lat" : row[1],
+            "lat_dir": row[2],
+            "lon": row[3],
+            "lon_dir": row[4],
+            "alt": row[5],
+            "alt_units": row[6],
+            "dt": row[7]
+        }
+    print(data)
+    #     json_data = json.dumps(data)
+    #
+    # return json_data
 
 
 app.run(host="123.214.186.162",port=port)
