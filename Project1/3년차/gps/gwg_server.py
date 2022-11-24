@@ -25,7 +25,8 @@ def gwg():
     global gwg_data
     gwg_data = json.loads(data)
 
-    yy = gwg_data['time']['yy'], mm = gwg_data['time']['mm'], dd = gwg_data['time']['dd'], hh = gwg_data['time']['hh'], mi = gwg_data['time']['mi'], ss = gwg_data['time']['ss'], ms = gwg_data['time']['ms']
+
+    yy, mm, dd, hh, mi, ss, ms = gwg_data['time']['yy'], gwg_data['time']['mm'], gwg_data['time']['dd'], gwg_data['time']['hh'], gwg_data['time']['mi'], gwg_data['time']['ss'], gwg_data['time']['ms']
     print(yy,mm,dd,hh,mi,ss,ms)
     lon = round(gwg_data['gps']['lon_dd'] + gwg_data['gps']['lon_mm'], 6)
     lat = round(gwg_data['gps']['lat_dd'] + gwg_data['gps']['lat_mm'], 6)
