@@ -7,7 +7,7 @@ url = "http://123.214.186.162:8088"
 conn = sqlite3.connect("gwg_test.db", isolation_level=None, check_same_thread=False)
 c = conn.cursor()
 
-num = c.execute("SELECT * FROM gwg_save")
+num = c.execute("SELECT COUNT(*) FROM gwg_save")
 print(num)
 # while True:
 #     for num in range(950, 2667):
