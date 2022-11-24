@@ -28,8 +28,8 @@ def test():
     # lat_mm = json_data['gps']['lat_mm']
     # print(lat_dd)
     # print(type(lat_mm))
-    lon = json_data['gps']['lon_dd'] + json_data['gps']['lon_mm']
-    lat = json_data['gps']['lat_dd'] + json_data['gps']['lat_mm']
+    lon = round(json_data['gps']['lon_dd'] + json_data['gps']['lon_mm'], 6)
+    lat = round(json_data['gps']['lat_dd'] + json_data['gps']['lat_mm'], 6)
 
     print(f"lon : {lon}, lat : {lat}")
     return "good"
