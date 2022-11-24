@@ -1963,7 +1963,7 @@
 - 시스템 구조
   - GPS server
     - gps_with_gyro3.cpp : gwg 시리얼 데이터 추출 후 txt 파일로 저장
-    - gps_with_gyro3.py : txt파일 읽고 Edge server 로 전송
+    - gps_with_gyro3.py : txt파일 읽고 Edge server 로 전송 **(저장하려면 py 실행시 arg 줘야함!)**
   - Edge Server
     - gwg_server.py : 
       - 전달받은 gwg 데이터 DB에 저장(현재 DB : gwg_text.db)

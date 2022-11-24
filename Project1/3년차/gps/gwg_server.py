@@ -128,14 +128,15 @@ def get_gwgData():
 def gwg_temp():
     global temp_data
     temp_data = request.get_json(silent=True)
+
     return temp_data
 
 # 1124 // temp data get요청으로 gps json data 리턴
 @app.route('/get_gwg', methods=['GET'])
 def get_gwg():
     global temp_data
-
-    return temp_data
+    j_data = json.dumps(temp_data)
+    return j_data
 
 
 app.run(host="123.214.186.162",port=port)
