@@ -23,10 +23,11 @@ while True:
     data = read_file()
 
     arg = sys.argv
-    if len(arg) > 1 :
-        res = requests.post(f'{url}/gwg_save', json=data)
-    else:
-        res = requests.post(f'{url}/gwg', json=data)
+    print(len(arg))
+    # if len(arg) > 1 :
+    #     res = requests.post(f'{url}/gwg_save', json=data)
+    # else:
+    res = requests.post(f'{url}/gwg', json=data)
 
     print(res)
     time.sleep(0.5)
