@@ -107,10 +107,6 @@ def gwg_save():
 @app.route('/get_gwgData', methods=['GET'])
 def get_gwgData():
     global gwg_data
-    gwg_data.append({
-        "code": "0000",
-        "message": "처리 성공"
-    })
     j_data = json.dumps(gwg_data)
 
     return j_data
