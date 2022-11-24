@@ -596,9 +596,11 @@ void ParseData(unsigned char chr)
                     fout << "\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
                     fout << "\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
                     fout << "\"angular\":{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
-//                    fout << fixed;
+                    fout << fixed;
                     fout.precision(6);
                     fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
+                    fout << fixed;
+                    fout.precision(6);
                     fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
                     fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
                     fout << "\"gps\":{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "},";
