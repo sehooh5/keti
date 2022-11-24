@@ -118,10 +118,9 @@ def get_gwgData():
             "alt_units": row[6],
             "dt": row[7]
         }
-    print(data)
     #     json_data = json.dumps(data)
     #
-    # return json_data
+    return data
 
 
 app.run(host="123.214.186.162",port=port)
