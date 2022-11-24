@@ -17,10 +17,7 @@ while True:
             print("데이터 초기화")
         c.execute(f"SELECT * FROM gwg_save WHERE ROWID={num}")
         for row in c:
-            if row[0] == "":
-                pass
-            else:
-                print(row[0], row[1], row[2], row[3])
+            print(row[0], row[1], row[2], row[3], row[4], row[5])
                 # data = {
                 #     "cid": cid,
                 #     "gps" : {
