@@ -24,10 +24,10 @@ while True:
 
     arg = sys.argv
     print(len(arg))
-    # if len(arg) > 1 :
-    #     res = requests.post(f'{url}/gwg_save', json=data)
-    # else:
-    res = requests.post(f'{url}/gwg', json=data)
+    if len(arg) > 1 :
+        res = requests.post(f'{url}/gwg_save', json=data)
+    else:
+        res = requests.post(f'{url}/gwg', json=data)
 
     print(res)
     time.sleep(0.5)
