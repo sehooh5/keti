@@ -8,6 +8,8 @@ conn = sqlite3.connect("gwg_test.db", isolation_level=None, check_same_thread=Fa
 c = conn.cursor()
 
 num = c.execute("SELECT COUNT(*) FROM gwg_save")
+for row in c:
+    print(row[0])
 print(num)
 # while True:
 #     for num in range(950, 2667):
