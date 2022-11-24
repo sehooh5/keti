@@ -19,12 +19,19 @@ while True:
         for row in c:
             print(num)
             data = {
-                "time" : {"yy":row[0], "mm":row[1],"dd":row[2],"hh":row[3],"mi":row[4],"ss":row[5],"ms":row[6]}
-                ,
+                "time" : {"yy":row[0], "mm":row[1],"dd":row[2],"hh":row[3],"mi":row[4],"ss":row[5],"ms":row[6]},
+                "acc" : {"ax":row[7],"ay":row[8],"az":row[9]},
+                "angular": {"wx": row[10], "wy": row[11], "wz": row[12]},
+                "angle": {"roll":row[13], "pitch":row[14], "yaw":row[15]},
+                "magnetic": {"mx": row[16], "my": row[17], "mz": row[18]},
+                "atmospheric": {"press": row[19], "h": row[20]},
+                "gps": {"lon": row[21], "lat": row[22]},
+                "groundspeed": {"gh": row[23], "gy": row[24], "gv": row[25]},
+                "quaternion": {"q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]},
+                "satelite": {"snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]}
             }
             print(data)
-            print(type(row[0]))
-            print(type(data))
+            print(type(row[30]))
             # requests.post(f'{url}/gps_temp', json=data)
 
         time.sleep(1)
