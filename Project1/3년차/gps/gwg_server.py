@@ -28,11 +28,11 @@ def gwg():
     # 50 time
     yy, mm, dd, hh, mi, ss, ms = gwg_data['time']['yy'], gwg_data['time']['mm'], gwg_data['time']['dd'], gwg_data['time']['hh'], gwg_data['time']['mi'], gwg_data['time']['ss'], gwg_data['time']['ms']
     # 51 acceleration
-    ax, ay, az = gwg_data['acc']['ax'], gwg_data['acc']['ay'], gwg_data['acc']['az']
+    ax, ay, az = round(gwg_data['acc']['ax'],6), round(gwg_data['acc']['ay'],6), round(gwg_data['acc']['az'],6)
     # 52 angular
     wx, wy, wz = gwg_data['angular']['wx'], gwg_data['angular']['wy'], gwg_data['angular']['wz']
     # 53 angle
-    roll, pitch, yaw = gwg_data['angle']['roll'], gwg_data['angle']['pitch'], gwg_data['angle']['yaw']
+    roll, pitch, yaw = round(gwg_data['angle']['roll'],6), round(gwg_data['angle']['pitch'],6), round(gwg_data['angle']['yaw'],6)
     # 54 magnetic
     mx, my, mz = gwg_data['magnetic']['mx'], gwg_data['magnetic']['my'], gwg_data['magnetic']['mz']
     # 56 atmospheric
@@ -42,22 +42,22 @@ def gwg():
     # 58 groundSpeed
     gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
     # 59 quaternion
-    q0, q1, q2, q3 = gwg_data['quaternion']['q0'], gwg_data['quaternion']['q1'], gwg_data['quaternion']['q2'], gwg_data['quaternion']['q3']
+    q0, q1, q2, q3 = round(gwg_data['quaternion']['q0'],6), round(gwg_data['quaternion']['q1'],6), round(gwg_data['quaternion']['q2'],6), round(gwg_data['quaternion']['q3'],6)
     # 5a satelite
     snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
 
 
     print(f"[DATA PRINT OUT]\n"
-          f"yy : {type(yy)}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}\n"
-          f"ax : {type(ax)}, ay : {ay}, az : {ay}\n"
-          f"wx : {type(wx)}, wy : {wy}, wz : {wy}\n"
-          f"roll : {type(roll)}, pitch : {pitch}, yaw : {yaw}\n"
-          f"mx : {type(mx)}, my : {my}, mz : {my}\n"
-          f"press : {type(press)}, h : {h}\n"
-          f"lon : {type(lon)}, lat : {lat}\n"
-          f"gh : {type(gh)}, gy : {gy}, gv : {gv}\n"
-          f"q0 : {type(q0)}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
-          f"snum : {type(snum)}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
+          f"yy : {yy}, mm : {mm},dd : {dd},hh : {hh},mi : {mi},ss : {ss},ms : {ms}\n"
+          f"ax : {ax}, ay : {ay}, az : {ay}\n"
+          f"wx : {wx}, wy : {wy}, wz : {wy}\n"
+          f"roll : {roll}, pitch : {pitch}, yaw : {yaw}\n"
+          f"mx : {mx}, my : {my}, mz : {my}\n"
+          f"press : {press}, h : {h}\n"
+          f"lon : {lon}, lat : {lat}\n"
+          f"gh : {gh}, gy : {gy}, gv : {gv}\n"
+          f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
+          f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
 
     return "GPS and Gyro data loaded!!"
 
