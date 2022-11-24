@@ -591,7 +591,7 @@ void ParseData(unsigned char chr)
 
                     //file 작성
                     ofstream fout;
-                    fout.open("test.txt");
+                    fout.open("test.txt", ios::app);
                     fout.precision(6);
                     fout.setf(ios_base:: fixed);
                     fout << "{";
