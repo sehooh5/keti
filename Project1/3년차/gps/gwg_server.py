@@ -87,10 +87,19 @@ def gwg_save():
     if dt_exist == None:
         print(f"gwg_save 테이블 생성")
         c.execute(f"CREATE TABLE IF NOT EXISTS gwg_save \
-                        (gps_lat text, gps_lat_dir text, gps_lon text, gps_lon_dir text, gps_alt text, gps_alt_units text, gps_time text)")
-
+                        (yy int, mm int, dd int,hh int,mi int,ss int,ms int,\
+                        ax real, ay real, az real,\
+                        wx int, wy int, wz int,\
+                        roll real, pitch real, yaw real,\
+                        mx real, my real, mz real,\
+                        press real, h real,\
+                        lon real, lat real,\
+                        gh real, gy real, gv real,\
+                        q0 real, q1 real, q2 real, q3 real\
+                        snum int, pdop float, hdop float, vdop float)")
+#34
     c.execute(f"INSERT INTO gwg_save_save \
-                VALUES(?,?,?,?,?,?,?)", (gps_lat, gps_lat_dir, gps_lon, gps_lon_dir, gps_alt, gps_alt_units, gps_time))
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop))
 
     return "GPS and Gyro data is saved in Edge Server!"
 
