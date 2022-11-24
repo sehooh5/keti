@@ -109,6 +109,7 @@ def get_gwgData():
 
     c.execute(f"SELECT * FROM gwg_save")
     for row in c:
+        print(row," ")
         data = {
             "lat" : row[1],
             "lat_dir": row[2],
