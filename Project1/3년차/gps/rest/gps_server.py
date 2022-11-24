@@ -22,12 +22,9 @@ def index():
 @app.route('/test', methods=['POST'])
 def test():
     data = request.get_json(silent=True)
-    json_data = json.loads(data)
+    global gwg_data
+    gwg_data = json.loads(data)
 
-    # lat_dd = json_data['gps']['lat_dd']
-    # lat_mm = json_data['gps']['lat_mm']
-    # print(lat_dd)
-    # print(type(lat_mm))
     lon = round(json_data['gps']['lon_dd'] + json_data['gps']['lon_mm'], 6)
     lat = round(json_data['gps']['lat_dd'] + json_data['gps']['lat_mm'], 6)
 
