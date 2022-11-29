@@ -60,6 +60,9 @@
 - [python sqlite3 참고 블로그](https://hleecaster.com/python-sqlite3/)
 - [python socket 채팅 프로그램](https://seolin.tistory.com/98?category=762768)
 - [VLC CLI 사용 예제](http://akshayc.com/blog/Stream-Audio-via-VLC/)
+- [C++ printf 예시](https://shaeod.tistory.com/283)
+- [데이터 형식 범위](https://learn.microsoft.com/ko-kr/cpp/cpp/data-type-ranges?view=msvc-170)
+- 
 
 
 
@@ -1990,10 +1993,13 @@
   - Edge Server
     - 주소 : 123.214.186.162
   - 5G CCTV
+    - 모뎀 : SKT
     - rtsp://root:keti1234@192.168.225.30:88/videoMain
   - 5G Blackbox
+    - 모뎀 : 큐오핀 
     - rtsp://192.168.0.101:554/h264
     - cvlc rtp://123.214.186.162:5005
+    - cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
 - 해야할 것 : 
   - 블랙박스 영상데이터 -> Edge 전송 후 저장해야함!!
     - vlc 플레이어로 영상 저장 후 저장된 파일으로 스트리밍 가능
@@ -2008,3 +2014,9 @@
   - key : 20160111
   - 변경 전 : m2m-5G-static.lguplus.co.kr
   - 변경 후 : m2m-5G-router.lguplus.co.kr
+
+
+
+#### 1129
+
+- 해야할 것들 정리
