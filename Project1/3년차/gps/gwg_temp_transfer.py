@@ -4,7 +4,7 @@ import time
 import os
 
 url = "http://123.214.186.162:8088"
-conn = sqlite3.connect("gwg_test.db", isolation_level=None, check_same_thread=False)
+conn = sqlite3.connect("gwg_test_SA_1.db", isolation_level=None, check_same_thread=False)
 c = conn.cursor()
 
 c.execute("SELECT COUNT(*) FROM gwg_save")
