@@ -24,7 +24,7 @@ while True:
     else:
         res = requests.post(f'{url}/gwg', json=data)
 
-    # print(res)
+    print(res)
     time.sleep(1)
     if i == 1:
         break;
