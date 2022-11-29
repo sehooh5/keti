@@ -9,7 +9,7 @@ CORS(app)
 port = 8088
 
 # DB 생성 (오토 커밋)
-conn = sqlite3.connect("gwg_test.db", isolation_level=None, check_same_thread=False)
+conn = sqlite3.connect("gwg_test_SA_1.db", isolation_level=None, check_same_thread=False)
 
 # 커서 획득
 c = conn.cursor()

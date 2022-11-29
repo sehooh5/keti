@@ -1992,14 +1992,19 @@
 - 전체 구조 : 
   - Edge Server
     - 주소 : 123.214.186.162
+    - RSTP 재전송 : 
+      - 5G CCTV
+        - cvlc -vvv rtp://123.214.186.162:5004 --sout="#rtp{sdp=rtsp://123.214.186.162:8554/videoMain}" --no-sout-all --sout-keep
+      - 5G Blackbox
+        - cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
   - 5G CCTV
     - 모뎀 : SKT
     - rtsp://root:keti1234@192.168.225.30:88/videoMain
+    - Edge 로 재전송 :  vlc -vvv rtsp://root:keti1234@192.168.225.30:88/videoMain --sout="#rtp{dst=123.214.186.162,port=5004,mux=ts}" --no-sout-all --sout-keep
   - 5G Blackbox
     - 모뎀 : 큐오핀 
     - rtsp://192.168.0.101:554/h264
-    - cvlc rtp://123.214.186.162:5005
-    - cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
+    - Edge 로 재전송 : cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep
 - 해야할 것 : 
   - 블랙박스 영상데이터 -> Edge 전송 후 저장해야함!!
     - vlc 플레이어로 영상 저장 후 저장된 파일으로 스트리밍 가능
