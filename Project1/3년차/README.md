@@ -1989,7 +1989,7 @@
 
 #### 1128
 
-- 전체 구조 : 
+- **<mark>전체 구조</mark>** : 
   - Edge Server
     - 주소 : 123.214.186.162
     - RSTP 재전송 : 
@@ -2079,6 +2079,8 @@
   - 녹화본 무한루프로 스트리밍 가능한지
     - [cvlc document 페이지](https://helpmanual.io/help/cvlc/)
     - `--input-repeat` 옵션으로 vlc 플레이어에서는 반복 가능..cvlc 옵션으로는 어떻게?
+    - 기존 : cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
+    - mp4 스트리밍 : cvlc /home/keti0/비디오/test1.mp4 --sout=#rtp{sdp=rtsp://:8585/videoMain} --no-sout-all --sout-keep
   - C++ - python 컴파일하는 방법 공부
   - DEMS 기능 전부 가능하게끔
 
