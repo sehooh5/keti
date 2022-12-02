@@ -2076,11 +2076,13 @@
   - Blackbox GPS 산책하며 측정 - **<완료>**
     - 데이터 잘 나옴 - gwg_test_sa_1.db 에 저장 후 송출중
   - Blackbox 내부에서 녹화해보기
-  - 녹화본 무한루프로 스트리밍 가능한지
+    - 노트북 비디오 폴더에 test2 로 저장함
+    - 문제 : 라우터 불안정으로 네트워크 끊김현상이 발생하고 멈춤..
+  - MP4 무한루프 스트리밍 - **<완료>**
     - [cvlc document 페이지](https://helpmanual.io/help/cvlc/)
-    - `--input-repeat` 옵션으로 vlc 플레이어에서는 반복 가능..cvlc 옵션으로는 어떻게?
-    - 기존 : cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
-    - mp4 스트리밍 : cvlc /home/keti0/비디오/test1.mp4 --sout=#rtp{sdp=rtsp://:8585/videoMain} --no-sout-all --sout-keep
+    - `--input-repeat` 옵션으로 반복 가능 **다만 플레이어(클라이언트)에서도 무한반복 해줘야함**
+    - mp4 스트리밍 : cvlc /home/keti0/비디오/test2.mp4 --sout=#rtp{sdp=rtsp://:8585/videoMain} --no-sout-all --sout-keep
   - C++ - python 컴파일하는 방법 공부
+    - [c/c++ 을 extension 을 통해 python 에서 호출](https://kukuta.tistory.com/374)
   - DEMS 기능 전부 가능하게끔
 
