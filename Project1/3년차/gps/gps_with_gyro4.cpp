@@ -41,7 +41,7 @@ extern "C"
 
         if(isatty(STDIN_FILENO)==0)
             printf("standard input is not a terminal device\n");
-        else
+//        else
 //            printf("isatty success!\n");
         return fd;
     }
