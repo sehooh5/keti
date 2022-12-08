@@ -678,7 +678,7 @@ extern "C"
             for (int i=0;i<ret;i++)
             {
             fprintf(fp,"%2X ",r_buf[i]);
-            int yy
+            int yy;
             yy = ParseData(r_buf[i]);
 
             return yy;
