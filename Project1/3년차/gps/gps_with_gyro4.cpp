@@ -681,8 +681,9 @@ extern "C"
             int yy;
             yy = ParseData(r_buf[i]);
 
-            return yy;
+
             }
+            return yy;
             usleep(1000);
 
         }
