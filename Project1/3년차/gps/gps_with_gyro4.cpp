@@ -665,11 +665,10 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-            return 1;
             }
             usleep(1000);
         }
-
+        return 1;
         ret = uart_close(fd);
         if(ret == -1)
         {
