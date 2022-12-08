@@ -533,7 +533,7 @@ extern "C"
                         ms = get_time(chrBuf, 7);
                         printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
-                        return yy;
+                        return ss;
                         break;
                     case 0x51:
                         ax = get_acceleration(chrBuf, 1);
@@ -678,12 +678,12 @@ extern "C"
             for (int i=0;i<ret;i++)
             {
             fprintf(fp,"%2X ",r_buf[i]);
-            int yy;
-            yy = ParseData(r_buf[i]);
+            int ss;
+            ss = ParseData(r_buf[i]);
 
 
             }
-            return yy;
+            return ss;
             usleep(1000);
 
         }
