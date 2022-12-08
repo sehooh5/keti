@@ -634,9 +634,9 @@ extern "C"
 
             }
 
-
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
+            return 1.0;
     }
 
 
