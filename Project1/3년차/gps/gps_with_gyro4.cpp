@@ -487,7 +487,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    void ParseData(unsigned char chr)
+    float ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -533,7 +533,7 @@ extern "C"
                         ms = get_time(chrBuf, 7);
                         printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
-
+                        return yy;
                         break;
                     case 0x51:
                         ax = get_acceleration(chrBuf, 1);
@@ -680,39 +680,6 @@ extern "C"
             fprintf(fp,"%2X ",r_buf[i]);
 //            ParseData(r_buf[i]);
 
-///////////////////////////////////////
-            static unsigned char chrCnt=0;
-            unsigned char i;
-            unsigned char cTemp=0;
-            time_t now;
-            chrBuf[chrCnt++]=r_buf[i];
-
-            if (chrCnt<11) return;
-            for (i=0;i<10;i++) cTemp += chrBuf[i];
-            if (chrBuf[0]!=0x55)
-            {
-                printf("Error 1:chrBuf[0]!=0x55");
-                memcpy(&chrBuf[0],&chrBuf[1],10);
-                chrCnt--;
-//                return;
-            }
-            else if ((chrBuf[1]&0x50)!=0x50)
-            {
-                printf("Error 2:(chrBuf[1]&0x50)!=0x50");
-                memcpy(&chrBuf[0],&chrBuf[1],10);
-                chrCnt--;
-//                return;
-            }
-            else if (cTemp!=chrBuf[10])
-            {
-                printf("Error 3:cTemp!=chrBuf[10]");
-                memcpy(&chrBuf[0],&chrBuf[1],10);
-                chrCnt--;
-//                return;
-            }
-
-
-///////////////////////////////////////
             return r_buf[i];
             }
             usleep(1000);
