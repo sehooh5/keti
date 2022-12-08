@@ -36,12 +36,13 @@ extern "C"
             perror("Can't Open Serial Port");
             return(-1);
         }
-        else
-            //printf("open %s success!\n",pathname);
+//        else
+//            printf("open %s success!\n",pathname);
+
         if(isatty(STDIN_FILENO)==0)
             printf("standard input is not a terminal device\n");
         else
-            //printf("isatty success!\n");
+//            printf("isatty success!\n");
         return fd;
     }
 
