@@ -496,28 +496,28 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return;
+            if (chrCnt<11) return 1.0;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if (chrBuf[0]!=0x55)
             {
                 printf("Error 1:chrBuf[0]!=0x55");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return;
+                return 1.0;
             }
             else if ((chrBuf[1]&0x50)!=0x50)
             {
                 printf("Error 2:(chrBuf[1]&0x50)!=0x50");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return;
+                return 1.0;
             }
             else if (cTemp!=chrBuf[10])
             {
                 printf("Error 3:cTemp!=chrBuf[10]");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return;
+                return 1.0;
             }
 
             switch(chrBuf[1])
