@@ -36,4 +36,5 @@ path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 while 1:
-    c_module.main()
+    result = c_module.main()
+    print(result)
