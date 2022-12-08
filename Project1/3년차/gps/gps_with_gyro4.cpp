@@ -503,21 +503,21 @@ extern "C"
                 printf("Error 1:chrBuf[0]!=0x55");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 1.0;
+                return 1.1;
             }
             else if ((chrBuf[1]&0x50)!=0x50)
             {
                 printf("Error 2:(chrBuf[1]&0x50)!=0x50");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 1.0;
+                return 1.2;
             }
             else if (cTemp!=chrBuf[10])
             {
                 printf("Error 3:cTemp!=chrBuf[10]");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 1.0;
+                return 1.3;
             }
 
             switch(chrBuf[1])
