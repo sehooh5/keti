@@ -667,8 +667,9 @@ extern "C"
             ParseData(r_buf[i]);
             }
             usleep(1000);
+            return 1;
         }
-        return 1;
+
         ret = uart_close(fd);
         if(ret == -1)
         {
