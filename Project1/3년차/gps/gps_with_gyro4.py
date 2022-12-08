@@ -37,4 +37,4 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 while 1:
     result = c_module.main()
-    print(result)
+    print("result : ",result)

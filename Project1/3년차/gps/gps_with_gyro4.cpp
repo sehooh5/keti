@@ -500,21 +500,21 @@ extern "C"
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if (chrBuf[0]!=0x55)
             {
-                printf("Error:chrBuf[0]!=0x55");
+                printf("Error 1:chrBuf[0]!=0x55");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
                 return;
             }
             else if ((chrBuf[1]&0x50)!=0x50)
             {
-                printf("Error:(chrBuf[1]&0x50)!=0x50");
+                printf("Error 2:(chrBuf[1]&0x50)!=0x50");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
                 return;
             }
             else if (cTemp!=chrBuf[10])
             {
-                printf("Error:cTemp!=chrBuf[10]");
+                printf("Error 3:cTemp!=chrBuf[10]");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
                 return;
