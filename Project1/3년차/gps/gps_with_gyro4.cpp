@@ -679,6 +679,40 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
 //            ParseData(r_buf[i]);
+
+///////////////////////////////////////
+            static unsigned char chrCnt=0;
+            unsigned char i;
+            unsigned char cTemp=0;
+            time_t now;
+            chrBuf[chrCnt++]=r_buf[i];
+
+            if (chrCnt<11) return;
+            for (i=0;i<10;i++) cTemp += chrBuf[i];
+            if (chrBuf[0]!=0x55)
+            {
+                printf("Error 1:chrBuf[0]!=0x55");
+                memcpy(&chrBuf[0],&chrBuf[1],10);
+                chrCnt--;
+//                return;
+            }
+            else if ((chrBuf[1]&0x50)!=0x50)
+            {
+                printf("Error 2:(chrBuf[1]&0x50)!=0x50");
+                memcpy(&chrBuf[0],&chrBuf[1],10);
+                chrCnt--;
+//                return;
+            }
+            else if (cTemp!=chrBuf[10])
+            {
+                printf("Error 3:cTemp!=chrBuf[10]");
+                memcpy(&chrBuf[0],&chrBuf[1],10);
+                chrCnt--;
+//                return;
+            }
+
+
+///////////////////////////////////////
             return r_buf[i];
             }
             usleep(1000);
