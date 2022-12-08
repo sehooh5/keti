@@ -35,6 +35,6 @@ import platform  # 파이썬 아키텍처를 확인하기 위한 모듈
 path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
-while 1:
-    result = c_module.main()
-    print(result)
+
+result = c_module.main()
+print(result)
