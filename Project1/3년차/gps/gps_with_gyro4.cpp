@@ -37,11 +37,11 @@ extern "C"
             return(-1);
         }
         else
-            printf("open %s success!\n",pathname);
+            //printf("open %s success!\n",pathname);
         if(isatty(STDIN_FILENO)==0)
             printf("standard input is not a terminal device\n");
         else
-            printf("isatty success!\n");
+            //printf("isatty success!\n");
         return fd;
     }
 
@@ -129,7 +129,7 @@ extern "C"
           perror("com set error");
           return -1;
          }
-         printf("set done!\n");
+         //printf("set done!\n");
          return 0;
     }
 
