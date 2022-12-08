@@ -2110,5 +2110,14 @@
 #### 1207
 
 - C++ - python 컴파일 진행하고 DEMS  기능 살리기
+  - 예제는 실행 완료
+  - **그런데 C++ 코드를 아예 한번에 사용하는게 있는지? 아니면 함수를 사용할 때 기존 파일의 ParseData함수는 어떻게 사용할 수 있을지 생각해보고 진행**
 - 무선엣지과제도 확인 후 연동하는거 진행해야함
+
+
+
+#### 1208
+
+- [Python Bindings: Calling C or C++ From Python 예제](https://realpython.com/python-bindings-overview/#python-bindings-overview)
+- `gps_with_gyro4.cpp`에서 진행하는데 ParseData 기능을 각각 나누어서 함수로 만들도록 해보자
 
