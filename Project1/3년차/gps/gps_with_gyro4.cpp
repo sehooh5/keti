@@ -627,7 +627,7 @@ extern "C"
 
 
     // main 동작
-    int main(void)
+    EXPORT int main(void)
     {
         //추가
         file_write();
