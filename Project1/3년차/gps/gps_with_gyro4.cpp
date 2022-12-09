@@ -481,7 +481,7 @@ extern "C"
     }
 
     EXPORT tuple<float, float> res_num(){
-        printf("%f",glob_a);
+        printf("%f\n",glob_a);
         return tuple<float, float>(glob_a,glob_b);
     }
 
@@ -634,7 +634,6 @@ extern "C"
                         save_num(lon_final, lat_final);
                         res_num();
                         break;
-
             }
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
@@ -642,7 +641,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT int main(void)
+    EXPORT float main(void)
     {
         //추가
         file_write();
