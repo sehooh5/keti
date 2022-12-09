@@ -36,5 +36,5 @@ path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 c_module.main()
-c_tuple = c_module.res_num()
-print(c_tuple)
+# c_tuple = c_module.res_num()
+# print(c_tuple)
