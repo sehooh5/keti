@@ -670,8 +670,9 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
-            printf("1");
+
             ret = recv_data(fd,r_buf,44);
+            printf(ret);
             if(ret == -1)
             {
                 fprintf(stderr,"uart read failed!\n");
