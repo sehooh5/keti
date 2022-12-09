@@ -473,15 +473,15 @@ extern "C"
     // 1209 인자들 저장한 새로운 함수
     const float glob_a = a;
     const float glob_b = b;
-    auto save_num(float a, float b)
+    tuple<float, float> save_num(float a, float b)
     {
         glob_a = a;
         glob_b = b;
-        return tuple(glob_a,glob_b);
+        return tuple<float, float>(glob_a,glob_b);
     }
 
-    EXPORT auto res_num(){
-        return tuple(glob_a,glob_b);
+    EXPORT tuple<float, float> res_num(){
+        return tuple<float, float>(glob_a,glob_b);
     }
 
 
