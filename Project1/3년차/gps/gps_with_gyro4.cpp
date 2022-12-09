@@ -641,7 +641,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT float main(void)
+    EXPORT float process(void)
     {
         //추가
         file_write();
