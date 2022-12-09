@@ -498,7 +498,6 @@ extern "C"
     // Parsing Data
     void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
-            printf("들어옴\n");
             static unsigned char chrCnt=0;
             unsigned char i;
             unsigned char cTemp=0;
@@ -515,11 +514,14 @@ extern "C"
                 chrCnt--;
                 return;
             }
+            if (cTemp==chrBuf[10]){
+                printf("모든 데이터 들어옴!!!")
+            }
+
 
             switch(chrBuf[1])
             {
                     case 0x50:
-                        printf("스위치들어옴\n");
 //                        printf("\r\n[[Data Output Start]]\r\n");
                         yy = get_time(chrBuf, 1);
                         mm = get_time(chrBuf, 2);
@@ -630,7 +632,6 @@ extern "C"
                         save_num(lon_final, lat_final);
                         break;
             }
-            printf("나옴\n");
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
