@@ -678,7 +678,6 @@ extern "C"
             }
             for (int i=0;i<ret;i++)
             {
-            printf("%d", i);
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
 
