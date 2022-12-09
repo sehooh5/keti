@@ -43,7 +43,5 @@ f.restype = ctypes.c_float
 res = f()
 print(res)
 
-    print(f)
-    time.sleep(1000)
 # c_tuple = c_module.res_num()
 # print(c_tuple)
