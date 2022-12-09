@@ -632,11 +632,10 @@ extern "C"
 
                         // 새로운 함수에 저장
                         save_num(lon_final, lat_final);
-
+                        res_num();
                         break;
 
             }
-            res_num();
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
