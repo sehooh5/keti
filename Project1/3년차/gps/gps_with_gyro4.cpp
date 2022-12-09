@@ -470,23 +470,7 @@ extern "C"
         }
     }
 
-    // 1209 인자들 저장한 새로운 함수
-    float a; float glob_a = a;
-    float b; float glob_b = b;
-    tuple<float, float> save_num(float a, float b)
-    {
-        glob_a = a;
-        glob_b = b;
-        return tuple<float, float>(glob_a,glob_b);
-    }
 
-//    EXPORT tuple<float, float> res_num(){
-//        printf("%f\n",glob_a);
-//        return tuple<float, float>(glob_a,glob_b);
-//    }
-    EXPORT float res_num(){
-        return glob_a;
-    }
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -695,4 +679,24 @@ extern "C"
 
         exit(EXIT_SUCCESS);
     }
+    // 1209 인자들 저장한 새로운 함수
+    float a; float glob_a = a;
+    float b; float glob_b = b;
+    tuple<float, float> save_num(float a, float b)
+    {
+        glob_a = a;
+        glob_b = b;
+        return tuple<float, float>(glob_a,glob_b);
+    }
+
+//    EXPORT tuple<float, float> res_num(){
+//        printf("%f\n",glob_a);
+//        return tuple<float, float>(glob_a,glob_b);
+//    }
+    EXPORT float res_num(){
+        return glob_a;
+    }
 }
+
+
+
