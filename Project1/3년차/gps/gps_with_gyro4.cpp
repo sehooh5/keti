@@ -683,7 +683,7 @@ extern "C"
 
             }
             usleep(1000);
-
+            return lat_final;
         }
 
         ret = uart_close(fd);
