@@ -642,7 +642,7 @@ extern "C"
 
     float a_new;
     // main 동작
-    EXPORT float process(void)
+    EXPORT int main(void)
     {
         //추가
         file_write();
