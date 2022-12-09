@@ -31,6 +31,7 @@
 
 import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 import platform  # 파이썬 아키텍처를 확인하기 위한 모듈
+import time
 
 path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
@@ -38,5 +39,6 @@ c_module = ctypes.cdll.LoadLibrary(path)
 while(1):
     f = c_module.process()
     print(f)
+    time.sleep(1000)
 # c_tuple = c_module.res_num()
 # print(c_tuple)
