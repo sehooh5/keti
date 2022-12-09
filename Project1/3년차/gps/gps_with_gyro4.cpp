@@ -670,9 +670,7 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
-
             ret = recv_data(fd,r_buf,44);
-            printf("%d\n", ret);
             if(ret == -1)
             {
                 fprintf(stderr,"uart read failed!\n");
@@ -680,6 +678,7 @@ extern "C"
             }
             for (int i=0;i<ret;i++)
             {
+            printf("%d", i);
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
 
