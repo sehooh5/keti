@@ -37,7 +37,12 @@ path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 while(1):
-    f = c_module.process()
+    f = c_module.process
+    f.argtypes = None
+    f.restype = ctypes.c_float
+    res = f()
+    print(res)
+
     print(f)
     time.sleep(1000)
 # c_tuple = c_module.res_num()
