@@ -470,6 +470,25 @@ extern "C"
         }
     }
 
+    ////////
+    EXPORT float get_satelitee(unsigned char *chrBuf, int num)
+    {
+        float sn; float pdop; float hdop; float vdop;
+        signed short tmp[8];
+        unsigned char i;
+
+        for(i=0;i<8;i++){
+            tmp[i] = (signed short)chrBuf[i+2];
+        }
+
+        if (num==1){
+            sn = ((float)((tmp[1]<<8)|tmp[0]));
+            return sn;
+
+    }
+    /////////////////
+
+
     // 1209 인자들 저장한 새로운 함수
     float a; float glob_a = a;
     float b; float glob_b = b;

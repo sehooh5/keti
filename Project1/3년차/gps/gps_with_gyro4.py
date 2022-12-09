@@ -45,9 +45,9 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # res = f()
 # print(res)
 
-a = c_module.ParseData()
-c = c_module.res_num
-c.argtype = None
-c.restype = ctypes.c_float
-res = c()
-print(a)
+# c_module.main()
+c = c_module.get_satelitee
+# c.argtype = None
+# c.restype = ctypes.c_float
+# res = c()
+print(c)
