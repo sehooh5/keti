@@ -2120,4 +2120,12 @@
 
 - [Python Bindings: Calling C or C++ From Python 예제](https://realpython.com/python-bindings-overview/#python-bindings-overview)
 - `gps_with_gyro4.cpp`에서 진행하는데 ParseData 기능을 각각 나누어서 함수로 만들도록 해보자
+  - main 함수와 ParseData 함수 변경하면서 진행하는데 잘 안됨
+  - ParseData 에서 읽어오는 데이터들 yy,ss 등등 을 전달해야하는데 어떻게??
+
+
+
+#### 1209
+
+- ParseData 에서 읽어오는 데이터들 yy,ss 등등 을 전달해야하는데 어떻게??
 

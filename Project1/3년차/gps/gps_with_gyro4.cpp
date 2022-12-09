@@ -487,7 +487,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    float ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -496,28 +496,25 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return 1.0;
+            if (chrCnt<11) return ;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if (chrBuf[0]!=0x55)
             {
                 printf("Error 1:chrBuf[0]!=0x55");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 2.0;
             }
             else if ((chrBuf[1]&0x50)!=0x50)
             {
                 printf("Error 2:(chrBuf[1]&0x50)!=0x50");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 3.0;
             }
             else if (cTemp!=chrBuf[10])
             {
                 printf("Error 3:cTemp!=chrBuf[10]");
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 4.0;
             }
 
             switch(chrBuf[1])
@@ -533,7 +530,6 @@ extern "C"
                         ms = get_time(chrBuf, 7);
                         printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
-                        return ss;
                         break;
                     case 0x51:
                         ax = get_acceleration(chrBuf, 1);
@@ -629,14 +625,12 @@ extern "C"
                         fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
                         fout << "}" << endl;
                         fout.close();
-
                         break;
 
             }
 
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
-            return 55.0;
     }
 
 
@@ -678,12 +672,10 @@ extern "C"
             for (int i=0;i<ret;i++)
             {
             fprintf(fp,"%2X ",r_buf[i]);
-            int ss;
-            ss = ParseData(r_buf[i]);
+            ParseData(r_buf[i]);
 
 
             }
-            return ss;
             usleep(1000);
 
         }
