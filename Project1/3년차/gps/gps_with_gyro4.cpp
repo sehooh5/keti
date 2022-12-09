@@ -684,7 +684,6 @@ extern "C"
             ParseData(r_buf[i]);
 
             }
-            break;
             usleep(1000);
 
         }
