@@ -45,5 +45,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # res = f()
 # print(res)
 
-c = c_module.res_num()
+c = c_module.res_num
+c.argtypes = None
+c.restype = ctypes.c_float
 print(c)
