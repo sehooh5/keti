@@ -492,7 +492,7 @@ extern "C"
     float wx; float wy; float wz; //0x52
     float roll; float pitch; float yaw;//0x53
     float mx; float my; float mz;//0x54
-    global float press; float h; //0x56
+    static float press; float h; //0x56
     double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
     float gh; float gy; float gv;//0x58
     float q0; float q1; float q2; float q3;//0x59
@@ -632,7 +632,6 @@ extern "C"
 
                         // 새로운 함수에 저장
                         save_num(lon_final, lat_final);
-                        res_num();
                         break;
             }
             chrCnt=0;
@@ -679,6 +678,7 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
+
 
 
             }
