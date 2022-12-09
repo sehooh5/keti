@@ -515,7 +515,7 @@ extern "C"
                 return;
             }
             if (cTemp==chrBuf[10]){
-                printf("모든 데이터 들어옴!!!")
+                printf("모든 데이터 들어옴!!!");
             }
 
 
