@@ -46,7 +46,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # print(res)
 
 # c_module.main()
-c = c_module.get_satelitee
+c = c_module.get_satelitee()
 # c.argtype = None
 # c.restype = ctypes.c_float
 # res = c()
