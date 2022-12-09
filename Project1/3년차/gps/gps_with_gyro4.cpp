@@ -685,8 +685,8 @@ extern "C"
 
             }
             usleep(1000);
-            a_new = res_num();
-            return a_new;
+//            a_new = res_num();
+//            return a_new;
         }
 
         ret = uart_close(fd);
