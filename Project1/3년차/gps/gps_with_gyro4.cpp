@@ -518,8 +518,8 @@ extern "C"
 
             switch(chrBuf[1])
             {
-                printf("스위치들어옴\n");
                     case 0x50:
+                        printf("스위치들어옴\n");
 //                        printf("\r\n[[Data Output Start]]\r\n");
                         yy = get_time(chrBuf, 1);
                         mm = get_time(chrBuf, 2);
