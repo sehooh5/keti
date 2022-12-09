@@ -681,12 +681,9 @@ extern "C"
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
 
-
-
             }
             usleep(1000);
-//            a_new = res_num();
-//            return a_new;
+            printf("1")
         }
 
         ret = uart_close(fd);
