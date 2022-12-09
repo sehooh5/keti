@@ -17,6 +17,7 @@
 #define EXPORT
 #include <vector>
 #include <numeric>
+#include <tuple>
 /* end */
 
 static int ret;
@@ -469,6 +470,20 @@ extern "C"
         }
     }
 
+    // 1209 인자들 저장한 새로운 함수
+    const float glob_a = a;
+    const float glob_b = b;
+    auto save_num(float a, float b)
+    {
+        glob_a = a;
+        glob_b = b;
+        return tuple(glob_a,glob_b);
+    }
+
+    EXPORT auto res_num(){
+        return tuple(glob_a,glob_b);
+    }
+
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -482,12 +497,11 @@ extern "C"
     float q0; float q1; float q2; float q3;//0x59
     float sn; float pdop; float hdop; float vdop;//0x5a
 
-
     //string str = "";
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    float ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -496,14 +510,14 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return 1.0;
+            if (chrCnt<11) return;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
                 printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 2.0;
+                return;
             }
 
             switch(chrBuf[1])
@@ -614,10 +628,14 @@ extern "C"
                         fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
                         fout << "}" << endl;
                         fout.close();
+
+                        // 새로운 함수에 저장
+                        save_num(lon_final, lat_final);
+
                         break;
 
             }
-            return 3.0;
+
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
