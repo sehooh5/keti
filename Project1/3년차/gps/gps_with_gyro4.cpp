@@ -685,7 +685,7 @@ extern "C"
 
             }
             usleep(1000);
-
+            res_num();
         }
 
         ret = uart_close(fd);
