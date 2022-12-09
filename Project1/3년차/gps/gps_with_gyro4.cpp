@@ -481,7 +481,7 @@ extern "C"
     }
 
     EXPORT tuple<float, float> res_num(){
-        printf(glob_a);
+        printf("%f",glob_a);
         return tuple<float, float>(glob_a,glob_b);
     }
 
