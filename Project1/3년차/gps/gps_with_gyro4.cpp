@@ -523,7 +523,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    EXPORT int ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    EXPORT void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -532,14 +532,14 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return 1;
+            if (chrCnt<11) return ;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
                 printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return 2;
+                return ;
             }
 
             switch(chrBuf[1])
@@ -653,12 +653,12 @@ extern "C"
 
                         // 새로운 함수에 저장
                         save_num(lon_final, lat_final);
-                        return 4;
+
                         break;
             }
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
-            return 3;
+
     }
 
     float a_new;
