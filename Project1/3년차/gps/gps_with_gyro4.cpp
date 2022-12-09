@@ -670,6 +670,7 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
+            printf("1")
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
@@ -683,7 +684,7 @@ extern "C"
 
             }
             usleep(1000);
-            printf("1")
+
         }
 
         ret = uart_close(fd);
