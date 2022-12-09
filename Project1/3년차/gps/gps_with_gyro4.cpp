@@ -484,6 +484,7 @@ extern "C"
         if (num==1){
             sn = ((float)((tmp[1]<<8)|tmp[0]));
             return sn;
+        }
 
     }
     /////////////////
