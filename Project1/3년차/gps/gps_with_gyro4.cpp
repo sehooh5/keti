@@ -504,7 +504,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    int ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    EXPORT int ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -634,6 +634,7 @@ extern "C"
 
                         // 새로운 함수에 저장
                         save_num(lon_final, lat_final);
+                        return 4;
                         break;
             }
             chrCnt=0;
