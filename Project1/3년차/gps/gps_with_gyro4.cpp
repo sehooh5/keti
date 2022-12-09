@@ -636,7 +636,7 @@ extern "C"
                         break;
 
             }
-
+            res_num();
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
@@ -685,7 +685,7 @@ extern "C"
 
             }
             usleep(1000);
-            res_num();
+
         }
 
         ret = uart_close(fd);
