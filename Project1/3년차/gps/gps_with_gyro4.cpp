@@ -485,7 +485,7 @@ extern "C"
 //        return tuple<float, float>(glob_a,glob_b);
 //    }
     EXPORT float res_num(){
-        return float glob_a;
+        return glob_a;
     }
 
     // 변수 설정
