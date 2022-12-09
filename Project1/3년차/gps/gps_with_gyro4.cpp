@@ -480,11 +480,13 @@ extern "C"
         return tuple<float, float>(glob_a,glob_b);
     }
 
-    EXPORT tuple<float, float> res_num(){
-        printf("%f\n",glob_a);
-        return tuple<float, float>(glob_a,glob_b);
+//    EXPORT tuple<float, float> res_num(){
+//        printf("%f\n",glob_a);
+//        return tuple<float, float>(glob_a,glob_b);
+//    }
+    EXPORT float res_num(){
+        return float glob_a;
     }
-
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -492,7 +494,7 @@ extern "C"
     float wx; float wy; float wz; //0x52
     float roll; float pitch; float yaw;//0x53
     float mx; float my; float mz;//0x54
-    static float press; float h; //0x56
+    float press; float h; //0x56
     double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
     float gh; float gy; float gv;//0x58
     float q0; float q1; float q2; float q3;//0x59
@@ -638,7 +640,7 @@ extern "C"
             memset(chrBuf, 0x00, 2000);
     }
 
-
+    float a_new;
     // main 동작
     EXPORT float process(void)
     {
@@ -683,7 +685,8 @@ extern "C"
 
             }
             usleep(1000);
-            return press;
+            a_new = res_num();
+            return a_new;
         }
 
         ret = uart_close(fd);
