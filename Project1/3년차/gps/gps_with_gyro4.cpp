@@ -672,7 +672,7 @@ extern "C"
         {
 
             ret = recv_data(fd,r_buf,44);
-            printf("%d\r", ret);
+            printf("%d\n", ret);
             if(ret == -1)
             {
                 fprintf(stderr,"uart read failed!\n");
