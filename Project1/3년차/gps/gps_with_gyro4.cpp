@@ -470,26 +470,6 @@ extern "C"
         }
     }
 
-    ////////
-    EXPORT float get_satelitee(unsigned char *chrBuf, int num)
-    {
-        float sn; float pdop; float hdop; float vdop;
-        signed short tmp[8];
-        unsigned char i;
-
-        for(i=0;i<8;i++){
-            tmp[i] = (signed short)chrBuf[i+2];
-        }
-
-        if (num==1){
-            sn = ((float)((tmp[1]<<8)|tmp[0]));
-            return sn;
-        }
-        return 1.0;
-    }
-    /////////////////
-
-
     // 1209 인자들 저장한 새로운 함수
     float a; float glob_a = a;
     float b; float glob_b = b;
@@ -524,7 +504,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    EXPORT void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -533,14 +513,14 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return ;
+            if (chrCnt<11) return;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
                 printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return ;
+                return;
             }
 
             switch(chrBuf[1])
@@ -654,12 +634,10 @@ extern "C"
 
                         // 새로운 함수에 저장
                         save_num(lon_final, lat_final);
-
                         break;
             }
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
-
     }
 
     float a_new;
