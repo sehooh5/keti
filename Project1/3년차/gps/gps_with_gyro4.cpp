@@ -471,8 +471,8 @@ extern "C"
     }
 
     // 1209 인자들 저장한 새로운 함수
-    const float glob_a = a;
-    const float glob_b = b;
+    float glob_a = a;
+    float glob_b = b;
     tuple<float, float> save_num(float a, float b)
     {
         glob_a = a;
