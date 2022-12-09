@@ -523,7 +523,7 @@ extern "C"
             switch(chrBuf[1])
             {
                     case 0x50:
-                        printf("\r\n[[Data Output Start]]\r\n");
+//                        printf("\r\n[[Data Output Start]]\r\n");
                         yy = get_time(chrBuf, 1);
                         mm = get_time(chrBuf, 2);
                         dd = get_time(chrBuf, 3);
@@ -531,7 +531,7 @@ extern "C"
                         mi = get_time(chrBuf, 5);
                         ss = get_time(chrBuf, 6);
                         ms = get_time(chrBuf, 7);
-                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
+//                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x51:
@@ -539,7 +539,7 @@ extern "C"
                         ay = get_acceleration(chrBuf, 2);
                         az = get_acceleration(chrBuf, 3);
                         t = get_acceleration(chrBuf, 4);
-                        printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
+//                        printf("[0x51] ax : %f ay : %f az : %f t : %f\r\n", ax, ay, az, t);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x52:
@@ -547,7 +547,7 @@ extern "C"
                         wy = get_angular(chrBuf,2);
                         wz = get_angular(chrBuf,3);
                         t = get_angular(chrBuf,4);
-                        printf("[0x52] wx : %f wy : %f wz : %f t : %f\r\n", wx, wy, wz, t);
+//                        printf("[0x52] wx : %f wy : %f wz : %f t : %f\r\n", wx, wy, wz, t);
 
                         memset(chrBuf, 0x00, 2000);
                         break;
@@ -556,7 +556,7 @@ extern "C"
                         pitch = get_angle(chrBuf,2);
                         yaw = get_angle(chrBuf,3);
                         t = get_angle(chrBuf,4);
-                        printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
+//                        printf("[0x53] roll : %f pitch : %f yaw : %f t : %f\r\n", roll, pitch, yaw, t);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x54:
@@ -564,13 +564,13 @@ extern "C"
                         my = get_magnetic(chrBuf,2);
                         mz = get_magnetic(chrBuf,3);
                         t = get_magnetic(chrBuf,4);
-                        printf("[0x54] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
+//                        printf("[0x54] mx : %f my : %f mz : %f t : %f\r\n", mx, my, mz, t);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x56:
                         press = get_atmospheric(chrBuf,1);
                         h = get_atmospheric(chrBuf,2);
-                        printf("[0x56] press : %f h : %f\r\n", press, h);
+//                        printf("[0x56] press : %f h : %f\r\n", press, h);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x57:
@@ -583,14 +583,14 @@ extern "C"
                         lat_mm = ((lat/10000000-lat_dd)*100)/60;
                         lon_final = lon_dd+lon_mm;
                         lat_final = lat_dd+lat_mm;
-                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
+//                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x58:
                         gh = get_groundSpeed(chrBuf,1);
                         gy = get_groundSpeed(chrBuf,2);
                         gv = get_groundSpeed(chrBuf,3);
-                        printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
+//                        printf("[0x58] gpsHeight : %.1f gpsYaw : %.1f gpsV : %.3f\r\n", gh, gy, gv);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x59:
@@ -598,7 +598,7 @@ extern "C"
                         q1 = get_quaternion(chrBuf, 2);
                         q2 = get_quaternion(chrBuf, 3);
                         q3 = get_quaternion(chrBuf, 4);
-                        printf("[0x59] q0 : %f q2 : %f q3 : %f q4 : %f\r\n", q0, q1, q2, q3);
+//                        printf("[0x59] q0 : %f q2 : %f q3 : %f q4 : %f\r\n", q0, q1, q2, q3);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x5A:
@@ -606,8 +606,8 @@ extern "C"
                         pdop = get_satelite(chrBuf, 2);
                         hdop = get_satelite(chrBuf, 3);
                         vdop = get_satelite(chrBuf, 4);
-                        printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
-                        printf("[[Data Output End]]\r\n");
+//                        printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
+//                        printf("[[Data Output End]]\r\n");
                         memset(chrBuf, 0x00, 2000);
 
                         //file 작성
