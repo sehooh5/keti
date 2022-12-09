@@ -37,7 +37,7 @@ path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 # 이 코드만 실행시키면 원래 버전과 같음
-# c_module.main()
+c_module.main()
 
 # f = c_module.process
 # f.argtypes = None
@@ -52,8 +52,8 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # res = c()
 # print(res)
 
-f = c_module.res_num
-f.argtypes = None
-f.restype = ctypes.c_float
-res = f()
-print(res)
+# f = c_module.res_num
+# f.argtypes = None
+# f.restype = ctypes.c_float
+# res = f()
+# print(res)

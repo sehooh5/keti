@@ -628,6 +628,7 @@ extern "C"
                         save_num(lon_final, lat_final);
                         break;
             }
+            printf("여기!!!!!!!!!!!!!!!!!!!!!!!")
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
