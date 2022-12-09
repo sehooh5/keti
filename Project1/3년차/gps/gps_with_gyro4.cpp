@@ -496,14 +496,14 @@ extern "C"
             chrBuf[chrCnt++]=chr;
     //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
-            if (chrCnt<11) return;
+            if (chrCnt<11) return 1.0;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
                 printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
-                return;
+                return 2.0;
             }
 
             switch(chrBuf[1])
@@ -617,7 +617,7 @@ extern "C"
                         break;
 
             }
-
+            return 3.0;
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
