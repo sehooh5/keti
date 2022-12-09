@@ -586,7 +586,7 @@ extern "C"
                         lat_mm = ((lat/10000000-lat_dd)*100)/60;
                         lon_final = lon_dd+lon_mm;
                         lat_final = lat_dd+lat_mm;
-//                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
+                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x58:
