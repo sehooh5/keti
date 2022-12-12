@@ -480,6 +480,18 @@ extern "C"
         return tuple<float, float>(glob_a,glob_b);
     }
 
+        // 1212 파일 읽기
+    int yy2(void)
+    {
+        ifstream fin("test.txt", ios_base::in | ios_base::binary);
+        int yy2;
+        fin.read((char *) &yy2, sizeof(int));
+        cout << yy2 << endl;
+        fin.close();
+
+        return 0;
+    }
+
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
     float ax; float ay; float az; float t; //0x51
@@ -582,7 +594,7 @@ extern "C"
                         lat_mm = ((lat/10000000-lat_dd)*100)/60;
                         lon_final = lon_dd+lon_mm;
                         lat_final = lat_dd+lat_mm;
-                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
+//                        printf("[0x57] lon : %lf lat : %lf\r\n",lon_final,lat_final);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x58:
@@ -606,7 +618,7 @@ extern "C"
                         hdop = get_satelite(chrBuf, 3);
                         vdop = get_satelite(chrBuf, 4);
 //                        printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
-                        printf("[[Data Output End]]\r\n");
+//                        printf("[[Data Output End]]\r\n");
                         memset(chrBuf, 0x00, 2000);
 
                         //file 작성
@@ -628,25 +640,19 @@ extern "C"
                         fout << "}" << endl;
                         fout.close();
 
-                        // 새로운 함수에 저장
+                        // 1209 새로운 함수에 저장
                         save_num(lon_final, lat_final);
+
+                        // 1212 파일 읽기 실행
+                        yy2();
+                        
                         break;
             }
             chrCnt=0;
             memset(chrBuf, 0x00, 2000);
     }
 
-    // 1212 파일 읽기
-    int yy2(void)
-    {
-        ifstream fin("test.txt", ios_base::in | ios_base::binary);
-        int yy2;
-        fin.read((char *) &yy2, sizeof(int));
-        cout << yy2 << endl;
-        fin.close();
 
-        return 0;
-    }
 
     // main 동작
     EXPORT int main(void)
