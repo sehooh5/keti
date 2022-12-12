@@ -659,7 +659,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT int process(float* result)
+    EXPORT void process(float* result)
     {
 
 
