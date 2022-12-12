@@ -496,7 +496,7 @@ extern "C"
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
-    void ParseData(unsigned char chr) // 1208 void -> float 으로 변경
+    void ParseData(unsigned char chr)
     {
             static unsigned char chrCnt=0;
             unsigned char i;
@@ -636,7 +636,19 @@ extern "C"
             memset(chrBuf, 0x00, 2000);
     }
 
-    float a_new;
+    // 1212 파일 읽기
+    using namespace std2;
+
+    int yy(void){
+        ifstream fin("test.txt", ios_base::in | ios_base::binary);
+        int yy;
+        fin.read((char *) &num, sizeof(int));
+        cout <<< yy << endl;
+        fin.close
+
+        return 0; 
+    }
+
     // main 동작
     EXPORT int main(void)
     {
