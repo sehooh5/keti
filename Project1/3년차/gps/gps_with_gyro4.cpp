@@ -668,7 +668,7 @@ extern "C"
 
                         // 1212 파일 읽기 실행
                         s2 = sendData();
-                        printf("print\n %s", s2.c_str());
+                        printf("print\n %s", s2);
 
                         break;
             }
