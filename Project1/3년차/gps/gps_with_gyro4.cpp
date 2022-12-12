@@ -489,7 +489,7 @@ extern "C"
 //        return 0;
 //    }
 
-    char* sendData() {
+    const char* sendData() {
       // 파일 읽기 준비
       std::ifstream in("test.txt");
       std::string s;
