@@ -659,10 +659,9 @@ extern "C"
 
 
     // main 동작
-    EXPORT int process(double* result)
+    EXPORT int process(float* result)
     {
-        //추가
-//        file_write();
+
 
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
@@ -697,7 +696,7 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-
+            *result = press;
 
             }
             usleep(1000);
