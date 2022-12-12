@@ -519,7 +519,7 @@ extern "C"
       return s.c_str();
     }
 
-    char* s2;
+    const char* s2;
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
