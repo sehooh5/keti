@@ -33,17 +33,29 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 import platform  # 파이썬 아키텍처를 확인하기 위한 모듈
 import time
 
+#######################################
 path = "./libc_module.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
-# 이 코드만 실행시키면 원래 버전과 같음
-# c_module.main()
-while 1:
-    f = c_module.sendData
-    f.argtypes = None
-    f.restype = ctypes.c_char_p
-    res = f()
-    print("Print!!", res)
+
+# # 이 코드만 실행시키면 원래 버전과 같음
+c_module.main()
+# while 1:
+#     f = c_module.sendData
+#     f.argtypes = None
+#     f.restype = ctypes.c_char_p
+#     res = f()
+#     print("Print!!", res)
+########################################
+
+
+
+
+
+
+
+
+
 
 # f = c_module.process
 # f.argtypes = None

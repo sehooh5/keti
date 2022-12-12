@@ -2143,4 +2143,7 @@
     - 그냥 실행만 시키면 C++코드가 그냥 print out 되는 형태여서 C++에서 시리얼 통신으로 Parsing 한 데이터를 Python 에 전달해서 사용해야하는데 불가능
       1. C++ 코드를 라이브러리화 하여 함수로 실행하고 return 값을 Python 에서 사용
       2. 현재 C++ 코드에서는 `void ParseData(unsigned char chr){---}`  함수를 실행하는데 return 값이 없어야 로우 데이터를 11개씩 구분 가능
+  - 조언 : 
+    - C++ header 파일에 전역변수를 사용해서 Python 에서 header 파일의 변수 사용하기
+    - 다만 main 문이 돌때 변수가 생성될 때 초기화 해줘야한다!
 
