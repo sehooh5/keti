@@ -637,14 +637,12 @@ extern "C"
     }
 
     // 1212 파일 읽기
-    using namespace std2;
-
     int yy2(void)
     {
         ifstream fin("test.txt", ios_base::in | ios_base::binary);
         int yy2;
         fin.read((char *) &yy2, sizeof(int));
-        cout <<< yy2 << endl;
+        cout << yy2 << endl;
         fin.close();
 
         return 0;
