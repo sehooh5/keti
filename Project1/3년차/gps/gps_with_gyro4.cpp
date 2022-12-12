@@ -659,7 +659,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT int main(int* res)
+    EXPORT int process(int* res)
     {
         //추가
         file_write();

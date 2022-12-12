@@ -47,7 +47,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 #     res = f()
 #     print("Print!!", res)
 ########################################
-f = c_module.main
+f = c_module.process
 f.argtypes = (ctypes.POINTER(ctypes.c_int))
 f.restype = None
 outparam = ctypes.c_int()
