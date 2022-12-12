@@ -483,12 +483,17 @@ extern "C"
         // 1212 파일 읽기
     int yy2(void)
     {
-        ifstream fin("test.txt", ios_base::in | ios_base::binary);
-        int yy2;
-        fin.read((char *) &yy2, sizeof(int));
-        cout << yy2 << endl;
-        fin.close();
-
+        string line;
+        ifstream file("test.txt"); // example.txt 파일을 연다. 없으면 생성.
+        if(file.is_open()){
+            while(getline(file, line)) {
+                cout << line << endl;
+            }
+            file.close(); // 열었떤 파일을 닫는다.
+        } else {
+            cout << "Unable to open file";
+            return 1;
+        }
         return 0;
     }
 
@@ -645,7 +650,7 @@ extern "C"
 
                         // 1212 파일 읽기 실행
                         yy2();
-                        
+
                         break;
             }
             chrCnt=0;
