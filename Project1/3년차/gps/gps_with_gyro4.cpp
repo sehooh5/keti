@@ -630,18 +630,18 @@ extern "C"
                         ofstream fout;
                         fout.open("test.txt");
 //                        fout << "{";
-                        fout << "{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
-                        fout << "{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
-                        fout << "{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
+                        fout << "{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "}\n";
+                        fout << "{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "}\n";
+                        fout << "{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "}\n";
                         fout << fixed;
                         fout.precision(6);
-                        fout << "{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
-                        fout << "{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
-                        fout << "{\"press\":" << press << ",\"h\":" << h <<  "},";
-                        fout << "{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "},";
-                        fout << "{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "},";
-                        fout << "{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
-                        fout << "{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
+                        fout << "{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "}\n";
+                        fout << "{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "}\n";
+                        fout << "{\"press\":" << press << ",\"h\":" << h <<  "}\n";
+                        fout << "{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "}\n";
+                        fout << "{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "}\n";
+                        fout << "{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "}\n";
+                        fout << "{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}\n";
 //                        fout << "}" << endl;
                         fout.close();
 
