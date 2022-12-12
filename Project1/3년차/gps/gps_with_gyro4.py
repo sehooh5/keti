@@ -39,7 +39,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 
 # # 이 코드만 실행시키면 원래 버전과 같음
-c_module.main()
+# c_module.main()
 # while 1:
 #     f = c_module.sendData
 #     f.argtypes = None
@@ -47,7 +47,12 @@ c_module.main()
 #     res = f()
 #     print("Print!!", res)
 ########################################
-
+f = c_module.main
+f.argtypes = (ctypes.POINTER(ctypes.c_int))
+f.restype = None
+outparam = ctypes.c_int()
+f(outparam)
+print(outparam.value)
 
 
 

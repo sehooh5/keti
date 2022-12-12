@@ -659,7 +659,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT int main(void)
+    EXPORT int main(int* res)
     {
         //추가
         file_write();
@@ -700,7 +700,7 @@ extern "C"
 
 
             }
-            printf("Print!!!!!! %d", ss);
+            *res = ss;
             usleep(1000);
 
         }
