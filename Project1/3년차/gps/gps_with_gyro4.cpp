@@ -508,10 +508,10 @@ extern "C"
         in.seekg(0, std::ios::beg);
 
         // 파일 전체 내용을 읽어서 문자열에 저장한다.
+        printf("Print !!!!!!!");
         in.read(&s[0], size);
         std::cout << s << std::endl;
-        printf("Print !!!!!!!");
-        printf("%s", s);
+        printf("%s", s.c_str());
       } else {
         std::cout << "파일을 찾을 수 없습니다!" << std::endl;
       }
