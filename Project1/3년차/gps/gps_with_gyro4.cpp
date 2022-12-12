@@ -516,7 +516,7 @@ extern "C"
         std::cout << "파일을 찾을 수 없습니다!" << std::endl;
       }
 
-      return s;
+      return s.c_str();
     }
 
     char* s2;
