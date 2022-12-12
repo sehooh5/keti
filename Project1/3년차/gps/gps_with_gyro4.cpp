@@ -697,9 +697,10 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-            printf("Print!!!!!! %d", yy);
+
 
             }
+            printf("Print!!!!!! %d", ss);
             usleep(1000);
 
         }
