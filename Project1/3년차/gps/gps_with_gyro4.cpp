@@ -470,31 +470,51 @@ extern "C"
         }
     }
 
-    // 1209 인자들 저장한 새로운 함수
-    float a; float glob_a = a;
-    float b; float glob_b = b;
-    tuple<float, float> save_num(float a, float b)
-    {
-        glob_a = a;
-        glob_b = b;
-        return tuple<float, float>(glob_a,glob_b);
-    }
 
-        // 1212 파일 읽기
-    int yy2(void)
-    {
-        string line;
-        ifstream file("test.txt"); // example.txt 파일을 연다. 없으면 생성.
-        if(file.is_open()){
-            while(getline(file, line)) {
-                cout << line << endl;
-            }
-            file.close(); // 열었떤 파일을 닫는다.
-        } else {
-            cout << "Unable to open file";
-            return 1;
-        }
-        return 0;
+
+//    // 1212 파일 읽기
+//    int sendData(void)
+//    {
+//        string line;
+//        ifstream file("test.txt"); // txt 파일을 연다. 없으면 생성.
+//        if(file.is_open()){
+//            while(getline(file, line)) {
+//                cout << line << endl;
+//            }
+//            file.close(); // 열었던 파일을 닫는다.
+//        } else {
+//            cout << "Unable to open file";
+//            return 1;
+//        }
+//        return 0;
+//    }
+
+    int sendData() {
+      // 파일 읽기 준비
+      std::ifstream in("test.txt");
+      std::string s;
+
+      if (in.is_open()) {
+        // 위치 지정자를 파일 끝으로 옮긴다.
+        in.seekg(0, std::ios::end);
+
+        // 그리고 그 위치를 읽는다. (파일의 크기)
+        int size = in.tellg();
+
+        // 그 크기의 문자열을 할당한다.
+        s.resize(size);
+
+        // 위치 지정자를 다시 파일 맨 앞으로 옮긴다.
+        in.seekg(0, std::ios::beg);
+
+        // 파일 전체 내용을 읽어서 문자열에 저장한다.
+        in.read(&s[0], size);
+        std::cout << s << std::endl;
+      } else {
+        std::cout << "파일을 찾을 수 없습니다!" << std::endl;
+      }
+
+      return 0;
     }
 
     // 변수 설정
@@ -531,9 +551,6 @@ extern "C"
                 chrCnt--;
                 return;
             }
-//            if (cTemp==chrBuf[10]){
-//                printf("모든 데이터 들어옴!!!");
-//            }
 
 
             switch(chrBuf[1])
@@ -645,11 +662,8 @@ extern "C"
                         fout << "}" << endl;
                         fout.close();
 
-                        // 1209 새로운 함수에 저장
-                        save_num(lon_final, lat_final);
-
                         // 1212 파일 읽기 실행
-                        yy2();
+                        sendData();
 
                         break;
             }
