@@ -489,7 +489,7 @@ extern "C"
 //        return 0;
 //    }
 
-    const char* sendData() {
+    EXPORT const char* sendData() {
       // 파일 읽기 준비
       std::ifstream in("test.txt");
       std::string s;
@@ -664,10 +664,6 @@ extern "C"
                         fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
                         fout << "}" << endl;
                         fout.close();
-
-                        // 1212 파일 읽기 실행
-                        s2 = sendData();
-                        printf("print\n %s", s2);
 
                         break;
             }

@@ -38,6 +38,8 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 # 이 코드만 실행시키면 원래 버전과 같음
 c_module.main()
+json_data = c_module.sendData()
+print(json_data)
 
 # f = c_module.process
 # f.argtypes = None
