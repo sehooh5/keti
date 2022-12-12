@@ -40,6 +40,8 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 # # 이 코드만 실행시키면 원래 버전과 같음
 c_module.process()
+press = c_module.press
+print(press)
 # while 1:
 #     f = c_module.sendData
 #     f.argtypes = None
