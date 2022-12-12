@@ -701,6 +701,7 @@ extern "C"
 
             }
             *res = ss;
+            printf("%d", res);
             usleep(1000);
 
         }
