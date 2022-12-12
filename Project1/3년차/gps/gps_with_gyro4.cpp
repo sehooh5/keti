@@ -639,14 +639,15 @@ extern "C"
     // 1212 파일 읽기
     using namespace std2;
 
-    int yy(void){
+    int yy2(void)
+    {
         ifstream fin("test.txt", ios_base::in | ios_base::binary);
-        int yy;
-        fin.read((char *) &num, sizeof(int));
-        cout <<< yy << endl;
+        int yy2;
+        fin.read((char *) &yy2, sizeof(int));
+        cout <<< yy2 << endl;
         fin.close
 
-        return 0; 
+        return 0;
     }
 
     // main 동작
