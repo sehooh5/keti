@@ -645,7 +645,7 @@ extern "C"
         int yy2;
         fin.read((char *) &yy2, sizeof(int));
         cout <<< yy2 << endl;
-        fin.close
+        fin.close();
 
         return 0;
     }
