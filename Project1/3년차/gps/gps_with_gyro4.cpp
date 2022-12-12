@@ -659,10 +659,10 @@ extern "C"
 
 
     // main 동작
-    EXPORT int process(int* res)
+    EXPORT int process(double* result)
     {
         //추가
-        file_write();
+//        file_write();
 
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
@@ -700,8 +700,6 @@ extern "C"
 
 
             }
-            *res = ss;
-            printf("%n", res);
             usleep(1000);
 
         }
