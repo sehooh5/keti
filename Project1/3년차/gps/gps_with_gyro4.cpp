@@ -510,7 +510,7 @@ extern "C"
         // 파일 전체 내용을 읽어서 문자열에 저장한다.
         in.read(&s[0], size);
         std::cout << s << std::endl;
-        printf("print!!!!!!!!!%s", s);
+        printf("print!!!!!!!!! %s", s);
       } else {
         std::cout << "파일을 찾을 수 없습니다!" << std::endl;
       }
