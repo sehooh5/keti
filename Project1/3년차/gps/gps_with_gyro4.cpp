@@ -489,7 +489,7 @@ extern "C"
 //        return 0;
 //    }
 
-    int sendData() {
+    char* sendData() {
       // 파일 읽기 준비
       std::ifstream in("test.txt");
       std::string s;
@@ -511,13 +511,15 @@ extern "C"
         printf("Print !!!!!!!");
         in.read(&s[0], size);
         std::cout << s << std::endl;
-        printf("%s", s.c_str());
+//        printf("%s", s.c_str());
       } else {
         std::cout << "파일을 찾을 수 없습니다!" << std::endl;
       }
 
-      return 0;
+      return s;
     }
+
+    char* s2;
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -665,7 +667,8 @@ extern "C"
                         fout.close();
 
                         // 1212 파일 읽기 실행
-                        sendData();
+                        s2 = sendData();
+                        printf("print\n %s", s2.c_str());
 
                         break;
             }
