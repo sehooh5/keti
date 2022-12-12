@@ -629,20 +629,20 @@ extern "C"
                         //file 작성
                         ofstream fout;
                         fout.open("test.txt");
-//                        fout << "{";
-                        fout << "{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "}\n";
-                        fout << "{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "}\n";
-                        fout << "{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "}\n";
+                        fout << "{";
+                        fout << "\"time\":{\"yy\":" << yy << ",\"mm\":" << mm << ",\"dd\":" << dd << ",\"hh\":" << hh << ",\"mi\":" << mi << ",\"ss\":" << ss << ",\"ms\":" << ms << "},";
+                        fout << "\"acc\":{\"ax\":" << ax << ",\"ay\":" << ay << ",\"az\":" << az << "},";
+                        fout << "\"angular\":{\"wx\":" << wx << ",\"wy\":" << wy << ",\"wz\":" << wz << "},";
                         fout << fixed;
                         fout.precision(6);
-                        fout << "{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "}\n";
-                        fout << "{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "}\n";
-                        fout << "{\"press\":" << press << ",\"h\":" << h <<  "}\n";
-                        fout << "{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "}\n";
-                        fout << "{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "}\n";
-                        fout << "{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "}\n";
-                        fout << "{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}\n";
-//                        fout << "}" << endl;
+                        fout << "\"angle\":{\"roll\":" << roll << ",\"pitch\":" << pitch << ",\"yaw\":" << yaw << "},";
+                        fout << "\"magnetic\":{\"mx\":" << mx << ",\"my\":" << my << ",\"mz\":" << mz << "},";
+                        fout << "\"atmospheric\":{\"press\":" << press << ",\"h\":" << h <<  "},";
+                        fout << "\"gps\":{\"lat_dd\":" << lat_dd << ",\"lat_mm\":" << lat_mm << ",\"lon_dd\":" << lon_dd << ",\"lon_mm\":" << lon_mm  <<  "},";
+                        fout << "\"groundSpeed\":{\"gh\":" << gh << ",\"gy\":" << gy << ",\"gv\":" << gv << "},";
+                        fout << "\"quaternion\":{\"q0\":" << q0 << ",\"q1\":" << q1 << ",\"q2\":" << q2 << ",\"q3\":" << q3 << "},";
+                        fout << "\"satelite\":{\"snum\":" << sn << ",\"pdop\":" << pdop << ",\"hdop\":" << hdop << ",\"vdop\":" << vdop << "}";
+                        fout << "}" << endl;
                         fout.close();
 
                         // 1209 새로운 함수에 저장
