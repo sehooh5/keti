@@ -659,7 +659,7 @@ extern "C"
 
 
     // main 동작
-    EXPORT void process(float *result)
+    EXPORT void process(double* result)
     {
 
 
@@ -696,11 +696,11 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-
+            *result = press;
 
             }
             usleep(1000);
-            *result = press;
+
         }
 
         ret = uart_close(fd);
