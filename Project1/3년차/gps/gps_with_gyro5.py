@@ -13,10 +13,10 @@ class POINT(ctypes.Structure):
         ("b", ctypes.c_int),
         ("c", ctypes.c_float)
     ]
-
-point = POINT(c.one.a, c.one.b, c.one.c)
-
-print(point.a, point.a, point.a)
+print(c.one)
+# point = POINT(c.one.a, c.one.b, c.one.c)
+#
+# print(point.a, point.a, point.a)
 
 
 
