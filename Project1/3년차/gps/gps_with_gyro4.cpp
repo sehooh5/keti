@@ -715,7 +715,7 @@ extern "C"
 
     int main(void)
     {
-        process();
+
         return 0;
     }
 }
