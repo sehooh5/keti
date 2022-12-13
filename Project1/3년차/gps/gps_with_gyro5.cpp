@@ -31,7 +31,7 @@ extern "C"
         float c;
     }  POINT;
 
-    POINT one = {10,20,3.14};
+    EXPORT POINT one = {10,20,3.14};
 
 }
 
