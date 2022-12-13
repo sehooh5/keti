@@ -50,9 +50,9 @@ c_module = ctypes.cdll.LoadLibrary(path)
 ########################################
 ## out 파라메터로 포인터를 사용할때
 process = c_module.process
-process.argtype = (ctypes.POINTER(ctypes.c_double))
+process.argtype = (ctypes.POINTER(ctypes.c_float))
 process.restype = None
-outparam = ctypes.c_double()
+outparam = ctypes.c_float()
 process(outparam)
 print(outparam.value)
 
