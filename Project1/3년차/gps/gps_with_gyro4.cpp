@@ -696,11 +696,11 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-            *result = press;
+
 
             }
             usleep(1000);
-
+            *result = press;
         }
 
         ret = uart_close(fd);
