@@ -2154,5 +2154,61 @@
 #### 1213
 
 - 진행중 : 
+
   - C++ header 파일에 전역변수를 사용해서 Python 에서 header 파일의 변수 사용하기
   - 다만 main 문이 돌때 변수가 생성될 때 초기화 해줘야한다! 
+  - c++ 구조체를 export 해서 파이썬에서 사용
+
+- 참고 : 
+
+  - [Python 으로 dll 포인터 전달하고 받기](https://cafe.naver.com/opencv/56764?art=ZXh0ZXJuYWwtc2VydmljZS1uYXZlci1zZWFyY2gtY2FmZS1wcg.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYWZlVHlwZSI6IkNBRkVfVVJMIiwiY2FmZVVybCI6Im9wZW5jdiIsImFydGljbGVJZCI6NTY3NjQsImlzc3VlZEF0IjoxNjcwOTE4MTU2ODIwfQ.I6T-dj2bP-a0CW_YKu9K5y6A_5ocqPSgQBkvKido9Y0)
+  - [C/C++ dll로 만든 함수를 Python에서 사용 (feat. ctypes)](https://dgkim5360.tistory.com/entry/cc-dll-fucntion-call-via-python-ctypes)
+  - [Python 의 ctypes 구조체 설명](https://codingcoding.tistory.com/610)
+
+- 책임님 예제 : 
+
+  ```
+  # Python
+  class OH(C.structure) :
+    _pack = 1
+    _fields_ = [
+       (a, c.c_int),
+       (b, c_cint),
+       (buffer, c.POINTER(c.c_bytes)]
+  
+  
+  
+  buffer = np.ndarray(300);
+  
+  
+  bbb = OH(0, 0, buffer.ctypes.data_as(c.POINTER(c.c_bytes));
+  
+  result = my_dll.cmyang(bbb);
+  
+  printf(bbb.a, bbb.b, bbb.buffer[0]);
+  }
+  
+  
+  
+  # .cpp / .h
+  typedef struct  {
+    int a;
+    int b;
+    char *buffer;  
+  } OOH;
+  
+  extern "C" {
+   export  int cmyang(OOH *oh)
+   {
+       oh->a = 30;
+       oh->b = 15;
+       oh->buffer[0] = 20;
+  
+       return 0;
+    }
+  }
+  ```
+
+  - 책임님 예제로 최대한 간단하게 짜보고 진행(gpg5 파일들에서 진행)
+    1. export 구조체 해서 python 에서 사용 가능한지 먼저 해보고
+    2. 예제대로 구조체를 python과 c++을 맞춰주고 포인터로 전달하는거 해보기
