@@ -5,7 +5,7 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 
 #######################################
 path = "./gpg5.so"
-c = ctypes.cdll.LoadLibrary(path)
+c = ctypes.cdll(path)
 
 class POINT(ctypes.Structure):
     _fields_ = [

@@ -25,7 +25,7 @@
 
 extern "C"
 {
-    typedef struct {
+    EXPORT typedef struct {
         int a;
         int b;
         float c;
