@@ -713,50 +713,59 @@ extern "C"
         exit(EXIT_SUCCESS);
     }
 
-    int main(void)
+
+}
+int main(void)
+{
+
+    unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
+    bzero(r_buf,1024);
+
+
+    memset(chrBuf, 0x00, 2000);
+
+    fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+    if(fd == -1)
     {
-        char r_buf[1024];
-        bzero(r_buf,1024);
+        fprintf(stderr,"uart_open error\n");
+        exit(EXIT_FAILURE);
+    }
 
-        fd = uart_open(fd,"/dev/ttyUSB2");/*串口号/dev/ttySn,USB口号/dev/ttyUSBn */
-        //printf("fd : %d", fd); // 3이라는 값이 나옴
-        if(fd == -1)
-        {
-            fprintf(stderr,"uart_open error\n");
-            exit(EXIT_FAILURE);
-        }
+    if(uart_set(fd,BAUD,8,'N',1) == -1)
+    {
+        fprintf(stderr,"uart set failed!\n");
+        exit(EXIT_FAILURE);
+    }
 
-        if(uart_set(fd,BAUD,8,'N',1) == -1)
-        {
-            fprintf(stderr,"uart set failed!\n");
-            exit(EXIT_FAILURE);
-        }
-
-        FILE *fp;
-        fp = fopen("Record.txt","w");
-        while(1)
-        {
-            ret = recv_data(fd,r_buf,44);
-            //printf("\r\nret %d", ret); // 30개 0 이후 32 혹은 14 라는 length와 함께 데이터 출력
-            if(ret == -1)
-            {
-                fprintf(stderr,"uart read failed!\n");
-                exit(EXIT_FAILURE);
-            }
-            // for 문의 r_buf[i] 가 늘어나야 될거같은???
-            for (int i=0;i<ret;i++) {fprintf(fp,"%2X ",r_buf[i]);ParseData(r_buf[i]);}
-            usleep(1000);
-        }
-
-        ret = uart_close(fd);
+    FILE *fp;
+    fp = fopen("Record.txt","w");
+    while(1)
+    {
+        ret = recv_data(fd,r_buf,44);
         if(ret == -1)
         {
-            fprintf(stderr,"uart_close error\n");
+            fprintf(stderr,"uart read failed!\n");
             exit(EXIT_FAILURE);
         }
+        for (int i=0;i<ret;i++)
+        {
+        fprintf(fp,"%2X ",r_buf[i]);
+        ParseData(r_buf[i]);
 
-        exit(EXIT_SUCCESS);
+
+        }
+        usleep(1000);
+
     }
+
+    ret = uart_close(fd);
+    if(ret == -1)
+    {
+        fprintf(stderr,"uart_close error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    exit(EXIT_SUCCESS);
 }
 
 
