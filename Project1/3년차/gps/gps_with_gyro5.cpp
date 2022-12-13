@@ -25,13 +25,13 @@
 
 extern "C"
 {
-    typedef struct EXPORT POINT{
+    typedef struct POINT{
         int a;
         int b;
         float c;
     };
 
-    POINT one = {10,20,3.14};
+    EXPORT POINT one = {10,20,3.14};
 
 }
 
