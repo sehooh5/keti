@@ -31,11 +31,8 @@ extern "C"
         float c;
     };
 
-    POINT one;
-    one.a = 10;
-    one.b = 20;
-    one.c = 3.14;
-
+    POINT one = {10,20,3,14};
+    
 }
 
 
