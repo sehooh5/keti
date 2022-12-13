@@ -39,7 +39,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 
 # # 이 코드만 실행시키면 원래 버전과 같음
-c_module.process()
+# c_module.process()
 
 # while 1:
 #     f = c_module.sendData
@@ -49,12 +49,12 @@ c_module.process()
 #     print("Print!!", res)
 ########################################
 ## out 파라메터로 포인터를 사용할때
-# process = c_module.process
-# process.argtype = (ctypes.POINTER(ctypes.c_float))
-# process.restype = None
-# outparam = ctypes.c_float()
-# process(outparam)
-# print(outparam.value)
+process = c_module.process
+process.argtype = (ctypes.POINTER(ctypes.c_float))
+process.restype = None
+outparam = ctypes.c_float()
+process(outparam)
+print(outparam.value)
 
 
 

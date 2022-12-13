@@ -713,6 +713,10 @@ extern "C"
         exit(EXIT_SUCCESS);
     }
 
+    void main(void)
+    {
+        process();
+    }
 }
 
 
