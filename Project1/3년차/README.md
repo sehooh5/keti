@@ -2226,3 +2226,9 @@
   - [stackoverflow : Access C structure from python](https://stackoverflow.com/questions/13100852/access-c-structure-from-python)
     - 여기서 C - DWORD랑 PDEVEXTENSION 및 python 에서 포인터 옵션 확인해서 같은 방식으로 넣어보기!!
 
+
+
+#### 1215
+
+- 스택오버플로우 보고 계속 진행하는데 Struct(구조체)를 c++ -> python 으로 전달하는 방법 찾으면 될듯..
+

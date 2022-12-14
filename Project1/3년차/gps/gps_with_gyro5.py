@@ -13,11 +13,10 @@ class POINT(ctypes.Structure):
         ("b", ctypes.c_int),
         ("c", ctypes.c_float)
     ]
-# point = POINT()
-# list = c.process(point)
-# print(type(list))
+point = POINT()
+list = c.process(point)
+print(type(list))
 
-c.main()
 
 # tuple = c.getTuple()
 # print(tuple)

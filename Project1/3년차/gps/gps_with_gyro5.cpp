@@ -31,38 +31,38 @@ extern "C"
         float c;
     }  POINT;
 
-    struct POINT input_p(void);
-    void display_p(struct POINT d);
-
-    EXPORT int main(void){
-        POINT d;
-        d = input_p();
-        display_p(d);
-        return 0;
-    }
-
-    void display_p(struct POINT s){
-        printf("a %d", s.a);
-        printf("b %d", s.b);
-        printf("c %f", s.c);
-    }
-
-    struct POINT input_p(void){
-        POINT s;
-        s.a = 10;
-        s.b = 20;
-        s.c = 3.14;
-        return s;
-    }
+//    struct POINT input_p(void);
+//    void display_p(struct POINT d);
+//
+//    EXPORT int main(void){
+//        POINT d;
+//        d = input_p();
+//        display_p(d);
+//        return 0;
+//    }
+//
+//    void display_p(struct POINT s){
+//        printf("a %d", s.a);
+//        printf("b %d", s.b);
+//        printf("c %f", s.c);
+//    }
+//
+//    struct POINT input_p(void){
+//        POINT s;
+//        s.a = 10;
+//        s.b = 20;
+//        s.c = 3.14;
+//        return s;
+//    }
 
 
 //    POINT main(void)
 
-//    EXPORT POINT process(POINT p){
-//        p = {101,20,3.14};
-//
-//        return p;
-//    }
+    EXPORT POINT process(POINT p){
+        p = {101,20,3.14};
+
+        return p;
+    }
 
 //    tuple<int, int, float> t1;
 //    EXPORT tuple<int,int,float> getTuple(){
