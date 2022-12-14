@@ -41,9 +41,9 @@ extern "C"
 //        printf("[%d, %d, %f]\n", pos.a, pos.b, pos.c);
 //    }
 
-    POINT main(void)
+//    POINT main(void)
 
-    EXPORT int process(POINT p){
+    EXPORT POINT process(POINT p){
         p = {10,20,3.14};
 
         return p;
