@@ -2220,3 +2220,5 @@
 - 진행중 : 
   - export 구조체 해서 python 에서 사용 가능한지 먼저 해보고
   - 예제대로 구조체를 python과 c++을 맞춰주고 포인터로 전달하는거 해보기
+- 참고 : 
+  - [C 의 구조체와 Python value 간 호환](https://poppy-leni.tistory.com/entry/Module-Struct-c-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%ED%98%B8%ED%99%98) - 소켓 통신 사용으로...사용 안함
