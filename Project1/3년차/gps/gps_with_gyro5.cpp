@@ -44,7 +44,7 @@ extern "C"
 //    POINT main(void)
 
     EXPORT POINT process(POINT p){
-        p = {10,20,3.14};
+        p = {101,20,3.14};
 
         return p;
     }
