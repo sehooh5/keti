@@ -14,7 +14,8 @@ class POINT(ctypes.Structure):
         ("c", ctypes.c_float)
     ]
 point = POINT()
-point.
+list = c.process(point)
+print(list)
 # point = POINT(c.one.a, c.one.b, c.one.c)
 #
 # print(point.a, point.a, point.a)
