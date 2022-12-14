@@ -31,11 +31,22 @@ extern "C"
         float c;
     }  POINT;
 
+//    POINT getPoint(void){
+//        POINT p;
+//        print("Input Current Position [a,b,c] : ");
+//        scaf("%d %d %f", &p.a, &p.b, &p.c);
+//    }
+//
+//    void ShowPos(POINT pos){
+//        printf("[%d, %d, %f]\n", pos.a, pos.b, pos.c);
+//    }
+
+    POINT main(void)
 
     EXPORT int process(POINT p){
         p = {10,20,3.14};
 
-        return p.a;
+        return p;
     }
 
 }
