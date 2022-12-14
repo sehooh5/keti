@@ -31,7 +31,12 @@ extern "C"
         float c;
     }  POINT;
 
-    EXPORT POINT one = {10,20,3.14};
+
+    EXPORT int process(){
+        POINT one = {10,20,3.14};
+
+        return 0;
+    }
 
 }
 

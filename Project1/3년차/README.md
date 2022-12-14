@@ -2210,7 +2210,7 @@
   ```
 
   - 책임님 예제로 최대한 간단하게 짜보고 진행(gpg5 파일들에서 진행)
-    1. export 구조체 해서 python 에서 사용 가능한지 먼저 해보고
+    1. 구조체를 export 해서 python 에서 사용 가능한지 먼저 해보고
     2. 예제대로 구조체를 python과 c++을 맞춰주고 포인터로 전달하는거 해보기
 
 
@@ -2222,3 +2222,7 @@
   - 예제대로 구조체를 python과 c++을 맞춰주고 포인터로 전달하는거 해보기
 - 참고 : 
   - [C 의 구조체와 Python value 간 호환](https://poppy-leni.tistory.com/entry/Module-Struct-c-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%ED%98%B8%ED%99%98) - 소켓 통신 사용으로...사용 안함
+  - [파일로 구조체 쓰고 파이썬에서 파일 읽어서 호환](https://dev.to/totally_chase/porting-c-structs-into-python-because-speed-2aio) - 파일 읽기 쓰기여서 사용 안함
+  - [stackoverflow : Access C structure from python](https://stackoverflow.com/questions/13100852/access-c-structure-from-python)
+    - 여기서 C - DWORD랑 PDEVEXTENSION 및 python 에서 포인터 옵션 확인해서 같은 방식으로 넣어보기!!
+

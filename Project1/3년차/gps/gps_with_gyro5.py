@@ -5,7 +5,7 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 
 #######################################
 path = "./gpg5.so"
-c = ctypes.cdll(path)
+c = ctypes.cdll.LoadLibrary(path)
 
 class POINT(ctypes.Structure):
     _fields_ = [
@@ -13,7 +13,8 @@ class POINT(ctypes.Structure):
         ("b", ctypes.c_int),
         ("c", ctypes.c_float)
     ]
-print(c.one)
+point = POINT()
+point.
 # point = POINT(c.one.a, c.one.b, c.one.c)
 #
 # print(point.a, point.a, point.a)
