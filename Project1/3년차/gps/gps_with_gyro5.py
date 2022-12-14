@@ -13,12 +13,14 @@ class POINT(ctypes.Structure):
         ("b", ctypes.c_int),
         ("c", ctypes.c_float)
     ]
-point = POINT()
-list = c.process(point)
-print(type(list))
+# point = POINT()
+# list = c.process(point)
+# print(type(list))
 
-tuple = c.getTuple()
-print(tuple)
+c.main()
+
+# tuple = c.getTuple()
+# print(tuple)
 # point = POINT(c.one.a, c.one.b, c.one.c)
 #
 # print(point.a, point.a, point.a)
