@@ -35,7 +35,7 @@ extern "C"
     EXPORT int process(POINT p){
         p = {10,20,3.14};
 
-        return 10;
+        return p.a;
     }
 
 }
