@@ -16,6 +16,9 @@ class POINT(ctypes.Structure):
 point = POINT()
 list = c.process(point)
 print(type(list))
+
+tuple = c.getTuple()
+print(tuple)
 # point = POINT(c.one.a, c.one.b, c.one.c)
 #
 # print(point.a, point.a, point.a)

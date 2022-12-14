@@ -49,6 +49,13 @@ extern "C"
         return p;
     }
 
+    EXPORT tuple<int,int,float> getTuple(){
+        int a = 10;
+        int b = 20;
+        float c = 3.14;
+        return make_tuple(a,b,c);
+    }
+
 }
 
 
