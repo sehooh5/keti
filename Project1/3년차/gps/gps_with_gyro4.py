@@ -57,12 +57,12 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # print(outparam.value)
 
 ##
-sub = c_module.sub
-sub.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double))
-sub.restype = None
+process = c_module.process
+process.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double))
+process.restype = None
 outparam = ctypes.c_double()
 
-sub(0, outparam)
+process(0, outparam)
 print(outparam.value)
 
 
