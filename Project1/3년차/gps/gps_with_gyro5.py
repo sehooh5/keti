@@ -17,6 +17,7 @@ class Obj(ctypes.Structure) :
 
 obj = Obj()
 lib.func(ctypes.byref(obj))
+print(obj.nNum, obj.fFloat)
 
 
 # ### Pointer 전달해서 받은 값
