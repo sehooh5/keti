@@ -28,10 +28,13 @@ struct St {
 	double f;
 };
 
-extern "C" __declspec(dllexport)
-void func(void* st) {
-	St temp = {1, "Hello", 3.14};
-	*((St*)st) = temp;
+extern "C" {
+    EXPORT void func(void* st) {
+        St temp = {1, "Hello", 3.14};
+        *((St*)st) = temp;
+    }
+
+//__declspec(dllexport)
 }
 
 
