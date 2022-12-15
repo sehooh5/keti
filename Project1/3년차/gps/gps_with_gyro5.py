@@ -16,16 +16,24 @@ outparam = ctypes.c_double()
 sub(0, outparam)
 print(outparam.value)
 
-# sub(3.2, 2.2, outparam)
-# print(outparam.value)
-#
-# class POINT(ctypes.Structure):
-#     _fields_ = [
-#         ("a", ctypes.c_int),
-#         ("b", ctypes.c_int),
-#         ("c", ctypes.POINTER(ctypes.c_float))
-#         # ("p", ctypes.POINTER(c.c_ubyte))
-#     ]
+
+
+class str(ctypes.Structure):
+    _fields_ = [
+        ("n", ctypes.c_int),
+        ("a", ctypes.POINTER(ctypes.c_int)),
+        ("b", ctypes.POINTER(ctypes.c_int)),
+        ("c", ctypes.POINTER(ctypes.c_float))
+        # ("p", ctypes.POINTER(c.c_ubyte))
+    ]
+
+res = c.process
+res.argtypes = ctypes.POINTER(str),
+res.restype = None
+
+s = str(0, ctypes.c_int, ctypes.c_int, ctypes.c_float)
+result = res(s)
+print(result)
 # point = POINT()
 # list = c.process(point)
 # print(str(list.a))
