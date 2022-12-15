@@ -34,7 +34,7 @@ import platform  # 파이썬 아키텍처를 확인하기 위한 모듈
 import time
 
 #######################################
-path = "./libc_module.so"
+path = "./gpg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 
@@ -49,13 +49,21 @@ c_module = ctypes.cdll.LoadLibrary(path)
 #     print("Print!!", res)
 ########################################
 ## out 파라메터로 포인터를 사용할때
-process = c_module.process
-process.argtype = (ctypes.POINTER(ctypes.c_float))
-process.restype = None
-outparam = ctypes.c_float()
-process(outparam)
-print(outparam.value)
+# process = c_module.process
+# process.argtype = (ctypes.POINTER(ctypes.c_float))
+# process.restype = None
+# outparam = ctypes.c_float()
+# process(outparam)
+# print(outparam.value)
 
+##
+sub = c_module.sub
+sub.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_double))
+sub.restype = None
+outparam = ctypes.c_double()
+
+sub(0, outparam)
+print(outparam.value)
 
 
 # f = c_module.process
