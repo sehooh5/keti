@@ -25,18 +25,25 @@
 
 extern "C"
 {
-    EXPORT typedef struct {
-        int a;
-        int b;
-        float c;
-//        unsigned char* pBuffer;
-    }  POINT;
-
-    EXPORT POINT process(POINT p){
-        p = {101,20,3.14};
-
-        return p;
+    EXPORT void sub(double* result)
+    {
+        *result = 10;
     }
+
+
+//    EXPORT typedef struct {
+//        int a;
+//        int b;
+//        float *c;
+////        float c;
+////        unsigned char* pBuffer;
+//    }  POINT;
+//
+//    void process(POINT p){
+//        p = {101,20,3.14};
+//
+//        return p;
+//    }
 //    struct POINT input_p(void);
 //    void display_p(struct POINT d);
 //

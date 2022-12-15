@@ -7,16 +7,25 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 path = "./gpg5.so"
 c = ctypes.cdll.LoadLibrary(path)
 
-class POINT(ctypes.Structure):
-    _fields_ = [
-        ("a", ctypes.c_int),
-        ("b", ctypes.c_int),
-        ("c", ctypes.c_float),
-        # ("p", ctypes.POINTER(c.c_ubyte))
-    ]
-point = POINT()
-list = c.process(point)
-print(str(list.a))
+
+sub = c.sub
+sub.argtypes = (ctypes.c_double, ctypes.c_double, ctypes.POINTER(ctypes.c_double))
+sub.restype = None
+outparam = ctypes.c_double()
+
+# sub(3.2, 2.2, outparam)
+# print(outparam.value)
+#
+# class POINT(ctypes.Structure):
+#     _fields_ = [
+#         ("a", ctypes.c_int),
+#         ("b", ctypes.c_int),
+#         ("c", ctypes.POINTER(ctypes.c_float))
+#         # ("p", ctypes.POINTER(c.c_ubyte))
+#     ]
+# point = POINT()
+# list = c.process(point)
+# print(str(list.a))
 
 
 # tuple = c.getTuple()
