@@ -4,19 +4,19 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 
 
 #######################################
-path = "./gpg5.so"
-c = ctypes.cdll.LoadLibrary(path)
 
-from ctypes import *
-lib = cdll.LoadLibrary("gwg5.so")
 
-class Obj(Structure) :
-    _fields_ = [("nNum", c_int),
-                 ("fFloat", c_double)]
+path = "./gwg5.so"
+lib = ctypes.cdll.LoadLibrary(path)
+
+
+class Obj(ctypes.Structure) :
+    _fields_ = [("nNum", ctypes.c_int),
+                 ("fFloat", ctypes.c_double)]
 
 
 obj = Obj()
-lib.func(byref(obj))
+lib.func(ctypes.byref(obj))
 
 
 # ### Pointer 전달해서 받은 값
