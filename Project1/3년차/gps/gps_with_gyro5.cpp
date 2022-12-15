@@ -29,7 +29,7 @@ extern "C"
         int a;
         int b;
         float c;
-        unsigend char* pBuffer;
+        unsigned char* pBuffer;
     }  POINT;
 
     EXPORT POINT process(POINT p){
