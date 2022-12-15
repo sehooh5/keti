@@ -679,7 +679,7 @@ extern "C"
             fprintf(stderr,"uart_open error\n");
             exit(EXIT_FAILURE);
         }
-        *result = 2.0000;
+
         if(uart_set(fd,BAUD,8,'N',1) == -1)
         {
             fprintf(stderr,"uart set failed!\n");
@@ -690,6 +690,7 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
+            *result = 2.0000;
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
