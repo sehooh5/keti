@@ -9,11 +9,11 @@ c = ctypes.cdll.LoadLibrary(path)
 
 
 sub = c.sub
-sub.argtypes = (ctypes.c_double, ctypes.c_double, ctypes.POINTER(ctypes.c_double))
+sub.argtypes = (ctypes.c_double, ctypes.POINTER(ctypes.c_double))
 sub.restype = None
 outparam = ctypes.c_double()
 
-sub(3.2, 2.2, outparam)
+sub(2.2, outparam)
 print(outparam.value)
 
 # sub(3.2, 2.2, outparam)
