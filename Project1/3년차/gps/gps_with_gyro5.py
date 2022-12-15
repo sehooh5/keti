@@ -12,7 +12,7 @@ class POINT(ctypes.Structure):
         ("a", ctypes.c_int),
         ("b", ctypes.c_int),
         ("c", ctypes.c_float),
-        # ("p", ctypes.POINTER(c.c_ubyte))
+        ("p", ctypes.POINTER(c.c_ubyte))
     ]
 point = POINT()
 list = c.process(point)
