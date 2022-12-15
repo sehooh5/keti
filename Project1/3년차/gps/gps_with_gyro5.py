@@ -12,7 +12,6 @@ lib = cdll.LoadLibrary("gwg5.dll")
 
 class Obj(Structure) :
     _fields_ = [("nNum", c_int),
-                 ("lpszStr", c_char_p),
                  ("fFloat", c_double)]
 
 

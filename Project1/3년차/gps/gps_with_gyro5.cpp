@@ -24,13 +24,12 @@
 
 struct St {
 	int x;
-	char * str;
 	double f;
 };
 
 extern "C" {
     EXPORT void func(void* st) {
-        St temp = {1, "Hello", 3.14};
+        St temp = {1 3.14};
         *((St*)st) = temp;
     }
 
