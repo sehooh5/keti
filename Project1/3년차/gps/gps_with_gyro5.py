@@ -7,13 +7,13 @@ import ctypes  # 파이썬 extension을 사용하기 위한 모듈
 path = "./gpg5.so"
 c = ctypes.cdll.LoadLibrary(path)
 
-
+### Pointer 전달해서 받은 값
 sub = c.sub
 sub.argtypes = (ctypes.c_double, ctypes.POINTER(ctypes.c_double))
 sub.restype = None
 outparam = ctypes.c_double()
 
-sub(2.2, outparam)
+sub(0, outparam)
 print(outparam.value)
 
 # sub(3.2, 2.2, outparam)

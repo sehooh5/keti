@@ -27,7 +27,7 @@ extern "C"
 {
     EXPORT void sub(double b, double* result)
     {
-        *result = 12.3;
+        result = 12.3;
     }
 
 
