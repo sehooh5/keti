@@ -700,6 +700,8 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
+            *result = 2.0000;
+
             }
             usleep(1000);
 
@@ -745,8 +747,6 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-            *result = 2.0000;
-
             }
             usleep(1000);
         }
