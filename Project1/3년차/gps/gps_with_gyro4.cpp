@@ -691,6 +691,7 @@ extern "C"
         while(1)
         {
             *result = 2.0000;
+            printf("while 문 들어옴")
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
