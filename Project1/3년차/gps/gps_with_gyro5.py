@@ -9,7 +9,7 @@ c = ctypes.cdll.LoadLibrary(path)
 
 
 sub = c.sub
-sub.argtypes = (ctypes.POINTER(ctypes.c_double))
+sub.argtype = (ctypes.POINTER(ctypes.c_double))
 sub.restype = None
 outparam = ctypes.c_double()
 
