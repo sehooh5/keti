@@ -8,7 +8,7 @@ path = "./gpg5.so"
 c = ctypes.cdll.LoadLibrary(path)
 
 from ctypes import *
-lib = cdll.LoadLibrary("gwg5.dll")
+lib = cdll.LoadLibrary("gwg5.so")
 
 class Obj(Structure) :
     _fields_ = [("nNum", c_int),
