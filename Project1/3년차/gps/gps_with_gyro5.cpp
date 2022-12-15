@@ -29,8 +29,14 @@ extern "C"
         int a;
         int b;
         float c;
+        unsigend char* pBuffer;
     }  POINT;
 
+    EXPORT POINT process(POINT p){
+        p = {101,20,3.14};
+
+        return p;
+    }
 //    struct POINT input_p(void);
 //    void display_p(struct POINT d);
 //
@@ -58,11 +64,6 @@ extern "C"
 
 //    POINT main(void)
 
-    EXPORT POINT process(POINT p){
-        p = {101,20,3.14};
-
-        return p;
-    }
 
 //    tuple<int, int, float> t1;
 //    EXPORT tuple<int,int,float> getTuple(){
