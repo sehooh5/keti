@@ -666,7 +666,7 @@ extern "C"
     EXPORT void process(int a,float* result)
     {
 
-
+        *result = 2.0000;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 
@@ -700,7 +700,7 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-            *result = 2.0000;
+
 
             }
             usleep(1000);
