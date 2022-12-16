@@ -743,7 +743,6 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
-            printf("checker 3 : %d\n", checker);
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
@@ -753,7 +752,6 @@ extern "C"
 
             for (int i=0;i<ret;i++)
             {
-            printf("checker 4 : %d\n", checker);
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             // 1216 체크해서 out
