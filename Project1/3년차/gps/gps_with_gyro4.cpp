@@ -470,8 +470,6 @@ extern "C"
         }
     }
 
-
-
 //    // 1212 파일 읽기
 
 //    EXPORT const char* sendData() {
@@ -503,7 +501,16 @@ extern "C"
 //      return s.c_str();
 //    }
 
-    const char* s2;
+    // 1216 구조체에 변수 등록
+    int checker;
+    void endData(int num)
+    {
+        if(num==0){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -650,6 +657,10 @@ extern "C"
                         fout << "}" << endl;
                         fout.close();
 
+
+                        // 1216 check and out
+                        checker = 1;
+
                         break;
             }
             chrCnt=0;
@@ -657,19 +668,12 @@ extern "C"
     }
 
 
-    EXPORT void sub(double b, double* result)
+    // main 동작과 같음
+    EXPORT void process(void)
     {
-        *result = 12.3;
-    }
-
-    // main 동작
-    EXPORT void process(int a,float* result)
-    {
-
 
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
-
 
         memset(chrBuf, 0x00, 2000);
 
@@ -690,7 +694,6 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
-            *result = 2.0000;
             printf("while 문 들어옴");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
@@ -702,13 +705,15 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
-
+            if(checker == 1){
+                checker=0
+                break;
+            }
 
             }
             usleep(1000);
 
         }
-//        *result = 2.0000;
         ret = uart_close(fd);
         if(ret == -1)
         {
