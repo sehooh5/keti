@@ -3,7 +3,6 @@ import ctypes
 
 path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
-print("시작!!")
 
 class STRUCT(ctypes.Structure) :
     _fields_ = [("mi", ctypes.c_uint),
@@ -13,5 +12,6 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 c_module.process(ctypes.byref(str))
-print("프린트!!!",str.mi)
+print("프린트!!!!!")
+print(str.mi)
 # print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az)
