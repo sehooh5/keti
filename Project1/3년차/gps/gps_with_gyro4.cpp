@@ -724,7 +724,8 @@ extern "C"
         }
         // 1216 struct 값 입력 및 반환
         printf("값 전달!\n");
-        Struct2 temp = {mi, ss, ms};
+        Struct2 temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz
+        press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
         *((Struct2*)st) = temp;
         printf("값 전달 완료!\n");
 
