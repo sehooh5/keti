@@ -13,5 +13,5 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 c_module.process(ctypes.byref(str))
 print("프린트!!!!!")
-print(str.mi)
+print(str.mi, str.ss, str.ms)
 # print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az)
