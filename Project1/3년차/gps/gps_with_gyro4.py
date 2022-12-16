@@ -8,10 +8,7 @@ print("시작!!")
 class STRUCT(ctypes.Structure) :
     _fields_ = [("mi", ctypes.c_int),
                 ("ss", ctypes.c_int),
-                ("ms", ctypes.c_int),
-                ("ax", ctypes.c_float),
-                ("ay", ctypes.c_float),
-                ("az", ctypes.c_float)]
+                ("ms", ctypes.c_int)]
 
 
 str = STRUCT()
