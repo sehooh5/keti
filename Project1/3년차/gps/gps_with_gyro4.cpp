@@ -503,14 +503,6 @@ extern "C"
 
     // 1216 구조체에 변수 등록
     int checker;
-    void endData(int num)
-    {
-        if(num==0){
-            return 0;
-        }else{
-            return 1;
-        }
-    }
 
     // 변수 설정
     unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
