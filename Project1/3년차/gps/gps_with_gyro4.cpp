@@ -757,11 +757,11 @@ extern "C"
             // 1216 체크해서 out
             if(checker == 1){
                 printf("checker 3 : %d\n", checker);
+                break;
                 checker=0;
                 printf("checker 4 : %d\n", checker);
                 printf("ss : %d\n", ss);
             }
-            break;
 
             }
             usleep(1000);
