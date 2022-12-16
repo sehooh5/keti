@@ -3,6 +3,7 @@ import ctypes
 
 path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
+print("들어옴!!")
 
 class STRUCT(ctypes.Structure) :
     _fields_ = [("mi", ctypes.c_int),
