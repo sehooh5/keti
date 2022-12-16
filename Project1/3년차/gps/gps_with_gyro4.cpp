@@ -748,6 +748,7 @@ extern "C"
                 fprintf(stderr,"uart read failed!\n");
                 exit(EXIT_FAILURE);
             }
+
             for (int i=0;i<ret;i++)
             {
             printf("%d\n",i);
@@ -756,14 +757,16 @@ extern "C"
             // 1216 체크해서 out
             if(checker == 1){
                 printf("checker 3 : %d\n", checker);
-                printf("ss : %d\n", ss);
                 checker=0;
             }
+            if(checker == 0){break;}
 
             }
+            if(checker == 0){break;}
             usleep(1000);
-
         }
+        printf("ss : %d\n", ss);
+        printf("나옴!!!!!!!!")
         ret = uart_close(fd);
         if(ret == -1)
         {
