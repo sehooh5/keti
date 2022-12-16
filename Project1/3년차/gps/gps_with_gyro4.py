@@ -14,5 +14,5 @@ class STRUCT(ctypes.Structure) :
 
 
 str = STRUCT()
-c_module.strToPython(ctypes.byref(str))
+c_module.process(ctypes.byref(str))
 print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az)
