@@ -6,9 +6,9 @@ c_module = ctypes.cdll.LoadLibrary(path)
 print("시작!!")
 
 class STRUCT(ctypes.Structure) :
-    _fields_ = [("mi", ctypes.c_int),
-                ("ss", ctypes.c_int),
-                ("ms", ctypes.c_int)]
+    _fields_ = [("mi", ctypes.c_uint),
+                ("ss", ctypes.c_uint),
+                ("ms", ctypes.c_uint)]
 
 
 str = STRUCT()

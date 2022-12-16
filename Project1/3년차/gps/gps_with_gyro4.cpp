@@ -672,7 +672,8 @@ extern "C"
         float sn; float pdop; float hdop; float vdop;//0x5a
     };
     struct Struct2 {
-        int mi; int ss; int ms;//0x50
+        unsigned int mi; unsigned int ss; unsigned int ms;//0x50
+
     };
 
     // main 동작과 같음
@@ -723,7 +724,7 @@ extern "C"
         }
         // 1216 struct 값 입력 및 반환
         printf("값 전달!!\n");
-        Struct2 temp = {mi, ss, ms};
+        Struct2 temp = {mi, ss, ms, ax, ay, az};
         *((Struct2*)st) = temp;
 
         ret = uart_close(fd);
