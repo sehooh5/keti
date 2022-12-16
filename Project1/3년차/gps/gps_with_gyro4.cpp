@@ -721,7 +721,6 @@ extern "C"
 
     int main(void)
     {
-        checker = 1;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 
