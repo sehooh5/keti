@@ -686,8 +686,9 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(1)
+        while(checker==1)
         {
+            checker = 0;
             printf("while 문 들어옴");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
