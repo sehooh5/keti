@@ -767,7 +767,7 @@ extern "C"
             usleep(1000);
         }
         printf("ss : %d\n", ss);
-        printf("나옴!!!!!!!!");
+        printf("나옴!!!!!!!!\n");
         ret = uart_close(fd);
         if(ret == -1)
         {
