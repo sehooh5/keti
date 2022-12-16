@@ -760,6 +760,7 @@ extern "C"
                 checker=0;
                 printf("checker 4 : %d\n", checker);
                 printf("ss : %d\n", ss);
+            }else if(checker == 0){
                 break;
             }
 
