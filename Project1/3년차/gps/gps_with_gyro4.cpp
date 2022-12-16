@@ -728,15 +728,14 @@ extern "C"
         *((Struct2*)st) = temp;
         printf("값 전달 완료!\n");
 
-        break;
-        ret = uart_close(fd);
-        if(ret == -1)
-        {
-            fprintf(stderr,"uart_close error\n");
-            exit(EXIT_FAILURE);
-        }
-
-        exit(EXIT_SUCCESS);
+//        ret = uart_close(fd);
+//        if(ret == -1)
+//        {
+//            fprintf(stderr,"uart_close error\n");
+//            exit(EXIT_FAILURE);
+//        }
+//
+//        exit(EXIT_SUCCESS);
     }
 
     int main(void)
