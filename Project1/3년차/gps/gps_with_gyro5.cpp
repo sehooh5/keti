@@ -6,8 +6,7 @@ double b;
 
 // 구조체 선언 - 여기서는 int 와 double 두 개로 이루어진 구조체
 struct Struct {
-	int num;
-	double f;
+	int num; double f;
 };
 
 extern "C" {

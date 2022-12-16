@@ -658,6 +658,10 @@ extern "C"
             memset(chrBuf, 0x00, 2000);
     }
 
+    // 1216 struct 선언
+    struct Struct {
+        int yy;
+    };
 
     // main 동작과 같음
     EXPORT void process(void)
@@ -753,16 +757,14 @@ extern "C"
             ParseData(r_buf[i]);
             // 1216 체크해서 out
             if(checker == 1){
-                printf("checker 5 : %d\n", checker);
                 checker=0;
                 break;
             }
-
-
             }
             if(checker == 0){break;}
             usleep(1000);
         }
+        // 1216 struct 값 입력 및 반환
         printf("ss : %d\n", ss);
         ret = uart_close(fd);
         if(ret == -1)
