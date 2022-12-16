@@ -760,8 +760,9 @@ extern "C"
             if(checker == 1){
                 printf("checker 5 : %d\n", checker);
                 checker=0;
+                break;
             }
-            if(checker == 0){break;}
+
 
             }
             if(checker == 0){break;}
