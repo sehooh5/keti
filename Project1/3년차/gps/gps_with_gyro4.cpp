@@ -753,12 +753,12 @@ extern "C"
 
             for (int i=0;i<ret;i++)
             {
-            printf("%d\n",i);
+            printf("checker 4 : %d\n", checker);
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             // 1216 체크해서 out
             if(checker == 1){
-                printf("checker 4 : %d\n", checker);
+                printf("checker 5 : %d\n", checker);
                 checker=0;
             }
             if(checker == 0){break;}
