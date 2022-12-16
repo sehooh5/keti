@@ -723,10 +723,10 @@ extern "C"
             usleep(1000);
         }
         // 1216 struct 값 입력 및 반환
-        printf("값 전달!!\n");
+        printf("값 전달!\n");
         Struct2 temp = {mi, ss, ms};
         *((Struct2*)st) = temp;
-
+        printf("값 전달 완료!")
         ret = uart_close(fd);
         if(ret == -1)
         {
