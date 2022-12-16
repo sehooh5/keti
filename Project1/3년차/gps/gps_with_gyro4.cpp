@@ -742,7 +742,7 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(checker==1)
+        while(1)
         {
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
@@ -754,8 +754,10 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
+            // 1216 체크해서 out
             if(checker == 1){
                 checker=0;
+                printf("ss : %d", ss);
                 break;
             }
 
