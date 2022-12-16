@@ -742,7 +742,7 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(checker==1)
+        while(checker==0)
         {
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
