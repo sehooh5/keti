@@ -651,9 +651,9 @@ extern "C"
 
 
                         // 1216 check and out
-                        printf("checker 1 : %d", checker);
+                        printf("checker 1 : %d\n", checker);
                         checker = 1;
-                        printf("checker 2 : %d", checker);
+                        printf("checker 2 : %d\n", checker);
 
                         break;
             }
@@ -756,7 +756,9 @@ extern "C"
             ParseData(r_buf[i]);
             // 1216 체크해서 out
             if(checker == 1){
+                printf("checker 1 : %d\n", checker);
                 checker=0;
+                printf("checker 1 : %d\n", checker);
                 printf("ss : %d\n", ss);
                 break;
             }
