@@ -501,7 +501,7 @@ extern "C"
 //      return s.c_str();
 //    }
 
-    // 1216 구조체에 변수 등록
+    // 1216
     int checker;
 
     // 변수 설정
@@ -698,7 +698,7 @@ extern "C"
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             if(checker == 1){
-                checker=0
+                checker=0;
                 break;
             }
 
