@@ -724,7 +724,7 @@ extern "C"
         }
         // 1216 struct 값 입력 및 반환
         printf("값 전달!!\n");
-        Struct2 temp = {mi, ss, ms, ax, ay, az};
+        Struct2 temp = {mi, ss, ms};
         *((Struct2*)st) = temp;
 
         ret = uart_close(fd);
