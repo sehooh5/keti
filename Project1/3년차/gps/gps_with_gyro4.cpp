@@ -742,8 +742,9 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(1)
+        while(checker==1)
         {
+            checker = 0;
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
@@ -755,9 +756,7 @@ extern "C"
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             if(checker == 1){
-                printf("checker 3 : %d", checker);
                 checker=0;
-                printf("checker 4 : %d", checker);
                 break;
             }
 
