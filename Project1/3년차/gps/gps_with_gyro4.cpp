@@ -686,9 +686,8 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(checker==1)
+        while(checker==0)
         {
-            checker = 0;
             printf("while 문 들어옴");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
@@ -741,7 +740,7 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(checker==0)
+        while(1)
         {
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
@@ -751,6 +750,7 @@ extern "C"
             }
             for (int i=0;i<ret;i++)
             {
+            printf("%d",i)
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             // 1216 체크해서 out
@@ -759,7 +759,7 @@ extern "C"
                 printf("ss : %d\n", ss);
                 checker=0;
             }
-            if(checker == 0){break;}
+
             }
             usleep(1000);
 
