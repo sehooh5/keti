@@ -726,7 +726,7 @@ extern "C"
         printf("값 전달!\n");
         Struct2 temp = {mi, ss, ms};
         *((Struct2*)st) = temp;
-        printf("값 전달 완료!")
+        printf("값 전달 완료!");
         ret = uart_close(fd);
         if(ret == -1)
         {
