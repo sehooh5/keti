@@ -720,6 +720,7 @@ extern "C"
 
     int main(void)
     {
+        checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 
@@ -759,7 +760,7 @@ extern "C"
             if(checker == 1){
                 printf("checker 5 : %d\n", checker);
                 checker=0;
-//                break;
+                break;
             }
 
 
