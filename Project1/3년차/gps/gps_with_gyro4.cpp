@@ -718,24 +718,30 @@ extern "C"
 
     int main(void)
     {
+
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
+
         memset(chrBuf, 0x00, 2000);
+
         fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
         if(fd == -1)
         {
             fprintf(stderr,"uart_open error\n");
             exit(EXIT_FAILURE);
         }
+
         if(uart_set(fd,BAUD,8,'N',1) == -1)
         {
             fprintf(stderr,"uart set failed!\n");
             exit(EXIT_FAILURE);
         }
+
         FILE *fp;
         fp = fopen("Record.txt","w");
         while(1)
         {
+            printf("while 문 들어옴");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
@@ -746,8 +752,14 @@ extern "C"
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
+            if(checker == 1){
+                checker=0;
+                break;
+            }
+
             }
             usleep(1000);
+
         }
         ret = uart_close(fd);
         if(ret == -1)
@@ -755,6 +767,7 @@ extern "C"
             fprintf(stderr,"uart_close error\n");
             exit(EXIT_FAILURE);
         }
+
         exit(EXIT_SUCCESS);
     }
 }
