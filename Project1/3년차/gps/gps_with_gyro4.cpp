@@ -741,7 +741,7 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(1)
+        while(checker==0)
         {
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
@@ -757,8 +757,8 @@ extern "C"
             if(checker == 1){
                 printf("checker 3 : %d\n", checker);
                 printf("ss : %d\n", ss);
-                break;
-//                checker=0;
+
+                checker=0;
                 printf("checker 4 : %d\n", checker);
             }
 
