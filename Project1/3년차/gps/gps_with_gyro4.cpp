@@ -757,11 +757,9 @@ extern "C"
             if(checker == 1){
                 printf("checker 3 : %d\n", checker);
                 printf("ss : %d\n", ss);
-
                 checker=0;
-
             }
-            printf("out checker 4 : %d\n", checker);
+            if(checker == 0){break;}
             }
             usleep(1000);
 
