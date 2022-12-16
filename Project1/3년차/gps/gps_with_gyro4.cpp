@@ -660,13 +660,27 @@ extern "C"
 
     // 1216 struct 선언
     struct Struct {
-        int yy;
+        unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
+        float ax; float ay; float az; float t; //0x51
+        float wx; float wy; float wz; //0x52
+        float roll; float pitch; float yaw;//0x53
+        float mx; float my; float mz;//0x54
+        float press; float h; //0x56
+        double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
+        float gh; float gy; float gv;//0x58
+        float q0; float q1; float q2; float q3;//0x59
+        float sn; float pdop; float hdop; float vdop;//0x5a
+    };
+    struct Struct2 {
+        unsigned int mi; unsigned int ss; unsigned int ms;//0x50
+        float ax; float ay; float az; //0x51
+
     };
 
     // main 동작과 같음
-    EXPORT void process(void)
+    EXPORT void process(void* st)
     {
-
+        checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 
@@ -687,28 +701,33 @@ extern "C"
 
         FILE *fp;
         fp = fopen("Record.txt","w");
-        while(checker==0)
+        while(1)
         {
-            printf("while 문 들어옴");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
                 fprintf(stderr,"uart read failed!\n");
                 exit(EXIT_FAILURE);
             }
+
             for (int i=0;i<ret;i++)
             {
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
+            // 1216 체크해서 out
             if(checker == 1){
                 checker=0;
                 break;
             }
-
             }
+            if(checker == 0){break;}
             usleep(1000);
-
         }
+        // 1216 struct 값 입력 및 반환
+        printf("값 전달!!\n");
+        Struct2 temp = {mi, ss, ms, ax, ay, az};
+        *((Struct2*)st) = temp;
+
         ret = uart_close(fd);
         if(ret == -1)
         {
