@@ -757,7 +757,7 @@ extern "C"
             // 1216 체크해서 out
             if(checker == 1){
                 checker=0;
-                printf("ss : %d", ss);
+                printf("ss : %d\n", ss);
                 break;
             }
 
