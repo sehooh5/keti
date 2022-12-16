@@ -22,7 +22,7 @@ extern "C" {
         Struct temp = {a,b};
         // 포인터 지정하는 부분
         // 함수의 포인트 파라미터로 받은 void* st를 선언한 구조체인 Struct*로 형변환 후 *포인터..?
-        *((Struct*)st) = temp;
+        ((Struct*)st)* = temp;
     }
 
 }

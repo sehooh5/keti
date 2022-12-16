@@ -11,10 +11,11 @@ class STRUCT(ctypes.Structure) :
 
 
 str = STRUCT() # 만들어진 구조체 변수선언
-c_module.strToPython(ctypes.pointer(str)) # ctypes의 byref 에 ctypes.Structure 객체를를 넣어서 .so 모듈의 함수에 전달
+c_module.strToPython(ctypes.byref(str)) # ctypes의 byref 에 ctypes.Structure 객체를를 넣어서 .so 모듈의 함수에 전달
 print(str.nNum, str.fFloat) # 포인터로 반환된 구조체의 변수 불러오기
 
 
 # ctypes.byref(obj[, offset]) 설명 :
 # obj에 대한 경량 포인터를 반환합니다. obj는 ctypes 형의 인스턴스여야 합니다.
 
+# ctypes.pointer(obj) 로 대체 가능
