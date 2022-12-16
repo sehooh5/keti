@@ -759,9 +759,9 @@ extern "C"
                 printf("ss : %d\n", ss);
 
                 checker=0;
-                printf("checker 4 : %d\n", checker);
-            }
 
+            }
+            printf("out checker 4 : %d\n", checker);
             }
             usleep(1000);
 
