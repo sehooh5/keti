@@ -673,7 +673,6 @@ extern "C"
     };
     struct Struct2 {
         unsigned int mi; unsigned int ss; unsigned int ms;//0x50
-        float ax; float ay; float az; //0x51
 
     };
 
