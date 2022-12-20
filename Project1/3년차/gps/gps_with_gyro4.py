@@ -1,5 +1,7 @@
 import ctypes
+import requests
 
+url = "http://123.214.186.162:8088"
 
 path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
@@ -22,5 +24,5 @@ str = STRUCT()
 while(1):
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
-    print(type(str))
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
+    requests.post(f'{url}/gwg', str)
