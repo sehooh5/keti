@@ -10,6 +10,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 def req_post(url):
     print(f'Request POST to : {url}')
     res = requests.get(f'{url}/')
+    print("여기")
     return res
 
 # res = req_post(url)
@@ -33,7 +34,6 @@ while True:
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
     res = req_post(url)
-    print("여기")
     res.raise_for_status()
     print(res)
     time.sleep(0.5)
