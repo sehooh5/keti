@@ -7,6 +7,10 @@ url = "http://123.214.186.162:8088"
 path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
+def req_post(url):
+    print(url)
+    return url
+
 class STRUCT(ctypes.Structure) :
     _fields_ = [("yy", ctypes.c_uint),("mm", ctypes.c_uint),("dd", ctypes.c_uint),("hh", ctypes.c_uint),("mi", ctypes.c_uint),("ss", ctypes.c_uint),("ms", ctypes.c_uint),
                 ("ax", ctypes.c_float),("ay", ctypes.c_float),("az", ctypes.c_float),("t", ctypes.c_float),
@@ -26,5 +30,5 @@ while(1):
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
-    requests.get(f'{url}/')
+    req_post(url)
     time.sleep(0.5)
