@@ -26,5 +26,5 @@ while(1):
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
-    requests.post(f'{url}/gwg', json={'seho':"seho"})
+    # requests.post(f'{url}/gwg', json={'seho':"seho"})
     time.sleep(1000)
