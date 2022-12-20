@@ -8,7 +8,7 @@ path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 
 def req_post(url):
-    print(url)
+    print(f'Request POST to : {url}')
     res = requests.post(f'url/')
     return res
 
