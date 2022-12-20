@@ -6,10 +6,11 @@ url = "http://123.214.186.162:8088"
 
 path = "./gwg4.so"
 c_module = ctypes.cdll.LoadLibrary(path)
+global ss, ms
 
 def req_post(url):
     print(f'Request POST to : {url}')
-    print(ss)
+    print(ss, ms)
     res = requests.get(f'{url}/')
     return res
 
@@ -33,8 +34,9 @@ while True:
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
-    global ss
+
     ss = str.ss
+    ms = str.ms
     res = req_post(url)
     res.raise_for_status()
     print(res)
