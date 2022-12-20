@@ -29,8 +29,8 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while(1):
-    c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
+    c_module.process(ctypes.byref(str))
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
     res = req_post(url)
     res.raise_for_status()
