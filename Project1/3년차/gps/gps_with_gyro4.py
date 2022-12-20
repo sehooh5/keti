@@ -9,8 +9,9 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 def req_post(url):
     print(f'Request POST to : {url}')
-    requests.get(f'{url}/')
-
+    print(ss)
+    res = requests.get(f'{url}/')
+    return res
 
 # res = req_post(url)
 class STRUCT(ctypes.Structure) :
@@ -32,6 +33,8 @@ while True:
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
+    global ss
+    ss = str.ss
     res = req_post(url)
     res.raise_for_status()
     print(res)
