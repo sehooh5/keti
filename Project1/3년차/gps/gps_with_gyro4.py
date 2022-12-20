@@ -14,7 +14,6 @@ def req_post(url):
     res = requests.get(f'{url}/')
     return res
 
-# res = req_post(url)
 class STRUCT(ctypes.Structure) :
     _fields_ = [("yy", ctypes.c_uint),("mm", ctypes.c_uint),("dd", ctypes.c_uint),("hh", ctypes.c_uint),("mi", ctypes.c_uint),("ss", ctypes.c_uint),("ms", ctypes.c_uint),
                 ("ax", ctypes.c_float),("ay", ctypes.c_float),("az", ctypes.c_float),("t", ctypes.c_float),
@@ -31,6 +30,7 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
+    time.sleep(0.5)
     c_module.process(ctypes.byref(str))
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
@@ -40,4 +40,3 @@ while True:
     res = req_post(url)
     res.raise_for_status()
     print(res)
-    time.sleep(0.5)
