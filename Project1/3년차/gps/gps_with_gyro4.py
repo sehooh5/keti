@@ -9,7 +9,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 def req_post(url):
     print(f'Request POST to : {url}')
-    res = requests.post(f'url/')
+    res = requests.get(f'url/')
     return res
 
 class STRUCT(ctypes.Structure) :
