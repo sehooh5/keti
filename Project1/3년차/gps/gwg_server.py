@@ -17,6 +17,7 @@ c = conn.cursor()
 @app.route('/')
 def index():
     json_data = request.get_json(silent=True)
+    print(json_data)
     return "index"
 
 @app.route('/gwg', methods=['POST'])
