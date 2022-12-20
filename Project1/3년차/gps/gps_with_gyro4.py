@@ -9,7 +9,8 @@ c_module = ctypes.cdll.LoadLibrary(path)
 
 def req_post(url):
     print(url)
-    return url
+    res = requests.post(f'url/')
+    return res
 
 class STRUCT(ctypes.Structure) :
     _fields_ = [("yy", ctypes.c_uint),("mm", ctypes.c_uint),("dd", ctypes.c_uint),("hh", ctypes.c_uint),("mi", ctypes.c_uint),("ss", ctypes.c_uint),("ms", ctypes.c_uint),
