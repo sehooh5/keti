@@ -5,7 +5,7 @@ import time
 url = "http://123.214.186.162:8088"
 
 path = "./gwg4.so"
-c_module = ctypes.pydll.LoadLibrary(path)
+c_module = ctypes.cdll.LoadLibrary(path)
 # Global 변수 설정
 global ss, ms
 
@@ -25,7 +25,7 @@ class STRUCT(ctypes.Structure) :
                 ("lon_final", ctypes.c_double), ("lat_final", ctypes.c_double),
                 ("gh", ctypes.c_float), ("gy", ctypes.c_float), ("gv", ctypes.c_float),
                 ("q0", ctypes.c_float), ("q1", ctypes.c_float), ("q2", ctypes.c_float),("q3", ctypes.c_float),
-                ("sn", ctypes.c_float), ("pdop", ctypes.c_float), ("hdop", ctypes.c_float), ("vdop", ctypes.c_float)
+                ("pdop", ctypes.c_float), ("hdop", ctypes.c_float), ("vdop", ctypes.c_float)
                 ]
 
 
