@@ -42,7 +42,7 @@ while True:
         "ss": str.ss,
         "ms": str.ms,
     }
-    print(json_data)
+    print(type(json_data))
 
     res = req_post(url)
     # print(res)
