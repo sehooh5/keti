@@ -543,7 +543,7 @@ extern "C"
             switch(chrBuf[1])
             {
                     case 0x50:
-//                        printf("\r\n[[Data Output Start]]\r\n");
+                        printf("\r\n[[Data Output Start]]\r\n");
                         yy = get_time(chrBuf, 1);
                         mm = get_time(chrBuf, 2);
                         dd = get_time(chrBuf, 3);
@@ -551,7 +551,7 @@ extern "C"
                         mi = get_time(chrBuf, 5);
                         ss = get_time(chrBuf, 6);
                         ms = get_time(chrBuf, 7);
-//                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
+                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x51:
@@ -726,7 +726,7 @@ extern "C"
         printf("구조체 전달!\n");
         Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
         *((Struct*)st) = temp;
-        printf("%f %f\n",ax,wx);
+//        printf("%f %f\n",ax,wx);
 
 //        ret = uart_close(fd);
 //        if(ret == -1)
