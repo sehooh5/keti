@@ -30,13 +30,13 @@ class STRUCT(ctypes.Structure) :
 
 
 str = STRUCT()
-while True:
-    time.sleep(0.5)
-    c_module.process(ctypes.byref(str))
-    print("입력된 데이터 : ")
-    print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
+# while True:
+time.sleep(0.5)
+c_module.process(ctypes.byref(str))
+print("입력된 데이터 : ")
+print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
 
-    ss = str.ss
-    ms = str.ms
-    res = req_post(url)
-    print(res)
+ss = str.ss
+ms = str.ms
+res = req_post(url)
+print(res)
