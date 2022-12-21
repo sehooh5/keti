@@ -41,4 +41,4 @@ while True:
     requests.get(f'{url}/')
     # res = req_post(url)
     # print(res)
-    time.sleep(1)
+    # time.sleep(1)
