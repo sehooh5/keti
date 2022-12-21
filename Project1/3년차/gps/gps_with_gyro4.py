@@ -25,7 +25,7 @@ class STRUCT(ctypes.Structure) :
                 ("lon_final", ctypes.c_double), ("lat_final", ctypes.c_double),
                 ("gh", ctypes.c_float), ("gy", ctypes.c_float), ("gv", ctypes.c_float),
                 ("q0", ctypes.c_float), ("q1", ctypes.c_float), ("q2", ctypes.c_float),("q3", ctypes.c_float),
-                ("sn", ctypes.c_float), ("pdop", ctypes.c_float), ("hdop", ctypes.c_float), ("vdop", ctypes.c_float),
+                ("sn", ctypes.c_float), ("pdop", ctypes.c_float), ("hdop", ctypes.c_float), ("vdop", ctypes.c_float)
                 ]
 
 
@@ -37,6 +37,6 @@ while True:
 
     ss = str.ss
     ms = str.ms
-    # res = req_post(url)
-    # print(res)
+    res = req_post(url)
+    print(res)
     time.sleep(0.5)
