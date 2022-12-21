@@ -781,7 +781,7 @@ extern "C"
             }
             }
             if(checker == 0){break;}
-            usleep(1000);
+            usleep(500);
         }
         // 1216 struct 값 입력 및 반환
         printf("ss : %d\n", ss);
