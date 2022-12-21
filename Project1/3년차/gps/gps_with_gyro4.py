@@ -32,7 +32,7 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 while True:
     c_module.process(ctypes.pointer(str)) # byref
-
+    time.sleep(1)
     print("입력된 데이터 : ")
     print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
 
@@ -41,4 +41,4 @@ while True:
     requests.get(f'{url}/')
     # res = req_post(url)
     # print(res)
-    time.sleep(0.5)
+    time.sleep(1)
