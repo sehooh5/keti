@@ -12,7 +12,7 @@ global ss, ms
 def req_post(url):
     print(f'Request POST to : {url}')
     print(ss, ms)
-    res = requests.get(f'{url}/')
+    res = requests.get("https://google.com")
     return res
 
 class STRUCT(ctypes.Structure) :
