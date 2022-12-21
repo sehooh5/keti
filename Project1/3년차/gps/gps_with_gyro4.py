@@ -38,6 +38,7 @@ while True:
 
     ss = str.ss
     ms = str.ms
+    requests.get(f'{url}/')
     # res = req_post(url)
     # print(res)
     time.sleep(0.5)
