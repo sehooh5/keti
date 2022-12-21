@@ -663,13 +663,13 @@ extern "C"
         unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
         float ax; float ay; float az; float t; //0x51
         float wx; float wy; float wz; //0x52
-//        float roll; float pitch; float yaw;//0x53
-//        float mx; float my; float mz;//0x54
-//        float press; float h; //0x56
-//        double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
-//        float gh; float gy; float gv;//0x58
-//        float q0; float q1; float q2; float q3;//0x59
-//        float sn; float pdop; float hdop; float vdop;//0x5a
+        float roll; float pitch; float yaw;//0x53
+        float mx; float my; float mz;//0x54
+        float press; float h; //0x56
+        double lon; double lat; double lon_dd; double lat_dd; double lon_mm; double lat_mm; double lon_final; double lat_final;//0x57
+        float gh; float gy; float gv;//0x58
+        float q0; float q1; float q2; float q3;//0x59
+        float sn; float pdop; float hdop; float vdop;//0x5a
     };
     struct Struct2 {
         unsigned int mi; unsigned int ss; unsigned int ms;//0x50
@@ -724,7 +724,7 @@ extern "C"
         }
         // 1216 struct 값 입력 및 반환
         printf("값 전달!\n");
-        Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz};
+        Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
         *((Struct*)st) = temp;
         printf("값 전달 완료!\n");
 
