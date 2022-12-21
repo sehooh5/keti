@@ -726,7 +726,7 @@ extern "C"
         printf("구조체 전달!\n");
         Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
         *((Struct*)st) = temp;
-        printf("%d %d\n",ss,ms);
+        printf("%f %f\n",ax,wx);
 
 //        ret = uart_close(fd);
 //        if(ret == -1)
