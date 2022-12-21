@@ -551,7 +551,7 @@ extern "C"
                         mi = get_time(chrBuf, 5);
                         ss = get_time(chrBuf, 6);
                         ms = get_time(chrBuf, 7);
-//                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
+                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x51:
