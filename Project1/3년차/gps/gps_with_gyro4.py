@@ -33,8 +33,7 @@ str = STRUCT()
 while True:
     c_module.process(ctypes.pointer(str)) # byref
     time.sleep(1)
-    print("입력된 데이터 : ")
-    print(str.mi, str.ss, str.ms, str.ax, str.ay, str.az, str.lat_final, str.lon_final)
+    print("데이터 출력 : ")
 
     ss = str.ss
     ms = str.ms
