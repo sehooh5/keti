@@ -5,7 +5,7 @@ import time
 url = "http://123.214.186.162:8088"
 
 path = "./gwg4.so"
-c_module = ctypes.PyDll.LoadLibrary(path)
+c_module = ctypes.pydll.LoadLibrary(path)
 # Global 변수 설정
 global ss, ms
 
