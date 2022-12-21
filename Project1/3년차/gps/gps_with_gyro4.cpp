@@ -627,7 +627,7 @@ extern "C"
                         hdop = get_satelite(chrBuf, 3);
                         vdop = get_satelite(chrBuf, 4);
 //                        printf("[0x5a] sn : %f pdop : %f hdop : %f vdop : %f\r\n", sn, pdop, hdop, vdop);
-                        printf("[[Data Output End]]\r\n");
+//                        printf("[[Data Output End]]\r\n");
                         memset(chrBuf, 0x00, 2000);
 
                         //file 작성
