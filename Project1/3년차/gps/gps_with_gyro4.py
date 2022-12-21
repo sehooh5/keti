@@ -12,7 +12,7 @@ global ss, ms
 def req_post(url):
     print(f'Request POST to : {url}')
     print(ss, ms)
-    res = requests.get(f'{url}/')
+    res = requests.get(f'{url}/cgwg')
     return res
 
 class STRUCT(ctypes.Structure) :
@@ -39,11 +39,19 @@ while True:
     ss = str.ss
     ms = str.ms
     json_data = {
-        "time":{"ss": str.ss,"ms": str.ms,},
-        "acc":{"ax":str.ax,"ay":str.ay,"az":str.az}
+        "time":{"yy": str.yy,"mm": str.mm,"dd": str.dd,"hh": str.hh,"mi": str.mi,"ss": str.ss,"ms": str.ms},
+        "acc":{"ax":str.ax,"ay":str.ay,"az":str.az},
+        "angular":{"wx":str.wx,"wy":str.wy,"wz":str.wz},
+        "angle":{"roll":str.roll,"pitch":str.pitch,"yaw":str.yaw},
+        "magnetic":{"mx": str.mx, "my": str.my, "mz": str.mz},
+        "atmospheric":{"press": str.press, "h": str.h},
+        "gps":{"lat_final": str.lat_final, "lon_final": str.lon_final},
+        "groundSpeed":{"gh": str.gh, "gy": str.gy, "gv": str.gv},
+        "quaternion":{"q0": str.q0, "q1": str.q1, "q2": str.q2, "q3": str.q3},
+        "satelite":{"snum": str.sn, "pdop": str.pdop, "hdop": str.hdop, "pdop": str.pdop},
     }
     print(json_data)
-    # requests.get(f'{url}/gwg')
+    # requests.get(f'{url}/cgwg', json=json_data)
 
     # res = req_post(url)
     # print(res)
