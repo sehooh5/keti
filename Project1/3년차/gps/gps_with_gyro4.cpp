@@ -679,7 +679,7 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-//        checker = 3;
+        checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 

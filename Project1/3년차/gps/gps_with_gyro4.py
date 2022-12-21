@@ -38,6 +38,6 @@ while True:
 
     ss = str.ss
     ms = str.ms
-    res = req_post(url)
-    print(res)
+    # res = req_post(url)
+    # print(res)
     time.sleep(0.5)
