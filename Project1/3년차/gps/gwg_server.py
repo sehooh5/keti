@@ -123,7 +123,7 @@ def cgwg():
     # 56 atmospheric
     press, h = gwg_data['atmospheric']['press'], gwg_data['atmospheric']['h']
     # 57 gps
-    lat, lon = round(gwg_data['gps']['lat_final'], 6), gwg_data['gps']['lon_final'], 6)
+    lat, lon = round(gwg_data['gps']['lat_final'], 6), round(gwg_data['gps']['lon_final'], 6)
     # 58 groundSpeed
     gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
     # 59 quaternion
