@@ -52,7 +52,7 @@ while True:
     }
     print(data)
     json_data = json.dumps(data)
-    requests.get(f'{url}/cgwg', json=json_data)
+    requests.post(f'{url}/cgwg', json=json_data)
 
     # res = req_post(url)
     # print(res)
