@@ -12,7 +12,7 @@ global ss, ms
 def req_post(url):
     print(f'Request POST to : {url}')
     print(ss, ms)
-    res = requests.get("https://google.com")
+    res = requests.get(f'{url}/')
     return res
 
 class STRUCT(ctypes.Structure) :
@@ -39,5 +39,4 @@ while True:
     ss = str.ss
     ms = str.ms
     res = req_post(url)
-    res.raise_for_status()
     print(res)
