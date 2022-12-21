@@ -139,7 +139,7 @@ def cgwg():
           f"roll : {roll}, pitch : {pitch}, yaw : {yaw}\n"
           f"mx : {mx}, my : {my}, mz : {my}\n"
           f"press : {press}, h : {h}\n"
-          f"lon : {lon}, lat : {lat}\n"
+          f"lat : {lat}, lon : {lon} \n"
           f"gh : {gh}, gy : {gy}, gv : {gv}\n"
           f"q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n"
           f"snum : {snum}, pdop : {pdop}, hdop : {hdop}, vdop : {vdop}\n")
