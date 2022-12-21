@@ -1,6 +1,7 @@
 import ctypes
 import requests
 import time
+import json
 
 url = "http://123.214.186.162:8088"
 
@@ -37,7 +38,7 @@ while True:
 
     ss = str.ss
     ms = str.ms
-    json_data = {
+    data = {
         "time":{"yy": str.yy,"mm": str.mm,"dd": str.dd,"hh": str.hh,"mi": str.mi,"ss": str.ss,"ms": str.ms},
         "acc":{"ax":str.ax,"ay":str.ay,"az":str.az},
         "angular":{"wx":str.wx,"wy":str.wy,"wz":str.wz},
@@ -49,8 +50,9 @@ while True:
         "quaternion":{"q0": str.q0, "q1": str.q1, "q2": str.q2, "q3": str.q3},
         "satelite":{"snum": str.sn, "pdop": str.pdop, "hdop": str.hdop, "pdop": str.pdop},
     }
-    print(json_data)
-    # requests.get(f'{url}/cgwg', json=json_data)
+    print(data)
+    json_data = json.dumps(data)
+    requests.get(f'{url}/cgwg', json=json_data)
 
     # res = req_post(url)
     # print(res)
