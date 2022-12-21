@@ -551,7 +551,7 @@ extern "C"
                         mi = get_time(chrBuf, 5);
                         ss = get_time(chrBuf, 6);
                         ms = get_time(chrBuf, 7);
-                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
+//                        printf("[0x50] Time : 20%u-%u-%u %u:%u:%u:%u\r\n", yy,mm,dd,hh,mi,ss,ms);
                         memset(chrBuf, 0x00, 2000);
                         break;
                     case 0x51:
@@ -658,7 +658,7 @@ extern "C"
             memset(chrBuf, 0x00, 2000);
     }
 
-    // 1216 struct 선언
+    // 1216 struct 선언 35
     struct Struct {
         unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
         float ax; float ay; float az; float t; //0x51
@@ -679,7 +679,7 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-        checker = 3;
+//        checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
 
