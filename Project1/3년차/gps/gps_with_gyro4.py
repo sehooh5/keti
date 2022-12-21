@@ -39,11 +39,12 @@ while True:
     ss = str.ss
     ms = str.ms
     json_data = {
-        "ss": str.ss,
-        "ms": str.ms,
+        "time":{"ss": str.ss,"ms": str.ms,},
+        "acc":{"ax":str.ax,"ay":str.ay,"az":str.az}
     }
-    print(type(json_data))
+    print(json_data)
+    # requests.get(f'{url}/gwg')
 
-    res = req_post(url)
+    # res = req_post(url)
     # print(res)
 
