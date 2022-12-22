@@ -2,6 +2,7 @@ import ctypes
 import requests
 import time
 import json
+import sys
 
 url = "http://123.214.186.162:8088"
 
@@ -52,7 +53,12 @@ while True:
     }
     print(data)
     json_data = json.dumps(data)
-    requests.post(f'{url}/cgwg', json=json_data)
+    arg = sys.argv
+
+    if len(arg) > 1 :
+        requests.post(f'{url}/cgwg_save', json=json_data)
+    else:
+        requests.post(f'{url}/cgwg', json=json_data)
 
     # res = req_post(url)
     # print(res)
