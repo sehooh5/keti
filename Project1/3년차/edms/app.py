@@ -954,8 +954,6 @@ def remove_edgeCluster():
     return response.message("0000")
 
 # 2.17 클러스터 모니터링 툴 추가 인터페이스
-
-
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
     func = sys._getframe().f_code.co_name
