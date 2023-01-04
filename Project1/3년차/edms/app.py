@@ -318,41 +318,43 @@ def disconnect_device():
         datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: disconnect Server [{edge_name}] with device [{device_name}]....")
 
-    # # 노드포트 찾기위한 과정
-    # wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
-    # for wid in wids:
-    #     fname = db.session.query(SW_up.fname).filter(
-    #         SW_up.sid == wid[0]).first()[0]
-    #     if fname == "select-cam":
-    #         sw_id = wid[0]
-    #
-    # nodeport = db.session.query(Server_SW.nodeport).filter(
-    #     Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    #
-    # # 디바이스 정보 추출
-    # d_url = "rtsp://keti:keti1234@" + \
-    #     device.json()["ip"]+":"+device.json()["port"]+"/videomain"
-    # api_host = f"{ip}:{port}"
-    #
-    # data = {
-    #     "url": d_url,
-    #     "api_host": api_host
-    # }
-    #
-    # option = requests.post(
-    #     f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
-    #
-    # # requests.post(
-    # #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: disconnecting completed !")
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: server name : {edge_name} --- camera name :  {device_name}")
+    # 노드포트 찾기위한 과정
+    wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
+    for wid in wids:
+        fname = db.session.query(SW_up.fname).filter(
+            SW_up.sid == wid[0]).first()[0]
+        if fname == "select-cam":
+            sw_id = wid[0]
+
+    nodeport = db.session.query(Server_SW.nodeport).filter(
+        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+
+    # 디바이스 정보 추출
+    d_url = "rtsp://keti:keti1234@" + \
+        device.json()["ip"]+":"+device.json()["port"]+"/videomain"
+    api_host = f"{ip}:{port}"
+
+    data = {
+        "url": d_url,
+        "api_host": api_host
+    }
+
+    option = requests.post(
+        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+
+    # requests.post(
+    #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: disconnecting completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: server name : {edge_name} --- camera name :  {device_name}")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
+        url=f"http://{ip}:{nodeport}/streaming",
         sname=edge_name
+
     )
     return res
 
