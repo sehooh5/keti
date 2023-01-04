@@ -32,9 +32,9 @@ def camera():
     no = request.args.get('no')
     # print('number = '+request.args.get('no'))
     if no == '1':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://keti:keti1234@192.168.0.73:88/videoMain'
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://root:keti@192.168.0.94/onvif-media/media.amp'
     elif no == '2':
-        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://192.168.0.101:554/h264'
+        os.environ['OPENCV_CAMERA_SOURCE'] = 'rtsp://root:keti@192.168.0.93/onvif-media/media.amp'
 
     return render_template('camera.html')
 

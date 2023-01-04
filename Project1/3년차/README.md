@@ -2299,3 +2299,12 @@
 - 진행해야 할 것 : 
   - DEMS 디바이스 연결/해제 부분 select cam 배포로 진행
     - 지금 사용 가능한 cam 한개 정해서 진행
+
+#### 0104
+
+- DEMS 디바이스 연결/해제 부분 select cam 배포로 진행
+  - 지금 사용 가능한 cam 한개 정해서 진행
+    - M3026  
+    - rtsp://root:keti@192.168.0.94/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
+- 
+
