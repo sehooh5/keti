@@ -231,7 +231,7 @@ def connect_device():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-
+    print(eid, did)
     eid = json_data['eid']
     did = json_data['did']
 

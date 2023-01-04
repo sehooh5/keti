@@ -2306,5 +2306,6 @@
   - 지금 사용 가능한 cam 한개 정해서 진행
     - M3026  
     - rtsp://root:keti@192.168.0.94/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
-- 
+- CORS 오류 해결
+  - 크롬의 경우: chrome://flags/#block-insecure-private-network-requests 에 들어가서 설정 disabled
 
