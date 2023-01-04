@@ -231,9 +231,10 @@ def connect_device():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print(eid, did)
+
     eid = json_data['eid']
     did = json_data['did']
+    print(eid, did)
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     device_name = device.json()["name"]
