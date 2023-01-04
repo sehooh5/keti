@@ -234,7 +234,6 @@ def connect_device():
 
     eid = json_data['eid']
     did = json_data['did']
-    print(eid,did)
 
     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
     device_name = device.json()["name"]
@@ -253,47 +252,45 @@ def connect_device():
             SW_up.sid == wid[0]).first()[0]
         if fname == "select-cam":
             sw_id = wid[0]
-    print(fname)
-    print(sw_id)
 
-    # nodeport = db.session.query(Server_SW.nodeport).filter(
-    #     Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: using nodeport: {nodeport}")
-    #
-    # # 디바이스 정보 추출
-    # d_url = "rtsp://keti:keti1234@" + \
-    #     device.json()["ip"]+":"+device.json()["port"]+"/videoMain"
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: device url: {d_url}")
-    # d_name = device.json()["name"]
-    # api_host = f"{ip}:{port}"
-    #
-    # data = {
-    #     "url": d_url,
-    #     "name": d_name,
-    #     "api_host": api_host
-    # }
-    #
-    # option = requests.post(
-    #     f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
-    # option = option.text
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: browser option: {option}")
-    # # requests.post(
-    # #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}: connecting completed !")
-    # print(datetime.datetime.now().strftime(
-    #     "%c")[:-4], f"{func}:server name : {edge_name} --- camera name : {device_name}")
-    #
-    # res = jsonify(
-    #     code="0000",
-    #     message="처리 성공",
-    #     url=f"http://{ip}:{nodeport}/streaming",
-    #     sname=edge_name,
-    #     option=option
-    # )
+    nodeport = db.session.query(Server_SW.nodeport).filter(
+        Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: using nodeport: {nodeport}")
+
+    # 디바이스 정보 추출
+    d_url = "rtsp://root:keti@" + \
+        device.json()["ip"]+":"+"/onvif-media/media.amp"
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: device url: {d_url}")
+    d_name = device.json()["name"]
+    api_host = f"{ip}:{port}"
+
+    data = {
+        "url": d_url,
+        "name": d_name,
+        "api_host": api_host
+    }
+
+    option = requests.post(
+        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+    option = option.text
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: browser option: {option}")
+    # requests.post(
+    #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: connecting completed !")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}:server name : {edge_name} --- camera name : {device_name}")
+
+    res = jsonify(
+        code="0000",
+        message="처리 성공",
+        url=f"http://{ip}:{nodeport}/streaming",
+        sname=edge_name,
+        option=option
+    )
     return "200"
 
 
