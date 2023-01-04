@@ -2306,6 +2306,11 @@
   - 지금 사용 가능한 cam 한개 정해서 진행
     - M3026  
     - rtsp://root:keti@192.168.0.94/onvif-media/media.amp?profile=profile_1_h264&sessiontimeout=60&streamtype=unicast
+    - 37.480077
+    - 126.87023
 - CORS 오류 해결
   - 크롬의 경우: chrome://flags/#block-insecure-private-network-requests 에 들어가서 설정 disabled
+- 현재 진행상황 : 
+  - 위에 selectcam 업로드 완료했고 배포하면됨
+  - 그거를 통해서 디바이스 연결/해제 할것임
 
