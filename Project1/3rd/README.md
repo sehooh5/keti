@@ -1,6 +1,7 @@
-# Project 1 / 3년차
+# README
 
-- 5G 기반 협력 대응 과제
+- 5G기반 선제적 위험대응을 위한 예측적 영상보안 핵심기술 개발 (3차년도)
+- GPS 및 Gyro 센서 데이터 저장 및 전송 API 개발, 차량용 실시간 카메라 영상데이터, GPS 데이터 전송 및 저장
 - KETI + Intelivix 개발내용 통합에 중점
 
 
@@ -18,17 +19,24 @@
 
 ## Repository
 
-#### tcp_ip_sample
+#### edms(app)
 
-- server - client 간 채팅 수준의 socket 통신
+- 웹 앱과 연동되는 API 실행 앱
 
 
 
-#### proto
+#### gps
 
-- tcp/ip 서버를 중심으로 sender에서 client 로 message를 전송
-- 문제발생 : 
-  - tcp/ip 서버가 계속 열려있게 하기
+- gps 및 gyro 시리얼 통신 데이터 전처리 및 전송 앱
+  - /gps_with_gyro4.cpp : 단말 서버에서 시리얼 통신으로 gps 및 gyro 데이터를 받아 전처리
+  - /gps_with_gyro4.py : 모듈화 된 gps_with_gyro4.cpp의 gps 및 gyro 데이터를 엣지서버에 전달
+  - /gwg_server.py : 엣지서버에서 실행되는 앱으로 gps 및 gyro 데이터를 저장 혹은 바로 재전송 가능
+
+
+
+#### sw_deploy
+
+- 웹 앱에서 배포될 앱으로 카메라를 지정하여 스트리밍 할 수 있다
 
 
 
@@ -41,17 +49,9 @@
 
 
 
-#### EMDS 구성
+#### tcp_ip
 
-- DB
-  - Device
-    - id
-    - type
-  - Edge
-    - id
-    - type
-    - ip
-- Device-Edge 연결제어
+- server - client 간 채팅 수준의 socket 통신 테스트
 
 
 
@@ -2337,3 +2337,10 @@
 #### 0109
 
 - 과제 점검 후 코드 정리
+
+
+
+#### 0110
+
+- 1,2,3년차 과제 정리 
+- gps 코드 정리 후 관련내용 보고
