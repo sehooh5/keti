@@ -62,7 +62,6 @@
 - [VLC CLI 사용 예제](http://akshayc.com/blog/Stream-Audio-via-VLC/)
 - [C++ printf 예시](https://shaeod.tistory.com/283)
 - [데이터 형식 범위](https://learn.microsoft.com/ko-kr/cpp/cpp/data-type-ranges?view=msvc-170)
-- 
 
 
 
