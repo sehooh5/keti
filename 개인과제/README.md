@@ -29,7 +29,15 @@
 
 - 정리 : 
   - **프로젝트 수는 2~3개** 
-  - 
+
+
+
+### 코딩테스트
+
+- 매일 1~3개 문제 풀기
+- 참고 사이트
+  - 프로그래머스 : https://school.programmers.co.kr/learn/challenges?order=recent&page=1
+  - LeetCode : https://leetcode.com/problemset/all/
 
 ### 과제내용
 
@@ -65,3 +73,35 @@
   - velog : 개발자 친화적
   - tistory : 구글 에드 가능
 
+
+
+#### 0206
+
+- 프로그래머스 코딩테스트 시작
+
+  ```python
+  import string
+  
+  s = "aukks"
+  skip = "wbqd"
+  index = 5
+  
+  alpha = [i for i in string.ascii_lowercase]
+  
+  def solution(s, skip, index):
+      answer = ''
+      
+      skip_list = list(skip)
+      for i in skip:
+          alpha.remove(i)
+      # 0~21
+      for i in s:
+          s_index = alpha.index(i)+5
+          if s_index > 21:
+              s_index = s_index-22
+          answer = answer+alpha[s_index]
+  
+      return answer
+  ```
+
+  
