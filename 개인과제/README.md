@@ -79,29 +79,64 @@
 
 - 프로그래머스 코딩테스트 시작
 
-  ```python
-  import string
-  
-  s = "aukks"
-  skip = "wbqd"
-  index = 5
-  
-  alpha = [i for i in string.ascii_lowercase]
-  
-  def solution(s, skip, index):
-      answer = ''
-      
-      skip_list = list(skip)
-      for i in skip:
-          alpha.remove(i)
-      # 0~21
-      for i in s:
-          s_index = alpha.index(i)+5
-          if s_index > 21:
-              s_index = s_index-22
-          answer = answer+alpha[s_index]
-  
-      return answer
-  ```
+  - import 없이 해야함(실패)
 
-  
+    ```py5hon
+    # import 를 쓰면 안되는듯 테스트 실패
+    import string
+    
+    s = "aukks"
+    skip = "wbqd"
+    index = 5
+    
+    alpha = [i for i in string.ascii_lowercase]
+    
+    def solution(s, skip, index):
+        answer = ''
+        
+        skip_list = list(skip)
+        for i in skip:
+            alpha.remove(i)
+        # 0~21
+        for i in s:
+            s_index = alpha.index(i)+5
+            if s_index > 21:
+                s_index = s_index-22
+            answer = answer+alpha[s_index]
+    
+        return answer
+    ```
+
+    
+
+  - 78.9% 성공
+
+    ```python
+    def solution(s, skip, index):
+        answer = ''
+        a_num = ord('a')
+        z_num = ord('z')
+        
+        num_list = list(range(a_num, z_num+1))
+        s_list = list(s)
+        skip_list = list(skip)
+        
+        for i in skip:
+            skip_num = ord(i)
+            num_list.remove(skip_num)
+            
+        nl_len = len(num_list) # index = 0~21
+            
+        for i in s:
+            s_num = ord(i)
+            s_index = num_list.index(s_num)+index
+            if s_index >= nl_len:
+                s_index = s_index - nl_len
+            num = num_list[s_index]
+            a_chr = chr(num)
+            answer = answer+a_chr
+    
+        return answer
+    ```
+
+    
