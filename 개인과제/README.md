@@ -79,15 +79,11 @@
 
 - 프로그래머스 코딩테스트 시작
 
-  - import 없이 해야함(실패)
+  - import 없이 해야함(78.9실패)
 
     ```py5hon
     # import 를 쓰면 안되는듯 테스트 실패
     import string
-    
-    s = "aukks"
-    skip = "wbqd"
-    index = 5
     
     alpha = [i for i in string.ascii_lowercase]
     
@@ -99,9 +95,9 @@
             alpha.remove(i)
         # 0~21
         for i in s:
-            s_index = alpha.index(i)+5
-            if s_index > 21:
-                s_index = s_index-22
+            s_index = alpha.index(i)+index
+            if s_index >= len(alpha):
+                s_index = s_index-len(alpha)
             answer = answer+alpha[s_index]
     
         return answer
@@ -140,3 +136,9 @@
     ```
 
     
+
+#### 0207
+
+- 블로그 
+  - 벨로그, 티스토리 작성 -코딩테스트 쉬운 내용
+- 코딩테스트 lv0 계속 풀어나가기
