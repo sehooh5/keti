@@ -140,7 +140,44 @@
 #### 0207
 
 - 블로그 
+
   - 벨로그, 티스토리 작성 -코딩테스트 쉬운 내용
+
 - 코딩테스트 lv0 계속 풀어나가기
+
 - 최빈값 안됨
+
   - 오답노트 작성할 것!
+
+  - ```
+    def solution(array):
+        a_len = len(array)
+        a_cnt = {}
+        cnt = 0
+        dup_cnt = 0
+        
+        for i in array:
+            cnt = 0
+            for j in range(0,a_len):
+                if i == array[j]:
+                    cnt+=1
+            
+            a_cnt[i]=cnt
+        
+        max_val = max(a_cnt.values())
+        max_key = max(a_cnt, key=a_cnt.get)
+        
+        for value in a_cnt.values():
+            if value == max_val:
+                dup_cnt+=1
+                
+        if dup_cnt >=2:
+            return -1      
+                    
+        return max_key
+    ```
+
+
+
+#### 0208
+
