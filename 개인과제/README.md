@@ -182,5 +182,23 @@
 #### 0209
 
 - 오답노트 후
+
 - 코딩테스트 진행
+
+  ```
+  def solution(sides):
+      sum = 0
+      max_index = sides.index(max(sides))
+      
+      for i in range(0,len(sides)):
+          if i != max_index:
+              sum+=sides[i]
+      
+      if sum > sides[max_index]:
+          return 1
+      
+      return 2
+  ```
+
+  
 
