@@ -200,5 +200,11 @@
       return 2
   ```
 
-  
+- 지식
+
+  - 리스트 내 갯수 세기
+    - array.count(n)
+  - 문자열은 곱셈이 가능하다
+    - string*4 = stringstringstringstring
+  - 
 
