@@ -206,5 +206,21 @@
     - array.count(n)
   - 문자열은 곱셈이 가능하다
     - string*4 = stringstringstringstring
-  - 
 
+
+
+#### 0210
+
+
+
+## 코딩테스트 지식
+
+- 리스트 내 갯수 세기
+  - array.count(n)
+
+- 문자열은 곱셈이 가능하다
+  - string*4 = stringstringstringstring
+
+- 소수점을 버리고 정수 만들기
+  - int(float)
+- 
