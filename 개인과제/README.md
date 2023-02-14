@@ -248,14 +248,40 @@
   - string*4 = stringstringstringstring
 
 - 소수점을 버리고 정수 만들기
+
   - int(float)
+
 - 알파벳 -> 아스키코드
+
   - ord("a") = 97
   - ord("A") = 65
+
 - 숫자 -> 알파벳
+
   - chr(97) = "a"
+
 - 배열 올림차순
+
   - [list 변수].sort() // 기존 list를 변경
   - [sorted_list 변수] = sorted([list 변수]) // 기존 list 변경 없이 새롭게 
+
 - 문자열 잘라서 리스트로 만들기
+
   - [문자열 변수].split('[자를 문자]')
+
+- 2차원 배열을 만들때
+
+  - array = []을 설정해주고 그 안에 다른 array2 배열을 append 해주면 된다
+
+- num! 팩토리얼 문제
+
+  - ```
+    for i in range(1,n+1):
+            num = 1
+            for j in range(1,i+1):
+                num*=j
+                if num > n:
+                    return i-1  
+    ```
+
+  - 
