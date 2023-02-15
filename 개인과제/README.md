@@ -239,6 +239,13 @@
 
 
 
+#### 0215
+
+- 그대로 진행
+- 클린코드 책 이번주내 끝내기
+
+
+
 ## 코딩테스트 지식
 
 - 리스트 내 갯수 세기
@@ -276,7 +283,8 @@
 - num! 팩토리얼 문제
 
   - ```
-    for i in range(1,n+1):
+    def solution(n):
+        for i in range(1,n+1):
             num = 1
             for j in range(1,i+1):
                 num*=j
@@ -284,4 +292,16 @@
                     return i-1  
     ```
 
+  - ```
+    def solution(n):
+        for i in range(1,12):
+            temp=1
+            for j in range(1,i+1):
+                temp*=j
+            if temp>n:
+                return i-1
+                break
+    ```
+
   - 
+
