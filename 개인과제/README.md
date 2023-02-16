@@ -250,6 +250,40 @@
 
 - 블로그 포스팅 및 코딩테스트
 
+  - ```
+    import re
+    
+    def solution(my_string):
+        answer = 0
+        numbers = re.findall(r'\d+', my_string)
+                
+        for num in numbers:
+            answer+=int(num)
+        return answer
+    ```
+
+  - ```
+    
+    def solution(my_string):
+        answer = 0
+        temp = ''
+        
+        for i in my_string:
+            if str.isdigit(i):
+                temp+=i
+            else:
+                try:
+                    answer+=int(temp)
+                    temp = ''
+                except:
+                    print("temp is empty")
+        if temp != '':
+            answer+=int(temp)
+        return answer
+    ```
+
+  - 
+
 
 
 
@@ -322,3 +356,17 @@
   - 리스트.sort()는 본체 리스트를 정렬해서 변환
   - sorted(리스트)는 본체 리스트는 그냥 두고, 정렬한 새로운 리스트 반환
     - 변수로 문자열을 넣어주면 각 문자를 배열로 정렬해서 리스트로 반환한다
+
+- str.isalpha(문자) / str.isdigit(문자)
+
+  - str.isalpha(문자) : 문자가 알파벳인지 확인
+  - str.isdigit(문자) : 문자가 숫자인지 확인
+
+- '0b10111' 문자열을 정수로
+
+  - int('0b10111',2)
+    - 2번째 인자는 2진수
+
+- 정수를 이진수로
+
+  - bin(정수)
