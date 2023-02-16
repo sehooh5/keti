@@ -246,14 +246,24 @@
 
 
 
+#### 0216
+
+- 블로그 포스팅 및 코딩테스트
+
+
+
+
+
 ## 코딩테스트 지식
 
 - 리스트 내 갯수 세기
-  - array.count(n)
-
+  
+- array.count(n)
+  
 - 문자열은 곱셈이 가능하다
-  - string*4 = stringstringstringstring
-
+  
+- string*4 = stringstringstringstring
+  
 - 소수점을 버리고 정수 만들기
 
   - int(float)
@@ -280,28 +290,35 @@
 
   - array = []을 설정해주고 그 안에 다른 array2 배열을 append 해주면 된다
 
-- num! 팩토리얼 문제
+- 자연수 주어졌을 때 약수 구하는 방법 
 
-  - ```
-    def solution(n):
-        for i in range(1,n+1):
-            num = 1
-            for j in range(1,i+1):
-                num*=j
-                if num > n:
-                    return i-1  
-    ```
+  ```python
+  def solution(n):
+      factors = []
+      for i in range(1, n+1):
+          if n % i == 0:
+              factors.append(i)
+      return factors
+  ```
 
-  - ```
-    def solution(n):
-        for i in range(1,12):
-            temp=1
-            for j in range(1,i+1):
-                temp*=j
-            if temp>n:
-                return i-1
-                break
-    ```
+- 배열에서 값 삭제
 
-  - 
+  - array.remove(값)
 
+- 소수 판별법
+
+  ```python
+  def is_prime_number(x):
+      # 2부터 (x - 1)까지의 모든 수를 확인하며
+      for i in range(2, x):
+          # x가 해당 수로 나누어떨어진다면
+          if x % i == 0:
+              return False # 소수가 아님
+      return True # 소수임
+  ```
+
+- sort() 와 sorted()
+
+  - 리스트.sort()는 본체 리스트를 정렬해서 변환
+  - sorted(리스트)는 본체 리스트는 그냥 두고, 정렬한 새로운 리스트 반환
+    - 변수로 문자열을 넣어주면 각 문자를 배열로 정렬해서 리스트로 반환한다
