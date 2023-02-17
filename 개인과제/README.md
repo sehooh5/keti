@@ -286,6 +286,139 @@
 
 
 
+#### 0217
+
+- 코딩테스트
+
+  - 오답 -> **정답**
+
+    ```python
+    
+    def solution(keyinput, board):
+        answer = [0,0]
+        max_ud = (board[1]-1)//2
+        max_lr = (board[0]-1)/2
+        
+        for key in keyinput:
+            
+            if key == 'up':
+                if  max_ud > answer[1] :
+                    answer[1]+=1        
+            elif key == 'down':
+                if  -max_ud < answer[1]:
+                    answer[1]-=1
+            
+            if key == 'right':
+                if  max_lr > answer[0]:
+                    print('r')
+                    answer[0]+=1
+            elif key == 'left':
+                if -max_lr < answer[0]:
+                    print('l')
+                    answer[0]-=1
+    
+        return answer
+        
+    
+    ```
+
+    
+
+  - 오답2
+
+    ```
+    
+    def solution(keyinput, board):
+        answer = [0,0]
+        max_ud = (board[1]-1)//2
+        max_lr = (board[0]-1)/2
+        
+        for key in keyinput:
+            if abs(answer[1]) < max_ud:
+                if key == 'up':
+                    answer[1]+=1
+                elif key == 'down':
+                    answer[1]-=1
+                    
+            if abs(answer[0]) < max_lr:            
+                if key == 'right':
+                    print('r')
+                    answer[0]+=1
+                elif key == 'left':
+                    print('l')
+                    answer[0]-=1
+        return answer
+    ```
+
+  - 오답3
+
+    ```
+    
+    def solution(keyinput, board):
+        answer = [0,0]
+        max_ud = (board[1]-1)//2
+        max_lr = (board[0]-1)/2
+        
+        for key in keyinput:
+            # answer[1]이 +1이 되는 경우 = answer[1]이 max_ud보다 작을때
+            # answer[1]이 max가 되어 정체되는 경우 = answer[1]이 max_ud와 같을 때 / 근데 -1은 가능
+            # answer[1]이 -1이 되는 경우 = answer[1]이 -max_ud보다 클때
+            # answer[1]이 -max가 되어 정체되는 경우 = answer[1]이 -max_ud와 같을 때 / 근데 +1은 가능
+            if answer[1] == max_ud:
+                if key == 'down':
+                    answer[1]-=1
+            elif abs(answer[1]) < max_ud:
+                if key == 'up':
+                    answer[1]+=1
+                elif key == 'down':
+                    answer[1]-=1
+            elif  answer[1] == -max_ud:
+                if key == 'up':
+                    answer[1]+=1
+    
+                
+            if answer[0] == max_ud:
+                if key == 'left':
+                    answer[0]-=1
+            elif abs(answer[0]) < max_ud:
+                if key == 'right':
+                    answer[0]+=1
+                elif key == 'left':
+                    answer[0]-=1
+            elif  answer[0] == -max_ud:
+                if key == 'right':
+                    answer[0]+=1
+        return answer
+    ```
+
+  - **정답**
+
+    ```python
+    
+    def solution(keyinput, board):
+        answer = [0,0]
+        max_board_x=(board[0]-1)/2
+        max_board_y=(board[1]-1)/2
+    
+        for i in keyinput:
+            if i =="up":
+                if max_board_y >= answer[1]+1:
+                    answer[1]+=1
+            elif i =="down":
+                if -max_board_y <= answer[1]-1:
+                    answer[1]-=1
+            elif i =="right":
+                if max_board_x >= answer[0]+1:
+                    answer[0]+=1
+            elif i=="left":
+                if -max_board_x <= answer[0]-1:
+                    answer[0]-=1
+    
+        return answer
+    ```
+
+    
+
 
 
 ## 코딩테스트 지식
