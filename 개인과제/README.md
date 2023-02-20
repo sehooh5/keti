@@ -425,15 +425,29 @@
 
 
 
+#### 0220
+
+- 리서치
+  - 포폴 예시 
+  - 깃 예시
+  - 경력 기술서 
+  - 링크드인
+- 공고 찾기
+  - 카카오 
+  - 사람인
+  - 자소설
+
+
+
 ## 코딩테스트 지식
 
 - 리스트 내 갯수 세기
   
-- array.count(n)
+  - array.count(n)
   
 - 문자열은 곱셈이 가능하다
   
-- string*4 = stringstringstringstring
+  - string*4 = stringstringstringstring
   
 - 소수점을 버리고 정수 만들기
 
