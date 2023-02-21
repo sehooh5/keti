@@ -88,3 +88,16 @@
 - 직사각형의 넓이
 
   - 최대값과 최소값의 x,y 차이를 곱해주면 된다
+
+- enumerate 함수 with for
+
+  - for i, num in enumerate(list):
+    - 0, A / 1,B
+
+- 연속하는 숫자 list 만들기
+
+  - list(range(1,10))
+
+- 두 개의 리스트 간 중복요소 찾기 
+
+  - **list(set(**리스트1**).intersection(**리스트2**))**
