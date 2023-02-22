@@ -442,3 +442,30 @@
 #### 0221
 
 - 코딩테스트 어렵
+
+
+
+#### 0222
+
+- 코딩테스트 오답
+
+- 블로그 작성
+
+- ```
+  def solution(chicken):
+      answer = 0
+      remain_sum = 0
+      while chicken>0:
+          service = chicken//10
+          remain_coupon = chicken%10
+          chicken = service
+          
+          answer+=service
+          remain_sum+=remain_coupon
+          if remain_sum>=10:
+              answer+=1
+              remain_sum-=9 
+      return answer
+  ```
+
+- 
