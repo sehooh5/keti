@@ -101,3 +101,10 @@
 - 두 개의 리스트 간 중복요소 찾기 
 
   - **list(set(**리스트1**).intersection(**리스트2**))**
+  
+- 리스트에서 순서 찾기
+
+  - list.find('x')
+    - 찾는게 없으면 -1 return
+  - list.index('x')
+    - 찾는게 없으면 ValueError 발생
