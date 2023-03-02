@@ -282,7 +282,6 @@
         return answer
     ```
 
-  - 
 
 
 
@@ -322,79 +321,10 @@
     
     ```
 
-    
-
-  - 오답2
-
-    ```
-    
-    def solution(keyinput, board):
-        answer = [0,0]
-        max_ud = (board[1]-1)//2
-        max_lr = (board[0]-1)/2
-        
-        for key in keyinput:
-            if abs(answer[1]) < max_ud:
-                if key == 'up':
-                    answer[1]+=1
-                elif key == 'down':
-                    answer[1]-=1
-                    
-            if abs(answer[0]) < max_lr:            
-                if key == 'right':
-                    print('r')
-                    answer[0]+=1
-                elif key == 'left':
-                    print('l')
-                    answer[0]-=1
-        return answer
-    ```
-
-  - 오답3
-
-    ```
-    
-    def solution(keyinput, board):
-        answer = [0,0]
-        max_ud = (board[1]-1)//2
-        max_lr = (board[0]-1)/2
-        
-        for key in keyinput:
-            # answer[1]이 +1이 되는 경우 = answer[1]이 max_ud보다 작을때
-            # answer[1]이 max가 되어 정체되는 경우 = answer[1]이 max_ud와 같을 때 / 근데 -1은 가능
-            # answer[1]이 -1이 되는 경우 = answer[1]이 -max_ud보다 클때
-            # answer[1]이 -max가 되어 정체되는 경우 = answer[1]이 -max_ud와 같을 때 / 근데 +1은 가능
-            if answer[1] == max_ud:
-                if key == 'down':
-                    answer[1]-=1
-            elif abs(answer[1]) < max_ud:
-                if key == 'up':
-                    answer[1]+=1
-                elif key == 'down':
-                    answer[1]-=1
-            elif  answer[1] == -max_ud:
-                if key == 'up':
-                    answer[1]+=1
-    
-                
-            if answer[0] == max_ud:
-                if key == 'left':
-                    answer[0]-=1
-            elif abs(answer[0]) < max_ud:
-                if key == 'right':
-                    answer[0]+=1
-                elif key == 'left':
-                    answer[0]-=1
-            elif  answer[0] == -max_ud:
-                if key == 'right':
-                    answer[0]+=1
-        return answer
-    ```
-
   - **정답**
 
     ```python
-    
+  
     def solution(keyinput, board):
         answer = [0,0]
         max_board_x=(board[0]-1)/2
@@ -447,35 +377,24 @@
 
 - 블로그 작성
 
-- ```
-  def solution(chicken):
-      answer = 0
-      remain_sum = 0
-      while chicken>0:
-          service = chicken//10
-          remain_coupon = chicken%10
-          chicken = service
-          
-          answer+=service
-          remain_sum+=remain_coupon
-          if remain_sum>=10:
-              answer+=1
-              remain_sum-=9 
-      return answer
-  ```
 
 
 
 #### 0223
 
 - 코딩테스트 0 완료
-- 리서치
-  - 포폴 예시 
-  - 깃 예시
-  - 경력 기술서 
-  - 링크드인
 - 공고 찾기
   - 카카오 
   - 사람인
   - 자소설
+
+
+
+#### 0302
+
+- 리서치
+  - 포폴 예시 
+  - 깃 예시
+- 코딩테스트
+  - lv1.  대충 만든 자판
 
