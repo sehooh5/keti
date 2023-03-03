@@ -89,7 +89,7 @@
 
   - 최대값과 최소값의 x,y 차이를 곱해주면 된다
 
-- enumerate 함수 with for
+- enumerate 함수 with for - 문자열, 리스트 전부 사용 가능
 
   - for i, num in enumerate(list):
     - 0, A / 1,B
@@ -108,3 +108,5 @@
     - 찾는게 없으면 -1 return
   - list.index('x')
     - 찾는게 없으면 ValueError 발생
+
+- 
