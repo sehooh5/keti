@@ -413,40 +413,12 @@
 #### 0306
 
 - 테스트 본거 정리하는데 줄이는거 생각 다시 해서 줄여서 블로그 올리기
-
 - 내일 대충만든자판 문제 해결하기
+- 경력기술서 내용 다시 정리
 
-  ```
-  def solution(keymap, targets):
-      # keymap =  ["AA", "CC"] #["AGC"]
-      # targets = ["B", "D"] #["AGZ"] 
-      answer = []
-      for index, target in enumerate(targets):
-          cnt = 0
-          answer.append(0)
-          for t in target:
-              key_temp = []
-              print(check_key(t, keymap))
-              if check_key(t, keymap) == 1:
-                  # keymab 에 t가 잇음
-                  for key in keymap:
-                      for i, k in enumerate(key):
-                          if k == t:
-                              key_temp.append(i+1)
-                  cnt+=min(key_temp)
-                  answer[index] = cnt    
-              else:
-                  # keymab 에 t가 없음 -> answer배열에 append -1
-                  answer[index] = -1
-  
-      return answer
-  
-  def check_key(string, key_list):
-      for key in key_list:
-          if string in key:
-              
-              return 1
-      return -1
-  ```
 
-  
+
+#### 0307
+
+- 대충만든 자판 블로그 오답노트 작성
+
