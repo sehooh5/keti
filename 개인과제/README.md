@@ -429,3 +429,28 @@
 
 - 챗gpt api 다운로드 및 적용
 
+- 코테
+
+  ```
+  def solution(s):
+      answer = []
+      
+      for i in range(len(s)):
+          answer.append(0)
+  
+      for i1, s1 in enumerate(s):
+          temp = []
+          for i2, s2 in enumerate(s):
+              if s1 == s2:
+                  temp.append(i2)
+                  
+          answer[temp[0]] = -1
+          for i3, num in enumerate(temp):
+              if answer[num] == 0:
+                  answer[num] = temp[i3]-temp[i3-1]              
+                  
+      return answer
+  ```
+
+  
+
