@@ -454,3 +454,54 @@
 
   
 
+#### 0310
+
+- 코테 오답
+
+  - 'baaa'일 경우 해결하기 14일에
+
+  ```python
+  def solution(s):
+      answer = 0
+      # 문제 이해가 어려웠는데 
+      cnt = 0
+      s_list = []
+      
+      
+      for s1 in s:
+          new_s1 = ""
+          same = 0
+          diff = 0
+          cnt = 0
+              
+          for s2 in s:            
+              if s1 == s2:
+                  same+=1
+                  new_s1+=s2
+                  cnt+=1
+              else : 
+                  diff+=1
+                  new_s1+=s2
+                  cnt+=1
+  
+              if same == diff:
+                  s = s[cnt:]
+                  s_list.append(new_s1)
+                  break
+              elif len(s) == 1 :
+                  s_list.append(s)
+                  s = []
+                  break
+      print(s_list)            
+      return len(s_list)
+  ```
+
+
+
+#### 0314
+
+- 문자열 나누기 진행
+- 포폴 .... !!! 토욜 완성 목표
+
+
+
