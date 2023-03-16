@@ -501,7 +501,42 @@
 #### 0314
 
 - 문자열 나누기 진행
+
+  ```
+  # 정답
+  def solution(s):
+      answer = []
+      
+      # baaa일 경우 
+      # s='baaa'
+      s2 = ''
+      for s1 in s:    
+          s2+=s1
+          # s2 내에 s2[0]의 개수가 len(s2)//2 과 같을 때 answer에 append
+          if s2.count(s2[0]) == len(s2)/2 or len(s) == 1:
+              s = s[len(s2):]
+              answer.append(s2)
+              s2 = ''
+          elif len(s2) == len(s):
+              s = s[len(s2):]
+              answer.append(s2)
+              s2 = ''
+  
+                  
+      print(answer)
+      return len(answer)
+  ```
+
+  
+
 - 포폴 .... !!! 토욜 완성 목표
+
+
+
+#### 0316
+
+- git에 잇는 포트폴리오 살려서 페이지 만들기
+- 
 
 
 
