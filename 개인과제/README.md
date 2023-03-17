@@ -536,7 +536,14 @@
 #### 0316
 
 - git에 잇는 포트폴리오 살려서 페이지 만들기
-- 
+
+
+
+#### 0317
+
+- 포폴 내용 입력
+  - 주소 : https://sehooh5.github.io/ 
+  - 자료 : git, google drive, local in mac
 
 
 
