@@ -560,6 +560,7 @@
 
 - 프로젝트 세부내용 입력
 - git page 업데이트가 안됨
+  - 오류 메시지 : Environment URL '' is not a valid http(s) URL, so it will not be shown as a link in the workflow graph.
 
 
 
