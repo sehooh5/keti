@@ -64,6 +64,14 @@
       - rtsp://root:keti1234@192.168.225.30:88/videoMain
       - Edge 로 재전송 :  vlc -vvv rtsp://root:keti1234@192.168.225.30:88/videoMain --sout="#rtp{dst=123.214.186.162,port=5004,mux=ts}" --no-sout-all --sout-keep
     - 5G Blackbox
-      - 모뎀 : 큐오핀 
+      - 모뎀 : 큐오핀 (가변)
       - rtsp://192.168.1.101:554/h264
       - Edge 로 재전송 : cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep
+
+
+
+#### 0323
+
+- video-streaming.py 파일 각 카메라 주소 5G 스트리밍으로 변경해보기
+- 핸드폰에 이미지로 EDMS_현황도 그려놓음
+  - 지금 이 방법이 맞는지 잘 모르겠음
