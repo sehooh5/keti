@@ -33,6 +33,37 @@
 #### 0322
 
 - 5G 단말기 복구
+
   - Quopin(가변) : 잘됨
   - Quopin(고정) : 인터넷 연결 안됨
   - Hucom(고정) : 인터넷 연결 안됨
+  - SKT : No signal
+
+  -> 업체에 고정IP 설정, 인터넷 연결 어떻게하는지 문의 필요
+
+- EDMS 서버 실행 방법 숙지해두기
+
+  - 방법 전달받아서 기록해두기
+
+- 기존 시스템 복구 및 시연
+
+  - video-streaming.py 파일 각 카메라 주소 바꿔줘야함**(5G 복구되면)**
+    - 현재는 실험실에 사용 가능한 카메라 사용중
+      - 1번 카메라 : rtsp://root:keti@192.168.0.94/onvif-media/media.amp
+      - 2번 카메라 : rtsp://root:keti@192.168.0.93/onvif-media/media.amp
+  - **<mark>전체 구조</mark>** : 
+    - Edge Server
+      - 주소 : 123.214.186.162
+      - RSTP 재전송 : 
+        - 5G CCTV
+          - cvlc -vvv rtp://123.214.186.162:5004 --sout="#rtp{sdp=rtsp://123.214.186.162:8554/videoMain}" --no-sout-all --sout-keep
+        - 5G Blackbox **- <mark>되긴 되는데 패킷손실이 많고 느림</mark>**
+          - cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://123.214.186.162:8555/videoMain}" --no-sout-all --sout-keep
+    - 5G CCTV
+      - 모뎀 : SKT
+      - rtsp://root:keti1234@192.168.225.30:88/videoMain
+      - Edge 로 재전송 :  vlc -vvv rtsp://root:keti1234@192.168.225.30:88/videoMain --sout="#rtp{dst=123.214.186.162,port=5004,mux=ts}" --no-sout-all --sout-keep
+    - 5G Blackbox
+      - 모뎀 : 큐오핀 
+      - rtsp://192.168.1.101:554/h264
+      - Edge 로 재전송 : cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep
