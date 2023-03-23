@@ -292,7 +292,7 @@ def connect_device():
         sname=edge_name,
         option=option
     )
-    return "200"
+    return res
 
 
 # 2.4 엣지서버에 연결된 디바이스 연결 해지
