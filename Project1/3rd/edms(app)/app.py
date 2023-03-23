@@ -261,7 +261,7 @@ def connect_device():
 
     # 디바이스 정보 추출
     d_url = "rtsp://root:keti@" + \
-        device.json()["ip"]+":"+"/onvif-media/media.amp"
+        device.json()["ip"]+"/onvif-media/media.amp"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: device url: {d_url}")
     d_name = device.json()["name"]
