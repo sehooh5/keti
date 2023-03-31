@@ -6,7 +6,7 @@ import sys
 
 url = "http://123.214.186.162:8088"
 
-path = "./gwg4.so"
+path = "./gwg.so"
 c_module = ctypes.cdll.LoadLibrary(path)
 # Global 변수 설정
 global ss, ms
