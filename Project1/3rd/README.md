@@ -27,10 +27,39 @@
 
 #### gps
 
-- gps 및 gyro 시리얼 통신 데이터 전처리 및 전송 앱
-  - /gps_with_gyro4.cpp : 단말 서버에서 시리얼 통신으로 gps 및 gyro 데이터를 받아 전처리
-  - /gps_with_gyro4.py : 모듈화 된 gps_with_gyro4.cpp의 gps 및 gyro 데이터를 엣지서버에 전달
+- 엣지서버(현 keti0(W-graphic))에서 실행되는 서버
+  
   - /gwg_server.py : 엣지서버에서 실행되는 앱으로 gps 및 gyro 데이터를 저장 혹은 바로 재전송 가능
+  
+- **/gwg 폴더**
+  
+  - gps 및 gyro 시리얼 통신 데이터 전처리 및 전송 앱
+    
+    - /gps_with_gyro.cpp : 단말 서버에서 시리얼 통신으로 gps 및 gyro 데이터를 받아 전처리
+    
+      - 실행 방법 : 
+    
+        1. 컴파일러 실행
+    
+           `g++ -shared -fPIC -o gwg.so ./gps_with_gyro.cpp`
+    
+        2. .so 라이브러리 파일 생성 
+    
+           폴더에 `gwg.so`파일이 생성된 것을 확인 가능
+    
+    - /gps_with_gyro.py : 모듈화 된 gps_with_gyro4.cpp의 gps 및 gyro 데이터를 엣지서버에 전달
+    
+      - 실행 방법
+    
+        - 방법 1. 데이터 실시간 전송
+    
+          `sudo python3 gps_with_gyro.py`
+    
+        - 방법 2. 데이터 실시간 전송 후 저장
+    
+          `sudo python3 gps_with_gyro.py (뒤에 입력값 아무거나 입력)`
+    
+      
 
 
 
