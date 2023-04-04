@@ -161,22 +161,31 @@ extern "C"
 
         return 0;
     }
-    int recv_data(int fd, unsigned char* recv_buffer, int max_length)
-    {
-        int total_length = 0;
-        while (total_length < max_length) {
-            int length = read(fd, recv_buffer + total_length, max_length - total_length);
-            if (length < 0) {
-                return -1; // 에러 발생 시 -1 반환
-            }
-            else if (length == 0) {
-                break; // EOF
-            }
-            else {
-                total_length += length;
-            }
+
+//    int recv_data(int fd, unsigned char* recv_buffer, int max_length)
+//    {
+//        int total_length = 0;
+//        while (total_length < max_length) {
+//            int length = read(fd, recv_buffer + total_length, max_length - total_length);
+//            if (length < 0) {
+//                return -1; // 에러 발생 시 -1 반환
+//            }
+//            else if (length == 0) {
+//                break; // EOF
+//            }
+//            else {
+//                total_length += length;
+//            }
+//        }
+//        return total_length;
+//    }
+    int recv_data(int fd, unsigned char* recv_buffer, int length) {
+        int ret = read(fd, recv_buffer, length); // read() 함수의 리턴값을 저장
+        if (ret < 0) { // 에러 처리
+            perror("Error reading from UART");
+            return -1;
         }
-        return total_length;
+        return ret; // 실제로 읽은 데이터의 크기를 리턴
     }
 
     //0x50 Time data 추출
@@ -681,7 +690,7 @@ extern "C"
         while(1)
         {
             ret = recv_data(fd,r_buf,sizeof(r_buf));
-            if(ret == -1)
+            if(ret < 0)
             {
                 fprintf(stderr,"uart read failed!\n");
                 exit(EXIT_FAILURE);
