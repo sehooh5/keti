@@ -33,8 +33,9 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
+    print("11111111")
     c_module.process(ctypes.pointer(str)) # byref
-    time.sleep(1.5)
+    time.sleep(0.5)
     print("데이터 출력 : ")
 
     ss = str.ss
@@ -51,8 +52,11 @@ while True:
         "quaternion":{"q0": str.q0, "q1": str.q1, "q2": str.q2, "q3": str.q3},
         "satelite":{"snum": str.sn, "pdop": str.pdop, "hdop": str.hdop, "vdop": str.vdop},
     }
+    print("2222222")
     print(data)
+    print("3333333")
     json_data = json.dumps(data)
+    print("4444444")
     arg = sys.argv
 
     if len(arg) > 1 :
