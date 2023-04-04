@@ -648,28 +648,33 @@ extern "C"
         printf("process 진입!\n");
         checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
+        printf("1");
         bzero(r_buf,1024);
-
+        printf("2");
         memset(chrBuf, 0x00, 2000);
-
+        printf("3");
         fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+        printf("4");
         if(fd == -1)
         {
+            printf("5");
             fprintf(stderr,"uart_open error\n");
             exit(EXIT_FAILURE);
         }
 
         if(uart_set(fd,BAUD,8,'N',1) == -1)
         {
+            printf("6");
             fprintf(stderr,"uart set failed!\n");
             exit(EXIT_FAILURE);
         }
-
+        printf("7");
         FILE *fp;
+        printf("8");
         fp = fopen("Record.txt","w");
+        printf("9");
         while(1)
         {
-            printf("while 문 진입!");
             ret = recv_data(fd,r_buf,44);
             if(ret == -1)
             {
@@ -682,7 +687,6 @@ extern "C"
             fprintf(fp,"%2X ",r_buf[i]);
             ParseData(r_buf[i]);
             // 1216 체크해서 out
-            printf("checker 확인!");
             if(checker == 1){
                 checker=0;
                 break;
