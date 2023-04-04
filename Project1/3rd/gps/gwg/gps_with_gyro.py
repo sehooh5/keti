@@ -61,6 +61,7 @@ while True:
         requests.post(f'{url}/cgwg', json=json_data)
 
     # time.sleep(0.5)
+    
     # res = req_post(url)
     # print(res)
 
