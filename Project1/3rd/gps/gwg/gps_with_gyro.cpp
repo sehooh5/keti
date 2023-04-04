@@ -161,7 +161,7 @@ extern "C"
 
         return 0;
     }
-    int recv_data(int fd, unsigned char* recv_buffer,int length)
+    int recv_data(int fd, unsigned char* recv_buffer, int max_length)
     {
         int total_length = 0;
         while (total_length < max_length) {
