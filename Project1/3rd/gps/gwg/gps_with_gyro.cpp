@@ -645,7 +645,7 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-        sleep(0.5);
+        sleep(1);
         checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
         bzero(r_buf,1024);
@@ -686,7 +686,7 @@ extern "C"
                 }
             }
             if(checker == 0){break;}
-            sleep(0.5);
+            sleep(1);
         }
         // 1216 struct 값 입력 및 반환
         printf("구조체 전달!\n");
