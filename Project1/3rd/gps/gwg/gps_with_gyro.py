@@ -34,7 +34,7 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 while True:
     c_module.process(ctypes.pointer(str)) # byref
-    time.sleep(1)
+    time.sleep(1.5)
     print("데이터 출력 : ")
 
     ss = str.ss

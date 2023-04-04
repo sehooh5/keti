@@ -470,38 +470,6 @@ extern "C"
         }
     }
 
-//    // 1212 파일 읽기
-
-//    EXPORT const char* sendData() {
-//      // 파일 읽기 준비
-//      std::ifstream in("test.txt");
-//      std::string s;
-//
-//      if (in.is_open()) {
-//        // 위치 지정자를 파일 끝으로 옮긴다.
-//        in.seekg(0, std::ios::end);
-//
-//        // 그리고 그 위치를 읽는다. (파일의 크기)
-//        int size = in.tellg();
-//
-//        // 그 크기의 문자열을 할당한다.
-//        s.resize(size);
-//
-//        // 위치 지정자를 다시 파일 맨 앞으로 옮긴다.
-//        in.seekg(0, std::ios::beg);
-//
-//        // 파일 전체 내용을 읽어서 문자열에 저장한다.
-//        in.read(&s[0], size);
-//        std::cout << s << std::endl;
-////        printf("%s", s.c_str());
-//      } else {
-//        std::cout << "파일을 찾을 수 없습니다!" << std::endl;
-//      }
-//
-//      return s.c_str();
-//    }
-
-    // 1216
     int checker;
 
     // 변수 설정
@@ -516,7 +484,6 @@ extern "C"
     float q0; float q1; float q2; float q3;//0x59
     float sn; float pdop; float hdop; float vdop;//0x5a
 
-    //string str = "";
     static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
 
     // Parsing Data
@@ -527,7 +494,6 @@ extern "C"
             unsigned char cTemp=0;
             time_t now;
             chrBuf[chrCnt++]=chr;
-    //        printf( "num : %d, chr : %d \n", chrCnt-1, (int)chr);
 
             if (chrCnt<11) return;
             for (i=0;i<10;i++) cTemp += chrBuf[i];
@@ -726,16 +692,6 @@ extern "C"
         printf("구조체 전달!\n");
         Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
         *((Struct*)st) = temp;
-//        printf("%f %f\n",ax,wx);
-
-//        ret = uart_close(fd);
-//        if(ret == -1)
-//        {
-//            fprintf(stderr,"uart_close error\n");
-//            exit(EXIT_FAILURE);
-//        }
-//
-//        exit(EXIT_SUCCESS);
     }
 
     int main(void)
