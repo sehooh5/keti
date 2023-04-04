@@ -645,34 +645,27 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-        printf("process 진입!\n");
+        usleep(2000);
         checker = 3;
         unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
-        printf("1");
         bzero(r_buf,1024);
-        printf("2");
         memset(chrBuf, 0x00, 2000);
-        printf("3");
+
         fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
-        printf("4");
         if(fd == -1)
         {
-            printf("5");
             fprintf(stderr,"uart_open error\n");
             exit(EXIT_FAILURE);
         }
 
         if(uart_set(fd,BAUD,8,'N',1) == -1)
         {
-            printf("6");
             fprintf(stderr,"uart set failed!\n");
             exit(EXIT_FAILURE);
         }
-        printf("7");
+
         FILE *fp;
-        printf("8");
         fp = fopen("Record.txt","w");
-        printf("9");
         while(1)
         {
             ret = recv_data(fd,r_buf,44);
@@ -692,7 +685,7 @@ extern "C"
                 break;
             }
             }
-            if(checker == 0){printf("checker=0 멈춤!"); break;}
+            if(checker == 0){break;}
             usleep(2000);
         }
         // 1216 struct 값 입력 및 반환
@@ -744,7 +737,7 @@ extern "C"
             }
             }
             if(checker == 0){break;}
-            usleep(500);
+            usleep(2000);
         }
         // 1216 struct 값 입력 및 반환
         printf("ss : %d\n", ss);
