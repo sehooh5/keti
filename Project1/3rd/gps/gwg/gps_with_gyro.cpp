@@ -645,10 +645,10 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-        sleep(1);
+//        sleep(1);
         checker = 3;
-        unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
-        bzero(r_buf,1024);
+        unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
+        bzero(r_buf,44);
         memset(chrBuf, 0x00, 2000);
 
         fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
@@ -668,7 +668,7 @@ extern "C"
         fp = fopen("Record.txt","w");
         while(1)
         {
-            ret = recv_data(fd,r_buf,44);
+            ret = recv_data(fd,r_buf,sizeof(r_buf));
             if(ret == -1)
             {
                 fprintf(stderr,"uart read failed!\n");

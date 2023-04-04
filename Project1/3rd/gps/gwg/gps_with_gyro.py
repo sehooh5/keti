@@ -33,7 +33,7 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
-    time.sleep(1)
+    # time.sleep(1)
     c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
 
     print("데이터 출력 : ")
