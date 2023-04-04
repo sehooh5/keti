@@ -34,7 +34,7 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 while True:
     c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
-    time.sleep(0.5)
+    # time.sleep(0.5)
     print("데이터 출력 : ")
 
     ss = str.ss
@@ -60,7 +60,7 @@ while True:
     else:
         requests.post(f'{url}/cgwg', json=json_data)
 
-    time.sleep(0.5)
+    # time.sleep(0.5)
     # res = req_post(url)
     # print(res)
 

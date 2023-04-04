@@ -499,7 +499,7 @@ extern "C"
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
-                printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
+//                printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
                 return;
@@ -509,7 +509,7 @@ extern "C"
             switch(chrBuf[1])
             {
                     case 0x50:
-                        printf("\r\n[[Data Output Start]]\r\n");
+//                        printf("\r\n[[Data Output Start]]\r\n");
                         yy = get_time(chrBuf, 1);
                         mm = get_time(chrBuf, 2);
                         dd = get_time(chrBuf, 3);
