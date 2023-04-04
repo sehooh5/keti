@@ -163,15 +163,20 @@ extern "C"
     }
     int recv_data(int fd, unsigned char* recv_buffer,int length)
     {
-        int read_size = read(fd, recv_buffer, length);
-        if (read_size < 0) {
-            fprintf(stderr, "uart read failed!\n");
-            exit(EXIT_FAILURE);
+        int total_length = 0;
+        while (total_length < max_length) {
+            int length = read(fd, recv_buffer + total_length, max_length - total_length);
+            if (length < 0) {
+                return -1; // 에러 발생 시 -1 반환
+            }
+            else if (length == 0) {
+                break; // EOF
+            }
+            else {
+                total_length += length;
+            }
         }
-        if (read_size > length) {
-            read_size = length;
-        }
-        return read_size;
+        return total_length;
     }
 
     //0x50 Time data 추출
