@@ -696,7 +696,7 @@ extern "C"
                     }
                 }
                 if(checker == 0){break;}
-                sleep(1);
+//                sleep(1);
             }
             // 1216 struct 값 입력 및 반환
             printf("구조체 전달!\n");
