@@ -679,8 +679,7 @@ extern "C"
                     fprintf(stderr,"uart read failed!\n");
                     exit(EXIT_FAILURE);
                 }
-                if(ret > 0){printf("**Received data length: %d\n", ret);}
-
+//                if(ret > 0){printf("**Received data length: %d\n", ret);}
 
                 for (int i=0;i<ret;i++)
                 {

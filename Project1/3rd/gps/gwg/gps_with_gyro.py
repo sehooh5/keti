@@ -1,6 +1,6 @@
 import ctypes
 import requests
-import time
+import traceback
 import json
 import sys
 
@@ -34,8 +34,11 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 while True:
     # time.sleep(1)
-    c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
-
+    try:
+        c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
+    except Exception as e:
+        print(e)
+        traceback.print_exc()
     print("데이터 출력 : ")
 
     ss = str.ss
