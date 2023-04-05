@@ -495,7 +495,7 @@ extern "C"
     // Parsing Data
     void ParseData(unsigned char chr)
     {
-            printf("ParseData 함수 진입\n");
+//            printf("ParseData 함수 진입\n");
             static unsigned char chrCnt=0;
             unsigned char i;
             unsigned char cTemp=0;
@@ -711,59 +711,64 @@ extern "C"
 
     int main(void)
     {
-        checker = 3;
-        unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
-        bzero(r_buf,1024);
+        try{
+            checker = 3;
+            unsigned char r_buf[1024];// 여기부터 unsigned char 로 수정
+            bzero(r_buf,1024);
 
-        memset(chrBuf, 0x00, 2000);
+            memset(chrBuf, 0x00, 2000);
 
-        fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
-        if(fd == -1)
-        {
-            fprintf(stderr,"uart_open error\n");
-            exit(EXIT_FAILURE);
-        }
-
-        if(uart_set(fd,BAUD,8,'N',1) == -1)
-        {
-            fprintf(stderr,"uart set failed!\n");
-            exit(EXIT_FAILURE);
-        }
-
-        FILE *fp;
-        fp = fopen("Record.txt","w");
-        while(1)
-        {
-            ret = recv_data(fd,r_buf,44);
-            if(ret == -1)
+            fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+            if(fd == -1)
             {
-                fprintf(stderr,"uart read failed!\n");
+                fprintf(stderr,"uart_open error\n");
                 exit(EXIT_FAILURE);
             }
 
-            for (int i=0;i<ret;i++)
+            if(uart_set(fd,BAUD,8,'N',1) == -1)
             {
-            fprintf(fp,"%2X ",r_buf[i]);
-            ParseData(r_buf[i]);
-            // 1216 체크해서 out
-            if(checker == 1){
-                checker=0;
-                break;
+                fprintf(stderr,"uart set failed!\n");
+                exit(EXIT_FAILURE);
             }
-            }
-            if(checker == 0){break;}
-            usleep(2000);
-        }
-        // 1216 struct 값 입력 및 반환
-        printf("ss : %d\n", ss);
-        ret = uart_close(fd);
-        if(ret == -1)
-        {
-            fprintf(stderr,"uart_close error\n");
-            exit(EXIT_FAILURE);
-        }
 
-        exit(EXIT_SUCCESS);
+            FILE *fp;
+            fp = fopen("Record.txt","w");
+            while(1)
+            {
+                ret = recv_data(fd,r_buf,44);
+                if(ret == -1)
+                {
+                    fprintf(stderr,"uart read failed!\n");
+                    exit(EXIT_FAILURE);
+                }
+
+                for (int i=0;i<ret;i++)
+                {
+                fprintf(fp,"%2X ",r_buf[i]);
+                ParseData(r_buf[i]);
+                // 1216 체크해서 out
+                if(checker == 1){
+                    checker=0;
+                    break;
+                }
+                }
+                if(checker == 0){break;}
+                usleep(2000);
+            }
+            // 1216 struct 값 입력 및 반환
+            printf("ss : %d\n", ss);
+            ret = uart_close(fd);
+            if(ret == -1)
+            {
+                fprintf(stderr,"uart_close error\n");
+                exit(EXIT_FAILURE);
+            }
+
+            exit(EXIT_SUCCESS);
+        } catch (std::exception& e) {
+            std::cerr << "Exception caught: " << e.what() << std::endl;
+            exit(1);
+        }
     }
 }
 
