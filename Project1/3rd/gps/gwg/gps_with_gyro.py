@@ -33,7 +33,7 @@ while True:
     except Exception as e:
         print(e)
         traceback.print_exc()
-    time.sleep(1)
+    time.sleep(0.5)
 
     print("데이터 출력 : ")
 
@@ -51,6 +51,7 @@ while True:
         "quaternion":{"q0": str.q0, "q1": str.q1, "q2": str.q2, "q3": str.q3},
         "satelite":{"snum": str.sn, "pdop": str.pdop, "hdop": str.hdop, "vdop": str.vdop},
     }
+    time.sleep(0.5)
     print(data)
     json_data = json.dumps(data)
     arg = sys.argv
