@@ -676,6 +676,7 @@ extern "C"
             fp = fopen("Record.txt","w");
             while(1)
             {
+//                sleep(0.5);
                 ret = recv_data(fd,r_buf,sizeof(r_buf));
                 if(ret == -1)
                 {
@@ -696,7 +697,7 @@ extern "C"
                     }
                 }
                 if(checker == 0){break;}
-//                sleep(1);
+//
             }
             // 1216 struct 값 입력 및 반환
             printf("구조체 전달!\n");
