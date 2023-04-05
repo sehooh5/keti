@@ -650,55 +650,60 @@ extern "C"
     // main 동작과 같음
     EXPORT void process(void* st)
     {
-//        sleep(1);
-        checker = 3;
-        unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
-        bzero(r_buf,44);
-        memset(chrBuf, 0x00, 2000);
+        try{
+            checker = 3;
+            unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
+            bzero(r_buf,44);
+            memset(chrBuf, 0x00, 2000);
 
-        fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
-        if(fd == -1)
-        {
-            fprintf(stderr,"uart_open error\n");
-            exit(EXIT_FAILURE);
-        }
-
-        if(uart_set(fd,BAUD,8,'N',1) == -1)
-        {
-            fprintf(stderr,"uart set failed!\n");
-            exit(EXIT_FAILURE);
-        }
-
-        FILE *fp;
-        fp = fopen("Record.txt","w");
-        while(1)
-        {
-            ret = recv_data(fd,r_buf,sizeof(r_buf));
-            if(ret == -1)
+            fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+            if(fd == -1)
             {
-                fprintf(stderr,"uart read failed!\n");
+                fprintf(stderr,"uart_open error\n");
                 exit(EXIT_FAILURE);
             }
-            if(ret > 0){printf("**Received data length: %d\n", ret);}
 
-
-            for (int i=0;i<ret;i++)
+            if(uart_set(fd,BAUD,8,'N',1) == -1)
             {
-                fprintf(fp,"%2X ",r_buf[i]);
-                ParseData(r_buf[i]);
-                // 1216 체크해서 out
-                if(checker == 1){
-                    checker=0;
-                    break;
-                }
+                fprintf(stderr,"uart set failed!\n");
+                exit(EXIT_FAILURE);
             }
-            if(checker == 0){break;}
-//            sleep(1);
+
+            FILE *fp;
+            fp = fopen("Record.txt","w");
+            while(1)
+            {
+                ret = recv_data(fd,r_buf,sizeof(r_buf));
+                if(ret == -1)
+                {
+                    fprintf(stderr,"uart read failed!\n");
+                    exit(EXIT_FAILURE);
+                }
+                if(ret > 0){printf("**Received data length: %d\n", ret);}
+
+
+                for (int i=0;i<ret;i++)
+                {
+                    fprintf(fp,"%2X ",r_buf[i]);
+                    ParseData(r_buf[i]);
+                    // 1216 체크해서 out
+                    if(checker == 1){
+                        checker=0;
+                        break;
+                    }
+                }
+                if(checker == 0){break;}
+    //            sleep(1);
+            }
+            // 1216 struct 값 입력 및 반환
+            printf("구조체 전달!\n");
+            Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
+            *((Struct*)st) = temp;
+        } catch (std::exception& e) {
+            std::cerr << "Exception caught: " << e.what() << std::endl;
+            exit(1);
         }
-        // 1216 struct 값 입력 및 반환
-        printf("구조체 전달!\n");
-        Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
-        *((Struct*)st) = temp;
+
     }
 
     int main(void)
