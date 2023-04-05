@@ -164,20 +164,12 @@ extern "C"
 
     int recv_data(int fd, unsigned char* recv_buffer, int max_length)
     {
-        int total_length = 0;
-        while (total_length < max_length) {
-            int length = read(fd, recv_buffer + total_length, max_length - total_length);
-            if (length < 0) {
-                return -1; // 에러 발생 시 -1 반환
-            }
-            else if (length == 0) {
-                break; // EOF
-            }
-            else {
-                total_length += length;
-            }
+        int length = read(fd, recv_buffer, max_length);
+        if (length < 0) {
+            fprintf(stderr, "Error reading data from UART\n");
+            exit(EXIT_FAILURE);
         }
-        return total_length;
+        return length;
     }
 
     //0x50 Time data 추출
@@ -687,6 +679,7 @@ extern "C"
                 fprintf(stderr,"uart read failed!\n");
                 exit(EXIT_FAILURE);
             }
+            printf("*Received data length: %d\n");
 
             for (int i=0;i<ret;i++)
             {
