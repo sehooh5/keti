@@ -164,7 +164,7 @@ extern "C"
 
     int recv_data(int fd, unsigned char* recv_buffer, int max_length)
     {
-        printf("recv_data 함수 진입\n")
+        printf("recv_data 함수 진입\n");
         int length = read(fd, recv_buffer, max_length);
         if (length < 0) {
             fprintf(stderr, "Error reading data from UART\n");
@@ -495,7 +495,7 @@ extern "C"
     // Parsing Data
     void ParseData(unsigned char chr)
     {
-            printf("ParseData 함수 진입\n")
+            printf("ParseData 함수 진입\n");
             static unsigned char chrCnt=0;
             unsigned char i;
             unsigned char cTemp=0;
@@ -653,7 +653,7 @@ extern "C"
     EXPORT void process(void* st)
     {
         try{
-            printf("process 함수 진입\n")
+            printf("process 함수 진입\n");
             checker = 3;
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
             bzero(r_buf,44);
