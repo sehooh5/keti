@@ -703,8 +703,9 @@ extern "C"
             if (st != NULL) { // 추가된 NULL 체크
                 Struct temp = { yy, mm, dd, hh, mi, ss, ms, ax, ay, az, t, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lon_final, lat_final, gh, gy, gv, q0, q1, q2, q3, sn, pdop, hdop, vdop };
                 *((Struct*)st) = temp;
+                delete temp;
             }
-            delete temp;
+
         } catch (std::exception& e) {
             std::cerr << "Exception caught: " << e.what() << std::endl;
             exit(1);
