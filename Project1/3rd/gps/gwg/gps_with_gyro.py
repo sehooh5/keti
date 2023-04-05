@@ -27,13 +27,14 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
-    # time.sleep(0.5)
     try:
         print("cpp 라이브러리 호출!")
         c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
     except Exception as e:
         print(e)
         traceback.print_exc()
+    time.sleep(1)
+
     print("데이터 출력 : ")
 
     ss = str.ss
@@ -59,7 +60,7 @@ while True:
     else:
         requests.post(f'{url}/cgwg', json=json_data)
 
-    # time.sleep(0.5)
+
 
 # def req_post(url):
 #     print(f'Request POST to : {url}')
