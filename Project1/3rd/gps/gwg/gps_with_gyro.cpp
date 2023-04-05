@@ -164,7 +164,7 @@ extern "C"
 
     int recv_data(int fd, unsigned char* recv_buffer, int max_length)
     {
-        printf("recv_data 함수 진입\n");
+//        printf("recv_data 함수 진입\n");
         int length = read(fd, recv_buffer, max_length);
         if (length < 0) {
             fprintf(stderr, "Error reading data from UART\n");
@@ -682,7 +682,7 @@ extern "C"
                     fprintf(stderr,"uart read failed!\n");
                     exit(EXIT_FAILURE);
                 }
-                printf("**Received data length: %d\n", ret);
+//                printf("**Received data length: %d\n", ret);
     //                if(ret > 0){printf("**Received data length: %d\n", ret);}
 
                 for (int i=0;i<ret;i++)
