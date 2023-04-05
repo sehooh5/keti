@@ -15,7 +15,7 @@ c_module = ctypes.cdll.LoadLibrary(path)
 Data = namedtuple('Data', ['time', 'acc', 'angular', 'angle', 'magnetic', 'atmospheric', 'gps', 'groundSpeed', 'quaternion', 'satelite'])
 
 def process_data():
-    str = c_module.Struct()
+    str = Struct()
     while True:
         try:
             c_module.process(ctypes.byref(str))

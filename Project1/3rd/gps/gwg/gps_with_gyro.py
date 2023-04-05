@@ -11,12 +11,6 @@ c_module = ctypes.cdll.LoadLibrary(path)
 # Global 변수 설정
 global ss, ms
 
-# def req_post(url):
-#     print(f'Request POST to : {url}')
-#     print(ss, ms)
-#     res = requests.get(f'{url}/cgwg')
-#     return res
-
 class STRUCT(ctypes.Structure) :
     _fields_ = [("yy", ctypes.c_uint),("mm", ctypes.c_uint),("dd", ctypes.c_uint),("hh", ctypes.c_uint),("mi", ctypes.c_uint),("ss", ctypes.c_uint),("ms", ctypes.c_uint),
                 ("ax", ctypes.c_float),("ay", ctypes.c_float),("az", ctypes.c_float),("t", ctypes.c_float),
@@ -66,6 +60,12 @@ while True:
         requests.post(f'{url}/cgwg', json=json_data)
 
     # time.sleep(0.5)
+
+# def req_post(url):
+#     print(f'Request POST to : {url}')
+#     print(ss, ms)
+#     res = requests.get(f'{url}/cgwg')
+#     return res
 
     # res = req_post(url)
     # print(res)
