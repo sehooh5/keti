@@ -683,7 +683,7 @@ extern "C"
                     exit(EXIT_FAILURE);
                 }
                 printf("**Received data length: %d\n", ret);
-//                if(ret > 0){printf("**Received data length: %d\n", ret);}
+    //                if(ret > 0){printf("**Received data length: %d\n", ret);}
 
                 for (int i=0;i<ret;i++)
                 {
@@ -700,13 +700,13 @@ extern "C"
             }
             // 1216 struct 값 입력 및 반환
             printf("구조체 전달!\n");
-            Struct temp = {yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
-            *((Struct*)st) = temp;
+            Struct* temp = new Struct{yy,mm,dd,hh,mi,ss,ms,ax,ay,az,t,wx,wy,wz,roll,pitch,yaw,mx,my,mz,press,h,lon_final,lat_final,gh,gy,gv,q0,q1,q2,q3,sn,pdop,hdop,vdop};
+            *((Struct*)st) = *temp;
+            delete temp;
         } catch (std::exception& e) {
             std::cerr << "Exception caught: " << e.what() << std::endl;
             exit(1);
         }
-
     }
 
     int main(void)
