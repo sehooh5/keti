@@ -656,15 +656,18 @@ extern "C"
             if(st == NULL){
                 printf("ERROR : pointer is NULL!\n");
             }else{
-                printf("pointer OK NULL!\n");
+                printf("pointer OK!\n");
             printf("process 함수 진입\n");
             }
 
             checker = 3;
+            printf("1\n");
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
+            printf("2\n");
             bzero(r_buf,44);
+            printf("3\n");
             memset(chrBuf, 0x00, 2000);
-
+            printf("4\n");
             fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
             if(fd == -1)
             {
