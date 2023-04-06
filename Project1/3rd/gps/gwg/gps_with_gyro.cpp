@@ -670,8 +670,8 @@ extern "C"
                 fprintf(stderr,"uart set failed!\n");
                 exit(EXIT_FAILURE);
             }
-            FILE *fp;
-            fp = fopen("Record.txt","w");
+//            FILE *fp;
+//            fp = fopen("Record.txt","w");
             while(1)
             {
 //                sleep(0.5);
@@ -685,12 +685,12 @@ extern "C"
                 for (int i=0;i<ret;i++)
                 {
                     printf("14\n");
-                    if(fp == NULL)
-                    {
-                        fprintf(stderr,"File pointer is NULL\n");
-                        return;
-                    }
-                    fprintf(fp,"%2X ",r_buf[i]);
+//                    if(fp == NULL)
+//                    {
+//                        fprintf(stderr,"File pointer is NULL\n");
+//                        return;
+//                    }
+//                    fprintf(fp,"%2X ",r_buf[i]);
                     ParseData(r_buf[i]);
                     // 1216 체크해서 out
                     if(checker == 1){
@@ -738,8 +738,8 @@ extern "C"
                 exit(EXIT_FAILURE);
             }
 
-            FILE *fp;
-            fp = fopen("Record.txt","w");
+//            FILE *fp;
+//            fp = fopen("Record.txt","w");
             while(1)
             {
                 ret = recv_data(fd,r_buf,44);
@@ -751,7 +751,7 @@ extern "C"
 
                 for (int i=0;i<ret;i++)
                 {
-                fprintf(fp,"%2X ",r_buf[i]);
+//                fprintf(fp,"%2X ",r_buf[i]);
                 ParseData(r_buf[i]);
                 // 1216 체크해서 out
                 if(checker == 1){
