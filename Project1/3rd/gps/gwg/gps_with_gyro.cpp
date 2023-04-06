@@ -669,24 +669,29 @@ extern "C"
             memset(chrBuf, 0x00, 2000);
             printf("4\n");
             fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+            printf("6\n");
             if(fd == -1)
             {
                 fprintf(stderr,"uart_open error\n");
                 exit(EXIT_FAILURE);
             }
-
+            printf("7\n");
             if(uart_set(fd,BAUD,8,'N',1) == -1)
             {
                 fprintf(stderr,"uart set failed!\n");
                 exit(EXIT_FAILURE);
             }
-
+            printf("8\n");
             FILE *fp;
+            printf("9\n");
             fp = fopen("Record.txt","w");
+            printf("10\n");
             while(1)
             {
 //                sleep(0.5);
+                printf("11\n");
                 ret = recv_data(fd,r_buf,sizeof(r_buf));
+                printf("12\n");
                 if(ret == -1)
                 {
                     fprintf(stderr,"uart read failed!\n");
@@ -694,25 +699,35 @@ extern "C"
                 }
 //                printf("**Received data length: %d\n", ret);
     //                if(ret > 0){printf("**Received data length: %d\n", ret);}
-
+                printf("13\n");
                 for (int i=0;i<ret;i++)
                 {
+                    printf("14\n");
                     fprintf(fp,"%2X ",r_buf[i]);
+                    printf("15\n");
                     ParseData(r_buf[i]);
+                    printf("16\n");
                     // 1216 체크해서 out
                     if(checker == 1){
+                        printf("17\n");
                         checker=0;
                         break;
                     }
                 }
+                printf("18\n");
                 if(checker == 0){break;}
 //
             }
             // 1216 struct 값 입력 및 반환
+            printf("19\n");
             printf("구조체 전달!\n");
+            printf("20\n");
             if (st != NULL) { // 추가된 NULL 체크
+                printf("21\n");
                 Struct temp = { yy, mm, dd, hh, mi, ss, ms, ax, ay, az, t, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lon_final, lat_final, gh, gy, gv, q0, q1, q2, q3, sn, pdop, hdop, vdop };
+                printf("22\n");
                 *((Struct*)st) = temp;
+                printf("23\n");
 //                delete temp;
             }
 
