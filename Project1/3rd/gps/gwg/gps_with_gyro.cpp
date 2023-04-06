@@ -653,13 +653,8 @@ extern "C"
     EXPORT void process(void* st)
     {
         try{
-            if(st == NULL){
-                printf("ERROR : pointer is NULL!\n");
-            }else{
-                printf("pointer OK!\n");
-            printf("process 함수 진입\n");
-            }
 
+            printf("process 함수 진입\n");
             checker = 3;
             printf("1\n");
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
@@ -703,6 +698,11 @@ extern "C"
                 for (int i=0;i<ret;i++)
                 {
                     printf("14\n");
+                    if(fp == NULL)
+                    {
+                        fprintf(stderr,"File pointer is NULL\n");
+                        exit(EXIT_FAILURE);
+                    }
                     fprintf(fp,"%2X ",r_buf[i]);
                     printf("15\n");
                     ParseData(r_buf[i]);
