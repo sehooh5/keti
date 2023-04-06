@@ -653,8 +653,6 @@ extern "C"
     EXPORT void process(void* st)
     {
         try{
-
-            printf("process 함수 진입\n");
             checker = 3;
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
             bzero(r_buf,44);
@@ -683,9 +681,7 @@ extern "C"
 
                 for (int i=0;i<ret;i++)
                 {
-                    printf("14\n");
                     ParseData(r_buf[i]);
-
                     if(checker == 1){
                         checker=0;
                         break;
