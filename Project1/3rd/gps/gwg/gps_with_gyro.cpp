@@ -681,20 +681,17 @@ extern "C"
                     fprintf(stderr,"uart read failed!\n");
                     exit(EXIT_FAILURE);
                 }
-//                printf("**Received data length: %d\n", ret);
-    //                if(ret > 0){printf("**Received data length: %d\n", ret);}
+
                 for (int i=0;i<ret;i++)
                 {
                     printf("14\n");
                     if(fp == NULL)
                     {
                         fprintf(stderr,"File pointer is NULL\n");
-                        exit(EXIT_FAILURE);
+                        return;
                     }
                     fprintf(fp,"%2X ",r_buf[i]);
-                    printf("15\n");
                     ParseData(r_buf[i]);
-                    printf("16\n");
                     // 1216 체크해서 out
                     if(checker == 1){
                         printf("17\n");
@@ -702,20 +699,14 @@ extern "C"
                         break;
                     }
                 }
-                printf("18\n");
                 if(checker == 0){break;}
 //
             }
             // 1216 struct 값 입력 및 반환
-            printf("19\n");
             printf("구조체 전달!\n");
-            printf("20\n");
             if (st != NULL) { // 추가된 NULL 체크
-                printf("21\n");
                 Struct temp = { yy, mm, dd, hh, mi, ss, ms, ax, ay, az, t, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lon_final, lat_final, gh, gy, gv, q0, q1, q2, q3, sn, pdop, hdop, vdop };
-                printf("22\n");
                 *((Struct*)st) = temp;
-                printf("23\n");
 //                delete temp;
             }
 
