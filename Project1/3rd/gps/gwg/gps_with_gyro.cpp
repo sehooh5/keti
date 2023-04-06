@@ -656,37 +656,26 @@ extern "C"
 
             printf("process 함수 진입\n");
             checker = 3;
-            printf("1\n");
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
-            printf("2\n");
             bzero(r_buf,44);
-            printf("3\n");
             memset(chrBuf, 0x00, 2000);
-            printf("4\n");
             fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
-            printf("6\n");
             if(fd == -1)
             {
                 fprintf(stderr,"uart_open error\n");
                 exit(EXIT_FAILURE);
             }
-            printf("7\n");
             if(uart_set(fd,BAUD,8,'N',1) == -1)
             {
                 fprintf(stderr,"uart set failed!\n");
                 exit(EXIT_FAILURE);
             }
-            printf("8\n");
             FILE *fp;
-            printf("9\n");
             fp = fopen("Record.txt","w");
-            printf("10\n");
             while(1)
             {
 //                sleep(0.5);
-                printf("11\n");
                 ret = recv_data(fd,r_buf,sizeof(r_buf));
-                printf("12\n");
                 if(ret == -1)
                 {
                     fprintf(stderr,"uart read failed!\n");
@@ -694,7 +683,6 @@ extern "C"
                 }
 //                printf("**Received data length: %d\n", ret);
     //                if(ret > 0){printf("**Received data length: %d\n", ret);}
-                printf("13\n");
                 for (int i=0;i<ret;i++)
                 {
                     printf("14\n");
