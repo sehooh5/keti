@@ -28,7 +28,7 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
-time.sleep(0.5)
+    time.sleep(0.5)
     try:
         c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
     except Exception as e:
