@@ -273,3 +273,10 @@
 #### 0407
 
 - 아침에 도착하자마자 gps 테스트 계속 돌리기
+  - 완료
+- 논문 출처
+  1. 정보보호 학회지 :[링크](https://koreascience.kr/journal/JBBHBD/v20n3.page) 
+  2.  한국인터넷방송통신학회 : [링크](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002498057)
+  3. 한국통신학회 추계종합학술발표회 : [링크](https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10501346&googleIPSandBox=false&mark=0&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true)
+  4. 쿠버네티스 책
+  5. 벙보기술융합공학논문지 : [링크](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002771821)
