@@ -19,8 +19,12 @@ class App(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        # 제목
+        title = QLabel('GPS 실시간 데이터', self)
+        title.move(100, 10)
+
         # 실행 버튼
-        btn1 = QPushButton('실행', self)
+        btn1 = QPushButton('전송', self)
         btn1.setToolTip('gps_with_gyro.py 실행')
         btn1.move(50, 50)
         btn1.clicked.connect(self.start_process)
