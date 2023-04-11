@@ -104,13 +104,9 @@ class App(QWidget):
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2 is not None and self.process2.poll() is None:
-            try:
-                out, err = self.process2.communicate(timeout=5)
-                self.process2.terminate()
-                self.process2.wait()
-            except subprocess.TimeoutExpired:
-                self.process2.kill()
-                out, err = self.process2.communicate()
+            self.process2.terminate()
+            self.process2.kill()
+            self.process2.wait()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
