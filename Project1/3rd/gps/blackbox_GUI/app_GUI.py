@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 import subprocess
 import os
+import sys
 
 class App(QWidget):
 
