@@ -66,16 +66,16 @@ class App(QWidget):
         input3.resize(300, 25)
 
         # 실행 버튼
-        btn1 = QPushButton('실행', self)
-        btn1.setToolTip('VLC 실행')
-        btn1.move(50, 340)
-        btn1.clicked.connect(lambda: self.start_process2(input1.text(), input2.text(), input3.text()))
+        btn4 = QPushButton('실행', self)
+        btn4.setToolTip('VLC 실행')
+        btn4.move(50, 340)
+        btn4.clicked.connect(lambda: self.start_process2(input1.text(), input2.text(), input3.text()))
 
         # 멈춤 버튼
-        btn2 = QPushButton('멈춤', self)
-        btn2.setToolTip('VLC 종료')
-        btn2.move(150, 340)
-        btn2.clicked.connect(self.stop_process2)
+        btn5 = QPushButton('멈춤', self)
+        btn5.setToolTip('VLC 종료')
+        btn5.move(150, 340)
+        btn5.clicked.connect(self.stop_process2)
         self.show()
 
     def start_process(self):
