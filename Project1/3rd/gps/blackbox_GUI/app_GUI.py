@@ -99,13 +99,18 @@ class App(QWidget):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2 is None or self.process2.poll() is not None:
             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
-            self.process2 = subprocess.Popen(command, shell=True)
+             self.process2 = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2 is not None and self.process2.poll() is None:
-            self.process2.terminate()
-            self.process2.wait()
+            try:
+                out, err = self.process2.communicate(timeout=5)
+                self.process2.terminate()
+                self.process2.wait()
+            except subprocess.TimeoutExpired:
+                self.process2.kill()
+                out, err = self.process2.communicate()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
