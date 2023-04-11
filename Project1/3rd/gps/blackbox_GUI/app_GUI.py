@@ -71,7 +71,7 @@ class App(QWidget):
         # 멈춤 버튼
         btn2 = QPushButton('멈춤', self)
         btn2.setToolTip('VLC 종료')
-        btn2.move(300, 340)
+        btn2.move(150, 340)
         btn2.clicked.connect(self.stop_process)
         self.show()
 
