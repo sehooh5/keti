@@ -13,6 +13,7 @@ class App(QWidget):
         self.width = 400
         self.height = 450
         self.process = None
+        self.process2 = None
         self.initUI()
 
     def initUI(self):
@@ -96,15 +97,15 @@ class App(QWidget):
 
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process is None or self.process.poll() is not None:
+        if self.process2 is None or self.process2.poll() is not None:
             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
-            self.process = subprocess.Popen(command, shell=True)
+            self.process2 = subprocess.Popen(command, shell=True)
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        if self.process is not None and self.process.poll() is None:
-            self.process.terminate()
-            self.process.wait()
+        if self.process2 is not None and self.process2.poll() is None:
+            self.process2.terminate()
+            self.process2.wait()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
