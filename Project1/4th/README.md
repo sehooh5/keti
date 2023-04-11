@@ -279,4 +279,20 @@
   2.  한국인터넷방송통신학회 : [링크](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002498057)
   3. 한국통신학회 추계종합학술발표회 : [링크](https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE10501346&googleIPSandBox=false&mark=0&ipRange=false&accessgl=Y&language=ko_KR&hasTopBanner=true)
   4. 쿠버네티스 책
-  5. 벙보기술융합공학논문지 : [링크](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002771821)
+  5. 정보기술융합공학논문지 : [링크](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002771821)
+
+
+
+#### 0410
+
+- gps 및 영상 저장 확인, 보고
+- 논문 제출(퇴근 전까지)
+  - 비회원 가능한지 확인 
+  - **완료**
+- 개인 프로젝트 확인 및 완료 이번주까지
+
+
+
+#### 0411
+
+- 개인 프로젝트 기입
