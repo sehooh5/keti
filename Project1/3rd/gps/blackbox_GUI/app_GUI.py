@@ -10,7 +10,7 @@ class App(QWidget):
         self.title = 'GPS with Gyro'
         self.left = 10
         self.top = 10
-        self.width = 720
+        self.width = 400
         self.height = 450
         self.process = None
         self.initUI()
@@ -45,9 +45,34 @@ class App(QWidget):
         # 영상 데이터
         # 제목
         title = QLabel('영상 데이터 전송', self)
-        title.move(95, 150)
+        title.move(95, 170)
 
+        # 입력창 1
+        input1 = QLineEdit(self)
+        input1.move(50, 220)
+        input1.resize(300, 25)
 
+        # 입력창 2
+        input2 = QLineEdit(self)
+        input2.move(50, 260)
+        input2.resize(300, 25)
+
+        # 입력창 3
+        input3 = QLineEdit(self)
+        input3.move(50, 300)
+        input3.resize(300, 25)
+
+        # 실행 버튼
+        btn1 = QPushButton('실행', self)
+        btn1.setToolTip('VLC 실행')
+        btn1.move(50, 340)
+        btn1.clicked.connect(lambda: self.start_process(input1.text(), input2.text(), input3.text()))
+
+        # 멈춤 버튼
+        btn2 = QPushButton('멈춤', self)
+        btn2.setToolTip('VLC 종료')
+        btn2.move(300, 340)
+        btn2.clicked.connect(self.stop_process)
         self.show()
 
     def start_process(self):
