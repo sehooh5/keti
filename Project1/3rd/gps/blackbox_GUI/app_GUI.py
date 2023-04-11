@@ -45,7 +45,7 @@ class App(QWidget):
         # 영상 데이터
         # 제목
         title = QLabel('영상 데이터 전송', self)
-        title.move(95, 170)
+        title.move(95, 190)
 
         # 입력창 1
         input1 = QLineEdit(self)
