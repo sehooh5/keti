@@ -105,7 +105,13 @@ class App(QWidget):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2 is not None and self.process2.poll() is None:
             self.process2.terminate()
-            self.process2.kill()
+
+            # 5초간 기다렸다가 아직 실행중이면 강제종료
+            try:
+                self.process2.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.process2.kill()
+
             self.process2.wait()
 
 if __name__ == '__main__':
