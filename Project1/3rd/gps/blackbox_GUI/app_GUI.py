@@ -50,10 +50,9 @@ class App(QWidget):
             self.process = subprocess.Popen(['sudo', 'python3', 'gps_with_gyro.py', 'save'])
 
     def stop_process(self):
-        # 실행 중인 프로세스가 있는 경우에만 종료
-        if self.process is not None and self.process.poll() is None:
-            self.process.terminate()
-            self.process.wait()
+    # 실행 중인 프로세스가 있는 경우에만 종료
+    if self.process is not None and self.process.poll() is None:
+        os.system('sudo kill -9 {}'.format(self.process.pid))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
