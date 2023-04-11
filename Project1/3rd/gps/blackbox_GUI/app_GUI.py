@@ -97,7 +97,7 @@ class App(QWidget):
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process is None or self.process.poll() is not None:
-            command = ['cvlc', '-vvv', input1.encode(), f'--sout="#rtp{{dst={input2},port={input3},mux=ts}}"', '--no-sout-all', '--sout-keep']
+            command = ['cvlc', '-vvv', input1.encode(), f'--sout="#rtp{{dst={input2.encode()},port={input3.encode()},mux=ts}}"', '--no-sout-all', '--sout-keep']
             self.process = subprocess.Popen(command)
 
     def stop_process2(self):
