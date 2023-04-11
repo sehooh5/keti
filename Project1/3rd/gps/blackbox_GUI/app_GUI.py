@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
 import subprocess
 import os
 import sys
@@ -10,8 +10,8 @@ class App(QWidget):
         self.title = 'GPS with Gyro'
         self.left = 10
         self.top = 10
-        self.width = 320
-        self.height = 200
+        self.width = 720
+        self.height = 450
         self.process = None
         self.initUI()
 
@@ -19,9 +19,10 @@ class App(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
+        # GPS 데이터
         # 제목
         title = QLabel('GPS 실시간 데이터', self)
-        title.move(100, 10)
+        title.move(95, 10)
 
         # 실행 버튼
         btn1 = QPushButton('전송', self)
@@ -40,6 +41,12 @@ class App(QWidget):
         btn3.setToolTip('실행 중인 프로세스 중지')
         btn3.move(100, 100)
         btn3.clicked.connect(self.stop_process)
+
+        # 영상 데이터
+        # 제목
+        title = QLabel('영상 데이터 전송', self)
+        title.move(95, 150)
+
 
         self.show()
 
