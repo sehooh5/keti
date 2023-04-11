@@ -42,17 +42,18 @@ class App(QWidget):
     def start_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process is None or self.process.poll() is not None:
-            self.process = subprocess.Popen(['sudo', 'python3', 'gps_with_gyro.py'])
+            self.process = subprocess.Popen(['python3', 'gps_with_gyro.py'])
 
     def start_save_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process is None or self.process.poll() is not None:
-            self.process = subprocess.Popen(['sudo', 'python3', 'gps_with_gyro.py', 'save'])
+            self.process = subprocess.Popen(['python3', 'gps_with_gyro.py', 'save'])
 
     def stop_process(self):
-    # 실행 중인 프로세스가 있는 경우에만 종료
+        # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process is not None and self.process.poll() is None:
-            os.system('sudo kill -9 {}'.format(self.process.pid))
+            self.process.terminate()
+            self.process.wait()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
