@@ -41,8 +41,9 @@ spec:
               name: DISPLAY
           volumeMounts:
             - name: shared-data
-              mountPath: /home/keti1
-      volumes:
-        - name: USER
-          hostPath: /home/keti1
+              mountPath: /host-home/keti1
+          volumes:
+            - name: shared-data
+              hostPath:
+                path: /home/keti1
 
