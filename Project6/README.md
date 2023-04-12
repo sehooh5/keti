@@ -744,3 +744,22 @@
 
 - 과제 진행상황 확인 후 코드 정리
 
+
+
+#### 0412
+
+- teminal 영상 촬영 위해 프로젝트 리마인드
+
+  - 명령어
+
+    ```
+    docker build -f dockerfile -t sehooh5/ai-test:latest .
+    kubectl apply -f deployment.yaml
+    ```
+
+  - **/비디오/edge_ai_video.zip 에 저장된 비디오파일 사용**
+
+    - AI 업로드(등록)
+    - AI 업로드 확인
+    - AI 배포/확인
+
