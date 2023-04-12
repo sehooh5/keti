@@ -42,8 +42,7 @@ spec:
           volumeMounts:
             - name: shared-data
               mountPath: /home/keti1
-        volumes:
-          - name: shared-data
-            hostPath:
-              path: /home/keti1
-
+      volumes:
+        - name: shared-data
+          hostPath:
+            path: /path/to/shared/data
