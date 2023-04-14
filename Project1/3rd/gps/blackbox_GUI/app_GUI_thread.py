@@ -124,9 +124,10 @@ class App(QWidget):
             self.process2_thread = subprocess.Popen(command, shell=True)
 
     def stop_process2(self):
+        # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2_thread is not None:
-            self.process2_thread.terminate()
-            self.process2_thread = None
+            pid = self.process2_thread.pid
+            os.kill(pid, signal.SIGTERM)
 
 
 if __name__ == '__main__':
