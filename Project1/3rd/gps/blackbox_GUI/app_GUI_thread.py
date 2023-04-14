@@ -124,20 +124,10 @@ class App(QWidget):
             self.process2_thread = subprocess.Popen(command, shell=True)
 
     def stop_process2(self):
-        # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2_thread is not None:
-            self.process2_thread.stop()
+            self.process2_thread.terminate()
+            self.process2_thread = None
 
-#         if self.process2 is not None and self.process2.poll() is None:
-#             self.process2.terminate()
-#
-#             # 5초간 기다렸다가 아직 실행중이면 강제종료
-#             try:
-#                 self.process2.communicate(timeout=5)
-#             except subprocess.TimeoutExpired:
-#                 self.process2.kill()
-#
-#             self.process2.wait()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
