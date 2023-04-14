@@ -127,8 +127,10 @@ class App(QWidget):
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2_thread is not None:
+            print("stop process2 들어옴")
             pid = self.process2_thread.pid
-            os.kill(pid, signal.SIGTERM)
+            os.kill(pid, signal.SIGKILL)
+            print("stop process2 들어옴")
 
 
 if __name__ == '__main__':
