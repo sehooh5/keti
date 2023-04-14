@@ -100,38 +100,44 @@ class App(QWidget):
 
     def start_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process is None or self.process.poll() is not None:
-            self.process = subprocess.Popen(['python3', 'gps_with_gyro.py'])
+        if self.process_thread is None or not self.process_thread.isRunning():
+            self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
+            self.process_thread.start()
 
     def start_save_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process is None or self.process.poll() is not None:
-            self.process = subprocess.Popen(['python3', 'gps_with_gyro.py', 'save'])
+        if self.process_save_thread is None or not self.process_save_thread.isRunning():
+            self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', 'save'])
+            self.process_save_thread.start()
 
     def stop_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        if self.process is not None and self.process.poll() is None:
-            self.process.terminate()
-            self.process.wait()
+        if self.process_thread is not None:
+            self.process_thread.stop()
+        if self.process_save_thread is not None:
+            self.process_save_thread.stop()
 
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process2 is None or self.process2.poll() is not None:
+        if self.process2_thread is None or not self.process2_thread.isRunning():
             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
-            self.process2 = subprocess.Popen(command, shell=True)
+            self.process2_thread = subprocess.Popen(command, shell=True)
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        if self.process2 is not None and self.process2.poll() is None:
-            self.process2.terminate()
+        if self.process2_thread is not None:
+            self.process2_thread.stop()
 
-            # 5초간 기다렸다가 아직 실행중이면 강제종료
-            try:
-                self.process2.communicate(timeout=5)
-            except subprocess.TimeoutExpired:
-                self.process2.kill()
-
-            self.process2.wait()
+#         if self.process2 is not None and self.process2.poll() is None:
+#             self.process2.terminate()
+#
+#             # 5초간 기다렸다가 아직 실행중이면 강제종료
+#             try:
+#                 self.process2.communicate(timeout=5)
+#             except subprocess.TimeoutExpired:
+#                 self.process2.kill()
+#
+#             self.process2.wait()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
