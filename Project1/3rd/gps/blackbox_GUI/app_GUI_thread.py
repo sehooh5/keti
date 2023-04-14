@@ -3,6 +3,7 @@ from PyQt5.QtCore import QThread
 import subprocess
 import os
 import sys
+import signal
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
