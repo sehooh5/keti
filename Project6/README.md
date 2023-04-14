@@ -757,7 +757,7 @@
     kubectl apply -f deployment.yaml
     ```
 
-  - **/비디오/edge_ai_video.zip 에 저장된 비디오파일 사용**
+  - **/바탕화면/무선엣지과제/사진 및 비디오/edge_ai_video.zip 에 저장된 비디오파일 사용**
 
     - AI 업로드(등록)
     - AI 업로드 확인
