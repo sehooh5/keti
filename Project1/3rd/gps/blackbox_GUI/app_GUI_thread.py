@@ -3,7 +3,7 @@ from PyQt5.QtCore import QThread
 import subprocess
 import os
 import sys
-import signal
+# import signal
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
@@ -121,16 +121,14 @@ class App(QWidget):
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2_thread is None or not self.process2_thread.isRunning():
-            command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
+#             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
+            command = 'cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep'
             self.process2_thread = subprocess.Popen(command, shell=True)
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2_thread is not None:
-            print("stop process2 들어옴")
-            pid = self.process2_thread.pid
-            os.kill(pid, signal.SIGKILL)
-            print("stop process2 들어옴")
+            os.system("pkill cvlc")
 
 
 if __name__ == '__main__':
