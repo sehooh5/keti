@@ -131,6 +131,7 @@ class App(QWidget):
             print("stop process2 들어옴")
             self.process2_thread.kill()
             os.system("pkill cvlc")
+            os.system("")
 
 
 if __name__ == '__main__':
