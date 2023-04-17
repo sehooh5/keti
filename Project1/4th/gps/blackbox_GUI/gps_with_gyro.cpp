@@ -28,8 +28,6 @@ static int fd;
 
 const std::string DEVICE_PREFIX = "/dev/ttyUSB";
 std::string device_name;
-DIR *dir;
-struct dirent *ent;
 
 void set_device_name(int num){
     device_name = DEVICE_PREFIX + std::to_string(num);
@@ -658,7 +656,8 @@ extern "C"
             bzero(r_buf,44);
             memset(chrBuf, 0x00, 2000);
 
-
+            DIR *dir;
+            struct dirent *ent;
             if ((dir = opendir("/dev")) != NULL) {
                 while ((ent = readdir(dir)) != NULL) {
                     std::string filename(ent->d_name);
