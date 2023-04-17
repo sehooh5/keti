@@ -10,6 +10,7 @@
 #include<sys/types.h>
 #include<errno.h>
 
+#include <dirent.h> /* 230417 ttyUSB 번호 찾기위해 추가*/
 #include<iostream>
 #include<fstream>
 
@@ -146,20 +147,6 @@ extern "C"
     {
         length=write(fd,send_buffer,length*sizeof(unsigned char));
         return length;
-    }
-    int file_write()
-    {
-        ofstream fout;
-
-        fout.open("test.txt");
-
-        for(int i=0;i<10;i++)
-            fout << i << "\n";
-        fout << endl;
-
-        fout.close();
-
-        return 0;
     }
 
     int recv_data(int fd, unsigned char* recv_buffer, int max_length)
@@ -644,10 +631,6 @@ extern "C"
         float q0; float q1; float q2; float q3;//0x59
         float sn; float pdop; float hdop; float vdop;//0x5a
     };
-    struct Struct2 {
-        unsigned int mi; unsigned int ss; unsigned int ms;//0x50
-
-    };
 
     // main 동작과 같음
     EXPORT void process(void* st)
@@ -657,6 +640,21 @@ extern "C"
             unsigned char r_buf[44];// 여기부터 unsigned char 로 수정
             bzero(r_buf,44);
             memset(chrBuf, 0x00, 2000);
+
+            DIR *dir;
+            struct dirent *ent;
+            if ((dir = opendir("/dev")) != NULL) {
+                while ((ent = readdir(dir)) != NULL) {
+                    std::string filename(ent->d_name);
+                    if (filename.find("ttyUSB") == 0) {
+                        int number = std::stoi(filename.substr(6));
+                        std::cout << "Found ttyUSB device number: " << number << std::endl;
+                    }
+                }
+                closedir(dir);
+            } else {
+                std::cerr << "Failed to open /dev directory" << std::endl;
+            }
             fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
 
             if(fd == -1)
