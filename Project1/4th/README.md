@@ -670,6 +670,10 @@
 #### 0417
 
 - vlc 수정
+  - 블랙박스 console 3개의 창
+    - /바탕화면/keti/Project1/3rd/gps/blackbox_GUI : `python3 app_GUI_thread.py`
+    - ~ : `cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep`
+    - /바탕화면/keti : git 및 기본
 - 기타
   - 아이폰 중고 매입 
   - 카드 2개 확인
