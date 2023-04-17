@@ -27,6 +27,11 @@ static int fd;
 #define BAUD 9600 //115200 for JY61 ,9600 for others
 
 const std::string DEVICE_PREFIX = "/dev/ttyUSB";
+std::string device_name;
+
+void set_device_name(int num){
+    device_name = DEVICE_PREFIX + std::to_string(num)
+}
 
 extern "C"
 {
@@ -650,7 +655,7 @@ extern "C"
                     std::string filename(ent->d_name);
                     if (filename.find("ttyUSB") == 0) {
                         int number = std::stoi(filename.substr(6));
-                        std::string device_name = DEVICE_PREFIX + std::to_string(number);
+                        set_device_name(number);
                         std::cout << "Device name: " << device_name << std::endl;
                     }
                 }
