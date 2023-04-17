@@ -674,10 +674,9 @@
     - /바탕화면/keti/Project1/3rd/gps/blackbox_GUI : `python3 app_GUI_thread.py`
     - ~ : `cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep`
     - /바탕화면/keti : git 및 기본
-- 기타
-  - 아이폰 중고 매입 
-  - 카드 2개 확인
+  - ctrl+c 하면 종료되긴 함
 - gps uart serial port 변경되는데로 적용 되도록 코드 변경
+  - 변경 완료
 
 
 
