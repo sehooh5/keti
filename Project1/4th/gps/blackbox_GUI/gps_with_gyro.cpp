@@ -26,6 +26,8 @@ static int fd;
 
 #define BAUD 9600 //115200 for JY61 ,9600 for others
 
+const std::string DEVICE_PREFIX = "/dev/ttyUSB";
+
 extern "C"
 {
     using namespace std;
@@ -648,14 +650,15 @@ extern "C"
                     std::string filename(ent->d_name);
                     if (filename.find("ttyUSB") == 0) {
                         int number = std::stoi(filename.substr(6));
-                        std::cout << "Found ttyUSB device number: " << number << std::endl;
+                        std::string device_name = DEVICE_PREFIX + std::to_string(number);
+                        std::cout << "Device name: " << device_name << std::endl;
                     }
                 }
                 closedir(dir);
             } else {
                 std::cerr << "Failed to open /dev directory" << std::endl;
             }
-            fd = uart_open(fd,"/dev/ttyUSB6");/*/dev/ttyUSB 경로 설정 */
+            fd = uart_open(fd,device_name);/*/dev/ttyUSB 경로 설정 */
 
             if(fd == -1)
             {
