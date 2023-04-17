@@ -30,7 +30,7 @@ const std::string DEVICE_PREFIX = "/dev/ttyUSB";
 std::string device_name;
 
 void set_device_name(int num){
-    device_name = DEVICE_PREFIX + std::to_string(num)
+    device_name = DEVICE_PREFIX + std::to_string(num);
 }
 
 extern "C"
