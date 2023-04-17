@@ -663,7 +663,7 @@ extern "C"
             } else {
                 std::cerr << "Failed to open /dev directory" << std::endl;
             }
-            fd = uart_open(fd,device_name);/*/dev/ttyUSB 경로 설정 */
+            fd = uart_open(fd,device_name.c_str());/*/dev/ttyUSB 경로 설정 */
 
             if(fd == -1)
             {
