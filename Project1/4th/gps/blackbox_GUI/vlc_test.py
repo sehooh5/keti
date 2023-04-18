@@ -1,5 +1,5 @@
 import subprocess
-import psutill
+import psutil
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
 
 class VideoStream(QWidget):
