@@ -3,7 +3,7 @@ from PyQt5.QtCore import QThread
 import subprocess
 import os
 import sys
-# import signal
+import psutil
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
@@ -127,11 +127,12 @@ class App(QWidget):
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
+        print("stop process2 들어옴")
         if self.process2_thread is not None:
-            print("stop process2 들어옴")
-            self.process2_thread.kill()
-            os.system("pkill cvlc")
-            os.system("")
+            for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
+                    child.kill()
+                self.process2_thread.kill()
+                self.process2_thread = None
 
 
 if __name__ == '__main__':
