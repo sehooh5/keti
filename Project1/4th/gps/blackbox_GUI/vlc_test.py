@@ -1,4 +1,5 @@
 import subprocess
+import psutill
 from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
 
 class VideoStream(QWidget):
@@ -28,7 +29,9 @@ class VideoStream(QWidget):
     def stop_stream(self):
         # VLC 프로세스 종료
         if self.vlc_process is not None:
-            self.vlc_process.terminate()
+            for child in psutil.Process(self.vlc_process.pid).children(recursive=True):
+                child.kill()
+            self.vlc_process.kill()
             self.vlc_process = None
 
 if __name__ == '__main__':
