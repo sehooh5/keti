@@ -28,7 +28,7 @@ class VideoStream(QWidget):
     def stop_stream(self):
         # VLC 프로세스 종료
         if self.vlc_process is not None:
-            self.vlc_process.kill()
+            self.vlc_process.terminate()
             self.vlc_process = None
 
 if __name__ == '__main__':
