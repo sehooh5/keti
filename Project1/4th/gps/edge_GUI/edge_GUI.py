@@ -122,7 +122,7 @@ class App(QWidget):
         if self.process2_thread is None or not self.process2_thread.isRunning():
 #             command = 'cvlc {}  --sout=file/ps:{}{}'.format(input1, input2, input3)
             command = 'cvlc rtp://123.214.186.162:5005 --sout=file/ps:/home/keti0/비디오/blackbox_test6.mp4'
-            self.process2_thread = subprocess.Popen(command, shell=True)
+            self.process2_thread = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
 
     def stop_save_rtp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
