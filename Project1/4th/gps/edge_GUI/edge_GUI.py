@@ -4,6 +4,7 @@ import subprocess
 import os
 import sys
 import psutil
+import signal
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
