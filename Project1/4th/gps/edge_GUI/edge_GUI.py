@@ -39,28 +39,34 @@ class App(QWidget):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
-        # GPS 데이터
+        # rtp to rtsp
         # 제목
-        title = QLabel('GPS 실시간 데이터', self)
+        title = QLabel('RTP to RTSP 재전송', self)
         title.move(95, 10)
 
+        # 입력창 1
+        input1 = QLineEdit(self)
+        input1.setPlaceholderText('RTP 주소')
+        input1.move(50, 50)
+        input1.resize(300, 25)
+
+        # 입력창 2
+        input2 = QLineEdit(self)
+        input2.setPlaceholderText('RTSP 주소')
+        input2.move(50, 90)
+        input2.resize(300, 25)
+
         # 실행 버튼
-        btn1 = QPushButton('전송', self)
-        btn1.setToolTip('gps_with_gyro.py 실행')
-        btn1.move(50, 50)
+        btn1 = QPushButton('재전송', self)
+        btn1.setToolTip('rtp to rtsp 재전송 시작')
+        btn1.move(50, 140)
         btn1.clicked.connect(self.start_process)
 
         # 저장 버튼
-        btn2 = QPushButton('저장', self)
-        btn2.setToolTip('gps_with_gyro.py save 실행')
-        btn2.move(150, 50)
+        btn2 = QPushButton('멈춤', self)
+        btn2.setToolTip('rtp to rtsp 재전송 종료')
+        btn2.move(150, 140)
         btn2.clicked.connect(self.start_save_process)
-
-        # 멈춤 버튼
-        btn3 = QPushButton('멈춤', self)
-        btn3.setToolTip('실행 중인 프로세스 중지')
-        btn3.move(100, 100)
-        btn3.clicked.connect(self.stop_process)
 
         # rtp 저장 기능
         # 제목

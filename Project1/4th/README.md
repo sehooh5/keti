@@ -697,6 +697,18 @@
 #### 0419
 
 - edge 서버에서도 pyqt로 rtp 영상 저장, rtsp 재전송 기능 만들기
-  - rtp 영상 저장
+
   - rtsp 재전송 기능 
+
+    - cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://:8555/videoMain}" --no-sout-all --sout-keep
+    - rtp 주소 : rtp://123.214.186.162:5005
+    - rtsp 주소 : rtsp://:8555/videoMain
+
+  - rtp 영상 저장
+
+    - rtp 주소 : rtp://123.214.186.162:5005 
+    - 파일경로 : /home/keti0/비디오/
+    - 파일명 : blackbox_test6.mp4
+
+    
 
