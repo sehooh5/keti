@@ -127,9 +127,7 @@ class App(QWidget):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print("stop process2 들어옴")
         if self.process2_thread is not None:
-            for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
-                    child.kill()
-            psutil.Process(self.process2_thread.pid).kill()
+            os.killpg(os.getpgid(self.process2_thread.pid), signal.SIGTERM)
             self.process2_thread = None
 
 #             self.process2_thread.kill()
