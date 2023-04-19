@@ -129,9 +129,11 @@ class App(QWidget):
         if self.process2_thread is not None:
             for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
                     child.kill()
-            self.process2_thread.kill()
-            self.process2_thread.terminate()
+            psutil.Process(self.process2_thread.pid).kill()
             self.process2_thread = None
+
+#             self.process2_thread.kill()
+#             self.process2_thread = None
 
 
 if __name__ == '__main__':
