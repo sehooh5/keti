@@ -88,7 +88,7 @@ class App(QWidget):
         btn4 = QPushButton('실행', self)
         btn4.setToolTip('저장 실행')
         btn4.move(50, 340)
-        btn4.clicked.connect(lambda: self.save_rtp_process(input1.text(), input2.text(), input3.text()))
+        btn4.clicked.connect(lambda: self.start_save_rtp_process(input1.text(), input2.text(), input3.text()))
 
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
@@ -116,7 +116,7 @@ class App(QWidget):
         if self.process_save_thread is not None:
             self.process_save_thread.stop()
 
-    def save_rtp_process(self, input1, input2, input3):
+    def start_save_rtp_process(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2_thread is None or not self.process2_thread.isRunning():
             command = 'cvlc {}  --sout=file/ps:{}{}'.format(input1, input2, input3)
@@ -126,11 +126,11 @@ class App(QWidget):
     def stop_save_rtp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print("stop process2 들어옴")
-        if self.process2_thread is not None:
-            for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
-                    child.kill()
-            self.process2_thread.kill()
-            self.process2_thread = None
+        if self.process2_thread is not None and self.process2_thread.isRunning():
+            self.process2_thread.quit()
+            self.process2_thread.wait()
+            self.process.kill()
+            os.system("pkill cvlc")
 
 
 if __name__ == '__main__':
