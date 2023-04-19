@@ -59,48 +59,48 @@ class App(QWidget):
         # 실행 버튼
         btn1 = QPushButton('재전송', self)
         btn1.setToolTip('rtp to rtsp 재전송 시작')
-        btn1.move(50, 140)
+        btn1.move(50, 130)
         btn1.clicked.connect(self.start_process)
 
         # 저장 버튼
         btn2 = QPushButton('멈춤', self)
         btn2.setToolTip('rtp to rtsp 재전송 종료')
-        btn2.move(150, 140)
+        btn2.move(150, 130)
         btn2.clicked.connect(self.start_save_process)
 
         # rtp 저장 기능
         # 제목
         title = QLabel('RTP 영상 데이터 저장', self)
-        title.move(95, 190)
+        title.move(95, 200)
 
         # 입력창 1
         input1 = QLineEdit(self)
         input1.setPlaceholderText('RTP 입력 주소')
-        input1.move(50, 220)
+        input1.move(50, 230)
         input1.resize(300, 25)
 
         # 입력창 2
         input2 = QLineEdit(self)
         input2.setPlaceholderText('파일 저장 경로')
-        input2.move(50, 260)
+        input2.move(50, 270)
         input2.resize(300, 25)
 
         # 입력창 3
         input3 = QLineEdit(self)
         input3.setPlaceholderText('파일명')
-        input3.move(50, 300)
+        input3.move(50, 310)
         input3.resize(300, 25)
 
         # 실행 버튼
         btn4 = QPushButton('실행', self)
         btn4.setToolTip('저장 실행')
-        btn4.move(50, 340)
+        btn4.move(50, 350)
         btn4.clicked.connect(lambda: self.start_save_rtp_process(input1.text(), input2.text(), input3.text()))
 
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
         btn5.setToolTip('저장 종료')
-        btn5.move(150, 340)
+        btn5.move(150, 350)
         btn5.clicked.connect(self.stop_save_rtp_process)
         self.show()
 
