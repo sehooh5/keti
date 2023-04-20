@@ -107,7 +107,7 @@ class App(QWidget):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_thread is None or not self.process_thread.isRunning():
             command = 'cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://:8555/videoMain}" --no-sout-all --sout-keep'
-            command = 'cvlc -vvv {} --sout="#rtp{{sdp={}}}" --no-sout-all --sout-keep'.format(input4, input5)
+#             command = 'cvlc -vvv {} --sout="#rtp{{sdp={}}}" --no-sout-all --sout-keep'.format(input4, input5)
             self.process_thread = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
 
     def stop_rtsp_process(self):
