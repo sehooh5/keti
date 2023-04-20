@@ -103,7 +103,7 @@ class App(QWidget):
         btn5.clicked.connect(self.stop_save_rtp_process)
         self.show()
 
-    def start_rtsp_process(self):
+    def start_rtsp_process(self, input4, input5):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_thread is None or not self.process_thread.isRunning():
             command = 'cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://:8555/videoMain}" --no-sout-all --sout-keep'

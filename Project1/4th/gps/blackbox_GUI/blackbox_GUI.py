@@ -127,7 +127,7 @@ class App(QWidget):
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        print("stop process2 들어옴")
+        print("rtp 전송 멈춤")
         if self.process2_thread is not None:
             for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
                     child.kill()
