@@ -31,7 +31,6 @@ class App(QWidget):
         self.width = 400
         self.height = 450
         self.process_thread = None
-        self.process_save_thread = None
         self.process2_thread = None
         self.initUI()
 
@@ -60,13 +59,13 @@ class App(QWidget):
         btn1 = QPushButton('재전송', self)
         btn1.setToolTip('rtp to rtsp 재전송 시작')
         btn1.move(50, 130)
-        btn1.clicked.connect(self.start_process)
+        btn1.clicked.connect(self.start_rtsp_process)
 
         # 저장 버튼
         btn2 = QPushButton('멈춤', self)
         btn2.setToolTip('rtp to rtsp 재전송 종료')
         btn2.move(150, 130)
-        btn2.clicked.connect(self.start_save_process)
+        btn2.clicked.connect(self.stop_rtsp_process)
 
         # rtp 저장 기능
         # 제목
@@ -104,19 +103,13 @@ class App(QWidget):
         btn5.clicked.connect(self.stop_save_rtp_process)
         self.show()
 
-    def start_process(self):
+    def start_rtsp_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_thread is None or not self.process_thread.isRunning():
             self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
             self.process_thread.start()
 
-    def start_save_process(self):
-        # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process_save_thread is None or not self.process_save_thread.isRunning():
-            self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', 'save'])
-            self.process_save_thread.start()
-
-    def stop_process(self):
+    def stop_rtsp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process_thread is not None:
             self.process_thread.stop()

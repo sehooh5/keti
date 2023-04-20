@@ -710,5 +710,10 @@
     - 파일경로 : /home/keti0/비디오/
     - 파일명 : blackbox_test6.mp4
 
-    
+- process 함수 부분 진행중!!!!
 
+
+
+#### 0420
+
+- edge GUI Process수정
