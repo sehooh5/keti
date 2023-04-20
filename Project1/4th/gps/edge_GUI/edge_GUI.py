@@ -43,17 +43,17 @@ class App(QWidget):
         title = QLabel('RTP to RTSP 재전송', self)
         title.move(95, 10)
 
-        # 입력창 1
-        input1 = QLineEdit(self)
-        input1.setPlaceholderText('RTP 주소')
-        input1.move(50, 50)
-        input1.resize(300, 25)
+        # 입력창 4
+        input4 = QLineEdit(self)
+        input4.setPlaceholderText('RTP 주소')
+        input4.move(50, 50)
+        input4.resize(300, 25)
 
-        # 입력창 2
-        input2 = QLineEdit(self)
-        input2.setPlaceholderText('RTSP 주소')
-        input2.move(50, 90)
-        input2.resize(300, 25)
+        # 입력창 4
+        input5 = QLineEdit(self)
+        input5.setPlaceholderText('RTSP 주소')
+        input5.move(50, 90)
+        input5.resize(300, 25)
 
         # 실행 버튼
         btn1 = QPushButton('재전송', self)
@@ -106,15 +106,15 @@ class App(QWidget):
     def start_rtsp_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_thread is None or not self.process_thread.isRunning():
-            self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
-            self.process_thread.start()
+            command = 'cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://:8555/videoMain}" --no-sout-all --sout-keep'
+            command = 'cvlc -vvv {} --sout="#rtp{{sdp={}}}" --no-sout-all --sout-keep'.format(input4, input5)
+            self.process_thread = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
 
     def stop_rtsp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process_thread is not None:
-            self.process_thread.stop()
-        if self.process_save_thread is not None:
-            self.process_save_thread.stop()
+            os.killpg(os.getpgid(self.process_thread.pid), signal.SIGTERM)
+            self.process_thread = None
 
     def start_save_rtp_process(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
@@ -125,13 +125,9 @@ class App(QWidget):
 
     def stop_save_rtp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        print("stop process2 들어옴")
         if self.process2_thread is not None:
             os.killpg(os.getpgid(self.process2_thread.pid), signal.SIGTERM)
             self.process2_thread = None
-
-#             self.process2_thread.kill()
-#             self.process2_thread = None
 
 
 if __name__ == '__main__':
