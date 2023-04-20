@@ -55,13 +55,13 @@ class App(QWidget):
         input5.move(50, 90)
         input5.resize(300, 25)
 
-        # 실행 버튼
+        # 재전송 시작 버튼
         btn1 = QPushButton('재전송', self)
         btn1.setToolTip('rtp to rtsp 재전송 시작')
         btn1.move(50, 130)
-        btn1.clicked.connect(self.start_rtsp_process)
+        btn1.clicked.connect(lambda: self.start_rtsp_process(input4.text(), input5.text()))
 
-        # 저장 버튼
+        # 멈춤 버튼
         btn2 = QPushButton('멈춤', self)
         btn2.setToolTip('rtp to rtsp 재전송 종료')
         btn2.move(150, 130)
