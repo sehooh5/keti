@@ -115,23 +115,23 @@ class App(QWidget):
         if self.process_thread is None or not self.process_thread.isRunning():
             self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
             self.process_thread.start()
-            self.status1.setText('GPS 데이터 전송중')
+#             self.status1.setText('GPS 데이터 전송중')
 
     def start_save_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_save_thread is None or not self.process_save_thread.isRunning():
             self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', 'save'])
             self.process_save_thread.start()
-            self.status2.setText('GPS 데이터 저장중')
+#             self.status2.setText('GPS 데이터 저장중')
 
     def stop_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process_thread is not None:
             self.process_thread.stop()
-            self.status1.setText('GPS 데이터 전송 멈춤')
+#             self.status1.setText('GPS 데이터 전송 멈춤')
         if self.process_save_thread is not None:
             self.process_save_thread.stop()
-            self.status2.setText('GPS 데이터 저장 멈춤')
+#             self.status2.setText('GPS 데이터 저장 멈춤')
 
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
