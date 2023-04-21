@@ -108,11 +108,14 @@ class App(QWidget):
         btn5.setToolTip('VLC 종료')
         btn5.move(150, 340)
         btn5.clicked.connect(self.stop_process2)
-        self.show()
-
+        
         # rtp 전송 상태 표시 # 추가
         self.status3 = QLabel('RTP 전송 멈춤', self)
         self.status3.move(250, 340)
+
+        self.show()
+
+
 
     def start_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
@@ -151,7 +154,6 @@ class App(QWidget):
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
-        print("rtp 전송 멈춤")
         if self.process2_thread is not None:
             for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
                     child.kill()
