@@ -133,7 +133,7 @@ class App(QWidget):
             self.status1.setText('GPS 데이터 전송 멈춤')
         if self.process_save_thread is not None:
             self.process_save_thread.stop()
-            self.process_thread.wait()
+            self.process_save_thread.wait()
             self.process_save_thread = None
             self.status2.setText('GPS 데이터 저장 멈춤')
 
