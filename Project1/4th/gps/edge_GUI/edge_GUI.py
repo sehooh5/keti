@@ -11,15 +11,19 @@ class ProcessThread(QThread):
         super().__init__()
         self.cmd = cmd
         self.process = None
+        self.isRunning = False # 추가
 
     def run(self):
         self.process = subprocess.Popen(self.cmd)
+        self.isRunning = True # 추가
         self.process.wait()
+        self.isRunning = False # 추가
 
     def stop(self):
         if self.process is not None and self.process.poll() is None:
             self.process.terminate()
             self.process.wait()
+            self.isRunning = False # 추가
 
 class App(QWidget):
 
@@ -61,6 +65,10 @@ class App(QWidget):
         btn1.move(50, 130)
         btn1.clicked.connect(lambda: self.start_rtsp_process(input4.text(), input5.text()))
 
+        # RTSP 재전송 상태 표시 # 추가
+        self.status1 = QLabel('RTSP 재전송 멈춤', self)
+        self.status1.move(250, 130)
+
         # 멈춤 버튼
         btn2 = QPushButton('멈춤', self)
         btn2.setToolTip('rtp to rtsp 재전송 종료')
@@ -96,6 +104,10 @@ class App(QWidget):
         btn4.move(50, 350)
         btn4.clicked.connect(lambda: self.start_save_rtp_process(input1.text(), input2.text(), input3.text()))
 
+        # RTSP 재전송 상태 표시 # 추가
+        self.status2 = QLabel('RTP 영상 저장 멈춤', self)
+        self.status2.move(250, 350)
+
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
         btn5.setToolTip('저장 종료')
@@ -109,12 +121,15 @@ class App(QWidget):
             command = 'cvlc -vvv rtp://123.214.186.162:5005 --sout="#rtp{sdp=rtsp://:8555/videoMain}" --no-sout-all --sout-keep'
 #             command = 'cvlc -vvv {} --sout="#rtp{{sdp={}}}" --no-sout-all --sout-keep'.format(input4, input5)
             self.process_thread = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
+            self.status1.setText('RTSP 재전송중')
 
     def stop_rtsp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process_thread is not None:
             os.killpg(os.getpgid(self.process_thread.pid), signal.SIGTERM)
+            self.process_thread.wait()
             self.process_thread = None
+            self.status1.setText('RTSP 재전송 멈춤')
 
     def start_save_rtp_process(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
@@ -122,12 +137,15 @@ class App(QWidget):
 #             command = 'cvlc {}  --sout=file/ps:{}{}'.format(input1, input2, input3)
             command = 'cvlc rtp://123.214.186.162:5005 --sout=file/ps:/home/keti0/비디오/blackbox_test6.mp4'
             self.process2_thread = subprocess.Popen(command, shell=True, preexec_fn=os.setsid)
+            self.status2.setText('RTP 영상 저장중')
 
     def stop_save_rtp_process(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
         if self.process2_thread is not None:
             os.killpg(os.getpgid(self.process2_thread.pid), signal.SIGTERM)
+            self.process2_thread.wait()
             self.process2_thread = None
+            self.status2.setText('RTP 영상 저장 멈춤')
 
 
 if __name__ == '__main__':
