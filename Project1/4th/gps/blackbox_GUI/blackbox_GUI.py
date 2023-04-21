@@ -10,15 +10,19 @@ class ProcessThread(QThread):
         super().__init__()
         self.cmd = cmd
         self.process = None
+        self.isRunning = False # 추가
 
     def run(self):
         self.process = subprocess.Popen(self.cmd)
+        self.isRunning = True # 추가
         self.process.wait()
+        self.isRunning = False # 추가
 
     def stop(self):
         if self.process is not None and self.process.poll() is None:
             self.process.terminate()
             self.process.wait()
+            self.isRunning = False # 추가
 
 class App(QWidget):
 
@@ -29,8 +33,6 @@ class App(QWidget):
         self.top = 10
         self.width = 400
         self.height = 450
-#         self.process = None
-#         self.process2 = None
         self.process_thread = None
         self.process_save_thread = None
         self.process2_thread = None
@@ -51,6 +53,10 @@ class App(QWidget):
         btn1.move(50, 50)
         btn1.clicked.connect(self.start_process)
 
+        # 실행 상태 표시 # 추가
+        self.status1 = QLabel('GPS 데이터 전송 멈춤', self)
+        self.status1.move(220, 55)
+
         # 저장 버튼
         btn2 = QPushButton('저장', self)
         btn2.setToolTip('gps_with_gyro.py save 실행')
@@ -62,6 +68,7 @@ class App(QWidget):
         btn3.setToolTip('실행 중인 프로세스 중지')
         btn3.move(100, 100)
         btn3.clicked.connect(self.stop_process)
+
 
         # 영상 데이터
         # 제목
