@@ -31,7 +31,7 @@ class App(QWidget):
         self.title = 'GPS with Gyro'
         self.left = 10
         self.top = 10
-        self.width = 600
+        self.width = 450
         self.height = 450
         self.process_thread = None
         self.process_save_thread = None
@@ -55,7 +55,7 @@ class App(QWidget):
 
         # 실행 상태 표시 # 추가
         self.status1 = QLabel('GPS 데이터 전송 멈춤', self)
-        self.status1.move(220, 55)
+        self.status1.move(250, 55)
 
         # 저장 버튼
         btn2 = QPushButton('저장', self)
