@@ -31,7 +31,7 @@ class App(QWidget):
         self.title = 'GPS with Gyro'
         self.left = 10
         self.top = 10
-        self.width = 400
+        self.width = 600
         self.height = 450
         self.process_thread = None
         self.process_save_thread = None
@@ -111,6 +111,7 @@ class App(QWidget):
         if self.process_thread is None or not self.process_thread.isRunning():
             self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
             self.process_thread.start()
+            self.status1.setText('GPS 데이터 전송중')
 
     def start_save_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
