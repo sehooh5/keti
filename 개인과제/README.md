@@ -564,3 +564,31 @@
 
 
 
+#### 0424
+
+- 포트폴리오 github io 진행하고 수요일까지 마무리하기
+  - 집가서도 무조건 하기!!
+
+
+
+#### 0425
+
+- 언어 레벨 표시
+
+  ```html
+  <i class="fa fa-square" style="font-size:1rem"></i><i class="fa fa-square" style="font-size:1rem"></i><i class="fa fa-square" style="font-size:1rem"></i><i class="fa fa-square" style="font-size:1rem"></i><i class="fa fa-square-o" style="font-size:1rem"></i>
+  ```
+
+  
+
+#### 0426
+
+- 프로그래밍 언어 Docker부분부터 다시 확인 후 시작
+
+
+
+#### 0427
+
+- experience 다시 채우기 시작
+  - 옆에 리스트 띄워놓고 채우기 
+
