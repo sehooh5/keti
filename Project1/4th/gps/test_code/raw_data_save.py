@@ -4,7 +4,7 @@ import serial
 ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 
 # GPS 데이터를 저장할 파일 열기
-with open('gps_data.txt', 'w') as file:
+with open('gps_data.txt', 'wb') as file:
 
     # 무한 루프
     while True:
@@ -19,4 +19,4 @@ with open('gps_data.txt', 'w') as file:
             print(data)
 
             # 데이터 파일에 쓰기
-            file.write(data + '\n')
+            file.write(data)
