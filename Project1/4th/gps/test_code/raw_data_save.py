@@ -10,7 +10,7 @@ with open('gps_data.txt', 'w') as file:
     while True:
 
         # 시리얼 데이터 읽기
-        data = ser.readline().decode('utf-8').strip()
+        data = ser.readline()
 
         # 데이터가 존재하는 경우에만 처리
         if data:
