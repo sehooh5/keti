@@ -1,7 +1,7 @@
 import serial
 
 # 시리얼 포트 설정
-ser = serial.Serial('/dev/ttyUSB6', 9600, timeout=1)
+ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 
 # GPS 데이터를 저장할 파일 열기
 with open('gps_data.txt', 'w') as file:
