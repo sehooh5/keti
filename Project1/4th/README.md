@@ -767,6 +767,7 @@
   - - 명령어 : `cvlc -vvv /home/keti-laptop/비디오/blackbox_test4.mp4 --sout "#rtp{dst=123.214.186.162,port=5005,mux=ts}" --loop --no-sout-all`
   - GPS 로우데이터로 저장할 수 있게 변경
     - /4th/gps/test_code/raw_data_save.py 에서 진행중
-  - 차량 서버에 바로 영상, GPS 데이터 저장할 수 있게 만들어 놓기
+  - 차량 서버에 바로 영상, GPS 데이터 저장할 수 있게 만들어 놓기(blackbox_save_GUI.py)
+    - 영상 저장 : `cvlc rtsp://192.168.1.101:554/h264 --sout=file/mp4:/home/keti-laptop/비디오/blackbox_test4.mp4`
   - GPS 데이터 싱크 어떻게 맞출수 있을까? 
 

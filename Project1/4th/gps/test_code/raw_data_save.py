@@ -6,7 +6,6 @@ ports = serial.tools.list_ports.comports()
 
 # 사용 가능한 포트 출력
 for port in ports:
-    print(port.device)
     port = port.device
 
 # 시리얼 포트 설정

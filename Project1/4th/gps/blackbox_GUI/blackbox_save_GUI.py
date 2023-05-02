@@ -76,7 +76,7 @@ class App(QWidget):
 
         # 영상 데이터
         # 제목
-        title = QLabel('영상 데이터 전송', self)
+        title = QLabel('영상 데이터 저장', self)
         title.move(95, 190)
 
         # 입력창 1
@@ -98,20 +98,20 @@ class App(QWidget):
         input3.resize(300, 25)
 
         # 실행 버튼
-        btn4 = QPushButton('실행', self)
-        btn4.setToolTip('VLC 실행')
-        btn4.move(50, 340)
+        btn4 = QPushButton('저장', self)
+        btn4.setToolTip('영상 저장')
+        btn4.move(50, 220)
         btn4.clicked.connect(lambda: self.start_process2(input1.text(), input2.text(), input3.text()))
 
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
-        btn5.setToolTip('VLC 종료')
-        btn5.move(150, 340)
+        btn5.setToolTip('저장 종료')
+        btn5.move(150, 220)
         btn5.clicked.connect(self.stop_process2)
 
         # rtp 전송 상태 표시 # 추가
-        self.status3 = QLabel('RTP 전송 멈춤', self)
-        self.status3.move(250, 340)
+        self.status3 = QLabel('영상 저장 멈춤', self)
+        self.status3.move(250, 220)
 
         self.show()
 
@@ -147,10 +147,9 @@ class App(QWidget):
     def start_process2(self, input1, input2, input3):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2_thread is None or not self.process2_thread.isRunning():
-#             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
-            command = 'cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep'
+            command = 'cvlc rtsp://192.168.1.101:554/h264 --sout=file/mp4:/home/keti-laptop/비디오/blackbox_test4.mp'
             self.process2_thread = subprocess.Popen(command, shell=True)
-            self.status3.setText('RTP 전송중')
+            self.status3.setText('영상 저장중')
 
     def stop_process2(self):
         # 실행 중인 프로세스가 있는 경우에만 종료
@@ -161,7 +160,7 @@ class App(QWidget):
             self.process2_thread.kill()
             self.process2_thread.wait()
             self.process2_thread = None
-            self.status3.setText('RTP 전송 멈춤')
+            self.status3.setText('영상 저장 멈춤')
 
 
 if __name__ == '__main__':
