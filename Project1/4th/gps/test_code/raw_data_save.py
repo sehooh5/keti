@@ -7,9 +7,10 @@ ports = serial.tools.list_ports.comports()
 # 사용 가능한 포트 출력
 for port in ports:
     print(port.device)
+    port = port.device
 
 # 시리얼 포트 설정
-ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+ser = serial.Serial(port, 9600, timeout=1)
 
 # GPS 데이터를 저장할 파일 열기
 with open('gps_data.txt', 'wb') as file:
