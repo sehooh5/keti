@@ -81,7 +81,7 @@ class App(QWidget):
 
         # 입력창 1
         input1 = QLineEdit(self)
-        input1.setPlaceholderText('blackbox_.mp4')
+        input1.setText('blackbox_.mp4')
         input1.move(50, 220)
         input1.resize(300, 25)
 
