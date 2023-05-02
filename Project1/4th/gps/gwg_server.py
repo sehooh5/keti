@@ -80,6 +80,7 @@ def gwg_save():
     gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
     q0, q1, q2, q3 = gwg_data['quaternion']['q0'], gwg_data['quaternion']['q1'], gwg_data['quaternion']['q2'], gwg_data['quaternion']['q3']
     snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
+    dbname = gwg_data['dbname']
 
     # gwg_save table 생성 후 데이터 저장 - 여기선 gps_id 관계없이 그냥 단일 gwg_save 테이블에 저장
     c.execute(f'select name from sqlite_master where type="table" and name="gwg_save"')
@@ -154,14 +155,15 @@ def cgwg_save():
     gh, gy, gv = gwg_data['groundSpeed']['gh'], gwg_data['groundSpeed']['gy'], gwg_data['groundSpeed']['gv']
     q0, q1, q2, q3 = round(gwg_data['quaternion']['q0'],6), round(gwg_data['quaternion']['q1'],6), round(gwg_data['quaternion']['q2'],6), round(gwg_data['quaternion']['q3'],6)
     snum, pdop, hdop, vdop = gwg_data['satelite']['snum'], gwg_data['satelite']['pdop'], gwg_data['satelite']['hdop'], gwg_data['satelite']['vdop']
+    dbname = gwg_data['dbname']
 
     # gwg_save table 생성 후 데이터 저장 - 여기선 gps_id 관계없이 그냥 단일 gwg_save 테이블에 저장
-    c.execute(f'select name from sqlite_master where type="table" and name="cgwg_save"')
+    c.execute(f'select name from sqlite_master where type="table" and name="{dbname}"')
     dt_exist = c.fetchone()
     # gwg_save 테이블이 없으면 테이블 생성
     if dt_exist == None:
-        print(f"cgwg_save 테이블 생성")
-        c.execute(f"CREATE TABLE IF NOT EXISTS cgwg_save \
+        print(f"{dbname} 테이블 생성")
+        c.execute(f"CREATE TABLE IF NOT EXISTS {dbname} \
                         (yy int, mm int, dd int,hh int,mi int,ss int,ms int,\
                         ax real, ay real, az real,\
                         wx int, wy int, wz int,\
@@ -173,7 +175,7 @@ def cgwg_save():
                         q0 real, q1 real, q2 real, q3 real,\
                         snum int, pdop float, hdop float, vdop float)")
 #34
-    c.execute(f"INSERT INTO cgwg_save \
+    c.execute(f"INSERT INTO {dbname} \
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop))
 
     return "GPS and Gyro data is saved in Edge Server!"

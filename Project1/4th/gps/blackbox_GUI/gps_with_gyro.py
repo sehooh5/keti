@@ -94,6 +94,7 @@ while True:
         "groundSpeed":{"gh": str.gh, "gy": str.gy, "gv": str.gv},
         "quaternion":{"q0": str.q0, "q1": str.q1, "q2": str.q2, "q3": str.q3},
         "satelite":{"snum": str.sn, "pdop": str.pdop, "hdop": str.hdop, "vdop": str.vdop},
+        "dbname":sys.argv[1],
     }
 #     print(data)
     json_data = json.dumps(data)
