@@ -178,7 +178,7 @@ def cgwg_save():
 #34
 
     c.execute(f"INSERT INTO {dbname} \
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop, datetime.datetime.now()))
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (yy, mm, dd, hh, mi, ss, ms, ax, ay, az, wx, wy, wz, roll, pitch, yaw, mx, my, mz, press, h, lat, lon, gh, gy, gv, q0, q1, q2, q3, snum, pdop, hdop, vdop, datetime.datetime.now()))
 
     return "GPS and Gyro data is saved in Edge Server!"
 
