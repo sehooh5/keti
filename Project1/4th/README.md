@@ -754,7 +754,19 @@
   - 저장된 영상 RTP 전송 무한루프 되는지 확인
     - 명령어 : `cvlc -vvv /home/keti-laptop/비디오/blackbox_test4.mp4 --sout "#rtp{dst=123.214.186.162,port=5005,mux=ts}" --loop --no-sout-all`
   - GPS 로우데이터로 저장할 수 있게 변경
-    - /4th/gps/test_code/raw_data_save.py 에서 진행중
+    - /4th/gps/test_code/raw_data_save.py 에서 진행중ㄴ
+  - 차량 서버에 바로 영상, GPS 데이터 저장할 수 있게 만들어 놓기
+  - GPS 데이터 싱크 어떻게 맞출수 있을까? 
+
+
+
+#### 0502
+
+- 확인 
+  - 저장된 영상 RTP 전송 무한루프 되는지 확인
+  - - 명령어 : `cvlc -vvv /home/keti-laptop/비디오/blackbox_test4.mp4 --sout "#rtp{dst=123.214.186.162,port=5005,mux=ts}" --loop --no-sout-all`
+  - GPS 로우데이터로 저장할 수 있게 변경
+    - /4th/gps/test_code/raw_data_save.py 에서 진행중ㄴ
   - 차량 서버에 바로 영상, GPS 데이터 저장할 수 있게 만들어 놓기
   - GPS 데이터 싱크 어떻게 맞출수 있을까? 
 
