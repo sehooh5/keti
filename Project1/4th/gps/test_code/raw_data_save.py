@@ -1,4 +1,12 @@
 import serial
+import serial.tools.list_ports
+
+# 사용 가능한 시리얼 포트 목록 찾기
+ports = serial.tools.list_ports.comports()
+
+# 사용 가능한 포트 출력
+for port in ports:
+    print(port.device)
 
 # 시리얼 포트 설정
 ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
