@@ -67,7 +67,7 @@ class App(QWidget):
         btn2 = QPushButton('저장', self)
         btn2.setToolTip('gps_with_gyro.py save 실행')
         btn2.move(150, 100)
-        btn2.clicked.connect(self.start_save_process)
+        btn2.clicked.connect(lambda: self.start_save_process(input2.text()))
 
         # 저장 실행 상태 표시 # 추가
         self.status2 = QLabel('GPS 데이터 저장 멈춤', self)
@@ -118,10 +118,10 @@ class App(QWidget):
             self.process_thread.start()
             self.status1.setText('GPS 데이터 전송중')
 
-    def start_save_process(self):
+    def start_save_process(self, input2):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_save_thread is None or not self.process_save_thread.isRunning():
-            self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', 'save'])
+            self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', input2])
             self.process_save_thread.start()
             self.status2.setText('GPS 데이터 저장중')
 
