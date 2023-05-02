@@ -89,7 +89,7 @@ class App(QWidget):
         btn4 = QPushButton('저장', self)
         btn4.setToolTip('영상 저장')
         btn4.move(50, 260)
-        btn4.clicked.connect(lambda: self.start_process2(input1.text(), input2.text(), input3.text()))
+        btn4.clicked.connect(lambda: self.start_process2(input1.text()))
 
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
