@@ -11,6 +11,7 @@ import serial.tools.list_ports
 import sqlite3
 import time
 
+
 # 사용 가능한 시리얼 포트 목록 찾기
 ports = serial.tools.list_ports.comports()
 
@@ -22,6 +23,8 @@ for port in ports:
 ser = serial.Serial(port, 9600, timeout=1)
 
 # GPS 데이터를 저장할 데이터베이스 연결
+db_name = sys.argv[1]
+print(db_name)
 conn = sqlite3.connect('gps_data_test.db')
 c = conn.cursor()
 
@@ -96,7 +99,7 @@ while True:
 #     print(data)
     json_data = json.dumps(data)
     arg = sys.argv
-    print(arg[1])
+
 
     if len(arg) > 1 :
         requests.post(f'{url}/cgwg_save', json=json_data)
