@@ -12,7 +12,7 @@ for port in ports:
 ser = serial.Serial(port, 9600, timeout=1)
 
 # GPS 데이터를 저장할 파일 열기
-with open('gps_data.txt', 'wb') as file:
+with open('gps_data.txt', 'w') as file:
     while True:
             line = ser.readline().decode("utf-8")
             file.write(line)
