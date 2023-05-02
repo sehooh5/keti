@@ -24,8 +24,7 @@ ser = serial.Serial(port, 9600, timeout=1)
 
 # GPS 데이터를 저장할 데이터베이스 연결
 db_name = sys.argv[1]
-print(db_name)
-conn = sqlite3.connect('gps_data_test.db')
+conn = sqlite3.connect(f'{db_name}.db')
 c = conn.cursor()
 
 # 테이블 생성 (이미 생성되어 있다면 생략 가능)
