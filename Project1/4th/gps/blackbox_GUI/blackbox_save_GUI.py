@@ -71,12 +71,12 @@ class App(QWidget):
 
         # 저장 실행 상태 표시 # 추가
         self.status2 = QLabel('GPS 데이터 저장 멈춤', self)
-        self.status2.move(250, 200)
+        self.status2.move(250, 155)
 
         # 멈춤 버튼
         btn3 = QPushButton('멈춤', self)
         btn3.setToolTip('실행 중인 프로세스 중지')
-        btn3.move(100, 200)
+        btn3.move(100, 150)
         btn3.clicked.connect(self.stop_process)
 
 
