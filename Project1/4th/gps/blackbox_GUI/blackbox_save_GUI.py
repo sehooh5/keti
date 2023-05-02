@@ -47,30 +47,36 @@ class App(QWidget):
         title = QLabel('GPS 실시간 데이터', self)
         title.move(95, 10)
 
+        # 입력창 1
+        input2 = QLineEdit(self)
+        input2.setText('gps_')
+        input2.move(50, 50)
+        input2.resize(300, 25)
+
         # 실행 버튼
         btn1 = QPushButton('전송', self)
         btn1.setToolTip('gps_with_gyro.py 실행')
-        btn1.move(50, 50)
+        btn1.move(50, 100)
         btn1.clicked.connect(self.start_process)
 
         # 실행 상태 표시 # 추가
         self.status1 = QLabel('GPS 데이터 전송 멈춤', self)
-        self.status1.move(250, 55)
+        self.status1.move(250, 105)
 
         # 저장 버튼
         btn2 = QPushButton('저장', self)
         btn2.setToolTip('gps_with_gyro.py save 실행')
-        btn2.move(150, 50)
+        btn2.move(150, 100)
         btn2.clicked.connect(self.start_save_process)
 
         # 저장 실행 상태 표시 # 추가
         self.status2 = QLabel('GPS 데이터 저장 멈춤', self)
-        self.status2.move(250, 100)
+        self.status2.move(250, 200)
 
         # 멈춤 버튼
         btn3 = QPushButton('멈춤', self)
         btn3.setToolTip('실행 중인 프로세스 중지')
-        btn3.move(100, 100)
+        btn3.move(100, 200)
         btn3.clicked.connect(self.stop_process)
 
 
@@ -81,7 +87,7 @@ class App(QWidget):
 
         # 입력창 1
         input1 = QLineEdit(self)
-        input1.setText('blackbox')
+        input1.setText('blackbox_')
         input1.move(50, 220)
         input1.resize(300, 25)
 
