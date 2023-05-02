@@ -173,7 +173,7 @@ def cgwg_save():
                         lat real, lon real,\
                         gh real, gy real, gv real,\
                         q0 real, q1 real, q2 real, q3 real,\
-                        snum int, pdop float, hdop float, vdop float,
+                        snum int, pdop float, hdop float, vdop float,\
                         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)")
 #34
     c.execute(f"INSERT INTO {dbname} \
