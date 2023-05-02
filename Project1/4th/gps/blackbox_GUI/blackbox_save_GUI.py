@@ -81,7 +81,7 @@ class App(QWidget):
 
         # 입력창 1
         input1 = QLineEdit(self)
-        input1.setText('blackbox_.mp4')
+        input1.setText('blackbox')
         input1.move(50, 220)
         input1.resize(300, 25)
 
@@ -136,7 +136,7 @@ class App(QWidget):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2_thread is None or not self.process2_thread.isRunning():
 #             command = 'cvlc rtsp://192.168.1.101:554/h264 --sout=file/mp4:/home/keti-laptop/비디오/{}'.format(input1)
-            command = 'cvlc rtsp://192.168.1.101:554/h264 --sout=file/avi:/home/keti-laptop/비디오/test.avi'
+            command = 'cvlc rtsp://192.168.1.101:554/h264 --sout=file/avi:/home/keti-laptop/비디오/{}.avi'.format(input1)
             self.process2_thread = subprocess.Popen(command, shell=True)
             self.status3.setText('영상 저장중')
 
