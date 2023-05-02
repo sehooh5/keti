@@ -83,29 +83,29 @@ class App(QWidget):
         # 영상 데이터
         # 제목
         title = QLabel('영상 데이터 저장', self)
-        title.move(95, 190)
+        title.move(95, 210)
 
         # 입력창 1
         input1 = QLineEdit(self)
         input1.setText('blackbox_')
-        input1.move(50, 220)
+        input1.move(50, 240)
         input1.resize(300, 25)
 
         # 실행 버튼
         btn4 = QPushButton('저장', self)
         btn4.setToolTip('영상 저장')
-        btn4.move(50, 260)
+        btn4.move(50, 280)
         btn4.clicked.connect(lambda: self.start_process2(input1.text()))
 
         # 멈춤 버튼
         btn5 = QPushButton('멈춤', self)
         btn5.setToolTip('저장 종료')
-        btn5.move(150, 260)
+        btn5.move(150, 280)
         btn5.clicked.connect(self.stop_process2)
 
         # rtp 전송 상태 표시 # 추가
         self.status3 = QLabel('영상 저장 멈춤', self)
-        self.status3.move(250, 260)
+        self.status3.move(250, 280)
 
         self.show()
 
