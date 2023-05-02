@@ -77,7 +77,7 @@ while True:
         traceback.print_exc()
 
 
-    print("데이터 출력 : ")
+#     print("데이터 출력 : ")
 
     ss = str.ss
     ms = str.ms
