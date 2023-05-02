@@ -81,7 +81,7 @@ class App(QWidget):
 
         # 입력창 1
         input1 = QLineEdit(self)
-        input1.setPlaceholderText('저장명')
+        input1.setPlaceholderText('blackbox_.mp4')
         input1.move(50, 220)
         input1.resize(300, 25)
 
@@ -132,7 +132,7 @@ class App(QWidget):
             self.process_save_thread = None
             self.status2.setText('GPS 데이터 저장 멈춤')
 
-    def start_process2(self, input1, input2, input3):
+    def start_process2(self, input1):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process2_thread is None or not self.process2_thread.isRunning():
             command = 'cvlc rtsp://192.168.1.101:554/h264 --sout=file/mp4:/home/keti-laptop/비디오/{}'.format(input1)
