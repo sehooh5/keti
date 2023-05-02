@@ -96,7 +96,7 @@ while True:
 #     print(data)
     json_data = json.dumps(data)
     arg = sys.argv
-    print(arg)
+    print(arg[1])
 
     if len(arg) > 1 :
         requests.post(f'{url}/cgwg_save', json=json_data)
