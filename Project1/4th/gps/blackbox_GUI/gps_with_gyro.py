@@ -5,6 +5,33 @@ import json
 import sys
 import time
 
+# gps 로우데이터 저장기능 추가
+import serial
+import serial.tools.list_ports
+import sqlite3
+import time
+
+# 사용 가능한 시리얼 포트 목록 찾기
+ports = serial.tools.list_ports.comports()
+
+# 사용 가능한 포트 출력
+for port in ports:
+    port = port.device
+
+# 시리얼 포트 설정
+ser = serial.Serial(port, 9600, timeout=1)
+
+# GPS 데이터를 저장할 데이터베이스 연결
+conn = sqlite3.connect('gps_data_test.db')
+c = conn.cursor()
+
+# 테이블 생성 (이미 생성되어 있다면 생략 가능)
+c.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data
+             (id INTEGER PRIMARY KEY AUTOINCREMENT,
+              timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+              raw_data TEXT)''')
+
+
 url = "http://123.214.186.162:8088"
 
 path = "./gwg.so"
@@ -28,6 +55,20 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 while True:
+    # gps 로우데이터 저장 기능 추가부분
+    # 시리얼 데이터 읽기
+    raw_data = ser.readline()
+
+    # 데이터가 존재하는 경우에만 처리
+    if raw_data:
+
+        # 데이터 출력
+#         print(raw_data)
+
+        # 데이터베이스에 쓰기
+        c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
+        conn.commit()
+
     time.sleep(0.5)
     try:
         c_module.process(ctypes.pointer(str)) # byref # 여기 C 과정에서 세그멘테이션 오류 발생
