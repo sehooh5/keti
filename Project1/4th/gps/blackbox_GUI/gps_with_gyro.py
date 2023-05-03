@@ -32,11 +32,11 @@ c.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data
               timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
               raw_data BLOB)''')
 
-c2 = conn.cursor()
-c2.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data2
-             (id INTEGER PRIMARY KEY AUTOINCREMENT,
-              timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-              raw_data BLOB)''')
+# c2 = conn.cursor()
+# c2.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data2
+#              (id INTEGER PRIMARY KEY AUTOINCREMENT,
+#               timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+#               raw_data BLOB)''')
 
 
 url = "http://123.214.186.162:8088"
@@ -79,19 +79,19 @@ while True:
     # 시리얼 데이터 읽기
     raw_data2 = ser.read(23)
 
-    # 데이터가 존재하는 경우에만 처리
-    if raw_data2:
-        # 바이너리 데이터에 추가
-        binary_data += raw_data2
-
-        # 11개의 데이터가 모두 읽어진 경우
-        if len(binary_data) == 253:
-            # 데이터베이스에 쓰기
-            c2.execute("INSERT INTO gps_raw_data2 (raw_data) VALUES (?)", (binary_data,))
-            conn.commit()
-
-            # 바이너리 데이터 초기화
-            binary_data = b''
+#     # 11개 데이터 전부저장(멈춤)
+#     if raw_data2:
+#         # 바이너리 데이터에 추가
+#         binary_data += raw_data2
+#
+#         # 11개의 데이터가 모두 읽어진 경우
+#         if len(binary_data) == 253:
+#             # 데이터베이스에 쓰기
+#             c2.execute("INSERT INTO gps_raw_data2 (raw_data) VALUES (?)", (binary_data,))
+#             conn.commit()
+#
+#             # 바이너리 데이터 초기화
+#             binary_data = b''
 
     time.sleep(0.5)
     try:
