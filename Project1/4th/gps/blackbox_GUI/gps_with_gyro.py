@@ -66,7 +66,7 @@ while True:
     if raw_data:
 
         # 데이터 출력
-#         print(raw_data)
+        print(raw_data)
 
         # 데이터베이스에 쓰기
         c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
