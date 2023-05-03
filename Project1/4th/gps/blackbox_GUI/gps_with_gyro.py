@@ -25,18 +25,13 @@ ser = serial.Serial(port, 9600, timeout=1)
 # GPS 데이터를 저장할 데이터베이스 연결
 db_name = sys.argv[1]
 conn = sqlite3.connect(f'{db_name}.db')
-
 c = conn.cursor()
+
+# 테이블 생성 (이미 생성되어 있다면 생략 가능)
 c.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data
              (id INTEGER PRIMARY KEY AUTOINCREMENT,
               timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
               raw_data BLOB)''')
-
-# c2 = conn.cursor()
-# c2.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data2
-#              (id INTEGER PRIMARY KEY AUTOINCREMENT,
-#               timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-#               raw_data BLOB)''')
 
 
 url = "http://123.214.186.162:8088"
@@ -62,9 +57,6 @@ class STRUCT(ctypes.Structure) :
 
 str = STRUCT()
 
-# 바이너리 데이터를 저장할 변수(0503)
-binary_data = b''
-
 while True:
     # gps 로우데이터 저장 기능 추가부분
     # 시리얼 데이터 읽기
@@ -73,25 +65,12 @@ while True:
     # 데이터가 존재하는 경우에만 처리
     if raw_data:
 
+        # 데이터 출력
+#         print(raw_data)
+
         # 데이터베이스에 쓰기
         c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
         conn.commit()
-    # 시리얼 데이터 읽기
-    raw_data2 = ser.read(23)
-
-#     # 11개 데이터 전부저장(멈춤)
-#     if raw_data2:
-#         # 바이너리 데이터에 추가
-#         binary_data += raw_data2
-#
-#         # 11개의 데이터가 모두 읽어진 경우
-#         if len(binary_data) == 253:
-#             # 데이터베이스에 쓰기
-#             c2.execute("INSERT INTO gps_raw_data2 (raw_data) VALUES (?)", (binary_data,))
-#             conn.commit()
-#
-#             # 바이너리 데이터 초기화
-#             binary_data = b''
 
     time.sleep(0.5)
     try:
