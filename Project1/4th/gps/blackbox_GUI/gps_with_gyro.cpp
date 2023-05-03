@@ -176,14 +176,14 @@ extern "C"
     }
 
     //0x50 Time data 추출
-    float get_time(unsigned char *chrBuf, int num)
+    unsigned int get_time(unsigned char *chrBuf, int num)
     {
         unsigned int yy; unsigned int mm; unsigned int dd; unsigned int hh; unsigned int mi; unsigned int ss; unsigned int ms;//0x50
-        signed short tmp[8];
+        unsigned short tmp[8];
         unsigned char i;
 
         for(i=0;i<8;i++){
-            tmp[i] = (signed short)chrBuf[i+2];
+            tmp[i] = (unsigned short)chrBuf[i+2];
         }
 
         if (num==1){
@@ -215,7 +215,7 @@ extern "C"
             return ms;
         }
         else{
-            return 999.999999;
+            return 999999;
         }
     }
     //0x51 Acceleration data 추출
