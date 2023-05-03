@@ -56,20 +56,40 @@ class STRUCT(ctypes.Structure) :
 
 
 str = STRUCT()
+
+# 바이너리 데이터를 저장할 변수(0503)
+binary_data = b''
+
 while True:
-    # gps 로우데이터 저장 기능 추가부분
+#     # gps 로우데이터 저장 기능 추가부분
+#     # 시리얼 데이터 읽기
+#     raw_data = ser.readline()
+#
+#     # 데이터가 존재하는 경우에만 처리
+#     if raw_data:
+#
+#         # 데이터 출력
+# #         print(raw_data)
+#
+#         # 데이터베이스에 쓰기
+#         c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
+#         conn.commit()
     # 시리얼 데이터 읽기
-    raw_data = ser.readline()
+    raw_data = ser.read(23)
 
     # 데이터가 존재하는 경우에만 처리
     if raw_data:
+        # 바이너리 데이터에 추가
+        binary_data += raw_data
 
-        # 데이터 출력
-#         print(raw_data)
+        # 11개의 데이터가 모두 읽어진 경우
+        if len(binary_data) == 253:
+            # 데이터베이스에 쓰기
+            c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (binary_data,))
+            conn.commit()
 
-        # 데이터베이스에 쓰기
-        c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
-        conn.commit()
+            # 바이너리 데이터 초기화
+            binary_data = b''
 
     time.sleep(0.5)
     try:
