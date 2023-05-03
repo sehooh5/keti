@@ -31,7 +31,7 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS gps_raw_data
              (id INTEGER PRIMARY KEY AUTOINCREMENT,
               timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-              raw_data TEXT)''')
+              raw_data BLOB)''')
 
 
 url = "http://123.214.186.162:8088"
