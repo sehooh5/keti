@@ -60,7 +60,7 @@ class App(QWidget):
         # 저장 버튼
         btn2 = QPushButton('저장', self)
         btn2.setToolTip('gps_with_gyro.py save 실행')
-        btn2.move(300, 50)
+        btn2.move(310, 50)
         btn2.clicked.connect(self.start_save_process)
 
         # 저장 실행 상태 표시 # 추가
