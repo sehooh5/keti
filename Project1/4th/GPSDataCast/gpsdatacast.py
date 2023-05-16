@@ -51,7 +51,7 @@ class App(QWidget):
         # 제목
         title = QLabel('영상 및 GPS 데이터 전송', self)
         title.move(95, 10)
-        for num in range(1,6):
+        for num in range(1,8):
             print(num)
         # 1번 영상 RTP 전송
         self.status1 = QLabel('blackbox_01 전송 멈춤', self)
