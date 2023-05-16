@@ -50,7 +50,7 @@ class App(QWidget):
         # 1번 영상 RTP 전송 버튼
         btn1 = QPushButton('blackbox_01 전송', self)
         btn1.setToolTip('blackbox_01.avi RTP 전송')
-        btn1.move(50, 50)
+        btn1.move(200, 50)
         btn1.clicked.connect(self.start_process)
 
         # 실행 상태 표시 # 추가
