@@ -50,7 +50,7 @@ class App(QWidget):
         # 1번 영상 RTP 전송 버튼
         btn1 = QPushButton('전송', self)
         btn1.setToolTip('blackbox_01.avi RTP 전송')
-        btn1.move(100, 50)
+        btn1.move(180, 50)
         btn1.clicked.connect(self.start_process)
 
         # 실행 상태 표시 # 추가
@@ -60,7 +60,7 @@ class App(QWidget):
         # 저장 버튼
         btn2 = QPushButton('저장', self)
         btn2.setToolTip('gps_with_gyro.py save 실행')
-        btn2.move(150, 50)
+        btn2.move(240, 50)
         btn2.clicked.connect(self.start_save_process)
 
         # 저장 실행 상태 표시 # 추가
