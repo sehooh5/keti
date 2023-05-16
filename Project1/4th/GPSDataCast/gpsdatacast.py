@@ -69,12 +69,12 @@ class App(QWidget):
 #             start1.move(220, 50)
 #             start1.clicked.connect(lambda: self.start_process(1))
 
-#             # 영상 멈춤 버튼
-            stop = QPushButton('전송', self)
+            # 영상 멈춤 버튼
+            stop = QPushButton('멈춤', self)
             setattr(self, f'stop{num}', self)
             stop.setToolTip('blackbox_01 RTP 전송 멈춤')
             stop.move(305, 50*num)
-            stop.clicked.connect(lambda: self.stop_process(num)
+            stop.clicked.connect(lambda: self.stop_process(num))
 #             stop1 = QPushButton('멈춤', self)
 #             stop1.setToolTip('blackbox_01 RTP 전송 멈춤')
 #             stop1.move(305, 50)
