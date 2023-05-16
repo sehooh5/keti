@@ -109,6 +109,7 @@ class App(QWidget):
             setattr(self, f"process{num}_thread", None)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+            QApplication.processEvents()
 
 
 if __name__ == '__main__':
