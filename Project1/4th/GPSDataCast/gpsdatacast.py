@@ -33,9 +33,14 @@ class App(QWidget):
         self.top = 10
         self.width = 450
         self.height = 450
-        self.process_thread = None
-        self.process_save_thread = None
+        self.process1_thread = None
         self.process2_thread = None
+        self.process3_thread = None
+        self.process4_thread = None
+        self.process5_thread = None
+        self.process6_thread = None
+        self.process7_thread = None
+
         self.initUI()
 
     def initUI(self):
@@ -47,121 +52,53 @@ class App(QWidget):
         title = QLabel('영상 및 GPS 데이터 전송', self)
         title.move(95, 10)
 
-        # 실행 상태 표시 # 추가
+        # 1번 영상 RTP 전송
         self.status1 = QLabel('blackbox_01 전송 멈춤', self)
         self.status1.move(50, 55)
 
         # 1번 영상 RTP 전송 버튼
-        btn1 = QPushButton('전송', self)
-        btn1.setToolTip('blackbox_01.avi RTP 전송')
-        btn1.move(220, 50)
-        btn1.clicked.connect(self.start_process)
+        start1 = QPushButton('전송', self)
+        start1.setToolTip('blackbox_01.avi RTP 전송')
+        start1.move(220, 50)
+        start1.clicked.connect(lambda: self.start_process(1))
 
-        # 저장 버튼
-        btn2 = QPushButton('저장', self)
-        btn2.setToolTip('gps_with_gyro.py save 실행')
-        btn2.move(305, 50)
-        btn2.clicked.connect(self.start_save_process)
+        # 1번 영상 멈춤 버튼
+        stop1 = QPushButton('멈춤', self)
+        stop1.setToolTip('blackbox_01.avi RTP 전송 멈춤')
+        stop1.move(305, 50)
+        stop1.clicked.connect(lambda: self.stop_process(1))
 
-        # 저장 실행 상태 표시 # 추가
-        self.status2 = QLabel('GPS 데이터 저장 멈춤', self)
-        self.status2.move(250, 100)
-
-        # 멈춤 버튼
-        btn3 = QPushButton('멈춤', self)
-        btn3.setToolTip('실행 중인 프로세스 중지')
-        btn3.move(100, 100)
-        btn3.clicked.connect(self.stop_process)
-
-
-        # 영상 데이터
-        # 제목
-        title = QLabel('영상 데이터 전송', self)
-        title.move(95, 190)
-
-        # 입력창 1
-        input1 = QLineEdit(self)
-        input1.setPlaceholderText('카메라 주소 입력')
-        input1.move(50, 220)
-        input1.resize(300, 25)
-
-        # 입력창 2
-        input2 = QLineEdit(self)
-        input2.setPlaceholderText('엣지서버 주소')
-        input2.move(50, 260)
-        input2.resize(300, 25)
-
-        # 입력창 3
-        input3 = QLineEdit(self)
-        input3.setPlaceholderText('엣지서버 포트번호')
-        input3.move(50, 300)
-        input3.resize(300, 25)
-
-        # 실행 버튼
-        btn4 = QPushButton('실행', self)
-        btn4.setToolTip('VLC 실행')
-        btn4.move(50, 340)
-        btn4.clicked.connect(lambda: self.start_process2(input1.text(), input2.text(), input3.text()))
-
-        # 멈춤 버튼
-        btn5 = QPushButton('멈춤', self)
-        btn5.setToolTip('VLC 종료')
-        btn5.move(150, 340)
-        btn5.clicked.connect(self.stop_process2)
-
-        # rtp 전송 상태 표시 # 추가
-        self.status3 = QLabel('RTP 전송 멈춤', self)
-        self.status3.move(250, 340)
 
         self.show()
 
 
-
-    def start_process(self):
+    def start_process(self, num):
         # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process_thread is None or not self.process_thread.isRunning():
-            self.process_thread = ProcessThread(['python3', 'gps_with_gyro.py'])
-            self.process_thread.start()
-            self.status1.setText('GPS 데이터 전송중')
+#         if self.process{num}_thread is None or not self.process{num}_thread.isRunning():
+#             command = 'cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep'
+#             self.process{num}_thread = subprocess.Popen(command, shell=True)
+#             self.status{num}.setText('RTP 전송중')
+        print("rtp 전송 시작")
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is None or not process_thread.isRunning():
+            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=5002,mux=ts}}" --loop --no-sout-all'
+            process_thread = subprocess.Popen(command, shell=True)
+            setattr(self, f"process{num}_thread", process_thread)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num}.avi RTP 전송중')
 
-    def start_save_process(self):
-        # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process_save_thread is None or not self.process_save_thread.isRunning():
-            self.process_save_thread = ProcessThread(['python3', 'gps_with_gyro.py', 'save'])
-            self.process_save_thread.start()
-            self.status2.setText('GPS 데이터 저장중')
-
-    def stop_process(self):
-        # 실행 중인 프로세스가 있는 경우에만 종료
-        if self.process_thread is not None:
-            self.process_thread.stop()
-            self.process_thread.wait()
-            self.process_thread = None
-            self.status1.setText('GPS 데이터 전송 멈춤')
-        if self.process_save_thread is not None:
-            self.process_save_thread.stop()
-            self.process_save_thread.wait()
-            self.process_save_thread = None
-            self.status2.setText('GPS 데이터 저장 멈춤')
-
-    def start_process2(self, input1, input2, input3):
-        # 실행 중인 프로세스가 없는 경우에만 실행
-        if self.process2_thread is None or not self.process2_thread.isRunning():
-#             command = 'cvlc -vvv {} --sout="#rtp{{dst={},port={},mux=ts}}" --no-sout-all --sout-keep'.format(input1, input2, input3)
-            command = 'cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep'
-            self.process2_thread = subprocess.Popen(command, shell=True)
-            self.status3.setText('RTP 전송중')
-
-    def stop_process2(self):
+    def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print("rtp 전송 멈춤")
-        if self.process2_thread is not None:
-            for child in psutil.Process(self.process2_thread.pid).children(recursive=True):
-                    child.kill()
-            self.process2_thread.kill()
-            self.process2_thread.wait()
-            self.process2_thread = None
-            self.status3.setText('RTP 전송 멈춤')
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is not None:
+            for child in psutil.Process(process_thread.pid).children(recursive=True):
+                child.kill()
+            process_thread.kill()
+            process_thread.wait()
+            setattr(self, f"process{num}_thread", None)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num}.avi RTP 전송 멈춤')
 
 
 if __name__ == '__main__':
