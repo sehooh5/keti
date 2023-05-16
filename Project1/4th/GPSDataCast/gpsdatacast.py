@@ -56,17 +56,25 @@ class App(QWidget):
 
             status = QLabel(f'blackbox_0{num} 전송 멈춤', self)
             setattr(self, f'status{num}', status)
-            status.move(50, 50*num)
-#             self.status1 = QLabel('blackbox_01 전송 멈춤', self)
-#             self.status1.move(50, 55)
+            status.move(50, 55*num)
 
-#             # 1번 영상 RTP 전송 버튼
+            # 영상 RTP 전송 버튼
+            start = QPushButton('전송', self)
+            setattr(self, f'start{num}', self)
+            start.setToolTip('blackbox_01 RTP 전송')
+            start.move(220, 50*num)
+            start.clicked.connect(lambda: self.start_process(num)
 #             start1 = QPushButton('전송', self)
 #             start1.setToolTip('blackbox_01 RTP 전송')
 #             start1.move(220, 50)
 #             start1.clicked.connect(lambda: self.start_process(1))
-#
-#             # 1번 영상 멈춤 버튼
+
+#             # 영상 멈춤 버튼
+            stop = QPushButton('전송', self)
+            setattr(self, f'stop{num}', self)
+            stop.setToolTip('blackbox_01 RTP 전송 멈춤')
+            stop.move(305, 50*num)
+            stop.clicked.connect(lambda: self.stop_process(num)
 #             stop1 = QPushButton('멈춤', self)
 #             stop1.setToolTip('blackbox_01 RTP 전송 멈춤')
 #             stop1.move(305, 50)
