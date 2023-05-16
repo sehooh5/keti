@@ -63,7 +63,7 @@ class App(QWidget):
             setattr(self, f'start{num}', self)
             start.setToolTip('blackbox_01 RTP 전송')
             start.move(220, 50*num)
-            start.clicked.connect(lambda: self.start_process(num)
+            start.clicked.connect(lambda: self.start_process(num))
 #             start1 = QPushButton('전송', self)
 #             start1.setToolTip('blackbox_01 RTP 전송')
 #             start1.move(220, 50)
