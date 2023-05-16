@@ -877,6 +877,46 @@
     - 패킷손실 발생
     - 연속 재생 확인되면 1개만 틀어서 패킷 손실 줄어드는지 확인 - 비슷함
 
+- 영상 종료 확인하는 코드
+
+  ```python
+  import subprocess
+  import time
+  
+  def monitor_vlc_process():
+      command = [
+          'cvlc',
+          '-vvv',
+          '/media/keti-laptop/T7/blackbox_01.avi',
+          '--sout',
+          '#rtp{dst=123.214.186.162,port=5001,mux=ts}',
+          '--loop',
+          '--no-sout-all'
+      ]
+  
+      process = subprocess.Popen(command)
+  
+      while True:
+          process.poll()  # 프로세스의 상태를 확인
+  
+          if process.returncode is not None:
+              print("동영상 재생이 종료되었습니다.")
+              break
+  
+          # 추가적인 작업을 수행하거나 종료 조건을 설정할 수 있습니다.
+          # 예를 들어, 특정 시간이 지나면 종료하도록 설정할 수 있습니다.
+          # if time.time() > end_time:
+          #     process.terminate()
+          #     break
+  
+          time.sleep(1)  # 프로세스 상태를 확인하는 간격 설정
+  
+  if __name__ == '__main__':
+      monitor_vlc_process()
+  ```
+
+  
+
 
 
 - 출장 관련 서류

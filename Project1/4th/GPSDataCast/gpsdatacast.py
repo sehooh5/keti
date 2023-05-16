@@ -28,7 +28,7 @@ class App(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.title = 'GPS with Gyro'
+        self.title = 'Blackbox & GPS with Gyro'
         self.left = 10
         self.top = 10
         self.width = 450
@@ -44,18 +44,18 @@ class App(QWidget):
 
         # GPS 데이터
         # 제목
-        title = QLabel('GPS 실시간 데이터', self)
+        title = QLabel('영상 및 GPS 데이터 전송', self)
         title.move(95, 10)
 
-        # 실행 버튼
-        btn1 = QPushButton('전송', self)
-        btn1.setToolTip('gps_with_gyro.py 실행')
+        # 1번 영상 RTP 전송 버튼
+        btn1 = QPushButton('blackbox_01 전송', self)
+        btn1.setToolTip('blackbox_01.avi RTP 전송')
         btn1.move(50, 50)
         btn1.clicked.connect(self.start_process)
 
         # 실행 상태 표시 # 추가
-        self.status1 = QLabel('GPS 데이터 전송 멈춤', self)
-        self.status1.move(250, 55)
+        self.status1 = QLabel('blackbox_01 전송 멈춤', self)
+        self.status1.move(400, 55)
 
         # 저장 버튼
         btn2 = QPushButton('저장', self)
