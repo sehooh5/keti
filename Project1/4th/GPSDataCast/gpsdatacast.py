@@ -105,7 +105,7 @@ class App(QWidget):
                 child.kill()
             process_thread.kill()
             process_thread.wait()
-            setattr(self, f"process{num}_thread", None)
+            setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
 
