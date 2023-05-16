@@ -53,9 +53,9 @@ class App(QWidget):
         title.move(95, 10)
         for num in range(1,8):
             # 영상 RTP 전송
-            setattr(self, f'status{num}')
-            status = getattr(self, f"status{num}")
+
             status = QLabel(f'blackbox_0{num} 전송 멈춤', self)
+            setattr(self, f'status{num}', status)
             status.move(50*num, 55)
 #             self.status1 = QLabel('blackbox_01 전송 멈춤', self)
 #             self.status1.move(50, 55)
