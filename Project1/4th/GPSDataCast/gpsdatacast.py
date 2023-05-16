@@ -52,22 +52,24 @@ class App(QWidget):
         title = QLabel('영상 및 GPS 데이터 전송', self)
         title.move(95, 10)
         for num in range(1,8):
-            print(num)
-        # 1번 영상 RTP 전송
-        self.status1 = QLabel('blackbox_01 전송 멈춤', self)
-        self.status1.move(50, 55)
+            # 영상 RTP 전송
+            status = getattr(self, f"status{num}")
+            status = QLabel(f'blackbox_0{num} 전송 멈춤', self)
+            status.move(50*num, 55)
+#             self.status1 = QLabel('blackbox_01 전송 멈춤', self)
+#             self.status1.move(50, 55)
 
-        # 1번 영상 RTP 전송 버튼
-        start1 = QPushButton('전송', self)
-        start1.setToolTip('blackbox_01 RTP 전송')
-        start1.move(220, 50)
-        start1.clicked.connect(lambda: self.start_process(1))
-
-        # 1번 영상 멈춤 버튼
-        stop1 = QPushButton('멈춤', self)
-        stop1.setToolTip('blackbox_01 RTP 전송 멈춤')
-        stop1.move(305, 50)
-        stop1.clicked.connect(lambda: self.stop_process(1))
+#             # 1번 영상 RTP 전송 버튼
+#             start1 = QPushButton('전송', self)
+#             start1.setToolTip('blackbox_01 RTP 전송')
+#             start1.move(220, 50)
+#             start1.clicked.connect(lambda: self.start_process(1))
+#
+#             # 1번 영상 멈춤 버튼
+#             stop1 = QPushButton('멈춤', self)
+#             stop1.setToolTip('blackbox_01 RTP 전송 멈춤')
+#             stop1.move(305, 50)
+#             stop1.clicked.connect(lambda: self.stop_process(1))
 
 
         self.show()
