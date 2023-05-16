@@ -56,7 +56,7 @@ class App(QWidget):
 
             status = QLabel(f'blackbox_0{num} 전송 멈춤', self)
             setattr(self, f'status{num}', status)
-            status.move(50, 55*num)
+            status.move(50, 5*num)
 #             self.status1 = QLabel('blackbox_01 전송 멈춤', self)
 #             self.status1.move(50, 55)
 
