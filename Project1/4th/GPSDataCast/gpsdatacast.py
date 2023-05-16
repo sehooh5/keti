@@ -51,20 +51,21 @@ class App(QWidget):
         # 제목
         title = QLabel('영상 및 GPS 데이터 전송', self)
         title.move(95, 10)
-
+        for num in range(1,6):
+            print(num)
         # 1번 영상 RTP 전송
         self.status1 = QLabel('blackbox_01 전송 멈춤', self)
         self.status1.move(50, 55)
 
         # 1번 영상 RTP 전송 버튼
         start1 = QPushButton('전송', self)
-        start1.setToolTip('blackbox_01.avi RTP 전송')
+        start1.setToolTip('blackbox_01 RTP 전송')
         start1.move(220, 50)
         start1.clicked.connect(lambda: self.start_process(1))
 
         # 1번 영상 멈춤 버튼
         stop1 = QPushButton('멈춤', self)
-        stop1.setToolTip('blackbox_01.avi RTP 전송 멈춤')
+        stop1.setToolTip('blackbox_01 RTP 전송 멈춤')
         stop1.move(305, 50)
         stop1.clicked.connect(lambda: self.stop_process(1))
 
@@ -73,19 +74,14 @@ class App(QWidget):
 
 
     def start_process(self, num):
-        # 실행 중인 프로세스가 없는 경우에만 실행
-#         if self.process{num}_thread is None or not self.process{num}_thread.isRunning():
-#             command = 'cvlc -vvv rtsp://192.168.1.101:554/h264 --sout="#rtp{dst=123.214.186.162,port=5005,mux=ts}" --no-sout-all --sout-keep'
-#             self.process{num}_thread = subprocess.Popen(command, shell=True)
-#             self.status{num}.setText('RTP 전송중')
         print("rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
-            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num} --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num}.avi RTP 전송중')
+            status_label.setText(f'blackbox_0{num} RTP 전송중')
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
@@ -98,7 +94,7 @@ class App(QWidget):
             process_thread.wait()
             setattr(self, f"process{num}_thread", None)
             status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num}.avi RTP 전송 멈춤')
+            status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
 
 
 if __name__ == '__main__':
