@@ -56,7 +56,7 @@ class App(QWidget):
 
             status = QLabel(f'blackbox_0{num} 전송 멈춤', self)
             setattr(self, f'status{num}', status)
-            status.move(50, 55*num)
+            status.move(50, 50*num)
 
             # 영상 RTP 전송 버튼
             start = QPushButton('전송', self)
