@@ -85,7 +85,7 @@ class App(QWidget):
 
 
     def start_process(self, num):
-        print("rtp 전송 시작")
+        print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
             command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num} --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
