@@ -101,66 +101,66 @@ class App(QWidget):
 
         # 4번 영상 전송
         self.status4 = QLabel('blackbox_04 전송 멈춤', self)
-        self.status4.move(50, 100)
+        self.status4.move(50, 200)
 
         # 4번 영상 RTP 전송 버튼
         start4 = QPushButton('전송', self)
         start4.setToolTip('blackbox_04 RTP 전송')
-        start4.move(220, 100)
+        start4.move(220, 200)
         start4.clicked.connect(lambda: self.start_process(4))
 
         # 4번 영상 멈춤 버튼
         stop4 = QPushButton('멈춤', self)
         stop4.setToolTip('blackbox_04 RTP 전송 멈춤')
-        stop4.move(305, 100)
+        stop4.move(305, 200)
         stop4.clicked.connect(lambda: self.stop_process(4))
 
         # 5번 영상 전송
         self.status5 = QLabel('blackbox_05 전송 멈춤', self)
-        self.status5.move(50, 100)
+        self.status5.move(50, 250)
 
         # 5번 영상 RTP 전송 버튼
         start5 = QPushButton('전송', self)
         start5.setToolTip('blackbox_05 RTP 전송')
-        start5.move(220, 100)
+        start5.move(220, 250)
         start5.clicked.connect(lambda: self.start_process(5))
 
         # 5번 영상 멈춤 버튼
         stop5 = QPushButton('멈춤', self)
         stop5.setToolTip('blackbox_05 RTP 전송 멈춤')
-        stop5.move(305, 100)
+        stop5.move(305, 250)
         stop5.clicked.connect(lambda: self.stop_process(5))
 
         # 6번 영상 전송
         self.status6 = QLabel('blackbox_06 전송 멈춤', self)
-        self.status6.move(50, 100)
+        self.status6.move(50, 300)
 
         # 6번 영상 RTP 전송 버튼
         start6 = QPushButton('전송', self)
         start6.setToolTip('blackbox_06 RTP 전송')
-        start6.move(220, 100)
+        start6.move(220, 300)
         start6.clicked.connect(lambda: self.start_process(6))
 
         # 6번 영상 멈춤 버튼
         stop6 = QPushButton('멈춤', self)
         stop6.setToolTip('blackbox_06 RTP 전송 멈춤')
-        stop6.move(305, 100)
+        stop6.move(305, 300)
         stop6.clicked.connect(lambda: self.stop_process(6))
 
         # 7번 영상 전송
         self.status7 = QLabel('blackbox_07 전송 멈춤', self)
-        self.status7.move(50, 100)
+        self.status7.move(50, 350)
 
         # 7번 영상 RTP 전송 버튼
         start7 = QPushButton('전송', self)
         start7.setToolTip('blackbox_07 RTP 전송')
-        start7.move(220, 100)
+        start7.move(220, 350)
         start7.clicked.connect(lambda: self.start_process(7))
 
         # 7번 영상 멈춤 버튼
         stop7 = QPushButton('멈춤', self)
         stop7.setToolTip('blackbox_07 RTP 전송 멈춤')
-        stop7.move(305, 100)
+        stop7.move(305, 350)
         stop7.clicked.connect(lambda: self.stop_process(7))
 
         self.show()
