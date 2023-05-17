@@ -931,3 +931,94 @@
     - 발표논문 편집본
 
   
+
+#### 0517
+
+- 총 애플리케이션 2개
+
+  1. 서버1에서 실행되는 영상, GPS 전송
+  2. 서버2에서 실행되는 영상, GPS 재전송
+
+- 출장 데이터 전송
+
+  - 영상
+
+    - 채널 개수 : 7
+
+    - **서버1 : 채널 개수 만큼 RTP 전송(무한루프)**
+
+      - blackbox_01 : 
+
+        ```
+        cvlc -vvv /media/keti-laptop/T7/blackbox_01.avi --sout "#rtp{dst=123.214.186.162,port=5001,mux=ts}" --loop --no-sout-all
+        ```
+
+        
+
+    - **서버2(Edge) : 채널 개수 만큼 RTP 받은 것 RTSP 전송**
+
+      - blackbox_01 : 
+
+        ```
+        cvlc -vvv rtp://123.214.186.162:5001 --sout="#rtp{sdp=rtsp://123.214.186.162:8001/videoMain}" --no-sout-all --sout-keep
+        ```
+
+    - 확인 완료, python 으로 7개 실행할 수 있는지 확인
+
+      - 기존 blackbox_GUI.py 를 gpsdatacast.py 에 복사해놨음..
+      - 쓰레드 사용해서 rtp 전송 여러개를 사용하고 종료 할 수 있게 변경해보기
+
+  - gps
+
+    - ~~로우 데이터로 gps 데이터 추출 가능한지 확인~~ 일단 로우데이터를 전송하는거로
+    - 채널 7개 GPS 데이터를 
+    - 서버1 : post 요청/전송
+    - 서버2 : 업데이트 된 gps 데이터 대기
+
+- 영상 데이터랑 gps 데이터 어떻게 싱크를 맞출지?
+
+- 영상 스트리밍 상태 확인
+
+  - Test1 : 3개 영상 rtp -> rtsp 스트리밍중
+    - 패킷손실 발생
+    - 연속 재생 확인되면 1개만 틀어서 패킷 손실 줄어드는지 확인 - 비슷함
+
+- 영상 종료 확인하는 코드
+
+  ```python
+  import subprocess
+  import time
+  
+  def monitor_vlc_process():
+      command = [
+          'cvlc',
+          '-vvv',
+          '/media/keti-laptop/T7/blackbox_01.avi',
+          '--sout',
+          '#rtp{dst=123.214.186.162,port=5001,mux=ts}',
+          '--loop',
+          '--no-sout-all'
+      ]
+  
+      process = subprocess.Popen(command)
+  
+      while True:
+          process.poll()  # 프로세스의 상태를 확인
+  
+          if process.returncode is not None:
+              print("동영상 재생이 종료되었습니다.")
+              break
+  
+          # 추가적인 작업을 수행하거나 종료 조건을 설정할 수 있습니다.
+          # 예를 들어, 특정 시간이 지나면 종료하도록 설정할 수 있습니다.
+          # if time.time() > end_time:
+          #     process.terminate()
+          #     break
+  
+          time.sleep(1)  # 프로세스 상태를 확인하는 간격 설정
+  
+  if __name__ == '__main__':
+      monitor_vlc_process()
+  ```
+
+  
