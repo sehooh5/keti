@@ -79,7 +79,7 @@ class App(QWidget):
 
         # 2번 영상 멈춤 버튼
         stop2 = QPushButton('멈춤', self)
-        stop2.setToolTip('blackbox_02 RTSP 재전송 멈춤')
+        stop2.setToolTip('blackbox_02 재전송 멈춤')
         stop2.move(305, 100)
         stop2.clicked.connect(lambda: self.stop_process(2))
 
@@ -95,7 +95,7 @@ class App(QWidget):
 
         # 3번 영상 멈춤 버튼
         stop3 = QPushButton('멈춤', self)
-        stop3.setToolTip('blackbox_03 RTSP 재전송 멈춤')
+        stop3.setToolTip('blackbox_03 재전송 멈춤')
         stop3.move(305, 150)
         stop3.clicked.connect(lambda: self.stop_process(3))
 
@@ -111,7 +111,7 @@ class App(QWidget):
 
         # 4번 영상 멈춤 버튼
         stop4 = QPushButton('멈춤', self)
-        stop4.setToolTip('blackbox_04 RTSP 재전송 멈춤')
+        stop4.setToolTip('blackbox_04 재전송 멈춤')
         stop4.move(305, 200)
         stop4.clicked.connect(lambda: self.stop_process(4))
 
@@ -127,7 +127,7 @@ class App(QWidget):
 
         # 5번 영상 멈춤 버튼
         stop5 = QPushButton('멈춤', self)
-        stop5.setToolTip('blackbox_05 RTSP 재전송 멈춤')
+        stop5.setToolTip('blackbox_05 재전송 멈춤')
         stop5.move(305, 250)
         stop5.clicked.connect(lambda: self.stop_process(5))
 
@@ -143,7 +143,7 @@ class App(QWidget):
 
         # 6번 영상 멈춤 버튼
         stop6 = QPushButton('멈춤', self)
-        stop6.setToolTip('blackbox_06 RTSP 재전송 멈춤')
+        stop6.setToolTip('blackbox_06 재전송 멈춤')
         stop6.move(305, 300)
         stop6.clicked.connect(lambda: self.stop_process(6))
 
@@ -159,7 +159,7 @@ class App(QWidget):
 
         # 7번 영상 멈춤 버튼
         stop7 = QPushButton('멈춤', self)
-        stop7.setToolTip('blackbox_07 RTSP 재전송 멈춤')
+        stop7.setToolTip('blackbox_07 재전송 멈춤')
         stop7.move(305, 350)
         stop7.clicked.connect(lambda: self.stop_process(7))
 
@@ -174,7 +174,7 @@ class App(QWidget):
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTSP 전송중')
+            status_label.setText(f'blackbox_0{num} 재전송중')
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
@@ -187,7 +187,7 @@ class App(QWidget):
             process_thread.wait()
             setattr(self, f"process{num}_thread", None)
             status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTSP 재전송 멈춤')
+            status_label.setText(f'blackbox_0{num} 재전송 멈춤')
             status_label.repaint()
 
 
