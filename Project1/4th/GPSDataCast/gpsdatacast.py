@@ -19,7 +19,6 @@ class ProcessThread(QThread):
         self.cmd = cmd
         self.process = None
         self.isRunning = False # 추가
-        self.running = False
 
     def run(self):
         self.process = subprocess.Popen(self.cmd)
@@ -37,6 +36,7 @@ class App(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.running = False
         self.title = 'Blackbox & GPS with Gyro'
         self.left = 10
         self.top = 10
