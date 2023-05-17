@@ -175,8 +175,7 @@ class App(QWidget):
         self.show()
 
     def start_process(self, num):
-        # 영상 데이터 전송
-        print(f"blackbox_0{num} rtp 전송 시작")
+        self.running = True
 
         # gps 데이터 전송
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
@@ -184,14 +183,14 @@ class App(QWidget):
 
         c.execute("SELECT COUNT(*) FROM gps_raw_data")
         for row in c:
-            num = row[0]
+            cnt = row[0]
         print(num)
 
         while self.running:
-            for num in range(1, num+1):
-                if num == 1:
+            for cnt in range(1, cnt+1):
+                if cnt == 1:
                     print("데이터 초기화")
-                c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={num}")
+                c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
                     print(f'{row[0]}, {row[1]}, {row[2]}')
                     data = {
@@ -205,7 +204,8 @@ class App(QWidget):
 
                 time.sleep(0.5)
 
-        self.running = True
+        # 영상 데이터 전송
+        print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
             command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
