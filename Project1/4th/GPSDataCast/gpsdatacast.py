@@ -12,7 +12,7 @@ import sqlite3
 import datetime
 import requests
 
-url = "http://123.214.186.162:8088"
+url = "http://123.214.186.162:8089"
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
