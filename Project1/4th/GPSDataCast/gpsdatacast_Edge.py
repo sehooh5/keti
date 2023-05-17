@@ -1,0 +1,197 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
+from PyQt5.QtCore import QThread
+import subprocess
+import os
+import sys
+import psutil
+
+class ProcessThread(QThread):
+    def __init__(self, cmd):
+        super().__init__()
+        self.cmd = cmd
+        self.process = None
+        self.isRunning = False # 추가
+
+    def run(self):
+        self.process = subprocess.Popen(self.cmd)
+        self.isRunning = True # 추가
+        self.process.wait()
+        self.isRunning = False # 추가
+
+    def stop(self):
+        if self.process is not None and self.process.poll() is None:
+            self.process.terminate()
+            self.process.wait()
+            self.isRunning = False # 추가
+
+class App(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.title = 'Blackbox & GPS with Gyro'
+        self.left = 10
+        self.top = 10
+        self.width = 450
+        self.height = 450
+        self.process1_thread = None
+        self.process2_thread = None
+        self.process3_thread = None
+        self.process4_thread = None
+        self.process5_thread = None
+        self.process6_thread = None
+        self.process7_thread = None
+
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+
+        # 제목
+        title = QLabel('영상 및 GPS 데이터 재전송', self)
+        title.move(95, 10)
+
+        # 1번 영상 전송
+        self.status1 = QLabel('blackbox_01 재전송 멈춤', self)
+        self.status1.move(50, 50)
+
+        # 1번 영상 RTP 전송 버튼
+        start1 = QPushButton('전송', self)
+        start1.setToolTip('blackbox_01 RTSP 전송')
+        start1.move(220, 50)
+        start1.clicked.connect(lambda: self.start_process(1))
+
+        # 1번 영상 멈춤 버튼
+        stop1 = QPushButton('멈춤', self)
+        stop1.setToolTip('blackbox_01 재전송 멈춤')
+        stop1.move(305, 50)
+        stop1.clicked.connect(lambda: self.stop_process(1))
+
+        # 2번 영상 전송
+        self.status2 = QLabel('blackbox_02 재전송 멈춤', self)
+        self.status2.move(50, 100)
+
+        # 2번 영상 RTP 전송 버튼
+        start2 = QPushButton('전송', self)
+        start2.setToolTip('blackbox_02 RTSP 전송')
+        start2.move(220, 100)
+        start2.clicked.connect(lambda: self.start_process(2))
+
+        # 2번 영상 멈춤 버튼
+        stop2 = QPushButton('멈춤', self)
+        stop2.setToolTip('blackbox_02 RTSP 재전송 멈춤')
+        stop2.move(305, 100)
+        stop2.clicked.connect(lambda: self.stop_process(2))
+
+        # 3번 영상 전송
+        self.status3 = QLabel('blackbox_03 재전송 멈춤', self)
+        self.status3.move(50, 150)
+
+        # 3번 영상 RTSP 전송 버튼
+        start3 = QPushButton('전송', self)
+        start3.setToolTip('blackbox_03 RTSP 전송')
+        start3.move(220, 150)
+        start3.clicked.connect(lambda: self.start_process(3))
+
+        # 3번 영상 멈춤 버튼
+        stop3 = QPushButton('멈춤', self)
+        stop3.setToolTip('blackbox_03 RTSP 재전송 멈춤')
+        stop3.move(305, 150)
+        stop3.clicked.connect(lambda: self.stop_process(3))
+
+        # 4번 영상 전송
+        self.status4 = QLabel('blackbox_04 재전송 멈춤', self)
+        self.status4.move(50, 200)
+
+        # 4번 영상 RTSP 전송 버튼
+        start4 = QPushButton('전송', self)
+        start4.setToolTip('blackbox_04 RTSP 전송')
+        start4.move(220, 200)
+        start4.clicked.connect(lambda: self.start_process(4))
+
+        # 4번 영상 멈춤 버튼
+        stop4 = QPushButton('멈춤', self)
+        stop4.setToolTip('blackbox_04 RTSP 재전송 멈춤')
+        stop4.move(305, 200)
+        stop4.clicked.connect(lambda: self.stop_process(4))
+
+        # 5번 영상 전송
+        self.status5 = QLabel('blackbox_05 재전송 멈춤', self)
+        self.status5.move(50, 250)
+
+        # 5번 영상 RTSP 전송 버튼
+        start5 = QPushButton('전송', self)
+        start5.setToolTip('blackbox_05 RTSP 전송')
+        start5.move(220, 250)
+        start5.clicked.connect(lambda: self.start_process(5))
+
+        # 5번 영상 멈춤 버튼
+        stop5 = QPushButton('멈춤', self)
+        stop5.setToolTip('blackbox_05 RTSP 재전송 멈춤')
+        stop5.move(305, 250)
+        stop5.clicked.connect(lambda: self.stop_process(5))
+
+        # 6번 영상 전송
+        self.status6 = QLabel('blackbox_06 재전송 멈춤', self)
+        self.status6.move(50, 300)
+
+        # 6번 영상 RTSP 전송 버튼
+        start6 = QPushButton('전송', self)
+        start6.setToolTip('blackbox_06 RTSP 전송')
+        start6.move(220, 300)
+        start6.clicked.connect(lambda: self.start_process(6))
+
+        # 6번 영상 멈춤 버튼
+        stop6 = QPushButton('멈춤', self)
+        stop6.setToolTip('blackbox_06 RTSP 재전송 멈춤')
+        stop6.move(305, 300)
+        stop6.clicked.connect(lambda: self.stop_process(6))
+
+        # 7번 영상 전송
+        self.status7 = QLabel('blackbox_07 재전송 멈춤', self)
+        self.status7.move(50, 350)
+
+        # 7번 영상 RTSP 전송 버튼
+        start7 = QPushButton('전송', self)
+        start7.setToolTip('blackbox_07 RTSP 전송')
+        start7.move(220, 350)
+        start7.clicked.connect(lambda: self.start_process(7))
+
+        # 7번 영상 멈춤 버튼
+        stop7 = QPushButton('멈춤', self)
+        stop7.setToolTip('blackbox_07 RTSP 재전송 멈춤')
+        stop7.move(305, 350)
+        stop7.clicked.connect(lambda: self.stop_process(7))
+
+        self.show()
+
+
+    def start_process(self, num):
+        print(f"blackbox_0{num} RTSP 전송 시작")
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is None or not process_thread.isRunning():
+            command = f'cvlc -vvv rtp://123.214.186.162:500{num} --sout="#rtp{{sdp=rtsp://123.214.186.162:800{num}/videoMain}}" --no-sout-all --sout-keep'
+            process_thread = subprocess.Popen(command, shell=True)
+            setattr(self, f"process{num}_thread", process_thread)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTSP 전송중')
+
+    def stop_process(self, num):
+        # 실행 중인 프로세스가 있는 경우에만 종료
+        print(f"blackbox_0{num} rtsp 재전송 멈춤")
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is not None:
+            for child in psutil.Process(process_thread.pid).children(recursive=True):
+                child.kill()
+            process_thread.kill()
+            process_thread.wait()
+            setattr(self, f"process{num}_thread", None)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTSP 재전송 멈춤')
+            status_label.repaint()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = App()
+    sys.exit(app.exec_())

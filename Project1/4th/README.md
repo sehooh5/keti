@@ -1021,4 +1021,7 @@
       monitor_vlc_process()
   ```
 
-  
+
+
+- 현재 완료단계
+  - 7개 영상 rtp 전송
