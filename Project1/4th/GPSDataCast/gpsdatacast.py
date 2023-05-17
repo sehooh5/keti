@@ -182,11 +182,11 @@ class App(QWidget):
         self.running = True
 
         # gps 데이터 전송
-        gps_thread = threading.Thread(target=self.send_gps_data, args=(num,))
+        gps_thread = Thread(target=self.send_gps_data, args=(num,))
         gps_thread.start()
 
         # 영상 데이터 전송
-        video_thread = threading.Thread(target=self.send_video_data, args=(num,))
+        video_thread = Thread(target=self.send_video_data, args=(num,))
         video_thread.start()
 
     def send_gps_data(self, num):
