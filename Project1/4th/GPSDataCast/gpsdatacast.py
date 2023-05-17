@@ -171,14 +171,6 @@ class App(QWidget):
     def start_process(self, num):
         # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
-        self.running = True
-        process_thread = getattr(self, f"process{num}_thread")
-        if process_thread is None or not process_thread.isRunning():
-            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
-            process_thread = subprocess.Popen(command, shell=True)
-            setattr(self, f"process{num}_thread", process_thread)
-            status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTP 전송중')
 
         # gps 데이터 전송
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
@@ -206,6 +198,17 @@ class App(QWidget):
                     requests.post(f'{url}/gwg_temp', json=data)
 
                 time.sleep(0.5)
+
+        self.running = True
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is None or not process_thread.isRunning():
+            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+            process_thread = subprocess.Popen(command, shell=True)
+            setattr(self, f"process{num}_thread", process_thread)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTP 전송중')
+
+
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
