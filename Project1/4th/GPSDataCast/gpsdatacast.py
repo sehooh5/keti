@@ -5,6 +5,8 @@ import os
 import sys
 import psutil
 
+url = "http://123.214.186.162:8088"
+
 class ProcessThread(QThread):
     def __init__(self, cmd):
         super().__init__()
@@ -165,8 +167,8 @@ class App(QWidget):
 
         self.show()
 
-
     def start_process(self, num):
+        # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
@@ -175,6 +177,10 @@ class App(QWidget):
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
+
+        # gps 데이터 전송
+        conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
+        c = conn.cursor()
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
