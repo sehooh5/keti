@@ -175,10 +175,62 @@ class App(QWidget):
 
         self.show()
 
+#     def start_process(self, num):
+#         self.running = True
+#
+#         # gps 데이터 전송
+#         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
+#         c = conn.cursor()
+#
+#         c.execute("SELECT COUNT(*) FROM gps_raw_data")
+#         for row in c:
+#             cnt = row[0]
+#         print(num)
+#
+#         while self.running:
+#             for cnt in range(1, cnt+1):
+#                 if cnt == 1:
+#                     print("데이터 초기화")
+#                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
+#                 for row in c:
+#                     print(f'{row[0]}, {row[1]}, {row[2]}')
+#                     data = {
+#                         "code": "0000",
+#                         "message": "처리 성공",
+#                         "bid": row[0],
+#                         "time": row[1],
+#                         "gps_raw_data": row[2]
+#                     }
+#                     requests.post(f'{url}/gwg_temp', json=data)
+#
+#                 time.sleep(0.5)
+#
+#         # 영상 데이터 전송
+#         print(f"blackbox_0{num} rtp 전송 시작")
+#         process_thread = getattr(self, f"process{num}_thread")
+#         if process_thread is None or not process_thread.isRunning():
+#             command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+#             process_thread = subprocess.Popen(command, shell=True)
+#             setattr(self, f"process{num}_thread", process_thread)
+#             status_label = getattr(self, f"status{num}")
+#             status_label.setText(f'blackbox_0{num} RTP 전송중')
+
     def start_process(self, num):
         self.running = True
 
         # gps 데이터 전송
+        gps_thread = Thread(target=self.send_gps_data, args=(num,))
+        gps_thread.start()
+
+        # 영상 데이터 전송
+        video_thread = Thread(target=self.send_video_data, args=(num,))
+        video_thread.start()
+
+        # 스레드 종료 대기
+        gps_thread.join()
+        video_thread.join()
+
+    def send_gps_data(self, num):
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
 
@@ -205,7 +257,7 @@ class App(QWidget):
 
                 time.sleep(0.5)
 
-        # 영상 데이터 전송
+    def send_video_data(self, num):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
@@ -214,8 +266,6 @@ class App(QWidget):
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
-
-
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
