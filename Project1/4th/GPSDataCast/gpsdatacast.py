@@ -218,6 +218,7 @@ class App(QWidget):
 
     def start_process(self, num):
         self.running = True
+        print(num)
 
         # gps 데이터 전송
         gps_thread = Thread(target=self.send_gps_data, args=(num,))
@@ -232,6 +233,7 @@ class App(QWidget):
         video_thread.join()
 
     def send_gps_data(self, num):
+        print(num)
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
 
@@ -259,6 +261,7 @@ class App(QWidget):
                 time.sleep(0.5)
 
     def send_video_data(self, num):
+        print(num)
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
