@@ -51,6 +51,13 @@ class App(QWidget):
         self.process5_thread = None
         self.process6_thread = None
         self.process7_thread = None
+        self.gps1_thread = None
+        self.gps2_thread = None
+        self.gps3_thread = None
+        self.gps4_thread = None
+        self.gps5_thread = None
+        self.gps6_thread = None
+        self.gps7_thread = None
 
         self.initUI()
 
@@ -190,8 +197,8 @@ class App(QWidget):
         video_thread.start()
 
     def send_gps_data(self, num):
-        self.process_thread = ProcessThread(cmd="")
-        self.process_thread.isRunning = True  # isRunning 값을 True로 설정
+        gps_thread = getattr(self, f"gps{num}_thread")
+        self.gps_thread.isRunning = True  # isRunning 값을 True로 설정
 
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
@@ -235,8 +242,9 @@ class App(QWidget):
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
-        self.running = False
+
         process_thread = getattr(self, f"process{num}_thread")
+        self.running = False
         if process_thread is not None:
             for child in psutil.Process(process_thread.pid).children(recursive=True):
                 child.kill()
