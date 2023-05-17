@@ -10,6 +10,7 @@ from flask_cors import CORS, cross_origin
 import json
 import sqlite3
 import datetime
+import requests
 
 url = "http://123.214.186.162:8088"
 
@@ -200,7 +201,7 @@ class App(QWidget):
                         "time": row[1],
                         "gps_raw_data": row[2]
                     }
-                    request.post(f'{url}/gwg_temp', json=data)
+                    requests.post(f'{url}/gwg_temp', json=data)
 
                 time.sleep(0.5)
 
