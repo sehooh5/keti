@@ -200,7 +200,7 @@ class App(QWidget):
                         "time": row[1],
                         "gps_raw_data": row[2]
                     }
-                    requests.post(f'{url}/gwg_temp', json=data)
+                    request.post(f'{url}/gwg_temp', json=data)
 
                 time.sleep(0.5)
 
