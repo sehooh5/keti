@@ -182,16 +182,12 @@ class App(QWidget):
         self.running = True
 
         # gps 데이터 전송
-        gps_thread = Thread(target=self.send_gps_data, args=(num,))
+        gps_thread = threading.Thread(target=self.send_gps_data, args=(num,))
         gps_thread.start()
 
         # 영상 데이터 전송
-        video_thread = Thread(target=self.send_video_data, args=(num,))
+        video_thread = threading.Thread(target=self.send_video_data, args=(num,))
         video_thread.start()
-
-        # 스레드 종료 대기
-        gps_thread.join()
-        video_thread.join()
 
     def send_gps_data(self, num):
         self.process_thread = ProcessThread(cmd="")
@@ -205,7 +201,10 @@ class App(QWidget):
             cnt = row[0]
         print(num)
 
-        while self.running:
+        while True:
+            if not self.running:
+                break
+
             for cnt in range(1, cnt+1):
                 if cnt == 1:
                     print("데이터 초기화")
@@ -226,7 +225,7 @@ class App(QWidget):
     def send_video_data(self, num):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
-        if process_thread is None or not process_thread.isRunning():
+        if process_thread is None or not process_thread.isRunning:
             command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
