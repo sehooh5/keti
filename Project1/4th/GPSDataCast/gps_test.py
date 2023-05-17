@@ -2,9 +2,11 @@ import requests
 import sqlite3
 import time
 import os
+import sys
 
+num = sys.argv[1]
 url = "http://123.214.186.162:8089"
-conn = sqlite3.connect("gps_01.db", isolation_level=None, check_same_thread=False)
+conn = sqlite3.connect("gps_0{num}.db", isolation_level=None, check_same_thread=False)
 c = conn.cursor()
 
 c.execute("SELECT COUNT(*) FROM gps_raw_data")

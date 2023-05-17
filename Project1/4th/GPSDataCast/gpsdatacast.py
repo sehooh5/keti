@@ -224,14 +224,18 @@ class App(QWidget):
         gps_thread.start()
 
         # 영상 데이터 전송
-#         video_thread = Thread(target=self.send_video_data, args=(num,))
-#         video_thread.start()
+        video_thread = Thread(target=self.send_video_data, args=(num,))
+        video_thread.start()
 
         # 스레드 종료 대기
         gps_thread.join()
-#         video_thread.join()
+        video_thread.join()
 
     def send_gps_data(self, num):
+        process_thread = getattr(self, f"process{num}_thread")
+        self.process_thread = ProcessThread(cmd="")
+        self.process_thread.isRunning = True  # isRunning 값을 True로 설정
+
         conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
 
