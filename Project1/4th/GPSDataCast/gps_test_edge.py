@@ -32,8 +32,8 @@ def get_gwgData():
 def gwg_temp():
     global temp_data
     temp_data = request.get_json(silent=True)
-    print(temp_data['gps_raw_data'])
-#                         print(bytes.fromhex(encoded_data))
+    encoded_data = temp_data['gps_raw_data']
+    print(bytes.fromhex(encoded_data))
 #     print(temp_data)
     return temp_data
 
