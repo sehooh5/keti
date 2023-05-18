@@ -42,11 +42,9 @@ class GPSThread(QThread):
     def __init__(self, num):
         super().__init__()
         self.num = num
-        self.running = False
+        self.process = None
 
     def run(self):
-        self.running = True
-
         conn = sqlite3.connect(f"gps_0{self.num}.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
 
@@ -54,28 +52,26 @@ class GPSThread(QThread):
         for row in c:
             cnt = row[0]
 
-        while self.running:
-            for cnt in range(1, cnt + 1):
-                if not self.running:  # 추가: self.running이 False인 경우 루프 종료
-                    break
+        for cnt in range(1, cnt + 1):
+            if cnt == 1:
+                print("데이터 초기화")
+            c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
+            for row in c:
+                data = {
+                    "code": "0000",
+                    "message": "처리 성공",
+                    "bid": row[0],
+                    "time": row[1],
+                    "gps_raw_data": row[2]
+                }
+                self.data_ready.emit(data)
 
-                if cnt == 1:
-                    print("데이터 초기화")
-                c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
-                for row in c:
-                    data = {
-                        "code": "0000",
-                        "message": "처리 성공",
-                        "bid": row[0],
-                        "time": row[1],
-                        "gps_raw_data": row[2]
-                    }
-                    self.data_ready.emit(data)
-
-                time.sleep(0.5)
+            time.sleep(0.5)
 
     def stop(self):
-        self.running = False
+        if self.process is not None and self.process.poll() is None:
+            self.process.terminate()
+            self.process.wait()
 
 
 class App(QWidget):
