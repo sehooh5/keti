@@ -50,7 +50,7 @@ def gwg_temp():
     elif bid == 'bb07':
         bb07 = temp_data
 
-    return temp_data
+    return json.dumps(temp_data)
 
 @app.route('/get_gps_rdata', methods=['GET'])
 def get_get_gps_rdata():
