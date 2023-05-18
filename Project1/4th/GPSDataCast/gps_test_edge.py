@@ -32,6 +32,7 @@ def gwg_temp():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
     temp_data = request.get_json(silent=True)
+    print(temp_data)
 
     bid = temp_data['bid']
 
