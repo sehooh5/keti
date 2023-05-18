@@ -55,10 +55,10 @@ class GPSThread(QThread):
             cnt = row[0]
 
         while self.running:
-            if not self.running:  # 추가: self.running이 False인 경우 루프 종료
-                    break
-                    
             for cnt in range(1, cnt + 1):
+                if not self.running:  # 추가: self.running이 False인 경우 루프 종료
+                    break
+
                 if cnt == 1:
                     print("데이터 초기화")
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
