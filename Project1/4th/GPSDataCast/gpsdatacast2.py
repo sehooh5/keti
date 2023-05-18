@@ -45,6 +45,7 @@ class GPSThread(QThread):
         self.running = False
 
     def run(self):
+        print('gps thread running!!')
         self.running = True
 
         conn = sqlite3.connect(f"gps_0{self.num}.db", isolation_level=None, check_same_thread=False)
