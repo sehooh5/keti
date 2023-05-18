@@ -69,7 +69,7 @@ class GPSThread(QThread):
                         "message": "처리 성공",
                         "bid": row[0],
                         "time": row[1],
-                        "gps_raw_data": row[2]
+                        "gps_raw_data": row[2].decode('utf-8')
                     }
                     json_data = json.dumps(data)
                     self.data_ready.emit(json_data)
