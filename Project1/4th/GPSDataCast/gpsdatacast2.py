@@ -246,6 +246,13 @@ class App(QWidget):
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
+
+        if self.gps_thread is not None and self.gps_thread.isRunning():
+            print("GPSThread가 실행 중입니다.")
+        else:
+            print("GPSThread가 실행 중이 아닙니다.")
+
+        # gps 종료
         self.gps_thread.running = False
 
         if self.gps_thread is not None:
@@ -254,6 +261,8 @@ class App(QWidget):
         self.gps_thread.wait()
         self.gps_thread = None
 
+
+        # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
             for child in psutil.Process(process_thread.pid).children(recursive=True):
