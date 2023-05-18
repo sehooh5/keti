@@ -258,7 +258,7 @@ class App(QWidget):
 
         if self.gps_thread is not None:
             self.gps_thread.stop()
-            self.gps_thread.quit()
+            self.gps_thread.kill()
             self.gps_thread.wait()
 
     def send_gps_data(self, data):
