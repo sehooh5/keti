@@ -45,7 +45,6 @@ class GPSThread(QThread):
         self.running = False
 
     def run(self):
-        print('gps thread running!!')
         self.running = True
 
         conn = sqlite3.connect(f"gps_0{self.num}.db", isolation_level=None, check_same_thread=False)
@@ -65,16 +64,33 @@ class GPSThread(QThread):
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
 #                     print(f'{row[0]}, {row[1]}, {row[2]}')
-                    data = {
-                        "code": "0000",
-                        "message": "처리 성공",
-                        "bid": row[0],
-                        "time": row[1],
-                        "gps_raw_data": row[2].decode('utf-8')
-                    }
-                    json_data = json.dumps(data)
-                    print(json_data)
-                    requests.post(f'{url}/gwg_temp', json=json_data)
+                    try:
+                        # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
+                        data = {
+                            "code": "0000",
+                            "message": "처리 성공",
+                            "bid": row[0],
+                            "time": row[1],
+                            "gps_raw_data": row[2].decode('utf-8')
+                        }
+
+                        # JSON 데이터를 서버로 전송
+                        response = requests.post(f'{url}/gwg_temp', json=json_data)
+
+                    except Exception as e:
+                        print("JSON 데이터 전송 중 오류 발생")
+                        traceback.print_exc()
+
+#                     data = {
+#                         "code": "0000",
+#                         "message": "처리 성공",
+#                         "bid": row[0],
+#                         "time": row[1],
+#                         "gps_raw_data": row[2].decode('utf-8')
+#                     }
+#                     json_data = json.dumps(data)
+#                     print(json_data)
+#                     requests.post(f'{url}/gwg_temp', json=json_data)
 
                 time.sleep(0.5)
 
