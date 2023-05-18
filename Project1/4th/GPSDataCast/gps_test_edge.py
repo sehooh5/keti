@@ -114,7 +114,7 @@ def missing_data():
             "code": "0020",
             "message": "데이터 Missing 오류"
         }
-        res_json = json.dumps(res)
+    res_json = json.dumps(res)
 
     return res_json
 
