@@ -246,7 +246,7 @@ class App(QWidget):
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
-        self.running = False
+#         self.running = False
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
             for child in psutil.Process(process_thread.pid).children(recursive=True):
