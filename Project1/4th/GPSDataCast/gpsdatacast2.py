@@ -63,6 +63,7 @@ class GPSThread(QThread):
                     print("데이터 초기화")
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
+                    print(f'{row[0]}, {row[1]}, {row[2]}')
                     data = {
                         "code": "0000",
                         "message": "처리 성공",
@@ -253,7 +254,7 @@ class App(QWidget):
             print("GPSThread가 실행 중이 아닙니다.")
 
         print(f'{num} 여기에 들어온거는 맞자나 ')
-        
+
         # gps 종료
         self.gps_thread.running = False
 
