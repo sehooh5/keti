@@ -34,7 +34,6 @@ def gwg_temp():
     temp_data = json.loads(request.get_json(silent=True))
 
     bid = temp_data.get('bid')
-    print(temp_data)
 
     if bid == 'bb01':
         bb01 = temp_data
@@ -66,34 +65,34 @@ def get_get_gps_rdata():
                 return missing_data()
         elif bid == 'bb02':
             if 'bb02' in globals() and bb02:
-                return bb02
+                return json.dumps(bb02)
             else:
                 return missing_data()
         elif bid == 'bb03':
             if 'bb03' in globals() and bb03:
-                return bb03
+                return json.dumps(bb03)
             else:
-                return 'bb03 is empty'
+                return missing_data()
         elif bid == 'bb04':
             if 'bb04' in globals() and bb04:
-                return bb04
+                return json.dumps(bb04)
             else:
-                return 'bb04 is empty'
+                return missing_data()
         elif bid == 'bb05':
             if 'bb05' in globals() and bb05:
-                return bb05
+                return json.dumps(bb05)
             else:
-                return 'bb05 is empty'
+                return missing_data()
         elif bid == 'bb06':
             if 'bb06' in globals() and bb06:
-                return bb06
+                return json.dumps(bb06)
             else:
-                return 'bb06 is empty'
+                return missing_data()
         elif bid == 'bb07':
             if 'bb07' in globals() and bb07:
-                return bb07
+                return json.dumps(bb07)
             else:
-                return 'bb07 is empty'
+                return missing_data()
         else:
             return f'{bid} 데이터가 없습니다'
     except KeyError:
