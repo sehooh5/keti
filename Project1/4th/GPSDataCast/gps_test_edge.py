@@ -33,9 +33,7 @@ def gwg_temp():
 
     temp_data = request.get_json(silent=True)
 
-    print(temp_data)
-    bid = temp_data[3]
-
+    bid = temp_data.get('bid')
 
     if bid == 'bb01':
         bb01 = temp_data
