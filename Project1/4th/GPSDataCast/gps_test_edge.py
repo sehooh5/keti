@@ -3,7 +3,6 @@ from flask_cors import CORS, cross_origin
 import json
 import sqlite3
 import datetime
-import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -32,9 +31,8 @@ def get_gwgData():
 def gwg_temp():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
-#     temp_data = request.get_json(silent=True)
-    temp_data = response.json()
-    print(temp_data)
+    temp_data = request.get_json(silent=True)
+
     bid = temp_data.get('bid')
 
     if bid == 'bb01':
