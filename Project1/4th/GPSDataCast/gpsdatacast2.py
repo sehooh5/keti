@@ -239,7 +239,7 @@ class App(QWidget):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
-            command = f'cvlc -v /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
