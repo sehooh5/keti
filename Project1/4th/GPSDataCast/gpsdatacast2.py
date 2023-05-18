@@ -247,7 +247,7 @@ class App(QWidget):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
 
-        if self.gps_thread is not None and self.gps_thread.isRunning():
+        if self.gps_thread.isRunning():
             print("GPSThread가 실행 중입니다.")
         else:
             print("GPSThread가 실행 중이 아닙니다.")
