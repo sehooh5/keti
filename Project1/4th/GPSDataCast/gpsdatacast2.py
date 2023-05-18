@@ -75,6 +75,7 @@ class GPSThread(QThread):
                 time.sleep(0.5)
 
     def stop(self):
+        print('stop gps 실행됨')
         self.running = False
 
 
@@ -257,7 +258,7 @@ class App(QWidget):
             status_label.repaint()
 
         self.gps_thread.stop()
-        self.gps_thread.wait()
+        self.gps_thread = None
 
     def send_gps_data(self, data):
         requests.post(f'{url}/gwg_temp', json=data)
