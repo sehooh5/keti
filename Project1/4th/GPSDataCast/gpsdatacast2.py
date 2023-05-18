@@ -257,6 +257,7 @@ class App(QWidget):
             status_label.repaint()
 
         if self.gps_thread is not None:
+            print('여기 들어옴')
             self.gps_thread.stop()
 
     def send_gps_data(self, data):
