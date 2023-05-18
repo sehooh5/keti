@@ -96,6 +96,7 @@ class App(QWidget):
         self.process5_thread = None
         self.process6_thread = None
         self.process7_thread = None
+        self.gps_thread = None
 
         self.initUI()
 
@@ -257,9 +258,10 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
-        self.gps_thread.running = False
-        self.gps_thread.stop()
-        self.gps_thread = None
+        if self.gps_thread is not None:
+            self.gps_thread.stop()
+            self.gps_thread.wait()
+            self.gps_thread = None
 
     def send_gps_data(self, data):
         requests.post(f'{url}/gwg_temp', json=data)
