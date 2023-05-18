@@ -63,7 +63,7 @@ class GPSThread(QThread):
                     print("데이터 초기화")
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
-                    print(f'{row[0]}, {row[1]}, {row[2]}')
+#                     print(f'{row[0]}, {row[1]}, {row[2]}')
                     data = {
                         "code": "0000",
                         "message": "처리 성공",
@@ -76,7 +76,6 @@ class GPSThread(QThread):
                 time.sleep(0.5)
 
     def stop(self):
-        print('stop gps 실행됨')
         self.running = False
 
 
@@ -249,14 +248,10 @@ class App(QWidget):
         print(f"blackbox_0{num} rtp 전송 멈춤")
 
         # gps 종료
-#         self.gps_thread.running = False
-
         if self.gps_thread is not None:
-            print('들어옴')
             self.gps_thread.stop()
             self.gps_thread.wait()
             self.gps_thread = None
-
 
         # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
@@ -269,8 +264,6 @@ class App(QWidget):
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
-
-
 
     def send_gps_data(self, data):
         requests.post(f'{url}/gwg_temp', json=data)
