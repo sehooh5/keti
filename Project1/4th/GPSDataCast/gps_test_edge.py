@@ -57,16 +57,12 @@ def get_get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
     try:
-        bid = request.args['bid']
+
     except KeyError:
-        res = {
-            "code": "0015",
-            "message": "필수 파라미터 Missing 오류"
-        }
-        res_json = json.dumps(res)
-        return res_json
+
 
     try:
+        bid = request.args['bid']
         if bid == 'bb01':
             if 'bb01' in globals() and bb01:
                 return bb01
@@ -105,7 +101,12 @@ def get_get_gps_rdata():
         else:
             return f'{bid} 데이터가 없습니다'
     except KeyError:
-        return 'key error'
+        res = {
+            "code": "0015",
+            "message": "필수 파라미터 Missing 오류"
+        }
+        res_json = json.dumps(res)
+        return res_json
 
     return 'Unknown error occurred'
 
