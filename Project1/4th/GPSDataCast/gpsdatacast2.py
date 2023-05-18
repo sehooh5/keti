@@ -77,7 +77,7 @@ class GPSThread(QThread):
                             "gps_raw_data": encoded_data
                         }
                         json_data = json.dumps(data)
-                        print(encoded_data.decode('utf-8'))
+                        print(bytes.fromhex(encoded_data))
                         # JSON 데이터를 서버로 전송
                         response = requests.post(f'{url}/gwg_temp', json=data)
 
