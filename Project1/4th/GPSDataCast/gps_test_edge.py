@@ -98,6 +98,7 @@ def get_gwg():
             return 'Invalid bid'
     except KeyError:
         return 'bid is missing'
+    return 'arguments 입력해주세요'
 
 
 
