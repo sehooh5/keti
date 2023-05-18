@@ -95,9 +95,9 @@ def get_gwg():
             else:
                 return 'bb07 is empty'
         else:
-            return 'Invalid bid'
+            return f'{bid} 데이터가 없습니다'
     except KeyError:
-        return f'{bid} 데이터가 없습니다'
+        return 'bid is missing'
 
     return 'Unknown error occurred'
 
