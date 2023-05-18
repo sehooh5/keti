@@ -68,7 +68,6 @@ class GPSThread(QThread):
                     try:
                         # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
                         encoded_data = row[2].hex()
-                        print(self.num)
                         data = {
                             "code": "0000",
                             "message": "처리 성공",
@@ -77,6 +76,9 @@ class GPSThread(QThread):
                             "gps_raw_data": encoded_data
                         }
                         json_data = json.dumps(data)
+
+                        print(self.num)
+
                         # JSON 데이터를 서버로 전송
                         response = requests.post(f'{url}/gwg_temp', json=data)
 
