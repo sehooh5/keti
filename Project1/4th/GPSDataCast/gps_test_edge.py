@@ -57,11 +57,6 @@ def get_get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
     try:
-
-    except KeyError:
-
-
-    try:
         bid = request.args['bid']
         if bid == 'bb01':
             if 'bb01' in globals() and bb01:
