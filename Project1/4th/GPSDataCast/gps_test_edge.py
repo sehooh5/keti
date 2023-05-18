@@ -61,7 +61,7 @@ def get_get_gps_rdata():
         bid = request.args['bid']
         if bid == 'bb01':
             if 'bb01' in globals() and bb01:
-                print(bb01)
+                print(type(bb01))
                 return bb01
             else:
                 return missing_data()
