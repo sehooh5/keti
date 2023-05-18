@@ -71,12 +71,12 @@ def get_get_gps_rdata():
             if 'bb01' in globals() and bb01:
                 return bb01
             else:
-                return 'bb01 is empty'
+                missing_data()
         elif bid == 'bb02':
             if 'bb02' in globals() and bb02:
                 return bb02
             else:
-                return 'bb02 is empty'
+                missing_data()
         elif bid == 'bb03':
             if 'bb03' in globals() and bb03:
                 return bb03
@@ -109,7 +109,14 @@ def get_get_gps_rdata():
 
     return 'Unknown error occurred'
 
+def missing_data():
+    res = {
+            "code": "0020",
+            "message": "데이터 Missing 오류"
+        }
+        res_json = json.dumps(res)
 
+    return res_json
 
 app.run(host="123.214.186.162",port=port)
 
