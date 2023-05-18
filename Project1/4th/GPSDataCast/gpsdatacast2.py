@@ -72,7 +72,8 @@ class GPSThread(QThread):
                         "gps_raw_data": row[2].decode('utf-8')
                     }
                     json_data = json.dumps(data)
-                    self.data_ready.emit(json_data)
+#                     self.data_ready.emit(json_data)
+                    requests.post(f'{url}/gwg_temp', json=json_data)
 
                 time.sleep(0.5)
 
@@ -231,7 +232,7 @@ class App(QWidget):
 
         # GPS 데이터 전송을 위한 스레드 시작
         self.gps_thread = GPSThread(num)
-        self.gps_thread.data_ready.connect(self.send_gps_data)
+#         self.gps_thread.data_ready.connect(self.send_gps_data)
         self.gps_thread.start()
 
         # 영상 데이터 전송
@@ -266,9 +267,9 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
-    def send_gps_data(self, data):
-        print(data)
-        requests.post(f'{url}/gwg_temp', json=data)
+#     def send_gps_data(self, data):
+#         print(data)
+#         requests.post(f'{url}/gwg_temp', json=data)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
