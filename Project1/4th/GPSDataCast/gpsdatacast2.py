@@ -68,12 +68,13 @@ class GPSThread(QThread):
 #                     print(f'{row[0]}, {row[1]}, {row[2]}')
                     try:
                         # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
+                        encoded_data = row[2].hex()
                         data = {
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": row[0],
                             "time": row[1],
-                            "gps_raw_data": row[2]
+                            "gps_raw_data": encoded_data
                         }
 
                         # JSON 데이터를 서버로 전송
