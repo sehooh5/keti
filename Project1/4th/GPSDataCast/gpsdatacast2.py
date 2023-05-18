@@ -265,6 +265,7 @@ class App(QWidget):
         # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
+            print('여기!')
             for child in psutil.Process(process_thread.pid).children(recursive=True):
                 child.kill()
             process_thread.kill()
