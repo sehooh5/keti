@@ -53,10 +53,18 @@ def gwg_temp():
     return temp_data
 
 @app.route('/get_gps_rdata', methods=['GET'])
-def get_gwg():
+def get_get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
-    bid = request.args.get('bid')
+    try:
+        bid = request.args['bid']
+    except KeyError:
+        res = {
+            "code": "0015",
+            "message": "필수 파라미터 Missing 오류"
+        }
+        res_json = json.dumps(res)
+        return res_json
 
     try:
         if bid == 'bb01':
@@ -97,12 +105,7 @@ def get_gwg():
         else:
             return f'{bid} 데이터가 없습니다'
     except KeyError:
-        res = {
-            "code": "0015",
-            "message": "필수 파라미터 Missing 오류"
-        }
-        res_json = json.dumps(res)
-        return res_json
+        return 'key error'
 
     return 'Unknown error occurred'
 
