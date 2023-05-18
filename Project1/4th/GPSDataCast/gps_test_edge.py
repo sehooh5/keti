@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 import json
 import sqlite3
 import datetime
+import requests
 
 app = Flask(__name__)
 CORS(app)
