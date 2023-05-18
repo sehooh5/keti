@@ -49,13 +49,13 @@ def gwg_temp():
         bb06 = temp_data
     elif bid == 'bb07':
         bb07 = temp_data
-
-    return "200"
+    print("111111111111",bb01)
+    return temp_data
 
 @app.route('/get_gps_rdata', methods=['GET'])
 def get_get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
-
+    print("222222222222",bb01)
     try:
         bid = request.args['bid']
         if bid == 'bb01':
