@@ -65,10 +65,10 @@ class GPSThread(QThread):
                     print("데이터 초기화")
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
-#                     print(f'{row[0]}, {row[1]}, {row[2]}')
                     try:
                         # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
                         encoded_data = row[2].hex()
+                        print(self.num)
                         data = {
                             "code": "0000",
                             "message": "처리 성공",
@@ -77,24 +77,12 @@ class GPSThread(QThread):
                             "gps_raw_data": encoded_data
                         }
                         json_data = json.dumps(data)
-                        print(bytes.fromhex(encoded_data))
                         # JSON 데이터를 서버로 전송
                         response = requests.post(f'{url}/gwg_temp', json=data)
 
                     except Exception as e:
                         print("JSON 데이터 전송 중 오류 발생")
                         traceback.print_exc()
-
-#                     data = {
-#                         "code": "0000",
-#                         "message": "처리 성공",
-#                         "bid": row[0],
-#                         "time": row[1],
-#                         "gps_raw_data": row[2].decode('utf-8')
-#                     }
-#                     json_data = json.dumps(data)
-#                     print(json_data)
-#                     requests.post(f'{url}/gwg_temp', json=json_data)
 
                 time.sleep(0.5)
 
