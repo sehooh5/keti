@@ -15,6 +15,8 @@ from threading import Thread
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
+import traceback
+
 url = "http://123.214.186.162:8089"
 
 class ProcessThread(QThread):
