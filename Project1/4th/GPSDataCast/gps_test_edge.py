@@ -27,26 +27,52 @@ def get_gwgData():
 
     return j_data
 
-# 0517 gps 임시 데이터
 @app.route('/gwg_temp', methods=['POST'])
 def gwg_temp():
-    global temp_data
+    global bb01, bb02, bb03, bb04, bb05, bb06, bb07
+
     temp_data = request.get_json(silent=True)
 
-    print(temp_data['bid'])
+    bid = temp_data['bid']
 
-    encoded_data = temp_data['gps_raw_data']
-    print(bytes.fromhex(encoded_data))
+    if bid == 'bb01':
+        bb01 = temp_data
+    elif bid == 'bb02':
+        bb02 = temp_data
+    elif bid == 'bb03':
+        bb03 = temp_data
+    elif bid == 'bb04':
+        bb04 = temp_data
+    elif bid == 'bb05':
+        bb05 = temp_data
+    elif bid == 'bb06':
+        bb06 = temp_data
+    elif bid == 'bb07':
+        bb07 = temp_data
 
     return temp_data
 
-# 1124 // temp data get요청으로 gwg json data 리턴
 @app.route('/get_gwg', methods=['GET'])
 def get_gwg():
-    global temp_data
-    j_data = json.dumps(temp_data)
+    global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
-    return j_data
+    bid = request.args.get('bid')
+
+    if bid == 'bb01':
+        return bb01
+    elif bid == 'bb02':
+        return bb02
+    elif bid == 'bb03':
+        return bb03
+    elif bid == 'bb04':
+        return bb04
+    elif bid == 'bb05':
+        return bb05
+    elif bid == 'bb06':
+        return bb06
+    elif bid == 'bb07':
+        return bb07
+
 
 
 app.run(host="123.214.186.162",port=port)
