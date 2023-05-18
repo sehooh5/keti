@@ -77,7 +77,7 @@ class GPSThread(QThread):
                         }
 
                         # JSON 데이터를 서버로 전송
-                        response = requests.post(f'{url}/gwg_temp', json=json_data)
+                        response = requests.post(f'{url}/gwg_temp', json=data)
 
                     except Exception as e:
                         print("JSON 데이터 전송 중 오류 발생")
