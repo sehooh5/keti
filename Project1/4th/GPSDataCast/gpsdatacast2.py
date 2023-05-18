@@ -257,6 +257,7 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
+        self.gps_thread.running = False
         self.gps_thread.stop()
         self.gps_thread = None
 
