@@ -63,7 +63,7 @@ class GPSThread(QThread):
                     print("데이터 초기화")
                 c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
                 for row in c:
-                    print(f'{row[0]}, {row[1]}, {row[2]}')
+#                     print(f'{row[0]}, {row[1]}, {row[2]}')
                     data = {
                         "code": "0000",
                         "message": "처리 성공",
@@ -72,7 +72,7 @@ class GPSThread(QThread):
                         "gps_raw_data": row[2].decode('utf-8')
                     }
                     json_data = json.dumps(data)
-#                     self.data_ready.emit(json_data)
+                    print(json_data)
                     requests.post(f'{url}/gwg_temp', json=json_data)
 
                 time.sleep(0.5)
