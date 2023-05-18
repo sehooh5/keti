@@ -107,7 +107,6 @@ def get_get_gps_rdata():
     except KeyError:
         return 'key error'
 
-    return 'Unknown error occurred'
 
 def missing_data():
     res = {
