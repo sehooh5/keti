@@ -58,20 +58,46 @@ def get_gwg():
 
     bid = request.args.get('bid')
 
-    if bid == 'bb01':
-        return bb01
-    elif bid == 'bb02':
-        return bb02
-    elif bid == 'bb03':
-        return bb03
-    elif bid == 'bb04':
-        return bb04
-    elif bid == 'bb05':
-        return bb05
-    elif bid == 'bb06':
-        return bb06
-    elif bid == 'bb07':
-        return bb07
+    try:
+        if bid == 'bb01':
+            if bb01:
+                return bb01
+            else:
+                return 'bb01 is empty'
+        elif bid == 'bb02':
+            if bb02:
+                return bb02
+            else:
+                return 'bb02 is empty'
+        elif bid == 'bb03':
+            if bb03:
+                return bb03
+            else:
+                return 'bb03 is empty'
+        elif bid == 'bb04':
+            if bb04:
+                return bb04
+            else:
+                return 'bb04 is empty'
+        elif bid == 'bb05':
+            if bb05:
+                return bb05
+            else:
+                return 'bb05 is empty'
+        elif bid == 'bb06':
+            if bb06:
+                return bb06
+            else:
+                return 'bb06 is empty'
+        elif bid == 'bb07':
+            if bb07:
+                return bb07
+            else:
+                return 'bb07 is empty'
+        else:
+            return 'Invalid bid'
+    except KeyError:
+        return 'bid is missing'
 
 
 
