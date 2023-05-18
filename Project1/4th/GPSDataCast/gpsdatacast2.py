@@ -72,6 +72,7 @@ class GPSThread(QThread):
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": f"bb0{self.num}",
+                            "pid": row[0],
                             "time": row[1],
                             "gps_raw_data": encoded_data
                         }
