@@ -60,37 +60,37 @@ def get_gwg():
 
     try:
         if bid == 'bb01':
-            if bb01:
+            if 'bb01' in globals() and bb01:
                 return bb01
             else:
                 return 'bb01 is empty'
         elif bid == 'bb02':
-            if bb02:
+            if 'bb02' in globals() and bb02:
                 return bb02
             else:
                 return 'bb02 is empty'
         elif bid == 'bb03':
-            if bb03:
+            if 'bb03' in globals() and bb03:
                 return bb03
             else:
                 return 'bb03 is empty'
         elif bid == 'bb04':
-            if bb04:
+            if 'bb04' in globals() and bb04:
                 return bb04
             else:
                 return 'bb04 is empty'
         elif bid == 'bb05':
-            if bb05:
+            if 'bb05' in globals() and bb05:
                 return bb05
             else:
                 return 'bb05 is empty'
         elif bid == 'bb06':
-            if bb06:
+            if 'bb06' in globals() and bb06:
                 return bb06
             else:
                 return 'bb06 is empty'
         elif bid == 'bb07':
-            if bb07:
+            if 'bb07' in globals() and bb07:
                 return bb07
             else:
                 return 'bb07 is empty'
