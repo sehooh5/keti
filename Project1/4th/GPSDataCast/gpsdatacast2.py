@@ -254,8 +254,8 @@ class App(QWidget):
             status_label.repaint()
 
         if self.gps_thread is not None:
-        self.gps_thread.stop()
-        self.gps_thread.wait()
+            self.gps_thread.stop()
+            self.gps_thread.wait()
 
     def send_gps_data(self, data):
         requests.post(f'{url}/gwg_temp', json=data)
