@@ -259,6 +259,7 @@ class App(QWidget):
             status_label.repaint()
 
         if self.gps_thread is not None:
+            print('들어옴')
             self.gps_thread.stop()
             self.gps_thread.wait()
             self.gps_thread = None
