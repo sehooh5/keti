@@ -71,12 +71,12 @@ def get_get_gps_rdata():
             if 'bb01' in globals() and bb01:
                 return bb01
             else:
-                missing_data()
+                return missing_data()
         elif bid == 'bb02':
             if 'bb02' in globals() and bb02:
                 return bb02
             else:
-                missing_data()
+                return missing_data()
         elif bid == 'bb03':
             if 'bb03' in globals() and bb03:
                 return bb03
@@ -107,6 +107,7 @@ def get_get_gps_rdata():
     except KeyError:
         return 'key error'
 
+    return 'Unknown error occurred'
 
 def missing_data():
     res = {
