@@ -50,41 +50,41 @@ def get_get_gps_rdata():
             if 'bb01' in globals() and bb01:
                 return json.dumps(bb01)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb02':
             if 'bb02' in globals() and bb02:
                 return json.dumps(bb02)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb03':
             if 'bb03' in globals() and bb03:
                 return json.dumps(bb03)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb04':
             if 'bb04' in globals() and bb04:
                 return json.dumps(bb04)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb05':
             if 'bb05' in globals() and bb05:
                 return json.dumps(bb05)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb06':
             if 'bb06' in globals() and bb06:
                 return json.dumps(bb06)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         elif bid == 'bb07':
             if 'bb07' in globals() and bb07:
                 return json.dumps(bb07)
             else:
-                return res.meg(0020)
+                return res.meg(0o20)
         else:
             return f'{bid} 데이터가 없습니다'
     except KeyError:
-        return res.meg(0015)
+        return res.meg(0o15)
 
     return 'Unknown error occurred'
 
