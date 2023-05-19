@@ -12,8 +12,8 @@ import sqlite3
 import datetime
 import res
 
-app = Flask(__name__)
-CORS(app)
+flask_app = Flask(__name__)
+CORS(flask_app)
 port = 8089
 
 class ProcessThread(QThread):
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
 
-@app.route('/gwg_temp', methods=['POST'])
+@flask_app.route('/gwg_temp', methods=['POST'])
 def gwg_temp():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
@@ -233,7 +233,7 @@ def gwg_temp():
 
     return temp_data
 
-@app.route('/get_gps_rdata', methods=['GET'])
+@flask_app.route('/get_gps_rdata', methods=['GET'])
 def get_get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
@@ -281,4 +281,4 @@ def get_get_gps_rdata():
 
     return res.msg("0012")
 
-app.run(host="123.214.186.162",port=port)
+flask_app.run(host="123.214.186.162",port=port)
