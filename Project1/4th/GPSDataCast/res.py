@@ -37,7 +37,7 @@ def msg(code):
         }
         msg_json = json.dumps(msg)
         return msg_json
-    elif code == 0005:
+    elif code == 0o05:
         msg = {
             "code": "0005",
             "message": "패스워드 오류"
