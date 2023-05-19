@@ -1083,9 +1083,11 @@
   - **서버1 : gpsdatacast2.py 에서 영상+GPS 모두 처리중**	
     - 7개 영상 rtp 전송
     - gps 데이터 0.5초마다 로우데이터 전송
-  - **서버2 : gpsdatacast_Edge.py 에서 영상 처리 / gps_test_edge.py에서 GPS 처리**
-    - 엣지에서 7개 영상 rtsp 재전송
-    - gps_test_edge.py 에서 flask 서버로 전달받은 gps 데이터 갱신하고 받아갈 수 있음
+  - **서버2 : **
+    - **영상 RTSP 재전송(gpsdatacast_Edge.py)**
+      - 엣지에서 7개 영상 rtsp 재전송
+    -  **GPS 처리(gps_test_edge.py)**
+      - flask 서버로 전달받은 gps 데이터 갱신하고 받아갈 수 있음
   - GPS 데이터 전송에 대한 API 문서 작업
 - 진행중
   - gpsdatacast2.py 파일에서 진행중
