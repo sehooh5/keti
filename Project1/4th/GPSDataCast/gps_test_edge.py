@@ -82,7 +82,7 @@ def get_get_gps_rdata():
             else:
                 return res.msg("0020")
         else:
-            return f'{bid} 데이터가 없습니다'
+            return res.msg("0020")
     except KeyError:
         return res.msg("0015")
 
