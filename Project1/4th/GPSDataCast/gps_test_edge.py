@@ -9,6 +9,12 @@ app = Flask(__name__)
 CORS(app)
 port = 8089
 
+@app.route('/')
+def index():
+    json_data = request.get_json(silent=True)
+    print(json_data)
+    return "index"
+
 @app.route('/gwg_temp', methods=['POST'])
 def gwg_temp():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
