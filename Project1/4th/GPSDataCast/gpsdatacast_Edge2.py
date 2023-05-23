@@ -5,16 +5,16 @@ import os
 import sys
 import psutil
 
-# from flask import Flask, render_template, Response, request, g, jsonify
-# from flask_cors import CORS, cross_origin
-# import json
-# import sqlite3
-# import datetime
-# import res
-#
-# flask_app = Flask(__name__)
-# CORS(flask_app)
-# port = 8089
+from flask import Flask, render_template, Response, request, g, jsonify
+from flask_cors import CORS, cross_origin
+import json
+import sqlite3
+import datetime
+import res
+
+flask_app = Flask(__name__)
+CORS(flask_app)
+port = 8089
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
@@ -36,6 +36,8 @@ class ProcessThread(QThread):
             self.isRunning = False
 
 class App(QWidget):
+    signal_start_process = pyqtSignal(int)
+    signal_stop_process = pyqtSignal(int)
 
     def __init__(self):
         super().__init__()
@@ -70,13 +72,13 @@ class App(QWidget):
         start1 = QPushButton('전송', self)
         start1.setToolTip('blackbox_01 RTSP 전송')
         start1.move(220, 50)
-        start1.clicked.connect(lambda: self.start_process(1))
+        start1.clicked.connect(lambda: self.signal_start_process.emit(1))
 
         # 1번 영상 멈춤 버튼
         stop1 = QPushButton('멈춤', self)
         stop1.setToolTip('blackbox_01 재전송 멈춤')
         stop1.move(305, 50)
-        stop1.clicked.connect(lambda: self.stop_process(1))
+        stop1.clicked.connect(lambda: self.signal_stop_process.emit(1))
 
         # 2번 영상 전송
         self.status2 = QLabel('blackbox_02 재전송 멈춤', self)
@@ -86,13 +88,13 @@ class App(QWidget):
         start2 = QPushButton('전송', self)
         start2.setToolTip('blackbox_02 RTSP 전송')
         start2.move(220, 100)
-        start2.clicked.connect(lambda: self.start_process(2))
+        start2.clicked.connect(lambda: self.signal_start_process.emit(2))
 
         # 2번 영상 멈춤 버튼
         stop2 = QPushButton('멈춤', self)
         stop2.setToolTip('blackbox_02 재전송 멈춤')
         stop2.move(305, 100)
-        stop2.clicked.connect(lambda: self.stop_process(2))
+        stop2.clicked.connect(lambda: self.signal_stop_process.emit(2))
 
         # 3번 영상 전송
         self.status3 = QLabel('blackbox_03 재전송 멈춤', self)
@@ -102,13 +104,13 @@ class App(QWidget):
         start3 = QPushButton('전송', self)
         start3.setToolTip('blackbox_03 RTSP 전송')
         start3.move(220, 150)
-        start3.clicked.connect(lambda: self.start_process(3))
+        start3.clicked.connect(lambda: self.signal_start_process.emit(3))
 
         # 3번 영상 멈춤 버튼
         stop3 = QPushButton('멈춤', self)
         stop3.setToolTip('blackbox_03 재전송 멈춤')
         stop3.move(305, 150)
-        stop3.clicked.connect(lambda: self.stop_process(3))
+        stop3.clicked.connect(lambda: self.signal_stop_process.emit(3))
 
         # 4번 영상 전송
         self.status4 = QLabel('blackbox_04 재전송 멈춤', self)
@@ -118,13 +120,13 @@ class App(QWidget):
         start4 = QPushButton('전송', self)
         start4.setToolTip('blackbox_04 RTSP 전송')
         start4.move(220, 200)
-        start4.clicked.connect(lambda: self.start_process(4))
+        start4.clicked.connect(lambda: self.signal_start_process.emit(4))
 
         # 4번 영상 멈춤 버튼
         stop4 = QPushButton('멈춤', self)
         stop4.setToolTip('blackbox_04 재전송 멈춤')
         stop4.move(305, 200)
-        stop4.clicked.connect(lambda: self.stop_process(4))
+        stop4.clicked.connect(lambda: self.signal_stop_process.emit(4))
 
         # 5번 영상 전송
         self.status5 = QLabel('blackbox_05 재전송 멈춤', self)
@@ -134,13 +136,13 @@ class App(QWidget):
         start5 = QPushButton('전송', self)
         start5.setToolTip('blackbox_05 RTSP 전송')
         start5.move(220, 250)
-        start5.clicked.connect(lambda: self.start_process(5))
+        start5.clicked.connect(lambda: self.signal_start_process.emit(5))
 
         # 5번 영상 멈춤 버튼
         stop5 = QPushButton('멈춤', self)
         stop5.setToolTip('blackbox_05 재전송 멈춤')
         stop5.move(305, 250)
-        stop5.clicked.connect(lambda: self.stop_process(5))
+        stop5.clicked.connect(lambda: self.signal_stop_process.emit(5))
 
         # 6번 영상 전송
         self.status6 = QLabel('blackbox_06 재전송 멈춤', self)
@@ -150,13 +152,13 @@ class App(QWidget):
         start6 = QPushButton('전송', self)
         start6.setToolTip('blackbox_06 RTSP 전송')
         start6.move(220, 300)
-        start6.clicked.connect(lambda: self.start_process(6))
+        start6.clicked.connect(lambda: self.signal_start_process.emit(6))
 
         # 6번 영상 멈춤 버튼
         stop6 = QPushButton('멈춤', self)
         stop6.setToolTip('blackbox_06 재전송 멈춤')
         stop6.move(305, 300)
-        stop6.clicked.connect(lambda: self.stop_process(6))
+        stop6.clicked.connect(lambda: self.signal_stop_process.emit(6))
 
         # 7번 영상 전송
         self.status7 = QLabel('blackbox_07 재전송 멈춤', self)
@@ -166,13 +168,13 @@ class App(QWidget):
         start7 = QPushButton('전송', self)
         start7.setToolTip('blackbox_07 RTSP 전송')
         start7.move(220, 350)
-        start7.clicked.connect(lambda: self.start_process(7))
+        start7.clicked.connect(lambda: self.signal_start_process.emit(7))
 
         # 7번 영상 멈춤 버튼
         stop7 = QPushButton('멈춤', self)
         stop7.setToolTip('blackbox_07 재전송 멈춤')
         stop7.move(305, 350)
-        stop7.clicked.connect(lambda: self.stop_process(7))
+        stop7.clicked.connect(lambda: self.signal_stop_process.emit(7))
 
         self.show()
 
