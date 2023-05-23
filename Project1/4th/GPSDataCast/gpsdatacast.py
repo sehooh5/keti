@@ -13,6 +13,10 @@ import time
 import requests
 from threading import Thread
 
+from PyQt5.QtCore import QThread, pyqtSignal
+
+import traceback
+
 url = "http://123.214.186.162:8089"
 
 class ProcessThread(QThread):
@@ -34,6 +38,59 @@ class ProcessThread(QThread):
             self.process.wait()
             self.isRunning = False # 추가
 
+class GPSThread(QThread):
+    data_ready = pyqtSignal(dict)
+
+    def __init__(self, num):
+        super().__init__()
+        self.num = num
+        self.running = False
+
+    def run(self):
+        self.running = True
+
+        conn = sqlite3.connect(f"gps_0{self.num}.db", isolation_level=None, check_same_thread=False)
+        c = conn.cursor()
+
+        c.execute("SELECT COUNT(*) FROM gps_raw_data")
+        for row in c:
+            cnt = row[0]
+
+        while self.running:
+            for cnt in range(1, cnt + 1):
+                if not self.running:  # 추가: self.running이 False인 경우 루프 종료
+                    break
+
+                if cnt == 1:
+                    print("데이터 초기화")
+                c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
+                for row in c:
+                    try:
+                        # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
+                        encoded_data = row[2].hex()
+                        data = {
+                            "code": "0000",
+                            "message": "처리 성공",
+                            "bid": f"bb0{self.num}",
+                            "pid": row[0],
+                            "time": row[1],
+                            "gps_raw_data": encoded_data
+                        }
+                        json_data = json.dumps(data)
+
+                        # JSON 데이터를 서버로 전송
+                        response = requests.post(f'{url}/gwg_temp', json=json_data)
+
+                    except Exception as e:
+                        print("JSON 데이터 전송 중 오류 발생")
+                        traceback.print_exc()
+
+                time.sleep(0.5)
+
+    def stop(self):
+        self.running = False
+
+
 class App(QWidget):
 
     def __init__(self):
@@ -51,12 +108,14 @@ class App(QWidget):
         self.process5_thread = None
         self.process6_thread = None
         self.process7_thread = None
+        self.gps_thread = None
 
         self.initUI()
 
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+        self.gps_thread = None
 
         # 제목
         title = QLabel('영상 및 GPS 데이터 전송', self)
@@ -177,55 +236,20 @@ class App(QWidget):
         self.show()
 
 
+
     def start_process(self, num):
         self.running = True
 
-        # gps 데이터 전송
-        gps_thread = Thread(target=self.send_gps_data, args=(num,))
-        gps_thread.start()
+        # GPS 데이터 전송을 위한 스레드 시작
+        self.gps_thread = GPSThread(num)
+#         self.gps_thread.data_ready.connect(self.send_gps_data)
+        self.gps_thread.start()
 
         # 영상 데이터 전송
-        video_thread = Thread(target=self.send_video_data, args=(num,))
-        video_thread.start()
-
-    def send_gps_data(self, num):
-        self.process_thread = ProcessThread(cmd="")
-        self.process_thread.isRunning = True  # isRunning 값을 True로 설정
-
-        conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
-        c = conn.cursor()
-
-        c.execute("SELECT COUNT(*) FROM gps_raw_data")
-        for row in c:
-            cnt = row[0]
-        print(num)
-
-        while True:
-            if not self.running:
-                break
-
-            for cnt in range(1, cnt+1):
-                if cnt == 1:
-                    print("데이터 초기화")
-                c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={cnt}")
-                for row in c:
-                    print(f'{row[0]}, {row[1]}, {row[2]}')
-                    data = {
-                        "code": "0000",
-                        "message": "처리 성공",
-                        "bid": row[0],
-                        "time": row[1],
-                        "gps_raw_data": row[2]
-                    }
-                    requests.post(f'{url}/gwg_temp', json=data)
-
-                time.sleep(0.5)
-
-    def send_video_data(self, num):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
-        if process_thread is None or not process_thread.isRunning:
-            command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+        if process_thread is None or not process_thread.isRunning():
+            command = f'cvlc /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
@@ -234,7 +258,14 @@ class App(QWidget):
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
-        self.running = False
+
+        # gps 종료
+        if self.gps_thread is not None:
+            self.gps_thread.stop()
+            self.gps_thread.wait()
+            self.gps_thread = None
+
+        # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
             for child in psutil.Process(process_thread.pid).children(recursive=True):
@@ -246,56 +277,12 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
+#     def send_gps_data(self, data):
+#         print(data)
+#         requests.post(f'{url}/gwg_temp', json=data)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
     sys.exit(app.exec_())
 
-
-
-
-
-
-
-
-#
-#     def start_process(self, num):
-#         self.running = True
-#
-#         # GPS 데이터 전송
-#         gps_conn = sqlite3.connect(f"gps_0{num}.db", isolation_level=None, check_same_thread=False)
-#         gps_c = gps_conn.cursor()
-#
-#         gps_c.execute("SELECT COUNT(*) FROM gps_raw_data")
-#         for row in gps_c:
-#             gps_cnt = row[0]
-#         print(num)
-#
-#         # 영상 데이터 전송
-#         print(f"blackbox_0{num} RTP 전송 시작")
-#         process_thread = getattr(self, f"process{num}_thread")
-#         if process_thread is None or not process_thread.isRunning():
-#             command = f'cvlc -vvv /media/keti-laptop/T7/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
-#             process_thread = ProcessThread(command)
-#             setattr(self, f"process{num}_thread", process_thread)
-#             status_label = getattr(self, f"status{num}")
-#             status_label.setText(f'blackbox_0{num} RTP 전송중')
-#
-#         while self.running:
-#             for gps_cnt in range(1, gps_cnt+1):
-#                 if gps_cnt == 1:
-#                     print("데이터 초기화")
-#                 gps_c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={gps_cnt}")
-#                 for row in gps_c:
-#                     print(f'{row[0]}, {row[1]}, {row[2]}')
-#                     gps_data = {
-#                         "code": "0000",
-#                         "message": "처리 성공",
-#                         "bid": row[0],
-#                         "time": row[1],
-#                         "gps_raw_data": row[2]
-#                     }
-#                     requests.post(f'{url}/gwg_temp', json=gps_data)
-#
-#                 time.sleep(0.5)
