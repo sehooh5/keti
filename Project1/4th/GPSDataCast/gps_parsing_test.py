@@ -22,8 +22,8 @@ while True:
             print("데이터 초기화")
         c.execute(f"SELECT * FROM gps_raw_data WHERE ROWID={num}")
         for row in c:
-            decoded_data = bytes.fromhex(row[2])
-            print(f"로우 데이터 {row[0]}: {decoded_data}")
+#             decoded_data = bytes.fromhex(row[2])
+            print(f"로우 데이터 {row[0]}: {row[2]}")
 
 
 
