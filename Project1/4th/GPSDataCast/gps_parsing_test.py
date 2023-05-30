@@ -38,9 +38,10 @@ params = {
 while True:
     res = requests.get(url, params)
     raw_data = res.json()['gps_raw_data']
-#     decoded_data = bytes.fromhex(raw_data).decode()
+    decoded_data = bytes.fromhex(raw_data).decode()
 
     print(raw_data)
+
     time.sleep(0.5)
 
 
