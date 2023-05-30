@@ -38,7 +38,8 @@ params = {
 while True:
     res = requests.get(url, params)
     raw_data = res.json()
-    print(raw_data['raw_data'], " : ", type(raw_data['raw_data']))
+    print(raw_data)
+#     print(raw_data['raw_data'], " : ", type(raw_data['raw_data']))
     time.sleep(0.5)
 
 
