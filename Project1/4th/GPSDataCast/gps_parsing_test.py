@@ -36,8 +36,9 @@ params = {
     'bid': bid
 }
 while True:
-    raw_data = requests.get(url, params)
-    print(raw_data, " : ", type(raw_data))
+    res = requests.get(url, params)
+    raw_data = res.json()
+    print(raw_data[2], " : ", type(raw_data[2]))
     time.sleep(0.5)
 
 
