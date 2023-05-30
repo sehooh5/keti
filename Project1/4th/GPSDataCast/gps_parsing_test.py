@@ -37,8 +37,10 @@ params = {
 }
 while True:
     res = requests.get(url, params)
-    raw_data = res.json()
-    print(raw_data['gps_raw_data'], " : ", type(raw_data['gps_raw_data']))
+    raw_data = res.json()['gps_raw_data']
+    decoded_data = bytes.fromhex(raw_data).decode()
+
+    print(decoded_data)
     time.sleep(0.5)
 
 
