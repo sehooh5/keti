@@ -64,18 +64,23 @@ def parse_data(raw_data):
         # 데이터 형식에 따라 파싱하여 처리합니다.
         if data_type == 0x50:
             # 데이터 형식 0x50 처리 (예: ...)
+            print('0x50')
             pass
         elif data_type == 0x51:
             # 데이터 형식 0x51 처리 (예: ...)
+            print('0x51')
             pass
         elif data_type == 0x52:
             # 데이터 형식 0x52 처리 (예: ...)
+            print('0x52')
             pass
         elif data_type == 0x53:
             # 데이터 형식 0x53 처리 (예: ...)
+            print('0x53')
             pass
         elif data_type == 0x54:
             # 데이터 형식 0x54 처리 (예: ...)
+            print('0x54')
             pass
         else:
             print(f"Error: Unknown data type {hex(data_type)}")
