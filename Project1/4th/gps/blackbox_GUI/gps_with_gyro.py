@@ -58,7 +58,6 @@ class STRUCT(ctypes.Structure) :
 str = STRUCT()
 
 while True:
-    # gps 로우데이터 저장 기능 추가부분
     # 시리얼 데이터 읽기
     raw_data = ser.readline()
 
@@ -67,7 +66,6 @@ while True:
 
         # 데이터 출력
 #         print(raw_data)
-
         # 데이터베이스에 쓰기
         c.execute("INSERT INTO gps_raw_data (raw_data) VALUES (?)", (raw_data,))
         conn.commit()
@@ -78,9 +76,6 @@ while True:
     except Exception as e:
         print(e)
         traceback.print_exc()
-
-
-#     print("데이터 출력 : ")
 
     ss = str.ss
     ms = str.ms
