@@ -67,7 +67,7 @@ def main():
         if ser.inWaiting() > 10: # 수신 버퍼의 바이트 수를 반환
             data = ser.read(11)
             parse_data(data)
-        time.sleep(0.001)
+        time.sleep(0.1)
 
     ser.close()
 
