@@ -1199,5 +1199,13 @@
 #### 0612
 
 - 포폴 및 파싱 준비
-  - c 파일 찾는중
-  - 
+
+  - c 파일 찾는중 
+    - /test_code/gps_with_gyro(basic).cpp 가 기본파일
+    - **/GPSDataCast/gps_with_gyro(basic).cpp 에서 진행중!**
+
+  
+
+#### 0613
+
+- gpt 변경된거 토대로 변경해가면서 파싱해보기

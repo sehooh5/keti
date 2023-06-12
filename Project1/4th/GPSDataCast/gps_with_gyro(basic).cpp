@@ -204,6 +204,7 @@ int main(void)
     char r_buf[1024];
     bzero(r_buf,1024);
 
+// 이 부분이 serial 데이터 가져오는 부분인데 fd 가 데이터값...이 데이터를 db의 데이터로 대체해주면 될듯
     fd = uart_open(fd,"/dev/ttyUSB2");
     if(fd == -1)
     {
@@ -217,8 +218,6 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-//	FILE *fp;
-//	fp = fopen("Record.txt","w");
     while(1)
     {
         ret = recv_data(fd,r_buf,44);
@@ -229,7 +228,6 @@ int main(void)
         }
         // 파일을 파싱하는 부분
 		for (int i=0;i<ret;i++) {
-//		    fprintf(fp,"%2X ",r_buf[i]);
 		    ParseData(r_buf[i]);
 		}
 
