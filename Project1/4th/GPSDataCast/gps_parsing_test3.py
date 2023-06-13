@@ -1,5 +1,5 @@
 import sqlite3
-
+import struct
 def get_data(db_file, table_name, column_name):
     conn = sqlite3.connect(db_file)
     cursor = conn.cursor()
