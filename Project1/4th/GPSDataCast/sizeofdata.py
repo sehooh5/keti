@@ -5,9 +5,10 @@ def get_data_size(db_file, table_name, column_name):
     cursor = conn.cursor()
 
     # 데이터 크기 쿼리 실행
-    query = f"SELECT LENGTH({column_name}) FROM {table_name}"
+#     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
+    query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
-    data_size = cursor.fetchone()[1]
+    data_size = cursor.fetchone()[0]
 
     conn.close()
     return data_size
