@@ -12,7 +12,7 @@ def get_data(db_file, table_name, column_name):
     len_data = len(datas)
 
     for data in datas:
-        print(data)
+        print(hex(data))
 
     conn.close()
     return datas
