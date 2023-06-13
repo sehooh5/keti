@@ -1210,4 +1210,5 @@
 
 - gpt 변경된거 토대로 변경해가면서 파싱해보기(/GPSDataCast/gps_with_gyro(basic).cpp)
 - gps_parsing_test3.py 로 파이썬 코드 구성해보기..
+  - unpacked_data 만들기 시작하면됨
 
