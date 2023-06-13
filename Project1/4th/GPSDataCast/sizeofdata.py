@@ -8,13 +8,14 @@ def get_data(db_file, table_name, column_name):
 #     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
-    data = cursor.fetchall()
+    datas = cursor.fetchall()
     len_data = len(data)
 
-    print(len_data)
+    for data in datas:
+        print(data)
 
     conn.close()
-    return data
+    return datas
 
 # 예시 사용
 db_file = "gps_02.db"

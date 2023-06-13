@@ -1209,3 +1209,5 @@
 #### 0613
 
 - gpt 변경된거 토대로 변경해가면서 파싱해보기(/GPSDataCast/gps_with_gyro(basic).cpp)
+- sizeofdata.py 로 파이썬 코드 구성해보기..?
+
