@@ -9,6 +9,9 @@ def get_data(db_file, table_name, column_name):
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
     data = cursor.fetchall()[0]
+    len_data = len(data)
+
+    print(len_data)
 
     conn.close()
     return data
