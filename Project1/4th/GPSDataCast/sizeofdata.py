@@ -8,7 +8,7 @@ def get_data(db_file, table_name, column_name):
 #     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
-    data = cursor.fetchall()[0]
+    data = cursor.fetchall()
     len_data = len(data)
 
     print(len_data)
