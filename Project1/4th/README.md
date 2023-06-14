@@ -1212,3 +1212,9 @@
 - gps_parsing_test3.py 로 파이썬 코드 구성해보기..
   - unpacked_data 만들기 시작하면됨
 
+
+
+#### 0614
+
+- gps_parsing_test3.py 로 파이썬 코드에서 파싱
+  - unpacked_data 로 파싱중
