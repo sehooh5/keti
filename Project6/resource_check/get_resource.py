@@ -9,8 +9,6 @@ elif sys.argv[1] == 'kp':
     print("k8s pod resources check")
     output = subprocess.check_output("kubectl top po",shell=True)
     print(output)
-    out = subprocess.run("kubectl top po", capture_output=True, text=True)
-    print(out)
 elif sys.argv[1] == 'kn':
     print("k8s node resources check")
     output = subprocess.check_output("kubectl top no",shell=True)
