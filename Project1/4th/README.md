@@ -1218,3 +1218,13 @@
 
 - gps_parsing_test3.py 로 파이썬 코드에서 파싱
   - unpacked_data 로 파싱중
+- 도커 리소스 확인해서 python 으로 printout 할수 있는지 확인하기(서박사님)
+
+
+
+#### 0619
+
+- gps_parsing_test3.py 로 파이썬 코드에서 파싱
+  - unpacked_data 로 파싱중
+- 도커 리소스 확인해서 python 으로 printout 할수 있는지 확인하기(서박사님)
+
