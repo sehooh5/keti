@@ -1225,6 +1225,74 @@
 #### 0619
 
 - gps_parsing_test3.py 로 파이썬 코드에서 파싱
+
   - unpacked_data 로 파싱중
+
 - 도커 리소스 확인해서 python 으로 printout 할수 있는지 확인하기(서박사님)
+
+  - 도커 리소스 확인
+
+    - `docker stats`
+
+      - 컨테이너 name으로 확인 가능
+
+      - CPU, 메모리 사용량, 사용률
+
+      - 응답 메시지
+
+        ```
+        # docker container
+        b'CONTAINER ID   NAME  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O   BLOCK I/O         PIDS\n
+        7f4e45cc7993   k8s_coredns_coredns-78fcd69978-8gt2g_kube-system_5380fe1d-dc62-41a7-b806-b2c65ff395ce_15   0.30%     22.34MiB / 170MiB     13.14%    0B / 0B   21MB / 0B         10\n3
+        ```
+
+        
+
+  - 쿠버네티스 리소스 확인 [(참고)](https://ihp001.tistory.com/249?category=869545)
+
+    - **k8s의 metrics-server 사용**
+
+      - 명령어 : `kubectl top pod (or node)`
+
+      - 리소스 : CPU, 메모리 사용량, 사용률
+
+      - 응답 메시지
+
+        ```
+        # pod
+        b'NAME                                CPU(cores)   MEMORY(bytes)  \n
+        select-cam-keti1-5dc4bcd4b4-cvd8n   1m           41Mi            \n'
+        
+        # node
+        b'NAME    CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   \n
+        keti1   626m         15%    3065Mi          39%       \n
+        keti2   583m         14%    4356Mi          56%       \n'
+        
+        ```
+
+  - 해당 코드
+
+    ```python
+    import sys
+    import subprocess
+    
+    if sys.argv[1] == 'd':
+        print("docker resources check")
+        output = subprocess.check_output("docker stats --no-stream",shell=True)
+        print(output)
+    elif sys.argv[1] == 'kp':
+        print("k8s pod resources check")
+        output = subprocess.check_output("kubectl top po",shell=True)
+        print(output)
+    elif sys.argv[1] == 'kn':
+        print("k8s node resources check")
+        output = subprocess.check_output("kubectl top no",shell=True)
+        print(output)
+    else:
+        print("argument not available")
+    ```
+
+
+
+- 위 코드와 응답 값 정리하는 문서 만들기
 
