@@ -27,4 +27,5 @@ table_name = "gps_raw_data"
 column_name = "raw_data"
 
 raw_data = get_data(db_file, table_name, column_name)
+print(raw_data)
 # print(f"데이터: {raw_data}")
