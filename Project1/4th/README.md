@@ -1323,5 +1323,16 @@
 #### 0626
 
 - 개인 프로젝트 다시 시작
-- 서버 2대로 데이터 보내기 시작하기
+- **서버 2대로 데이터 보내기 시작하기**
+  - **keti1 : bb01~bb04**
+  - **keti2 : bb05~bb07**
+  - **keti0 : gpsdatacast_edge.py, gps_saved_edge.py 실행중**
+
+
+
+#### 0627
+
+- 파이썬 파싱
+  - gps_parsing_test3.py
+- 개인 프로젝트
 

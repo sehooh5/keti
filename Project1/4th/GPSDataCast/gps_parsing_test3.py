@@ -1,5 +1,7 @@
 import sqlite3
 import struct
+import sys
+
 def get_data(db_file, table_name, column_name):
     conn = sqlite3.connect(db_file)
     cursor = conn.cursor()
@@ -22,7 +24,8 @@ def get_data(db_file, table_name, column_name):
     return datas
 
 # 예시 사용
-db_file = "gps_02.db"
+db_num = sys.argv[1]
+db_file = f"gps_0{db_num}.db"
 table_name = "gps_raw_data"
 column_name = "raw_data"
 
