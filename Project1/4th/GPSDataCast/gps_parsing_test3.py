@@ -10,12 +10,15 @@ def get_data(db_file, table_name, column_name):
 #     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
+    data = cursor.fetchone()
+    print(data)
+
     datas = cursor.fetchall()
     len_data = len(datas)
 
-    for data in datas:
-        # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
-        print(data[0].hex())
+#     for data in datas:
+#         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
+#         print(data[0].hex())
 #         print(data[0])
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
