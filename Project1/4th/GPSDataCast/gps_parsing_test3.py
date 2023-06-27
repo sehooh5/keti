@@ -12,7 +12,7 @@ def get_data(db_file, table_name, column_name):
     cursor.execute(query)
     data = cursor.fetchone()[0]
     print(data)
-
+    print("끝")
     datas = cursor.fetchall()
     len_data = len(datas)
 
