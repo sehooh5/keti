@@ -21,8 +21,8 @@ def get_data(db_file, table_name, column_name):
 
     for data in datas:
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
-        print(data[0].hex())
-        print(data[0])
+        print(data[0].hex()) # 숫자형태
+        print(data[0]) # x17/x04...형태
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
 
