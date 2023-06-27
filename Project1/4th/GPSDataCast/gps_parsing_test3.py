@@ -10,7 +10,7 @@ def get_data(db_file, table_name, column_name):
 #     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
-    data = cursor.fetchone()[0]
+    data = cursor.fetchone()
     print(data)
 
     datas = cursor.fetchall()
