@@ -8,9 +8,8 @@ import time
 
 app = Flask(__name__)
 CORS(app)
-port = 8088
+port = 8090
 
-url = "http://123.214.186.162:8090"
 bnum = sys.argv[1]
 conn = sqlite3.connect("gwg_test_SA_1.db", isolation_level=None, check_same_thread=False)
 c = conn.cursor()
@@ -45,3 +44,4 @@ def get_gps_data():
 
     return json_data
 
+app.run(host="123.214.186.162",port=port)
