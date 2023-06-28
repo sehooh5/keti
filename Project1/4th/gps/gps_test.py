@@ -14,7 +14,6 @@ for row in rows:
     lat, lon = row
 #     print(f"GPS : {lat}, {lon}")
     sys.stdout.write(f"\rlat : {lat}  lon : {lon}")
-    sys.stdout.write(f"\r\n")
     sys.stdout.flush()
     time.sleep(0.5)
 
