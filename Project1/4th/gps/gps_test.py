@@ -1,9 +1,19 @@
 import sqlite3
+import sys
 import time
 
-num = 0
-word = "비둘기"
-while 1:
-    num+=1
-    print(word*num)
-    time.sleep(0.1)
+bnum = sys.argv[1]
+
+conn = sqlite3.connect(f"gwg_test_SA_1.db", isolation_level=None, check_same_thread=False)
+c = conn.cursor()
+
+c.execute(f"SELECT lat, lon FROM gps_0{bnum}")
+rows = c.fetchall()
+
+for row in rows:
+    lat, lon = row
+    print(f"GPS : {lat}, {lon})")
+    time.sleep(0.5)
+
+c.close()
+conn.close()
