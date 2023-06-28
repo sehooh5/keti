@@ -12,11 +12,15 @@ rows = c.fetchall()
 
 for row in rows:
     lat, lon = row
-#     print(f"GPS : {lat}, {lon}")
+    lines = []
 
-    sys.stdout.write(f"\r  lat : {lat} \n  lon : {lon}")
-    sys.stdout.flush()
-    time.sleep(0.5)
+    lines.append("  [GPS DATA]")
+    lines.append("  lat : {lat}  lon : {lon}")
+
+    for line in lines:
+        sys.stdout.write(f"\r{line} ")
+        sys.stdout.flush()
+        time.sleep(0.5)
 
 c.close()
 conn.close()
