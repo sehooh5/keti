@@ -6,4 +6,4 @@ word = "비둘기"
 while 1:
     num+=1
     print(word*num)
-    time.sleep(1)
+    time.sleep(0.1)
