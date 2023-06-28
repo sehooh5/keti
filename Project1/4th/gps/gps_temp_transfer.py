@@ -19,9 +19,9 @@ rows = c.fetchall()
 global lat
 global lon
 
-for row in rows:
-    lat, lon = row
-    time.sleep(0.5)
+# for row in rows:
+#     lat, lon = row
+#     time.sleep(0.5)
 
 @app.route('/')
 def index():
