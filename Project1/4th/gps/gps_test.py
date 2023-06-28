@@ -15,7 +15,7 @@ for row in rows:
     lines = []
 
     lines.append("  [GPS DATA]")
-    lines.append("  lat : {lat}  lon : {lon}")
+    lines.append(f"  lat : {lat}  lon : {lon}")
 
     for line in lines:
         sys.stdout.write(f"\r{line} ")
