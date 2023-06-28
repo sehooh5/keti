@@ -12,7 +12,7 @@ rows = c.fetchall()
 
 for row in rows:
     lat, lon = row
-    print(f"GPS : {lat}, {lon})")
+    print(f"GPS : {lat}, {lon}")
     time.sleep(0.5)
 
 c.close()
