@@ -13,7 +13,7 @@ rows = c.fetchall()
 for row in rows:
     lat, lon = row
 #     print(f"GPS : {lat}, {lon}")
-    print()
+    sys.stdout.write(" ")
     sys.stdout.write(f"\r    lat : {lat}  lon : {lon}")
     sys.stdout.flush()
     time.sleep(0.5)
