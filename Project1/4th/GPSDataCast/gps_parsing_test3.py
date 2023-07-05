@@ -26,6 +26,7 @@ def get_data(db_file, table_name, column_name):
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
 
+
     conn.close()
     return datas
 

@@ -1379,3 +1379,10 @@
 #### 0704
 
 - 파싱 : gps_parsing_test3.py
+
+
+
+#### 0705
+
+- 파싱 : gps_parsing_test4.py
+  - 파싱하는 계산법 사용
