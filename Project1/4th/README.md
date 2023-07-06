@@ -1386,3 +1386,10 @@
 
 - 파싱 : gps_parsing_test4.py
   - 파싱하는 계산법 사용
+
+
+
+#### 0706
+
+- 파싱 : gps_parsing_test3.py
+  - split 사용
