@@ -24,3 +24,25 @@
   - 처음 2byte는 데이터의 시작을 알리는 Header로 고정한다. 그 후 Data+Check sum의 수를 알려주는 1byte를 보내고 Data, Check sum 순으로 보낸다. 
   - Header는 약속된 0~255 사이의 숫자이고
   - Check sum 은 앞의 데이터가 중간에 깨지지 않고 잘 갔는지 확인하기 위한 byte이다.
+
+
+
+## GPS 데이터 해석
+
+- 5G 과제에서 실행한 GPS 데이터 해석 과정
+
+
+
+### 현재 데이터 정보 : 
+
+- 데이터당 11 byte(각 8bit)
+- Header : 
+  - 0x55 로 시작
+  - 0x50~0x59, 0x5a
+- Data : 
+  - 8 byte
+- Check sum : 
+  - 1byte
+
+
+
