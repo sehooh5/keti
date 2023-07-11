@@ -28,8 +28,7 @@ def get_data(db_file, table_name, column_name):
         data_hex = data[0].hex() # 숫자 문자열 형태
         data_bytes = bytes.fromhex(data_hex) # 파이트 형태
 
-        print(data_hex)
-        print(data_bytes)
+        print(data_bytes.decode('ascii'))
 
 
         print(len(data[0]))
