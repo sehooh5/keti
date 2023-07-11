@@ -21,20 +21,20 @@ def get_data(db_file, table_name, column_name):
     cnt = 0
     for data in datas:
         cnt+=1
-        print("START PRINT!")
+        print("[[START PRINT]]")
         print(f"count : {cnt}/3242")
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
-        data_hex = data[0].hex() # 숫자 문자열 형태
+#         data_hex = data[0].hex() # 숫자 문자열 형태
         data_bytes = bytes.fromhex(data_hex) # 파이트 형태
 
         print(data_bytes.decode('ascii'))
 
 
-        print(len(data[0]))
+        print("데이터 길이 : ", len(data[0]))
 #         print(data[0].split(b'\\')) # x17/x04...형태
 #         print(data[0].decode('ascii'))
-        print("END PRINT!")
+        print("[END PRINT]")
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
 
