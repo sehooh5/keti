@@ -1410,3 +1410,19 @@
     - Check sum : 
       - 1byte
 
+
+
+#### 0711
+
+- 파싱 : gps_parsing_test3.py
+  - split 사용
+  - 현재 데이터 정보 : 
+    - 데이터당 11 byte(각 8bit)
+    - Header : 
+      - 0x55 로 시작
+      - 0x50~0x59, 0x5a
+    - Data : 
+      - 8 byte
+    - Check sum : 
+      - 1byte
+
