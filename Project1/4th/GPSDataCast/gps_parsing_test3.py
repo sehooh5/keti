@@ -25,6 +25,7 @@ def get_data(db_file, table_name, column_name):
         print("START PRINT!")
         print(len(data[0]))
         print(data[0].split(b'\\')) # x17/x04...형태
+        print(data[0][0])
         print("END PRINT!")
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
