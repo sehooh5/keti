@@ -21,9 +21,9 @@ def get_data(db_file, table_name, column_name):
     cnt = 0
     for data in datas:
         cnt+=1
-        print(f"count : {cnt}")
+        print(f"count : {cnt}/3242")
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
-        print(data[0].hex()) # 숫자형태
+        print(data[0].hex().decode('ascii')) # 숫자형태
         print("START PRINT!")
         print(len(data[0]))
 #         print(data[0].split(b'\\')) # x17/x04...형태
