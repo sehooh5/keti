@@ -25,10 +25,11 @@ def get_data(db_file, table_name, column_name):
         print(f"count : {cnt}/3242")
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
-        data_hex = data[0].hex()
-        data_bytes = bytes.fromhex(data_hex)
-        
-        print(data_bytes) # 숫자형태
+        data_hex = data[0].hex() # 숫자 문자열 형태
+        data_bytes = bytes.fromhex(data_hex) # 파이트 형태
+
+        print(data_hex)
+        print(data_bytes)
 
 
         print(len(data[0]))
