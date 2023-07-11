@@ -18,8 +18,9 @@ def get_data(db_file, table_name, column_name):
     # 데이터 모두 추출
     datas = cursor.fetchall()
     len_data = len(datas)
-
+    cnt = 0
     for data in datas:
+        cnt+=1
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
 #         print(data[0].hex()) # 숫자형태
         print("START PRINT!")
