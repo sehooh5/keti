@@ -24,12 +24,17 @@ def get_data(db_file, table_name, column_name):
         cnt+=1
         print("[[START PRINT]]")
         print(f"count : {cnt}/3242")
+        print("데이터 길이 : ", len(data[0]))
+
+        data_len = len(data[0])
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
         chunk_size = 22
-        data_hex = data[0].hex() # 숫자 문자열 형태
-        data_hex_list = textwrap.wrap(data_hex, chunk_size)
-        for data_hex_one in data_hex_list:
+        if data_len >= 140:
+
+            data_hex = data[0].hex() # 숫자 문자열 형태
+            data_hex_list = textwrap.wrap(data_hex, chunk_size)
+            for data_hex_one in data_hex_list:
             print(data_hex_one)
 
 
@@ -41,7 +46,7 @@ def get_data(db_file, table_name, column_name):
 #         print("bytes : ",data_bytes)
 
 
-#         print("데이터 길이 : ", len(data[0]))
+
 #         print(data[0].split(b'\\')) # x17/x04...형태
 #         print(data[0].decode('ascii'))
         print("[END PRINT]")
