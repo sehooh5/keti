@@ -32,7 +32,7 @@ def get_data(db_file, table_name, column_name):
 
         print("bytes : ",data_bytes)
         print("hex : ",data_hex)
-        print(textwrap.wrap(string, chunk_size)
+        print(textwrap.wrap(string, chunk_size))
 
         print("데이터 길이 : ", len(data[0]))
 #         print(data[0].split(b'\\')) # x17/x04...형태
