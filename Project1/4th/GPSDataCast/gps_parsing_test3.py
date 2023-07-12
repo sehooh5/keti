@@ -37,8 +37,10 @@ def get_data(db_file, table_name, column_name):
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
             for data_hex_one in data_hex_list:
-                print(data_hex_one)
-
+#                 print(data_hex_one)
+                dho_list = textwrap.wrap(data_hex_one, 2)
+                for dho_one in dho_list:
+                    print(dho_one)
 
 #         print("hex : ",data_hex)
 #         print(textwrap.wrap(data_hex, chunk_size))
