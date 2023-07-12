@@ -30,7 +30,7 @@ def get_data(db_file, table_name, column_name):
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
         chunk_size = 22
-        if data_len >= 100:
+        if data_len >= 100 | data_len <= 146:
             cnt+=1
             print(f"count : {cnt}")
             data_hex = data[0].hex() # 숫자 문자열 형태
