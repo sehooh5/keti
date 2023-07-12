@@ -39,6 +39,7 @@ def get_data(db_file, table_name, column_name):
             for data_hex_one in data_hex_list:
 #                 print(data_hex_one)
                 dho_list = textwrap.wrap(data_hex_one, 2)
+                print(dho_list)
                 for dho_one in dho_list:
                     print(dho_one)
 
