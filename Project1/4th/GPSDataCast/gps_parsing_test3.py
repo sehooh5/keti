@@ -21,9 +21,9 @@ def get_data(db_file, table_name, column_name):
     len_data = len(datas)
     cnt = 0
     for data in datas:
-        cnt+=1
+#         cnt+=1
 #         print("[[START PRINT]]")
-        print(f"count : {cnt}/3242")
+#         print(f"count : {cnt}/3242")
 #         print("데이터 길이 : ", len(data[0]))
 
         data_len = len(data[0])
