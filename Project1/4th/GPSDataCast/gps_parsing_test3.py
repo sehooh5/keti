@@ -26,10 +26,10 @@ def get_data(db_file, table_name, column_name):
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
         data_hex = data[0].hex() # 숫자 문자열 형태
-        data_bytes = bytes.fromhex(data_hex) # 바이트 형태
+        data_bytes = data[0] # 바이트 형태
 
-        print(data[0])
-
+        print("bytes : ",data_bytes)
+        print("hex : ",data_hex)
 
         print("데이터 길이 : ", len(data[0]))
 #         print(data[0].split(b'\\')) # x17/x04...형태
