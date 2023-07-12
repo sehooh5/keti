@@ -32,7 +32,7 @@ def get_data(db_file, table_name, column_name):
         chunk_size = 22
         if data_len >= 100 | data_len <= 146:
             cnt+=1
-            print(f"count : {cnt}")
+            print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
             for data_hex_one in data_hex_list:
