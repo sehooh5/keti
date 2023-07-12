@@ -31,7 +31,7 @@ def get_data(db_file, table_name, column_name):
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
         chunk_size = 22
 #         if data_len >= 110: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
-        if data_len >= 110 | data_len <= 140:
+        if data_len >= 110 | data_len <= 140: # 2개 데이터, 59 까지 사용 가능
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
