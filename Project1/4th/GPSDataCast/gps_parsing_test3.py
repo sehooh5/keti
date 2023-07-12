@@ -1,6 +1,7 @@
 import sqlite3
 import struct
 import sys
+import textwrap # text 자르기
 
 def get_data(db_file, table_name, column_name):
     conn = sqlite3.connect(db_file)
@@ -25,11 +26,13 @@ def get_data(db_file, table_name, column_name):
         print(f"count : {cnt}/3242")
 
         # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
+        chunk_size = 22
         data_hex = data[0].hex() # 숫자 문자열 형태
         data_bytes = data[0] # 바이트 형태
 
         print("bytes : ",data_bytes)
         print("hex : ",data_hex)
+        print(textwrap.wrap(string, chunk_size)
 
         print("데이터 길이 : ", len(data[0]))
 #         print(data[0].split(b'\\')) # x17/x04...형태
