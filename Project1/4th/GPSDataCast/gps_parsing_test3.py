@@ -50,7 +50,7 @@ def get_data(db_file, table_name, column_name):
 
 #         print(data[0].split(b'\\')) # x17/x04...형태
 #         print(data[0].decode('ascii'))
-        print("[END PRINT]")
+#         print("[END PRINT]")
 #         unpacked_data = struct.unpack('III', data[0])
 #         print(unpacked_data)
 
