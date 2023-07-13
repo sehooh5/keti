@@ -39,6 +39,7 @@ def get_data(db_path, table_name, column_name):
                         data_list = []
                     else:
                         print("2")
+                        print(data_list)
                         if data_list is None:
                             continue
                         data_list.append(dho_one)
