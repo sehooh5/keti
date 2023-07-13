@@ -52,7 +52,7 @@ def get_data(db_path, table_name, column_name):
 #                         data_delimiter = data[0]
 #                         data_list = data_list[1:]
 #                         print(data_delimiter, data_list)
-                        if data_delimiter == '51':
+                        if data_delimiter == '50':
                             print('Acceleration Output')
                             print(data_list)
                         elif data_delimiter == '51':
