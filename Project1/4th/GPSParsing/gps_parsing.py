@@ -2,6 +2,7 @@ import sqlite3
 import struct
 import sys
 import textwrap # text 자르기
+import time
 
 def data_int(data_hex):
     data_byte = bytes.fromhex(data_hex)
@@ -27,17 +28,10 @@ def get_data(db_path, table_name, column_name):
     len_data = len(datas)
     cnt = 0
     for data in datas:
-#         cnt+=1
-#         print("[[START PRINT]]")
-#         print(f"count : {cnt}/3242")
-#         print("데이터 길이 : ", len(data[0]))
-
         data_len = len(data[0])
-
-        # 데이터 형태가 data[0] 인지 data[0].hex() 인지 모르겠음
         chunk_size = 22
-#         if data_len >= 110: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
-        if data_len >= 110 | data_len <= 140: # 2개 데이터, 59 까지 사용 가능
+        if data_len >= 10: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
+#         if data_len >= 110 | data_len <= 140: # 2개 데이터, 59 까지 사용 가능
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
@@ -100,7 +94,7 @@ def get_data(db_path, table_name, column_name):
                             
                         else:
                             print('Unable Data!')
-
+        time.sleep(0.5)
 
 
 
