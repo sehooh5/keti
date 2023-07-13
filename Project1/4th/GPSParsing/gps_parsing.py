@@ -10,18 +10,10 @@ def data_int(data_hex):
     return data_int
 
 def get_data(db_path, table_name, column_name):
-    print(db_path)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-
-    # 데이터 크기 쿼리 실행
-#     query = f"SELECT LENGTH({column_name}) FROM {table_name}"
     query = f"SELECT {column_name} FROM {table_name}"
     cursor.execute(query)
-
-    # 데이터 1개
-#     data = cursor.fetchone()
-#     print(data)
 
     # 데이터 모두 추출
     datas = cursor.fetchall()
@@ -59,12 +51,7 @@ def get_data(db_path, table_name, column_name):
                             sec = data_int(data_list[5])
                             ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
                             print(year, month, day, hour, min, sec, ms)
-#                             for data_one in data_list:
-#                                 data_cnt += 1
-#                                 data_one_byte = bytes.fromhex(data_one)
-#                                 value = int.from_bytes(data_one_byte, byteorder='big', signed=False)
-#                                 print(value)
-                            
+
                         elif data_delimiter == '51':
                             print('Acceleration')
                             
@@ -94,21 +81,7 @@ def get_data(db_path, table_name, column_name):
                             
                         else:
                             print('Unable Data!')
-        time.sleep(0.5)
-
-
-
-#                     data_byte = bytes.fromhex(dho_one) # 1개 정보에 대한 데이터 내 바이트 1개에 대한 데이터
-#                     print(data_byte)
-
-
-#         print("hex : ",data_hex)
-#         print(textwrap.wrap(data_hex, chunk_size))
-#         data_bytes = data[0] # 바이트 형태
-#         print("bytes : ",data_bytes)
-#         print(data[0].split(b'\\')) # x17/x04...형태
-#         print(data[0].decode('ascii'))
-#         print("[END PRINT]")
+    time.sleep(0.5)
 
 
     conn.close()
@@ -121,5 +94,3 @@ table_name = "gps_raw_data"
 column_name = "raw_data"
 
 raw_data = get_data(db_path, table_name, column_name)
-# print(raw_data)
-# print(f"데이터: {raw_data}")
