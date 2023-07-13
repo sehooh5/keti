@@ -57,8 +57,14 @@ def get_data(db_path, table_name, column_name):
                         data_list = data_list[1:-1]
                         if data_delimiter == '50':
                             print('Time Output')
+                            year = data_int(data_list[0])
+                            month = data_int(data_list[1])
+                            day = data_int(data_list[2])
+                            hour = data_int(data_list[3])
+                            min = data_int(data_list[4])
+                            sec = data_int(data_list[5])
                             ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
-                            print("ms : ", ms)
+                            print(year, month, day, hour, min, sec, ms)
 #                             for data_one in data_list:
 #                                 data_cnt += 1
 #                                 data_one_byte = bytes.fromhex(data_one)
