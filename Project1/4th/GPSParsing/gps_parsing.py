@@ -34,6 +34,7 @@ def get_data(db_path, table_name, column_name):
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
                 for dho_one in dho_list:
+                    print(dho_one)
                     if dho_one == '55':
                         print("1")
                         data_list = []
