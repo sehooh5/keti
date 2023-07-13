@@ -46,7 +46,9 @@ def get_data(db_path, table_name, column_name):
                         data_list = []
                     else:
                         data_list.append(dho_one)
-                    print(data_list)
+
+                    if len(data_list) == 10:
+                        print(data_list)
 
 #                     data_byte = bytes.fromhex(dho_one) # 1개 정보에 대한 데이터 내 바이트 1개에 대한 데이터
 #                     print(data_byte)
