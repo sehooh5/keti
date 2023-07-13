@@ -3,6 +3,10 @@ import struct
 import sys
 import textwrap # text 자르기
 
+def hex_to_byte(data_hex):
+    data_byte = bytes.fromhex(data_hex)
+    return data_byte
+
 def get_data(db_path, table_name, column_name):
     print(db_path)
     conn = sqlite3.connect(db_path)
@@ -45,7 +49,7 @@ def get_data(db_path, table_name, column_name):
                     if dho_one == '55':
                         data_list = []
                     else:
-                        data_list.append(bytes.fromhex(dho_one))
+                        data_list.append(dho_one)
 
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]
@@ -53,7 +57,7 @@ def get_data(db_path, table_name, column_name):
                         if data_delimiter == '50':
                             print('Time Output')
                             print(data_list)
-                            print(data_list[6], data_list[7])
+                            print(hex_to_byte(data_list[6]), hex_to_byte(data_list[7]))
 
 #                             for data_one in data_list:
 #                                 data_cnt += 1
