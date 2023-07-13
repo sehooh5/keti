@@ -37,9 +37,7 @@ def get_data(db_path, table_name, column_name):
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
-            print("before : ", data_hex)
             data_hex = delete_junk_hex(data_hex)
-            print("after : ", data_hex)
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
 
 
@@ -50,17 +48,11 @@ def get_data(db_path, table_name, column_name):
                 for dho_one in dho_list:
 
                     if dho_one == '55':
-                        print("1")
                         data_list = []
                     else:
-                        print("2")
-                        print(data_list)
-                        if data_list is None:
-                            continue
                         data_list.append(dho_one)
 
                     if len(data_list) == 10:
-                        print("3")
                         data_delimiter = data_list[0]
                         data_list = data_list[1:-1]
                         if data_delimiter == '50':
