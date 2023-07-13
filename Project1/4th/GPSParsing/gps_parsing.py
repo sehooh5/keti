@@ -37,12 +37,11 @@ def get_data(db_path, table_name, column_name):
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
-#             print(data[0])
+
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
                 for dho_one in dho_list:
-#                     for dho_one_2 in dho_list:
                     if dho_one == '55':
                         data_list = []
                     else:
@@ -50,10 +49,12 @@ def get_data(db_path, table_name, column_name):
 
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]
-                        data_list = data_list[1:]
+                        data_list = data_list[1:-1]
                         if data_delimiter == '50':
                             print('Time Output')
+                            data_cnt = 0
                             for data_one in data_list:
+                                data_cnt += 1
                                 data_one_byte = bytes.fromhex(data_one)
                                 value = int.from_bytes(data_one_byte, byteorder='big', signed=False)
                                 print(value)
