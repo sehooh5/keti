@@ -3,8 +3,8 @@ import struct
 import sys
 import textwrap # text 자르기
 
-def get_data(db_file, table_name, column_name):
-    conn = sqlite3.connect(db_file)
+def get_data(db_path, table_name, column_name):
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # 데이터 크기 쿼리 실행
@@ -64,10 +64,11 @@ def get_data(db_file, table_name, column_name):
 
 # 예시 사용
 db_num = sys.argv[1]
-db_file = f"./GPSDataCast/gps_0{db_num}.db"
+db_path = f"/keti/Project1/4th/GPSDataCast/gps_0{db_num}.db"
+print(db_path)
 table_name = "gps_raw_data"
 column_name = "raw_data"
 
-raw_data = get_data(db_file, table_name, column_name)
+raw_data = get_data(db_path, table_name, column_name)
 # print(raw_data)
 # print(f"데이터: {raw_data}")
