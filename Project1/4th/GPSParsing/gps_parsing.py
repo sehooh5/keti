@@ -20,8 +20,8 @@ def get_data(db_path, table_name, column_name):
     cursor.execute(query)
 
     # 데이터 1개
-    data = cursor.fetchone()
-    print(data)
+#     data = cursor.fetchone()
+#     print(data)
 
     # 데이터 모두 추출
     datas = cursor.fetchall()
