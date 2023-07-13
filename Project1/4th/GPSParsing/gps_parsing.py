@@ -40,8 +40,17 @@ def get_data(db_path, table_name, column_name):
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
-                for dho_one in dho_list:
-                    print(bytes.fromhex(dho_one))
+                for dho_one_1 in dho_list:
+#                     for dho_one_2 in dho_list:
+                    if dho_one == '55':
+                        data_list = []
+                    else:
+                        data_list.append(dho_one)
+                    print(data_list)
+
+#                     data_byte = bytes.fromhex(dho_one) # 1개 정보에 대한 데이터 내 바이트 1개에 대한 데이터
+#                     print(data_byte)
+
 
 #         print("hex : ",data_hex)
 #         print(textwrap.wrap(data_hex, chunk_size))
