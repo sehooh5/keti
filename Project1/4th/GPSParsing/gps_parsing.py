@@ -19,6 +19,7 @@ def get_data(db_path, table_name, column_name):
     datas = cursor.fetchall()
     len_data = len(datas)
     cnt = 0
+    cnt_temp_gps = 0
     for data in datas:
         data_len = len(data[0])
         chunk_size = 22
@@ -69,7 +70,7 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
-                            
+                            cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
                             
@@ -83,7 +84,7 @@ def get_data(db_path, table_name, column_name):
                             print('Unable Data!')
     time.sleep(0.5)
 
-
+    print(cnt_temp_gps)
     conn.close()
     return datas
 
