@@ -38,26 +38,18 @@ def get_data(db_path, table_name, column_name):
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
             for data_hex_one in data_hex_list:
-#                 print(data_hex_one)
                 dho_list = textwrap.wrap(data_hex_one, 2)
-                print(dho_list)
+
                 for dho_one in dho_list:
-                    print(dho_one)
+                    print(bytes.fromhex(dho_one))
 
 #         print("hex : ",data_hex)
 #         print(textwrap.wrap(data_hex, chunk_size))
-
-
 #         data_bytes = data[0] # 바이트 형태
 #         print("bytes : ",data_bytes)
-
-
-
 #         print(data[0].split(b'\\')) # x17/x04...형태
 #         print(data[0].decode('ascii'))
 #         print("[END PRINT]")
-#         unpacked_data = struct.unpack('III', data[0])
-#         print(unpacked_data)
 
 
     conn.close()
