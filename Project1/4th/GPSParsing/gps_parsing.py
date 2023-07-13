@@ -57,7 +57,7 @@ def get_data(db_path, table_name, column_name):
                         if data_delimiter == '50':
                             print('Time Output')
                             print(data_list)
-                            print(hex_to_byte(data_list[6]), hex_to_byte(data_list[7]))
+                            print(hex_to_byte((data_list[6])<<8) | hex_to_byte(data_list[7]))
 
 #                             for data_one in data_list:
 #                                 data_cnt += 1
