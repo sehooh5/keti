@@ -48,9 +48,8 @@ def get_data(db_path, table_name, column_name):
                         data_list.append(dho_one)
 
                     if len(data_list) == 10:
-                        print(data_list)
                         data_delimiter = data_list[0]
-#                         data_list = data_list[1:]
+                        data_list = data_list[1:]
                         if data_delimiter == '50':
                             print('Acceleration Output')
                             print(data_list)
