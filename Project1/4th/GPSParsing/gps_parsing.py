@@ -4,6 +4,7 @@ import sys
 import textwrap # text 자르기
 
 def get_data(db_path, table_name, column_name):
+    print(db_path)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
@@ -65,7 +66,6 @@ def get_data(db_path, table_name, column_name):
 # 예시 사용
 db_num = sys.argv[1]
 db_path = f"/keti/Project1/4th/GPSDataCast/gps_0{db_num}.db"
-print(db_path)
 table_name = "gps_raw_data"
 column_name = "raw_data"
 
