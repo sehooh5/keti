@@ -45,7 +45,7 @@ def get_data(db_path, table_name, column_name):
                     if dho_one == '55':
                         data_list = []
                     else:
-                        data_list.append(dho_one)
+                        data_list.append(bytes.fromhex(dho_one))
 
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]

@@ -228,14 +228,14 @@ int main(void)
             fprintf(stderr,"uart read failed!\n");
             exit(EXIT_FAILURE);
         }
-        // 파일을 파싱하는 부분
+        // 파일 파싱하는 부분
 		for (int i=0;i<ret;i++) {
 		    ParseData(r_buf[i]);
 		}
 
         usleep(1000);
     }
-
+을
     ret = uart_close(fd);
     if(ret == -1)
     {
