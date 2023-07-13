@@ -53,11 +53,13 @@ def get_data(db_path, table_name, column_name):
                         if data_delimiter == '50':
                             print('Time Output')
                             data_cnt = 0
-                            for data_one in data_list:
-                                data_cnt += 1
-                                data_one_byte = bytes.fromhex(data_one)
-                                value = int.from_bytes(data_one_byte, byteorder='big', signed=False)
-                                print(value)
+                            print()data_list[6], data_list[7])
+
+#                             for data_one in data_list:
+#                                 data_cnt += 1
+#                                 data_one_byte = bytes.fromhex(data_one)
+#                                 value = int.from_bytes(data_one_byte, byteorder='big', signed=False)
+#                                 print(value)
                             
                         elif data_delimiter == '51':
                             print('Acceleration')
