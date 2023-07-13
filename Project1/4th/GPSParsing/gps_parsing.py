@@ -52,34 +52,38 @@ def get_data(db_path, table_name, column_name):
                         data_list = data_list[1:]
                         if data_delimiter == '50':
                             print('Acceleration Output')
-                            print(data_list)
+                            for data_one in data_list:
+                                print(bytes.fromhex(data_one))
+                            
                         elif data_delimiter == '51':
                             print('Acceleration')
-                            print(data_list)
+                            
                         elif data_delimiter == '52':
                             print('Angular')
-                            print(data_list)
+                            
                         elif data_delimiter == '53':
                             print('Angle')
-                            print(data_list)
+                            
                         elif data_delimiter == '54':
                             print('Magnetic')
-                            print(data_list)
+                            
                         elif data_delimiter == '56':
                             print('Atmospheric Pressure and Height')
-                            print(data_list)
+                            
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
-                            print(data_list)
+                            
                         elif data_delimiter == '58':
                             print('Ground Speed')
-                            print(data_list)
+                            
                         elif data_delimiter == '59':
                             print('Quaternion')
-                            print(data_list)
+                            
                         elif data_delimiter == '5a':
                             print('0 Satellite Positioning Accuracy')
-                            print(data_list)
+                            
+                        else:
+                            print('Unable Data!')
 
 
 
