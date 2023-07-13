@@ -54,7 +54,8 @@ def get_data(db_path, table_name, column_name):
                         if data_delimiter == '50':
                             print('Time Output')
                             for data_one in data_list:
-                                value = int.from_bytes(data_one, byteorder='big', signed=False)
+                                data_one_byte = bytes.fromhex(data_one))
+                                value = int.from_bytes(data_one_byte, byteorder='big', signed=False)
                                 print(value)
                             
                         elif data_delimiter == '51':
