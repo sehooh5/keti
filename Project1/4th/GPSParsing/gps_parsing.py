@@ -37,7 +37,7 @@ def get_data(db_path, table_name, column_name):
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
-            print(data[0])
+#             print(data[0])
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
@@ -52,9 +52,10 @@ def get_data(db_path, table_name, column_name):
                         data_delimiter = data_list[0]
                         data_list = data_list[1:]
                         if data_delimiter == '50':
-                            print('Acceleration Output')
+                            print('Time Output')
                             for data_one in data_list:
-                                print(bytes.fromhex(data_one))
+                                value = int.from_bytes(data_one, byteorder='big', signed=False)
+                                print(value)
                             
                         elif data_delimiter == '51':
                             print('Acceleration')
