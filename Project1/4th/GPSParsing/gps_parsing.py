@@ -3,9 +3,10 @@ import struct
 import sys
 import textwrap # text 자르기
 
-def hex_to_byte(data_hex):
+def data_int(data_hex):
     data_byte = bytes.fromhex(data_hex)
-    return data_byte
+    data_int = int.from_bytes(data_byte, byteorder='big', signed=False)
+    return data_int
 
 def get_data(db_path, table_name, column_name):
     print(db_path)
@@ -56,8 +57,7 @@ def get_data(db_path, table_name, column_name):
                         data_list = data_list[1:-1]
                         if data_delimiter == '50':
                             print('Time Output')
-                            print(data_list)
-                            print(hex_to_byte((data_list[6])<<8) | hex_to_byte(data_list[7]))
+                            print("ms", data_int((data_list[6])<<8) | data_int(data_list[7]))
 
 #                             for data_one in data_list:
 #                                 data_cnt += 1
