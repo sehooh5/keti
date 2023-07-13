@@ -35,7 +35,7 @@ def get_data(db_path, table_name, column_name):
 
                 for dho_one in dho_list:
                     if dho_one == '55':
-                        data_list = None
+                        data_list = []
                     else:
                         if data_list is None:
                             continue
