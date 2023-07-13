@@ -19,7 +19,7 @@ def get_data(db_path, table_name, column_name):
     datas = cursor.fetchall()
     len_data = len(datas)
     cnt = 0
-    cnt_temp_gps = 0
+    cnt_temp_gps = 0 # gps 갯수 카운팅
     for data in datas:
         data_len = len(data[0])
         chunk_size = 22
@@ -35,8 +35,10 @@ def get_data(db_path, table_name, column_name):
 
                 for dho_one in dho_list:
                     if dho_one == '55':
-                        data_list = []
+                        data_list = None
                     else:
+                        if data_list is None:
+                            continue
                         data_list.append(dho_one)
 
                     if len(data_list) == 10:
@@ -84,7 +86,7 @@ def get_data(db_path, table_name, column_name):
                             print('Unable Data!')
     time.sleep(0.5)
 
-    print(cnt_temp_gps)
+#     print(cnt_temp_gps) # gps 갯수 카운팅
     conn.close()
     return datas
 
