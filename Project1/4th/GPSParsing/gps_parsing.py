@@ -9,7 +9,7 @@ def data_int(data_hex):
     data_int = int.from_bytes(data_byte, byteorder='big', signed=False)
     return data_int
 
-def delete_junk_hex(data_hex):
+def filter_junk_data(data_hex):
     # "5550"의 시작 인덱스를 찾아서 앞에 정크 데이터 삭제
     start_index = data_hex.find("5550")
     if start_index != -1:  # "5550"이 존재하는 경우
@@ -37,16 +37,14 @@ def get_data(db_path, table_name, column_name):
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = data[0].hex() # 숫자 문자열 형태
-            data_hex = delete_junk_hex(data_hex)
+            data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
 
-
-            print(data_hex)
             for data_hex_one in data_hex_list:
+#                 if data_hex_one 의 사이즈가 chunk_size와 다르면 pass 하는거로?
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
                 for dho_one in dho_list:
-
                     if dho_one == '55':
                         data_list = []
                     else:
