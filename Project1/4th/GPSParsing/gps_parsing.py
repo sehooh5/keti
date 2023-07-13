@@ -40,7 +40,7 @@ def get_data(db_path, table_name, column_name):
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
-                for dho_one_1 in dho_list:
+                for dho_one in dho_list:
 #                     for dho_one_2 in dho_list:
                     if dho_one == '55':
                         data_list = []
