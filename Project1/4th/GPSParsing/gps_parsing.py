@@ -35,13 +35,16 @@ def get_data(db_path, table_name, column_name):
 
                 for dho_one in dho_list:
                     if dho_one == '55':
+                        print("1")
                         data_list = []
                     else:
+                        print("2")
                         if data_list is None:
                             continue
                         data_list.append(dho_one)
 
                     if len(data_list) == 10:
+                        print("3")
                         data_delimiter = data_list[0]
                         data_list = data_list[1:-1]
                         if data_delimiter == '50':
