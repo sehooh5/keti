@@ -64,7 +64,7 @@ def get_data(db_file, table_name, column_name):
 
 # 예시 사용
 db_num = sys.argv[1]
-db_file = f"keti/Project1/4th/GPSDataCast/gps_0{db_num}.db"
+db_file = f"./GPSDataCast/gps_0{db_num}.db"
 table_name = "gps_raw_data"
 column_name = "raw_data"
 
