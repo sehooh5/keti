@@ -13,12 +13,10 @@ def delete_junk_hex(data_hex):
     # "5550"의 시작 인덱스를 찾아서 앞에 정크 데이터 삭제
     start_index = data_hex.find("5550")
     if start_index != -1:  # "5550"이 존재하는 경우
-        print("before : ", data_hex)
         data_hex = data_hex[start_index:]  # "5550"부터의 문자열을 새로운 변수에 할당합니다.
-        print("after : ", data_hex)
-
     else:
         data_hex = data_hex
+    return data_hex
 
 def get_data(db_path, table_name, column_name):
     conn = sqlite3.connect(db_path)
