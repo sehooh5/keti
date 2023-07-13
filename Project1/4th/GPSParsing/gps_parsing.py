@@ -48,7 +48,41 @@ def get_data(db_path, table_name, column_name):
                         data_list.append(dho_one)
 
                     if len(data_list) == 10:
-                        print(data_list)
+                        data_delimiter = data[0]
+                        data_list = data_list[1:]
+                        if data_delimiter == '51':
+                            print('Acceleration Output')
+                            print(data_list)
+                        elif data_delimiter == '51':
+                            print('Acceleration')
+                            print(data_list)
+                        elif data_delimiter == '52':
+                            print('Angular')
+                            print(data_list)
+                        elif data_delimiter == '53':
+                            print('Angle')
+                            print(data_list)
+                        elif data_delimiter == '54':
+                            print('Magnetic')
+                            print(data_list)
+                        elif data_delimiter == '56':
+                            print('Atmospheric Pressure and Height')
+                            print(data_list)
+                        elif data_delimiter == '57':
+                            print('Longitude and Latitude')
+                            print(data_list)
+                        elif data_delimiter == '58':
+                            print('Ground Speed')
+                            print(data_list)
+                        elif data_delimiter == '59':
+                            print('Quaternion')
+                            print(data_list)
+                        elif data_delimiter == '5a':
+                            print('0 Satellite Positioning Accuracy')
+                            print(data_list)
+
+
+
 
 #                     data_byte = bytes.fromhex(dho_one) # 1개 정보에 대한 데이터 내 바이트 1개에 대한 데이터
 #                     print(data_byte)
