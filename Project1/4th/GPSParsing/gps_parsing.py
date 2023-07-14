@@ -72,8 +72,8 @@ def get_data(db_path, table_name, column_name):
                             min = data_int(data_list[4])
                             sec = data_int(data_list[5])
                             ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
-                            
-                            print(f'20{year}/{month}/{day}/{hour}/{min}/{sec}/{ms}')
+
+                            print(f'20{year}/{month}/{day}/{hour}:{min}:{sec}:{ms}')
 
                         elif data_delimiter == '51':
                             print('Acceleration')
