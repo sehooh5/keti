@@ -42,7 +42,7 @@ def get_data(db_path, table_name, column_name):
 
     for data in datas:
         print("")
-        time.sleep(0.5)
+#         time.sleep(0.5)
         data_len = len(data[0])
         data_hex = data[0].hex()
         chunk_size = 22
