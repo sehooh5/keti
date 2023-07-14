@@ -17,6 +17,7 @@ def filter_junk_data(data_hex):
         if len(data_hex) != 220:
             print("실행 전 : ", data_hex, len(data_hex))
             left_hex = (len(data_hex) % 220)-1
+            print(left_hex)
             data_hex = data_hex[:left_hex]
             print("실행 후 : ", data_hex, len(data_hex))
 
