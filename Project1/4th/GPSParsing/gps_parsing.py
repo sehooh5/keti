@@ -39,7 +39,7 @@ def get_data(db_path, table_name, column_name):
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
-            print(data_hex_list)
+            print(data_hex)
             for data_hex_one in data_hex_list:
 #                 if data_hex_one 의 사이즈가 chunk_size와 다르면 pass 하는거로?
 #                 if len(data_hex_one) == 22:
