@@ -7,24 +7,25 @@ import time
 def data_int(data_hex):
     data_byte = bytes.fromhex(data_hex)
     data_int = int.from_bytes(data_byte, byteorder='big', signed=False)
+
     return data_int
 
 def filter_junk_data(data_hex):
-    # "5550"의 시작 인덱스를 찾아서 앞에 정크 데이터 삭제
-    start_index = data_hex.find("5550")
+    start_index = data_hex.find("5550") # "5550"의 시작 인덱스를 찾아서 앞에 정크 데이터 삭제
+
     if start_index != -1:  # "5550"이 존재하는 경우
         data_hex = data_hex[start_index:]  # "5550"부터의 문자열을 새로운 변수에 할당합니다.
-        if len(data_hex) != 220:
-            print("실행 전 : ", data_hex, len(data_hex))
+
+        if len(data_hex) != 220: # data_hex의 길이가 22*10보다 크거나 작을때 220 or 더 작은 숫자, 22의 배수로 처리
             left_hex = (len(data_hex) % 22)
-            print(left_hex)
             data_hex = data_hex[:-left_hex]
+
             if len(data_hex) > 220:
                 data_hex = data_hex[:220]
-            print("실행 후 : ", data_hex, len(data_hex))
 
     else:
         data_hex = data_hex
+
     return data_hex
 
 def get_data(db_path, table_name, column_name):
