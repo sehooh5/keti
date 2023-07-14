@@ -45,7 +45,7 @@ def get_data(db_path, table_name, column_name):
         data_len = len(data[0])
         data_hex = data[0].hex()
         chunk_size = 22
-        if data_len >= 120 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
+        if data_len >= 10 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
@@ -77,11 +77,10 @@ def get_data(db_path, table_name, column_name):
 
                         elif data_delimiter == '51':
                             print('Acceleration')
-                            ax = data_int(data_list[0])
-                            ay =
-                            az =
-                            temper =
-                            ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
+                            ax = (((data_int(data_list[0])<<8) | data_int(data_list[1]))/32768)*16
+                            ay = (((data_int(data_list[2])<<8) | data_int(data_list[3]))/32768)*16
+                            az = (((data_int(data_list[4])<<8) | data_int(data_list[5]))/32768)*16
+                            temper = ((data_int(data_list[6])<<8) | data_int(data_list[7]))/100
                             
                         elif data_delimiter == '52':
                             print('Angular')
