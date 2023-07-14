@@ -16,7 +16,7 @@ def filter_junk_data(data_hex):
         data_hex = data_hex[start_index:]  # "5550"부터의 문자열을 새로운 변수에 할당합니다.
         if len(data_hex) != 220:
             print("실행 전 : ", data_hex, len(data_hex))
-            left_hex = (len(data_hex) % 220)-1
+            left_hex = (len(data_hex) % 22)-1
             print(left_hex)
             data_hex = data_hex[:left_hex]
             print("실행 후 : ", data_hex, len(data_hex))
