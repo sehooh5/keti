@@ -105,7 +105,7 @@ def get_data(db_path, table_name, column_name):
                             lat_dd = lat/100000000
                             lat_mm = (lat%10000000)/100000
 
-                            print(lon_dd, lon_mm, " : ", lat_dd, lat_mm)
+                            print(f'lon : {lon_dd}, {lon_mm} / lat : {lat_dd}, {lat_mm}')
                             cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
