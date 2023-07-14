@@ -14,6 +14,12 @@ def filter_junk_data(data_hex):
     start_index = data_hex.find("5550")
     if start_index != -1:  # "5550"이 존재하는 경우
         data_hex = data_hex[start_index:]  # "5550"부터의 문자열을 새로운 변수에 할당합니다.
+        if len(data_hex) != 220:
+            print("실행 전 : ", data_hex, len(data_hex))
+            left_hex = (len(data_hex) % 220)-1
+            data_hex = data_hex[:left_hex]
+            print("실행 후 : ", data_hex, len(data_hex))
+
     else:
         data_hex = data_hex
     return data_hex
@@ -39,7 +45,7 @@ def get_data(db_path, table_name, column_name):
             data_hex = data[0].hex() # 숫자 문자열 형태
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
-            print(data_hex)
+
             for data_hex_one in data_hex_list:
 #                 if data_hex_one 의 사이즈가 chunk_size와 다르면 pass 하는거로?
 #                 if len(data_hex_one) == 22:
