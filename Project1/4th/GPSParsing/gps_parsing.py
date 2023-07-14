@@ -60,10 +60,11 @@ def get_data(db_path, table_name, column_name):
                     else:
                         data_list.append(dho_one)
 
+                    print("")
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]
                         data_list = data_list[1:-1]
-                        print("")
+
                         if data_delimiter == '50':
                             print('Time Output')
                             year = data_int(data_list[0])
