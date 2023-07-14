@@ -39,23 +39,19 @@ def get_data(db_path, table_name, column_name):
     len_data = len(datas)
     cnt = 0
     cnt_temp_gps = 0 # gps 갯수 카운팅
+
     for data in datas:
+        time.sleep(0.5)
         data_len = len(data[0])
         data_hex = data[0].hex()
         chunk_size = 22
         if data_len >= 10 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
-#         if data_len >= 110 | data_len <= 140: # 2개 데이터, 59 까지 사용 가능
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
-             # 숫자 문자열 형태
-            print(data_hex)
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
 
             for data_hex_one in data_hex_list:
-#                 if data_hex_one 의 사이즈가 chunk_size와 다르면 pass 하는거로?
-#                 if len(data_hex_one) == 22:
-#                     print(data_hex_one)
                 dho_list = textwrap.wrap(data_hex_one, 2)
 
                 for dho_one in dho_list:
