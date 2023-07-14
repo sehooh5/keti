@@ -98,6 +98,14 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
+                            lon = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) | (data_int(data_list[1])<<8) | data_int(data_list[0])
+                            lat = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) | (data_int(data_list[5])<<8) | data_int(data_list[4])
+                            lon_dd = lon/100000000
+                            lon_mm = (lon%10000000)/100000
+                            lat_dd = lat/100000000
+                            lat_mm = (lat%10000000)/100000
+
+                            print(lon_dd, lon_mm, " : ", lat_dd, lat_mm)
                             cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
