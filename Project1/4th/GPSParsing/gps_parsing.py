@@ -46,7 +46,7 @@ def get_data(db_path, table_name, column_name):
         data_len = len(data[0])
         data_hex = data[0].hex()
         chunk_size = 22
-        if data_len >= 10 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
+        if data_len >= 110 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
             cnt+=1
             print(f"count : {cnt}, data_len : {data_len}")
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
