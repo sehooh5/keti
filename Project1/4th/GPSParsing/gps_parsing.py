@@ -81,6 +81,8 @@ def get_data(db_path, table_name, column_name):
                             ay = (((data_int(data_list[2])<<8) | data_int(data_list[3]))/32768)*16
                             az = (((data_int(data_list[4])<<8) | data_int(data_list[5]))/32768)*16
                             temper = ((data_int(data_list[6])<<8) | data_int(data_list[7]))/100
+
+                            print(f'ax : {ax}, ay : {ay},az : {az},temperature : {temper}')
                             
                         elif data_delimiter == '52':
                             print('Angular')
