@@ -41,6 +41,7 @@ def get_data(db_path, table_name, column_name):
     cnt_temp_gps = 0 # gps 갯수 카운팅
 
     for data in datas:
+        print("")
         time.sleep(0.5)
         data_len = len(data[0])
         data_hex = data[0].hex()
@@ -60,7 +61,7 @@ def get_data(db_path, table_name, column_name):
                     else:
                         data_list.append(dho_one)
 
-                    print("")
+
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]
                         data_list = data_list[1:-1]
