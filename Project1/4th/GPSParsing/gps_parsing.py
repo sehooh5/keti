@@ -123,6 +123,7 @@ def get_data(db_path, table_name, column_name):
                             lat_dd = lat/100000000
                             lon_mm = (lon%10000000)/100000
                             lat_mm = (lat%10000000)/100000
+                            print(lon, lat)
 #                             lon_final = lon_dd+lon_mm
 #                             lat_final = lat_dd+lat_mm
                             print(lon_dd, lon_mm, lat_dd, lat_mm)
