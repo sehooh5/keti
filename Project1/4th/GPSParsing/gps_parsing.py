@@ -119,11 +119,10 @@ def get_data(db_path, table_name, column_name):
 #                             print(lon_dd, lon_mm)
 #                             print(f'lon : {lon_final} / lat : {lat_final}')
 
-                            lon_dd = lon/100000000
-                            lat_dd = lat/100000000
+                            lon_dd = lon/10000000
+                            lat_dd = lat/10000000
                             lon_mm = (lon%10000000)/100000
                             lat_mm = (lat%10000000)/100000
-                            print(lon, lat)
 #                             lon_final = lon_dd+lon_mm
 #                             lat_final = lat_dd+lat_mm
                             print(lon_dd, lon_mm, lat_dd, lat_mm)
