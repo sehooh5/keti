@@ -110,14 +110,24 @@ def get_data(db_path, table_name, column_name):
 #
 #                             print(f'lon : {lon_dd}, {lon_mm} / lat : {lat_dd}, {lat_mm}')
 
-                            lon_dd = lon/10000000
-                            lat_dd = lat/10000000
-                            lon_mm = ((lon/10000000-lon_dd)*100)/60
-                            lat_mm = ((lat/10000000-lat_dd)*100)/60
-                            lon_final = lon_dd+lon_mm
-                            lat_final = lat_dd+lat_mm
-                            print(lon_dd, lon_mm)
-                            print(f'lon : {lon_final} / lat : {lat_final}')
+#                             lon_dd = lon/10000000
+#                             lat_dd = lat/10000000
+#                             lon_mm = ((lon/10000000-lon_dd)*100)/60
+#                             lat_mm = ((lat/10000000-lat_dd)*100)/60
+#                             lon_final = lon_dd+lon_mm
+#                             lat_final = lat_dd+lat_mm
+#                             print(lon_dd, lon_mm)
+#                             print(f'lon : {lon_final} / lat : {lat_final}')
+
+                            lon_dd = lon/100000000
+                            lat_dd = lat/100000000
+                            lon_mm = (lon%10000000)/100000
+                            lat_mm = (lat%10000000)/100000
+#                             lon_final = lon_dd+lon_mm
+#                             lat_final = lat_dd+lat_mm
+                            print(lon_dd, lon_mm, lat_dd, lat_mm)
+#                             print(f'lon : {lon_final} / lat : {lat_final}')
+
 
                             cnt_temp_gps+=1
                         elif data_delimiter == '58':
