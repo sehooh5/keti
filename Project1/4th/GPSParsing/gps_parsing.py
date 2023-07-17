@@ -123,10 +123,10 @@ def get_data(db_path, table_name, column_name):
                             lat_dd = lat/10000000
                             lon_mm = (lon%10000000)/10000000
                             lat_mm = (lat%10000000)/10000000
-#                             lon_final = lon_dd+lon_mm
-#                             lat_final = lat_dd+lat_mm
+                            lon_final = lon_dd+lon_mm
+                            lat_final = lat_dd+lat_mm
                             print(lon_dd, lon_mm, lat_dd, lat_mm)
-#                             print(f'lon : {lon_final} / lat : {lat_final}')
+                            print(f'lon : {lon_final} / lat : {lat_final}')
 
 
                             cnt_temp_gps+=1
