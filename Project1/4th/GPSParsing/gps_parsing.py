@@ -80,11 +80,12 @@ def get_data(db_path, table_name, column_name):
 
                         elif data_delimiter == '51':
                             print('Acceleration')
-                            ax = (((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768)*16
+                            ax = (data_int(data_list[1])<<8) | data_int(data_list[0])/32768*16
                             ay = (((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768)*16
                             az = (((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768)*16
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
+    
                             print(f'ax : {ax}, ay : {ay},az : {az},temperature : {temper}')
                             
                         elif data_delimiter == '52':
