@@ -76,7 +76,7 @@ def get_data(db_path, table_name, column_name):
                             sec = data_int(data_list[5])
                             ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
 
-                            print(f'20{year}/{month}/{day}/{hour}:{min}:{sec}:{ms}')
+                            print(f'20{year}/{month}/{day}/{hour}:{min}:{sec}:{ms}\n')
 
                         elif data_delimiter == '51':
                             print('Acceleration')
@@ -85,7 +85,7 @@ def get_data(db_path, table_name, column_name):
                             az = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*16*9.8
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
-                            print(f'ax : {ax}, ay : {ay},az : {az},temperature : {temper}')
+                            print(f'ax : {ax}, ay : {ay},az : {az},temperature : {temper}\n')
                             
                         elif data_delimiter == '52':
                             print('Angular')
@@ -94,7 +94,7 @@ def get_data(db_path, table_name, column_name):
                             wz = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
-                            print(f'wx : {wx}, wy : {wy},wz : {wz},temperature : {temper}')
+                            print(f'wx : {wx}, wy : {wy},wz : {wz},temperature : {temper}\n')
                             
                         elif data_delimiter == '53':
                             print('Angle')
@@ -116,7 +116,7 @@ def get_data(db_path, table_name, column_name):
                             lon_final = lon_dd+lon_mm
                             lat_final = lat_dd+lat_mm
 
-                            print(f'lat : {lat_final} / lon : {lon_final}')
+                            print(f'lat : {lat_final} / lon : {lon_final}\n')
 
 
                             cnt_temp_gps+=1
