@@ -85,11 +85,16 @@ def get_data(db_path, table_name, column_name):
                             az = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*16*9.8
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
-
                             print(f'ax : {ax}, ay : {ay},az : {az},temperature : {temper}')
                             
                         elif data_delimiter == '52':
                             print('Angular')
+                            wx = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768*2000
+                            wy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768*2000
+                            wz = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
+                            temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
+
+                            print(f'wx : {wx}, wy : {wy},wz : {wz},temperature : {temper}')
                             
                         elif data_delimiter == '53':
                             print('Angle')
