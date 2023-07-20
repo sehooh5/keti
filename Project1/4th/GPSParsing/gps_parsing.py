@@ -107,7 +107,11 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '54':
                             print('Magnetic')
-                            
+                            wx = (data_int(data_list[1])<<8) | data_int(data_list[0])
+                            wy = (data_int(data_list[3])<<8) | data_int(data_list[2])
+                            wz = (data_int(data_list[5])<<8) | data_int(data_list[4])
+                            temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
+
                         elif data_delimiter == '56':
                             print('Atmospheric Pressure and Height')
                             
