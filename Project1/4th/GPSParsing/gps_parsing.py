@@ -119,7 +119,6 @@ def get_data(db_path, table_name, column_name):
                             press = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) | (data_int(data_list[1])<<8) | data_int(data_list[0])
                             h = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4])
 
-
                             print(f'press : {press}, h : {h}\n')
                             
                         elif data_delimiter == '57':
@@ -139,7 +138,12 @@ def get_data(db_path, table_name, column_name):
                             cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
-                            
+                            gh = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/10
+                            gy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/10
+                            gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
+
+                            print(f'gh : {gh}, gy : {gy},gv : {gv}\n')
+
                         elif data_delimiter == '59':
                             print('Quaternion')
                             
