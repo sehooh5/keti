@@ -161,6 +161,7 @@ def get_data(db_path, table_name, column_name):
                             vdop = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/32768
 
                             print(f'snum : {snum}, pdop : {pdop},hdop : {hdop},vdop : {vdop}\n')
+                            print('[[[[[[[[end]]]]]]]]')
                             
                         else:
                             print('Unable Data!')
