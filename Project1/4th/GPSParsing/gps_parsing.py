@@ -100,13 +100,19 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '53':
                             print('Angle')
+                            for i in data_list:
+                                print(i)
 
                             
                         elif data_delimiter == '54':
                             print('Magnetic')
+                            for i in data_list:
+                                print(i)
                             
                         elif data_delimiter == '56':
                             print('Atmospheric Pressure and Height')
+                            for i in data_list:
+                                print(i)
                             
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
@@ -125,15 +131,23 @@ def get_data(db_path, table_name, column_name):
                             cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
+                            for i in data_list:
+                                print(i)
                             
                         elif data_delimiter == '59':
                             print('Quaternion')
+                            for i in data_list:
+                                print(i)
                             
                         elif data_delimiter == '5a':
                             print('0 Satellite Positioning Accuracy')
+                            for i in data_list:
+                                print(i)
                             
                         else:
                             print('Unable Data!')
+                            for i in data_list:
+                                print(i)
 
 #     print(cnt_temp_gps) # gps 갯수 카운팅
     conn.close()
