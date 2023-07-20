@@ -91,10 +91,10 @@ def get_data(db_path, table_name, column_name):
                             print('Angular')
                             wx = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768*2000
                             wy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768*2000
-                            wz = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
+                            hdop = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
-                            print(f'wx : {wx}, wy : {wy},wz : {wz},temperature : {temper}\n')
+                            print(f'wx : {wx}, wy : {wy},hdop : {hdop},temperature : {temper}\n')
                             
                         elif data_delimiter == '53':
                             print('Angle')
@@ -142,13 +142,25 @@ def get_data(db_path, table_name, column_name):
                             gy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/10
                             gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
 
-                            print(f'gh : {gh}, gy : {gy},gv : {gv}\n')
+                            print(f'gh : {gh}, gy : {gy}, gv : {gv}\n')
 
                         elif data_delimiter == '59':
                             print('Quaternion')
+                            q0 = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768
+                            q1 = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768
+                            q2 = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768
+                            q3 = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/32768
+
+                            print(f'q0 : {q0}, q1 : {q1}, q2 : {q2}, q3 : {q3}\n')
                             
                         elif data_delimiter == '5a':
-                            print('0 Satellite Positioning Accuracy')
+                            print('Satellite Positioning Accuracy')
+                            snum = ((data_int(data_list[1])<<8) | data_int(data_list[0]))
+                            pdop = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768
+                            hdop = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768
+                            vdop = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/32768
+
+                            print(f'snum : {snum}, pdop : {pdop},hdop : {hdop},vdop : {vdop}\n')
                             
                         else:
                             print('Unable Data!')
