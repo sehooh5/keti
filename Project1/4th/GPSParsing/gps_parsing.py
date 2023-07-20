@@ -48,7 +48,7 @@ def get_data(db_path, table_name, column_name):
         chunk_size = 22
         if data_len >= 110 and '5550' in data_hex: # 나중에 전체 507개 데이터 사용할 때 이 부분으로 진행해야함
             cnt+=1
-            print(f"count : {cnt}, data_len : {data_len}")
+            print(f"count : {cnt}, data_len : {data_len}\n")
             data_hex = filter_junk_data(data_hex) # hex 데이터 55부터 시작 및 길이 맞춰주기
             data_hex_list = textwrap.wrap(data_hex, chunk_size)
 
@@ -89,6 +89,8 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '52':
                             print('Angular')
+                            for i in data_list:
+                                print(i)
                             wx = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768*2000
                             wy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768*2000
                             wz = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
@@ -98,6 +100,7 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '53':
                             print('Angle')
+
                             
                         elif data_delimiter == '54':
                             print('Magnetic')
