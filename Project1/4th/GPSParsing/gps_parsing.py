@@ -116,6 +116,11 @@ def get_data(db_path, table_name, column_name):
 
                         elif data_delimiter == '56':
                             print('Atmospheric Pressure and Height')
+                            press = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) | (data_int(data_list[1])<<8) | data_int(data_list[0])
+                            h = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4])
+
+
+                            print(f'press : {press}, h : {h}\n')
                             
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
