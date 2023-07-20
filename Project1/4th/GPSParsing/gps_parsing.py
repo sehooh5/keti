@@ -155,6 +155,7 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '5a':
                             print('Satellite Positioning Accuracy')
+                            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
                             snum = ((data_int(data_list[1])<<8) | data_int(data_list[0]))
                             pdop = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768
                             hdop = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768
