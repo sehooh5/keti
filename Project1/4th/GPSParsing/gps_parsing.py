@@ -92,10 +92,10 @@ def get_data(db_path, table_name, column_name):
                             print('Angular')
                             wx = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/32768*2000
                             wy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768*2000
-                            hdop = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
+                            wz = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768*2000
                             temper = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/100
 
-                            print(f'wx : {wx}, wy : {wy},hdop : {hdop},temperature : {temper}\n')
+                            print(f'wx : {wx}, wy : {wy},wz : {wz},temperature : {temper}\n')
                             
                         elif data_delimiter == '53':
                             print('Angle')
@@ -133,10 +133,10 @@ def get_data(db_path, table_name, column_name):
                             lon_final = lon_dd+lon_mm
                             lat_final = lat_dd+lat_mm
 
+                            cnt_temp_gps+=1
+
                             print(f'lat : {lat_final} / lon : {lon_final}\n')
 
-
-                            cnt_temp_gps+=1
                         elif data_delimiter == '58':
                             print('Ground Speed')
                             gh = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/10
