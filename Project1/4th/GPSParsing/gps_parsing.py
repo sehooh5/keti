@@ -54,9 +54,9 @@ def get_data(db_path, table_name, column_name):
 
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
-                dho_sum = 0
+                dho_sum = 0 # check sum 확인
                 for dho_one in dho_list:
-                    dho_sum+=data_int(dho_one)
+                    dho_sum+=data_int(dho_one) # check sum 확인
                     if dho_one == '55':
                         data_list = []
                     else:
@@ -65,7 +65,7 @@ def get_data(db_path, table_name, column_name):
 
                     if len(data_list) == 10:
                         data_delimiter = data_list[0]
-                        data_list = data_list[1:-1]
+                        data_list = data_list[1:]
 
                         if data_delimiter == '50':
                             print('Time Output')
@@ -76,7 +76,7 @@ def get_data(db_path, table_name, column_name):
                             min = data_int(data_list[4])
                             sec = data_int(data_list[5])
                             ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
-
+                            print('checksum', data_int(data_list[8])) # check sum 확인
                             print(f'20{year}/{month}/{day}/{hour}:{min}:{sec}:{ms}\n')
 
                         elif data_delimiter == '51':
@@ -165,7 +165,7 @@ def get_data(db_path, table_name, column_name):
                             
                         else:
                             print('Unable Data!')
-                print(dho_sum)
+                print('dho_sum', dho_sum)
 #     print(cnt_temp_gps) # gps 갯수 카운팅
     conn.close()
     return datas
