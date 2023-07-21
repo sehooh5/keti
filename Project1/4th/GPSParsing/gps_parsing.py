@@ -76,9 +76,13 @@ def get_data(db_path, table_name, column_name):
                             min = data_int(data_list[4])
                             sec = data_int(data_list[5])
                             ms = (data_int(data_list[7])<<8) | data_int(data_list[6])
+
+                            data_sum = 0
                             for i in range(0,8):
-                                print(i , data_int(data_list[i]))
-                            print('checksum', data_int(data_list[8])) # check sum 확인
+                                data_sum += data_int(data_list[i])
+
+                            print('checksum : ', data_int(data_list[8]), 'data_sum : ', data_sum) # check sum 확인
+
                             print(f'20{year}/{month}/{day}/{hour}:{min}:{sec}:{ms}\n')
 
                         elif data_delimiter == '51':
