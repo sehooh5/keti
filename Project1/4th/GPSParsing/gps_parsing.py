@@ -116,15 +116,19 @@ def get_data(db_path, table_name, column_name):
 
                         elif data_delimiter == '56':
                             print('Atmospheric Pressure and Height')
-                            press = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) | (data_int(data_list[1])<<8) | data_int(data_list[0])
-                            h = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4])
+                            press = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) |
+                            (data_int(data_list[1])<<8) | data_int(data_list[0])
+                            h = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |
+                            (data_int(data_list[5])<<8) | data_int(data_list[4])
 
                             print(f'press : {press}, h : {h}\n')
                             
                         elif data_delimiter == '57':
                             print('Longitude and Latitude')
-                            lon = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) | (data_int(data_list[1])<<8) | data_int(data_list[0])
-                            lat = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) | (data_int(data_list[5])<<8) | data_int(data_list[4])
+                            lon = (data_int(data_list[3])<<24) | (data_int(data_list[2])<<16) |
+                            (data_int(data_list[1])<<8) | data_int(data_list[0])
+                            lat = (data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |
+                            (data_int(data_list[5])<<8) | data_int(data_list[4])
                             lon_dd = int(lon/10000000)
                             lat_dd = int(lat/10000000)
                             lon_mm = ((lon/10000000-lon_dd)*100)/60
@@ -140,8 +144,8 @@ def get_data(db_path, table_name, column_name):
                             print('Ground Speed')
                             gh = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/10
                             gy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/10
-                            gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16)
-                            |(data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
+                            gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |
+                            (data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
 
                             print(f'gh : {gh}, gy : {gy}, gv : {gv}\n')
 
