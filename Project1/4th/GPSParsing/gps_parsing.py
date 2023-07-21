@@ -80,6 +80,7 @@ def get_data(db_path, table_name, column_name):
                             data_sum = 0
                             for i in range(0,8):
                                 data_sum += data_int(data_list[i])
+                                print(i, data_int(data_list[i]))
 
                             print('checksum : ', data_int(data_list[8]), 'data_sum : ', data_sum) # check sum 확인
 
