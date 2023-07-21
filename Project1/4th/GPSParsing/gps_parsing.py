@@ -140,7 +140,8 @@ def get_data(db_path, table_name, column_name):
                             print('Ground Speed')
                             gh = ((data_int(data_list[1])<<8) | data_int(data_list[0]))/10
                             gy = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/10
-                            gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16) |(data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
+                            gv = ((data_int(data_list[7])<<24) | (data_int(data_list[6])<<16)
+                            |(data_int(data_list[5])<<8) | data_int(data_list[4]))/1000
 
                             print(f'gh : {gh}, gy : {gy}, gv : {gv}\n')
 
@@ -155,14 +156,12 @@ def get_data(db_path, table_name, column_name):
                             
                         elif data_delimiter == '5a':
                             print('Satellite Positioning Accuracy')
-                            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
                             snum = ((data_int(data_list[1])<<8) | data_int(data_list[0]))
                             pdop = ((data_int(data_list[3])<<8) | data_int(data_list[2]))/32768
                             hdop = ((data_int(data_list[5])<<8) | data_int(data_list[4]))/32768
                             vdop = ((data_int(data_list[7])<<8) | data_int(data_list[6]))/32768
 
                             print(f'snum : {snum}, pdop : {pdop},hdop : {hdop},vdop : {vdop}\n')
-                            print('[[[[[[[[end]]]]]]]]')
                             
                         else:
                             print('Unable Data!')
