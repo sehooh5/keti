@@ -54,8 +54,9 @@ def get_data(db_path, table_name, column_name):
 
             for data_hex_one in data_hex_list:
                 dho_list = textwrap.wrap(data_hex_one, 2)
-                print(dho_list)
+                dho_sum = 0
                 for dho_one in dho_list:
+                    dho_sum+=data_int(dho_one)
                     if dho_one == '55':
                         data_list = []
                     else:
@@ -164,7 +165,7 @@ def get_data(db_path, table_name, column_name):
                             
                         else:
                             print('Unable Data!')
-
+                print(dho_sum)
 #     print(cnt_temp_gps) # gps 갯수 카운팅
     conn.close()
     return datas
