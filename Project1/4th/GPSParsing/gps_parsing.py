@@ -75,7 +75,7 @@ def get_data(db_path, table_name, column_name):
                             hour = data_int(data_list[3])
                             min = data_int(data_list[4])
                             sec = data_int(data_list[5])
-                            ms = (data_int(data_list[6])<<8) | data_int(data_list[7])
+                            ms = (data_int(data_list[7])<<8) | data_int(data_list[6])
                             for i in range(0,8):
                                 print(i , data_int(data_list[i]))
                             print('checksum', data_int(data_list[8])) # check sum 확인
