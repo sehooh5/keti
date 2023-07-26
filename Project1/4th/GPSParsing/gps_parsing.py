@@ -129,7 +129,7 @@ def get_data(db_path, table_name, column_name):
                             lon_dd = int(lon/10000000)
                             lat_dd = int(lat/10000000)
                             lon_mm = ((lon/10000000-lon_dd)*100)/60
-                            lat_mm = ((lat/10000000-lat_dd)*100)/60 
+                            lat_mm = ((lat/10000000-lat_dd)*100)/60
                             lon_final = lon_dd+lon_mm
                             lat_final = lat_dd+lat_mm
 
