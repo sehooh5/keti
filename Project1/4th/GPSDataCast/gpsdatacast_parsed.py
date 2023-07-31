@@ -79,12 +79,16 @@ class GPSThread(QThread):
                             "message": "처리 성공",
                             "data": {
                                 "time": {
-                                    "yy": row[0], "mm": row[1]
+                                    "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6],
+                                    "ax": row[7], "ay": row[8], "az": row[9], "wx": row[10], "wy": row[11], "wz": row[12],
+                                    "roll": row[13], "pitch": row[14], "yaw": row[15], "mx": row[16], "my": row[17], "mz": row[18],
+                                    "press": row[19], "h": row[20], "lat": row[21], "lon": row[22], "gh": row[23], "gy": row[24], "gv": row[25],
+                                    "q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29], "snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]
                                 }
                             }
                         }
                         json_data = json.dumps(data)
-                        print(json_data['data']['time']['yy'])
+                        print(json_data)
 #                         # JSON 데이터를 서버로 전송
 #                         response = requests.post(f'{url}/gwg_temp', json=json_data)
 
