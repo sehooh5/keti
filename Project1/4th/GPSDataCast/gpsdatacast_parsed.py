@@ -70,8 +70,8 @@ class GPSThread(QThread):
                     try:
                         yy = row[0]
                         print(yy)
-#                         yy = row[0], mm = row[1], dd = row[2], hh = row[3], mi = row[4], ss = row[5], ms = row[6]
-#                         print("time : ", yy,mm,dd,hh,mi,ss,ms)
+                        yy, mm, dd, hh, mi, ss, ms = row[0], row[1], row[2], row[3], row[4], row[5], row[6]
+                        print("time : ", yy,mm,dd,hh,mi,ss,ms)
 
 #                         data = {
 #                             "code": "0000",
