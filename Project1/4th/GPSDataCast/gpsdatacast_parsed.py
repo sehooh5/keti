@@ -68,9 +68,9 @@ class GPSThread(QThread):
                 c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
                 for row in c:
                     try:
-                        # 시리얼로 받은 로우 데이터를 JSON 객체에 추가
-                        yy = row[0], mm = row[1], dd = row[2], hh = row[3], mi = row[4], ss = row[5], ms = row[6]
-                        print("time : ", yy,mm,dd,hh,mi,ss,ms)
+                        print(row[0])
+#                         yy = row[0], mm = row[1], dd = row[2], hh = row[3], mi = row[4], ss = row[5], ms = row[6]
+#                         print("time : ", yy,mm,dd,hh,mi,ss,ms)
 
 #                         data = {
 #                             "code": "0000",
