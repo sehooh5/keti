@@ -71,7 +71,12 @@ class GPSThread(QThread):
                         yy = row[0]
                         print(yy)
                         yy, mm, dd, hh, mi, ss, ms = row[0], row[1], row[2], row[3], row[4], row[5], row[6]
-                        print("time : ", yy,mm,dd,hh,mi,ss,ms)
+                        ax, ay, az, wx, wy, wz = row[7], row[8], row[9], row[10], row[11], row[12]
+                        roll, pitch, yaw, mx, my, mz = row[13], row[14], row[15], row[16], row[17], row[18]
+                        press, h, lat, lon, gh, gy, gv = row[19], row[20], row[21], row[22], row[23], row[24], row[25]
+                        q0, q1, q2, q3, snum, pdop, hdop, vdop = row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33]
+                        print(snum, pdop, hdop, vdop)
+#                         print("time : ", yy,mm,dd,hh,mi,ss,ms)
 
 #                         data = {
 #                             "code": "0000",
