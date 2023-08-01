@@ -9,6 +9,8 @@ app = Flask(__name__)
 CORS(app)
 port = 8089
 
+bp01, bp02, bp03, bp04, bp05, bp06, bp07
+
 @app.route('/')
 def index():
     json_data = request.get_json(silent=True)
@@ -117,8 +119,6 @@ def get_gps_rdata():
 def get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
 
-    print(globals())
-    print(bp01)
     try:
         bid = request.args['bid']
         if bid == 'bb01':
