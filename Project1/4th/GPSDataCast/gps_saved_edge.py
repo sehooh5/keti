@@ -128,8 +128,7 @@ def get_gps_data():
     try:
         bid = request.args['bid']
         if bid == 'bb01':
-
-            if 'bb01' in globals() and bp01:
+            if 'bb01' in bp01:
                 print(bp01)
                 return json.dumps(bp01)
             else:
