@@ -9,6 +9,8 @@ app = Flask(__name__)
 CORS(app)
 port = 8089
 
+global bp01, bp02, bp03, bp04, bp05, bp06, bp07
+
 @app.route('/')
 def index():
     json_data = request.get_json(silent=True)
