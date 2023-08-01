@@ -116,7 +116,7 @@ def get_gps_rdata():
 @app.route('/get_gps_data', methods=['GET'])
 def get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
-
+    print("여기!!!!!!!!!!!!!")
     try:
         bid = request.args['bid']
         print(bid)
