@@ -120,37 +120,37 @@ def get_get_gps_data():
     try:
         bid = request.args['bid']
         if bid == 'bb01':
-            if 'bb01' in globals() and bp01:
+            if 'bp01' in globals() and bp01:
                 return json.dumps(bp01)
             else:
                 return res.msg("0020")
         elif bid == 'bb02':
-            if 'bb02' in globals() and bp02:
+            if 'bp02' in globals() and bp02:
                 return json.dumps(bp02)
             else:
                 return res.msg("0020")
         elif bid == 'bb03':
-            if 'bb03' in globals() and bp03:
+            if 'bp03' in globals() and bp03:
                 return json.dumps(bp03)
             else:
                 return res.msg("0020")
         elif bid == 'bb04':
-            if 'bb04' in globals() and bp04:
+            if 'bp04' in globals() and bp04:
                 return json.dumps(bp04)
             else:
                 return res.msg("0020")
         elif bid == 'bb05':
-            if 'bb05' in globals() and bp05:
+            if 'bp05' in globals() and bp05:
                 return json.dumps(bp05)
             else:
                 return res.msg("0020")
         elif bid == 'bb06':
-            if 'bb06' in globals() and bp06:
+            if 'bp06' in globals() and bp06:
                 return json.dumps(bp06)
             else:
                 return res.msg("0020")
         elif bid == 'bb07':
-            if 'bb07' in globals() and bp07:
+            if 'bp07' in globals() and bp07:
                 return json.dumps(bp07)
             else:
                 return res.msg("0020")
