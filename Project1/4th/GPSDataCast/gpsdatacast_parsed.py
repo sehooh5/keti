@@ -77,6 +77,7 @@ class GPSThread(QThread):
                         data = {
                             "code": "0000",
                             "message": "처리 성공",
+                            "bid": f"bb0{gps_num}",
                             "data": {
                                 "time": {
                                     "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6],
@@ -88,9 +89,8 @@ class GPSThread(QThread):
                             }
                         }
                         json_data = json.dumps(data)
-                        print(json_data)
-#                         # JSON 데이터를 서버로 전송
-#                         response = requests.post(f'{url}/gwg_temp', json=json_data)
+                        # JSON 데이터를 서버로 전송
+                        response = requests.post(f'{url}/gwg_temp2', json=json_data)
 
                     except Exception as e:
                         print("JSON 데이터 전송 중 오류 발생")
