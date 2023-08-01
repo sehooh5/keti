@@ -47,7 +47,7 @@ def gwg_temp2():
     temp_data = json.loads(request.get_json(silent=True))
 
     bid = temp_data.get('bid')
-
+    print(f'bid: {bid}!!!!!!!!!!!!!!!!')
     if bid == 'bb01':
         print('여기!!!!!!!!!!!')
         bp01 = temp_data
