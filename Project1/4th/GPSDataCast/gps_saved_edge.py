@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 port = 8089
 
-bp01, bp02, bp03, bp04, bp05, bp06, bp07
+bp01, bp02, bp03, bp04, bp05, bp06, bp07 = None
 
 @app.route('/')
 def index():
