@@ -66,7 +66,7 @@ def gwg_temp2():
     return temp_data
 
 @app.route('/get_gps_rdata', methods=['GET'])
-def get_get_gps_rdata():
+def get_gps_rdata():
     global bb01, bb02, bb03, bb04, bb05, bb06, bb07
 
     try:
@@ -114,11 +114,12 @@ def get_get_gps_rdata():
     return res.msg("0012")
 
 @app.route('/get_gps_data', methods=['GET'])
-def get_get_gps_data():
+def get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
 
     try:
         bid = request.args['bid']
+        print(bid)
         if bid == 'bb01':
             if 'bp01' in globals() and bp01:
                 return json.dumps(bp01)
