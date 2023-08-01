@@ -142,7 +142,7 @@ def get_gps_data():
         elif bid == 'bb07':
             return json.dumps(bp07)
 
-    return res.msg("0012")
+        return res.msg("0012")
 
 
 app.run(host="123.214.186.162",port=port)
