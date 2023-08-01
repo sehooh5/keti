@@ -77,7 +77,7 @@ class GPSThread(QThread):
                         data = {
                             "code": "0000",
                             "message": "처리 성공",
-                            "bid": f"bb0{gps_num}",
+                            "bid": f"bb0{self.num}",
                             "data": {
                                 "time": {
                                     "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6],
