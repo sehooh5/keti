@@ -116,42 +116,42 @@ def get_gps_rdata():
 @app.route('/get_gps_data', methods=['GET'])
 def get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
-    print("여기!!!!!!!!!!!!!")
+    print(globals())
+    print(bp01)
     try:
         bid = request.args['bid']
-        print(bid)
         if bid == 'bb01':
-            if 'bp01' in globals() and bp01:
+            if 'bb01' in globals() and bp01:
                 return json.dumps(bp01)
             else:
                 return res.msg("0020")
         elif bid == 'bb02':
-            if 'bp02' in globals() and bp02:
+            if 'bb02' in globals() and bp02:
                 return json.dumps(bp02)
             else:
                 return res.msg("0020")
         elif bid == 'bb03':
-            if 'bp03' in globals() and bp03:
+            if 'bb03' in globals() and bp03:
                 return json.dumps(bp03)
             else:
                 return res.msg("0020")
         elif bid == 'bb04':
-            if 'bp04' in globals() and bp04:
+            if 'bb04' in globals() and bp04:
                 return json.dumps(bp04)
             else:
                 return res.msg("0020")
         elif bid == 'bb05':
-            if 'bp05' in globals() and bp05:
+            if 'bb05' in globals() and bp05:
                 return json.dumps(bp05)
             else:
                 return res.msg("0020")
         elif bid == 'bb06':
-            if 'bp06' in globals() and bp06:
+            if 'bb06' in globals() and bp06:
                 return json.dumps(bp06)
             else:
                 return res.msg("0020")
         elif bid == 'bb07':
-            if 'bp07' in globals() and bp07:
+            if 'bb07' in globals() and bp07:
                 return json.dumps(bp07)
             else:
                 return res.msg("0020")
