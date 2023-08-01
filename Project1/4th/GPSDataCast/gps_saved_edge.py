@@ -9,8 +9,6 @@ app = Flask(__name__)
 CORS(app)
 port = 8089
 
-global bp01, bp02, bp03, bp04, bp05, bp06, bp07
-
 @app.route('/')
 def index():
     json_data = request.get_json(silent=True)
@@ -51,6 +49,7 @@ def gwg_temp2():
     bid = temp_data.get('bid')
 
     if bid == 'bb01':
+        print('여기!!!!!!!!!!!')
         bp01 = temp_data
     elif bid == 'bb02':
         bp02 = temp_data
@@ -64,7 +63,7 @@ def gwg_temp2():
         bp06 = temp_data
     elif bid == 'bb07':
         bp07 = temp_data
-    print(temp_data)
+
     print(bp01)
     return temp_data
 
@@ -119,6 +118,7 @@ def get_gps_rdata():
 @app.route('/get_gps_data', methods=['GET'])
 def get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
+
     print(globals())
     print(bp01)
     try:
