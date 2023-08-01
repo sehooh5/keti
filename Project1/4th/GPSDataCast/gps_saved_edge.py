@@ -41,7 +41,7 @@ def gwg_temp():
     return temp_data
 
 @app.route('/gwg_temp2', methods=['POST'])
-def gwg_temp():
+def gwg_temp2():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
 
     temp_data = json.loads(request.get_json(silent=True))
@@ -114,7 +114,7 @@ def get_get_gps_rdata():
     return res.msg("0012")
 
 @app.route('/get_gps_data', methods=['GET'])
-def get_get_gps_rdata():
+def get_get_gps_data():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07
 
     try:
