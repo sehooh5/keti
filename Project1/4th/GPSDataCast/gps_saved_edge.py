@@ -62,7 +62,8 @@ def gwg_temp2():
         bp06 = temp_data
     elif bid == 'bb07':
         bp07 = temp_data
-
+    print(temp_data)
+    print(bp01)
     return temp_data
 
 @app.route('/get_gps_rdata', methods=['GET'])
