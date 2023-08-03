@@ -29,14 +29,46 @@
 #### /blackbox_GUI
 
 - **blackbox_save_GUI.py**
-
-  GPS 데이터, 영상 데이터 저장중
-
   - **GPS 데이터 저장**
     - 로우 데이터 : 앱에 `gps_(루트번호)` 입력 후 `저장` 버튼 누르면 차량용 서버 내 `gps_(루트번호)` db에 저장됨
     - 정제된 데이터 : 앱에 `gps_(루트번호)` 입력 후 `저장` 버튼 누르면 edge서버에 `gwg_server.py` 프로그램과 연동되어 `gps_(루트번호)`  테이블이 생성되면서 저장됨
   - **영상 데이터 저장**
     - `blackbox_(루트번호)` 입력 후 `저장` 버튼 누르면 차량용 서버에 저장됨(avi 형식)
+- blackbox_GUI.py
+  - 블랙박스 영상과 gps 데이터를 스트리밍하는 앱
+- **gps_with_gyro.cpp**
+  - gps 데이터를 파싱하는 cpp 파일(파싱이 필요할때만 사용)
+- **gps_with_gyro.py**
+  - gps 로우데이터를 DB에 저장
+  - gps 파싱 데이터를 Edge 서버에 전송
+- **res.py**
+  - response 응답코드
+
+
+
+#### /edge_GUI
+
+- **edge_GUI.py**
+  - 블랙박스 영상과 gps 데이터를 스트리밍하는 앱
+
+
+
+#### /gwg
+
+- **gps_with_gyro.cpp**
+  - gps 데이터를 파싱하는 cpp 파일
+- **gps_with_gyro.py**
+  - gps 파싱 데이터를 Edge 서버에 전송
+
+
+
+#### /rest
+
+- 
+
+
+
+
 
 
 
