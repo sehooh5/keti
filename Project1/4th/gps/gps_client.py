@@ -57,8 +57,6 @@ def parseGPS(message):
         data = recvData.decode(('utf-8'))
         print(data)
 
-        #print (f"ID: {gps_id} -- Timestamp: {gps_time} -- Lat: {gps_lat} {gps_lat_dir} " \
-        #      f"-- Lon: {gps_lon} {gps_lon_dir} -- Altitude:{gps_alt} {gps_alt_units}")
     else :
         print("PASS")
 
