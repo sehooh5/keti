@@ -32,7 +32,8 @@ def parseGPS(message):
         gps_time = datetime.datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S") # UTC 시간
         gps_lat = msg.lat
         gps_lon = msg.lon
-        gps_lat_dir = msg.lat_dir
+        gps_lat_diumps(data)
+        print(json_data)r = msg.lat_dir
         gps_lon_dir = msg.lon_dir
         gps_alt = msg.altitude
         gps_alt_units = msg.altitude_units
@@ -48,8 +49,7 @@ def parseGPS(message):
             'gps_alt': gps_alt,
             'gps_alt_units': gps_alt_units
         }
-        json_data = json.dumps(data)
-        print(json_data)
+        json_data = json.d
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect(('123.214.186.162', port))
         sock.send(json_data.encode('utf-8'))
