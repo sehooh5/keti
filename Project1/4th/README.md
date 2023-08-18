@@ -76,6 +76,10 @@
 
 
 
+**gwg_temper_transfer.py**
+
+- DB에 저장된 gps 데이터 전송해주는 클라이언트
+
 
 
 
