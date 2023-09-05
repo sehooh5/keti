@@ -9,3 +9,4 @@ my %hashValues = (
 print $hashValues{"One"};
 print $hashValues{"Two"};
 print $hashValues{"three"};
+print $hashValues
