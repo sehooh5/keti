@@ -1,8 +1,8 @@
 # 1. Hello world
-#use strict;
-#use warnings;
-#
-#print "Hello world";
+use strict;
+use warnings;
+
+print "Hello world";
 
 
 # 2. Perl 에서 일반변수, Scala 변수
