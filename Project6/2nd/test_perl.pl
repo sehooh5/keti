@@ -17,5 +17,5 @@ print $undef2;
 my $num = 100;
 print $num; # "100"을 출력
 
-my $stringg = "hello\r\n"
+my $stringg = "hello\r\n";
 print $stringg; # "hello"를 출력
