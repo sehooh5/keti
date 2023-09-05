@@ -6,7 +6,6 @@ my %hashValues = (
     "2" => "Two",
     "3" => "three", # trailing comma용
 );
-print $hashValues{"One"};
-print $hashValues{"Two"};
-print $hashValues{"three"};
-print "해쉬 요소는 %hashValues\r\n"
+print $hashValues{"1"};
+print $hashValues{"2"};
+print $hashValues{"3"};
