@@ -9,4 +9,4 @@ my %hashValues = (
 print $hashValues{"One"};
 print $hashValues{"Two"};
 print $hashValues{"three"};
-print "해쉬 요소는 %hashValues"
+print "해쉬 요소는 %hashValues\r\n"
