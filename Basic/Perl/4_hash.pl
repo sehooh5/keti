@@ -6,6 +6,6 @@ my %hashValues = (
     "2" => "Two",
     "3" => "three", # trailing comma용
 );
-print $hashValues{"1"};
+print "프린트 $hashValues{"1"}";
 print $hashValues{"2"};
 print $hashValues{"3"};
