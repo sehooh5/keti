@@ -5,8 +5,8 @@
 my @outer = ("Mon", "Tue", "Wed", "Thu", undef, "Fri");
 my @inner = ("Sat", "Sun");
 
-$outer[4] = @inner;
-print $outer[4];
+$outer[4] = @inner; # @inner는 scala 변수로 취급되어 2가 할당됨
+print $outer[4]; # "2"
 
-$outer[4] = $inner[0];
-print $outer[4];
+$outer[4] = inner[0]; # @inner 의 0번 변수가 할당됨
+print $outer[4]; # "Sat"
