@@ -1,7 +1,7 @@
 # 7. if문
 # php 조건문과 선언 형태가 동일하다
 
-my $abc = "abcdefghi"
+my $abc = "abcdefghi";
 my $strlen = length $abc;
 
 if($strlen >= 4) {
