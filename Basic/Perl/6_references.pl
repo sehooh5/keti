@@ -8,4 +8,4 @@ my $helloRef = \$hello;
 print $hello."\r\n";
 print $helloRef."\r\n";
 print ${ $helloRef }."\r\n";
-print $$helloRef;
+print $$helloRef."\r\n";
