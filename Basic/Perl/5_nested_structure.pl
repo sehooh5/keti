@@ -8,5 +8,5 @@ my @inner = ("Sat", "Sun");
 $outer[4] = @inner;
 print $outer[4];
 
-$outer[4] = $inner[1];
+$outer[4] = $inner[0];
 print $outer[4];
