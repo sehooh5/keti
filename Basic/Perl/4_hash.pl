@@ -10,5 +10,5 @@ my %hashValues = (
 print $hashValues{"1"};
 print $hashValues{"2"};
 print $hashValues{"3"};
-print $hashValues{"4"};
+print $hashValues{"4"}; # 출력 안됨
 print $hashValues{"5"};
