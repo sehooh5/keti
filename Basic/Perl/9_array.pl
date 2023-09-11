@@ -10,4 +10,4 @@ print "NORMAL : ", @array, "\r\n";
 print "REVERSE : ", reverse(@array), "\r\n";
 print join(", ", reverse(@array)), "\r\n";
 print pop(@array), "\r\n";
-print push(@array, "fiveeeee"), "\r\n";
+print push( "fiveeeee", @array), "\r\n";
