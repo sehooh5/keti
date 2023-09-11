@@ -4,8 +4,8 @@
 
 my @array = (
     "one",
-    "2",
-    "3three"
+    "twoo",
+    "threee"
 );
 
 my $i = 0;
