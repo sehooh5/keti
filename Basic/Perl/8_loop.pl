@@ -19,7 +19,7 @@ while($i < scalar @array) {
 print "\n";
 
 # foreach 문
-foreach my $i ( 0 .. $array ) {
+foreach my $i ( 0 .. $#array ) {
     print $i, ": ", $array[$i];
 }
 
