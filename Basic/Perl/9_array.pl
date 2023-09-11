@@ -11,5 +11,5 @@ print "REVERSE : ", reverse(@array), "\r\n";
 print join(", ", reverse(@array)), "\r\n";
 pop(@array);
 print join(", ", @array), "\r\n";
-push(@array, "fiveeeee")
+push(@array, "fiveeeee");
 print join(", ", @array), "\r\n";
