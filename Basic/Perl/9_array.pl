@@ -6,7 +6,7 @@ my @array = (
 );
 
 print join(", ", @array), "\r\n";
-print "NORMAL : ", @array;
+print "NORMAL : ", @array, "\r\n";
 print "REVERSE : ", reverse(@array), "\r\n";
 print join(", ", reverse(@array)), "\r\n";
 
