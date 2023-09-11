@@ -9,6 +9,6 @@ print join(", ", @array), "\r\n";
 print "NORMAL : ", @array, "\r\n";
 print "REVERSE : ", reverse(@array), "\r\n";
 print join(", ", reverse(@array)), "\r\n";
-pop(@array)
+pop(@array);
 print @array, "\r\n";
-print push(@array), "\r\n";
+#print push(@array), "\r\n";
