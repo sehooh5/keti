@@ -13,3 +13,9 @@ pop(@array);
 print join(", ", @array), "\r\n";
 push(@array, "fiveeeee");
 print join(", ", @array), "\r\n";
+shift(@array)
+print join(", ", @array), "\r\n";
+splice
+print join(", ", @array), "\r\n";
+
+print join(", ", @array), "\r\n";
