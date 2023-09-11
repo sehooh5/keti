@@ -37,3 +37,17 @@ for(my $i = 0; $i < scalar @array; $i++) {
 }
 
 print "\n";
+
+# until 문
+$cnt = 1;
+until ($cnt > 10) {
+    print "COUNT UP is: $cnt\n";
+    $cnt++;
+}
+
+
+$cnt = 10;
+do{
+    print "COUNTDONW is: $cnt\n";
+    $cnt--;
+} while ($cnt >0)
