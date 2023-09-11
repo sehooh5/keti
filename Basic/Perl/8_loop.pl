@@ -12,7 +12,7 @@ my $i = 0;
 
 # while 문
 while($i < scalar @array) {
-    print $i, ": ", $array[$i];
+    print $i, ": ", $array[$i], " ";
     $i++;
 }
 
@@ -20,12 +20,14 @@ print "\n";
 
 # foreach 문
 foreach my $i ( 0 .. $#array ) {
-    print $i, ": ", $array[$i];
+    print $i, ": ", $array[$i], " ";
 }
 
 print "\n";
 
 # for 문
-for(my $i = 0, $i < scalar @array, $i++) {
-    print $i, ": ", $array[$i];
+for(my $i = 0; $i < scalar @array; $i++) {
+    print $i, ": ", $array[$i], " ";
 }
+
+print "\n";
