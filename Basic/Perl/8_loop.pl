@@ -25,6 +25,12 @@ foreach my $i ( 0 .. $#array ) {
 
 print "\n";
 
+for my $i ( 0 .. $#array ) {
+    print $i, ": ", $array[$i], " ";
+}
+
+print "\n";
+
 # for 문
 for(my $i = 0; $i < scalar @array; $i++) {
     print $i, ": ", $array[$i], " ";
