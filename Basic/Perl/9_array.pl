@@ -10,12 +10,12 @@ print "NORMAL : ", @array, "\r\n";
 print "REVERSE : ", reverse(@array), "\r\n";
 print join(", ", reverse(@array)), "\r\n";
 pop(@array);
-print join(", ", @array), "\r\n";
+print "pop : ", join(", ", @array), "\r\n";
 push(@array, "fiveeeee");
-print join(", ", @array), "\r\n";
-shift(@array)
-print join(", ", @array), "\r\n";
-splice
-print join(", ", @array), "\r\n";
-
-print join(", ", @array), "\r\n";
+print "push : " , join(", ", @array), "\r\n";
+shift(@array);
+print "shift : ", join(", ", @array), "\r\n";
+#splice
+print "splice : ", join(", ", @array), "\r\n";
+#unshift
+print "unshift", join(", ", @array), "\r\n";
