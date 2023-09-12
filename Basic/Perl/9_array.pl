@@ -18,4 +18,4 @@ print "shift : ", join(", ", @array), "\r\n";
 #splice
 print "splice : ", join(", ", @array), "\r\n";
 #unshift
-print "unshift", join(", ", @array), "\r\n";
+print "unshift : ", join(", ", @array), "\r\n";
