@@ -33,5 +33,5 @@ sub helloWorld {
 
 my $helloObject = Hello->new( data1 => 'hello',
                         data2 => 'world');
-$helloObject->hellowWorld();
+$helloObject->helloWorld();
 
