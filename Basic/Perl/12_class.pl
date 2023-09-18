@@ -26,7 +26,7 @@ sub new{
 
 # Hello 클래스의 매서드
 sub helloWorld {
-    my ($self) = @;
+    my ($self) = @_;
     print $self->{data1}." ";
     print $self->{data2};
 };
