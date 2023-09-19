@@ -3,7 +3,7 @@
 
 # 시스템 콜으로 외부 명령어 실행
 my $rc = system "perl", "1_perl.pl";
-print $rc; # 0 => 프로세스의 status word를 출력
+print $rc, "\n"; # 0 => 프로세스의 status word를 출력
 
 my $result = qx("ls"); # 명령어 실행 결과를 변수에 저장
 print $result; # 캡쳐결과 변수에 저장
