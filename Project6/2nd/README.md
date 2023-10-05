@@ -197,3 +197,10 @@
 
 - 물리 서버 2대 구성하고 진행
   - 마스터1, 워커1
+- 메모리, 저장장치 구매
+  - 저장장치
+    - [INTEL] 솔리다임 670P M.2 NVMe 2280 [512GB QLC]
+    - http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=790682&BigDivNo=4&MediumDivNo=1276&DivNo=3400
+    - 1TB로 변경 가능
+  - 메모리
+    - 
