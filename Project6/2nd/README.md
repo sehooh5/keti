@@ -203,4 +203,20 @@
     - http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=790682&BigDivNo=4&MediumDivNo=1276&DivNo=3400
     - 1TB로 변경 가능
   - 메모리
-    - 
+    - [ADATA] ADATA 산업용 스탠다드 DDR4-3200 8GB RAM 메모리 노트북용 (25600)
+    - http://www.compuzone.co.kr/product/product_detail.htm?ProductNo=1025001&BigDivNo=4&MediumDivNo=1014&DivNo=2037
+
+
+
+#### 1006
+
+- 서버 안되니까 기존에 코드내용 리뷰 후 적용 바로 할수 있게 시작
+
+
+
+#### 1011
+
+- 서버 메모리 저장장치 추가 후 진행
+  - 아직 수령 못함
+- 기존 KETI1,2 로 진행
+  - 인터넷 연결이 잘 안되고 k8s 시작이 안되는중
