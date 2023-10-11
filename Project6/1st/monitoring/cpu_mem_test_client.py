@@ -17,8 +17,8 @@ def cpu_mem_sending():
     data = {
         "code": "0000",
         "message": "처리성공",
-        "did": "dx01" # 나중에 변경해야함
-        "cpu" : cpu_percent,
+        "did": "dx01", # 나중에 변경해야함
+        "cpu": cpu_percent,
         "memory" : memory_percent
     }
 
