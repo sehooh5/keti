@@ -21,8 +21,8 @@ def cpu_mem_sending():
         "cpu": cpu_percent,
         "memory" : memory_percent
     }
-    print(json.dumps(data))
-    requests.post(f"http://123.214.186.162:6432/usage", data=json.dumps(data))
+    json_data = json.dumps(data)
+    requests.post(f"http://123.214.186.162:6432/usage", data=json_data)
 
 while True:
     cpu_mem_sending()
