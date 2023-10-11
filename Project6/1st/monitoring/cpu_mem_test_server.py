@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
 
-@app.route('/')
+@app.route('/usage', methods=['POST'])
 def usage():
     data = request.get_json(silent=True)
     json_data = json.loads(data)
