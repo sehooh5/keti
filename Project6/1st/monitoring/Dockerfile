@@ -2,7 +2,7 @@ FROM python:3.8
 
 WORKDIR /app
 
-RUN pip3 install psutil requests json
+RUN pip install psutil requests json
 
 COPY cpu_mem_test_client.py /app/cpu_mem_test_client.py
 
