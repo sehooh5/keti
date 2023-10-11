@@ -10,6 +10,7 @@ CORS(app)
 @app.route('/usage', methods=['POST'])
 def usage():
     data = request.get_json(silent=True)
+    print(data)
     json_data = json.loads(data)
 
     did = json_data['did']
