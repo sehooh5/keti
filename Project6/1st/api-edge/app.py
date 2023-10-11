@@ -20,7 +20,7 @@ import sys
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
-e
+
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
@@ -78,6 +78,75 @@ def index():
 
     return render_template('index.html')
 
+# 0 마스터-워커(엣지 카메라) 클러스터링 (get_edgeInfo 사용 안할거야)
+@ app.route('/add_newEdgeCluster', methods=['POST'])
+def add_newEdgeCluster():
+    func = sys._getframe().f_code.co_name
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: new edge cluster making...")
+
+    json_data = request.get_json(silent=True)
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: edge json data: {json_data}")
+    if json_data == None:
+        return response.message("0021")
+    mid = json_data['mid']
+    wlist = json_data['wlist']
+
+    if mid == None or wlist == None:
+        return response.message("0015")
+
+    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    mip = res.json()["ip"]
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: master server ip: {mip}")
+
+    # 마스터 엣지 구성
+    m_output = subprocess.check_output(
+        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
+    # 마스터 - 워커 연결해주는 명령어
+    w_input = m_output.split('root:')[-1].lstrip()
+    w_input = f"sudo {w_input}"
+    # 마스터에서 설정해줘야 하는 내용
+    os.system("mkdir -p $HOME/.kube")
+    time.sleep(1.0)
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    time.sleep(1.0)
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    time.sleep(1.0)
+    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+    time.sleep(1.0)
+
+    for w in wlist:
+        wid = w["wid"]
+        if wid == None:
+            return response.message("0015")
+        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+
+        wip = res.json()["ip"]
+        host_name = res.json()["host_name"]
+        host_pwd = res.json()["host_pwd"]
+
+        # 워커노드와 연결
+        cli.connect(wip, port=22, username=host_name, password=host_pwd)
+        stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
+        stdin.write('keti\n')
+        stdin.flush()
+        lines = stdout.readlines()
+        print(''.join(lines))
+        time.sleep(2.0)
+        cli.close()
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f"{func}: worker server ip: {wip}")
+        print(
+            datetime.datetime.now().strftime(
+                "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: edge clustering completed !")
+
+    return response.message("0000")
 
 # 1 마스터 서버에 업로드한 신규 소프트웨어 등록
 @ app.route('/add_newUploadSw', methods=['POST'])

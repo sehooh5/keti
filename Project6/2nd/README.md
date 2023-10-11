@@ -190,6 +190,7 @@
   - 주소 : 192.168.0.222
 - AXIS M1135 카메라
   - 주소 : 192.168.0.76
+  - root : root
 
 
 
@@ -220,3 +221,18 @@
   - 아직 수령 못함
 - 기존 KETI1,2 로 진행
   - 인터넷 연결이 잘 안되고 k8s 시작이 안되는중
+  - k8s 재구성
+    - 마스터노드 : 
+      - 주소 : 192.168.0.28
+      - sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.28
+      - kubeadm join 192.168.0.28:6443 --token eddlxg.13xv1zj8u36otezt \
+        	--discovery-token-ca-cert-hash sha256:667c9ad78e05602b07289537a0df240c415fdbdf15a6c02d6ca8d01d02c43f0f
+    - 워커노드
+      - 192.168.0.25
+  - 마스터노드 실행 앱
+    - 주소 : 123.214.186.244:5432
+
+
+
+- 문서 작성해서 누나 보내드리기
+- 현재 클러스터링하는 부분 추가해야되서 추가하는중
