@@ -25,3 +25,5 @@ def cpu_mem_sending():
 while True:
     cpu_mem_sending()
     time.sleep(1)
+
+
