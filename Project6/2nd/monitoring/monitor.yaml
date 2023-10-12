@@ -7,14 +7,14 @@ spec:
   selector:
     matchLabels:
       app: usage_test
-    template:
-      metadata:
-        labels:
-          app: usage_test
-      spec:
-        containers:
-          - name: usage_test
-            image: sehooh5/usage_test:latest
-            imagePullPolicy: Always
-            ports:
-              - containerPort: 80
+  template:
+    metadata:
+      labels:
+        app: usage_test
+    spec:
+      containers:
+        - name: usage_test
+          image: sehooh5/usage_test:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
