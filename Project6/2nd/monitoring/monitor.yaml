@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: usage-test
-          image: usage-test:latest
+          image: sehooh5/usage-test:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
