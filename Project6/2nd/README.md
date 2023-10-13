@@ -304,13 +304,18 @@
   - EDGE-MASTER-01 : 마스터 역할
   - EDGE-WORKER-01 : CCTV 단말기 엣지서버 역할
 
+- **CCTV 2대 설치 주소([AXIS rtsp 주소 생성 사이트](https://www.ispyconnect.com/camera/axis))**
+
+  - **AXIS M1135 카메라**
+    - **rtsp://root:root@192.168.0.76/axis-media/media.amp?videocodec=h264&resolution=640x480**
+  - **AXIS M1137 카메라**
+    - **rtsp://root:root@192.168.0.12/axis-media/media.amp**
+
 
 
 #### 1016
 
-- CCTV 새 제품 실험실에 yang_ex 네트워크로 설치
-
-  - 어떻게 어느각도로 설치할지는 태윤씨 상의
+- 새로 설치한 서버 구성하고 기존 세팅 다 복사하기
 
 - app.py 수정중 
 
