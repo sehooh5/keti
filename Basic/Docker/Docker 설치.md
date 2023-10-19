@@ -96,6 +96,7 @@ sudo swapoff -a
   $ sudo mkdir -p /etc/systemd/system/docker.service.d
   $ sudo systemctl daemon-reload
   $ sudo systemctl restart docker
+  $ newgrp docker # 사용자를 docker 그룹에 추가할 때 안되면 마지막에 실행(sudo 사용 안해도됨)
   ```
 
 - 잘 안되서 슈퍼계정 들어간 상태에서 실행했음 `#`
