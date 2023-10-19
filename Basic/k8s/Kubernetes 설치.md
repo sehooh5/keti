@@ -102,10 +102,28 @@ kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
 
 - 아래 내용 추가
 Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
-
 ```
 
+- 아래와 같은 에러 발생 시 대처
 
+  ```
+  # 에러 메시지
+  sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.8
+  [init] Using Kubernetes version: v1.28.2
+  [preflight] Running pre-flight checks
+  error execution phase preflight: [preflight] Some fatal errors occurred:
+  	[ERROR CRI]: container runtime is not running: output: time="2023-10-19T14:17:44+09:00" level=fatal msg="validate service connection: CRI v1 runtime API is not implemented for endpoint \"unix:///var/run/containerd/containerd.sock\": rpc error: code = Unimplemented desc = unknown service runtime.v1.RuntimeService"
+  , error: exit status 1
+  [preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+  To see the stack trace of this error execute with --v=5 or higher
+  
+  
+  # 해결 방법
+  $ sudo rm /etc/containerd/config.toml
+  $ sudo systemctl restart containerd
+  ```
+
+  
 
 
 
