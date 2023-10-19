@@ -20,11 +20,23 @@
 
 - #### 마스터 서버
 
-  - 
+  - 이름 : edge-master-01
+
+  - 주소 : 192.168.0.8
+
+  - k8s 명령어 : 
+
+    ```
+    kubeadm join 192.168.0.8:6443 --token ofbhfr.dkpbodowr9x2ojhd \
+    	--discovery-token-ca-cert-hash sha256:dd815e7febe69d2024eccb72524d29ad61ae1737afb5164b4269bd93cc580681
+    ```
+
+    
 
 - #### 워커 서버
 
-  - 
+  - 이름 : edge-worker-01
+  - 주소 : 192.168.0.9
 
 
 
