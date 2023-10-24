@@ -1737,3 +1737,5 @@
 - Jetson AGXOrin 서버 2대 설치 완료하기
 - CCTV 는 일단 무선엣지 과제 API 연동 후 진행
   - 이미 신규 2대는 연결 되어있음
+    - rtsp://root:root@192.168.0.12/axis-media/media.amp
+    - rtsp://root:root@192.168.0.76/axis-media/media.amp?videocodec=h264&resolution=640x480
