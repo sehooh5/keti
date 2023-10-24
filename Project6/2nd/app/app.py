@@ -136,7 +136,7 @@ def add_newEdgeCluster():
     if mid == None or wlist == None:
         return response.message("0015")
 
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
@@ -163,7 +163,7 @@ def add_newEdgeCluster():
         wid = w["wid"]
         if wid == None:
             return response.message("0015")
-        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+        res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
 
         wip = res.json()["ip"]
         host_name = res.json()["host_name"]
@@ -189,6 +189,7 @@ def add_newEdgeCluster():
     return response.message("0000")
 
 # 2.4.4 선택 엣지 클러스터 삭제
+## 삭제 시 if 문 사용 안해도되는지 확인 필요
 @ app.route('/remove_selectedEdgeCluster', methods=['POST'])
 def remove_selectedEdgeCluster():
 
@@ -200,29 +201,33 @@ def remove_selectedEdgeCluster():
     names = []
     hnames = []
     pwds = []
-    node_types = []
+
 
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
 
     # 무선엣지 과제에서는 cluster id만 주어지는데 정보 획득해서 진행
-    mid = json_data['mid']
-    wlist = json_data['wlist']
+    cid = json_data['id']
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: master server ID : {mid}")
+        "%c")[:-4], f" {func}: master server ID : {cid}")
 
-    if mid == None or wlist == None:
+    if cid == None:
         return response.message("0015")
 
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
+    res = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
+    mid = res.json()["mid"]
+    wlist = res.json()["wlist"]
+
+    res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
+
     ips.append(res.json()["ip"])
     names.append(res.json()["name"])
     hnames.append(res.json()["host_name"])
     pwds.append(res.json()["host_pwd"])
-    node_types.append(res.json()["type"])
+
 
     for w in wlist:
         # 필요한 정보 얻기
@@ -231,26 +236,31 @@ def remove_selectedEdgeCluster():
             "%c")[:-4], f" {func}: worker ID : {wid}")
         if wid == None:
             return response.message("0015")
-        res = requests.get(f"{API_URL}/get_edgeInfo?id={wid}")
+        res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
 
         ips.append(res.json()["ip"])
         names.append(res.json()["name"])
         hnames.append(res.json()["host_name"])
         pwds.append(res.json()["host_pwd"])
-        node_types.append(res.json()["type"])
 
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: edge server list : {names}")
 
-    for ip, name, hname, pwd, node_type in zip(ips, names, hnames, pwds, node_types):
+    for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
         print(datetime.datetime.now().strftime(
         "%c")[:-4],f"{name} : delete node from cluster!")
         os.system(f"kubectl delete node {name}")
 
-        # 0929
-        # keti2(마스터)에서 ssh 연결시도시 Auth 에러떠서 따로 실행시킴
-        if node_type == "Master":
-            os.system("echo 'keti' | echo y | sudo kubeadm reset")
+        if "master" in  hname: # host_name에 master 라는 단어가 있을 시에 삭제/// if문 안써도되는지 확인해보기
+            cli.connect(ip, port=22, username=hname, password=pwd)
+            stdin, stdout, stderr = cli.exec_command(
+                "echo y | sudo kubeadm reset", get_pty=True)
+            stdin.write('keti\n')
+            stdin.flush()
+
+            lines = stdout.readlines()
+            print(''.join(lines))
+
+            time.sleep(2.0)
+            cli.close()
         else :
             print(datetime.datetime.now().strftime(
             "%c")[:-4],f"SSH Connect to {name}")

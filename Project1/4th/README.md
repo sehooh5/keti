@@ -1735,6 +1735,7 @@
 #### 1024
 
 - Jetson AGXOrin 서버 2대 설치 완료하기
+  - CUDA, pytorch 잘 설치 되었는지 확인 필요
 - CCTV 는 일단 무선엣지 과제 API 연동 후 진행
   - 이미 신규 2대는 연결 되어있음
     - rtsp://root:root@192.168.0.12/axis-media/media.amp
