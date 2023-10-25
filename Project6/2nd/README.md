@@ -460,4 +460,13 @@
       - 예시 : edge-master-01, edge-worker-01, edge-worker-02 ....
     - host_pwd
       - 통일 :  keti
+  - 파일 다운로드 기능 있는지 확인
+    - 5G에서 API 명 : `/download`
+    - arg : filename 
+
+
+
+#### 1025
+
+- 신규 엣지 AI 패키지 추가 다음부터 시작
 

@@ -320,9 +320,9 @@ def upload_edgeAi():
             "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: docker image building...")
-        print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
         os.system(
-            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
         print("Docker image building completed!!")
         # docker login status 확인
         try:
@@ -334,12 +334,8 @@ def upload_edgeAi():
             print("Docker login..")
             os.system("docker login -u sehooh5 -p @Dhtpgh1234")
         print("Docker image push to Docker hub..")
-        os.system(f"docker push sehooh5/{fname}:latest")
+        os.system(f"docker push sehooh5/{fname}:{version}")
         print("Docker image pushing completed!!")
-    # elif filename.find("prometheus"):
-    #     with open(filename, 'wb') as filename:
-    #         data = requests.get(f"{API_URL}/download?filename={filename}")
-    #         filename.write(data.content)
     else:
         fname = filename
         print(datetime.datetime.now().strftime(
@@ -348,24 +344,6 @@ def upload_edgeAi():
             data = requests.get(f"{API_URL}/download?filename={filename}")
             file.write(data.content)
 
-    sid = sid_maker()
-    q = db.session.query(SW_up).get(sid)  # sid 중복된게 있는지 찾아줌
-
-    while q != None:
-        sid = sid_maker()
-        q = db.session.query(SW_up).get(sid)
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: re-generating software ID : {sid}")
-        break
-    else:
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: software ID : {sid}")
-
-    # 2. software_up 테이블에 데이터 저장
-    sw = SW_up(sid=sid, name=name, fname=fname,
-               copyright=copyright, type=type, description=desc)
-    db.session.add(sw)
-    db.session.commit
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software upload completed !")
@@ -390,9 +368,17 @@ def remove_uploadedEdgeAi():
 
     id = json_data['id']
 
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
+    res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
+    if res.json()["code"] != "0000":
+        return response.message(res.json()["code"])
+    fileUrl = res.json()["fileUrl"]
+    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
+    print(fileUrl)
+    fname = fileURL
+    ############################################
+
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: software ID : {sid} - software name : {fname}")
+        "%c")[:-4], f"{func}: software ID : {id} - software name : {fname}")
 
     # Docker image delete
     print(datetime.datetime.now().strftime(
@@ -401,10 +387,6 @@ def remove_uploadedEdgeAi():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
 
-    sw = db.session.query(SW_up).filter(SW_up.sid == sid).first()
-
-    db.session.delete(sw)
-    db.session.commit()
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software deleted !")
 
