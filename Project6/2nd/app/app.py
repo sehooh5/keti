@@ -401,6 +401,8 @@ def deploy_aiToCluster():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
+    docker_id = "sehooh5"
+
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
@@ -408,65 +410,71 @@ def deploy_aiToCluster():
     sid = json_data['sid']  # ai 패키지 ID
     cid = json_data['cid']  # Cluster ID
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
-
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    node_name = res.json()["name"]
-    port = json_data['serviceport']
-    node_port = json_data['nodeport']
-    target_port = json_data['targetport']
+        "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
 
     # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    if "_" in fname:
-        fname = fname.replace("_", "-")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    if ai_info_data.json()["code"] != "0000":
+        return response.message(ai_info_data.json()["code"])
+    fileUrl = ai_info_data.json()["fileUrl"]
+    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
+    fname = fileURL
+    #######################################################
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
-    if fname.find("prometheus") == 0:
+    # 클러스터명, 디바이스명 불러오기
+    cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+    if cluster_info_data.json()["code"] != "0000":
+        return response.message(cluster_info_data.json()["code"])
 
-        port = "8080"
-        target_port = "9090"
-        node_port = "30005"
-        # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
-        ns.select(fname, node_name)
-        mm.namespace()
-        mm.prometheus(fname)
-        s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                      nodeport=node_port, targetport=target_port)
-        db.session.add(s)
-        db.session.commit()
-        print("Deploy Completed!!")
+    wlist = cluster_info_data.json()['wlist']
 
-        return response.message("0000")
+    for wid in wlist:
+        device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+        host_name = device_info_data.json()["host_name"]
 
-    # select_cam 앱의 타겟포트 지정
-    elif fname == "select-cam":
-        target_port = "5050"
-    elif fname == "edge-rtsp-sw":
-        target_port = "5060"
-    elif fname == "video-streaming":
-        target_port = "5058"
-    docker_id = "sehooh5"
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Making deployment...")
-    deployment = dm.making(fname, port, target_port,
-                           node_port, node_name, docker_id)
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: ------ deployment ------ ")
-    print(deployment)
 
-    os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
+#     if fname.find("prometheus") == 0:
+#
+#         port = "8080"
+#         target_port = "9090"
+#         node_port = "30005"
+#         # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
+#         ns.select(fname, node_name)
+#         mm.namespace()
+#         mm.prometheus(fname)
+#         s = Server_SW(sid=sid, wid=wid, serviceport=port,
+#                       nodeport=node_port, targetport=target_port)
+#         db.session.add(s)
+#         db.session.commit()
+#         print("Deploy Completed!!")
+#
+#         return response.message("0000")
+#
+#     # select_cam 앱의 타겟포트 지정
+#     elif fname == "select-cam":
+#         target_port = "5050"
+#     elif fname == "edge-rtsp-sw":
+#         target_port = "5060"
+#     elif fname == "video-streaming":
+#         target_port = "5058"
 
-    s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                  nodeport=node_port, targetport=target_port)
-    db.session.add(s)
-    db.session.commit()
+        # deployment 파일 생성 ### port 지정해줘야하는지 알아야됨
+
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: Making deployment...")
+        deployment = dm.making(fname, port, target_port,
+                               node_port, host_name, docker_id)
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: ------ deployment ------ ")
+        print(deployment)
+
+        # POD 생성
+        os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploy completed !")
 
@@ -479,76 +487,76 @@ def deploy_aiToDevice():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
+    docker_id = "sehooh5"
+
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
+
     sid = json_data['sid']  # ai 패키지 ID
-    cid = json_data['cid']  # Cluster ID
     did = json_data['did']  # Device ID
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: kubernetes : deploy software [{wid}] to edge Server [{sid}]....")
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    node_name = res.json()["name"]
-    port = json_data['serviceport']
-    node_port = json_data['nodeport']
-    target_port = json_data['targetport']
+        "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Device [{did}]....")
 
     # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
-    if "_" in fname:
-        fname = fname.replace("_", "-")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    if ai_info_data.json()["code"] != "0000":
+        return response.message(ai_info_data.json()["code"])
+    fileUrl = ai_info_data.json()["fileUrl"]
+    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
+    fname = fileURL
+    #######################################################
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
-    if fname.find("prometheus") == 0:
+    # 디바이스명 불러오기
+    device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
+    host_name = device_info_data.json()["host_name"]
 
-        port = "8080"
-        target_port = "9090"
-        node_port = "30005"
-        # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
-        ns.select(fname, node_name)
-        mm.namespace()
-        mm.prometheus(fname)
-        s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                      nodeport=node_port, targetport=target_port)
-        db.session.add(s)
-        db.session.commit()
-        print("Deploy Completed!!")
+#     if fname.find("prometheus") == 0:
+#
+#         port = "8080"
+#         target_port = "9090"
+#         node_port = "30005"
+#         # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
+#         ns.select(fname, node_name)
+#         mm.namespace()
+#         mm.prometheus(fname)
+#         s = Server_SW(sid=sid, wid=wid, serviceport=port,
+#                       nodeport=node_port, targetport=target_port)
+#         db.session.add(s)
+#         db.session.commit()
+#         print("Deploy Completed!!")
+#
+#         return response.message("0000")
+#
+#     # select_cam 앱의 타겟포트 지정
+#     elif fname == "select-cam":
+#         target_port = "5050"
+#     elif fname == "edge-rtsp-sw":
+#         target_port = "5060"
+#     elif fname == "video-streaming":
+#         target_port = "5058"
 
-        return response.message("0000")
+        # deployment 파일 생성 ### port 지정해줘야하는지 알아야됨
 
-    # select_cam 앱의 타겟포트 지정
-    elif fname == "select-cam":
-        target_port = "5050"
-    elif fname == "edge-rtsp-sw":
-        target_port = "5060"
-    elif fname == "video-streaming":
-        target_port = "5058"
-    docker_id = "sehooh5"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
     deployment = dm.making(fname, port, target_port,
-                           node_port, node_name, docker_id)
+                           node_port, host_name, docker_id)
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
-    os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
+    # POD 생성
+    os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
+        "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
 
-    s = Server_SW(sid=sid, wid=wid, serviceport=port,
-                  nodeport=node_port, targetport=target_port)
-    db.session.add(s)
-    db.session.commit()
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploy completed !")
 
     return response.message("0000")
-
 
 # 2.6.2-2 단말 기반 엣지 AI 패키지 삭제 인터페이스 (추가해야할 듯)
 @ app.route('/remove_deploySwInfo', methods=['POST'])
@@ -560,307 +568,36 @@ def remove_deploySwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    wid = json_data['wid']
-    sid = json_data['sid']
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {wid}] to server [ID : {sid}]")
+#     wid = json_data['wid']
+#     sid = json_data['sid']
 
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeInfo?id={sid}")
+    sid = json_data['sid']  # ai 패키지 ID
+    did = json_data['did']  # Device ID
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {sid}] to server [ID : {did}]")
+
+    # 디바이스명 불러오기
+    device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    node_name = res.json()["name"]
+    host_name = device_info_data.json()["host_name"]
 
     # fname 불러오기
-    fname = db.session.query(SW_up.fname).filter(SW_up.sid == wid).first()[0]
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    if ai_info_data.json()["code"] != "0000":
+        return response.message(ai_info_data.json()["code"])
+    fileUrl = ai_info_data.json()["fileUrl"]
+    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
+    fname = fileURL
+    #######################################################
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{node_name}]")
-    if fname.find("prometheus") == 0:
-        os.system(f"kubectl delete -f {fname}")
-    os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
+        "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
 
-    sw = db.session.query(Server_SW).filter(
-        Server_SW.sid == sid, Server_SW.wid == wid).first()
-    db.session.delete(sw)
-    db.session.commit()
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy completed !")
 
     return response.message("0000")
 
-# 2.2 엣지 서버 이름 조회 인터페이스
-# @ app.route('/get_edgeName', methods=['GET'])
-# def get_edgeName():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: start")
-#
-#     nodes = subprocess.check_output(
-#         "kubectl get node", shell=True).decode('utf-8')
-#
-#     nodes_split = nodes.split('\n')
-#     len_nodes = len(nodes_split)-1
-#
-#     name_list = nodes_split[1:len_nodes]
-#     names = []
-#     for name in name_list:
-#         n = {"name": name.split(' ')[0]}
-#         names.append(n)
-#
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: edge name list: {names}")
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: end")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         nlist=names
-#     )
-#     return res
-
-
-# 2.3 엣지서버에 디바이스 연결
-# @ app.route('/connect_device', methods=['POST'])
-# def connect_device():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: start")
-#
-#     json_data = request.get_json(silent=True)
-#     if json_data == None:
-#         return response.message("0021")
-#
-#     eid = json_data['eid']
-#     did = json_data['did']
-#     print(eid,did)
-#
-#     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-#     device_name = device.json()["name"]
-#
-#     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
-#     edge_name = edge.json()["name"]
-#
-#     print(
-#         datetime.datetime.now().strftime(
-#             "%c")[:-4], f"{func}: connect Server [{edge_name}] with device [{device_name}]....")
-#
-#     # 노드포트 찾기위한 과정
-#     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
-#     for wid in wids:
-#         fname = db.session.query(SW_up.fname).filter(
-#             SW_up.sid == wid[0]).first()[0]
-#         if fname == "select-cam":
-#             sw_id = wid[0]
-#
-#     nodeport = db.session.query(Server_SW.nodeport).filter(
-#         Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: using nodeport: {nodeport}")
-#
-#     # 디바이스 정보 추출
-#     d_url = "rtsp://root:keti@" + \
-#         device.json()["ip"]+"/onvif-media/media.amp"
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: device url: {d_url}")
-#     d_name = device.json()["name"]
-#     api_host = f"{ip}:{port}"
-#
-#     data = {
-#         "url": d_url,
-#         "name": d_name,
-#         "api_host": api_host
-#     }
-#
-#     option = requests.post(
-#         f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
-#     option = option.text
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: browser option: {option}")
-#     # requests.post(
-#     #     f"http://192.168.0.29:5050/connect", data=json.dumps(data))
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: connecting completed !")
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}:server name : {edge_name} --- camera name : {device_name}")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         url=f"http://{ip}:{nodeport}/streaming",
-#         sname=edge_name,
-#         option=option
-#     )
-#     return res
-
-
-# 2.4 엣지서버에 연결된 디바이스 연결 해지
-# @ app.route('/disconnect_device', methods=['POST'])
-# def disconnect_device():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: start")
-#
-#     json_data = request.get_json(silent=True)
-#     if json_data == None:
-#         return response.message("0021")
-#
-#     eid = json_data['eid']
-#     did = json_data['did']
-#     print(eid, did)
-#
-#     device = requests.get(f"{API_URL}/get_deviceInfo?id={did}")
-#     device_name = device.json()["name"]
-#
-#     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
-#     edge_name = edge.json()["name"]
-#     print(
-#         datetime.datetime.now().strftime(
-#             "%c")[:-4], f"{func}: disconnect Server [{edge_name}] with device [{device_name}]....")
-#
-#     # 노드포트 찾기위한 과정
-#     wids = db.session.query(Server_SW.wid).filter(eid == Server_SW.sid).all()
-#     for wid in wids:
-#         fname = db.session.query(SW_up.fname).filter(
-#             SW_up.sid == wid[0]).first()[0]
-#         if fname == "select-cam":
-#             sw_id = wid[0]
-#
-#     nodeport = db.session.query(Server_SW.nodeport).filter(
-#         Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-#
-#     # 디바이스 정보 추출
-#     d_url = "rtsp://keti:keti1234@" + \
-#         device.json()["ip"]+":"+device.json()["port"]+"/videomain"
-#     api_host = f"{ip}:{port}"
-#
-#     data = {
-#         "url": d_url,
-#         "api_host": api_host
-#     }
-#
-#     option = requests.post(
-#         f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
-#
-#     # requests.post(
-#     #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: disconnecting completed !")
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: server name : {edge_name} --- camera name :  {device_name}")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         url=f"http://{ip}:{nodeport}/streaming",
-#         sname=edge_name
-#
-#     )
-#     return res
-
-
-# 2.5 마스터 서버가 저장하고 있는 업로드 소프트웨어 목록 조회
-# @ app.route('/get_uploadSwList', methods=['GET'])
-# def get_uploadSwList():
-#
-#     sid_list = db.session.query(SW_up.sid).all()
-#     name_list = db.session.query(SW_up.name).all()
-#     fname_list = db.session.query(SW_up.fname).all()
-#     copyright_list = db.session.query(SW_up.copyright).all()
-#     type_list = db.session.query(SW_up.type).all()
-#     desc_list = db.session.query(SW_up.description).all()
-#     dt_list = db.session.query(SW_up.datetime).all()
-#
-#     sw_list = []
-#     for sid in sid_list:
-#         # dt = datetime[0].strftime('%Y-%m-%d')
-#         sid = sid[0]
-#         name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
-#         fname = db.session.query(SW_up.fname).filter(
-#             SW_up.sid == sid).first()[0]
-#         copyright = db.session.query(SW_up.copyright).filter(
-#             SW_up.sid == sid).first()[0]
-#         type = db.session.query(SW_up.type).filter(SW_up.sid == sid).first()[0]
-#         desc = db.session.query(SW_up.description).filter(
-#             SW_up.sid == sid).first()[0]
-#         dt = db.session.query(SW_up.datetime).filter(
-#             SW_up.sid == sid).first()[0]
-#
-#         sw = {
-#             "sid": sid,
-#             "name": name,
-#             "fname": fname,
-#             "copyright": copyright,
-#             "type": type,
-#             "description": desc,
-#             "datetime": dt
-#         }
-#         sw_list.append(sw)
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         list=sw_list
-#     )
-#     return res
-
-
-# 2.6 마스터 서버에 업로드된 소프트웨어 정보 조회
-# @ app.route('/get_uploadSwInfo', methods=['POST'])
-# def get_uploadSwInfo():
-#
-#     json_data = request.get_json(silent=True)
-#     if json_data == None:
-#         return response.message("0021")
-#
-#     sid = json_data['sid']
-#
-#     name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
-#     fname = db.session.query(SW_up.fname).filter(SW_up.sid == sid).first()[0]
-#     copyright = db.session.query(SW_up.copyright).filter(
-#         SW_up.sid == sid).first()[0]
-#     type = db.session.query(SW_up.type).filter(SW_up.sid == sid).first()[0]
-#     desc = db.session.query(SW_up.description).filter(
-#         SW_up.sid == sid).first()[0]
-#     dt = db.session.query(SW_up.datetime).filter(SW_up.sid == sid).first()[0]
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         name=name,
-#         fname=fname,
-#         copyright=copyright,
-#         type=type,
-#         description=desc,
-#         datetime=dt.strftime('%Y-%m-%d')
-#     )
-#     return res
-
-
-# 2.10 마스터/워커 서버에 배포된 SW 목록 조회
-# @ app.route('/get_deploySwList', methods=['POST'])
-# def get_deploySwList():
-#
-#     json_data = request.get_json(silent=True)
-#     if json_data == None:
-#         return response.message("0021")
-#
-#     sid = json_data['sid']
-#     sw_list = []
-#
-#     s = db.session.query(Server_SW.wid).filter(sid == Server_SW.sid).all()
-#     for sw in s:
-#         Key = "wid"
-#         Value = sw[0]
-#         string = {Key: Value}
-#         sw_list.append(string)
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         swList=sw_list
-#     )
-#     return res
 
 # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
 @ app.route('/get_servicePort', methods=['POST'])
@@ -992,8 +729,6 @@ def get_nodePort():
         port=port
     )
     return res
-
-
 
 # 2.17 클러스터 모니터링 툴 추가 인터페이스
 # @ app.route('/add_newMonitoring', methods=['GET'])

@@ -463,6 +463,7 @@
   - 파일 다운로드 기능 있는지 확인
     - 5G에서 API 명 : `/download`
     - arg : filename 
+  - 내부분 마지막에 ai 배포 삭제 인터페이스 추가해야함
 
 
 
@@ -470,3 +471,31 @@
 
 - 신규 엣지 AI 패키지 추가 다음부터 시작
 
+
+
+#### 1026
+
+- 진행중 : 
+  - 
+- 진행 완료 : 
+  - 이름 및 args 입력 완료 및 문서작성, 전달 완료
+  - 코드 전에 시스템 구축 완료
+- 진행 필요 : 
+  - API 사용가능 여부 확인
+  - 서박사님 AI 패키지가 서버의 역할을 해서 서로 통신을 해야하는 건지?
+    - 하게되면 port, nodeport, targetport 필요
+    - 이에 따라서 배포 인터페이스 2개 수정 필요
+  - 코드 내 fname 추출하는 방법 수정해나아가야함
+  - 모니터링 어떤 메타 정보 사용할 수 있는지 확인
+- 설계서 수정 필요 :
+  - 항목 추가
+    - API 명 : add_newMaster, add_newDevice 
+    - host_name
+      - 예시 : edge-master-01, edge-worker-01, edge-worker-02 ....
+    - host_pwd
+      - 통일 :  keti
+  - 파일 다운로드 기능 있는지 확인
+    - 5G에서 API 명 : `/download`
+    - arg : filename 
+  - 내부분 마지막에 ai 배포 삭제 인터페이스 추가해야함
+    - API 명 : `/remove_deploySwInfo`
