@@ -1740,3 +1740,12 @@
   - 이미 신규 2대는 연결 되어있음
     - rtsp://root:root@192.168.0.12/axis-media/media.amp
     - rtsp://root:root@192.168.0.76/axis-media/media.amp?videocodec=h264&resolution=640x480
+
+
+
+#### 1030
+
+- 5G CCTV 오후에 업체가 실험실에 세팅 후 테스트
+  - 필요 항목 : 
+    - 외부망 인터넷(인텔리빅스 사용중인거 테스트때만 잠시 사용)
+    - 파워선
