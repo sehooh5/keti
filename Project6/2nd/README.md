@@ -499,3 +499,9 @@
     - arg : filename 
   - 내부분 마지막에 ai 배포 삭제 인터페이스 추가해야함
     - API 명 : `/remove_deploySwInfo`
+
+
+
+#### 1031
+
+- 기본 되는 API 와 연동
