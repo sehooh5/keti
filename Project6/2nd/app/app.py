@@ -153,9 +153,6 @@ def add_newEdgeCluster():
     w_input = f"sudo {w_input}"
 
     # 마스터에서 설정해줘야 하는 내용
-    os.system("mkdir -p $HOME/.kube")
-    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
     print(datetime.datetime.now().strftime(
@@ -185,6 +182,11 @@ def add_newEdgeCluster():
         print(
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
+
+    os.system("mkdir -p $HOME/.kube")
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
 
