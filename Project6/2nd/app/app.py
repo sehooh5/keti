@@ -147,6 +147,7 @@ def add_newEdgeCluster():
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
         f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
+    time.sleep(10)
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
