@@ -147,7 +147,7 @@ def add_newEdgeCluster():
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
         f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
-    time.sleep(10)
+
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
@@ -187,13 +187,16 @@ def add_newEdgeCluster():
 #     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     subprocess.run(["mkdir", "-p", f"{os.environ['HOME']}/.kube"])
+
     command = ["sudo", "cp", "-i", "/etc/kubernetes/admin.conf", f"{os.environ['HOME']}/.kube/config"]
+    # 인코딩된 문자열을 bytes로 변환
+    input_str = 'y\n'.encode()
     # subprocess로 명령 실행
     try:
-        subprocess.run(command, input=b'y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        subprocess.run(command, input=input_str, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
         print("명령어 실행 성공.")
     except subprocess.CalledProcessError as e:
-        print(f"오류 발생")
+        print(f"오류 발생: {e.returncode}, {e.stderr}")
 
     subprocess.run(["sudo", "chown", f"{os.getuid()}:{os.getgid()}", f"{os.environ['HOME']}/.kube/config"])
 
