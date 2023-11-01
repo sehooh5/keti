@@ -846,4 +846,4 @@ app.app_context().push()
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='http://123.214.186.244:5231', threaded=True, port=port)
+    app.run(host='123.214.186.244', threaded=True, port=port)
