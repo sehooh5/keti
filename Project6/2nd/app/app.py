@@ -839,7 +839,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # SECRET_KEY
 app.config['SECRET_KEY'] = 'jqiowejrojzxcovnklqnweiorjqwoijroi'
 
-print("여기!!")
+print("여기!!!!")
 db.init_app(app)
 db.app = app
 db.create_all()
