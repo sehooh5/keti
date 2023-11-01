@@ -70,7 +70,7 @@ API_URL = "http://123.214.186.244:4882"
 # IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
-port = "5000"
+port = "5231"
 
 # os.environ['OPEN_WINDOW'] = "NO"
 
@@ -841,7 +841,8 @@ app.config['SECRET_KEY'] = 'jqiowejrojzxcovnklqnweiorjqwoijroi'
 
 print("여기!!!!")
 db.init_app(app)
-db.app = app
+app.app_context().push()
+# db.app = app
 db.create_all()
 
 if __name__ == '__main__':
