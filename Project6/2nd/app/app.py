@@ -187,8 +187,14 @@ def add_newEdgeCluster():
 #     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     subprocess.run(["mkdir", "-p", f"{os.environ['HOME']}/.kube"])
-    copy_command = f"yes | sudo cp -i /etc/kubernetes/admin.conf {os.environ['HOME']}/.kube/config"
-    subprocess.run(copy_command, shell=True)
+    command = ["sudo", "cp", "-i", "/etc/kubernetes/admin.conf", f"{os.environ['HOME']}/.kube/config"]
+    # subprocess로 명령 실행
+    try:
+        subprocess.run(command, input=b'y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        print("명령어 실행 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"오류 발생: {e.returncode}, {e.stderr}")
+
     subprocess.run(["sudo", "chown", f"{os.getuid()}:{os.getgid()}", f"{os.environ['HOME']}/.kube/config"])
 
     print(datetime.datetime.now().strftime(
