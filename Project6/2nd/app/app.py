@@ -140,6 +140,7 @@ def add_newEdgeCluster():
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
+    m_name = res.json()["name"]
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: master server ip: {mip}")
 
@@ -166,8 +167,8 @@ def add_newEdgeCluster():
         res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
 
         wip = res.json()["ip"]
-        host_name = res.json()["host_name"]
-        host_pwd = res.json()["host_pwd"]
+        host_name = res.json()["name"]
+        host_pwd = "keti"
 
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
@@ -225,7 +226,7 @@ def remove_selectedEdgeCluster():
 
     ips.append(res.json()["ip"])
     names.append(res.json()["name"])
-    hnames.append(res.json()["host_name"])
+    hnames.append(res.json()["name"])
     pwds.append(res.json()["host_pwd"])
 
 
@@ -240,8 +241,8 @@ def remove_selectedEdgeCluster():
 
         ips.append(res.json()["ip"])
         names.append(res.json()["name"])
-        hnames.append(res.json()["host_name"])
-        pwds.append(res.json()["host_pwd"])
+        hnames.append(res.json()["name"])
+        pwds.append("keti")
 
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
@@ -432,7 +433,7 @@ def deploy_aiToCluster():
 
     for wid in wlist:
         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
-        host_name = device_info_data.json()["host_name"]
+        host_name = device_info_data.json()["name"]
 
 
 #     if fname.find("prometheus") == 0:
