@@ -183,9 +183,13 @@ def add_newEdgeCluster():
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
 
-    os.system("mkdir -p $HOME/.kube")
-    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+#     os.system("mkdir -p $HOME/.kube")
+#     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+#     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    subprocess.run(["mkdir", "-p", f"{os.environ['HOME']}/.kube"])
+    copy_command = f"yes | sudo cp -i /etc/kubernetes/admin.conf {os.environ['HOME']}/.kube/config"
+    subprocess.run(copy_command, shell=True)
+    subprocess.run(["sudo", "chown", f"{os.getuid()}:{os.getgid()}", f"{os.environ['HOME']}/.kube/config"])
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
