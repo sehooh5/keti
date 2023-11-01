@@ -154,13 +154,9 @@ def add_newEdgeCluster():
 
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(1.0)
     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    time.sleep(1.0)
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(1.0)
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"Send a message [{w_input}] to Worker..")
