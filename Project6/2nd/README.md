@@ -22,13 +22,13 @@
 
   - 이름 : edge-master-01
 
-  - 주소 : 192.168.0.8
+  - 주소 : 192.168.0.14
 
   - k8s 명령어 : 
 
     ```
-    kubeadm join 192.168.0.8:6443 --token ofbhfr.dkpbodowr9x2ojhd \
-    	--discovery-token-ca-cert-hash sha256:dd815e7febe69d2024eccb72524d29ad61ae1737afb5164b4269bd93cc580681
+    kubeadm join 192.168.0.14:6443 --token 3j3fp6.ocl6obtpe1lbju7l \
+    	--discovery-token-ca-cert-hash sha256:84fa33eed337bf7ed84a887e7a11014e42f674146b6fe188fb7c75d194b848ff 
     ```
 
     

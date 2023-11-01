@@ -77,45 +77,45 @@ port = "5231"
 
 @ app.route('/')
 def index():
-    # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
-    nodes = subprocess.check_output(
-        "kubectl get node", shell=True).decode('utf-8')
+#     # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
+#     nodes = subprocess.check_output(
+#         "kubectl get node", shell=True).decode('utf-8')
+#
+#     nodes_split = nodes.split('\n')
+#     len_nodes = len(nodes_split)-1
+#
+#     name_list = nodes_split[1:len_nodes]
+#     names = []
+#     for name in name_list:
+#         name = name.split(' ')[0]
+#         if name.find('master') == -1:
+#             # n = {"nodename": name}
+#             names.append(name)
+#
+#     # 해당 노드이름으로 노드ID 를 찾고, select-cam 의 nodeport 조회
+#     datas = []
+#     res = requests.get(f"{API_URL}/get_edgeList")
+#     list = res.json()['list']
+#     for n in list:
+#         if n.get('name') in names:
+#             nodename = n.get('name')
+#             eid = n.get('id')
+#             wids = db.session.query(Server_SW.wid).filter(
+#                 eid == Server_SW.sid).all()
+#             for wid in wids:
+#                 fname = db.session.query(SW_up.fname).filter(
+#                     SW_up.sid == wid[0]).first()[0]
+#                 if fname == "select-cam":
+#                     sw_id = wid[0]
+#
+#             nodeport = db.session.query(Server_SW.nodeport).filter(
+#                 Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
+#             data = {"nodename": nodename, "nodeport": nodeport}
+#             datas.append(data)
+#
+#     print("전송 데이터 : ", datas)
 
-    nodes_split = nodes.split('\n')
-    len_nodes = len(nodes_split)-1
-
-    name_list = nodes_split[1:len_nodes]
-    names = []
-    for name in name_list:
-        name = name.split(' ')[0]
-        if name.find('master') == -1:
-            # n = {"nodename": name}
-            names.append(name)
-
-    # 해당 노드이름으로 노드ID 를 찾고, select-cam 의 nodeport 조회
-    datas = []
-    res = requests.get(f"{API_URL}/get_edgeList")
-    list = res.json()['list']
-    for n in list:
-        if n.get('name') in names:
-            nodename = n.get('name')
-            eid = n.get('id')
-            wids = db.session.query(Server_SW.wid).filter(
-                eid == Server_SW.sid).all()
-            for wid in wids:
-                fname = db.session.query(SW_up.fname).filter(
-                    SW_up.sid == wid[0]).first()[0]
-                if fname == "select-cam":
-                    sw_id = wid[0]
-
-            nodeport = db.session.query(Server_SW.nodeport).filter(
-                Server_SW.sid == eid, Server_SW.wid == sw_id).first()[0]
-            data = {"nodename": nodename, "nodeport": nodeport}
-            datas.append(data)
-
-    print("전송 데이터 : ", datas)
-
-    return render_template('index.html', list=datas)
+    return "접속 완료"
 
 
 # 2.4.3 신규 엣지 클러스터 추가 (add_newCluster 와 연동)
