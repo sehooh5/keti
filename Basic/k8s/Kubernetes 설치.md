@@ -61,7 +61,7 @@ $ kubectl version
 
 ```bash
 # Master 노드 생성 명령어
-$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.100.5
+$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.14
 
 # 셋업 성공 메시지
 [init] Using Kubernetes version: v1.16.3

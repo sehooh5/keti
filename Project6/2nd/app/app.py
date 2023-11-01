@@ -169,6 +169,7 @@ def add_newEdgeCluster():
         wip = res.json()["ip"]
         host_name = res.json()["name"]
         host_pwd = "keti"
+        print(f"device name : {host_name}, pwd : {host_pwd}")
 
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
@@ -227,7 +228,7 @@ def remove_selectedEdgeCluster():
     ips.append(res.json()["ip"])
     names.append(res.json()["name"])
     hnames.append(res.json()["name"])
-    pwds.append(res.json()["host_pwd"])
+    pwds.append("keti")
 
 
     for w in wlist:
