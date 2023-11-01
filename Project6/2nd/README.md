@@ -31,12 +31,45 @@
     	--discovery-token-ca-cert-hash sha256:84fa33eed337bf7ed84a887e7a11014e42f674146b6fe188fb7c75d194b848ff 
     ```
 
+  - JSON 형태 정보 : 
+
+    ```json
+    {    
+        "name" : “Master01”,
+        "ip" : “192.168.0.14”,
+        "port" : “5000”,
+        "description" : “마스터 서버 1”
+    }
+    ```
+
     
 
 - #### 워커 서버
 
   - 이름 : edge-worker-01
+  
   - 주소 : 192.168.0.9
+  
+  - JSON 형태 정보 : 
+  
+    ```json
+    {    
+        "name" : “EdgeCCTV01”,
+        "type" : 1,
+        "gps" : 
+        {	
+          "latitude" : “37.57”,
+          "longitude" : “126.98”
+        },
+        "address" : “서울시 마포구 상암동 1599”,
+        "ip" : “192.168.0.9”,
+        "isSupportAnnalysis" : “YES”,
+        "url" : “rtsp://root:root@192.168.0.12/axis-media/media.amp”,
+        "description" : “이 CCTV는 상암동에 설치된 엣지 CCTV 임”
+    }
+    ```
+  
+    
 
 
 
@@ -540,5 +573,5 @@
       }
       ```
 
-    - 
+- 실제 사용 가능한 
 
