@@ -512,7 +512,7 @@ def deploy_aiToDevice():
 
     # 디바이스명 불러오기
     device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
-    host_name = device_info_data.json()["host_name"]
+    host_name = device_info_data.json()["name"]
 
 #     if fname.find("prometheus") == 0:
 #
@@ -581,7 +581,7 @@ def remove_deploySwInfo():
     device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    host_name = device_info_data.json()["host_name"]
+    host_name = device_info_data.json()["name"]
 
     # fname 불러오기
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
