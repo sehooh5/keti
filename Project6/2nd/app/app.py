@@ -193,7 +193,7 @@ def add_newEdgeCluster():
         subprocess.run(command, input=b'y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
         print("명령어 실행 성공.")
     except subprocess.CalledProcessError as e:
-        print(f"오류 발생: {e.returncode}, {e.stderr}")
+        print(f"오류 발생")
 
     subprocess.run(["sudo", "chown", f"{os.getuid()}:{os.getgid()}", f"{os.environ['HOME']}/.kube/config"])
 
