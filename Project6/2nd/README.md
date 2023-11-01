@@ -510,4 +510,29 @@
 
 #### 1101
 
-- 연동 계속 진행하고 포트번호 필요한지 확인
+- 연동 계속 진행하고 
+
+- 포트번호 필요한지 확인
+
+  - 서박사님 확인 필요
+
+  - **AI 패키지는 클라이언트 형태로! **
+
+  - **대신 Master 서버에 API 추가해야함** 
+
+    - ```
+      input
+      
+      {
+      	eid : 0x01, # Edge ID
+      	sid : 0xs01, # AI ID
+      	time : 202311011414, # Time
+      	version : 0.01v, # AI version
+      	ainame : WeatherAI, # AI name
+      	class : 3, # AI class
+      	class_prob : 0.7 # AI Probability
+      }
+      ```
+
+    - 
+
