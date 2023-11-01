@@ -573,5 +573,16 @@
       }
       ```
 
-- 실제 사용 가능한 
+- ssh 접속을 위해 모듈을 설치해줘야한다
+
+  ```
+  $ sudo apt-get install openssh-server
+  
+  $ sudo vi /etc/ssh/sshd_config
+  ## 파일에서 22 포트 열어주기
+  
+  $ sudo service ssh status # 스테이터스 확인, start, stop
+  ```
+
+  
 
