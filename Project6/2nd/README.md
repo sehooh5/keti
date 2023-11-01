@@ -516,7 +516,7 @@
 
   - 서박사님 확인 필요
 
-  - **AI 패키지는 클라이언트 형태로! **
+  - **AI 패키지는 클라이언트 형태로,  PORT 없어도됨!!**
 
   - **대신 Master 서버에 API 추가해야함** 
 
@@ -531,6 +531,12 @@
       	ainame : WeatherAI, # AI name
       	class : 3, # AI class
       	class_prob : 0.7 # AI Probability
+      }
+      
+      output
+      {
+      	code : 200
+      	msg : GOOD
       }
       ```
 
