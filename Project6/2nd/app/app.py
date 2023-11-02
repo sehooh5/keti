@@ -117,7 +117,7 @@ def index():
 
     return "접속 완료"
 
-
+import shutil
 # 2.4.3 신규 엣지 클러스터 추가 (add_newCluster 와 연동)
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
@@ -184,18 +184,18 @@ def add_newEdgeCluster():
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
 
     os.system("mkdir -p $HOME/.kube")
-#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    os.system("chmod +x copy_script.sh")
-
-    command = "./copy_script.sh"
-    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-
-    if result.returncode == 0:
-        print("명령어 실행 성공.")
-    else:
-        print(f"오류 발생: {result.returncode}")
-        print(result.stderr)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+
+    source_file = '/etc/kubernetes/admin.conf'
+    destination_file = f'{os.environ["HOME"]}/.kube/config'
+
+    try:
+        shutil.copy2(source_file, destination_file)
+        print("파일 복사 완료.")
+    except Exception as e:
+        print(f"오류 발생: {e}")
+
 
 
     print(datetime.datetime.now().strftime(
