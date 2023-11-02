@@ -212,12 +212,12 @@ def remove_selectedEdgeCluster():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
 
-#     ips = []
-#     names = []
-#     hnames = []
-#     pwds = []
+    ips = []
+    names = []
+    hnames = []
+    pwds = []
 #
-# 
+#
 #     json_data = request.get_json(silent=True)
 #     if json_data == None:
 #         return response.message("0021")
