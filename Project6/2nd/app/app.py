@@ -187,15 +187,27 @@ def add_newEdgeCluster():
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
 #     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
 
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"{os.environ['HOME']}/.kube/config"]
-
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+    # 콘솔 명령어 실행
+    command = ["mkdir", "-p", "$HOME/.kube"]
     try:
-        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-        print("명령어 실행 성공.")
+        subprocess.run(command, check=True, shell=True)
+        print("디렉토리 생성 성공.")
     except subprocess.CalledProcessError as e:
-        print(f"오류 발생: {e}")
+        print(f"디렉토리 생성 중 에러 발생: {e}")
 
+    command = ["cp", "-i", "/etc/kubernetes/admin.conf", "$HOME/.kube/config"]
+    try:
+        subprocess.run(command, input='y\n', check=True, shell=True)
+        print("파일 복사 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"파일 복사 중 에러 발생: {e}")
+
+    command = ["chown", "$(id -u):$(id -g)", "$HOME/.kube/config"]
+    try:
+        subprocess.run(command, check=True, shell=True)
+        print("권한 설정 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"권한 설정 중 에러 발생: {e}")
 
 
     print(datetime.datetime.now().strftime(
