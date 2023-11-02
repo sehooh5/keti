@@ -173,8 +173,8 @@ kubemaster   NotReady   master    4m        v1.18.6
 ## Error message. 1
 Unable to connect to the server: x509: certificate signed by unkown authority~~
 
-# 해결 방법
-export KUBECONFIG=/etc/kubernetes/admin.conf
+# 해결 방법(처음에 마스터 구성할때 메시지)
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config 
 
 
 ## Error message. 2 (자주 뜨는 에러!) 

@@ -584,5 +584,13 @@
   $ sudo service ssh status # 스테이터스 확인, start, stop
   ```
 
-  
+
+
+#### 1102
+
+- 잘 안되는데 `os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")` 이 명령어 부분이 실행은 되는데 적용이 잘 안되고 있음 확인 필요
+  - /etc/kubernetes/admin.conf 
+  - $HOME/.kube/config 이 두 파일이 서로 다름...왜..?
+
+
 

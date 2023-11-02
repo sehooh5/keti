@@ -183,19 +183,9 @@ def add_newEdgeCluster():
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
 
-#     os.system("mkdir -p $HOME/.kube")
-#     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-#     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    subprocess.run(["mkdir", "-p", f"{os.environ['HOME']}/.kube"])
-    command = ["sudo", "cp", "-i", "/etc/kubernetes/admin.conf", f"{os.environ['HOME']}/.kube/config"]
-    # subprocess로 명령 실행
-    try:
-        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-        print("명령어 실행 성공.")
-    except subprocess.CalledProcessError as e:
-        print(f"오류 발생")
-
-    subprocess.run(["sudo", "chown", f"{os.getuid()}:{os.getgid()}", f"{os.environ['HOME']}/.kube/config"])
+    os.system("mkdir -p $HOME/.kube")
+    os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
