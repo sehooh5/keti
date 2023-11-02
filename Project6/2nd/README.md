@@ -589,8 +589,23 @@
 #### 1102
 
 - 잘 안되는데 `os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")` 이 명령어 부분이 실행은 되는데 적용이 잘 안되고 있음 확인 필요
+
   - /etc/kubernetes/admin.conf 
+
   - $HOME/.kube/config 이 두 파일이 서로 다름...왜..?
 
+  - **에러 해결 완료!!!!!!!!!!!!!**
 
+    ```
+    # 적용이 안되는 에러 발생
+    
+    ## copy 되는 $HOME/.kube/config 부분을
+    "echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+    
+    ## 직접적인 주소로 변경해주었더니 잘됨!!!
+    "echo yes | sudo cp -i /etc/kubernetes/admin.conf /home/edge-master-01/.kube/config"
+    
+    ```
+
+    
 

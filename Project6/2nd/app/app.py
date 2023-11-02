@@ -212,52 +212,60 @@ def remove_selectedEdgeCluster():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
 
-    ips = []
-    names = []
-    hnames = []
-    pwds = []
+#     ips = []
+#     names = []
+#     hnames = []
+#     pwds = []
+#
+# 
+#     json_data = request.get_json(silent=True)
+#     if json_data == None:
+#         return response.message("0021")
+#
+#     # 무선엣지 과제에서는 cluster id만 주어지는데 정보 획득해서 진행
+#     cid = json_data['id']
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: master server ID : {cid}")
+#
+#     if cid == None:
+#         return response.message("0015")
+#
+#     res = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+#     if res.json()["code"] != "0000":
+#         return response.message(res.json()["code"])
+#     mid = res.json()["mid"]
+#     wlist = res.json()["wlist"]
+#
+#     res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
+#
+#     ips.append(res.json()["ip"])
+#     names.append(res.json()["name"])
+#     hnames.append(res.json()["name"])
+#     pwds.append("keti")
+#
+#
+#     for w in wlist:
+#         # 필요한 정보 얻기
+#         wid = w["wid"]
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: worker ID : {wid}")
+#         if wid == None:
+#             return response.message("0015")
+#         res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+#
+#         ips.append(res.json()["ip"])
+#         names.append(res.json()["name"])
+#         hnames.append(res.json()["name"])
+#         pwds.append("keti")
 
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    # 무선엣지 과제에서는 cluster id만 주어지는데 정보 획득해서 진행
-    cid = json_data['id']
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: master server ID : {cid}")
-
-    if cid == None:
-        return response.message("0015")
-
-    res = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    mid = res.json()["mid"]
-    wlist = res.json()["wlist"]
-
-    res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
-
-    ips.append(res.json()["ip"])
-    names.append(res.json()["name"])
-    hnames.append(res.json()["name"])
+    ips.append("192.168.0.14")
+    names.append("edge-master-01")
+    hnames.append('edge-master-01')
     pwds.append("keti")
-
-
-    for w in wlist:
-        # 필요한 정보 얻기
-        wid = w["wid"]
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: worker ID : {wid}")
-        if wid == None:
-            return response.message("0015")
-        res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
-
-        ips.append(res.json()["ip"])
-        names.append(res.json()["name"])
-        hnames.append(res.json()["name"])
-        pwds.append("keti")
-
+    ips.append("192.168.0.9")
+    names.append("edge-worker-01")
+    hnames.append('edge-worker-01')
+    pwds.append("keti")
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
         print(datetime.datetime.now().strftime(
