@@ -187,13 +187,13 @@ def add_newEdgeCluster():
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
 #     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
 
-    source_file = '/etc/kubernetes/admin.conf'
-    destination_file = f'{os.environ["HOME"]}/.kube/config'
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"{os.environ['HOME']}/.kube/config"]
 
+    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
     try:
-        shutil.copy2(source_file, destination_file)
-        print("파일 복사 완료.")
-    except Exception as e:
+        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        print("명령어 실행 성공.")
+    except subprocess.CalledProcessError as e:
         print(f"오류 발생: {e}")
 
 
