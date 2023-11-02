@@ -185,7 +185,6 @@ def add_newEdgeCluster():
 
     os.system("mkdir -p $HOME/.kube")
 #     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     os.system("chmod +x copy_script.sh")
 
     command = "./copy_script.sh"
@@ -196,6 +195,8 @@ def add_newEdgeCluster():
     else:
         print(f"오류 발생: {result.returncode}")
         print(result.stderr)
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
