@@ -634,6 +634,8 @@
     - 기존에 배포 테스트 했던 파일 찾아서 해당 리포지터리에서 업로드 하는 것 진행
     - Master 서버에서의 위치 : 
       - /home/edge-master-01/monitoring.zip
+    - 확인 해봐야할 것 : 
+      - args 로 fileUrl 만 있는거로아는데 나는 filename 으로 진행중.. 어떻게할지?
   - AI 삭제 : X
   - AI 배포 - 클러스터 : X
   - AI 배포 - 디바이스 : X

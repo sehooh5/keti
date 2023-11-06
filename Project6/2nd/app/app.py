@@ -76,7 +76,18 @@ port = "5231"
 user_name = os.getlogin()
 print(user_name)
 
-# os.environ['OPEN_WINDOW'] = "NO"
+# file path
+file_path = f"/home/{user_name}/"
+
+#Docker Login 실행
+try:
+    print("Docker login status is Checking...")
+    subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
+except subprocess.CalledProcessError:
+    print("Docker login status : none")
+    # docker login 실행
+    print("Docker login..")
+    os.system("docker login -u sehooh5 -p @Dhtpgh1234")
 
 
 @ app.route('/')
@@ -336,53 +347,63 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
-    zip_ref = zipfile.ZipFile(f"{fname}.zip")
+    zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
     zip_ref.extractall(fname)
     zip_ref.close()
-    dir_path = "/home/edge-master-01/"
-    # VMS 서버로부터 마스터서버로 파일 다운로드
-    if filename.find("zip") != -1:
-        fname = filename[:-4]
-        if "_" in fname:
-            fname = fname.replace("_", "-")
 
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: software name: {fname}")
+    print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
+    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
+    os.system(
+        f"docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
+    print("Docker image building completed!!")
 
-        with open(f"{fname}.zip", 'wb') as edge_ai:
-            data = requests.get(f"{API_URL}/download?filename={filename}")
-            edge_ai.write(data.content)
+    print("Docker image push to Docker hub..")
+    os.system(f"docker push sehooh5/{fname}:{version}")
+    print("Docker image pushing completed!!")
 
-        zip_ref = zipfile.ZipFile(f"{fname}.zip")
-        zip_ref.extractall(fname)
-        zip_ref.close()
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: docker image building...")
-        print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
-        os.system(
-            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
-        print("Docker image building completed!!")
-        # docker login status 확인
-        try:
-            print("Docker login status is Checking...")
-            subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
-        except subprocess.CalledProcessError:
-            print("Docker login status : none")
-            # docker login 실행
-            print("Docker login..")
-            os.system("docker login -u sehooh5 -p @Dhtpgh1234")
-        print("Docker image push to Docker hub..")
-        os.system(f"docker push sehooh5/{fname}:{version}")
-        print("Docker image pushing completed!!")
-    else:
-        fname = filename
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f"{func}: software name: {fname}")
-        with open(filename, 'wb') as file:
-            data = requests.get(f"{API_URL}/download?filename={filename}")
-            file.write(data.content)
+#     # VMS 서버로부터 마스터서버로 파일 다운로드
+#     if filename.find("zip") != -1:
+#         fname = filename[:-4]
+#         if "_" in fname:
+#             fname = fname.replace("_", "-")
+#
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f"{func}: software name: {fname}")
+#
+#         with open(f"{fname}.zip", 'wb') as edge_ai:
+#             data = requests.get(f"{API_URL}/download?filename={filename}")
+#             edge_ai.write(data.content)
+#
+#         zip_ref = zipfile.ZipFile(f"{fname}.zip")
+#         zip_ref.extractall(fname)
+#         zip_ref.close()
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f"{func}: docker image building...")
+#         print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
+#         os.system(
+#             f"docker build -f {fname}/{fname} -t sehooh5/{fname}:{version} .")
+#         print("Docker image building completed!!")
+#         # docker login status 확인
+#         try:
+#             print("Docker login status is Checking...")
+#             subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
+#         except subprocess.CalledProcessError:
+#             print("Docker login status : none")
+#             # docker login 실행
+#             print("Docker login..")
+#             os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+#         print("Docker image push to Docker hub..")
+#         os.system(f"docker push sehooh5/{fname}:{version}")
+#         print("Docker image pushing completed!!")
+#     else:
+#         fname = filename
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f"{func}: software name: {fname}")
+#         with open(filename, 'wb') as file:
+#             data = requests.get(f"{API_URL}/download?filename={filename}")
+#             file.write(data.content)
 
 
     print(datetime.datetime.now().strftime(
@@ -391,7 +412,6 @@ def upload_edgeAi():
     res = jsonify(
         code="0000",
         message="처리 성공",
-        sid=sid
     )
     return res
 
@@ -402,7 +422,7 @@ def remove_uploadedEdgeAi():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: deleting uploaded Software...")
 
-    json_data = request.get_json(silent=True)
+    json_data = request.get_json(silent=True) # AI ID 만 전달됨 id
     if json_data == None:
         return response.message("0021")
 
