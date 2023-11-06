@@ -73,8 +73,8 @@ ip = ips.split(' ')[0]
 port = "5231"
 
 # host name
-host_name = os.uname().nodename
-print(host_name)
+user_name = os.getlogin()
+print(user_name)
 
 # os.environ['OPEN_WINDOW'] = "NO"
 
