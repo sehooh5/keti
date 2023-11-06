@@ -588,11 +588,11 @@
 
 #### 1102
 
-- 잘 안되는데 `os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")` 이 명령어 부분이 실행은 되는데 적용이 잘 안되고 있음 확인 필요
+- ~~잘 안되는데 `os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")` 이 명령어 부분이 실행은 되는데 적용이 잘 안되고 있음 확인 필요~~
 
-  - /etc/kubernetes/admin.conf 
+  - ~~/etc/kubernetes/admin.conf~~ 
 
-  - $HOME/.kube/config 이 두 파일이 서로 다름...왜..?
+  - ~~$HOME/.kube/config 이 두 파일이 서로 다름...왜..?~~
 
   - **에러 해결 완료!!!!!!!!!!!!!**
 
@@ -607,5 +607,23 @@
     
     ```
 
-    
+- 진행 상황 :
+
+  - 클러스터 생성 : O
+  - 클러스터 삭제 : △ 
+    - body 없이 삭제하고 있음
+  - AI 생성, 수정 : X
+  - AI 삭제 : X
+  - AI 배포 - 클러스터 : X
+  - AI 배포 - 디바이스 : X
+
+- 진행 필요 : 
+
+  - AI(=SW)를 업로드하고 배포하는데 서버1(예)와 서버2(세)가 같은 서버에 존재한다는 가정하에 진행해야함
+
+
+
+#### 1106
+
+- 기본 API 서버 잘 켜져있고 해당 내용대로 진행하면 됨
 
