@@ -1,6 +1,6 @@
 
 
-str = "/home/edge-master-01/monitoring.zip".split('/')
+str = "/home/edge-master-01/monitoring.zip".split('/')[-1]
 if str.find("zip") != -1:
     str = str.split('.')[0]
 
