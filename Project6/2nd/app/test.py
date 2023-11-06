@@ -1,5 +1,6 @@
 
 
-str = "/home/edge-master-01/monitoring.zip"
+str = "/home/edge-master-01/monitoring.zip".split('/')
 
-print(str.split('/'))
+
+print(str[-1])
