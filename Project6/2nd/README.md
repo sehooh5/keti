@@ -632,6 +632,8 @@
     - body 없이 삭제하고 있음
   - AI 업로드, 수정 : X
     - 기존에 배포 테스트 했던 파일 찾아서 해당 리포지터리에서 업로드 하는 것 진행
+    - Master 서버에서의 위치 : 
+      - /home/edge-master-01/monitoring.zip
   - AI 삭제 : X
   - AI 배포 - 클러스터 : X
   - AI 배포 - 디바이스 : X

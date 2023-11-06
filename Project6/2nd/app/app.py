@@ -72,6 +72,10 @@ ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
 port = "5231"
 
+# host name
+host_name = os.uname().nodename
+print(host_name)
+
 # os.environ['OPEN_WINDOW'] = "NO"
 
 
@@ -317,6 +321,10 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: start uploading a new software")
     json_data = request.get_json(silent=True)
+#     {
+#     "filename": "monitoring.zip",
+#     "version": "0.2301"
+#     }
 
     if json_data == None:
         return response.message("0021")
@@ -324,6 +332,14 @@ def upload_edgeAi():
     filename = json_data['filename']
     version = json_data['version']
 
+    fname = filename[:-4]
+    print(datetime.datetime.now().strftime(
+    "%c")[:-4], f"{func}: software name: {fname}")
+
+    zip_ref = zipfile.ZipFile(f"{fname}.zip")
+    zip_ref.extractall(fname)
+    zip_ref.close()
+    dir_path = "/home/edge-master-01/"
     # VMS 서버로부터 마스터서버로 파일 다운로드
     if filename.find("zip") != -1:
         fname = filename[:-4]
@@ -332,6 +348,7 @@ def upload_edgeAi():
 
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: software name: {fname}")
+
         with open(f"{fname}.zip", 'wb') as edge_ai:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             edge_ai.write(data.content)
