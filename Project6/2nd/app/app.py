@@ -340,7 +340,9 @@ def upload_edgeAi():
     if json_data == None:
         return response.message("0021")
 
-    filename = json_data['filename']
+    fileUrl = res.json()["fileUrl"]
+    filename = fileUrl.split('/')[-1]
+#     filename = json_data['filename']
     version = json_data['version']
 
     fname = filename[:-4]
@@ -431,11 +433,12 @@ def remove_uploadedEdgeAi():
     res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
+
+    # json 응답으로부터 fname 추출
     fileUrl = res.json()["fileUrl"]
-    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
-    print(fileUrl)
-    fname = fileURL
-    ############################################
+    filename = fileUrl.split('/')[-1]
+    if fileUrl.find("zip") != -1:
+        fname = filename.split('.')[0]
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software ID : {id} - software name : {fname}")
@@ -476,10 +479,13 @@ def deploy_aiToCluster():
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
+
+    # json 응답으로부터 fname 추출
     fileUrl = ai_info_data.json()["fileUrl"]
-    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
-    fname = fileURL
-    #######################################################
+    filename = fileUrl.split('/')[-1]
+    if fileUrl.find("zip") != -1:
+        fname = filename.split('.')[0]
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
@@ -562,41 +568,19 @@ def deploy_aiToDevice():
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
+
+    # json 응답으로부터 fname 추출
     fileUrl = ai_info_data.json()["fileUrl"]
-    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
-    fname = fileURL
-    #######################################################
+    filename = fileUrl.split('/')[-1]
+    if fileUrl.find("zip") != -1:
+        fname = filename.split('.')[0]
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
     # 디바이스명 불러오기
     device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
     host_name = device_info_data.json()["name"]
-
-#     if fname.find("prometheus") == 0:
-#
-#         port = "8080"
-#         target_port = "9090"
-#         node_port = "30005"
-#         # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
-#         ns.select(fname, node_name)
-#         mm.namespace()
-#         mm.prometheus(fname)
-#         s = Server_SW(sid=sid, wid=wid, serviceport=port,
-#                       nodeport=node_port, targetport=target_port)
-#         db.session.add(s)
-#         db.session.commit()
-#         print("Deploy Completed!!")
-#
-#         return response.message("0000")
-#
-#     # select_cam 앱의 타겟포트 지정
-#     elif fname == "select-cam":
-#         target_port = "5050"
-#     elif fname == "edge-rtsp-sw":
-#         target_port = "5060"
-#     elif fname == "video-streaming":
-#         target_port = "5058"
 
         # deployment 파일 생성 ### port 지정해줘야하는지 알아야됨
 

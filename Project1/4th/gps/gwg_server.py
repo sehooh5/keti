@@ -208,5 +208,5 @@ def get_gwg():
     return j_data
 
 
-app.run(host="123.214.186.162",port=port)
-
+# app.run(host="123.214.186.162",port=port)
+app.run(host="192.168.0.54",port=port)
