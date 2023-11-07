@@ -1785,8 +1785,29 @@
   - 모니터 1대
     -  파워 1 / HDMI 2개 정도
 
-- 재전송 서버 주소 : 
+- 영상, GPS 전송 : 
 
-  - ```
-    192.168.0.54
+  - 서버 주소 : 
+
     ```
+    	# 재전송 서버
+    192.168.0.54
+    
+    # 서버 1
+    192.168.0.123
+    
+    # 서버 2 
+    192.168.0.124
+    ```
+
+- 실행 순서 : 
+
+  - 재전송 서버 프로그램 2개 실행
+    - `/바탕화면/git/keti/Project1/4th/GPSDataCast/` 에서 `python3 gps_saved_edge.py` 실행
+    - `/바탕화면/git/keti/Project1/4th/GPSDataCast/` 에서 `python3 gpsdatacast_Edge.py` 실행
+  - 각 영상 서버에서 프로그램 1개씩 실행
+    - `/keti/Project1/4th/GPSDataCast/`에서 `python3 gpsdatacast_parsed.py` 실행
+    - 실행 후 3개, 4개 씩 전송
+  - 재전송 서버 프로그램에서 모두 재전송 시작
+  - 재전송 영상 주소 : 
+    - rtsp://192.168.0.54:800**1(-7)**/videoMain
