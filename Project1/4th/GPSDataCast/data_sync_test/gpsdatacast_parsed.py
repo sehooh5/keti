@@ -339,7 +339,7 @@ class App(QWidget):
 
     def start_process(self, num):
         self.running = True
-
+        print("num 체크 : ", num)
         # GPS 데이터 전송을 위한 스레드 시작
         self.gps_thread = GPSThread(num)
 #         self.gps_thread.data_ready.connect(self.send_gps_data)
