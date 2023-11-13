@@ -183,7 +183,7 @@ class App(QWidget):
         self.left = 10
         self.top = 10
         self.width = 450
-        self.height = 450
+        self.height = 480
         self.process1_thread = None
         self.process2_thread = None
         self.process3_thread = None
@@ -353,7 +353,8 @@ class App(QWidget):
         if process_thread is None or not process_thread.isRunning():
         ##### 이 부분을 나중에 08.avi 파일이 생기면 다시 바꿔줘야함
             if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 process_thread = subprocess.Popen(command, shell=True)
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
@@ -362,8 +363,9 @@ class App(QWidget):
 
             else:
 # 기존 무선 IP 주소 사용
-#             command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
+#             command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 process_thread = subprocess.Popen(command, shell=True)
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")

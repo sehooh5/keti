@@ -42,8 +42,8 @@ class App(QWidget):
         self.title = 'Blackbox & GPS with Gyro'
         self.left = 10
         self.top = 10
-        self.width = 500
-        self.height = 500
+        self.width = 450
+        self.height = 480
         self.process1_thread = None
         self.process2_thread = None
         self.process3_thread = None
