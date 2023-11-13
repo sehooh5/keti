@@ -16,6 +16,8 @@ bp04 = None
 bp05 = None
 bp06 = None
 bp07 = None
+bp08 = None
+
 
 @app.route('/')
 def index():
@@ -50,7 +52,7 @@ def gwg_temp():
 
 @app.route('/gwg_temp2', methods=['POST'])
 def gwg_temp2():
-    global bp01, bp02, bp03, bp04, bp05, bp06, bp07
+    global bp01, bp02, bp03, bp04, bp05, bp06, bp07, bp08
 
     temp_data = json.loads(request.get_json(silent=True))
 
@@ -70,12 +72,14 @@ def gwg_temp2():
         bp06 = temp_data
     elif bid == 'bb07':
         bp07 = temp_data
+    elif bid == 'bb08': # 5G CCTV 추가
+        bp08 = temp_data
 
     return temp_data
 
 @app.route('/get_gps_rdata', methods=['GET'])
 def get_gps_rdata():
-    global bb01, bb02, bb03, bb04, bb05, bb06, bb07
+    global bb01, bb02, bb03, bb04, bb05, bb06, bb07, bb08
 
     try:
         bid = request.args['bid']
@@ -114,6 +118,11 @@ def get_gps_rdata():
                 return json.dumps(bb07)
             else:
                 return res.msg("0020")
+        elif bid == 'bb08':
+            if 'bb08' in globals() and bb08:
+                return json.dumps(bb08)
+            else:
+                return res.msg("0020")
         else:
             return res.msg("0020")
     except KeyError:
@@ -123,7 +132,7 @@ def get_gps_rdata():
 
 @app.route('/get_gps_data', methods=['GET'])
 def get_gps_data():
-    global bp01, bp02, bp03, bp04, bp05, bp06, bp07
+    global bp01, bp02, bp03, bp04, bp05, bp06, bp07, bp08
 
     try:
         bid = request.args['bid']
@@ -141,6 +150,8 @@ def get_gps_data():
             return json.dumps(bp06)
         elif bid == 'bb07':
             return json.dumps(bp07)
+        elif bid == 'bb08':
+            return json.dumps(bp08)
         else:
             return res.msg("0020")
     except KeyError:

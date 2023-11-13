@@ -1842,10 +1842,24 @@
 #### 1110
 
 - 출장 
-  - 월요일 출장 신청 올리기
-  - 서버 재시작 관련 문서 작성해서 프린트해서 월요일에 전달 드리기
+  - 월요일 출장 신청 올리기 - 완료
+  - 서버 재시작 관련 문서 작성해서 프린트해서 월요일에 전달 드리기 - 완료
 - 영상-지피에스 싱크 맞추기!! 
   - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
   - /data_sync_test
     - worker : gpsdatacast_parsed.py 실행
     - master : gps_saved_edge.py, gpsdatacast_Edge.py 실행
+
+
+
+#### 1113
+
+- 영상-지피에스 싱크 맞추기!! 
+  - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
+  - /data_sync_test
+    - worker : gpsdatacast_parsed.py 실행
+    - master : gps_saved_edge.py, gpsdatacast_Edge.py 실행
+- 영상 1개 추가, 고정 GPS 주소 갖게하는 1개 채널 늘리기
+  - 오산시청 GPS 주소
+    - Lat: 37.1500 Lon: 127.0775
+

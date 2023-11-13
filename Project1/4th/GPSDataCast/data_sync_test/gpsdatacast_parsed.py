@@ -51,6 +51,50 @@ class GPSThread(QThread):
 
     def run(self):
         self.running = True
+
+##########################################################################
+        # 수정중!! 1113
+        if self.num == '8':
+            while self.running:
+                data = {
+                            "code": "0000",
+                            "message": "처리 성공",
+                            "bid": f"bb0{self.num}",
+                            "data": {
+                                "time": {
+                                    "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+                                },
+                                "acceleration": {
+                                    "ax": "0.0", "ay": "0.0", "az": "0.0"
+                                },
+                                "angular": {
+                                    "wx": "0.0", "wy": "0.0", "wz": "0.0"
+                                },
+                                "angle": {
+                                    "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+                                },
+                                "magnetic": {
+                                    "mx": "0.0", "my": "0.0", "mz": "0.0"
+                                },
+                                "atmospheric": {
+                                     "press": "0.0", "h": "0.0"
+                                },
+                                "gps": {
+                                    "lat": "37.1500", "lon": "127.0775"
+                                },
+                                "groundspeed": {
+                                    "gh": "0.0", "gy": "0.0", "gv": "0.0"
+                                },
+                                "quaternion": {
+                                    "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+                                },
+                                "satellite": {
+                                    "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
+                                }
+                            }
+                        }
+##########################################################################
+
         gps_num = f'gps_0{self.num}'
         conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
         c = conn.cursor()
