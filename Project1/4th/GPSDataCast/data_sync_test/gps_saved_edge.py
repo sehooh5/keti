@@ -160,5 +160,6 @@ def get_gps_data():
     return res.msg("0012")
 
 
-# app.run(host="123.214.186.162",port=port)
-app.run(host="192.168.0.54",port=port)
+# app.run(host="123.214.186.162",port=port) # 기존 무선
+# app.run(host="192.168.0.54",port=port) # 내부망
+app.run(host="192.168.0.14",port=port) # 싱크 테스트
