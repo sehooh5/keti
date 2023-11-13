@@ -19,8 +19,9 @@ import traceback
 
 username = os.getlogin()
 
-# url = "http://123.214.186.162:8089"
-url = "http://192.168.0.54:8089"
+# url = "http://123.214.186.162:8089" # 기존 무선 주소
+# url = "http://192.168.0.54:8089" # 내부망 주소
+url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
@@ -348,22 +349,26 @@ class App(QWidget):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
 
-        ##### 이 부분을 나중에 08.avi 파일이 생기면 다시 바꿔줘야함
-        if num == '8':
-            command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
-            process_thread = subprocess.Popen(command, shell=True)
-            setattr(self, f"process{num}_thread", process_thread)
-            status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTP 전송중')
-        ###############
+
 
         if process_thread is None or not process_thread.isRunning():
+        ##### 이 부분을 나중에 08.avi 파일이 생기면 다시 바꿔줘야함
+            if num == '8':
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
+                process_thread = subprocess.Popen(command, shell=True)
+                setattr(self, f"process{num}_thread", process_thread)
+                status_label = getattr(self, f"status{num}")
+                status_label.setText(f'blackbox_0{num} RTP 전송중')
+        ###############
+
+            else:
+# 기존 무선 IP 주소 사용
 #             command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
-            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
-            process_thread = subprocess.Popen(command, shell=True)
-            setattr(self, f"process{num}_thread", process_thread)
-            status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTP 전송중')
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
+                process_thread = subprocess.Popen(command, shell=True)
+                setattr(self, f"process{num}_thread", process_thread)
+                status_label = getattr(self, f"status{num}")
+                status_label.setText(f'blackbox_0{num} RTP 전송중')
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
