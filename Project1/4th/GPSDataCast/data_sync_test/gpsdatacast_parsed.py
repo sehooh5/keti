@@ -55,7 +55,7 @@ class GPSThread(QThread):
 
 ##########################################################################
         # 수정중!! 1113
-        if self.num == '8':
+        if self.num == 8:
             while self.running:
                 data = {
                             "code": "0000",
@@ -339,7 +339,6 @@ class App(QWidget):
 
     def start_process(self, num):
         self.running = True
-        print("num 체크 : ", num)
         # GPS 데이터 전송을 위한 스레드 시작
         self.gps_thread = GPSThread(num)
 #         self.gps_thread.data_ready.connect(self.send_gps_data)
@@ -353,7 +352,7 @@ class App(QWidget):
 
         if process_thread is None or not process_thread.isRunning():
         ##### 이 부분을 나중에 08.avi 파일이 생기면 다시 바꿔줘야함
-            if num == '8':
+            if num == 8:
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
                 process_thread = subprocess.Popen(command, shell=True)
                 setattr(self, f"process{num}_thread", process_thread)
