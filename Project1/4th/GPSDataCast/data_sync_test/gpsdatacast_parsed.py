@@ -99,6 +99,7 @@ class GPSThread(QThread):
                 time.sleep(0.5)
 ##########################################################################
         else:
+            print("print num : ", self.num, " 여기로 들어옴")
             gps_num = f'gps_0{self.num}'
             conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
             c = conn.cursor()
@@ -352,24 +353,24 @@ class App(QWidget):
 
         if process_thread is None or not process_thread.isRunning():
         ##### 이 부분을 나중에 08.avi 파일이 생기면 다시 바꿔줘야함
-            if num == 8:
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                process_thread = subprocess.Popen(command, shell=True)
-                setattr(self, f"process{num}_thread", process_thread)
-                status_label = getattr(self, f"status{num}")
-                status_label.setText(f'blackbox_0{num} RTP 전송중')
-        ###############
-
-            else:
+#             if num == 8:
+# #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_07.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+#                 process_thread = subprocess.Popen(command, shell=True)
+#                 setattr(self, f"process{num}_thread", process_thread)
+#                 status_label = getattr(self, f"status{num}")
+#                 status_label.setText(f'blackbox_0{num} RTP 전송중')
+#         ###############
+#
+#             else:
 # 기존 무선 IP 주소 사용
 #             command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                process_thread = subprocess.Popen(command, shell=True)
-                setattr(self, f"process{num}_thread", process_thread)
-                status_label = getattr(self, f"status{num}")
-                status_label.setText(f'blackbox_0{num} RTP 전송중')
+            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+            process_thread = subprocess.Popen(command, shell=True)
+            setattr(self, f"process{num}_thread", process_thread)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTP 전송중')
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
