@@ -1881,7 +1881,9 @@
 #### 1114
 
 - 진행중
+
   - 영상-지피에스 싱크 맞추기!! 
+
     - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
     - /data_sync_test
       - worker : gpsdatacast_parsed.py 실행
@@ -1891,14 +1893,28 @@
          - 영상이 끝나면 신호 발생시킬 수 있는지 먼저 확인
          - 해당 신호가 오면 GPS 쓰레드 재시작 하도록 진행
       2. ~~GPS 데이터가 끝나면 영상을 다시 실행해주기~~
+
   - GPS 오산시 고정 영상 찍기
-    - GPS  값은 의미없는 값으로 진행
-  - 고정 영상 MP4 -> avi 로 변환하기
-    - 
 
+    - GPS  값은 의미없는 값으로 진행 
 
+      - **지금 프린트 영상 떠야함 !!! 정지영상이라도** - 완료
 
-점심 후
+      - ```
+        print("\n\n\n\n\n         lat: 37.1487  lon: 127.0773 \n\n\n\n\n")
+        ```
+
+    - Lat: 37.1487 Lon: 127.0773
+
+  - ~~고정 영상 MP4 -> avi 로 변환하기**~~**
+
+- **지금 사용중인 파일**
+
+  - **gpsdatacast_parsed.py, gps_saved_edge.py, gpsdatacast_Edge.py**
+
+- 이전 파일
+
+  - gpsdatacast_parsed_v01.py, gps_saved_edge_v01.py, gpsdatacast_Edge_v01.py
 
 **짧은 영상 구해서 08 번 파일로 저장 후 신호 발생 하는지 확인하기!!**
 

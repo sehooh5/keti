@@ -43,7 +43,7 @@ class App(QWidget):
         self.left = 10
         self.top = 10
         self.width = 450
-        self.height = 480
+        self.height = 450
         self.process1_thread = None
         self.process2_thread = None
         self.process3_thread = None
@@ -51,7 +51,7 @@ class App(QWidget):
         self.process5_thread = None
         self.process6_thread = None
         self.process7_thread = None
-        self.process8_thread = None
+
         self.initUI()
 
     def initUI(self):
@@ -174,22 +174,6 @@ class App(QWidget):
         stop7.move(305, 350)
         stop7.clicked.connect(lambda: self.stop_process(7))
 
-        # 8번 영상 전송
-        self.status8 = QLabel('blackbox_08 재전송 멈춤', self)
-        self.status8.move(50, 400)
-
-        # 8번 영상 RTSP 전송 버튼
-        start8 = QPushButton('전송', self)
-        start8.setToolTip('blackbox_08 RTSP 전송')
-        start8.move(220, 400)
-        start8.clicked.connect(lambda: self.start_process(8))
-
-        # 8번 영상 멈춤 버튼
-        stop8 = QPushButton('멈춤', self)
-        stop8.setToolTip('blackbox_08 재전송 멈춤')
-        stop8.move(305, 400)
-        stop8.clicked.connect(lambda: self.stop_process(8))
-
         self.show()
 
 
@@ -197,9 +181,8 @@ class App(QWidget):
         print(f"blackbox_0{num} RTSP 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is None or not process_thread.isRunning():
-#             command = f'cvlc -vvv rtp://123.214.186.162:500{num} --sout="#rtp{{sdp=rtsp://123.214.186.162:800{num}/videoMain}}" --no-sout-all --sout-keep' # 외부망
-#             command = f'cvlc -vvv rtp://192.168.0.54:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.54:800{num}/videoMain}}" --no-sout-all --sout-keep' # 내부망
-            command = f'cvlc -vvv rtp://192.168.0.54:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.54:800{num}/videoMain}}" --no-sout-all --sout-keep' # 싱크 테스트
+#             command = f'cvlc -vvv rtp://123.214.186.162:500{num} --sout="#rtp{{sdp=rtsp://123.214.186.162:800{num}/videoMain}}" --no-sout-all --sout-keep'
+            command = f'cvlc -vvv rtp://192.168.0.54:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.54:800{num}/videoMain}}" --no-sout-all --sout-keep'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")

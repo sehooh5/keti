@@ -19,9 +19,8 @@ import traceback
 
 username = os.getlogin()
 
-# url = "http://123.214.186.162:8089" # 기존 무선 주소
-# url = "http://192.168.0.54:8089" # 내부망 주소
-url = "http://192.168.0.54:8089" # 싱크 및 영상 추가 주소
+# url = "http://123.214.186.162:8089"
+url = "http://192.168.0.54:8089"
 
 class ProcessThread(QThread):
     def __init__(self, cmd):
@@ -52,131 +51,79 @@ class GPSThread(QThread):
 
     def run(self):
         self.running = True
+        gps_num = f'gps_0{self.num}'
+        conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
+        c = conn.cursor()
 
-##########################################################################
-        # 수정중!! 1113
-        if self.num == 8:
-            while self.running:
-                data = {
+        c.execute(f"SELECT COUNT(*) FROM {gps_num}")
+        for row in c:
+            cnt = row[0]
+
+        while self.running:
+            for cnt in range(1, cnt + 1):
+                if not self.running:  # 추가: self.running이 False인 경우 루프 종료
+                    break
+
+                if cnt == 1:
+                    print("데이터 초기화")
+                c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
+                for row in c:
+                    try:
+#                         yy, mm, dd, hh, mi, ss, ms = row[0], row[1], row[2], row[3], row[4], row[5], row[6]
+#                         ax, ay, az, wx, wy, wz = row[7], row[8], row[9], row[10], row[11], row[12]
+#                         roll, pitch, yaw, mx, my, mz = row[13], row[14], row[15], row[16], row[17], row[18]
+#                         press, h, lat, lon, gh, gy, gv = row[19], row[20], row[21], row[22], row[23], row[24], row[25]
+#                         q0, q1, q2, q3, snum, pdop, hdop, vdop = row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33]
+
+                        data = {
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": f"bb0{self.num}",
                             "data": {
                                 "time": {
-                                    "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+                                    "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6]
                                 },
                                 "acceleration": {
-                                    "ax": "0.0", "ay": "0.0", "az": "0.0"
+                                    "ax": row[7], "ay": row[8], "az": row[9]
                                 },
                                 "angular": {
-                                    "wx": "0.0", "wy": "0.0", "wz": "0.0"
+                                    "wx": row[10], "wy": row[11], "wz": row[12]
                                 },
                                 "angle": {
-                                    "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+                                    "roll": row[13], "pitch": row[14], "yaw": row[15]
                                 },
                                 "magnetic": {
-                                    "mx": "0.0", "my": "0.0", "mz": "0.0"
+                                    "mx": row[16], "my": row[17], "mz": row[18]
                                 },
                                 "atmospheric": {
-                                     "press": "0.0", "h": "0.0"
+                                     "press": row[19], "h": row[20]
                                 },
                                 "gps": {
-                                    "lat": "37.1487", "lon": "127.0773"
+                                    "lat": row[21], "lon": row[22]
                                 },
                                 "groundspeed": {
-                                    "gh": "0.0", "gy": "0.0", "gv": "0.0"
+                                    "gh": row[23], "gy": row[24], "gv": row[25]
                                 },
                                 "quaternion": {
-                                    "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+                                    "q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]
                                 },
                                 "satellite": {
-                                    "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
+                                    "snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]
                                 }
                             }
                         }
-                json_data = json.dumps(data)
-                response = requests.post(f'{url}/gwg_temp2', json=json_data)
+                        json_data = json.dumps(data)
+                        # JSON 데이터를 서버로 전송
+                        response = requests.post(f'{url}/gwg_temp2', json=json_data)
+
+                    except Exception as e:
+                        print("JSON 데이터 전송 중 오류 발생")
+                        traceback.print_exc()
+
                 time.sleep(0.5)
-##########################################################################
-        else:
-            print("print num : ", self.num, " 여기로 들어옴")
-            gps_num = f'gps_0{self.num}'
-            conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
-            c = conn.cursor()
-
-            c.execute(f"SELECT COUNT(*) FROM {gps_num}")
-            for row in c:
-                cnt = row[0]
-
-            while self.running:
-                for cnt in range(1, cnt + 1):
-                    if not self.running:  # 추가: self.running이 False인 경우 루프 종료
-                        break
-
-                    if cnt == 1:
-                        print("데이터 초기화")
-                    c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
-                    for row in c:
-                        try:
-    #                         yy, mm, dd, hh, mi, ss, ms = row[0], row[1], row[2], row[3], row[4], row[5], row[6]
-    #                         ax, ay, az, wx, wy, wz = row[7], row[8], row[9], row[10], row[11], row[12]
-    #                         roll, pitch, yaw, mx, my, mz = row[13], row[14], row[15], row[16], row[17], row[18]
-    #                         press, h, lat, lon, gh, gy, gv = row[19], row[20], row[21], row[22], row[23], row[24], row[25]
-    #                         q0, q1, q2, q3, snum, pdop, hdop, vdop = row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33]
-
-                            data = {
-                                "code": "0000",
-                                "message": "처리 성공",
-                                "bid": f"bb0{self.num}",
-                                "data": {
-                                    "time": {
-                                        "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6]
-                                    },
-                                    "acceleration": {
-                                        "ax": row[7], "ay": row[8], "az": row[9]
-                                    },
-                                    "angular": {
-                                        "wx": row[10], "wy": row[11], "wz": row[12]
-                                    },
-                                    "angle": {
-                                        "roll": row[13], "pitch": row[14], "yaw": row[15]
-                                    },
-                                    "magnetic": {
-                                        "mx": row[16], "my": row[17], "mz": row[18]
-                                    },
-                                    "atmospheric": {
-                                         "press": row[19], "h": row[20]
-                                    },
-                                    "gps": {
-                                        "lat": row[21], "lon": row[22]
-                                    },
-                                    "groundspeed": {
-                                        "gh": row[23], "gy": row[24], "gv": row[25]
-                                    },
-                                    "quaternion": {
-                                        "q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]
-                                    },
-                                    "satellite": {
-                                        "snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]
-                                    }
-                                }
-                            }
-                            json_data = json.dumps(data)
-                            # JSON 데이터를 서버로 전송
-                            response = requests.post(f'{url}/gwg_temp2', json=json_data)
-
-                        except Exception as e:
-                            print("JSON 데이터 전송 중 오류 발생")
-                            traceback.print_exc()
-
-                    time.sleep(0.5)
 
     def stop(self):
         self.running = False
-
-# 싱크 테스트 추가내용
-    def restart(self):
-        self.start()
 
 
 class App(QWidget):
@@ -188,7 +135,7 @@ class App(QWidget):
         self.left = 10
         self.top = 10
         self.width = 450
-        self.height = 480
+        self.height = 450
         self.process1_thread = None
         self.process2_thread = None
         self.process3_thread = None
@@ -196,7 +143,6 @@ class App(QWidget):
         self.process5_thread = None
         self.process6_thread = None
         self.process7_thread = None
-        self.process8_thread = None
         self.gps_thread = None
 
         self.initUI()
@@ -322,28 +268,13 @@ class App(QWidget):
         stop7.move(305, 350)
         stop7.clicked.connect(lambda: self.stop_process(7))
 
-        # 8번 영상 전송
-        self.status8 = QLabel('blackbox_08 전송 멈춤', self)
-        self.status8.move(50, 400)
-
-        # 8번 영상 RTP 전송 버튼
-        start8 = QPushButton('전송', self)
-        start8.setToolTip('blackbox_08 RTP 전송')
-        start8.move(220, 400)
-        start8.clicked.connect(lambda: self.start_process(8))
-
-        # 8번 영상 멈춤 버튼
-        stop8 = QPushButton('멈춤', self)
-        stop8.setToolTip('blackbox_08 RTP 전송 멈춤')
-        stop8.move(305, 400)
-        stop8.clicked.connect(lambda: self.stop_process(8))
-
         self.show()
 
 
 
     def start_process(self, num):
         self.running = True
+
         # GPS 데이터 전송을 위한 스레드 시작
         self.gps_thread = GPSThread(num)
 #         self.gps_thread.data_ready.connect(self.send_gps_data)
@@ -352,24 +283,13 @@ class App(QWidget):
         # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
-
         if process_thread is None or not process_thread.isRunning():
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
-            if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-            else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+#             command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all'
+            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all'
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
-
-            # 싱크 테스트 // vlc 영상 재시작 신호 확인
-            def monitor_process():
-                process_thread.wait()  # 프로세스 종료까지 대기
-                print("VLC 영상 재상 재시작!!!")
-
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
