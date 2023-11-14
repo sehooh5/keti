@@ -1857,20 +1857,50 @@
 
 #### 1113
 
-- 영상-지피에스 싱크 맞추기!! 
-  - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
-  - /data_sync_test
-    - worker : gpsdatacast_parsed.py 실행
-    - master : gps_saved_edge.py, gpsdatacast_Edge.py 실행
-- 영상 1개 추가, 고정 GPS 주소 갖게하는 1개 채널 늘리기
-  - 오산시청 GPS 주소
-    - Lat: 37.1500 Lon: 127.0775
-  - 일단 07번 영상으로 진행하는데 나중에 사용하는 5G CCTV 영상 파일명을 지정해줘야함 : 
-    - blackbox_08.avi
-- 기존 영상 8개 동시에 스트리밍되는 영상 편집 프로그램 사용예정
-  - 서버 1대 필요 - NUC
-  - 윈도우에서만 되는지 확인 필요
-  - IP : 192.168.0.97
-- 공유기 1대 설정 
-  - 포트포워딩 : 192.168.0.54:8089 열어둠
+- 진행중
+  - 영상-지피에스 싱크 맞추기!! 
+    - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
+    - /data_sync_test
+      - worker : gpsdatacast_parsed.py 실행
+      - master : gps_saved_edge.py, gpsdatacast_Edge.py 실행
+- 완료 : 
+  - 영상 1개 추가, 고정 GPS 주소 갖게하는 1개 채널 늘리기
+    - 오산시청 GPS 주소
+      - Lat: 37.1500 Lon: 127.0775
+    - 일단 07번 영상으로 진행하는데 나중에 사용하는 5G CCTV 영상 파일명을 지정해줘야함 : 
+      - blackbox_08.avi
+  - 기존 영상 8개 동시에 스트리밍되는 영상 편집 프로그램 사용예정
+    - 서버 1대 필요 - NUC
+    - 윈도우에서만 되는지 확인 필요
+    - IP : 192.168.0.97
+  - 공유기 1대 설정 
+    - 포트포워딩 : 192.168.0.54:8089 열어둠
 
+
+
+#### 1114
+
+- 진행중
+  - 영상-지피에스 싱크 맞추기!! 
+    - edge-worker-01 -> edge-master-01 로 rtp 보내는거로 싱크 맞추기 진행
+    - /data_sync_test
+      - worker : gpsdatacast_parsed.py 실행
+      - master : gps_saved_edge.py, gpsdatacast_Edge.py 실행
+    - 방법 : 
+      1. 영상이 마치면 어떤 이벤트가 발생해서 GPS 를 처음으로 돌리기
+         - 영상이 끝나면 신호 발생시킬 수 있는지 먼저 확인
+         - 해당 신호가 오면 GPS 쓰레드 재시작 하도록 진행
+      2. ~~GPS 데이터가 끝나면 영상을 다시 실행해주기~~
+
+
+
+점심 후
+
+**짧은 영상 구해서 08 번 파일로 저장 후 신호 발생 하는지 확인하기!!**
+
+
+
+#### 1115
+
+- 출장시 확인할 것
+  - 인텔리빅스 영상 avi 파일일것 - 아니면 변환 필요
