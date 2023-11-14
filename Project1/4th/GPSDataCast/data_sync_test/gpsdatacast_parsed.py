@@ -81,7 +81,7 @@ class GPSThread(QThread):
                                      "press": "0.0", "h": "0.0"
                                 },
                                 "gps": {
-                                    "lat": "37.1500", "lon": "127.0775"
+                                    "lat": "37.1487", "lon": "127.0773"
                                 },
                                 "groundspeed": {
                                     "gh": "0.0", "gy": "0.0", "gv": "0.0"
@@ -356,7 +356,10 @@ class App(QWidget):
         if process_thread is None or not process_thread.isRunning():
 #            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
 #            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
-            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+            if num == 8:
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+            else:
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
