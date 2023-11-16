@@ -441,6 +441,7 @@ def remove_uploadedEdgeAi():
 #         fname = filename.split('.')[0]
 
     filename = res.json()['name']
+    version = res.json()['version']
     fname = filename[:-4]
 
     print(datetime.datetime.now().strftime(
@@ -449,7 +450,7 @@ def remove_uploadedEdgeAi():
     # Docker image delete
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image {fname} deleting...")
-    os.system(f"docker rmi -f sehooh5/{fname}")
+    os.system(f"docker rmi -f sehooh5/{fname}:{version}")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
 
