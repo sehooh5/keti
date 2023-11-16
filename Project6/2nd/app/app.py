@@ -340,9 +340,9 @@ def upload_edgeAi():
     if json_data == None:
         return response.message("0021")
 
-    fileUrl = res.json()["fileUrl"]
-    filename = fileUrl.split('/')[-1]
-#     filename = json_data['filename']
+#     fileUrl = res.json()["fileUrl"]
+#     filename = fileUrl.split('/')[-1]
+    filename = json_data['filename']
     version = json_data['version']
 
     fname = filename[:-4]
