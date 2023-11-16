@@ -440,7 +440,7 @@ def remove_uploadedEdgeAi():
 #     if fileUrl.find("zip") != -1:
 #         fname = filename.split('.')[0]
 
-    filename = json_data['filename']
+    filename = res.json()['name']
     fname = filename[:-4]
 
     print(datetime.datetime.now().strftime(
@@ -484,10 +484,13 @@ def deploy_aiToCluster():
         return response.message(ai_info_data.json()["code"])
 
     # json 응답으로부터 fname 추출
-    fileUrl = ai_info_data.json()["fileUrl"]
-    filename = fileUrl.split('/')[-1]
-    if fileUrl.find("zip") != -1:
-        fname = filename.split('.')[0]
+#     fileUrl = ai_info_data.json()["fileUrl"]
+#     filename = fileUrl.split('/')[-1]
+#     if fileUrl.find("zip") != -1:
+#         fname = filename.split('.')[0]
+
+    filename = ai_info_data.json()['name']
+    fname = filename[:-4]
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
@@ -573,10 +576,13 @@ def deploy_aiToDevice():
         return response.message(ai_info_data.json()["code"])
 
     # json 응답으로부터 fname 추출
-    fileUrl = ai_info_data.json()["fileUrl"]
-    filename = fileUrl.split('/')[-1]
-    if fileUrl.find("zip") != -1:
-        fname = filename.split('.')[0]
+#     fileUrl = ai_info_data.json()["fileUrl"]
+#     filename = fileUrl.split('/')[-1]
+#     if fileUrl.find("zip") != -1:
+#         fname = filename.split('.')[0]
+
+    filename = ai_info_data.json()['name']
+    fname = filename[:-4]
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
@@ -633,9 +639,13 @@ def remove_deploySwInfo():
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
-    fileUrl = ai_info_data.json()["fileUrl"]
+
+    filename = ai_info_data.json()['name']
+    fname = filename[:-4]
     #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
-    fname = fileURL
+
+#     fileUrl = ai_info_data.json()["fileUrl"]
+#     fname = fileURL
     #######################################################
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
