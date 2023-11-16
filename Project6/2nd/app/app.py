@@ -346,10 +346,12 @@ def upload_edgeAi():
     version = json_data['version']
 
     fname = filename[:-4]
+    os.makedirs(fname, exist_ok=True) # 디렉토리 생성
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
-    print(f"{file_path}/{filename}!!!!!!!!!!!!!!!")
+
     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
+
     zip_ref.extractall(fname)
     zip_ref.close()
 
