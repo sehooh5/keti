@@ -433,7 +433,7 @@ def remove_uploadedEdgeAi():
     res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    print(res.json()["filename"])
+    print(res.json())
     # json 응답으로부터 fname 추출
 #     fileUrl = res.json()["fileUrl"]
 #     filename = fileUrl.split('/')[-1]
