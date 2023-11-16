@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN pip install psutil requests
 
-COPY cpu_mem_test_client.py /app/cpu_mem_test_client.py
+ADD ./monitoring /app/
 
 EXPOSE 6432
 CMD ["python3", "/app/cpu_mem_test_client.py"]
