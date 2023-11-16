@@ -53,8 +53,8 @@ class GPSThread(QThread):
     def run(self):
         self.running = True
 
-##########################################################################
-        # 수정중!! 1113
+
+        # 8번 = 고정형 CCTV
         if self.num == 8:
             while self.running:
                 data = {
@@ -97,7 +97,6 @@ class GPSThread(QThread):
                 json_data = json.dumps(data)
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
-##########################################################################
         else:
             print("print num : ", self.num, " 여기로 들어옴")
             gps_num = f'gps_0{self.num}'
