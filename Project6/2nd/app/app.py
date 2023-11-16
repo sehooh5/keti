@@ -435,10 +435,13 @@ def remove_uploadedEdgeAi():
         return response.message(res.json()["code"])
 
     # json 응답으로부터 fname 추출
-    fileUrl = res.json()["fileUrl"]
-    filename = fileUrl.split('/')[-1]
-    if fileUrl.find("zip") != -1:
-        fname = filename.split('.')[0]
+#     fileUrl = res.json()["fileUrl"]
+#     filename = fileUrl.split('/')[-1]
+#     if fileUrl.find("zip") != -1:
+#         fname = filename.split('.')[0]
+
+    filename = json_data['filename']
+    fname = filename[:-4]
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software ID : {id} - software name : {fname}")
