@@ -21,4 +21,4 @@ def usage():
     return "index"
 
 
-app.run(host="123.214.186.162",port="6432")
+app.run(host="192.168.0.14",port="6432")

@@ -20,7 +20,7 @@ def cpu_mem_sending():
     }
     json_data = json.dumps(data)
 
-    requests.post(f"http://123.214.186.162:6432/usage", json=json_data)
+    requests.post(f"http://192.168.0.14:6432/usage", json=json_data)
 
 while True:
     cpu_mem_sending()
