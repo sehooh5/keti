@@ -332,16 +332,10 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: start uploading a new software")
     json_data = request.get_json(silent=True)
-#     {
-#     "filename": "monitoring.zip",
-#     "version": "0.2301"
-#     }
 
     if json_data == None:
         return response.message("0021")
 
-#     fileUrl = res.json()["fileUrl"]
-#     filename = fileUrl.split('/')[-1]
     filename = json_data['filename']
     version = json_data['version']
 
