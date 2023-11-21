@@ -10,6 +10,7 @@
 
 import subprocess
 import json
+import re
 
 def get_docker_image_tags(image_name):
     # Docker 이미지 정보를 JSON 형식으로 얻기
