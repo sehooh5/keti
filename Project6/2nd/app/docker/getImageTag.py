@@ -29,7 +29,7 @@ def get_docker_image_tags(docker_id, fname):
 # 사용 예제
 docker_id = 'sehooh5'
 fname = 'monitoring'
-tags = get_docker_image_tags(image_name)
+tags = get_docker_image_tags(docker_id, fname)
 
 if tags:
     print(f"Tags for image '{image_name}': {tags}")
