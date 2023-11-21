@@ -476,6 +476,7 @@ def deploy_aiToCluster():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
+    print(f"SID {sid}: , CID : {cid}")
 
     sid = json_data['sid']  # ai 패키지 ID
     cid = json_data['cid']  # Cluster ID
