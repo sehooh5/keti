@@ -16,20 +16,15 @@ def get_docker_image_tags(docker_id, fname):
     matches = pattern.findall(output_text)
 
     # 매칭된 결과 출력
-    print(matches)
+    return matches
 
-    # JSON 문자열을 파이썬 객체로 파싱
-    try:
-        tags = json.loads(result.stdout)
-        return tags
-    except json.JSONDecodeError:
-        print("Failed to decode JSON.")
-        return None
 
 # 사용 예제
 docker_id = 'sehooh5'
 fname = 'monitoring'
-tags = get_docker_image_tags(docker_id, fname)
+tag_list = get_docker_image_tags(docker_id, fname)
+
+print(tag_list)
 
 # if tags:
 #     print(f"Tags for image '{image_name}': {tags}")
