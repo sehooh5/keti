@@ -502,6 +502,7 @@ def deploy_aiToCluster():
 
     # 클러스터명, 디바이스명 불러오기
     cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+    print(cluster_info_data.json(),"!!!!!!!!!!!!!!!!!!!!!")
     if cluster_info_data.json()["code"] != "0000":
         return response.message(cluster_info_data.json()["code"])
 
@@ -509,6 +510,7 @@ def deploy_aiToCluster():
 
     for wid in wlist:
         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+        print(device_info_data.json(),"!!!!!!!!!!!!!!!!!!!!!")
         host_name = device_info_data.json()["name"]
 
 

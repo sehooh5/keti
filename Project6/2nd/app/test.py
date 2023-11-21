@@ -37,11 +37,18 @@
 
 ## get_image_tags() 사용 테스트
 
-from docker import getImageTag as git
-docker_id = 'sehooh5'
-fname = 'monitoring'
-tag_list = git.get_image_tags(docker_id, fname)
+# from docker import getImageTag as git
+# docker_id = 'sehooh5'
+# fname = 'monitoring'
+# tag_list = git.get_image_tags(docker_id, fname)
+#
+# if len(tag_list) >= 1:
+#     for tag in tag_list:
+#         print(f'{docker_id}/{fname}:{tag}')
 
-if len(tag_list) >= 1:
-    for tag in tag_list:
-        print(f'{docker_id}/{fname}:{tag}')
+
+## get_selectedClusterInfo 요청 오류 발생 테스트
+import requests
+res = requests.get("http://123.214.186.244:4880/get_selectedClusterInfo?id=655c1e0f8e3c4787585c6836")
+
+print(res)
