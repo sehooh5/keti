@@ -4,7 +4,7 @@ import subprocess
 import json
 import re
 
-def get_docker_image_tags(docker_id, fname):
+def get_image_tags(docker_id, fname):
     # Docker 이미지 정보 추출
     result = subprocess.run(['docker', 'images'], capture_output=True, text=True)
     output_text = result.stdout
@@ -21,7 +21,7 @@ def get_docker_image_tags(docker_id, fname):
 
 # 사용 예제
 docker_id = 'sehooh5'
-fname = 'monitoring2'
-tag_list = get_docker_image_tags(docker_id, fname)
+fname = 'monitoring'
+tag_list = get_image_tags(docker_id, fname)
 
 print(f"Tag List : {tag_list}")

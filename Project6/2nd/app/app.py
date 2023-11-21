@@ -345,6 +345,7 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
+
     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
     zip_ref.extractall()
     zip_ref.close()
