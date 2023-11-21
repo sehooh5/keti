@@ -476,12 +476,13 @@ def deploy_aiToCluster():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-    print(f"SID {sid}: , CID : {cid}")
+
 
     sid = json_data['sid']  # ai 패키지 ID
     cid = json_data['cid']  # Cluster ID
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
+    print(f"SID {sid}: , CID : {cid}")
 
     # fname 불러오기
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
