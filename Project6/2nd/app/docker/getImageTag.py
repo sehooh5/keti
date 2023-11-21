@@ -1,24 +1,16 @@
-# file path 및 zip 파일에서 fname 추출하는 방법 테스트
-# str = "/home/edge-master-01/monitoring.zip".split('/')[-1]
-# if str.find("zip") != -1:
-#     str = str.split('.')[0]
-#
-# print(str)
-
 
 # AI 수정 부분, docker image tag 추출하는 부분
-
 import subprocess
 import json
 import re
 
-def get_docker_image_tags(image_name):
+def get_docker_image_tags(docker_id, fname):
     # Docker 이미지 정보 추출
     result = subprocess.run(['docker', 'images'], capture_output=True, text=True)
     output_text = result.stdout
 
     # 정규 표현식 패턴 = 해당 이미지의 태그
-    pattern = re.compile(r'sehooh5/monitoring\s+(\d+)\s+')
+    pattern = re.compile(fr'{docker_id}/{fname}\s+(\d+)\s+')
 
     # 매칭된 결과 중 작은값 가져오기
     matches = pattern.findall(output_text)
@@ -35,7 +27,8 @@ def get_docker_image_tags(image_name):
         return None
 
 # 사용 예제
-image_name = 'sehooh5/monitoring'
+docker_id = 'sehooh5'
+fname = 'monitoring'
 tags = get_docker_image_tags(image_name)
 
 if tags:

@@ -80,6 +80,8 @@ print(user_name)
 file_path = f"/home/{user_name}/"
 
 #Docker Login 실행
+# Docker ID
+docker_id = "sehooh5"
 try:
     print("Docker login status is Checking...")
     subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
@@ -87,7 +89,7 @@ except subprocess.CalledProcessError:
     print("Docker login status : none")
     # docker login 실행
     print("Docker login..")
-    os.system("docker login -u sehooh5 -p @Dhtpgh1234")
+    os.system(f"docker login -u {docker_id} -p @Dhtpgh1234")
 
 
 @ app.route('/')
