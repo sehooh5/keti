@@ -31,7 +31,7 @@ docker_id = 'sehooh5'
 fname = 'monitoring'
 tags = get_docker_image_tags(docker_id, fname)
 
-if tags:
-    print(f"Tags for image '{image_name}': {tags}")
-else:
-    print(f"Failed to retrieve tags for image '{image_name}'.")
+# if tags:
+#     print(f"Tags for image '{image_name}': {tags}")
+# else:
+#     print(f"Failed to retrieve tags for image '{image_name}'.")
