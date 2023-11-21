@@ -482,11 +482,9 @@ def deploy_aiToCluster():
     cid = json_data['cid']  # Cluster ID
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
-    print(f"SID {sid}: , CID : {cid}")
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
-    print("Print out ai_info : ", ai_info_data.json())
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
@@ -577,7 +575,7 @@ def deploy_aiToDevice():
         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Device [{did}]....")
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
@@ -639,7 +637,7 @@ def remove_deploySwInfo():
     host_name = device_info_data.json()["name"]
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
