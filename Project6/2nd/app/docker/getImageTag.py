@@ -21,7 +21,7 @@ def get_docker_image_tags(docker_id, fname):
 
 # 사용 예제
 docker_id = 'sehooh5'
-fname = 'monitoring'
+fname = 'monitoring2'
 tag_list = get_docker_image_tags(docker_id, fname)
 
 print(f"Tag List : {tag_list}")
