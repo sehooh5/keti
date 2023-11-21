@@ -245,17 +245,17 @@ def remove_selectedEdgeCluster():
     if cid == None:
         return response.message("0015")
 
-    res = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    mid = res.json()["mid"]
-    wlist = res.json()["wlist"]
+    res_cluster = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+    if res_cluster.json()["code"] != "0000":
+        return response.message(res_cluster.json()["code"])
+    mid = res_cluster.json()["mid"]
+    wlist = res_cluster.json()["wlist"]
 
-    res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
+    res_master = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
 
-    ips.append(res.json()["ip"])
-    names.append(res.json()["name"])
-    hnames.append(res.json()["name"])
+    ips.append(res_master.json()["ip"])
+    names.append(res_master.json()["name"])
+    hnames.append(res_master.json()["name"])
     pwds.append("keti")
 
 
@@ -266,11 +266,11 @@ def remove_selectedEdgeCluster():
             "%c")[:-4], f" {func}: worker ID : {wid}")
         if wid == None:
             return response.message("0015")
-        res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+        res_device = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
 
-        ips.append(res.json()["ip"])
-        names.append(res.json()["name"])
-        hnames.append(res.json()["name"])
+        ips.append(res_device.json()["ip"])
+        names.append(res_device.json()["name"])
+        hnames.append(res_device.json()["name"])
         pwds.append("keti")
 
 #     ips.append("192.168.0.14")
@@ -531,8 +531,7 @@ def deploy_aiToCluster():
 
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: Making deployment...")
-        deployment = dm.making(fname, port, target_port,
-                               node_port, host_name, docker_id)
+        deployment = dm.making(fname, host_name, docker_id)
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: ------ deployment ------ ")
         print(deployment)
@@ -586,12 +585,9 @@ def deploy_aiToDevice():
     device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
     host_name = device_info_data.json()["name"]
 
-        # deployment 파일 생성 ### port 지정해줘야하는지 알아야됨
-
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
-    deployment = dm.making(fname, port, target_port,
-                           node_port, host_name, docker_id)
+    deployment = dm.making(fname, host_name, docker_id)
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
