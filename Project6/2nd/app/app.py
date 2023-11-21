@@ -484,6 +484,7 @@ def deploy_aiToCluster():
 
     # fname 불러오기
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfoInfo?id={sid}")
+    print("Print out ai_info : ", ai_info_data.json())
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
