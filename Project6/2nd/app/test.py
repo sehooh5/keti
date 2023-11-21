@@ -15,7 +15,15 @@ def get_docker_image_tags(image_name):
     # Docker 이미지 정보를 JSON 형식으로 얻기
     result = subprocess.run(['docker', 'images'], capture_output=True, text=True)
     output_text = result.stdout
-    print(output_text.split(' '))
+    # 정규 표현식 패턴
+    pattern = re.compile(r'sehooh5/monitoring\s+(\d+)\s+')
+
+    # 매칭된 결과 가져오기
+    matches = pattern.findall(output_text)
+
+    # 매칭된 결과 출력
+    print(matches)
+
     # JSON 문자열을 파이썬 객체로 파싱
     try:
         tags = json.loads(result.stdout)
