@@ -14,7 +14,8 @@ import json
 def get_docker_image_tags(image_name):
     # Docker 이미지 정보를 JSON 형식으로 얻기
     result = subprocess.run(['docker', 'images'], capture_output=True, text=True)
-    print(output_text = result.stdout)
+    output_text = result.stdout
+    print(output_text)
     # JSON 문자열을 파이썬 객체로 파싱
     try:
         tags = json.loads(result.stdout)
