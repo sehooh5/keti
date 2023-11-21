@@ -484,7 +484,7 @@ def deploy_aiToCluster():
         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}", timeout=5)
     time.sleep(1)
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
@@ -502,7 +502,7 @@ def deploy_aiToCluster():
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
     # 클러스터명, 디바이스명 불러오기
-    cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+    cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}", timeout=5)
     time.sleep(1)
     print(cluster_info_data.json(),"!!!!!!!!!!!!!!!!!!!!!")
     if cluster_info_data.json()["code"] != "0000":
@@ -511,7 +511,7 @@ def deploy_aiToCluster():
     wlist = cluster_info_data.json()['wlist']
 
     for wid in wlist:
-        device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+        device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}", timeout=5)
         time.sleep(1)
         print(device_info_data.json(),"!!!!!!!!!!!!!!!!!!!!!")
         host_name = device_info_data.json()["name"]
