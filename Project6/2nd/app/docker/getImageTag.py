@@ -1,9 +1,8 @@
-
-# AI 수정 부분, docker image tag 추출하는 부분
 import subprocess
 import json
 import re
 
+# AI update에서 docker image tag 추출하는 부분
 def get_image_tags(docker_id, fname):
     # Docker 이미지 정보 추출
     result = subprocess.run(['docker', 'images'], capture_output=True, text=True)
@@ -18,10 +17,3 @@ def get_image_tags(docker_id, fname):
     # 매칭된 결과 출력
     return matches
 
-
-# 사용 예제
-docker_id = 'sehooh5'
-fname = 'monitoring'
-tag_list = get_image_tags(docker_id, fname)
-
-print(f"Tag List : {tag_list}")

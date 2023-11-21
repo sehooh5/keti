@@ -17,7 +17,7 @@ import zipfile
 import datetime
 import sys
 # docker folder
-# from docker import build, push
+from docker import getImageTag as git
 # k8s folder
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
@@ -345,7 +345,13 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
+    # AI의 이전 버전 있으면 삭제하는 부분
+    tag_list = git.get_image_tags(docker_id, fname) # docker tag list
+    if len(tag_list) >= 1:
+        for tag in tag_list:
+            os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
+    # ZIP 파일 압축풀기
     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
     zip_ref.extractall()
     zip_ref.close()
