@@ -44,4 +44,4 @@ tag_list = git.get_image_tags(docker_id, fname)
 
 if len(tag_list) >= 1:
     for tag in tag_list:
-        print(tag)
+        print(f'{docker_id}/{fname}:{tag}')
