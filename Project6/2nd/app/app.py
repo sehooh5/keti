@@ -507,27 +507,27 @@ def deploy_aiToCluster():
 
     wlist = cluster_info_data.json()['wlist']
 
-    for wid in wlist:
+    for w in wlist:
+        wid = w['wid']
         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
-
         host_name = device_info_data.json()["name"]
 
-#         print(datetime.datetime.now().strftime(
-#             "%c")[:-4], f" {func}: Making deployment...")
-#         deployment = dm.making(fname, host_name, docker_id)
-#         print(datetime.datetime.now().strftime(
-#             "%c")[:-4], f" {func}: ------ deployment ------ ")
-#         print(deployment)
-#
-#         # POD 생성
-#         os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-#         print(datetime.datetime.now().strftime(
-#             "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
-#
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: deploy completed !")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: Making deployment...")
+        deployment = dm.making(fname, host_name, docker_id)
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: ------ deployment ------ ")
+        print(deployment)
 
-#     return response.message("0000")
+        # POD 생성
+        os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
+        print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
+
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f" {func}: deploy completed !")
+
+    return response.message("0000")
 
 # 2.6.2. 단말 기반 엣지 AI 패키지 배포 인터페이스
 @ app.route('/deploy_aiToDevice', methods=['POST'])
