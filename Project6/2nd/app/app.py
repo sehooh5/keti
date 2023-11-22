@@ -511,7 +511,7 @@ def deploy_aiToCluster():
 
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: Making deployment...")
-        deployment = dm.making(fname, host_name, docker_id)
+        deployment = dm.making(fname, host_name, docker_id, version)
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: ------ deployment ------ ")
         print(deployment)
