@@ -508,8 +508,7 @@ def deploy_aiToCluster():
     wlist = cluster_info_data.json()['wlist']
 
     for wid in wlist:
-        print(wid)
-#         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+        device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
 
         host_name = device_info_data.json()["name"]
 
