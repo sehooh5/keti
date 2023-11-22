@@ -184,7 +184,7 @@ def add_newEdgeCluster():
         print(f"device name : {host_name}, pwd : {host_pwd}")
 
         # 워커노드와 연결
-        w_input = f"sudo {w_input} --node-name {host_name}"
+        w_input = f"sudo {w_input}\ --node-name {host_name}"
         print(datetime.datetime.now().strftime(
         "%c")[:-4], f"Send a message [{w_input}] to Worker..")
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
