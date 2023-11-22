@@ -171,8 +171,7 @@ def add_newEdgeCluster():
     # 마스터에서 설정해줘야 하는 내용
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"Send a message [{w_input}] to Worker..")
+
     for w in wlist:
         wid = w["wid"]
         if wid == None:
@@ -185,8 +184,11 @@ def add_newEdgeCluster():
         print(f"device name : {host_name}, pwd : {host_pwd}")
 
         # 워커노드와 연결
+        w_input = f"sudo {w_input} --node-name {host_name}"
+        print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"Send a message [{w_input}] to Worker..")
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
-        stdin, stdout, stderr = cli.exec_command(f"sudo {w_input} --node-name {host_name}", get_pty=True)
+        stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
         stdin.write('keti\n')
         stdin.flush()
         lines = stdout.readlines()
