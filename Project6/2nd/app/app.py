@@ -163,11 +163,10 @@ def add_newEdgeCluster():
 
     # 마스터 엣지 구성
     m_output = subprocess.check_output(
-        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip}", shell=True).decode('utf-8')
+        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip} --node-name {m_name}" , shell=True).decode('utf-8')
 
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
-    w_input = f"sudo {w_input}"
 
     # 마스터에서 설정해줘야 하는 내용
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
@@ -187,7 +186,7 @@ def add_newEdgeCluster():
 
         # 워커노드와 연결
         cli.connect(wip, port=22, username=host_name, password=host_pwd)
-        stdin, stdout, stderr = cli.exec_command(w_input, get_pty=True)
+        stdin, stdout, stderr = cli.exec_command(f"sudo {w_input} --node-name {host_name}", get_pty=True)
         stdin.write('keti\n')
         stdin.flush()
         lines = stdout.readlines()
@@ -487,12 +486,6 @@ def deploy_aiToCluster():
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
-
-    # json 응답으로부터 fname 추출
-#     fileUrl = ai_info_data.json()["fileUrl"]
-#     filename = fileUrl.split('/')[-1]
-#     if fileUrl.find("zip") != -1:
-#         fname = filename.split('.')[0]
 
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
