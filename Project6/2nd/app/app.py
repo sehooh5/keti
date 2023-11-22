@@ -513,50 +513,22 @@ def deploy_aiToCluster():
 
         host_name = device_info_data.json()["name"]
 
-
-#     if fname.find("prometheus") == 0:
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: Making deployment...")
+#         deployment = dm.making(fname, host_name, docker_id)
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: ------ deployment ------ ")
+#         print(deployment)
 #
-#         port = "8080"
-#         target_port = "9090"
-#         node_port = "30005"
-#         # node_selector.py 로 노드명 추가하는 기능 필요 test.py 에서 진행
-#         ns.select(fname, node_name)
-#         mm.namespace()
-#         mm.prometheus(fname)
-#         s = Server_SW(sid=sid, wid=wid, serviceport=port,
-#                       nodeport=node_port, targetport=target_port)
-#         db.session.add(s)
-#         db.session.commit()
-#         print("Deploy Completed!!")
+#         # POD 생성
+#         os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
 #
-#         return response.message("0000")
-#
-#     # select_cam 앱의 타겟포트 지정
-#     elif fname == "select-cam":
-#         target_port = "5050"
-#     elif fname == "edge-rtsp-sw":
-#         target_port = "5060"
-#     elif fname == "video-streaming":
-#         target_port = "5058"
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: deploy completed !")
 
-        # deployment 파일 생성 ### port 지정해줘야하는지 알아야됨
-
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: Making deployment...")
-        deployment = dm.making(fname, host_name, docker_id)
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: ------ deployment ------ ")
-        print(deployment)
-
-        # POD 생성
-        os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
-
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: deploy completed !")
-
-    return response.message("0000")
+#     return response.message("0000")
 
 # 2.6.2. 단말 기반 엣지 AI 패키지 배포 인터페이스
 @ app.route('/deploy_aiToDevice', methods=['POST'])
