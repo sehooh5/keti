@@ -496,6 +496,7 @@ def deploy_aiToCluster():
 
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
+    version = ai_info_data.json()['version']
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
@@ -570,7 +571,7 @@ def deploy_aiToDevice():
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
-    deployment = dm.making(fname, host_name, docker_id)
+    deployment = dm.making(fname, host_name, docker_id, version)
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)

@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def making(sw_name, node_name, docker_id):
+def making(sw_name, node_name, docker_id, version):
 
     deployment = f"""
 apiVersion: apps/v1
@@ -21,7 +21,7 @@ spec:
       nodeName: {node_name}
       containers:
         - name: {sw_name}-{node_name}
-          image: {docker_id}/{sw_name}:latest
+          image: {docker_id}/{sw_name}:{version}
           imagePullPolicy: Always
           ports:
             - containerPort: 80"""
