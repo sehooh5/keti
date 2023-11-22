@@ -170,6 +170,17 @@ def add_newEdgeCluster():
     w_input = w_input.rstrip()
 
     # 마스터에서 설정해줘야 하는 내용
+#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    os.system("mkdir -p $HOME/.kube")
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
+
+    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+    try:
+        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        print("명령어 실행 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"오류 발생: {e}")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
 
@@ -201,21 +212,6 @@ def add_newEdgeCluster():
         print(
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
-
-    os.system("mkdir -p $HOME/.kube")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
-
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
-    try:
-        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-        print("명령어 실행 성공.")
-    except subprocess.CalledProcessError as e:
-        print(f"오류 발생: {e}")
-
-
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
