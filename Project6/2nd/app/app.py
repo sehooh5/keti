@@ -517,7 +517,8 @@ def deploy_aiToCluster():
         print(deployment)
 
         # POD 생성
-        os.system(f"sudo kubectl apply -f {fname}-{host_name}.yaml")
+        os.system("kubectl get pod")
+        os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
 
