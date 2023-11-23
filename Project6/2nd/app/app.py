@@ -528,7 +528,7 @@ def deploy_aiToCluster():
         print(deployment)
 
         # POD 생성
-        os.system("kubectl get pod")
+#         os.system("kubectl get pod")
         os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
@@ -770,96 +770,12 @@ def get_nodePort():
     )
     return res
 
-# 2.17 클러스터 모니터링 툴 추가 인터페이스
-# @ app.route('/add_newMonitoring', methods=['GET'])
-# def add_newMonitoring():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Grafana monitoring tool making")
-#
-#     try:
-#         output = subprocess.check_output(
-#             "kubectl get ns monitoring", shell=True).decode('utf-8')
-#     except subprocess.CalledProcessError:
-#         output = "-1"
-#     if output == "-1":
-#         print(datetime.datetime.now().strftime(
-#             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
-#         mm.making()
-#
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Monitoring tool making Completed")
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Grafana url : http://{ip}:30006")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         url=f"http://{ip}:30006/d/JABGX_-mz/cluster-monitoring-for-kubernetes?orgId=1&refresh=10s"
-#     )
-#     return res
+# 2.6.1 클러스터 기반 엣지 AI 패키지 배포 인터페이스
+@ app.route('/check_k8s_node', methods=['GET'])
+def check_k8s_node():
+    os.system("kubectl get pod")
 
-# 2.18 카메라 연결화면 조회 인터페이스
-# @ app.route('/get_camApp', methods=['GET'])
-# def get_camApp():
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         url=f"http://{ip}:5000"
-#     )
-#     return res
-
-
-# (추가) 스트리밍 화면이 꺼지고 난 후 환경변수 설정
-# @ app.route('/closed', methods=['GET'])
-# def closed():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: start")
-#
-#     json_data = json.loads(request.get_data(), encoding='utf-8')
-#     option = json_data['option']
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Unloaded window! browser option : {option}")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         option=option
-#     )
-#     return res
-#
-#
-# @ app.route('/opened', methods=['GET'])
-# def opened():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: start")
-#
-#     json_data = json.loads(request.get_data(), encoding='utf-8')
-#     option = json_data['option']
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Loaded window!! browser option : {option}")
-#
-#     res = jsonify(
-#         code="0000",
-#         message="처리 성공",
-#         option=option
-#     )
-#     return res
-#
-#
-# @ app.route('/check', methods=['GET'])
-# def check():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Connect Server")
-#     time.sleep(1)
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Connect Server")
-#
-#     return datetime.datetime.now().strftime("%c")[:-4], f"{func}: Connect Server"
+    return response.message("0000")
 
 
 # DB관련
