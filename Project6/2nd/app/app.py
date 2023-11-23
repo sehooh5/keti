@@ -775,7 +775,7 @@ def get_nodePort():
 @ app.route('/check_k8s_node', methods=['GET'])
 def check_k8s_node():
     print(os.environ.get('KUBECONFIG'))
-    print(os.system('sudo cat ~/.kube/config')
+    os.system('sudo cat ~/.kube/config')
     os.system("kubectl get pod")
 
     return response.message("0000")
