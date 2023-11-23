@@ -38,7 +38,7 @@ from kubernetes import client, config
 # kubeconfig 파일을 사용하여 설정
 # config.load_kube_config()
 # v1 = client.CoreV1Api()
-os.environ['KUBECONFIG'] = '~/.kube/config'
+# os.environ['KUBECONFIG'] = '~/.kube/config'
 
 
 
