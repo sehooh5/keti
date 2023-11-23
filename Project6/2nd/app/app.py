@@ -40,6 +40,8 @@ from kubernetes import client, config
 # v1 = client.CoreV1Api()
 os.environ['KUBECONFIG'] = '~/.kube/config'
 
+
+
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
@@ -53,33 +55,13 @@ _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
 
-def sid_maker():
-    sid = ""
-    for i in range(_LENGTH):
-        sid += random.choice(string_pool)
-    return sid
+# k8s 기능 체크
+@ app.route('/check_k8s_node', methods=['GET'])
+def check_k8s_node():
+    print(os.environ.get('KUBECONFIG'))
+    os.system("kubectl get pod")
 
-
-# 포트번호 생성
-def port_maker(len):
-    port = ""
-    for i in range(len):
-        port += random.choice(string.digits)
-    return port
-
-
-def node_port():
-    num = str(random.randint(0000, 2766))
-    if len(num) == 3:
-        print("nope", f"0{num}")
-        num = f"30{num}"
-    elif len(num) == 2:
-        num = f"300{num}"
-    elif len(num) == 1:
-        num = f"3000{num}"
-    else:
-        num = f"3{num}"
-    return num
+    return response.message("0000")
 
 
 API_URL = "http://123.214.186.244:4880"
@@ -771,15 +753,6 @@ def get_nodePort():
         port=port
     )
     return res
-
-# 2.6.1 클러스터 기반 엣지 AI 패키지 배포 인터페이스
-@ app.route('/check_k8s_node', methods=['GET'])
-def check_k8s_node():
-    print(os.environ.get('KUBECONFIG'))
-    os.system('sudo cat ~/.kube/config')
-    os.system("kubectl get pod")
-
-    return response.message("0000")
 
 
 # DB관련
