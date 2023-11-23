@@ -42,7 +42,7 @@ string_pool = string.ascii_letters + string.digits
 # k8s 기능 체크
 @ app.route('/check_k8s_node', methods=['GET'])
 def check_k8s_node():
-    s_name = os.system("whoami")
+    s_name = os.system("echo $HOME")
     print(s_name)
 
     return response.message("0000")
