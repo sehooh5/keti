@@ -714,3 +714,12 @@
 - **문제 해결 : config 지정 문제**
   - 파이썬 파일 실행 시 configure 파일 지정을 해주면서 실행시키면 된다
     - 명령어 : <mark>**sudo KUBECONFIG=~/.kube/config python3 app.py**</mark> 
+  - 혹은 python 파일에 환경 추가 : 
+    - `os.environ['KUBECONFIG'] = '/home/edge-master-01/.kube/config'`
+
+
+
+
+
+**python 환경 추가한거 아직 edge-master-01 은 하드 코딩이니 해결방법 해결하면 될듯**
+
