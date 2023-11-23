@@ -27,10 +27,13 @@ import ssl
 import certifi
 from kubernetes import client, config
 
-# CA 인증서 추가
-configuration = client.Configuration()
-configuration.ssl_ca_cert = certifi.where()
+# # CA 인증서 추가
+# configuration = client.Configuration()
+# configuration.ssl_ca_cert = certifi.where()
 
+# TLS 검증 끄기
+configuration = client.Configuration()
+configuration.verify_ssl = False
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
