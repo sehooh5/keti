@@ -22,25 +22,9 @@ from docker import getImageTag as git
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
-# k8s 인증서 추가
-import ssl
-import certifi
-from kubernetes import client, config
 
-# # CA 인증서 추가
-# configuration = client.Configuration()
-# configuration.ssl_ca_cert = certifi.where()
-
-# # TLS 검증 끄기
-# configuration = client.Configuration()
-# configuration.verify_ssl = False
-
-# kubeconfig 파일을 사용하여 설정
-# config.load_kube_config()
-# v1 = client.CoreV1Api()
+# sudo 사용으로 k8s config 설정 파일 위치 지정해주기
 os.environ['KUBECONFIG'] = '/home/edge-master-01/.kube/config'
-
-
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
@@ -58,8 +42,8 @@ string_pool = string.ascii_letters + string.digits
 # k8s 기능 체크
 @ app.route('/check_k8s_node', methods=['GET'])
 def check_k8s_node():
-    print(os.environ.get('KUBECONFIG'))
-    os.system("kubectl get pod")
+    s_name = os.system("whoami")
+    print(s_name)
 
     return response.message("0000")
 
