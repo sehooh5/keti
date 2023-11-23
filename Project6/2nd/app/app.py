@@ -774,6 +774,7 @@ def get_nodePort():
 # 2.6.1 클러스터 기반 엣지 AI 패키지 배포 인터페이스
 @ app.route('/check_k8s_node', methods=['GET'])
 def check_k8s_node():
+    print(os.environ.get('KUBECONFIG'))
     os.system("kubectl get pod")
 
     return response.message("0000")
