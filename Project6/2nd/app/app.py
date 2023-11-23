@@ -22,6 +22,15 @@ from docker import getImageTag as git
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
+# k8s 인증서 추가
+import ssl
+import certifi
+from kubernetes import client, config
+
+# CA 인증서 추가
+configuration = client.Configuration()
+configuration.ssl_ca_cert = certifi.where()
+
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
