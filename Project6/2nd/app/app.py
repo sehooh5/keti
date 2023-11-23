@@ -36,8 +36,9 @@ from kubernetes import client, config
 # configuration.verify_ssl = False
 
 # kubeconfig 파일을 사용하여 설정
-config.load_kube_config()
-v1 = client.CoreV1Api()
+# config.load_kube_config()
+# v1 = client.CoreV1Api()
+os.environ['KUBECONFIG'] = '~/.kube/config'
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
