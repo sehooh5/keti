@@ -392,9 +392,6 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
-#     def send_gps_data(self, data):
-#         print(data)
-#         requests.post(f'{url}/gwg_temp', json=data)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
