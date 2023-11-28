@@ -18,7 +18,7 @@ def extract_and_save_module(module_name, output_directory):
 
 def main():
     # 프로그램에 사용된 모듈 목록
-    used_modules = ['PyQt5.QtWidgets', 'PyQt5.QtCore', 'subprocess', 'os', 'psutil', 'ctypes', 'requests', 'traceback', 'json', 'time', 'serial', 'serial.tools.list_ports', 'sqlite3']
+    used_modules = ['flask', 'flask_cors', 'json', 'sqlite3', 'datetime', 'res', 'subprocess', 'time', 'requests','threading', 'traceback', 'os', 'psutil']
 
     # 모듈을 저장할 디렉토리 생성
     output_directory = 'modules'
