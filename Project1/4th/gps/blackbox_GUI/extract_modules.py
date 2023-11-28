@@ -9,7 +9,10 @@ def extract_and_save_module(module_name, output_directory):
     spec = importlib.util.find_spec(module_name)
     if spec:
         module_path = spec.origin
-        shutil.copy(module_path, os.path.join(output_directory, module_name + '.py'))
+        if module_path:  # 모듈 경로가 존재하는 경우에만 복사
+            shutil.copy(module_path, os.path.join(output_directory, module_name + '.py'))
+        else:
+            print(f"Module '{module_name}' has no valid path.")
     else:
         print(f"Module '{module_name}' not found.")
 
