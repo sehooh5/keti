@@ -109,8 +109,6 @@ class App(QWidget):
 
         self.show()
 
-
-
     def start_process(self):
         # 실행 중인 프로세스가 없는 경우에만 실행
         if self.process_thread is None or not self.process_thread.isRunning():

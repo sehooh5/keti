@@ -699,10 +699,10 @@
       - ~~args 로 fileUrl 만 있는거로아는데 나는 filename 으로 진행중.. 어떻게할지?~~
       - 도커 이미지 태그 찾는 부분 이제 입력값 변경해주면서 진행하면 됨
   - AI 삭제 : O
-  - AI 배포 - 클러스터 : △ 
+  - AI 배포 - 클러스터 :  O
     - 배포 공용 : 
       - port 관련 내용 app.py, deployment_maker.py 에서 삭제
-  - AI 배포 - 디바이스 : △ 
+  - AI 배포 - 디바이스 :  O
 - **현재 업로드 배포 삭제 모두 filename 기반인데 이게 서버가 같은 곳에서 동작하는지에 따라 달라져서 나중에 변경될 수 있음!!**
 
 
@@ -714,12 +714,14 @@
 - **문제 해결 : config 지정 문제**
   - 파이썬 파일 실행 시 configure 파일 지정을 해주면서 실행시키면 된다
     - 명령어 : <mark>**sudo KUBECONFIG=~/.kube/config python3 app.py**</mark> 
-  - 혹은 python 파일에 환경 추가 : 
+  - **혹은 python 파일에 환경 추가 :** 
     - `os.environ['KUBECONFIG'] = '/home/edge-master-01/.kube/config'`
+  - **python 환경 추가한거 아직 edge-master-01 은 하드 코딩이니 해결방법 해**
 
 
 
+#### 1128
 
-
-**python 환경 추가한거 아직 edge-master-01 은 하드 코딩이니 해결방법 해결하면 될듯**
+- 배포까지 연동 완료!
+  - 디바이스 부분은 안되어있는데 내일 확인해보고 보고까지 하기!
 
