@@ -21,7 +21,7 @@ def main():
     used_modules = ['PyQt5.QtWidgets', 'PyQt5.QtCore', 'subprocess', 'os', 'psutil', 'ctypes', 'requests', 'traceback', 'json', 'time', 'serial', 'serial.tools.list_ports', 'sqlite3']
 
     # 모듈을 저장할 디렉토리 생성
-    output_directory = 'modules'
+    output_directory = 'extracted_modules'
     os.makedirs(output_directory, exist_ok=True)
 
     # 각 모듈을 추출하고 저장
