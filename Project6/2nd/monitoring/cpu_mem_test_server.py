@@ -11,7 +11,6 @@ CORS(app)
 def usage():
     data = request.get_json(silent=True)
     json_data = json.loads(data)
-    print(json_data)
 
     username = json_data['username']
     cpu_usage = json_data['cpu']
