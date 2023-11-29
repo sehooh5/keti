@@ -333,9 +333,24 @@ def upload_edgeAi():
             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
     # ZIP 파일 압축풀기
-    zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
-    zip_ref.extractall()
-    zip_ref.close()
+#     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
+#     zip_ref.extractall()
+#     zip_ref.close()
+
+    with zipfile.ZipFile(f"{file_path}/{filename}", "r") as zip_ref:
+        for file_info in zip_ref.infolist():
+            # 파일이름
+            file_name = file_info.filename
+
+            # 압축 해제할 경로 및 파일 경로
+            extract_path = os.path.join(file_path, file_name)
+
+            # 이미 파일이 존재하면 덮어쓰기
+            if os.path.exists(extract_path):
+                os.remove(extract_path)
+
+            # 파일 압축 해제
+            zip_ref.extract(file_info, file_path)
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
     print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
@@ -484,12 +499,6 @@ def deploy_aiToDevice():
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
-
-    # json 응답으로부터 fname 추출
-#     fileUrl = ai_info_data.json()["fileUrl"]
-#     filename = fileUrl.split('/')[-1]
-#     if fileUrl.find("zip") != -1:
-#         fname = filename.split('.')[0]
 
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
