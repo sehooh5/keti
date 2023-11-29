@@ -5,6 +5,7 @@ import time
 import subprocess
 
 uname = subprocess.run(['whoami'], capture_output=True, text=True)
+print(uname)
 
 def cpu_mem_sending():
     # CPU 사용량 확인
