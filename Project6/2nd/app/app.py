@@ -525,7 +525,6 @@ def deploy_aiToDevice():
     command = f"kubectl get pods | grep {fname}-{host_name}"
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     check_pod = result.returncode
-    print(check_pod)
 
     if check_pod == 0 :
         print("pod 있음 지워야됨!!!!!!")
