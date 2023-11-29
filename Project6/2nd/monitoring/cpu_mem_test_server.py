@@ -16,7 +16,7 @@ def usage():
     cpu_usage = json_data['cpu']
     memory_usage = json_data['memory']
 
-    print(f"User Name : {uname}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
+    print(f"User Name : {username}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
 
     return "index"
 
