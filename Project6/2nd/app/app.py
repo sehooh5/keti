@@ -523,7 +523,7 @@ def deploy_aiToDevice():
 
     # pod 이 이미 생성되어있으면 지우는 기능
     check_pod = os.system(f"kubectl get pods | grep {fname}-{host_name}")
-    if check_pod == 0 :
+    if check_pod == '0' :
         "pod 있음 지워야됨!!!!!!"
     else:
         "pod 없음!!!!"
