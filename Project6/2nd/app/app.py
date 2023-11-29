@@ -528,8 +528,7 @@ def deploy_aiToDevice():
 
     if check_pod == 0 :
         print("pod 있음 지워야됨!!!!!!")
-    else:
-        print("pod 없음!!!!")
+        os.system(f"kubectl delete -f {fname}-{host_name}.yaml")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
