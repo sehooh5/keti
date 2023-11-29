@@ -469,6 +469,18 @@ def deploy_aiToCluster():
         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
         host_name = device_info_data.json()["name"]
 
+        # pod 이 이미 생성되어있으면 지우는 기능
+        command = f"kubectl get pods | grep {fname}-{host_name}"
+        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        check_pod = result.returncode
+
+        if check_pod == 0 :
+            print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: existing pod deleting....")
+            os.system(f"kubectl delete -f {fname}-{host_name}.yaml")
+            print(datetime.datetime.now().strftime(
+            "%c")[:-4], f" {func}: existing pod deleted....")
+
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: Making deployment...")
         deployment = dm.making(fname, host_name, docker_id, version)
