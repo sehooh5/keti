@@ -334,8 +334,11 @@ def upload_edgeAi():
             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
     # ZIP 파일 압축풀기
+    print('풀기 시작')
     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
+    print('추출')
     zip_ref.extractall()
+    print('종료')
     zip_ref.close()
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
