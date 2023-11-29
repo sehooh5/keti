@@ -7,8 +7,8 @@ import subprocess
 result = subprocess.run(['whoami'], capture_output=True, text=True)
 
 if result.returncode == 0:
-    uname = result.stdout.strip()
-    print(f"Current user: {uname}")
+    username = result.stdout.strip()
+    print(f"Current user: {username}")
 else:
     print(f"Error: {result.stderr}")
 
@@ -25,7 +25,7 @@ def cpu_mem_sending():
     data = {
         "code": "0000",
         "message": "처리성공",
-        "username": uname,
+        "username": username,
         "cpu": cpu_percent,
         "memory" : memory_percent
     }

@@ -2,7 +2,7 @@ FROM python:3.8
 
 WORKDIR /app
 
-RUN pip install psutil requests subprocess
+RUN pip install psutil requests
 
 ADD ./monitoring /app/
 
