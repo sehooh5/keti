@@ -11,7 +11,7 @@ try:
     # Zip 파일 열기
     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
         # 압축 해제
-        zip_ref.extractall('~/monitoring')
+        zip_ref.extractall('/monitoring')
     print(f"Zip file '{zip_file_path}' successfully extracted to '/monitoring'.")
 except zipfile.BadZipFile as e:
     print(f"Error: {zip_file_path} is not a valid zip file. {e}")
