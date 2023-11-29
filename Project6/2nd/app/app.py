@@ -528,9 +528,9 @@ def deploy_aiToDevice():
     print(check_pod)
 
     if check_pod == 0 :
-        "pod 있음 지워야됨!!!!!!"
+        print("pod 있음 지워야됨!!!!!!")
     else:
-        "pod 없음!!!!"
+        print("pod 없음!!!!")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
