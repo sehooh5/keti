@@ -12,11 +12,11 @@ def usage():
     data = request.get_json(silent=True)
     json_data = json.loads(data)
 
-    did = json_data['did']
+    username = json_data['uname']
     cpu_usage = json_data['cpu']
     memory_usage = json_data['memory']
 
-    print(f"Device ID : {did}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
+    print(f"User Name : {uname}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
 
     return "index"
 

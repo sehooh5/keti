@@ -2,6 +2,9 @@ import psutil
 import requests
 import json
 import time
+import subprocess
+
+uname = subprocess.run(['whoami'], capture_output=True, text=True)
 
 def cpu_mem_sending():
     # CPU 사용량 확인
@@ -14,7 +17,7 @@ def cpu_mem_sending():
     data = {
         "code": "0000",
         "message": "처리성공",
-        "did": "dx01", # 나중에 변경해야함
+        "username": uname,
         "cpu": cpu_percent,
         "memory" : memory_percent
     }
