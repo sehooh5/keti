@@ -521,6 +521,12 @@ def deploy_aiToDevice():
     device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
     host_name = device_info_data.json()["name"]
 
+    # pod 이 이미 생성되어있으면 지우는 기능
+    if pod 이 있으면 {sw_name}-{node_name} :
+        지우고
+    else:
+        그냥 실행
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
     deployment = dm.making(fname, host_name, docker_id, version)

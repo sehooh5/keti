@@ -48,7 +48,28 @@
 
 
 ## get_selectedClusterInfo 요청 오류 발생 테스트
-import requests
-res = requests.get("http://123.214.186.244:4880/get_selectedClusterInfo?id=655c1e0f8e3c4787585c6836")
+# import requests
+# res = requests.get("http://123.214.186.244:4880/get_selectedClusterInfo?id=655c1e0f8e3c4787585c6836")
+#
+# print(res)
 
-print(res)
+## zip 파일 풀기 예재
+import zipfile
+import os
+
+file_path = "/home/edge-master-01"
+filename = "monitoring.zip"
+
+zip_file_path = "/home/edge-master-01/monitoring.zip"
+
+
+try:
+    # Zip 파일 열기
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        # 압축 해제
+        zip_ref.extractall('monitoring')
+    print(f"Zip file '{zip_file_path}' successfully extracted to '/monitoring'.")
+except zipfile.BadZipFile as e:
+    print(f"Error: {zip_file_path} is not a valid zip file. {e}")
+except Exception as e:
+    print(f"Error extracting zip file: {e}")
