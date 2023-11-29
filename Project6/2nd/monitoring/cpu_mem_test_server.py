@@ -12,7 +12,7 @@ def usage():
     data = request.get_json(silent=True)
     json_data = json.loads(data)
 
-    username = json_data['uname']
+    username = json_data['username']
     cpu_usage = json_data['cpu']
     memory_usage = json_data['memory']
 
