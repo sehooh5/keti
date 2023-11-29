@@ -25,7 +25,7 @@ def cpu_mem_sending():
     data = {
         "code": "0000",
         "message": "처리성공",
-        "username": 'edge-master-01',
+        "username": 'edge-master-01-1129',
         "cpu": cpu_percent,
         "memory" : memory_percent
     }
