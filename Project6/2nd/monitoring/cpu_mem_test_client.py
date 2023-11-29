@@ -12,8 +12,6 @@ if result.returncode == 0:
 else:
     print(f"Error: {result.stderr}")
 
-print(uname)
-
 
 # cpu, memory, username 전송하는 기능
 def cpu_mem_sending():
