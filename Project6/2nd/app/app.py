@@ -373,12 +373,12 @@ def upload_edgeAi():
         message="처리 성공",
     )
 
-    # 압축 해제된 폴더 지우기
-    try:
-        shutil.rmtree(fname)
-        print(f"Directory '{fname}' deleted successfully.")
-    except OSError as e:
-        print(f"Error deleting directory '{fname}': {e}")
+#     # 압축 해제된 폴더 지우기
+#     try:
+#         shutil.rmtree(fname)
+#         print(f"Directory '{fname}' deleted successfully.")
+#     except OSError as e:
+#         print(f"Error deleting directory '{fname}': {e}")
 
     return res
 
