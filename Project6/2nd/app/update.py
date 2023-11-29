@@ -2,7 +2,7 @@ import subprocess
 import os
 
 result1 = os.system("kubectl get pods | grep monitoring-edge-worker-01")
-print(result1)
+print(type(result1))
 
 result2 = os.system("kubectl get pods | grep monitoring-edge-worker-02")
 print(result2)
