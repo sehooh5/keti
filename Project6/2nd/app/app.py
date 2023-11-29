@@ -334,12 +334,27 @@ def upload_edgeAi():
             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
     # ZIP 파일 압축풀기
-    print(f"{file_path}/{filename} : 에 있는 파일  풀기 시작")
-    zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
-    print('추출')
-    zip_ref.extractall()
-    print('종료')
-    zip_ref.close()
+#     print(f"{file_path}/{filename} : 에 있는 파일  풀기 시작")
+#     zip_ref = zipfile.ZipFile(f"{file_path}/{filename}")
+#     print('추출')
+#     zip_ref.extractall()
+#     print('종료')
+#     zip_ref.close()
+
+    with zipfile.ZipFile(f"{file_path}/{filename}", "r") as zip_ref:
+    for file_info in zip_ref.infolist():
+        # 파일이름
+        file_name = file_info.filename
+
+        # 압축 해제할 경로 및 파일 경로
+        extract_path = os.path.join(file_path, file_name)
+
+        # 이미 파일이 존재하면 덮어쓰기
+        if os.path.exists(extract_path):
+            os.remove(extract_path)
+
+        # 파일 압축 해제
+        zip_ref.extract(file_info, file_path)
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
     print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
