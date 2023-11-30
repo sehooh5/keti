@@ -199,7 +199,7 @@ class App(QWidget):
         if process_thread is None or not process_thread.isRunning():
 #             command = f'cvlc -vvv rtp://123.214.186.162:500{num} --sout="#rtp{{sdp=rtsp://123.214.186.162:800{num}/videoMain}}" --no-sout-all --sout-keep' # 외부망
 #             command = f'cvlc -vvv rtp://192.168.0.54:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.54:800{num}/videoMain}}" --no-sout-all --sout-keep' # 내부망
-            command = f'cvlc -vvv rtp://192.168.0.54:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.54:800{num}/videoMain}}" --no-sout-all --sout-keep' # 싱크 테스트
+            command = f'cvlc -vvv rtp://192.168.0.14:500{num} --sout="#rtp{{sdp=rtsp://192.168.0.14:800{num}/videoMain}}" --no-sout-all --sout-keep' # 싱크 테스트
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
