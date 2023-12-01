@@ -25,7 +25,9 @@ player.set_media(media)
 
 # RTP로 스트리밍 설정
 player.play()  # 재생 시작
-player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
+
+# RTP 출력 설정 적용
+player.video_set_outputs([rtp_output])
 
 # 이벤트 콜백 함수 등록
 events = player.event_manager()
