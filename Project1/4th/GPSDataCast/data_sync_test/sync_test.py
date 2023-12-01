@@ -4,7 +4,7 @@ import time
 def event_callback(event, player):
     if event.type == vlc.EventType.MediaPlayerEndReached:
         print("재시작 합니다")
-        player.set_media(instance.media_new(media_path))
+        player.set_media(media)
         player.play()
 
 # VLC 초기화
@@ -27,9 +27,10 @@ player.set_media(media)
 player.play()  # 재생 시작
 
 # RTP 출력 설정 적용
-media.add_option(rtp_output)
+media.get_mrl()  # 기존의 옵션을 삭제합니다.
+media.add_option(rtp_output)  # 새로운 RTP 출력 설정을 추가합니다.
 
-# 루프 및 기타 설정
+# 이벤트 콜백 함수 등록
 events = player.event_manager()
 events.event_attach(vlc.EventType.MediaPlayerEndReached, lambda event: event_callback(event, player))
 
