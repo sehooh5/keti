@@ -30,7 +30,6 @@ player.play()  # 재생 시작
 media.add_option(rtp_output)  # 이 코드 추가
 
 # 루프 및 기타 설정
-player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
 player.set_loop(True)  # 루프 설정
 
 # 이벤트 콜백 함수 등록
