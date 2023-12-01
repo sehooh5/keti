@@ -170,6 +170,7 @@ class GPSThread(QThread):
 
                     time.sleep(0.5)
 
+
     def stop(self):
         self.running = False
 
@@ -360,19 +361,7 @@ class App(QWidget):
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
-        print(process_thread.wait())
-            # 프로세스 종료를 감지하는 스레드 시작
-#             detect_thread = Thread(target=self.detect_process, args=(num,))
-#             detect_thread.start()
 
-    # 프로세스 종료를 감지하는 프로세스
-    def detect_process(self, num):
-        process_thread = self.process_threads.get(num)
-        if process_thread:
-            process_thread.wait()
-            # 프로세스가 종료되면 이 부분이 실행됨
-            print(f'영상이 종료되었습니다. blackbox_0{num} 재시작 중...')
-#             self.start_process(num)
 
 
     def stop_process(self, num):

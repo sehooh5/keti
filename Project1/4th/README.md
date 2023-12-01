@@ -1974,4 +1974,6 @@
 
 - 지금 사용중인 파일 /data_sync_test
   - gpsdatacast_parsed.py, gps_saved_edge.py, gpsdatacast_Edge.py
-- 짧은 영상 구해서 08 번 파일로 저장 후 신호 발생 하는지 확인하기!!
+- ~~짧은 영상 구해서 08 번 파일로 저장 후 신호 발생 하는지 확인하기!!~~
+  - ~~사용중~~
+- 일단 영상, GPS 중에 어떤게 더 긴지 확인하고 진행
