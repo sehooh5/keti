@@ -12,7 +12,7 @@ instance = vlc.Instance("--no-xlib")  # X11 출력을 비활성화합니다.
 player = instance.media_player_new()
 
 # RTP 출력 설정
-rtp_output = ":rtp{mux=ts,dst=192.168.0.14,port=5008}"
+rtp_output = ":rtp{mux=ts,dst=192.168.0.14,port=5008} --no-sout-all"
 
 # MP4 파일 경로
 media_path = "/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"
