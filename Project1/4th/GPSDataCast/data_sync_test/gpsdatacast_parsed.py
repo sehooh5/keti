@@ -362,7 +362,7 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
             # 프로세스 종료를 감지하는 스레드 시작
-            detect_thread = threading.Thread(target=self.detect_process, args=(num,))
+            detect_thread = Thread(target=self.detect_process, args=(num,))
             detect_thread.start()
 
     # 프로세스 종료를 감지하는 프로세스
