@@ -362,18 +362,8 @@ class App(QWidget):
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
-            cnt = 0
-            while True:
-                return_code = process_thread.poll()
-                cnt+=1
-                if cnt == 15:
-                    print(f"플레이어 종료! 반환 코드 : {return_code}")
-                    break
-#                 if return_code is not None:
-#                     print(f"플레이어 종료! 반환 코드 : {return_code}")
-#                     break
 
-                time.sleep(1)
+
 
 
 
