@@ -18,7 +18,7 @@ rtp_output = ":rtp{{dst=192.168.0.14,port=5008,mux=ts}}"  # RTP 설정 예시, �
 media_path = "/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"
 
 # 미디어 생성
-media = instance.media_new(media_path)
+media = instance.media_new(media_path,"--loop --no-sout-all")
 
 # 미디어 플레이어에 미디어 할당
 player.set_media(media)
