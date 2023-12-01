@@ -12,7 +12,7 @@ instance = vlc.Instance("--no-xlib")  # X11 출력을 비활성화합니다.
 player = instance.media_player_new()
 
 # RTP 출력 설정
-rtp_output = ":rtp{mux=ts,dst=192.168.0.14,port=5008}"  # RTP 설정 예시, 포트 및 목적지 IP에 맞게 수정하세요
+rtp_output = "#rtp{{dst=192.168.0.14,port=5008,mux=ts}}"  # RTP 설정 예시, 포트 및 목적지 IP에 맞게 수정하세요
 
 # MP4 파일 경로
 media_path = "/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"
@@ -28,6 +28,10 @@ player.play()  # 재생 시작
 
 # RTP 출력 설정 적용
 media.add_option(rtp_output)  # 이 코드 추가
+
+# 루프 및 기타 설정
+player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
+player.set_loop(True)  # 루프 설정
 
 # 이벤트 콜백 함수 등록
 events = player.event_manager()
