@@ -369,7 +369,6 @@ class App(QWidget):
                     print(f"플레이어 종료! 반환 코드 : {return_code}")
                     break
 
-                time.sleep(1)
 
 
 
