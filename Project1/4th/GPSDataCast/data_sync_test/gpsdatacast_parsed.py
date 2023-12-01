@@ -345,7 +345,6 @@ class App(QWidget):
         self.running = True
         # GPS 데이터 전송을 위한 스레드 시작
         self.gps_thread = GPSThread(num)
-#         self.gps_thread.data_ready.connect(self.send_gps_data)
         self.gps_thread.start()
 
         # 영상 데이터 전송
@@ -353,8 +352,6 @@ class App(QWidget):
         process_thread = getattr(self, f"process{num}_thread")
 
         if process_thread is None or not process_thread.isRunning():
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
             if num == 8:
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
             else:
@@ -364,10 +361,18 @@ class App(QWidget):
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
-            # 싱크 테스트 // vlc 영상 재시작 신호 확인
-            def monitor_process():
-                process_thread.wait()  # 프로세스 종료까지 대기
-                print("VLC 영상 재상 재시작!!!")
+            # 프로세스 종료를 감지하는 스레드 시작
+            detect_thread = threading.Thread(target=self.detect_process, args=(num,))
+            detect_thread.start()
+
+    # 프로세스 종료를 감지하는 프로세스
+    def detect_process(self, num):
+        process_thread = self.process_threads.get(num)
+        if process_thread:
+            process_thread.wait()
+            # 프로세스가 종료되면 이 부분이 실행됨
+            print(f'영상이 종료되었습니다. blackbox_0{num} 재시작 중...')
+#             self.start_process(num)
 
 
     def stop_process(self, num):
