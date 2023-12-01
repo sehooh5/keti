@@ -363,6 +363,7 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
             return_code = process_thread.poll()
+            print(return_code)
 
             if return_code is not None:
                 print(f"플레이어 종료! 반환 코드 : {return_code}")
