@@ -25,6 +25,8 @@ username = os.getlogin()
 url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 
 class ProcessThread(QThread):
+    finished_signal = pyqtSignal()
+
     def __init__(self, cmd):
         super().__init__()
         self.cmd = cmd
@@ -361,11 +363,11 @@ class App(QWidget):
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
             process_thread = ProcessThread(command)
-            process_thread.finished_signal.connect(lambda: self.start_process_monitor(num))  # 연결
+            process_thread.finished_signal.connect(lambda: self.start_process_monitor(num))
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
-            process_thread.start()  # 스레드 시작
+            process_thread.start()
 
 
     def start_process_monitor(self, process, num):
