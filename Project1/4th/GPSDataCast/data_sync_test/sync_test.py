@@ -40,6 +40,7 @@ media_player.set_playback_mode(vlc.PlaybackMode.loop)  # 루프 설정
 
 # 이벤트 콜백 함수 등록
 events = media_player.event_manager()
+print("재시작 함수 실행")
 events.event_attach(vlc.EventType.MediaPlayerEndReached, lambda event: event_callback(event, media_player))
 
 try:
