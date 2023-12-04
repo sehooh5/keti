@@ -7,9 +7,12 @@ def event_callback(event, media_player):
         media_player.set_media_list(instance.media_list_new([media]))  # 미디어 리스트 재설정
         media_player.play_item_at_index(0)  # 처음 항목 재생
 
-# VLC 초기화
-instance = vlc.Instance("--no-xlib")  # X11 출력을 비활성화합니다.
-media_player = instance.media_list_player_new()  # MediaListPlayer 생성
+# VLC 초기화 및 로그 설정
+instance = vlc.Instance("--no-xlib")
+instance.log_unset()  # 기존 로그 설정을 초기화합니다.
+instance.log_set(None, None)  # 로그를 표시하도록 설정합니다.
+
+media_player = instance.media_list_player_new()
 
 # RTP 출력 설정
 num = 1  # 예시로 1을 사용하고 있습니다. 필요에 따라 수정하세요.
@@ -18,7 +21,6 @@ rtp_output = f":rtp{{dst=192.168.0.14,port=5008,mux=ts}}"  # RTP 설정 예시, 
 # MP4 파일 경로
 num = 1  # 예시로 1을 사용하고 있습니다. 필요에 따라 수정하세요.
 mp4_path = f"/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"
-
 
 # 미디어 생성
 media = instance.media_new(mp4_path)
@@ -35,7 +37,7 @@ media.get_mrl()  # 기존의 옵션을 삭제합니다.
 media.add_option(rtp_output)  # 새로운 RTP 출력 설정을 추가합니다.
 
 # 루프 및 기타 설정
-# media_player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
+media_player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
 media_player.set_playback_mode(vlc.PlaybackMode.loop)  # 루프 설정
 
 # 이벤트 콜백 함수 등록

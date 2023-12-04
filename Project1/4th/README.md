@@ -1982,8 +1982,9 @@
 
 
 
-how to stream mp4 to rtp on python-vlc
+#### 1204
 
-how to loop mp4 file streaming to rtp on python-vlc
-
-두개 중점으로 찾아보고 진행하기!!
+- 리서치 : 
+  - how to stream mp4 to rtp on python-vlc
+  - how to loop mp4 file streaming to rtp on python-vlc
+- 아니면 그냥 loop 돌리지말고 영상 끝나면 재시작 하도록 코드 변경하기
