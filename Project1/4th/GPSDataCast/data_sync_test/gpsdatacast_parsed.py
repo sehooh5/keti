@@ -370,8 +370,7 @@ class App(QWidget):
             monitor_thread.start()
 
     def start_process_monitor(self, process, num):
-        while process.poll() is None:
-            time.sleep(1)
+        process.wait()
 
         # 프로세스 종료 시 실행되는 코드
         print(f"파일 실행이 종료되었습니다: blackbox_0{num}")
