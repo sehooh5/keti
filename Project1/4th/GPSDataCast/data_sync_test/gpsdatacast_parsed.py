@@ -369,6 +369,8 @@ class App(QWidget):
 
             if process_thread.poll() == None:
                 print("종료!!!!!")
+            else:
+                print("?????????")
 #             # 프로세스 종료 감지를 위한 스레드 시작
 #             monitor_thread = threading.Thread(target=self.start_process_monitor, args=(process_thread, num))
 #             monitor_thread.start()
