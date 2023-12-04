@@ -1,11 +1,11 @@
 import vlc
 import time
 
-def event_callback(event, player):
+def event_callback(event, media_player):
     if event.type == vlc.EventType.MediaPlayerEndReached:
         print("재시작 합니다")
-        player.set_media_list(instance.media_list_new([media]))  # 미디어 리스트 재설정
-        player.play()
+        media_player.set_media_list(instance.media_list_new([media]))  # 미디어 리스트 재설정
+        media_player.play_item_at_index(0)  # 처음 항목 재생
 
 # VLC 초기화
 instance = vlc.Instance("--no-xlib")  # X11 출력을 비활성화합니다.
@@ -28,7 +28,7 @@ media_list = instance.media_list_new([media])
 media_player.set_media_list(media_list)
 
 # RTP로 스트리밍 설정
-media_player.play()  # 재생 시작
+media_player.play_item_at_index(0)  # 처음 항목 재생
 
 # RTP 출력 설정 적용
 media.get_mrl()  # 기존의 옵션을 삭제합니다.
@@ -40,7 +40,6 @@ media_player.set_playback_mode(vlc.PlaybackMode.loop)  # 루프 설정
 
 # 이벤트 콜백 함수 등록
 events = media_player.event_manager()
-print("재시작 함수 실행")
 events.event_attach(vlc.EventType.MediaPlayerEndReached, lambda event: event_callback(event, media_player))
 
 try:
