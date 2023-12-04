@@ -362,12 +362,24 @@ class App(QWidget):
             else:
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
-            process_thread = ProcessThread(command)
+            command_list = shlex.split(command)  # 명령어를 리스트로 변환
+
+            process_thread = ProcessThread(command_list)
             process_thread.finished_signal.connect(lambda: self.start_process_monitor(num))
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
             process_thread.start()
+
+
+#             process_thread = subprocess.Popen(command, shell=True)
+#             setattr(self, f"process{num}_thread", process_thread)
+#             status_label = getattr(self, f"status{num}")
+#             status_label.setText(f'blackbox_0{num} RTP 전송중')
+#
+#             # 프로세스 종료 감지를 위한 스레드 시작
+#             monitor_thread = threading.Thread(target=self.start_process_monitor, args=(process_thread, num))
+#             monitor_thread.start()
 
 
     def start_process_monitor(self, process, num):
