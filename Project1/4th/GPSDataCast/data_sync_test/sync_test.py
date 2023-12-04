@@ -13,7 +13,7 @@ media_player = instance.media_list_player_new()  # MediaListPlayer 생성
 
 # RTP 출력 설정
 num = 1  # 예시로 1을 사용하고 있습니다. 필요에 따라 수정하세요.
-rtp_output = f"#rtp{{dst=192.168.0.14,port=5008,mux=ts}}"  # RTP 설정 예시, 포트 및 목적지 IP에 맞게 수정하세요
+rtp_output = f":rtp{{dst=192.168.0.14,port=5008,mux=ts}}"  # RTP 설정 예시, 포트 및 목적지 IP에 맞게 수정하세요
 
 # MP4 파일 경로
 num = 1  # 예시로 1을 사용하고 있습니다. 필요에 따라 수정하세요.
