@@ -1979,3 +1979,11 @@
 - 일단 영상, GPS 중에 어떤게 더 긴지 확인하고 진행
 - vlc EOF 위주로 검색해서 진행하기!
   - **VLC documents : https://www.olivieraubert.net/vlc/python-ctypes/doc/vlc-module.html**
+
+
+
+how to stream mp4 to rtp on python-vlc
+
+how to loop mp4 file streaming to rtp on python-vlc
+
+두개 중점으로 찾아보고 진행하기!!
