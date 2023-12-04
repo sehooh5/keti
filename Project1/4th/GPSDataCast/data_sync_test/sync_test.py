@@ -35,7 +35,7 @@ media.get_mrl()  # 기존의 옵션을 삭제합니다.
 media.add_option(rtp_output)  # 새로운 RTP 출력 설정을 추가합니다.
 
 # 루프 및 기타 설정
-media_player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
+# media_player.set_fullscreen(True)  # 전체 화면 모드로 설정 (선택적)
 media_player.set_playback_mode(vlc.PlaybackMode.loop)  # 루프 설정
 
 # 이벤트 콜백 함수 등록
