@@ -357,13 +357,22 @@ class App(QWidget):
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
             else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
+            # 프로세스 종료 감지를 위한 스레드 시작
+            self.start_process_monitor(process_thread, num)
 
+    def start_process_monitor(self, process, num):
+        while process.poll() is None:
+            time.sleep(1)
+
+        # 프로세스 종료 시 실행되는 코드
+        print(f"파일 실행이 종료되었습니다: blackbox_0{num}")
 
     def stop_process(self, num):
         # 실행 중인 프로세스가 있는 경우에만 종료
