@@ -364,6 +364,8 @@ class App(QWidget):
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
             command_list = shlex.split(command)  # 명령어를 리스트로 변환
 
+
+            import shlex
             process_thread = ProcessThread(command_list)
             process_thread.finished_signal.connect(lambda: self.start_process_monitor(num))
             setattr(self, f"process{num}_thread", process_thread)
