@@ -32,7 +32,7 @@ class ProcessThread(QThread):
         self.isRunning = False # 추가
 
     def run(self):
-        self.process = subprocess.Popen(self.cmd)
+        self.process = subprocess.Popen(self.cmd, shell=True)
         self.isRunning = True # 추가
         self.process.wait()
         self.isRunning = False # 추가
@@ -362,10 +362,7 @@ class App(QWidget):
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
             try:
-#                 process_thead = subprocess.Popen(command, shell=True)
-                process_thead = subprocess.run(shlex.split(command), check=True)
-                print(f"Video stream {num} completed.")
-
+                process_thead = subprocess.Popen(command, shell=True)
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
                 status_label.setText(f'blackbox_0{num} RTP 전송중')
