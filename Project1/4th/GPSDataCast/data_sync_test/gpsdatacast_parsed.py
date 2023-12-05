@@ -61,6 +61,7 @@ class GPSThread(QThread):
 
         # 8번 = 고정형 CCTV
         if self.num == 8:
+            self.cnt_test= 0
             while self.running:
                 self.cnt_test += 1
                 data = {
