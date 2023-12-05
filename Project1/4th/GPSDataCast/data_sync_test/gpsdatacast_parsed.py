@@ -431,29 +431,40 @@ class App(QWidget):
             status_label.repaint()
 
     def restart_process(self, num):
-        print("restart 들어오!!")
         # GPSThread 중지 및 기존 인스턴스 제거
         if self.gps_thread is not None:
             self.gps_thread.stop()
             self.gps_thread.wait()
             self.gps_thread = None
-
-
-        print("restart 들어오22!!")
-        # ProcessThread 재시작
-        process_thread = self.process_threads[num]
-        if process_thread is not None:
-            process_thread.stop()
-            process_thread.wait()
-            self.process_threads[num] = None
-
-        print("restart 들어오333!!")
         # GPSThread 재시작
         self.gps_thread = GPSThread(num)
         self.gps_thread.start()
-        print("restart 들어오4444!!")
+
+        # ProcessThread 재시작
+        process_thread = self.process_threads[num]
+        if process_thread is not None:
+            for child in psutil.Process(process_thread.pid).children(recursive=True):
+                child.kill()
+            process_thread.kill()
+            process_thread.wait()
+            setattr(self, f"process{num}_thread", None)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+            status_label.repaint()
+
+
         # 새로운 ProcessThread 시작
         self.start_process(num)
+
+#         if process_thread is not None:
+#             for child in psutil.Process(process_thread.pid).children(recursive=True):
+#                 child.kill()
+#             process_thread.kill()
+#             process_thread.wait()
+#             setattr(self, f"process{num}_thread", None)
+#             status_label = getattr(self, f"status{num}")
+#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+#             status_label.repaint()
 
 
 #     def restart_process(self, num):
