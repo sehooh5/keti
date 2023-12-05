@@ -4,7 +4,6 @@ import subprocess
 import os
 import sys
 import psutil
-
 from flask import Flask, render_template, Response, request, g, jsonify
 from flask_cors import CORS, cross_origin
 import json
@@ -12,14 +11,15 @@ import sqlite3
 import time
 import requests
 from threading import Thread
-
+import threading
 from PyQt5.QtCore import QThread, pyqtSignal
-
 import traceback
+import shlex
+
 
 username = os.getlogin()
 
-url = "http://192.168.0.54:8089" # 싱크 및 영상 추가 주소
+url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 
 
 class BlackboxThread(QThread):
@@ -193,6 +193,7 @@ class App(QWidget):
         self.process7_thread = None
         self.process8_thread = None
         self.gps_thread = None
+        self.blackbox_threads = [None] * 9
 
         self.initUI()
 
