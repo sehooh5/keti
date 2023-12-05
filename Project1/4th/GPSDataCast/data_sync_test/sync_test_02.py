@@ -1,3 +1,27 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
+from PyQt5.QtCore import QThread
+import subprocess
+import os
+import sys
+import psutil
+
+from flask import Flask, render_template, Response, request, g, jsonify
+from flask_cors import CORS, cross_origin
+import json
+import sqlite3
+import time
+import requests
+from threading import Thread
+
+from PyQt5.QtCore import QThread, pyqtSignal
+
+import traceback
+
+username = os.getlogin()
+
+url = "http://192.168.0.54:8089" # 싱크 및 영상 추가 주소
+
+
 class BlackboxThread(QThread):
     finished_signal = pyqtSignal()
 
