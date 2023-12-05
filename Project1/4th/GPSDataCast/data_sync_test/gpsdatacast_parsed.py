@@ -332,9 +332,7 @@ class App(QWidget):
         # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
-            for child in psutil.Process(process_thread.pid).children(recursive=True):
-                child.kill()
-            process_thread.kill()
+            process_thread.stop()
             process_thread.wait()
             setattr(self, f"process{num}_thread", None)
             status_label = getattr(self, f"status{num}")
