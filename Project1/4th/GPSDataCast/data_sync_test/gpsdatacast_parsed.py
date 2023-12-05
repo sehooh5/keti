@@ -362,8 +362,9 @@ class App(QWidget):
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
             try:
-                print("시작!!!")
-                process_thead = subprocess.Popen(command, shell=True)
+#                 process_thead = subprocess.Popen(command, shell=True)
+                process_thead = subprocess.run(shlex.split(command), check=True)
+                print(f"Video stream {num} completed.")
 
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
