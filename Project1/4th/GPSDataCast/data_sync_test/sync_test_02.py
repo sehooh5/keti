@@ -35,9 +35,12 @@ class BlackboxThread(QThread):
     def run(self):
         self.running = True
 
+        # 8번 = 고정형 CCTV
         if self.num == 8:
             while self.running:
+                self.cnt_test += 1
                 data = {
+                            "cnt": self.cnt_test,
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": f"bb0{self.num}",
@@ -77,73 +80,50 @@ class BlackboxThread(QThread):
                 json_data = json.dumps(data)
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
-
         else:
-            print("print num : ", self.num, " 여기로 들어옴")
-            gps_num = f'gps_0{self.num}'
-            conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
-            c = conn.cursor()
-
-            c.execute(f"SELECT COUNT(*) FROM {gps_num}")
-            for row in c:
-                cnt = row[0]
-
             while self.running:
-                for cnt in range(1, cnt + 1):
-                    if not self.running:  # 추가: self.running이 False인 경우 루프 종료
-                        break
-
-                    if cnt == 1:
-                        print("데이터 초기화")
-                    c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
-                    for row in c:
-                        try:
-                            data = {
-                                "code": "0000",
-                                "message": "처리 성공",
-                                "bid": f"bb0{self.num}",
-                                "data": {
-                                    "time": {
-                                        "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6]
-                                    },
-                                    "acceleration": {
-                                        "ax": row[7], "ay": row[8], "az": row[9]
-                                    },
-                                    "angular": {
-                                        "wx": row[10], "wy": row[11], "wz": row[12]
-                                    },
-                                    "angle": {
-                                        "roll": row[13], "pitch": row[14], "yaw": row[15]
-                                    },
-                                    "magnetic": {
-                                        "mx": row[16], "my": row[17], "mz": row[18]
-                                    },
-                                    "atmospheric": {
-                                         "press": row[19], "h": row[20]
-                                    },
-                                    "gps": {
-                                        "lat": row[21], "lon": row[22]
-                                    },
-                                    "groundspeed": {
-                                        "gh": row[23], "gy": row[24], "gv": row[25]
-                                    },
-                                    "quaternion": {
-                                        "q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]
-                                    },
-                                    "satellite": {
-                                        "snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]
-                                    }
+                self.cnt_test += 1
+                data = {
+                            "cnt": self.cnt_test,
+                            "code": "0000",
+                            "message": "처리 성공",
+                            "bid": f"bb0{self.num}",
+                            "data": {
+                                "time": {
+                                    "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+                                },
+                                "acceleration": {
+                                    "ax": "0.0", "ay": "0.0", "az": "0.0"
+                                },
+                                "angular": {
+                                    "wx": "0.0", "wy": "0.0", "wz": "0.0"
+                                },
+                                "angle": {
+                                    "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+                                },
+                                "magnetic": {
+                                    "mx": "0.0", "my": "0.0", "mz": "0.0"
+                                },
+                                "atmospheric": {
+                                     "press": "0.0", "h": "0.0"
+                                },
+                                "gps": {
+                                    "lat": "37.1487", "lon": "127.0773"
+                                },
+                                "groundspeed": {
+                                    "gh": "0.0", "gy": "0.0", "gv": "0.0"
+                                },
+                                "quaternion": {
+                                    "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+                                },
+                                "satellite": {
+                                    "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
                                 }
                             }
-                            json_data = json.dumps(data)
-                            # JSON 데이터를 서버로 전송
-                            response = requests.post(f'{url}/gwg_temp2', json=json_data)
-
-                        except Exception as e:
-                            print("JSON 데이터 전송 중 오류 발생")
-                            traceback.print_exc()
-
-                    time.sleep(0.5)
+                        }
+                json_data = json.dumps(data)
+                response = requests.post(f'{url}/gwg_temp2', json=json_data)
+                time.sleep(0.5)
 
         # 여기에 프로세스 시작 및 종료 로직 추가
         command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{self.num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{self.num},mux=ts}}" --no-sout-all --play-and-exit'
