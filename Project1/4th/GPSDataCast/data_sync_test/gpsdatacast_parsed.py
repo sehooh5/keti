@@ -22,25 +22,32 @@ url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 class ProcessThread(QThread):
     finished_signal = pyqtSignal()
 
-    def __init__(self, cmd):
+    def __init__(self, file_path, num):
         super().__init__()
-        self.cmd = cmd
+        self.file_path = file_path
+        self.num = num
         self.process = None
-        self.isRunning = False # 추가
-
+        self.isRunning = False
 
     def run(self):
-        self.process = subprocess.Popen(self.cmd, shell=True)
-        self.isRunning = True # 추가
-        self.process.wait()
-        self.isRunning = False # 추가
-        self.finished_signal.emit()  # 작업 완료 시그널 발생
+        command = f'cvlc {self.file_path} --sout "#rtp{{dst=192.168.0.14,port=500{self.num},mux=ts}}" --no-sout-all --play-and-exit'
+        self.process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, universal_newlines=True)
+        self.isRunning = True
+
+        while True:
+            output = self.process.stdout.readline()
+            if "end of playlist, exiting" in output:
+                print(f"End of playlist detected for blackbox_0{self.num}")
+                break
+
+        self.isRunning = False
+        self.finished_signal.emit()
 
     def stop(self):
         if self.process is not None and self.process.poll() is None:
             self.process.terminate()
             self.process.wait()
-            self.isRunning = False # 추가
+            self.isRunning = False
 
 class GPSThread(QThread):
     data_ready = pyqtSignal(dict)
@@ -278,26 +285,38 @@ class App(QWidget):
 
         # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
+
         process_thread = getattr(self, f"process{num}_thread")
 
         if process_thread is None or not process_thread.isRunning():
-            if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-            else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-            process_thread = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, universal_newlines=True)
+            file_path = f'/home/{username}/blackbox_osan/blackbox_0{num}.mp4' if num == 8 else f'/home/{username}/blackbox_osan/blackbox_0{num}.avi'
+            process_thread = ProcessThread(file_path, num)
+            process_thread.finished_signal.connect(lambda: self.on_process_finished(num))
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송중')
 
-            while True:
-                # 표준 출력에서 한 줄씩 읽음
-                output = process_thread.stdout.readline()
+            process_thread.start()
 
-                # 플레이리스트의 끝을 나타내는 문자열 확인
-                if "end of playlist, exiting" in output:
-                    print("End of playlist detected")
-                    break
+    def on_process_finished(self, num):
+        print(f"blackbox_0{num} rtp 전송 종료")
+
+        # gps 종료
+        if self.gps_thread is not None:
+            self.gps_thread.stop()
+            self.gps_thread.wait()
+            self.gps_thread = None
+
+        # 영상 종료
+        process_thread = getattr(self, f"process{num}_thread")
+        if process_thread is not None:
+            process_thread.stop()
+            process_thread.wait()
+            setattr(self, f"process{num}_thread", None)
+            status_label = getattr(self, f"status{num}")
+            status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+            status_label.repaint()
+
 
 
 
@@ -327,114 +346,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
     sys.exit(app.exec_())
-
-
-
-# gps 1-7 elif 코드
-
-#             gps_num = f'gps_0{self.num}'
-#             conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
-#             c = conn.cursor()
-#
-#             c.execute(f"SELECT COUNT(*) FROM {gps_num}")
-#             for row in c:
-#                 cnt = row[0]
-#
-#             while self.running:
-#                 for cnt in range(1, cnt + 1):
-#                     if not self.running:  # 추가: self.running이 False인 경우 루프 종료
-#                         break
-#
-#                     if cnt == 1:
-#                         print("데이터 초기화")
-#                     c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
-#                     for row in c:
-#                         try:
-#                             data = {
-#                                 "code": "0000",
-#                                 "message": "처리 성공",
-#                                 "bid": f"bb0{self.num}",
-#                                 "data": {
-#                                     "time": {
-#                                         "yy": row[0], "mm": row[1], "dd": row[2], "hh": row[3], "mi": row[4], "ss": row[5], "ms": row[6]
-#                                     },
-#                                     "acceleration": {
-#                                         "ax": row[7], "ay": row[8], "az": row[9]
-#                                     },
-#                                     "angular": {
-#                                         "wx": row[10], "wy": row[11], "wz": row[12]
-#                                     },
-#                                     "angle": {
-#                                         "roll": row[13], "pitch": row[14], "yaw": row[15]
-#                                     },
-#                                     "magnetic": {
-#                                         "mx": row[16], "my": row[17], "mz": row[18]
-#                                     },
-#                                     "atmospheric": {
-#                                          "press": row[19], "h": row[20]
-#                                     },
-#                                     "gps": {
-#                                         "lat": row[21], "lon": row[22]
-#                                     },
-#                                     "groundspeed": {
-#                                         "gh": row[23], "gy": row[24], "gv": row[25]
-#                                     },
-#                                     "quaternion": {
-#                                         "q0": row[26], "q1": row[27], "q2": row[28], "q3": row[29]
-#                                     },
-#                                     "satellite": {
-#                                         "snum": row[30], "pdop": row[31], "hdop": row[32], "vdop": row[33]
-#                                     }
-#                                 }
-#                             }
-#                             json_data = json.dumps(data)
-#                             # JSON 데이터를 서버로 전송
-#                             response = requests.post(f'{url}/gwg_temp2', json=json_data)
-#
-#                         except Exception as e:
-#                             print("JSON 데이터 전송 중 오류 발생")
-#                             traceback.print_exc()
-#
-#                     time.sleep(0.5)
-
-
-
-
-#         if process_thread is not None:
-#             for child in psutil.Process(process_thread.pid).children(recursive=True):
-#                 child.kill()
-#             process_thread.kill()
-#             process_thread.wait()
-#             setattr(self, f"process{num}_thread", None)
-#             status_label = getattr(self, f"status{num}")
-#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
-#             status_label.repaint()
-
-
-#     def restart_process(self, num):
-#         process_thread = self.process_threads[num]
-#         process_thread = False
-#         self.start_process(num)
-
-#
-#     def stop_process(self, num):
-#         # 실행 중인 프로세스가 있는 경우에만 종료
-#         print(f"blackbox_0{num} rtp 전송 멈춤")
-#
-#         # gps 종료
-#         if self.gps_thread is not None:
-#             self.gps_thread.stop()
-#             self.gps_thread.wait()
-#             self.gps_thread = None
-#
-#         # 영상 종료
-#         process_thread = getattr(self, f"process{num}_thread")
-#         if process_thread is not None:
-#             for child in psutil.Process(process_thread.pid).children(recursive=True):
-#                 child.kill()
-#             process_thread.kill()
-#             process_thread.wait()
-#             setattr(self, f"process{num}_thread", None)
-#             status_label = getattr(self, f"status{num}")
-#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
-#             status_label.repaint()
