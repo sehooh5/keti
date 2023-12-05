@@ -101,7 +101,8 @@ class GPSThread(QThread):
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
         else:
-            global cnt_test == 0 # 테스트 위해 추가
+            global cnt_test
+            cnt_test == 0# 테스트 위해 추가
             while self.running:
                 cnt_test += 1 # 테스트 위해 추가
                 data = {
