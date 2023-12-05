@@ -370,20 +370,21 @@ class App(QWidget):
 #                 status_label.setText(f'blackbox_0{num} RTP 전송중')
 #             except subprocess.CalledProcessError as e:
 #                 print(f"Error occurred: {e}")
-        if process_thread is None or not process_thread.isRunning():
-            if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-            else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-            try:
-                process_thread = ProcessThread(command)
-                process_thread.finished_signal.connect(lambda: self.restart_process(num))
-                setattr(self, f"process{num}_thread", process_thread)
-                status_label = getattr(self, f"status{num}")
-                status_label.setText(f'blackbox_0{num} RTP 전송중')
-                process_thread.start()
-            except subprocess.CalledProcessError as e:
-                print(f"Error occurred: {e}")
+
+#         if process_thread is None or not process_thread.isRunning():
+#             if num == 8:
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
+#             else:
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
+#             try:
+#                 process_thread = ProcessThread(command)
+#                 process_thread.finished_signal.connect(lambda: self.restart_process(num))
+#                 setattr(self, f"process{num}_thread", process_thread)
+#                 status_label = getattr(self, f"status{num}")
+#                 status_label.setText(f'blackbox_0{num} RTP 전송중')
+#                 process_thread.start()
+#             except subprocess.CalledProcessError as e:
+#                 print(f"Error occurred: {e}")
 
         if process_thread is None or not process_thread.isRunning():
             if num == 8:
