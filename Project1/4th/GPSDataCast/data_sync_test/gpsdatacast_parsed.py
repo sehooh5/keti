@@ -30,6 +30,7 @@ class ProcessThread(QThread):
         self.cmd = cmd
         self.process = None
         self.isRunning = False # 추가
+        self.cnt_test = 0  # 테스트위해 추가
 
     def run(self):
         self.process = subprocess.Popen(self.cmd, shell=True)
@@ -101,12 +102,11 @@ class GPSThread(QThread):
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
         else:
-            global cnt_test
-            cnt_test == 0# 테스트 위해 추가
+
             while self.running:
-                cnt_test += 1 # 테스트 위해 추가
+                self.cnt_test += 1
                 data = {
-                            "cnt": cnt_test,
+                            "cnt": self.cnt_test,
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": f"bb0{self.num}",
