@@ -396,12 +396,14 @@ class App(QWidget):
         if process_thread is not None:
             process_thread.stop()
             process_thread.wait()
-            self.process_threads[num] = None
+            self.process_thread[num] = None
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
     def restart_process(self, num):
+        process_thread = self.process_threads[num]
+        process_thread = False
         self.start_process(num)
 
 #
