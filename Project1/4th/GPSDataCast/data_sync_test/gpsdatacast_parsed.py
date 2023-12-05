@@ -30,7 +30,7 @@ class ProcessThread(QThread):
         self.cmd = cmd
         self.process = None
         self.isRunning = False # 추가
-        self.cnt_test = 0  # 테스트위해 추가
+
 
     def run(self):
         self.process = subprocess.Popen(self.cmd, shell=True)
@@ -52,6 +52,7 @@ class GPSThread(QThread):
         super().__init__()
         self.num = num
         self.running = False
+        self.cnt_test = 0  # 테스트위해 추가
 
     def run(self):
         self.running = True
