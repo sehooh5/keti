@@ -216,6 +216,7 @@ class GPSThread(QThread):
 
     def stop(self):
         self.running = False
+        self.wait()
 
 # 싱크 테스트 추가내용
     def restart(self):
