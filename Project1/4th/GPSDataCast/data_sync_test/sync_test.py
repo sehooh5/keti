@@ -70,3 +70,31 @@
 #
 
 
+import subprocess
+import re
+
+def play_media(file_path):
+    # VLC 명령어 및 파일 경로 설정
+    command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
+
+    # 서브프로세스 실행 및 표준 출력 감시
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    while True:
+        # 표준 출력에서 한 줄씩 읽음
+        output = process.stdout.readline()
+
+        # 플레이리스트의 끝을 나타내는 문자열 확인
+        if "end of playlist, exiting" in output:
+            print("End of playlist detected")
+            break
+
+        # VLC 플레이어에서의 다른 출력을 처리하거나 출력할 경우 아래 주석을 해제하세요.
+        # if output:
+        #     print(output.strip())
+
+if __name__ == "__main__":
+    username = "edge-worker-01"
+    num = 8
+
+    play_media(username, num)

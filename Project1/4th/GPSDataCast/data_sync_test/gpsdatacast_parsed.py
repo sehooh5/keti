@@ -17,9 +17,6 @@ import traceback
 import shlex
 
 username = os.getlogin()
-
-# url = "http://123.214.186.162:8089" # 기존 무선 주소
-# url = "http://192.168.0.54:8089" # 내부망 주소
 url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 
 class ProcessThread(QThread):
@@ -56,98 +53,49 @@ class GPSThread(QThread):
 
     def run(self):
         self.running = True
-
-
-
-        # 8번 = 고정형 CCTV
-        if self.num == 8:
-            while self.running:
-                self.cnt_test += 1
-                data = {
-                            "cnt": self.cnt_test,
-                            "code": "0000",
-                            "message": "처리 성공",
-                            "bid": f"bb0{self.num}",
-                            "data": {
-                                "time": {
-                                    "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
-                                },
-                                "acceleration": {
-                                    "ax": "0.0", "ay": "0.0", "az": "0.0"
-                                },
-                                "angular": {
-                                    "wx": "0.0", "wy": "0.0", "wz": "0.0"
-                                },
-                                "angle": {
-                                    "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
-                                },
-                                "magnetic": {
-                                    "mx": "0.0", "my": "0.0", "mz": "0.0"
-                                },
-                                "atmospheric": {
-                                     "press": "0.0", "h": "0.0"
-                                },
-                                "gps": {
-                                    "lat": "37.1487", "lon": "127.0773"
-                                },
-                                "groundspeed": {
-                                    "gh": "0.0", "gy": "0.0", "gv": "0.0"
-                                },
-                                "quaternion": {
-                                    "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
-                                },
-                                "satellite": {
-                                    "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
-                                }
+        while self.running:
+            self.cnt_test += 1
+            data = {
+                        "cnt": self.cnt_test,
+                        "code": "0000",
+                        "message": "처리 성공",
+                        "bid": f"bb0{self.num}",
+                        "data": {
+                            "time": {
+                                "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+                            },
+                            "acceleration": {
+                                "ax": "0.0", "ay": "0.0", "az": "0.0"
+                            },
+                            "angular": {
+                                "wx": "0.0", "wy": "0.0", "wz": "0.0"
+                            },
+                            "angle": {
+                                "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+                            },
+                            "magnetic": {
+                                "mx": "0.0", "my": "0.0", "mz": "0.0"
+                            },
+                            "atmospheric": {
+                                 "press": "0.0", "h": "0.0"
+                            },
+                            "gps": {
+                                "lat": "37.1487", "lon": "127.0773"
+                            },
+                            "groundspeed": {
+                                "gh": "0.0", "gy": "0.0", "gv": "0.0"
+                            },
+                            "quaternion": {
+                                "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+                            },
+                            "satellite": {
+                                "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
                             }
                         }
-                json_data = json.dumps(data)
-                response = requests.post(f'{url}/gwg_temp2', json=json_data)
-                time.sleep(0.5)
-        else:
-            while self.running:
-                self.cnt_test += 1
-                data = {
-                            "cnt": self.cnt_test,
-                            "code": "0000",
-                            "message": "처리 성공",
-                            "bid": f"bb0{self.num}",
-                            "data": {
-                                "time": {
-                                    "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
-                                },
-                                "acceleration": {
-                                    "ax": "0.0", "ay": "0.0", "az": "0.0"
-                                },
-                                "angular": {
-                                    "wx": "0.0", "wy": "0.0", "wz": "0.0"
-                                },
-                                "angle": {
-                                    "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
-                                },
-                                "magnetic": {
-                                    "mx": "0.0", "my": "0.0", "mz": "0.0"
-                                },
-                                "atmospheric": {
-                                     "press": "0.0", "h": "0.0"
-                                },
-                                "gps": {
-                                    "lat": "37.1487", "lon": "127.0773"
-                                },
-                                "groundspeed": {
-                                    "gh": "0.0", "gy": "0.0", "gv": "0.0"
-                                },
-                                "quaternion": {
-                                    "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
-                                },
-                                "satellite": {
-                                    "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
-                                }
-                            }
-                        }
-                json_data = json.dumps(data)
-                response = requests.post(f'{url}/gwg_temp2', json=json_data)
-                time.sleep(0.5)
+                    }
+            json_data = json.dumps(data)
+            response = requests.post(f'{url}/gwg_temp2', json=json_data)
+            time.sleep(0.5)
 
 
 
@@ -322,8 +270,6 @@ class App(QWidget):
 
         self.show()
 
-
-
     def start_process(self, num):
         self.running = True
         # GPS 데이터 전송을 위한 스레드 시작
@@ -387,48 +333,8 @@ class App(QWidget):
             process_thread.wait()
             self.process_threads[num] = None
 
-
         # 새로운 ProcessThread 시작
         self.start_process(num)
-
-#         if process_thread is not None:
-#             for child in psutil.Process(process_thread.pid).children(recursive=True):
-#                 child.kill()
-#             process_thread.kill()
-#             process_thread.wait()
-#             setattr(self, f"process{num}_thread", None)
-#             status_label = getattr(self, f"status{num}")
-#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
-#             status_label.repaint()
-
-
-#     def restart_process(self, num):
-#         process_thread = self.process_threads[num]
-#         process_thread = False
-#         self.start_process(num)
-
-#
-#     def stop_process(self, num):
-#         # 실행 중인 프로세스가 있는 경우에만 종료
-#         print(f"blackbox_0{num} rtp 전송 멈춤")
-#
-#         # gps 종료
-#         if self.gps_thread is not None:
-#             self.gps_thread.stop()
-#             self.gps_thread.wait()
-#             self.gps_thread = None
-#
-#         # 영상 종료
-#         process_thread = getattr(self, f"process{num}_thread")
-#         if process_thread is not None:
-#             for child in psutil.Process(process_thread.pid).children(recursive=True):
-#                 child.kill()
-#             process_thread.kill()
-#             process_thread.wait()
-#             setattr(self, f"process{num}_thread", None)
-#             status_label = getattr(self, f"status{num}")
-#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
-#             status_label.repaint()
 
 
 if __name__ == '__main__':
@@ -504,3 +410,45 @@ if __name__ == '__main__':
 #                             traceback.print_exc()
 #
 #                     time.sleep(0.5)
+
+
+
+
+#         if process_thread is not None:
+#             for child in psutil.Process(process_thread.pid).children(recursive=True):
+#                 child.kill()
+#             process_thread.kill()
+#             process_thread.wait()
+#             setattr(self, f"process{num}_thread", None)
+#             status_label = getattr(self, f"status{num}")
+#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+#             status_label.repaint()
+
+
+#     def restart_process(self, num):
+#         process_thread = self.process_threads[num]
+#         process_thread = False
+#         self.start_process(num)
+
+#
+#     def stop_process(self, num):
+#         # 실행 중인 프로세스가 있는 경우에만 종료
+#         print(f"blackbox_0{num} rtp 전송 멈춤")
+#
+#         # gps 종료
+#         if self.gps_thread is not None:
+#             self.gps_thread.stop()
+#             self.gps_thread.wait()
+#             self.gps_thread = None
+#
+#         # 영상 종료
+#         process_thread = getattr(self, f"process{num}_thread")
+#         if process_thread is not None:
+#             for child in psutil.Process(process_thread.pid).children(recursive=True):
+#                 child.kill()
+#             process_thread.kill()
+#             process_thread.wait()
+#             setattr(self, f"process{num}_thread", None)
+#             status_label = getattr(self, f"status{num}")
+#             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
+#             status_label.repaint()
