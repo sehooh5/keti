@@ -55,8 +55,8 @@ class GPSThread(QThread):
     def run(self):
         self.running = True
 
-        cnt == 0 # 테스트 위해 추가
-        
+
+
         # 8번 = 고정형 CCTV
         if self.num == 8:
             while self.running:
@@ -101,9 +101,9 @@ class GPSThread(QThread):
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
         else:
-
+            cnt1 == 0 # 테스트 위해 추가
             while self.running:
-                cnt += 1 # 테스트 위해 추가
+                cnt1 += 1 # 테스트 위해 추가
                 data = {
                             "cnt": cnt,
                             "code": "0000",
