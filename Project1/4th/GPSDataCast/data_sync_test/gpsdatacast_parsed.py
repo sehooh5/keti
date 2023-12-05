@@ -385,7 +385,7 @@ class App(QWidget):
             process_thread.kill()
             process_thread.stop()
             process_thread.wait()
-            self.process_threads[num] = None   
+            self.process_threads[num] = None
 
 
         # 새로운 ProcessThread 시작

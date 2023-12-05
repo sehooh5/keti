@@ -1,58 +1,15 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
-from PyQt5.QtCore import QThread
-import subprocess
-import os
-import sys
-import psutil
-
-from flask import Flask, render_template, Response, request, g, jsonify
-from flask_cors import CORS, cross_origin
-import json
-import sqlite3
-import time
-import requests
-from threading import Thread
-
-from PyQt5.QtCore import QThread, pyqtSignal
-
-import traceback
-
-username = os.getlogin()
-
-# url = "http://123.214.186.162:8089" # 기존 무선 주소
-# url = "http://192.168.0.54:8089" # 내부망 주소
-url = "http://192.168.0.54:8089" # 싱크 및 영상 추가 주소
-
-class ProcessThread(QThread):
-    def __init__(self, cmd):
-        super().__init__()
-        self.cmd = cmd
-        self.process = None
-        self.isRunning = False # 추가
-
-    def run(self):
-        self.process = subprocess.Popen(self.cmd)
-        self.isRunning = True # 추가
-        self.process.wait()
-        self.isRunning = False # 추가
-
-    def stop(self):
-        if self.process is not None and self.process.poll() is None:
-            self.process.terminate()
-            self.process.wait()
-            self.isRunning = False # 추가
-
-class GPSThread(QThread):
-    data_ready = pyqtSignal(dict)
+class BlackboxThread(QThread):
+    finished_signal = pyqtSignal()
 
     def __init__(self, num):
         super().__init__()
         self.num = num
+        self.process = None
         self.running = False
+        self.cnt_test = 0
 
     def run(self):
         self.running = True
-
 
         if self.num == 8:
             while self.running:
@@ -117,12 +74,6 @@ class GPSThread(QThread):
                     c.execute(f"SELECT * FROM {gps_num} WHERE ROWID={cnt}")
                     for row in c:
                         try:
-    #                         yy, mm, dd, hh, mi, ss, ms = row[0], row[1], row[2], row[3], row[4], row[5], row[6]
-    #                         ax, ay, az, wx, wy, wz = row[7], row[8], row[9], row[10], row[11], row[12]
-    #                         roll, pitch, yaw, mx, my, mz = row[13], row[14], row[15], row[16], row[17], row[18]
-    #                         press, h, lat, lon, gh, gy, gv = row[19], row[20], row[21], row[22], row[23], row[24], row[25]
-    #                         q0, q1, q2, q3, snum, pdop, hdop, vdop = row[26], row[27], row[28], row[29], row[30], row[31], row[32], row[33]
-
                             data = {
                                 "code": "0000",
                                 "message": "처리 성공",
@@ -170,12 +121,33 @@ class GPSThread(QThread):
 
                     time.sleep(0.5)
 
+        # 여기에 프로세스 시작 및 종료 로직 추가
+        command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{self.num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{self.num},mux=ts}}" --no-sout-all --play-and-exit'
+        try:
+            self.process = subprocess.Popen(command, shell=True)
+            self.process.wait()
+        except subprocess.CalledProcessError as e:
+            print(f"Error occurred: {e}")
+
+        if num == 8:
+            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+        else:
+            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+        self.process = subprocess.Popen(command, shell=True)
+        setattr(self, f"process{num}_thread", self.process)
+        status_label = getattr(self, f"status{num}")
+        status_label.setText(f'blackbox_0{num} RTP 전송중')
+
+        self.finished_signal.emit()
+
     def stop(self):
         self.running = False
+        if self.process is not None and self.process.poll() is None:
+            self.process.terminate()
+            self.process.wait()
 
-# 싱크 테스트 추가내용
-    def restart(self):
-        self.start()
+# ...
+
 
 
 class App(QWidget):
@@ -339,61 +311,42 @@ class App(QWidget):
 
         self.show()
 
-
-
     def start_process(self, num):
-        self.running = True
+        # 중복 시작 방지
+        if self.blackbox_threads[num] is not None and self.blackbox_threads[num].isRunning():
+            return
+
         # GPS 데이터 전송을 위한 스레드 시작
-        self.gps_thread = GPSThread(num)
-#         self.gps_thread.data_ready.connect(self.send_gps_data)
-        self.gps_thread.start()
-
-        # 영상 데이터 전송
-        print(f"blackbox_0{num} rtp 전송 시작")
-        process_thread = getattr(self, f"process{num}_thread")
-
-        if process_thread is None or not process_thread.isRunning():
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
-#            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
-            if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-            else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-            process_thread = subprocess.Popen(command, shell=True)
-            setattr(self, f"process{num}_thread", process_thread)
-            status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTP 전송중')
-
-
+        self.blackbox_threads[num] = BlackboxThread(num)
+        self.blackbox_threads[num].finished_signal.connect(lambda: self.restart_process(num))
+        status_label = getattr(self, f"status{num}")
+        status_label.setText(f'blackbox_0{num} RTP 전송중')
+        self.blackbox_threads[num].start()
 
     def stop_process(self, num):
-        # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
-
-        # gps 종료
-        if self.gps_thread is not None:
-            self.gps_thread.stop()
-            self.gps_thread.wait()
-            self.gps_thread = None
-
-        # 영상 종료
-        process_thread = getattr(self, f"process{num}_thread")
-        if process_thread is not None:
-            for child in psutil.Process(process_thread.pid).children(recursive=True):
-                child.kill()
-            process_thread.kill()
-            process_thread.wait()
-            setattr(self, f"process{num}_thread", None)
+        blackbox_thread = self.blackbox_threads[num]
+        if blackbox_thread is not None:
+            blackbox_thread.stop()
+            blackbox_thread.wait()
+            self.blackbox_threads[num] = None
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
-#     def send_gps_data(self, data):
-#         print(data)
-#         requests.post(f'{url}/gwg_temp', json=data)
+    def restart_process(self, num):
+        # 중지 및 기존 인스턴스 제거
+        blackbox_thread = self.blackbox_threads[num]
+        if blackbox_thread is not None:
+            blackbox_thread.stop()
+            blackbox_thread.wait()
+            self.blackbox_threads[num] = None
+
+        # 새로운 BlackboxThread 시작
+        self.start_process(num)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
     sys.exit(app.exec_())
-
