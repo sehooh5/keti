@@ -36,6 +36,7 @@ class ProcessThread(QThread):
         self.isRunning = True # 추가
         self.process.wait()
         self.isRunning = False # 추가
+        self.finished_signal.emit()  # 작업 완료 시그널 발생
 
     def stop(self):
         if self.process is not None and self.process.poll() is None:
@@ -353,22 +354,41 @@ class App(QWidget):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = getattr(self, f"process{num}_thread")
 
+#         if process_thread is None or not process_thread.isRunning():
+#
+#             if num == 8:
+# #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
+#             else:
+# #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
+#             try:
+#                 process_thead = subprocess.Popen(command, shell=True)
+#                 setattr(self, f"process{num}_thread", process_thread)
+#                 status_label = getattr(self, f"status{num}")
+#                 status_label.setText(f'blackbox_0{num} RTP 전송중')
+#             except subprocess.CalledProcessError as e:
+#                 print(f"Error occurred: {e}")
         if process_thread is None or not process_thread.isRunning():
-
             if num == 8:
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
             else:
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
             try:
-                process_thead = subprocess.Popen(command, shell=True)
-                setattr(self, f"process{num}_thread", process_thread)
+                process_thead = ProcessThread(command)
+                process_thead.finished_signal.connect(lambda: self.restart_process(num))
+                setattr(self, f"process{num}_thread", process_thead)
                 status_label = getattr(self, f"status{num}")
                 status_label.setText(f'blackbox_0{num} RTP 전송중')
+                process_thead.start()
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred: {e}")
 
+    def restart_process(self, num):
+        print(f"blackbox_0{num} rtp 전송 종료")
+        # 여기서 필요한 작업 수행
+        # 예를 들어, 다시 시작하도록 하려면 self.start_process(num) 호출 등
+        self.start_process(num)
 
 
     def stop_process(self, num):
