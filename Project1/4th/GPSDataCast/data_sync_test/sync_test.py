@@ -4,7 +4,7 @@ import time
 
 def start_video_streaming(username, num):
     while True:
-        command = f'cvlc /home/edge-worker-01/blackbox_osan/blackbox_08.avi --sout "#rtp{{dst=192.168.0.14,port=5008,mux=ts}}" --no-sout-all'
+        command = f'cvlc /home/edge-worker-01/blackbox_osan/blackbox_08.mp4 --sout "#rtp{{dst=192.168.0.14,port=5008,mux=ts}}" --no-sout-all'
         try:
             subprocess.run(shlex.split(command), check=True)
         except subprocess.CalledProcessError as e:
