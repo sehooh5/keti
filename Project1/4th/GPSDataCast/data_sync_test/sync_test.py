@@ -70,7 +70,8 @@
 #############################################################
 
 import cv2
-import imageio_ffmpeg
+import numpy as np
+import socket
 
 def send_rtp(video_file, destination_address, destination_port):
     # Open video file
@@ -81,9 +82,8 @@ def send_rtp(video_file, destination_address, destination_port):
     height = int(cap.get(4))
     fps = int(cap.get(5))
 
-    # Create RTP stream
-    rtp_url = f'rtp://{destination_address}:{destination_port}?encoding-name=H264&media-type=video&clock-rate={fps}'
-    writer = imageio_ffmpeg.get_writer(rtp_url, fps=fps, codec='libx264', pixelformat='yuv420p', bitrate='500k')
+    # Create UDP socket
+    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     try:
         while cap.isOpened():
@@ -91,14 +91,19 @@ def send_rtp(video_file, destination_address, destination_port):
             if not ret:
                 break
 
-            # Send frame to RTP stream
-            writer.append_data(frame)
+            # Encode frame to JPEG
+            _, img_encoded = cv2.imencode('.jpg', frame)
+            data = np.array(img_encoded)
+            string_data = data.tostring()
+
+            # Send frame to destination address and port
+            udp_socket.sendto(string_data, (destination_address, destination_port))
 
         print("Streaming complete.")
 
     finally:
         cap.release()
-        writer.close()
+        udp_socket.close()
 
 if __name__ == "__main__":
     video_file_path = "/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"  # Replace with your MP4 file path
