@@ -199,6 +199,7 @@ class App(QWidget):
         self.process6_thread = None
         self.process7_thread = None
         self.process8_thread = None
+        self.process_threads = [None] * 9 # 추가
         self.gps_thread = None
 
         self.initUI()
@@ -352,7 +353,7 @@ class App(QWidget):
 
         # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
-        process_thread = getattr(self, f"process{num}_thread")
+        process_thread = self.process_threads[num]
 
 #         if process_thread is None or not process_thread.isRunning():
 #
@@ -384,6 +385,22 @@ class App(QWidget):
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred: {e}")
 
+        if process_thread is None or not process_thread.isRunning():
+            if num == 8:
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
+            else:
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
+
+            try:
+                process_thread = ProcessThread(command)
+                process_thread.finished_signal.connect(lambda: self.restart_process(num))
+                setattr(self, f"process{num}_thread", process_thread)
+                status_label = getattr(self, f"status{num}")
+                status_label.setText(f'blackbox_0{num} RTP 전송중')
+                process_thread.start()
+            except subprocess.CalledProcessError as e:
+                print(f"Error occurred: {e}")
+
     def stop_process(self, num):
         print(f"blackbox_0{num} rtp 전송 멈춤")
         gps_thread = self.gps_thread
@@ -392,17 +409,17 @@ class App(QWidget):
             gps_thread.wait()
             self.gps_thread = None
 
-        process_thread = self.process_thread[num]
+        process_thread = self.process_threads[num]
         if process_thread is not None:
             process_thread.stop()
             process_thread.wait()
-            self.process_thread[num] = None
+            self.process_threads[num] = None
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
     def restart_process(self, num):
-        process_thread = self.process_thread[num]
+        process_thread = self.process_threads[num]
         process_thread = False
         self.start_process(num)
 
