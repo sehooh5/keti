@@ -1988,3 +1988,9 @@
   - how to stream mp4 to rtp on python-vlc
   - how to loop mp4 file streaming to rtp on python-vlc
 - 아니면 그냥 loop 돌리지말고 영상 끝나면 재시작 하도록 코드 변경하기
+
+
+
+#### 1205
+
+- 영상 끝나는 지점을 못찾고있음..
