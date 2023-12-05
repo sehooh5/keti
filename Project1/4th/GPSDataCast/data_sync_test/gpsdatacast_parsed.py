@@ -4,7 +4,6 @@ import subprocess
 import os
 import sys
 import psutil
-
 from flask import Flask, render_template, Response, request, g, jsonify
 from flask_cors import CORS, cross_origin
 import json
@@ -13,10 +12,9 @@ import time
 import requests
 from threading import Thread
 import threading
-
 from PyQt5.QtCore import QThread, pyqtSignal
-
 import traceback
+import shlex
 
 username = os.getlogin()
 
@@ -358,28 +356,19 @@ class App(QWidget):
         if process_thread is None or not process_thread.isRunning():
             if num == 8:
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
             else:
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
-            process_thead = subprocess.Popen(command, shell=True)
-            setattr(self, f"process{num}_thread", process_thread)
-            status_label = getattr(self, f"status{num}")
-            status_label.setText(f'blackbox_0{num} RTP 전송중')
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
+            while True:
+                try:
+                    process_thead = subprocess.Popen(command, shell=True)
+                    setattr(self, f"process{num}_thread", process_thread)
+                    status_label = getattr(self, f"status{num}")
+                    status_label.setText(f'blackbox_0{num} RTP 전송중')
+                except subprocess.CalledProcessError as e:
+                    print(f"Error occurred: {e}")
 
-
-#             if process_thread.poll() == None:
-#                 print("종료!!!!!")
-#             else:
-#                 print("?????????")
-#             # 프로세스 종료 감지를 위한 스레드 시작
-#             monitor_thread = threading.Thread(target=self.start_process_monitor, args=(process_thread, num))
-#             monitor_thread.start()
-#
-#
-#     def start_process_monitor(self, process, num):
-#         # 프로세스 종료 시 실행되는 코드
-#         print(f"파일 실행이 종료되었습니다: blackbox_0{num}")
 
 
     def stop_process(self, num):
