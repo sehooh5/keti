@@ -392,7 +392,7 @@ class App(QWidget):
             gps_thread.wait()
             self.gps_thread = None
 
-        process_thread = self.process_threads[num]
+        process_thread = self.process_thread[num]
         if process_thread is not None:
             process_thread.stop()
             process_thread.wait()
@@ -402,7 +402,7 @@ class App(QWidget):
             status_label.repaint()
 
     def restart_process(self, num):
-        process_thread = self.process_threads[num]
+        process_thread = self.process_thread[num]
         process_thread = False
         self.start_process(num)
 
