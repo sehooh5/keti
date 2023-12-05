@@ -431,6 +431,7 @@ class App(QWidget):
             status_label.repaint()
 
     def restart_process(self, num):
+        print("restart 들어오!!")
         # GPSThread 중지 및 기존 인스턴스 제거
         if self.gps_thread is not None:
             self.gps_thread.stop()
@@ -438,7 +439,7 @@ class App(QWidget):
             self.gps_thread = None
 
 
-
+        print("restart 들어오22!!")
         # ProcessThread 재시작
         process_thread = self.process_threads[num]
         if process_thread is not None:
