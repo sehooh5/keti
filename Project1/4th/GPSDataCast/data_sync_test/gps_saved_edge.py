@@ -55,7 +55,9 @@ def gwg_temp2():
     global bp01, bp02, bp03, bp04, bp05, bp06, bp07, bp08
 
     temp_data = json.loads(request.get_json(silent=True))
+    print(temp_data)
     print(temp_data.get('cnt'))
+    print(temp_data.get('bid'))
     bid = temp_data.get('bid')
 
     if bid == 'bb01':
