@@ -363,8 +363,8 @@ class App(QWidget):
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
             try:
                 process_thead = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                stdout, stderr = process.communicate()  # 대기하고 종료 코드를 얻음
-                return_code = process.returncode
+                stdout, stderr = process_thead.communicate()  # 대기하고 종료 코드를 얻음
+                return_code = process_thead.returncode
 
                 # 이제 return_code 변수에 종료 코드가 저장되어 있습니다.
                 print(f"Process exited with return code: {return_code}")
