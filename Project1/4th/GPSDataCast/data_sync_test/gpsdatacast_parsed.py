@@ -24,6 +24,7 @@ url = "http://192.168.0.14:8089" # 싱크 및 영상 추가 주소
 
 class ProcessThread(QThread):
     finished_signal = pyqtSignal()
+    data_ready = pyqtSignal(dict) # gps 내용 추가
 
     def __init__(self, cmd):
         super().__init__()
@@ -31,6 +32,10 @@ class ProcessThread(QThread):
         self.process = None
         self.isRunning = False # 추가
 
+        # gps 내용 추가
+        self.num = num
+        self.running = False
+        self.cnt_test = 0  # 테스트위해 추가
 
     def run(self):
         self.process = subprocess.Popen(self.cmd, shell=True)
@@ -39,27 +44,8 @@ class ProcessThread(QThread):
         self.isRunning = False # 추가
         self.finished_signal.emit()  # 작업 완료 시그널 발생
 
-    def stop(self):
-        if self.process is not None and self.process.poll() is None:
-            self.process.terminate()
-            self.process.wait()
-            self.isRunning = False # 추가
-
-class GPSThread(QThread):
-    data_ready = pyqtSignal(dict)
-
-    def __init__(self, num):
-        super().__init__()
-        self.num = num
-        self.running = False
-        self.cnt_test = 0  # 테스트위해 추가
-
-    def run(self):
+        # gps 내용 추가
         self.running = True
-
-
-
-        # 8번 = 고정형 CCTV
         if self.num == 8:
             while self.running:
                 self.cnt_test += 1
@@ -148,6 +134,117 @@ class GPSThread(QThread):
                 json_data = json.dumps(data)
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
+
+    def stop(self):
+        if self.process is not None and self.process.poll() is None:
+            self.process.terminate()
+            self.process.wait()
+            self.isRunning = False # 추가
+
+# class GPSThread(QThread):
+#     data_ready = pyqtSignal(dict)
+#
+#     def __init__(self, num):
+#         super().__init__()
+#         self.num = num
+#         self.running = False
+#         self.cnt_test = 0  # 테스트위해 추가
+#
+#     def run(self):
+#         self.running = True
+#
+#         # 8번 = 고정형 CCTV
+#         if self.num == 8:
+#             while self.running:
+#                 self.cnt_test += 1
+#                 data = {
+#                             "cnt": self.cnt_test,
+#                             "code": "0000",
+#                             "message": "처리 성공",
+#                             "bid": f"bb0{self.num}",
+#                             "data": {
+#                                 "time": {
+#                                     "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+#                                 },
+#                                 "acceleration": {
+#                                     "ax": "0.0", "ay": "0.0", "az": "0.0"
+#                                 },
+#                                 "angular": {
+#                                     "wx": "0.0", "wy": "0.0", "wz": "0.0"
+#                                 },
+#                                 "angle": {
+#                                     "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+#                                 },
+#                                 "magnetic": {
+#                                     "mx": "0.0", "my": "0.0", "mz": "0.0"
+#                                 },
+#                                 "atmospheric": {
+#                                      "press": "0.0", "h": "0.0"
+#                                 },
+#                                 "gps": {
+#                                     "lat": "37.1487", "lon": "127.0773"
+#                                 },
+#                                 "groundspeed": {
+#                                     "gh": "0.0", "gy": "0.0", "gv": "0.0"
+#                                 },
+#                                 "quaternion": {
+#                                     "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+#                                 },
+#                                 "satellite": {
+#                                     "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
+#                                 }
+#                             }
+#                         }
+#                 json_data = json.dumps(data)
+#                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
+#                 time.sleep(0.5)
+#         else:
+#             while self.running:
+#                 self.cnt_test += 1
+#                 data = {
+#                             "cnt": self.cnt_test,
+#                             "code": "0000",
+#                             "message": "처리 성공",
+#                             "bid": f"bb0{self.num}",
+#                             "data": {
+#                                 "time": {
+#                                     "yy": "23", "mm": "11", "dd": "13", "hh": "00", "mi": "00", "ss": "00", "ms": "00"
+#                                 },
+#                                 "acceleration": {
+#                                     "ax": "0.0", "ay": "0.0", "az": "0.0"
+#                                 },
+#                                 "angular": {
+#                                     "wx": "0.0", "wy": "0.0", "wz": "0.0"
+#                                 },
+#                                 "angle": {
+#                                     "roll": "0.0", "pitch": "0.0", "yaw": "0.0"
+#                                 },
+#                                 "magnetic": {
+#                                     "mx": "0.0", "my": "0.0", "mz": "0.0"
+#                                 },
+#                                 "atmospheric": {
+#                                      "press": "0.0", "h": "0.0"
+#                                 },
+#                                 "gps": {
+#                                     "lat": "37.1487", "lon": "127.0773"
+#                                 },
+#                                 "groundspeed": {
+#                                     "gh": "0.0", "gy": "0.0", "gv": "0.0"
+#                                 },
+#                                 "quaternion": {
+#                                     "q0": "0.0", "q1": "0.0", "q2": "0.0", "q3": "0.0"
+#                                 },
+#                                 "satellite": {
+#                                     "snum": "0.0", "pdop": "0.0", "hdop": "0.0", "vdop": "0.0"
+#                                 }
+#                             }
+#                         }
+#                 json_data = json.dumps(data)
+#                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
+#                 time.sleep(0.5)
+
+
+
 #             gps_num = f'gps_0{self.num}'
 #             conn = sqlite3.connect(f"gps_parsed.db", isolation_level=None, check_same_thread=False)
 #             c = conn.cursor()
@@ -390,8 +487,8 @@ class App(QWidget):
     def start_process(self, num):
         self.running = True
         # GPS 데이터 전송을 위한 스레드 시작
-        self.gps_thread = GPSThread(num)
-        self.gps_thread.start()
+#         self.gps_thread = GPSThread(num)
+#         self.gps_thread.start()
 
         # 영상 데이터 전송
         print(f"blackbox_0{num} rtp 전송 시작")
@@ -414,12 +511,12 @@ class App(QWidget):
                 print(f"Error occurred: {e}")
 
     def stop_process(self, num):
-        print(f"blackbox_0{num} rtp 전송 멈춤")
-        gps_thread = self.gps_thread
-        if gps_thread is not None:
-            gps_thread.stop()
-            gps_thread.wait()
-            self.gps_thread = None
+#         print(f"blackbox_0{num} rtp 전송 멈춤")
+#         gps_thread = self.gps_thread
+#         if gps_thread is not None:
+#             gps_thread.stop()
+#             gps_thread.wait()
+#             self.gps_thread = None
 
         process_thread = self.process_threads[num]
         if process_thread is not None:
