@@ -105,7 +105,7 @@ class GPSThread(QThread):
             while self.running:
                 cnt1 += 1 # 테스트 위해 추가
                 data = {
-                            "cnt": cnt,
+                            "cnt": cnt1,
                             "code": "0000",
                             "message": "처리 성공",
                             "bid": f"bb0{self.num}",
