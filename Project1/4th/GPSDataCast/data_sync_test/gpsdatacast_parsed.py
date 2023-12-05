@@ -357,12 +357,18 @@ class App(QWidget):
 
             if num == 8:
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" -no-sout-all --play-and-exit' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
             else:
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
             try:
-                process_thead = subprocess.Popen(command, shell=True)
+                process_thead = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                stdout, stderr = process_thead.communicate()  # 대기하고 종료 코드를 얻음
+                return_code = process_thead.returncode
+                print(f"Process exited with return code: {return_code}")
+                print(f"Standard Output:\n{stdout.decode()}")
+                print(f"Standard Error:\n{stderr.decode()}")
+
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
                 status_label.setText(f'blackbox_0{num} RTP 전송중')
