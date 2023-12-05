@@ -520,6 +520,9 @@ class App(QWidget):
 
         process_thread = self.process_threads[num]
         if process_thread is not None:
+            for child in psutil.Process(process_thread.pid).children(recursive=True):
+                child.kill()
+            process_thread.kill()
             process_thread.stop()
             process_thread.wait()
             self.process_threads[num] = None
