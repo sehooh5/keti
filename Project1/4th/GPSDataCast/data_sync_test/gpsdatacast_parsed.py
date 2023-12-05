@@ -447,9 +447,11 @@ class App(QWidget):
             process_thread.wait()
             self.process_threads[num] = None
 
+        print("restart 들어오333!!")
         # GPSThread 재시작
         self.gps_thread = GPSThread(num)
         self.gps_thread.start()
+        print("restart 들어오4444!!")
         # 새로운 ProcessThread 시작
         self.start_process(num)
 
