@@ -384,31 +384,25 @@ class App(QWidget):
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred: {e}")
 
-    def restart_process(self, num):
-        print(f"blackbox_0{num} rtp 전송 종료")
-        # 여기서 필요한 작업 수행
-        # 예를 들어, 다시 시작하도록 하려면 self.start_process(num) 호출 등
-        self.start_process(num)
-
     def stop_process(self, num):
-        # 실행 중인 프로세스가 있는 경우에만 종료
         print(f"blackbox_0{num} rtp 전송 멈춤")
-
-        # gps 종료
-        if self.gps_thread is not None:
-            self.gps_thread.stop()
-            self.gps_thread.wait()
+        gps_thread = self.gps_thread
+        if gps_thread is not None:
+            gps_thread.stop()
+            gps_thread.wait()
             self.gps_thread = None
 
-        # 영상 종료
-        process_thread = getattr(self, f"process{num}_thread")
+        process_thread = self.process_threads[num]
         if process_thread is not None:
             process_thread.stop()
             process_thread.wait()
-            setattr(self, f"process{num}_thread", None)
+            self.process_threads[num] = None
             status_label = getattr(self, f"status{num}")
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
+
+    def restart_process(self, num):
+        self.start_process(num)
 
 #
 #     def stop_process(self, num):
