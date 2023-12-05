@@ -14,7 +14,7 @@ def start_video_streaming(username, num):
             break
 
 if __name__ == "__main__":
-    username = "worker"
+    username = "edge-worker-01"
     stream_num = 8  # Adjust this value based on your requirements
 
     try:
