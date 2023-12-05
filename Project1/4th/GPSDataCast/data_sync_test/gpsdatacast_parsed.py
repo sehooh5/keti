@@ -363,7 +363,7 @@ class App(QWidget):
 # #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
 #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
 #             try:
-#                 process_thead = subprocess.Popen(command, shell=True)
+#                 process_thread = subprocess.Popen(command, shell=True)
 #                 setattr(self, f"process{num}_thread", process_thread)
 #                 status_label = getattr(self, f"status{num}")
 #                 status_label.setText(f'blackbox_0{num} RTP 전송중')
@@ -375,12 +375,12 @@ class App(QWidget):
             else:
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
             try:
-                process_thead = ProcessThread(command)
-                process_thead.finished_signal.connect(lambda: self.restart_process(num))
-                setattr(self, f"process{num}_thread", process_thead)
+                process_thread = ProcessThread(command)
+                process_thread.finished_signal.connect(lambda: self.restart_process(num))
+                setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
                 status_label.setText(f'blackbox_0{num} RTP 전송중')
-                process_thead.start()
+                process_thread.start()
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred: {e}")
 
