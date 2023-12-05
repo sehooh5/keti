@@ -73,7 +73,7 @@
 import subprocess
 import re
 
-def play_media(file_path):
+def play_media(username, num):
     # VLC 명령어 및 파일 경로 설정
     command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
 
