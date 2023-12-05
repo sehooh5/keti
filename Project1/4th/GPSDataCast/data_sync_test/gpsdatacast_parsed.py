@@ -26,7 +26,7 @@ class ProcessThread(QThread):
     finished_signal = pyqtSignal()
     data_ready = pyqtSignal(dict) # gps 내용 추가
 
-    def __init__(self, cmd):
+    def __init__(self, cmd, num):
         super().__init__()
         self.cmd = cmd
         self.process = None
