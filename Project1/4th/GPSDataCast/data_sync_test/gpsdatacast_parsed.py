@@ -329,6 +329,11 @@ class App(QWidget):
             self.gps_thread.wait()
             self.gps_thread = None
 
+
+        if self.gps_thread is not None:
+            self.gps_thread.stop()
+            self.gps_thread.wait()
+            self.gps_thread = None
         # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
