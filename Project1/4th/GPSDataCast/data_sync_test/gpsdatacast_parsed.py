@@ -434,6 +434,7 @@ class App(QWidget):
         # GPSThread 중지 및 기존 인스턴스 제거
         if self.gps_thread is not None:
             self.gps_thread.stop()
+            self.gps_thread.finished.connect(lambda: self.start_process(num))
             self.gps_thread.wait(3000)
             self.gps_thread = None
 
@@ -445,6 +446,7 @@ class App(QWidget):
         process_thread = self.process_threads[num]
         if process_thread is not None:
             process_thread.stop()
+            process_thread.finished.connect(lambda: self.start_process(num))
             process_thread.wait(3000)
             self.process_threads[num] = None
 
