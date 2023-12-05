@@ -366,10 +366,10 @@ class App(QWidget):
                 stdout, stderr = process_thead.communicate()  # 대기하고 종료 코드를 얻음
                 return_code = process_thead.returncode
 
-                # 이제 return_code 변수에 종료 코드가 저장되어 있습니다.
-                print(f"Process exited with return code: {return_code}")
-                print(f"Standard Output:\n{stdout.decode()}")
-                print(f"Standard Error:\n{stderr.decode()}")
+#                 # 이제 return_code 변수에 종료 코드가 저장되어 있습니다.
+#                 print(f"Process exited with return code: {return_code}")
+#                 print(f"Standard Output:\n{stdout.decode()}")
+#                 print(f"Standard Error:\n{stderr.decode()}")
 
                 setattr(self, f"process{num}_thread", process_thread)
                 status_label = getattr(self, f"status{num}")
