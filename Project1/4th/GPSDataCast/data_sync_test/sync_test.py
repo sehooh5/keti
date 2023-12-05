@@ -1,3 +1,6 @@
+
+###################################################################
+
 # import subprocess
 # import shlex
 # import time
@@ -22,7 +25,7 @@
 #     except KeyboardInterrupt:
 #         print("Streaming stopped.")
 
-###################################
+###################################################################
 
 # import vlc
 #
@@ -67,47 +70,3 @@
 #
 
 
-#############################################################
-
-import cv2
-import numpy as np
-import socket
-
-def send_rtp(video_file, destination_address, destination_port):
-    # Open video file
-    cap = cv2.VideoCapture(video_file)
-
-    # Get video properties
-    width = int(cap.get(3))
-    height = int(cap.get(4))
-    fps = int(cap.get(5))
-
-    # Create UDP socket
-    udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    try:
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if not ret:
-                break
-
-            # Encode frame to JPEG
-            _, img_encoded = cv2.imencode('.jpg', frame)
-            data = np.array(img_encoded)
-            string_data = data.tostring()
-
-            # Send frame to destination address and port
-            udp_socket.sendto(string_data, (destination_address, destination_port))
-
-        print("Streaming complete.")
-
-    finally:
-        cap.release()
-        udp_socket.close()
-
-if __name__ == "__main__":
-    video_file_path = "/home/edge-worker-01/blackbox_osan/blackbox_08.mp4"  # Replace with your MP4 file path
-    destination_ip = "192.168.0.14"
-    destination_port = 5008
-
-    send_rtp(video_file_path, destination_ip, destination_port)
