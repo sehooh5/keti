@@ -61,7 +61,6 @@ class GPSThread(QThread):
 
         # 8번 = 고정형 CCTV
         if self.num == 8:
-            self.cnt_test= 0
             while self.running:
                 self.cnt_test += 1
                 data = {
@@ -106,7 +105,6 @@ class GPSThread(QThread):
                 response = requests.post(f'{url}/gwg_temp2', json=json_data)
                 time.sleep(0.5)
         else:
-
             while self.running:
                 self.cnt_test += 1
                 data = {
@@ -398,37 +396,6 @@ class App(QWidget):
         print(f"blackbox_0{num} rtp 전송 시작")
         process_thread = self.process_threads[num]
 
-#         if process_thread is None or not process_thread.isRunning():
-#
-#             if num == 8:
-# #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all' # 싱크 테스트
-#             else:
-# #                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit' # 싱크 테스트
-#             try:
-#                 process_thread = subprocess.Popen(command, shell=True)
-#                 setattr(self, f"process{num}_thread", process_thread)
-#                 status_label = getattr(self, f"status{num}")
-#                 status_label.setText(f'blackbox_0{num} RTP 전송중')
-#             except subprocess.CalledProcessError as e:
-#                 print(f"Error occurred: {e}")
-
-#         if process_thread is None or not process_thread.isRunning():
-#             if num == 8:
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-#             else:
-#                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
-#             try:
-#                 process_thread = ProcessThread(command)
-#                 process_thread.finished_signal.connect(lambda: self.restart_process(num))
-#                 setattr(self, f"process{num}_thread", process_thread)
-#                 status_label = getattr(self, f"status{num}")
-#                 status_label.setText(f'blackbox_0{num} RTP 전송중')
-#                 process_thread.start()
-#             except subprocess.CalledProcessError as e:
-#                 print(f"Error occurred: {e}")
-
         if process_thread is None or not process_thread.isRunning():
             if num == 8:
                 command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.14,port=500{num},mux=ts}}" --no-sout-all --play-and-exit'
@@ -462,10 +429,32 @@ class App(QWidget):
             status_label.setText(f'blackbox_0{num} RTP 전송 멈춤')
             status_label.repaint()
 
-    def restart_process(self, num):
-        process_thread = self.process_threads[num]
-        process_thread = False
-        self.start_process(num)
+        def restart_process(self, num):
+            # GPSThread 중지 및 기존 인스턴스 제거
+            if self.gps_thread is not None:
+                self.gps_thread.stop()
+                self.gps_thread.wait()
+                self.gps_thread = None
+
+            # GPSThread 재시작
+            self.gps_thread = GPSThread(num)
+            self.gps_thread.start()
+
+            # ProcessThread 재시작
+            process_thread = self.process_threads[num]
+            if process_thread is not None:
+                process_thread.stop()
+                process_thread.wait()
+                self.process_threads[num] = None
+
+            # 새로운 ProcessThread 시작
+            self.start_process(num)
+
+
+#     def restart_process(self, num):
+#         process_thread = self.process_threads[num]
+#         process_thread = False
+#         self.start_process(num)
 
 #
 #     def stop_process(self, num):
