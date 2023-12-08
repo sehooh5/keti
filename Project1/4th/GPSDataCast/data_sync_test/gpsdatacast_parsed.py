@@ -36,6 +36,7 @@ class ProcessThread(QThread):
 
         while True:
             output = self.process.stdout.readline()
+            # 이 부분이 영상재생 종료되면 발생되는 시그널 확인
             if "end of playlist, exiting" in output:
                 print(f"End of playlist detected for blackbox_0{self.num}")
                 break
