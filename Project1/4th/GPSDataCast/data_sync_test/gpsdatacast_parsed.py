@@ -319,8 +319,6 @@ class App(QWidget):
             status_label.repaint()
 
 
-
-
     def stop_process(self, num):
         print(f"blackbox_0{num} rtp 전송 멈춤")
 
@@ -335,10 +333,10 @@ class App(QWidget):
             self.gps_thread.stop()
             self.gps_thread.wait()
             self.gps_thread = None
+
         # 영상 종료
         process_thread = getattr(self, f"process{num}_thread")
         if process_thread is not None:
-            print("여기로 들어옴 !!")
             process_thread.stop()
             process_thread.wait()
             setattr(self, f"process{num}_thread", None)
