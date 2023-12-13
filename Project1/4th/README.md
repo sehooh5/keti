@@ -2022,3 +2022,19 @@
 #### 1211
 
 - 내일 출장 준비, 프로젝트 재기동 필요하면 어떻게 하는지 다시 파악 ㄱㄱ
+
+
+
+#### 1212
+
+- 우분투 화면 녹화
+  -  Ctrl+Alt+Shift+R   녹화 종료할때 도 동일하게 Ctrl+Alt+Shift+R
+  - simple screan recorder 설치
+    - sudo apt install simplescreenrecorder
+
+
+
+#### 1213
+
+- 싱크 맞추기 계속 진행해보고
+- 오산 촬영 영상 편집 
