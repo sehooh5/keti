@@ -16,9 +16,6 @@ import subprocess
 import zipfile
 import datetime
 import sys
-# docker folder
-# from docker import build, push
-# k8s folder
 from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
@@ -72,9 +69,6 @@ ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
 port = "5000"
 
-# os.environ['OPEN_WINDOW'] = "NO"
-
-
 @ app.route('/')
 def index():
     # 해당 컴퓨터의 worker node 들 이름 가져오기 - names 에 저장
@@ -89,7 +83,6 @@ def index():
     for name in name_list:
         name = name.split(' ')[0]
         if name.find('master') == -1:
-            # n = {"nodename": name}
             names.append(name)
 
     # 해당 노드이름으로 노드ID 를 찾고, select-cam 의 nodeport 조회
@@ -374,7 +367,6 @@ def get_uploadSwList():
 
     sw_list = []
     for sid in sid_list:
-        # dt = datetime[0].strftime('%Y-%m-%d')
         sid = sid[0]
         name = db.session.query(SW_up.name).filter(SW_up.sid == sid).first()[0]
         fname = db.session.query(SW_up.fname).filter(
@@ -454,6 +446,7 @@ def add_newUploadSw():
     type = json_data['type']
     desc = json_data['description']
     filename = json_data['file']
+
     # VMS 서버로부터 마스터서버로 파일 다운로드
     if filename.find("zip") != -1:
         fname = filename[:-4]
@@ -465,7 +458,6 @@ def add_newUploadSw():
         with open(f"{fname}.zip", 'wb') as select_cam:
             data = requests.get(f"{API_URL}/download?filename={filename}")
             select_cam.write(data.content)
-        # print("select_cam : ", select_cam)
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
         zip_ref.extractall(fname)
@@ -490,10 +482,6 @@ def add_newUploadSw():
         print("Docker image push to Docker hub..")
         os.system(f"docker push sehooh5/{fname}:latest")
         print("Docker image pushing completed!!")
-    # elif filename.find("prometheus"):
-    #     with open(filename, 'wb') as filename:
-    #         data = requests.get(f"{API_URL}/download?filename={filename}")
-    #         filename.write(data.content)
     else:
         fname = filename
         print(datetime.datetime.now().strftime(
@@ -867,9 +855,8 @@ def get_nodePort():
     )
     return res
 
+
 # (추가) 2.16 엣지 클러스터 삭제 인터페이스
-
-
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
 
@@ -985,9 +972,9 @@ def add_newMonitoring():
     )
     return res
 
+
+
 # 2.18 카메라 연결화면 조회 인터페이스
-
-
 @ app.route('/get_camApp', methods=['GET'])
 def get_camApp():
 
