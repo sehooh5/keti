@@ -66,10 +66,14 @@
 
 #### 0320
 
-- 템플릿 리서치
+- Front
 
-  - 템플릿 주소 : https://startbootstrap.com/theme/clean-blog#google_vignette
-    - 적용이 잘 안되었는데 `static` 폴더로 모든 자료 옴기고 코드 수정해서 적용 완료
+  - 템플릿 리서치
+    - 템플릿 주소 : https://startbootstrap.com/theme/clean-blog#google_vignette
+      - 적용이 잘 안되었는데 `static` 폴더로 모든 자료 옴기고 코드 수정해서 적용 완료
+  - seho oh, home 키 에러
+
+  
 
 - 기본 기능 구성
 
