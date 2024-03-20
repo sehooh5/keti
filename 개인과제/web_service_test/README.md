@@ -4,6 +4,24 @@
 
 
 
+### 구조
+
+- /web_service_test
+
+  - app.py
+
+  ​		-flask 웹 어플리케이션
+
+  - /templates
+
+    - index 
+
+      -현재 시간 표출하는 기본 인덱스
+
+
+
+
+
 ### 서비스 필요기능
 
 - 기본 기능
@@ -32,12 +50,33 @@
 
 - 서비스 필요기능 파악 후 서버 개설 및 기본 기능 만들기
 
-\1. Open [h5.tomo.inc](http://h5.tomo.inc/)
+  - /web_service_test
 
-\2. Connect your EOA wallet (the one you are using for the Linea Park campaign)
+    - app.py
 
-\3. Open the Keys tab (bottom middle of the screen)
+    ​		-flask 웹 어플리케이션
 
-\4. Choose a key you like the most, and press continue.
+    - /templates
 
-\5. Please make sure you have sufficient funds on your wallet to cover the gas fees.
+      - index 
+
+        -현재 시간 표출하는 기본 인덱스
+
+
+
+#### 0320
+
+- 템플릿 리서치
+
+- 기본 기능 구성
+
+  - 현재시간 초단위로 변경되는 모습 - ex) 네이비즘
+
+  - 개인 io 리다이렉팅 
+
+  - 태그
+
+    - 쿠버네티스 배포
+    - 모니터링
+
+    
