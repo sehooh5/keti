@@ -572,8 +572,6 @@ def remove_deploySwInfo():
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
-#     wid = json_data['wid']
-#     sid = json_data['sid']
 
     sid = json_data['sid']  # ai 패키지 ID
     did = json_data['did']  # Device ID
