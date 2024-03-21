@@ -12,7 +12,7 @@ def index():
 
     time_data =datetime.now()
 
-    return render_template('static/index.html', time_data = time_data)
+    return render_template('index.html', time_data = time_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)
