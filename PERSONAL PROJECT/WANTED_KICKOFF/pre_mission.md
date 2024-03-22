@@ -12,34 +12,64 @@
 
   - ##### Python 서버 설계, 개발
 
-    - API 서버
-    - Docker, Kubernetes 배포 서버
-    - 물리보안영상 서버
-      - PyQt
-    - C++ 과 연동해 GPS 및 Gyro 센서 데이터 활용
-
+    - Fact
+      - API 서버
+      - Docker, Kubernetes 배포 서버
+      - 물리보안영상 서버
+        - PyQt
+      - C++ 과 연동해 GPS 및 Gyro 센서 데이터 활용
+    - Lesson
+      - 
+  
   - ##### Kubernetes, Docker, Prometheus, Grafana 구축
-
+  
+    - Fact
+      - 
+    - Lesson
+      - 
+  
   - ##### MQTT 통신
+  
+    - Fact
+      - 
+    - Lesson
+      - 
   
   - ##### 논문
   
     - 주 1건
+      - Fact
+        - 
+      - Lesson
+        - 
     - 부 1건
+      - Fact
+        - 
+      - Lesson
+        - 
   
   - ##### 특허
   
-    - 국내 특허  출원 3건
-    - 등록 2건
+    - Fact
+      - 국내 특허  출원 3건
+      - 등록 2건
+    - Lesson
+      - 
   
   - ##### 소프트웨어 등록
   
-    - 주 2건
-    - 부 2건
+    - Fact
+      - 주 2건
+      - 부 2건
+    - Lesson
+      - 
   
   - ##### 시제품
   
-    - 2건
+    - Fact
+      - 2건
+    - Lesson
+      - 
 
 
 
@@ -48,15 +78,43 @@
 - #### 한국전자기술연구원
 
   - 1년차
+    - Fact
+      - 
+    - Lesson
+      - 
   - 2년차
+    - Fact
+      - 
+    - Lesson
+      - 
   - 3년차
+    - Fact
+      - 
+    - Lesson
+      - 
   - 4년차
+    - Fact
+      - 
+    - Lesson
+      - 
 
 - #### 멀티캠퍼스
 
   - 프로젝트 1 (Java)
+    - Fact
+      - 
+    - Lesson
+      - 
   - 프로젝트 2 (Java)
+    - Fact
+      - 
+    - Lesson
+      - 
   - 프로젝트 3 (Python)
+    - Fact
+      - 
+    - Lesson
+      - 
 
 
 
@@ -66,11 +124,17 @@
 
   - ##### 수상내역
 
-    - 우수상
+    - Fact
+      - 우수상
+    - Lesson
+      - 
 
   - ##### 교육내용
 
-    - 1148시간
+    - Fact
+      - 1148시간
+    - Lesson
+      - 
 
   - ##### 소프트스킬
 
@@ -80,10 +144,16 @@
 
   - ##### 공모전 수상
 
-    - 마케팅 공모전
-
+    - Fact
+      - 마케팅 공모전
+    - Lesson
+      - 
+  
   - ##### 장학금 수여내역
   
-    - 
+    - Fact
+      - 
+    - Lesson
+      - 
   
   
