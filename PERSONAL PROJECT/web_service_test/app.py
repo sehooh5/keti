@@ -33,7 +33,7 @@ def postpage():
 
 
 
-    return render_template('postpage.html')
+    return render_template('post.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)
