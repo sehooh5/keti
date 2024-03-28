@@ -28,12 +28,12 @@ def contact():
 
     return render_template('contact.html')
 
-@app.route('/post')
-def post():
+@app.route('/postpage')
+def postpage():
 
 
 
-    return render_template('post.html')
+    return render_template('postpage.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)
