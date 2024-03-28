@@ -28,8 +28,8 @@ def contact():
 
     return render_template('contact.html')
 
-@app.route('/postpage')
-def postpage():
+@app.route('/post')
+def post():
 
 
 
