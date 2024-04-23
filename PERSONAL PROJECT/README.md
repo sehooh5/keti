@@ -787,3 +787,9 @@
   - 참고 사이트
     - https://zero-base.co.kr/event/media_insight_contents_BE_backend_portfolio_web
     - 경력  : https://www.pptplug.com/class/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=14741319&t=board
+
+
+
+#### 0423
+
+- 수요일
