@@ -832,3 +832,5 @@
   • 스킬 부분에서 JavaScript, Linux, SQL, HTML, CSS, Oracle Database, MySQL 등의 스킬을 언급하였지만, 이외에도 어떤 스킬을 보유하고 있는지 더 자세히 기술하면 좋을 것이다.
 
   • 경력 사항과 스킬을 연결하여 어떤 프로젝트에서 어떤 스킬을 활용하였는지 구체적으로 언급하면 좋을 것이다.
+
+- ![image](https://github.com/sehooh5/keti/assets/58541635/83283a67-14db-4398-bee2-f9a5b31534cf)
