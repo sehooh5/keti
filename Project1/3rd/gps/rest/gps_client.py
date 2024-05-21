@@ -48,10 +48,7 @@ def parseGPS(message):
                 res = requests.post(f'{url}/gps_save', json=data)
                 # print(res.text)
             return res
-    # elif (message[0:6] == "$GPRMC"):
-    #     msg = pynmea2.parse(message)
-    #
-    #     print(f"lat : {msg.lat}, lon : {msg.lon}")
+
 for f_name in os.listdir('/dev'):
     if f_name.startswith('ttyUSB'):
         global fname

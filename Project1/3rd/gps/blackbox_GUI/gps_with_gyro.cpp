@@ -490,12 +490,11 @@ extern "C"
     float q0; float q1; float q2; float q3;//0x59
     float sn; float pdop; float hdop; float vdop;//0x5a
 
-    static unsigned char chrBuf[2000];// 밖에서 unsigned char 변수 설정
+    static unsigned char chrBuf[2000];
 
     // Parsing Data
     void ParseData(unsigned char chr)
     {
-//            printf("ParseData 함수 진입\n");
             static unsigned char chrCnt=0;
             unsigned char i;
             unsigned char cTemp=0;
@@ -506,7 +505,6 @@ extern "C"
             for (i=0;i<10;i++) cTemp += chrBuf[i];
             if ((chrBuf[0]!=0x55)||((chrBuf[1]&0x50)!=0x50)||(cTemp!=chrBuf[10]))
             {
-//                printf("Error:%x %x\r\n",chrBuf[0],chrBuf[1]);
                 memcpy(&chrBuf[0],&chrBuf[1],10);
                 chrCnt--;
                 return;
