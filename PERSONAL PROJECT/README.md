@@ -914,5 +914,11 @@
 #### 0521
 
 - 22일 확인
-  - https://korean.visitkorea.or.kr/travelmonth/special/list.do
-  - https://naver.me/xzcn3kcp 한화
+  - https://naver.me/xzcn3kcp 한화 033-330-9789
+
+#### 
+
+#### 0522
+
+- 4년차까지 완료
+

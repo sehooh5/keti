@@ -43,10 +43,8 @@ def parseGPS(message):
             # argument 에 따라 서버에 데이터 저장할지 안할지 선택
             if len(arg) < 2 :
                 res = requests.post(f'{url}/gps', json=data)
-                # print(res.text)
             else :
                 res = requests.post(f'{url}/gps_save', json=data)
-                # print(res.text)
             return res
 
 for f_name in os.listdir('/dev'):
