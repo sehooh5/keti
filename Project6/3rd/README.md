@@ -194,3 +194,11 @@
 #### 0612
 
 - 서버 살리고 연동 테스트
+  - Master : 
+    - IP : 192.168.0.14
+    - 이름 : edge-master-01
+  - Worker : 
+    - IP : 192.168.0.9
+    - 이름 : edge-worker-01
+  - AI 소프트웨어 : 
+    - 이름 : monitoring.zip
