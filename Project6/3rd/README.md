@@ -243,3 +243,134 @@
         · 예시 3: 특정 엣지 AI 보안단말에서 이벤트 발생시, 엣지 AI 보안단말-VMS 분석서버간 협업을 통해 정밀 분석 수행 가능
 
         · 예시 4: 특정 엣지 AI 보안단말에서 이벤트 발생시, 엣지 AI 보안단말간 연계협업을 통해 이벤트 발생지에 대한 집중 감시 가능
+
+- 내부망으로 클러스터 구성 시 자체 Docker Registry 설정
+
+  - 네, 내부 유선망에서 Kubernetes 클러스터를 구성하고 Docker 이미지를 배포할 때 외부 인터넷에 의존하지 않고도 가능합니다. 이를 위해 자체 Docker Registry를 설정할 수 있습니다. 자체 Docker Registry를 설정하면 Docker Hub 대신 내부 네트워크에서 이미지를 저장하고 배포할 수 있습니다.
+
+    다음은 자체 Docker Registry를 설정하고 사용하는 방법입니다.
+
+    ### 1. Docker Registry 설치 및 구성
+
+    #### 1.1 Docker Registry 컨테이너 실행
+
+    먼저, 자체 Docker Registry를 Docker 컨테이너로 실행할 수 있습니다.
+
+    ```
+    bash
+    코드 복사
+    docker run -d -p 5000:5000 --name registry --restart=always registry:2
+    ```
+
+    이 명령은 기본 포트 5000에서 Docker Registry를 실행합니다.
+
+    #### 1.2 Docker Registry 보안 설정 (선택 사항)
+
+    보안 설정을 위해 SSL을 사용할 수 있습니다. 먼저, 인증서와 키 파일을 준비합니다.
+
+    ```
+    bash코드 복사mkdir -p /certs
+    cp your_cert.crt /certs
+    cp your_key.key /certs
+    ```
+
+    그런 다음, Docker Registry를 다음과 같이 실행합니다.
+
+    ```
+    bash코드 복사docker run -d -p 5000:5000 --name registry --restart=always \
+      -v /certs:/certs \
+      -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/your_cert.crt \
+      -e REGISTRY_HTTP_TLS_KEY=/certs/your_key.key \
+      registry:2
+    ```
+
+    ### 2. Docker Daemon 설정
+
+    내부 Docker Registry를 신뢰할 수 있는 레지스트리로 설정합니다. 각 클러스터 노드에서 `/etc/docker/daemon.json` 파일을 편집합니다.
+
+    ```
+    json코드 복사{
+      "insecure-registries": ["your_registry_domain_or_ip:5000"]
+    }
+    ```
+
+    Docker를 재시작합니다.
+
+    ```
+    bash
+    코드 복사
+    sudo systemctl restart docker
+    ```
+
+    ### 3. Docker 이미지를 자체 Registry에 푸시
+
+    이미지를 자체 Registry에 푸시합니다.
+
+    ```
+    bash코드 복사docker tag your_image:tag your_registry_domain_or_ip:5000/your_image:tag
+    docker push your_registry_domain_or_ip:5000/your_image:tag
+    ```
+
+    ### 4. Kubernetes에서 이미지 사용
+
+    Kubernetes 배포 파일에서 자체 Registry에서 이미지를 가져오도록 설정합니다.
+
+    ```
+    yaml코드 복사apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: myapp
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: myapp
+      template:
+        metadata:
+          labels:
+            app: myapp
+        spec:
+          containers:
+          - name: myapp
+            image: your_registry_domain_or_ip:5000/your_image:tag
+            ports:
+            - containerPort: 80
+    ```
+
+    ### 5. Registry에 접근하기 위한 Secret 설정 (선택 사항)
+
+    프라이빗 레지스트리의 경우, Kubernetes 클러스터가 이미지를 가져올 수 있도록 secret을 생성해야 합니다.
+
+    ```
+    bash
+    코드 복사
+    kubectl create secret docker-registry regcred --docker-server=your_registry_domain_or_ip:5000 --docker-username=your_username --docker-password=your_password --docker-email=your_email
+    ```
+
+    배포 파일에 secret을 참조합니다.
+
+    ```
+    yaml코드 복사apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: myapp
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: myapp
+      template:
+        metadata:
+          labels:
+            app: myapp
+        spec:
+          containers:
+          - name: myapp
+            image: your_registry_domain_or_ip:5000/your_image:tag
+            ports:
+            - containerPort: 80
+          imagePullSecrets:
+          - name: regcred
+    ```
+
+    이렇게 설정하면 내부 네트워크에서 Docker Hub를 사용하지 않고도 Docker 이미지를 배포할 수 있습니다.
