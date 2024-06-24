@@ -404,3 +404,34 @@
     - 분석 AI가 작동을 안하면 복구해주는?
     - 다른 엣지의 리소스를 제공하주는?
 
+
+
+- 프로메테우스 수집 메트릭
+  - **노드 메트릭**:
+    - `node_cpu_seconds_total`: CPU 사용량
+    - `node_memory_MemTotal_bytes`: 총 메모리 용량
+    - `node_memory_MemAvailable_bytes`: 사용 가능한 메모리
+    - `node_disk_io_time_seconds_total`: 디스크 I/O 시간
+    - `node_network_receive_bytes_total`: 네트워크 수신 바이트
+    - `node_network_transmit_bytes_total`: 네트워크 전송 바이트
+  - **파드(Pod) 메트릭**:
+    - `container_cpu_usage_seconds_total`: 컨테이너의 CPU 사용량
+    - `container_memory_usage_bytes`: 컨테이너의 메모리 사용량
+    - `container_fs_usage_bytes`: 컨테이너의 파일 시스템 사용량
+  - **클러스터 메트릭**:
+    - `kube_node_status_allocatable_cpu_cores`: 노드에서 할당 가능한 CPU 코어
+    - `kube_node_status_allocatable_memory_bytes`: 노드에서 할당 가능한 메모리
+    - `kube_pod_status_phase`: 파드 상태 (Running, Pending, Failed 등)
+
+
+
+#### 0624
+
+- 연계협업 시나리오
+  - 다음주 수요일 2차 회의
+  - 추가 시나리오 구상
+    - 분석 AI를 나누어서
+      - 엣지 : 이미지검출 -> 분석서버 or 엣지2 : 분석 
+      - 등등
+    - 분석 AI가 작동을 안하면 복구해주는?
+    - 다른 엣지의 리소스를 제공하주는?
