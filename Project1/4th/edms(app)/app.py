@@ -461,7 +461,7 @@ def add_newUploadSw():
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
         print(fname)
-        zip_ref.extractall(fname)
+        zip_ref.extractall()
         zip_ref.close()
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
