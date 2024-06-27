@@ -460,10 +460,9 @@ def add_newUploadSw():
             select_cam.write(data.content)
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
+        print(fname)
         zip_ref.extractall(fname)
-        print("1번")
         zip_ref.close()
-        print("2번")
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: [{fname}] file uploading completed !")
         print(datetime.datetime.now().strftime(
