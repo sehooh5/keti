@@ -666,11 +666,11 @@ def add_newDeploySwInfo():
     docker_id = "sehooh5"
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Making deployment...")
-    dm.making(fname, port, target_port,
+    deployment = dm.making(fname, port, target_port,
                            node_port, node_name, docker_id)
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
-#     print(deployment)
+    print(deployment)
 
     os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
     print(datetime.datetime.now().strftime(
