@@ -469,7 +469,7 @@ def add_newUploadSw():
             "%c")[:-4], f"{func}: docker image building...")
         print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         os.system(
-            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+            f"docker build -f . -t sehooh5/{fname}:latest .")
         print("Docker image building completed!!")
         # docker login status 확인
         try:
