@@ -460,6 +460,7 @@ def add_newUploadSw():
             select_cam.write(data.content)
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
+        print(fname)
         zip_ref.extractall(fname)
         zip_ref.close()
 
