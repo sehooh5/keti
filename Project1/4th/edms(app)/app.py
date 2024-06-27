@@ -456,10 +456,15 @@ def add_newUploadSw():
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: software name: {fname}")
         with open(f"{fname}.zip", 'wb') as select_cam:
+            print("1번")
             data = requests.get(f"{API_URL}/download?filename={filename}")
+            print("2번")
             select_cam.write(data.content)
+            print("3번")
 
+        print("4번")
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
+        print("5번")
         zip_ref.extractall(fname)
         zip_ref.close()
         print(datetime.datetime.now().strftime(
