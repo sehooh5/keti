@@ -145,7 +145,8 @@ def add_newEdgeCluster():
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
     time.sleep(1.0)
-    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    command1 = "yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+    result = subprocess.run(command1, shell=True, executable="/bin/bash")
     time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     time.sleep(1.0)
