@@ -2248,24 +2248,26 @@
 
 **1. DEMS 시연**
 
-- 설치되어있는 Master, Worker 서버부터 찾기
-  - 뒷자리 Master, Worker 각각 1대 씩
-    - Master : 192.168.0.28
-    - Worker : 192.168.0.25
-  - 카메라 주소
-    - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
-      - GPS 값 : 37.5807, 126.8884 (전자회관 위치)
-    - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
-      - GPS 값 : 37.5750, 126.8870 (도서관)
-    - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+- 뒷자리 Master, Worker 각각 1대 씩
+  - Master : 192.168.0.28
+  - Worker : 192.168.0.25
+- 카메라 주소
+  - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
+    - GPS 값 : 37.5807, 126.8884 (전자회관 위치)
+  - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
+    - GPS 값 : 37.5750, 126.8870 (도서관)
+  - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+
 - Master, Worker 서버 실행 후 DEMS와 연동
 - 필수 설정 : 
   - 카메라는 실험실에 있는 AXIS 카메라일것(같은 주소를 위해)
 - 문제 : 
-  - http://192.168.0.28:5000/add_newEdgeCluster 이 호출이 안됨, POSTMAN 에서는 됨, 주소가 잘못 설정되었나?
+  - ~~http://192.168.0.28:5000/add_newEdgeCluster 이 호출이 안됨, POSTMAN 에서는 됨, 주소가 잘못 설정되었나?~~ 수정 완료
   - 현재 시스템은 docker hub(무선망사용)를 이용하는중 없이 SW 등록 및 배포가 가능?
 - 진행중 : 
   - 배포할떄 8080 connection refused 에러
+- 완료 : 
+  - 클러스터링 업그레이드
 
 
 
