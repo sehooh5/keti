@@ -238,6 +238,7 @@ def connect_device():
 
     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     edge_name = edge.json()["name"]
+    edge_ip = res.json()["ip"]
 
     print(
         datetime.datetime.now().strftime(
@@ -264,6 +265,8 @@ def connect_device():
     d_name = device.json()["name"]
     api_host = f"{ip}:{port}"
 
+
+
     data = {
         "url": d_url,
         "name": d_name,
@@ -273,7 +276,7 @@ def connect_device():
     print(data) # 확인
 
     option = requests.post(
-        f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
+        f"http://{edge_ip}:{nodeport}/connect", data=json.dumps(data))
     option = option.text
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: browser option: {option}")
