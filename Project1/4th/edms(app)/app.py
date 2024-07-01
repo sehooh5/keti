@@ -144,7 +144,7 @@ def add_newEdgeCluster():
     w_input = f"sudo {w_input}"
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(3.0)
+    time.sleep(1.0)
     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
     time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
@@ -178,6 +178,8 @@ def add_newEdgeCluster():
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
+    time.sleep(1.0)
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
 
     return response.message("0000")
 
