@@ -146,7 +146,7 @@ def add_newEdgeCluster():
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{res.json()['name'}/.kube/config"]
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{res.json()['name']}/.kube/config"]
     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
     try:
         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
