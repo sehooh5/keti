@@ -2231,27 +2231,44 @@
   - 5G 공유기 - PoE - 블랙박스 유선 연결
   - 노트북2(5G 공유기 Wifi 연결)에서 영상 스트리밍 확인
     - rtsp://192.168.1.101:554/h264
-- DEMS 시연
-  - 설치되어있는 Master, Worker 서버부터 찾기
-    - 뒷자리 Master, Worker 각각 1대 씩
-      - Master : 192.168.0.28
-      - Worker : 192.168.0.25
-    - 카메라 주소
-      - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
-        - GPS 값 : 37.5807, 126.8884 (전자회관 위치)
-      - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
-        - GPS 값 : 37.5750, 126.8870 (도서관)
-      - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
-  - Master, Worker 서버 실행 후 DEMS와 연동
-  - 필수 설정 : 
-    - 카메라는 실험실에 있는 AXIS 카메라일것(같은 주소를 위해)
-  - 문제 : 
-    - http://192.168.0.28:5000/add_newEdgeCluster 이 호출이 안됨, POSTMAN 에서는 됨, 주소가 잘못 설정되었나?
-    - 현재 시스템은 docker hub(무선망사용)를 이용하는중 없이 SW 등록 및 배포가 가능?
-  - 진행중 : 
-    - docker image buid 가 잘 되지 않음
-- 오산시 설치 내용 시연 - 우리 서버 영상 gps 중 4개 채널만 송출
-  - 새롭게 RTP, RTSP 총 2개 서버 구성해야함
+
+
+
+- - 
+
+
+
 - **예-서버 재실행 방법**
   - @5G\2차년도 외부접속\web> pm2 start server.js
   - @5G\2차년도 외부접속\openapi> pm2 start openapi.js
+
+
+
+#### 0701
+
+**1. DEMS 시연**
+
+- 설치되어있는 Master, Worker 서버부터 찾기
+  - 뒷자리 Master, Worker 각각 1대 씩
+    - Master : 192.168.0.28
+    - Worker : 192.168.0.25
+  - 카메라 주소
+    - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
+      - GPS 값 : 37.5807, 126.8884 (전자회관 위치)
+    - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
+      - GPS 값 : 37.5750, 126.8870 (도서관)
+    - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+- Master, Worker 서버 실행 후 DEMS와 연동
+- 필수 설정 : 
+  - 카메라는 실험실에 있는 AXIS 카메라일것(같은 주소를 위해)
+- 문제 : 
+  - http://192.168.0.28:5000/add_newEdgeCluster 이 호출이 안됨, POSTMAN 에서는 됨, 주소가 잘못 설정되었나?
+  - 현재 시스템은 docker hub(무선망사용)를 이용하는중 없이 SW 등록 및 배포가 가능?
+- 진행중 : 
+  - 배포할떄 8080 connection refused 에러
+
+
+
+**2. 오산시 설치 내용 시연 - 우리 서버 영상 gps 중 4개 채널만 송출**
+
+- 새롭게 RTP, RTSP 총 2개 서버 구성해야함
