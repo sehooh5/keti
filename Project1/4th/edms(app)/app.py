@@ -130,7 +130,7 @@ def add_newEdgeCluster():
         return response.message("0015")
 
     res = requests.get(f"{API_URL}/get_edgeInfo?id={mid}")
-    print(res)
+    print(res.json())
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
