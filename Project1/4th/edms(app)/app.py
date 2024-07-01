@@ -144,16 +144,17 @@ def add_newEdgeCluster():
     w_input = f"sudo {w_input}"
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(1.0)
-    yes_proc = subprocess.Popen(["yes"], stdout=subprocess.PIPE)
-    cp_proc = subprocess.Popen(["sudo", "cp", "-i", "/etc/kubernetes/admin.conf", "$HOME/.kube/config"], stdin=yes_proc.stdout)
-    yes_proc.stdout.close()
-    cp_proc.communicate()
-    time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    time.sleep(1.0)
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
+
+    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+    try:
+        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        print("명령어 실행 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"오류 발생: {e}")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(1.0)
+
 
     for w in wlist:
         wid = w["wid"]
