@@ -238,7 +238,7 @@ def connect_device():
 
     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     edge_name = edge.json()["name"]
-    edge_ip = res.json()["ip"]
+    edge_ip = edge.json()["ip"]
 
     print(
         datetime.datetime.now().strftime(
@@ -264,8 +264,6 @@ def connect_device():
         "%c")[:-4], f"{func}: device url: {d_url}")
     d_name = device.json()["name"]
     api_host = f"{ip}:{port}"
-
-
 
     data = {
         "url": d_url,
