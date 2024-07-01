@@ -676,8 +676,7 @@ def add_newDeploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
-    kubeconfig_path = '/home/keti2/.kube/config'
-#     kubeconfig_path = '$HOME/.kube/config'
+    kubeconfig_path = f'/home/{node_name}/.kube/config'
     command = f"kubectl --kubeconfig={kubeconfig_path} apply -f {fname}-{node_name}.yaml"
     process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
 
