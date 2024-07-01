@@ -149,7 +149,6 @@ def add_newEdgeCluster():
     cp_proc = subprocess.Popen(["sudo", "cp", "-i", "/etc/kubernetes/admin.conf", "$HOME/.kube/config"], stdin=yes_proc.stdout)
     yes_proc.stdout.close()
     cp_proc.communicate()
-    result = subprocess.run(command1, shell=True, executable="/bin/bash")
     time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     time.sleep(1.0)
