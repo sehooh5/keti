@@ -270,6 +270,8 @@ def connect_device():
         "api_host": api_host
     }
 
+    print(data) # 확인
+
     option = requests.post(
         f"http://{ip}:{nodeport}/connect", data=json.dumps(data))
     option = option.text
