@@ -676,14 +676,22 @@ def add_newDeploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
+# /home/{res.json()['name']}/.kube/config
+    kubeconfig_path = '$HOME/.kube/config'
+    command = f"kubectl --kubeconfig={kubeconfig_path} apply -f {fname}-{node_name}.yaml"
+    process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
 
-    command = f"kubectl apply -f {fname}-{node_name}.yaml"
-    try:
-        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print("Command output:", result.stdout.decode())
-    except subprocess.CalledProcessError as e:
-        print("Error executing command:", e.stderr.decode())
-        
+    print(process.stdout)
+    print(process.stderr)
+
+
+#     command = f"kubectl apply -f {fname}-{node_name}.yaml"
+#     try:
+#         result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#         print("Command output:", result.stdout.decode())
+#     except subprocess.CalledProcessError as e:
+#         print("Error executing command:", e.stderr.decode())
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
 
