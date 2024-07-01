@@ -973,15 +973,17 @@ def add_newMonitoring():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Grafana monitoring tool making")
 
+    kubeconfig_path = f'/home/keti2/.kube/config'
+
     try:
         output = subprocess.check_output(
-            "kubectl get ns monitoring", shell=True).decode('utf-8')
+            f"kubectl --kubeconfig={kubeconfig_path} get ns monitoring", shell=True).decode('utf-8')
     except subprocess.CalledProcessError:
         output = "-1"
     if output == "-1":
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
-        mm.making()
+        mm.making(kubeconfig_path)
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Monitoring tool making Completed")

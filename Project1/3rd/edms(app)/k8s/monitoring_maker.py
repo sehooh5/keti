@@ -1,9 +1,7 @@
 import os
 
 
-kubeconfig_path = f'/home/keti2/.kube/config'
-
-def making():
+def making(kubeconfig_path):
     os.system(f"kubectl create ns monitoring")
     os.system(f"kubectl --kubeconfig={kubeconfig_path} apply -f prometheus.yaml")
     os.system(f"kubectl --kubeconfig={kubeconfig_path} apply -f state_metrics.yaml")
