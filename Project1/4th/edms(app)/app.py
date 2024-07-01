@@ -732,10 +732,11 @@ def remove_deploySwInfo():
 
     if "prometheus" in fname:
         os.system(f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}")
-    command = f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}-{node_name}.yaml"
-    process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
-    print(process.stdout)
-    print(process.stderr)
+    else:
+        command = f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}-{node_name}.yaml"
+        process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        print(process.stdout)
+        print(process.stderr)
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
