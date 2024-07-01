@@ -315,6 +315,8 @@ def disconnect_device():
 
     edge = requests.get(f"{API_URL}/get_edgeInfo?id={eid}")
     edge_name = edge.json()["name"]
+    edge_ip = edge.json()["ip"]
+
     print(
         datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: disconnect Server [{edge_name}] with device [{device_name}]....")
@@ -341,7 +343,7 @@ def disconnect_device():
     }
 
     option = requests.post(
-        f"http://{ip}:{nodeport}/disconnect", data=json.dumps(data))
+        f"http://{edge_ip}:{nodeport}/disconnect", data=json.dumps(data))
 
     # requests.post(
     #     f"http://192.168.0.29:5050/disconnect", data=json.dumps(data))
