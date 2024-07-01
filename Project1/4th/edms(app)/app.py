@@ -677,7 +677,7 @@ def add_newDeploySwInfo():
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
-    kubeconfig_path = f'/home/{node_name}/.kube/config'
+    kubeconfig_path = f'/home/keti2/.kube/config'
     command = f"kubectl --kubeconfig={kubeconfig_path} apply -f {fname}-{node_name}.yaml"
     process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
     print(process.stdout)
@@ -723,8 +723,8 @@ def remove_deploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{node_name}]")
 
-    kubeconfig_path = f'/home/{node_name}/.kube/config'
-    
+    kubeconfig_path = f'/home/keti2/.kube/config'
+
     if fname.find("prometheus") == 0:
         os.system(f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}")
     command = f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}-{node_name}.yaml"
