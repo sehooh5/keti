@@ -677,7 +677,13 @@ def add_newDeploySwInfo():
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
-    os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
+    command = f"kubectl apply -f {fname}-{node_name}.yaml"
+    try:
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("Command output:", result.stdout.decode())
+    except subprocess.CalledProcessError as e:
+        print("Error executing command:", e.stderr.decode())
+        
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
 
