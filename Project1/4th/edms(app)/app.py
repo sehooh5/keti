@@ -729,7 +729,7 @@ def remove_deploySwInfo():
         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{node_name}]")
 
     kubeconfig_path = f'/home/keti2/.kube/config'
-
+    print(f'print prometheus!!!!!!!!!{fname}')
     if fname.find("prometheus") == 0:
         os.system(f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}")
     command = f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}-{node_name}.yaml"
