@@ -172,7 +172,7 @@ def get_data(db_path, table_name, column_name):
 
 # 예시 사용
 db_num = sys.argv[1]
-db_path = f"/home/2024/keti/Project1/4th/GPSParsing/gps_0{db_num}.db"
+db_path = f"/home/keti2/2024/keti/Project1/4th/GPSParsing/gps_0{db_num}.db"
 table_name = "gps_raw_data"
 column_name = "raw_data"
 
