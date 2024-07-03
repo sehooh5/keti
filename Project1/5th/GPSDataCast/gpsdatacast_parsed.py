@@ -356,9 +356,9 @@ class App(QWidget):
 #            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=123.214.186.162,port=500{num},mux=ts}}" --loop --no-sout-all' # 외부망
 #            command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 내부망
             if num == 8:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.mp4 --sout "#rtp{{dst=192.168.0.25,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
             else:
-                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.54,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
+                command = f'cvlc /home/{username}/blackbox_osan/blackbox_0{num}.avi --sout "#rtp{{dst=192.168.0.25,port=500{num},mux=ts}}" --loop --no-sout-all' # 싱크 테스트
             process_thread = subprocess.Popen(command, shell=True)
             setattr(self, f"process{num}_thread", process_thread)
             status_label = getattr(self, f"status{num}")
