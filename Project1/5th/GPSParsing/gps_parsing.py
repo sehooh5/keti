@@ -29,10 +29,10 @@ def filter_junk_data(data_hex):
     return data_hex
 
 def get_data(db_path, table_name, column_name):
+    print(db_path, table_name, column_name)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     query = f"SELECT {column_name} FROM {table_name}"
-    print(query)
     cursor.execute(query)
 
     # 데이터 모두 추출
