@@ -173,20 +173,14 @@ def add_newEdgeCluster():
 
     os.system("mkdir -p $HOME/.kube")
     time.sleep(1.0)
-#     os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-#     time.sleep(1.0)
-#     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-#     time.sleep(1.0)
 
-    # 명령어 설정
     cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
-    chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
-
     subprocess.run(cp_command, shell=True, check=True)
     time.sleep(1.0)
+
+    chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
     subprocess.run(chown_command, shell=True, check=True)
     time.sleep(1.0)
-
 
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
     time.sleep(1.0)
@@ -215,6 +209,10 @@ def add_newEdgeCluster():
         print(
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
+
+    subprocess.run(cp_command, shell=True, check=True)
+    time.sleep(1.0)
+
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
 
