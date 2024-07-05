@@ -171,19 +171,37 @@ def add_newEdgeCluster():
 #     except subprocess.CalledProcessError as e:
 #         print(f"오류 발생: {e}")
 
+#     os.system("mkdir -p $HOME/.kube")
+#     time.sleep(1.0)
+#
+#     cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
+#     subprocess.run(cp_command, shell=True, check=True)
+#     time.sleep(1.0)
+#
+#     chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
+#     subprocess.run(chown_command, shell=True, check=True)
+#     time.sleep(1.0)
+#
+#     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+#     time.sleep(1.0)
+
+### 7/8 이거로 해보기 (무선엣지)
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(1.0)
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
 
-    cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
-    subprocess.run(cp_command, shell=True, check=True)
-    time.sleep(1.0)
-
-    chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
-    subprocess.run(chown_command, shell=True, check=True)
-    time.sleep(1.0)
-
+    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+    try:
+        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+        print("명령어 실행 성공.")
+    except subprocess.CalledProcessError as e:
+        print(f"오류 발생: {e}")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(1.0)
+
+
+
+
+
 
     for w in wlist:
         wid = w["wid"]
@@ -209,9 +227,6 @@ def add_newEdgeCluster():
         print(
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
-
-    subprocess.run(cp_command, shell=True, check=True)
-    time.sleep(1.0)
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
