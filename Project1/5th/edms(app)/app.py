@@ -115,6 +115,9 @@ def index():
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
     print("Start process to make a new EdgeCluster..")
+    if request.method == 'POST':
+        data = request.json
+        print("Received data:", data)
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: new edge cluster making...")
@@ -1086,4 +1089,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=port)
+    app.run(host='0.0.0.0', threaded=True, port=port, debug=True)
