@@ -178,7 +178,9 @@ def add_newEdgeCluster():
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
 #     time.sleep(1.0)
 
-
+    # 명령어 설정
+    cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
+    chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
 
     try:
         # 명령어 실행
