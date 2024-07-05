@@ -143,22 +143,22 @@ def add_newEdgeCluster():
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
 
-    # 환경 변수를 명시적으로 전달
-    home_dir = os.path.expanduser("~")
+#     # 환경 변수를 명시적으로 전달
+#     home_dir = os.path.expanduser("~")
 
-    try:
-        # ~/.kube 디렉토리가 없으면 생성
-        subprocess.run(['mkdir', '-p', f"{home_dir}/.kube"], check=True)
-        
-        # admin.conf 파일 복사
-        subprocess.run(['sudo', 'cp', '/etc/kubernetes/admin.conf', f"{home_dir}/.kube/config"], check=True)
-
-        # 파일 소유권 변경
-        subprocess.run(['sudo', 'chown', f"{os.getuid()}:{os.getgid()}", f"{home_dir}/.kube/config"], check=True)
-
-        print("Command executed successfully")
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred: {e}")
+#     try:
+#         # ~/.kube 디렉토리가 없으면 생성
+#         subprocess.run(['mkdir', '-p', f"{home_dir}/.kube"], check=True)
+#
+#         # admin.conf 파일 복사
+#         subprocess.run(['sudo', 'cp', '/etc/kubernetes/admin.conf', f"{home_dir}/.kube/config"], check=True)
+#
+#         # 파일 소유권 변경
+#         subprocess.run(['sudo', 'chown', f"{os.getuid()}:{os.getgid()}", f"{home_dir}/.kube/config"], check=True)
+#
+#         print("Command executed successfully")
+#     except subprocess.CalledProcessError as e:
+#         print(f"An error occurred: {e}")
 
 #     # 마스터에서 설정해줘야 하는 내용
 #     os.system("mkdir -p $HOME/.kube")
@@ -171,9 +171,14 @@ def add_newEdgeCluster():
 #     except subprocess.CalledProcessError as e:
 #         print(f"오류 발생: {e}")
 
-
+    os.system("mkdir -p $HOME/.kube")
+    time.sleep(1.0)
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    time.sleep(1.0)
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    time.sleep(1.0)
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-
+    time.sleep(1.0)
 
     for w in wlist:
         wid = w["wid"]
