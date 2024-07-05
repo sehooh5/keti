@@ -114,7 +114,7 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-    print("In add_newEdgeCluster function!")
+    print("Start process to make a new EdgeCluster..")
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: new edge cluster making...")
@@ -884,7 +884,7 @@ def get_nodePort():
 # (추가) 2.16 엣지 클러스터 삭제 인터페이스
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-
+    print("Start process to remove an EdgeCluster..")
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
