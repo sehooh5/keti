@@ -114,6 +114,7 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
+    print("In add_newEdgeCluster function!")
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: new edge cluster making...")
