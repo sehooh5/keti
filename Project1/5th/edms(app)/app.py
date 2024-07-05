@@ -890,8 +890,17 @@ def get_nodePort():
 
 
 # (추가) 2.16 엣지 클러스터 삭제 인터페이스
-@ app.route('/remove_edgeCluster', methods=['POST'])
+@ app.route('/remove_edgeCluster', methods=['POST','OPTIONS'])
 def remove_edgeCluster():
+    if request.method == 'OPTIONS':
+        # OPTIONS 요청에 대한 응답
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        return response
+    else:
+        print('POST!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
