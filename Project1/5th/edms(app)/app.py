@@ -182,15 +182,10 @@ def add_newEdgeCluster():
     cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
     chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
 
-    try:
-        # 명령어 실행
-        subprocess.run(cp_command, shell=True, check=True)
-        time.sleep(1.0)
-        subprocess.run(chown_command, shell=True, check=True)
-        time.sleep(1.0)
-        print("Command executed successfully")
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred: {e}")
+    subprocess.run(cp_command, shell=True, check=True)
+    time.sleep(1.0)
+    subprocess.run(chown_command, shell=True, check=True)
+    time.sleep(1.0)
 
 
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
