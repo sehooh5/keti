@@ -112,18 +112,8 @@ def index():
 
 
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
-@ app.route('/add_newEdgeCluster', methods=['POST', 'OPTIONS'])
+@ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-    if request.method == 'OPTIONS':
-        # OPTIONS 요청에 대한 응답
-        response = jsonify({'status': 'ok'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        return response
-    else:
-        print('POST!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: new edge cluster making...")
 
@@ -152,16 +142,36 @@ def add_newEdgeCluster():
     # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
-    # 마스터에서 설정해줘야 하는 내용
-    os.system("mkdir -p $HOME/.kube")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  "$(echo $HOME)/.kube/config"]
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+
+    # 환경 변수를 명시적으로 전달
+    home_dir = os.path.expanduser("~")
+
     try:
-        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-        print("명령어 실행 성공.")
+        # ~/.kube 디렉토리가 없으면 생성
+        subprocess.run(['mkdir', '-p', f"{home_dir}/.kube"], check=True)
+        
+        # admin.conf 파일 복사
+        subprocess.run(['sudo', 'cp', '/etc/kubernetes/admin.conf', f"{home_dir}/.kube/config"], check=True)
+
+        # 파일 소유권 변경
+        subprocess.run(['sudo', 'chown', f"{os.getuid()}:{os.getgid()}", f"{home_dir}/.kube/config"], check=True)
+
+        print("Command executed successfully")
     except subprocess.CalledProcessError as e:
-        print(f"오류 발생: {e}")
+        print(f"An error occurred: {e}")
+
+#     # 마스터에서 설정해줘야 하는 내용
+#     os.system("mkdir -p $HOME/.kube")
+#     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+#     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  "$(echo $HOME)/.kube/config"]
+#     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+#     try:
+#         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
+#         print("명령어 실행 성공.")
+#     except subprocess.CalledProcessError as e:
+#         print(f"오류 발생: {e}")
+
+
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
 
@@ -890,17 +900,8 @@ def get_nodePort():
 
 
 # (추가) 2.16 엣지 클러스터 삭제 인터페이스
-@ app.route('/remove_edgeCluster', methods=['POST','OPTIONS'])
+@ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    if request.method == 'OPTIONS':
-        # OPTIONS 요청에 대한 응답
-        response = jsonify({'status': 'ok'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        return response
-    else:
-        print('POST!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
