@@ -114,15 +114,8 @@ def index():
 # 2.1 신규 엣지 클러스터 추가 (get_edgeInfo 사용)
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
-    print("Start process to make a new EdgeCluster..")
-    if request.method == 'POST':
-        data = request.json
-        print("Received data:", data)
-    else:
-        print("ERROR!!!")
     func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: new edge cluster making...")
+    print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: new edge cluster making...")
 
     json_data = request.get_json(silent=True)
     print(datetime.datetime.now().strftime(
@@ -152,7 +145,7 @@ def add_newEdgeCluster():
     # 마스터에서 설정해줘야 하는 내용
     os.system("mkdir -p $HOME/.kube")
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"$HOME/.kube/config"]
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  "$(echo $HOME)/.kube/config"]
     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
     try:
         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
@@ -889,7 +882,6 @@ def get_nodePort():
 # (추가) 2.16 엣지 클러스터 삭제 인터페이스
 @ app.route('/remove_edgeCluster', methods=['POST'])
 def remove_edgeCluster():
-    print("Start process to remove an EdgeCluster..")
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deleting edge cluster")
