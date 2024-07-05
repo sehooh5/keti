@@ -2318,6 +2318,13 @@
 - 설계도 그리기 18일(목) 까지
   - 다음주 (수) 까지 설계 초안 회의
 - gps_parsed.db 데이터 찾기
-  - parsing해보는중
+  - gps_parsed.db 는 오산에 있음
 - DEMS 복구중
   - k8s config 다시 수정해서 처음부터 진행
+
+
+
+#### 0705
+
+- DEMS 복구중
+  - k8s config 위치 수정하기
