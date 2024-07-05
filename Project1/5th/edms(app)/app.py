@@ -121,6 +121,8 @@ def add_newEdgeCluster():
         response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         return response
+    else:
+        print('POST!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: new edge cluster making...")
