@@ -118,6 +118,8 @@ def add_newEdgeCluster():
     if request.method == 'POST':
         data = request.json
         print("Received data:", data)
+    else:
+        print("ERROR!!!")
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: new edge cluster making...")
