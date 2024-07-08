@@ -151,7 +151,7 @@ def add_newEdgeCluster():
         subprocess.run(command, check=True)
 
         # cp 명령어 실행
-        command = ["sudo", "cp", "/etc/kubernetes/admin.conf", config_dest]
+        command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
         subprocess.run(command, check=True)
 
         os.system(f"sudo chown $(id -u):$(id -g) /home/{mname}/.kube/config")
