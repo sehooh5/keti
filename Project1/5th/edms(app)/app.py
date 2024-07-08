@@ -198,11 +198,6 @@ def add_newEdgeCluster():
         print(f"오류 발생: {e}")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
-
-
-
-
-
     for w in wlist:
         wid = w["wid"]
         if wid == None:
