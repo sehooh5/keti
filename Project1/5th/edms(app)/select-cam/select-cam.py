@@ -10,8 +10,10 @@ Camera = import_module('camera_opencv').Camera
 
 app = Flask(__name__)
 
-del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
-del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
+del_url = "sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
+# del_url = "echo keti | sudo -S sed -i '/OPENCV_CAMERA_SOURCE/d' ~/.bashrc"
+del_stop = "sed -i '/CAMERA_STOP/d' ~/.bashrc"
+# del_stop = "echo keti | sudo -S sed -i '/CAMERA_STOP/d' ~/.bashrc"
 refresh = "/bin/bash -c 'source ~/.bashrc'"
 
 os.environ['OPEN_WINDOW'] = "NO"
@@ -51,9 +53,14 @@ def connect():
 
     os.system(del_url)
     os.system(del_stop)
+    print("[EXPORT CAMERA URL]")
     os.system(
-        f"echo keti | sudo -S echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
-    os.system("echo keti | sudo -S echo 'export CAMERA_STOP=None' >> ~/.bashrc")
+        f"echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
+#     os.system(
+#         f"echo keti | sudo -S echo 'export OPENCV_CAMERA_SOURCE={cam_url}' >> ~/.bashrc")
+    print("[EXPORT CAMERA STOP SIGN]")
+    os.system("echo 'export CAMERA_STOP=None' >> ~/.bashrc")
+#     os.system("echo keti | sudo -S echo 'export CAMERA_STOP=None' >> ~/.bashrc")
     os.system(refresh)
 
     os.environ['OPENCV_CAMERA_SOURCE'] = cam_url
@@ -72,7 +79,8 @@ def disconnect():
     cam_url = json_data['url']
     os.system(del_url)
     os.system(del_stop)
-    os.system("echo keti | sudo -S echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
+    os.system("echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
+#     os.system("echo keti | sudo -S echo 'export CAMERA_STOP=stop' >> ~/.bashrc")
     os.system(refresh)
     os.environ['OPENCV_CAMERA_SOURCE'] = "None"
     os.environ['CAMERA_STOP'] = "stop"
