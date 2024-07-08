@@ -17,7 +17,7 @@ del_stop = "sed -i '/CAMERA_STOP/d' ~/.bashrc"
 refresh = "/bin/bash -c 'source ~/.bashrc'"
 
 os.environ['OPEN_WINDOW'] = "NO"
-
+os.environ['OPENCV_CAMERA_SOURCE'] = "rtsp://root:keti@192.168.0.94/onvif-media/media.amp"
 
 @app.route('/streaming', methods=['GET'])
 def streaming():
