@@ -473,7 +473,6 @@ def add_newUploadSw():
             select_cam.write(data.content)
 
         zip_ref = zipfile.ZipFile(f"{fname}.zip")
-        print(fname)
         zip_ref.extractall(fname)
         zip_ref.close()
 
@@ -482,9 +481,15 @@ def add_newUploadSw():
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f"{func}: docker image building...")
         print(f"명령어확인 ----- docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
-        os.system(
-            f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
+        result = os.system(f"docker build -f {fname}/{fname} -t sehooh5/{fname}:latest .")
         print("Docker image building completed!!")
+
+        # 명령어의 종료 상태 확인
+        if result != 0:
+            print("Docker build failed with exit code:", result)
+        else:
+            print("Docker build succeeded.")
+
         # docker login status 확인
         try:
             print("Docker login status is Checking...")
@@ -1091,4 +1096,4 @@ db.app = app
 db.create_all()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=port, debug=True)
+    app.run(host='0.0.0.0', threaded=True, port=port)
