@@ -143,29 +143,22 @@ def add_newEdgeCluster():
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
 
+    mname = res.json()['name']
+    home_dir = os.path.expanduser("~")
+    print(home_dir,"!!!!!!!!!!!!!!!!!!")
+
     os.system("mkdir -p $HOME/.kube")
-    time.sleep(1.0)
-    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
-    time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    time.sleep(1.0)
-    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-    time.sleep(1.0)
 
-#     mname = res.json()['name']
+    try:
 
-#     os.system("mkdir -p $HOME/.kube")
-#     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+        # cp 명령어 실행
+        command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
+        subprocess.run(command, check=True)
 
-#     try:
-#
-#         # cp 명령어 실행
-#         command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
-#         subprocess.run(command, check=True)
-#
-#         print("Command executed successfully")
-#     except subprocess.CalledProcessError as e:
-#         print(f"An error occurred: {e}")
+        print("Command executed successfully")
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e}")
 
 
     for w in wlist:
