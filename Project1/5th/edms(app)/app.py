@@ -144,8 +144,6 @@ def add_newEdgeCluster():
     w_input = f"sudo {w_input}"
 
     mname = res.json()['name']
-    home_dir = os.path.expanduser("~")
-    print(home_dir,"!!!!!!!!!!!!!!!!!!")
 
     os.system("mkdir -p $HOME/.kube")
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
@@ -688,13 +686,7 @@ def add_newDeploySwInfo():
         "%c")[:-4], f" {func}: ------ deployment ------ ")
     print(deployment)
 
-    kubeconfig_path = f'$HOME/.kube/config'
-    command = f"kubectl --kubeconfig={kubeconfig_path} apply -f {fname}-{node_name}.yaml"
-    process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
-    print(process.stdout)
-    print(process.stderr)
-
-
+    os.system(f"kubectl apply -f {fname}-{node_name}.yaml")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploying {fname}-{node_name}.yaml.....")
 
@@ -734,15 +726,9 @@ def remove_deploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{node_name}]")
 
-    kubeconfig_path = f'$HOME/.kube/config'
-
-    if "prometheus" in fname:
-        os.system(f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}")
-    else:
-        command = f"kubectl --kubeconfig={kubeconfig_path} delete -f {fname}-{node_name}.yaml"
-        process = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
-        print(process.stdout)
-        print(process.stderr)
+    if fname.find("prometheus") == 0:
+        os.system(f"kubectl delete -f {fname}")
+    os.system(f"kubectl delete -f {fname}-{node_name}.yaml")
 
     sw = db.session.query(Server_SW).filter(
         Server_SW.sid == sid, Server_SW.wid == wid).first()
@@ -975,21 +961,36 @@ def remove_edgeCluster():
 # 2.17 클러스터 모니터링 툴 추가 인터페이스
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
+#     func = sys._getframe().f_code.co_name
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: Grafana monitoring tool making")
+#
+#     kubeconfig_path = f'$HOME/.kube/config'
+#
+#     try:
+#         output = subprocess.check_output(
+#             f"kubectl --kubeconfig={kubeconfig_path} get ns monitoring", shell=True).decode('utf-8')
+#     except subprocess.CalledProcessError:
+#         output = "-1"
+#     if output == "-1":
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
+#         mm.making(kubeconfig_path)
+
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Grafana monitoring tool making")
 
-    kubeconfig_path = f'$HOME/.kube/config'
-
     try:
         output = subprocess.check_output(
-            f"kubectl --kubeconfig={kubeconfig_path} get ns monitoring", shell=True).decode('utf-8')
+            "kubectl get ns monitoring", shell=True).decode('utf-8')
     except subprocess.CalledProcessError:
         output = "-1"
     if output == "-1":
         print(datetime.datetime.now().strftime(
             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
-        mm.making(kubeconfig_path)
+        mm.making()
+
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Monitoring tool making Completed")
