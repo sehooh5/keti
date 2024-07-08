@@ -188,7 +188,7 @@ def add_newEdgeCluster():
 ### 7/8 이거로 해보기 (무선엣지)
     os.system("mkdir -p $HOME/.kube")
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{res.json()['name']}/.kube/config"]
 
     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
     try:
