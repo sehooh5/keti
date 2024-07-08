@@ -184,12 +184,6 @@ def add_newEdgeCluster():
             datetime.datetime.now().strftime(
                 "%c")[:-4], f"{func}: connect worker server[{host_name}] with master server!")
 
-    # Kubernetes 설정 파일 경로
-    kube_config_path = os.path.expanduser(f"/home/{mname}/.kube/config")
-
-    # 환경 변수 설정
-    os.environ['KUBECONFIG'] = kube_config_path
-
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: edge clustering completed !")
 
@@ -641,6 +635,12 @@ def add_newDeploySwInfo():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
+    # Kubernetes 설정 파일 경로
+    kube_config_path = os.path.expanduser("/home/keti2/.kube/config")
+
+    # 환경 변수 설정
+    os.environ['KUBECONFIG'] = kube_config_path
+
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
@@ -717,6 +717,12 @@ def remove_deploySwInfo():
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: start undeploying software by Kubernetes")
+
+    # Kubernetes 설정 파일 경로
+    kube_config_path = os.path.expanduser("/home/keti2/.kube/config")
+
+    # 환경 변수 설정
+    os.environ['KUBECONFIG'] = kube_config_path
 
     json_data = request.get_json(silent=True)
     if json_data == None:
