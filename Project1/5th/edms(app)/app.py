@@ -292,7 +292,7 @@ def connect_device():
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url=f"http://{ip}:{nodeport}/streaming",
+        url=f"http://{edge_ip}:{nodeport}/streaming",
         sname=edge_name,
         option=option
     )
