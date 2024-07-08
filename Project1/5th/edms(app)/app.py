@@ -143,35 +143,30 @@ def add_newEdgeCluster():
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
 
-    mname = res.json()['name']
-
     os.system("mkdir -p $HOME/.kube")
+    time.sleep(1.0)
+    os.system("yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
+    time.sleep(1.0)
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+    time.sleep(1.0)
+    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+    time.sleep(1.0)
 
-    try:
+#     mname = res.json()['name']
 
-        # cp 명령어 실행
-        command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
-        subprocess.run(command, check=True)
-
-        print("Command executed successfully")
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred: {e}")
-
-
-
-### 7/8 (무선엣지)
 #     os.system("mkdir -p $HOME/.kube")
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-#     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{username}/.kube/config"] # home 지정
-#
-#     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+
 #     try:
-#         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-#         print("Config 복사 성공.")
+#
+#         # cp 명령어 실행
+#         command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
+#         subprocess.run(command, check=True)
+#
+#         print("Command executed successfully")
 #     except subprocess.CalledProcessError as e:
-#         print(f"오류 발생: {e}")
-#     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
+#         print(f"An error occurred: {e}")
+
 
     for w in wlist:
         wid = w["wid"]
