@@ -143,60 +143,41 @@ def add_newEdgeCluster():
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
 
-#     # 환경 변수를 명시적으로 전달
-#     home_dir = os.path.expanduser("~")
+### 7/8 (무선엣지)
 
-#     try:
-#         # ~/.kube 디렉토리가 없으면 생성
-#         subprocess.run(['mkdir', '-p', f"{home_dir}/.kube"], check=True)
-#
-#         # admin.conf 파일 복사
-#         subprocess.run(['sudo', 'cp', '/etc/kubernetes/admin.conf', f"{home_dir}/.kube/config"], check=True)
-#
-#         # 파일 소유권 변경
-#         subprocess.run(['sudo', 'chown', f"{os.getuid()}:{os.getgid()}", f"{home_dir}/.kube/config"], check=True)
-#
-#         print("Command executed successfully")
-#     except subprocess.CalledProcessError as e:
-#         print(f"An error occurred: {e}")
+    home_dir = os.path.expanduser("~")
+    username = os.path.basename(home_dir)
 
-#     # 마스터에서 설정해줘야 하는 내용
+    config_dest = f"/home/{username}/.kube/config"
+
+    try:
+        # cp 명령어 실행
+        command = ["mkdir", "-p", f"/home/{username}/.kube"]
+        subprocess.run(command, check=True)
+
+        # cp 명령어 실행
+        command = ["sudo", "cp", "/etc/kubernetes/admin.conf", config_dest]
+        subprocess.run(command, check=True)
+
+        # 소유권 변경
+        chown_command = ["sudo", "chown", f"{username}:{username}", config_dest]
+        subprocess.run(chown_command, check=True)
+
+        print("Command executed successfully")
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e}")
+
 #     os.system("mkdir -p $HOME/.kube")
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-#     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  "$(echo $HOME)/.kube/config"]
+#     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{username}/.kube/config"] # home 지정
+#
 #     # 인터랙티브 덮어쓰기 확인을 자동으로 수락
 #     try:
 #         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-#         print("명령어 실행 성공.")
+#         print("Config 복사 성공.")
 #     except subprocess.CalledProcessError as e:
 #         print(f"오류 발생: {e}")
-
-#     os.system("mkdir -p $HOME/.kube")
-#     time.sleep(1.0)
-#
-#     cp_command = f'yes | sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config'
-#     subprocess.run(cp_command, shell=True, check=True)
-#     time.sleep(1.0)
-#
-#     chown_command = f'sudo chown $(id -u):$(id -g) $HOME/.kube/config'
-#     subprocess.run(chown_command, shell=True, check=True)
-#     time.sleep(1.0)
-#
 #     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
-#     time.sleep(1.0)
-
-### 7/8 이거로 해보기 (무선엣지)
-    os.system("mkdir -p $HOME/.kube")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{res.json()['name']}/.kube/config"]
-
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
-    try:
-        subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
-        print("명령어 실행 성공.")
-    except subprocess.CalledProcessError as e:
-        print(f"오류 발생: {e}")
-    os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
     for w in wlist:
         wid = w["wid"]
