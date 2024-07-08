@@ -143,11 +143,9 @@ def add_newEdgeCluster():
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = f"sudo {w_input}"
 
-### 7/8 (무선엣지)
-
     home_dir = os.path.expanduser("~")
     username = os.path.basename(home_dir)
-
+    print(username,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     config_dest = f"/home/{username}/.kube/config"
 
     try:
@@ -167,6 +165,7 @@ def add_newEdgeCluster():
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
+### 7/8 (무선엣지)
 #     os.system("mkdir -p $HOME/.kube")
 #     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
 #     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{username}/.kube/config"] # home 지정
