@@ -18,6 +18,7 @@ refresh = "/bin/bash -c 'source ~/.bashrc'"
 
 os.environ['OPEN_WINDOW'] = "NO"
 os.environ['OPENCV_CAMERA_SOURCE'] = "rtsp://root:keti@192.168.0.94/onvif-media/media.amp"
+os.environ['CAMERA_NAME'] = "5G_CCTV_2"
 
 @app.route('/streaming', methods=['GET'])
 def streaming():
