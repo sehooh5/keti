@@ -7,6 +7,7 @@ class Camera(BaseCamera):
     video_source = 0
 
     def __init__(self):
+        print(os.environ['OPENCV_CAMERA_SOURCE'])
         if os.environ.get('OPENCV_CAMERA_SOURCE'):
             Camera.set_video_source(os.environ['OPENCV_CAMERA_SOURCE'])
         super(Camera, self).__init__()
