@@ -145,20 +145,19 @@ def add_newEdgeCluster():
 
     mname = res.json()['name']
 
+    os.system("mkdir -p $HOME/.kube")
+    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
+
     try:
-        # cp 명령어 실행
-        command = ["mkdir", "-p", f"/home/{mname}/.kube"]
-        subprocess.run(command, check=True)
 
         # cp 명령어 실행
         command = ["sudo", "cp", "/etc/kubernetes/admin.conf", f"/home/{mname}/.kube/config"]
         subprocess.run(command, check=True)
 
-        os.system(f"sudo chown $(id -u):$(id -g) /home/{mname}/.kube/config")
-
         print("Command executed successfully")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
+
 
 
 ### 7/8 (무선엣지)
