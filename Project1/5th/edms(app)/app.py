@@ -978,21 +978,11 @@ def remove_edgeCluster():
 # 2.17 클러스터 모니터링 툴 추가 인터페이스
 @ app.route('/add_newMonitoring', methods=['GET'])
 def add_newMonitoring():
-#     func = sys._getframe().f_code.co_name
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f" {func}: Grafana monitoring tool making")
-#
-#     kubeconfig_path = f'$HOME/.kube/config'
-#
-#     try:
-#         output = subprocess.check_output(
-#             f"kubectl --kubeconfig={kubeconfig_path} get ns monitoring", shell=True).decode('utf-8')
-#     except subprocess.CalledProcessError:
-#         output = "-1"
-#     if output == "-1":
-#         print(datetime.datetime.now().strftime(
-#             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
-#         mm.making(kubeconfig_path)
+    # Kubernetes 설정 파일 경로
+    kube_config_path = os.path.expanduser("/home/keti2/.kube/config")
+
+    # 환경 변수 설정
+    os.environ['KUBECONFIG'] = kube_config_path
 
     func = sys._getframe().f_code.co_name
     print(datetime.datetime.now().strftime(
