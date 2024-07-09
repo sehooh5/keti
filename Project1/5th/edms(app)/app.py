@@ -998,16 +998,18 @@ def add_newMonitoring():
             "%c")[:-4], f" {func}: Making Monitoring system by Prometheus and Grafana")
         mm.making()
 
+    # 임의로 시연때만 사용!
+    w_ip = '192.168.0.25'
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: Monitoring tool making Completed")
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: Grafana url : http://{ip}:30006")
+        "%c")[:-4], f" {func}: Grafana url : http://{w_ip}:30006")
 
     res = jsonify(
         code="0000",
         message="처리 성공",
-        url=f"http://{ip}:30006/d/JABGX_-mz/cluster-monitoring-for-kubernetes?orgId=1&refresh=10s"
+        url=f"http://{w_ip}:30006/d/JABGX_-mz/cluster-monitoring-for-kubernetes?orgId=1&refresh=10s"
     )
     return res
 
