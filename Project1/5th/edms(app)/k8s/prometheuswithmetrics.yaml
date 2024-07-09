@@ -219,7 +219,7 @@ spec:
       labels:
         app: prometheus-server
     spec:
-      nodeName: keti1-worker1
+      nodeName: keti1
       containers:
         - name: prometheus
           image: prom/prometheus:latest
@@ -416,7 +416,7 @@ spec:
       labels:
         app: kube-state-metrics
     spec:
-      nodeName: keti1-worker1
+      nodeName: keti1
       containers:
         - image: quay.io/coreos/kube-state-metrics:v1.8.0
           livenessProbe:
