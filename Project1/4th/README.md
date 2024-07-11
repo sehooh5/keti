@@ -102,9 +102,40 @@
 
 
 
-## reference
+## DEMS 구조
 
-- 레퍼 적으면 됨
+- #### DEMS 시연
+
+  - 뒷자리 Master, Worker 각각 1대 씩
+    - Master : 192.168.0.28
+    - Worker : 192.168.0.25
+  - 카메라 주소
+    - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
+      - GPS 값 : 37.5807, 126.8884 (전자회관 위치)
+    - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
+      - GPS 값 : 37.5750, 126.8870 (도서관)
+    - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+
+
+
+## 5G CCTV / 차량용 설치 방법
+
+- #### 블랙박스 카메라 연결
+
+  - PoE 전원 연결
+  - 5G 공유기 전원 연결
+  - 5G 공유기 - PoE - 블랙박스 유선 연결
+  - 노트북2(5G 공유기 Wifi 연결)에서 영상 스트리밍 확인
+    - rtsp://192.168.1.101:554/h264
+
+- #### 5G CCTV
+
+  - 전원 연결
+  - 중계 서버 재시작 요청(KETI 내부)
+  - 노트북 1(테더링으로 외부망 연결)에서 영상 스트리밍 확인
+    - rtsp://ADMIN:1234@123.214.186.212:10101/live/main 
+
+
 
 
 
