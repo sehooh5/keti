@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monitoringS
+  name: monitorings
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitoringS
+      app: monitorings
   template:
     metadata:
       labels:
-        app: monitoringS
+        app: monitorings
     spec:
       containers:
-        - name: monitoringS
-          image: sehooh5/monitoringS:latest
+        - name: monitorings
+          image: sehooh5/monitorings:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
