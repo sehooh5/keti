@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: monitoring
-          image: sehooh5/monitoring:latest
+          image: sehooh5/monitoringS:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
