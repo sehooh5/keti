@@ -29,7 +29,7 @@ def cpu_mem_sending():
         "message": "처리성공",
         "username": username,
         "cpu": cpu_percent,
-        "memory": memory_percent
+        "memory": memory_percent,
         "func": "RAINY"
     }
     json_data = json.dumps(data)
