@@ -2,7 +2,54 @@
 
 ## Kubernetes 설치
 
-- Version : 1.14
+- **Version : 1.27**
+  - 레거시 패키지 저장소( `apt.kubernetes.io`)가 변경됨 -> [`pkgs.k8s.io`](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/)**
+
+
+
+### Kubernetes `apt`저장소를 사용하는 데 필요한 패키지를 설치
+
+```bash
+sudo apt-get update
+# apt-transport-https may be a dummy package; if so, you can skip that package
+sudo apt-get install -y apt-transport-https ca-certificates curl
+```
+
+
+
+#### Kubernetes 패키지 저장소의 공개 서명 키 다운로드
+
+```bash
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.27/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+
+
+#### Kubernetes `apt`저장소를 추가
+
+```bash
+# 1.27 Version
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.27/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# 1.29 Version
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+
+
+#### kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정
+
+```bash
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+
+
+
+
+
+
+
+- **Version : 1.14**
 
 
 
