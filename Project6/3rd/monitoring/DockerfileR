@@ -7,5 +7,5 @@ RUN pip install psutil requests
 ADD ./monitoring /app/
 
 EXPOSE 6432
-CMD ["python3", "/app/cpu_mem_client.py"]
+CMD ["python3", "/app/cpu_mem_client_rainy.py"]
 
