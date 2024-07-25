@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monitoring
+  name: monitoringR
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitoring
+      app: monitoringR
   template:
     metadata:
       labels:
-        app: monitoring
+        app: monitoringR
     spec:
       containers:
-        - name: monitoring
+        - name: monitoringR
           image: sehooh5/monitoringR:latest
           imagePullPolicy: Always
           ports:
