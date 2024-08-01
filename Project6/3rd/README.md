@@ -553,6 +553,18 @@
         docker build -f DockerfileS -t sehooh5/monitors:01 .
         
         # Rainy
-        docker build -f DockerfileS -t sehooh5/monitors:01 .
+        docker build -f DockerfileR -t sehooh5/monitorr:01 .
         ```
+
+    - K8S 배포
+
+      - ```
+        # Sunny
+        kubectl apply -f monitors.yaml
+        
+        # Rainy
+        kubectl apply -f monitorr.yaml
+        ```
+
+      - 
 
