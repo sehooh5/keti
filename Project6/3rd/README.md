@@ -556,15 +556,17 @@
         docker build -f DockerfileR -t sehooh5/monitorr:01 .
         ```
 
-    - K8S 배포
+    - K8S 배포 / 삭제
 
       - ```
         # Sunny
-        kubectl apply -f monitors.yaml
+        kubectl apply -f monitoringS/monitors.yaml
+        kubectl delete -f monitoringS/monitors.yaml
         
         # Rainy
-        kubectl apply -f monitorr.yaml
+        kubectl apply -f monitoringR/monitorr.yaml
+        kubectl delete -f monitoringR/monitorr.yaml
         ```
 
-      - 
+- Sunny / Rainy 배포/삭제 가능
 

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoringr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitoringr
+  template:
+    metadata:
+      labels:
+        app: monitoringr
+    spec:
+      containers:
+        - name: monitoringr
+          image: sehooh5/monitorr:02
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8062
