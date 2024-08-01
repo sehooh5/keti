@@ -539,7 +539,20 @@
 #### 0801
 
 - monitoring 시스템 배포 완료
+
 - 수정 변경 가능한지 확인
+
 - jetson orin 01 (마스터)가 작동을 안함
+
   - 기존 서버에서 실행
+
+    - 도커 이미지 빌드
+
+      - ```
+        # Sunny
+        docker build -f DockerfileS -t sehooh5/monitors:01 .
+        
+        # Rainy
+        docker build -f DockerfileS -t sehooh5/monitors:01 .
+        ```
 
