@@ -11,7 +11,13 @@
 ---
 
 - 6~9월 : KETI 개발부분 진행
-- 9월 말:까지 전체 시스템(엣지 CCTV, VMS, AI, 분석서버 등) 가져와서 환경구성
+- 8월
+  - 8/2 : 인텔리빅스 회의, 엣지 모듈 2대 수령 -> 환경구축 시작
+- 9월 
+  - 중순 : (유선) 엣지 CCTV 5대 완성 후 해당 CCTV로 개발 진행 -> 원주시 설치
+  - 9월 말 까지:  전체 시스템(엣지 CCTV, VMS, AI, 분석서버 등) 가져와서 환경구성
+- 10월
+  - 10월 말 까지 : 최적화 부분 개발 완료, (무선) 엣지 CCTV 완성 후 개발 진행 -> 진현이엔지 설치
 - 10~11월 : 전체 시스템 통합
 
 
@@ -152,7 +158,20 @@
 
       
 
+### 데이터 전송방식
 
+---
+
+
+
+#### 엣지 CCTV
+
+- 영상
+  - **[엣지 CCTV]**에서 RTSP 재전송
+  - **[VMS]**에서 끌어감
+- 분석결과 및 메타데이터
+  - **[VMS]**에서 `Request`
+  - **[엣지 CCTV]** 에서 `Response`
 
 
 
@@ -554,6 +573,9 @@
         
         # Rainy
         docker build -f DockerfileR -t sehooh5/monitorr:01 .
+        
+        # Docker images 확인
+        docker run -it sehooh5/monitorr:02 /bin/bash
         ```
 
     - K8S 배포 / 삭제
@@ -568,5 +590,32 @@
         kubectl delete -f monitoringR/monitorr.yaml
         ```
 
-- Sunny / Rainy 배포/삭제 가능
+    - 업데이트
+
+      - ```
+        # Rainy
+        
+        ## Docker image 삭제
+        docker rmi sehooh5/monitorr:01
+        
+        ## 새로운 Docker image build
+        docker build -f DockerfileR02 -t sehooh5/monitorr:02 .
+        docker push sehooh5/monitorr:02
+        
+        ## 새로운 Pod 배포
+        kubectl apply -f monitoringR02/monitorr.yaml
+        ```
+
+- Sunny / Rainy 배포/삭제 기능 구현 완료
+
+
+
+#### 0802
+
+- 인텔리빅스 회의(방배 사옥, 16시)
+
+  - 데이터 전송 방법 
+  - 배포형태, 분석결과 등 표준
+
+  
 
