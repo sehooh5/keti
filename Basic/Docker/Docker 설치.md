@@ -45,10 +45,7 @@
   # 공식 키 확인
   $ sudo apt-key fingerprint 0EBFCD88
   # 저장소 추가
-  $ sudo add-apt-repository \
-     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-     bionic \
-     stable"
+  $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   # docker 패키지 검색되는지 확인
   $ sudo apt-get update 
   $ sudo apt-cache search docker-ce
