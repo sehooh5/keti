@@ -44,7 +44,7 @@
   $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   # 공식 키 확인
   $ sudo apt-key fingerprint 0EBFCD88
-  # 저장소 추가
+  # 저장소 추가 ## jetson amd -> arm
   $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   # docker 패키지 검색되는지 확인
   $ sudo apt-get update 
