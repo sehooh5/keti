@@ -71,32 +71,19 @@
 
 
 
-### 물리적 구조
+## 환경 구성
 
----
 
-- #### EDGE-5G, 2.4G 공유기
 
-  - 주소 : 192.168.0.222
+### [클러스터 구성]
 
-- #### AXIS M1135 카메라
+- **Master**
 
-  - 주소 : 192.168.0.76
+  - Name : keti-orin-02
 
-- #### 마스터 서버
+  - IP : 192.168.0.4
 
-  - 이름 : edge-master-01
-
-  - 주소 : 192.168.0.14
-
-  - k8s 명령어 : 
-
-    ```
-    kubeadm join 192.168.0.14:6443 --token 3j3fp6.ocl6obtpe1lbju7l \
-    	--discovery-token-ca-cert-hash sha256:84fa33eed337bf7ed84a887e7a11014e42f674146b6fe188fb7c75d194b848ff 
-    ```
-
-  - JSON 형태 정보 : 
+  - JSON 형태 정보 예시 : 
 
     ```json
     {    
@@ -109,32 +96,106 @@
 
     
 
-- #### 워커 서버
+- **Worker1**
 
-  - 이름 : edge-worker-01
+  - Name : intellivix-worker-01
+
+  - IP : 192.168.0.21
+
+  - 
+
+  - - JSON 형태 정보 예시 : 
+
+      ```json
+      {    
+          "name" : “EdgeCCTV01”,
+          "type" : 1,
+          "gps" : 
+          {	
+            "latitude" : “37.57”,
+            "longitude" : “126.98”
+          },
+          "address" : “서울시 마포구 상암동 1599”,
+          "ip" : “192.168.0.9”,
+          "isSupportAnnalysis" : “YES”,
+          "url" : “rtsp://root:root@192.168.0.12/axis-media/media.amp”,
+          "description" : “이 CCTV는 상암동에 설치된 엣지 CCTV 임”
+      }
+      ```
+
   
-  - 주소 : 192.168.0.9
-  
-  - JSON 형태 정보 : 
-  
-    ```json
-    {    
-        "name" : “EdgeCCTV01”,
-        "type" : 1,
-        "gps" : 
-        {	
-          "latitude" : “37.57”,
-          "longitude" : “126.98”
-        },
-        "address" : “서울시 마포구 상암동 1599”,
-        "ip" : “192.168.0.9”,
-        "isSupportAnnalysis" : “YES”,
-        "url" : “rtsp://root:root@192.168.0.12/axis-media/media.amp”,
-        "description" : “이 CCTV는 상암동에 설치된 엣지 CCTV 임”
-    }
-    ```
-  
-- #### 업로드 파일
+
+- **Worker2**
+
+  - Name : intellivix-worker-02
+  - IP : 192.168.0.19
+
+
+
+## [버전 정보]
+
+### OS
+
+Ubuntu 20.04
+
+
+
+### JETPACK
+
+R35 (release), REVISION: 4.1, GCID: 33958178, BOARD: t186ref, EABI: aarch64, DATE: Tue Aug 1 19:57:35 UTC 2023
+35.4.1 / 5.1.1
+
+### CUDA
+
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Sun_Oct_23_22:16:07_PDT_2022
+Cuda compilation tools, release 11.4, V11.4.315
+Build cuda_11.4.r11.4/compiler.31964100_0
+
+
+
+### Docker
+
+Client: Docker Engine - Community
+Version: 27.1.1
+API version: 1.46
+Go version: go1.21.12
+Git commit: 6312585
+Built: Tue Jul 23 19:59:27 2024
+OS/Arch: linux/arm64
+Context: default
+
+Server: Docker Engine - Community
+Engine:
+Version: 27.1.1
+API version: 1.46 (minimum version 1.24)
+Go version: go1.21.12
+Git commit: cc13f95
+Built: Tue Jul 23 19:59:27 2024
+OS/Arch: linux/arm64
+Experimental: false
+containerd:
+Version: 1.7.19
+GitCommit: 2bf793ef6dc9a18e00cb12efb64355c2c9d5eb41
+runc:
+Version: 1.7.19
+GitCommit: v1.1.13-0-g58aa920
+docker-init:
+Version: 0.19.0
+GitCommit: de40ad0
+
+
+
+### Kubernetes
+
+v1.30.3
+
+
+
+## SW
+
+- #### 리소스 전송 파일
 
   - 마스터에 저장되어있는 파일을 사용
 
@@ -619,3 +680,6 @@
 
   
 
+#### 0805
+
+- 클러스터 환경 구성 완료
