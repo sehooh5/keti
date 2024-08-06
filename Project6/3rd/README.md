@@ -79,7 +79,7 @@
 
 - **Master**
 
-  - Name : keti-orin-02
+  - Name : keti-orin-02(keti-jx-02)
 
   - IP : 192.168.0.4
 
@@ -98,11 +98,9 @@
 
 - **Worker1**
 
-  - Name : intellivix-worker-01
+  - Name : intellivix-worker-01(intellivix)
 
   - IP : 192.168.0.21
-
-  - 
 
   - - JSON 형태 정보 예시 : 
 
@@ -127,7 +125,7 @@
 
 - **Worker2**
 
-  - Name : intellivix-worker-02
+  - Name : intellivix-worker-02(intellivix)
   - IP : 192.168.0.19
 
 
@@ -683,3 +681,15 @@ v1.30.3
 #### 0805
 
 - 클러스터 환경 구성 완료
+- 공부해서 적용하기
+  - 제로티어
+  - Docker private registry
+    - https://d0lim.com/blog/2023/05/mac-mini-docker-registry/
+
+
+
+#### 0806
+
+- 도커 hub(외부망)을 사용하지 않고 내부망에서 해결하기 위한 방법
+  - Docker private registry
+    - 참고1 : https://d0lim.com/blog/2023/05/mac-mini-docker-registry/
