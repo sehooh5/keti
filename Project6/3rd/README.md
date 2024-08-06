@@ -693,3 +693,7 @@ v1.30.3
 - 도커 hub(외부망)을 사용하지 않고 내부망에서 해결하기 위한 방법
   - Docker private registry
     - 참고1 : https://d0lim.com/blog/2023/05/mac-mini-docker-registry/
+- VMS 서버용으로 쓸 Mini PC
+  - Name : edge-master-01
+  - IP 주소 : 192.168.0.14
+  - PW : keti
