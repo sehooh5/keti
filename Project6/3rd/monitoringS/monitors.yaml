@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: monitorings
-          image: sehooh5/monitors:01
+          image: localhost:5000/monitorings:01
           imagePullPolicy: Always
           ports:
             - containerPort: 8060
