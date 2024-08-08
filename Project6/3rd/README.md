@@ -716,3 +716,47 @@ v1.30.3
   - [환경정보 AI]
     - 메타데이터 버전으로 변경
     - 패키징 및 배포
+
+
+
+#### 0808
+
+- k8s  구성자체가 망가짐
+
+  - 아래 과정에서 망가진거같은데 확인 후 진행
+
+    ```
+    sudo mkdir -p /etc/systemd/system/kubelet.service.d
+    sudo vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+    ```
+
+  - 해결 완료 : 
+
+    - k8s 재구성
+
+- join 문
+
+  ```
+  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-01 --token w3ovzd.0jqo9sufs8rr7l19 --discovery-token-ca-cert-hash sha256:b1b0d1dcffbbbf9df54bd98472f1c20e0bd740a0cfebb8f74b83518b9e4f7a66
+  
+  # 192.168.0.19
+  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-02 --token w3ovzd.0jqo9sufs8rr7l19 --discovery-token-ca-cert-hash sha256:b1b0d1dcffbbbf9df54bd98472f1c20e0bd740a0cfebb8f74b83518b9e4f7a66
+  ```
+
+- **서박사님 문의**
+
+  - 환경정보 AI GUI 버전에서 메타데이터(아마 JSON) 버전으로 변경이 가능한지?
+    1. VMS에서 PULL 하는 방식
+    2. VMS로 매 초마다 전송하는 방식
+
+- **진행중(8/20 화요일까지)**
+
+  - 도커 private registry 설정
+    - 제일 먼저 진행하고 배포되는지 확인 필요
+  - [모니터링]
+    - VMS = edge-master-01 으로 가정하고 데이터 전송받는 서버 실행
+    - 데이터 전송받는 서버 `vms_edge.py` 로 재구성하기
+    -  SW 배포 및 확인
+  - [환경정보 AI]
+    - 메타데이터 버전으로 변경
+    - 패키징 및 배포
