@@ -246,8 +246,6 @@ v1.30.3
   # VMS server
   VMS_URL=192.168.0.14
   VMS_PORT=5350
-  
-  # 
   ```
 
 

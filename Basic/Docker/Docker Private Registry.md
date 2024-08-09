@@ -64,13 +64,30 @@ docker pull 192.168.0.4:5000/monitorings:01
 
 ### Kubernetes 에서 사용
 
-```
-kubectl create secret docker-registry scrt \
-  --docker-server=192.168.0.4:5000 \
-  --docker-username=sehooh5 \
-  --docker-password=@Dhtpgh1234 \
-  --docker-email=sehooh5@gmail.com
-```
+
+
+- namespace 생성
+
+  ```
+  # 모든 서비스의 구분을 위한 namespace 생성
+  
+  kubectl create namespace keti
+  ```
+
+  
+
+- secret 생성
+
+  ```
+  kubectl create secret docker-registry regcred \
+    --namespace=keti \
+    --docker-server=192.168.0.4:5000 \
+    --docker-username=sehooh5 \
+    --docker-password=@Dhtpgh1234 \
+    --docker-email=sehooh5@gmail.com
+  ```
+
+  
 
 
 

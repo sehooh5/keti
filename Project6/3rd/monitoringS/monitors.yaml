@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
         - name: monitorings
-          image: 192.168.0.4:5000/monitorings:01
+          image: monitorings:01
           imagePullPolicy: Always
           ports:
             - containerPort: 8060
       imagePullSecrets:
-      - name : scrt
+      - name : regcred
