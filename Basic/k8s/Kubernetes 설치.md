@@ -393,7 +393,7 @@ $ umount /var/lib/docker/volumes
 
 - k8s 초기화
 
-# kubeadm reset
+# sudo kubeadm reset
 
 $ systemctl restart kubelet
 

@@ -768,10 +768,18 @@ v1.30.3
 - join 문
 
   ```
-  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-01 --token w3ovzd.0jqo9sufs8rr7l19 --discovery-token-ca-cert-hash sha256:b1b0d1dcffbbbf9df54bd98472f1c20e0bd740a0cfebb8f74b83518b9e4f7a66
+  # master 실행문
+  sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.4
+  
+  # 192.168.0.21
+  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-01 --token 4is1yr.jiwj6x16ba0fwwbr --discovery-token-ca-cert-hash sha256:ee35f3a2b1bfcc6d657266488e6b15791e2f0d2ff177fa6ce3627315f15565cb
   
   # 192.168.0.19
-  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-02 --token w3ovzd.0jqo9sufs8rr7l19 --discovery-token-ca-cert-hash sha256:b1b0d1dcffbbbf9df54bd98472f1c20e0bd740a0cfebb8f74b83518b9e4f7a66
+  sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-02 --token 4is1yr.jiwj6x16ba0fwwbr --discovery-token-ca-cert-hash sha256:ee35f3a2b1bfcc6d657266488e6b15791e2f0d2ff177fa6ce3627315f15565cb
+  
+                                                                                    mkdir -p $HOME/.kube                                                             sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config                         sudo chown $(id -u):$(id -g) $HOME/.kube/config 
+                                                                                    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml 
+                                                                                   
   ```
 
 - **서박사님 문의**
@@ -823,3 +831,9 @@ v1.30.3
     - **환경정보 획득 인터페이스.hwp**
   - **데이터 전송방식**
     - 위 파일에 GET, POST 나누었는데 **POST 가 적합해보이긴함**
+
+
+
+---- private repository 안되는중....일단 다시 클러스터 구성완료
+
+---- 서박사님 말씀 먼저 드리기
