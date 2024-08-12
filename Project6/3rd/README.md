@@ -130,6 +130,14 @@
 
 
 
+- #### 카메라 정보
+
+  - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
+  - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
+  - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+
+
+
 ## [버전 정보]
 
 ### OS
