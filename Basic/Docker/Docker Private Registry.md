@@ -10,7 +10,7 @@
 ### 1. Docker Registry 이미지 다운로드 및 실행
 
 ```
-docker run -d -p 5000:5000 --name registry registry:2
+docker run -d -p 5000:5000 --restart=always --name registry -v /mnt/registry:/var/lib/registry registry:2
 ```
 
 - Docker Hub에서 공식 Docker Registry 이미지를 다운로드하고 실행
@@ -21,7 +21,7 @@ docker run -d -p 5000:5000 --name registry registry:2
 ### 2. Docker 이미지 태그 지정
 
 ```
-# 처음 설정부터 지정
+# 처음 설정부터 지정 // 127.0.0.1 localhost 사용 가능
 docker build -f DockerfileS -t 192.168.0.4:5000/monitorings:01 .
 
 # 이미지 태그 변경
@@ -56,13 +56,101 @@ docker pull 192.168.0.4:5000/monitorings:01
 
 
 
-### 인증 htpasswd 는 아직 진행하지 않음
-
-- htpasswd 인증
+## Kubernetes 에서 사용
 
 
 
-### Kubernetes 에서 사용
+### 5. SSL 인증서 만들기
+
+- SSL 인증서는 https 통신을 위한 필수적인 인증 수단
+
+- 로컬 컴퓨터에 등록하는 방식
+
+  ```
+  # 원하는 위치에 certs 폴더 만들기
+  mkdir certs
+  
+  # certs 폴더로 이동
+  cd certs/
+  
+  ## registry-service.key | registry-service.csr | registry-service.crt
+  # SSL 생성 using OpenSSL
+  # openssl genrsa -out server.key 2048
+  openssl genrsa -out registry-service.key 2048
+  
+  # 인증서 서명
+  # openssl req -new -key server.key -out server.csr # 각 정보 입력해주면 됨
+  openssl req -new -key registry-service.key -out registry-service.csr
+  
+  # 공개키 생성 ./certs/
+  # openssl x509 -req -days 3650 -in ./certs/registry-service.csr -signkey ./certs/registry-service.key -out ./certs/registry-service.crt
+  
+  
+  ## 생성 파일 
+  # server.crt  server.csr  server.key
+  ```
+
+  
+
+### 6. htpasswd 생성
+
+- docker registry는 기본적으로 apache htpasswd를 이용한 auth 인증을 제공
+
+- htpasswd를 통해 간단히, username, password를 통한 인증정보를 생성
+
+- 이후 해당 registry을 이용할 때, 해당 인증 정보를 활용
+
+  ```
+  # htpasswd 설치
+  sudo apt install apache2-utils 
+  
+  # auths 폴더 생성
+  mkdir auths
+  
+  # htpasswd 
+  # htpasswd -Bbn <username> <password> > ./auths/htpasswd
+  htpasswd -Bbn sehooh5 @Dhtpgh1234 > ./auths/htpasswd
+  ```
+
+
+
+### Kubernetes secrets에 인증정보 저장
+
+- k8s cluster에 credential 정보들을 secret으로 등록
+
+  ```
+  # SSL 등록
+  kubectl create secret generic registry-certs --from-file=registry-service.crt=./certs/registry-service.crt --from-file=registry-service.key=./certs/registry-service.key
+  
+  # htpasswd 등록
+  kubectl create secret generic registry-htpasswd --from-file=htpasswd=./auths/htpasswd
+  ```
+
+  
+
+### 서버와 클라이언트에 registry-service.crt 등록
+
+-  CA 인증을 받지 않았기 때문에, 서버와 클라이언트에 별도로 CA 파일을 등록
+
+- 이후 container runtime을 재실행
+
+  ```
+  ## 모든 노드에서 해줘야함!!
+  # registry-service.crt 를 서버에 등록하기 
+  sudo cp ./certs/registry-service.crt /usr/local/share/ca-certificates/
+  
+  # 
+  update-ca-certificates
+  
+  # docker 재시작
+  sudo systemctl restart docker
+  ```
+
+  
+
+# -------------여기 위에까지함
+
+
 
 
 
@@ -85,8 +173,9 @@ docker pull 192.168.0.4:5000/monitorings:01
     --docker-username=sehooh5 \
     --docker-password=@Dhtpgh1234 \
     --docker-email=sehooh5@gmail.com
-  ```
-
+  
+```
+  
   
 
 
