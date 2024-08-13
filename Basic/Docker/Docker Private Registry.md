@@ -23,6 +23,7 @@ docker run -d -p 5000:5000 --restart=always --name registry -v /mnt/registry:/va
 ```
 # 처음 설정부터 지정 // 127.0.0.1 localhost 사용 가능
 docker build -f DockerfileS -t 192.168.0.4:5000/monitorings:01 .
+docker build -f DockerfileS -t 127.0.0.1:5000/monitorings:01 .
 
 # 이미지 태그 변경
 docker tag [이미지]:latest 192.168.0.4:5000/monitorings:01
@@ -47,7 +48,7 @@ docker push 192.168.0.4:5000/monitorings:01
 ### 4. Private Registry에서 Docker 이미지 Pull
 
 ```
-docker pull 192.168.0.4:5000/monitorings:01
+docker pull 192.168.0.4:5000/monitorings:01 # 이게 됨
 ```
 
 - Private Registry에서 이미지를 Pull
@@ -168,14 +169,13 @@ docker pull 192.168.0.4:5000/monitorings:01
 
   ```
   kubectl create secret docker-registry regcred \
-    --namespace=keti \
-    --docker-server=192.168.0.4:5000 \
+    --docker-server=127.0.0.1:5000 \
     --docker-username=sehooh5 \
     --docker-password=@Dhtpgh1234 \
     --docker-email=sehooh5@gmail.com
   
-```
-  
+  ```
+
   
 
 

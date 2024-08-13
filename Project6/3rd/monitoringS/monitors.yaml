@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: monitorings
-          image: monitorings:01
+          image: 127.0.0.1:5000/monitorings:01
           imagePullPolicy: Always
           ports:
             - containerPort: 8060
