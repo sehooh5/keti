@@ -2,6 +2,7 @@
 
 - Docker Hub를 사용하지 않고 Private Registry를 사용해 배포 가능하게하는 프로세스
 - Kubernetes 에서 활용할 수 있는 자세한 내용 : [URL](https://medium.com/@craftsangjae/k8s%EC%97%90-docker-private-registry-%EA%B5%AC%EC%B6%95%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-db705cffe623)
+- 작업 위치 : ~/keti/Project6/3rd$
 
 
 
@@ -39,6 +40,20 @@ docker tag [이미지]:latest 192.168.0.4:5000/monitorings:01
 
 ```
 docker push 192.168.0.4:5000/monitorings:01
+
+# 모든 노드에서 Docker 데몬에 특정 레지스트리에 대해 HTTP를 허용하도록 구성
+sudo vim /etc/docker/daemon.json
+
+# 아래내용 추가
+{
+  "insecure-registries" : ["192.168.0.4:5000"]
+}
+
+## 기존
+{                                                                                                                                                                "runtimes": {                                                                                                                                                    "nvidia": {                                                                                                                                                      "path": "nvidia-container-runtime",                                                                                                                          "runtimeArgs": []                                                                                                                                        }                                                                                                                                                        },                                                                                                                                                           "insecure-registries": ["192.168.0.4:5000"]                                                                                                              }     
+
+# 도커 재시작
+sudo systemctl restart docker
 ```
 
 - 태그가 지정된 이미지를 Private Registry에 Push
@@ -169,7 +184,7 @@ docker pull 192.168.0.4:5000/monitorings:01 # 이게 됨
 
   ```
   kubectl create secret docker-registry regcred \
-    --docker-server=127.0.0.1:5000 \
+    --docker-server=192.168.0.4:5000 \
     --docker-username=sehooh5 \
     --docker-password=@Dhtpgh1234 \
     --docker-email=sehooh5@gmail.com
@@ -202,4 +217,52 @@ Events:                                                                         
 - Docker Registry는 기본적으로 HTTP를 사용하기 때문에 이 문제를 해결하려면 Docker와 Kubernetes가 HTTP로 연결하도록 설정해야 함
 
 
+
+
+
+
+
+일단 이거 참고자료
+
+https://park-hw.tistory.com/entry/%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8-%EA%B5%AC%EC%B6%95-%EB%B0%A9%EB%B2%95
+
+
+
+```
+#기존 컨피그파일 "있으면" 파일 백업(파일변경)
+cd /etc/containerd/
+mv config.toml config_bkup.toml
+ 
+# "없으면"config 파일 default 내용 포함해서 생성
+sudo su
+containerd config default > config.toml
+exit
+
+# toml 파일 수정
+## 이미 작성된 파일에 내용 추가
+/etc/containerd/config.toml
+
+...
+
+[plugins."io.containerd.grpc.v1.cri".registry.configs] # 아래 내용 추가
+        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".auth]
+          username = "sehooh5"
+          password = "@Dhtpgh1234"
+        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".tls]
+          insecure_skip_verify = true
+
+[plugins."io.containerd.grpc.v1.cri".registry.headers] # 추가 X
+
+[plugins."io.containerd.grpc.v1.cri".registry.mirrors] # 아래 내용 추가
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+          endpoint = ["https://registry-1.docker.io"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.0.4:5000"]
+          endpoint = ["http://192.168.0.4:5000"]
+    
+...
+
+# containerd 재시작
+sudo systemctl restart containerd
+
+```
 
