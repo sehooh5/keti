@@ -847,3 +847,10 @@ v1.30.3
 - 서박사님 전달 완료
   - post 방식으로 진행
 - private repository 계속 진행
+
+
+
+#### 0814
+
+- monitors.yaml 의 containerPort 변경해서 다시해보기
+

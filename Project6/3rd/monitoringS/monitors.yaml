@@ -17,6 +17,6 @@ spec:
           image: 127.0.0.1:5000/monitorings:01
           imagePullPolicy: Always
           ports:
-            - containerPort: 8060
+            - containerPort: 6432
       imagePullSecrets:
       - name : regcred
