@@ -854,10 +854,12 @@ v1.30.3
 
 - monitors.yaml 의 containerPort 변경해서 다시해보기
 - containerd config.toml 파일 생성후 변경해줬더니 해결
+- imagepullbackoff 오류가 발생하는데 dockerfile, deployment 파일 확인 후 다시 진행해보기
+  - post 요청 받는 서버 생성되니 잘 돌아감!! 배포완료!!
 
 
 
 #### 0816
 
-- imagepullbackoff 오류가 발생하는데 dockerfile, deployment 파일 확인 후 다시 진행해보기
-
+- sunny 배포 완료했고 rainy, rainy2 배포해보고 
+- 서박사님 ai배포되면 진행하기
