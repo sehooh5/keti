@@ -853,4 +853,11 @@ v1.30.3
 #### 0814
 
 - monitors.yaml 의 containerPort 변경해서 다시해보기
+- containerd config.toml 파일 생성후 변경해줬더니 해결
+
+
+
+#### 0816
+
+- imagepullbackoff 오류가 발생하는데 dockerfile, deployment 파일 확인 후 다시 진행해보기
 
