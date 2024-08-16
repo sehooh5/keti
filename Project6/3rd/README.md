@@ -130,7 +130,48 @@
 
 
 
-- #### 카메라 정보
+### [VMS 구성]
+
+- VMS 서버
+
+  - Name : edge-master-01
+
+- IP : 192.168.0.14
+
+- 데이터 확인 서버
+
+  - 기능 : AI에서 전송받는 데이터 출력
+
+  - `vms_edge.py` 
+
+    - 주소 및 포트 : 192.168.0.14:6432
+
+    - API
+
+      - /usage
+
+        - POST
+
+        - Data : 
+
+          - ```json
+            # 예시 JSON 데이터
+            
+            {
+                "code": "0000",
+                "message": "처리성공",
+                "username": username,
+                "cpu": cpu_percent,
+                "memory": memory_percent,
+                "func": "SUNNY"
+            }
+            ```
+
+
+
+### [CCTV]
+
+- #### CCTV 주소
 
   - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
   - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
@@ -853,7 +894,7 @@ v1.30.3
 #### 0814
 
 - monitors.yaml 의 containerPort 변경해서 다시해보기
-- containerd config.toml 파일 생성후 변경해줬더니 해결
+- <mark>**containerd config.toml 파일 생성후 변경해줬더니 해결**</mark>
 - imagepullbackoff 오류가 발생하는데 dockerfile, deployment 파일 확인 후 다시 진행해보기
   - post 요청 받는 서버 생성되니 잘 돌아감!! 배포완료!!
 
@@ -861,5 +902,21 @@ v1.30.3
 
 #### 0816
 
-- sunny 배포 완료했고 rainy, rainy2 배포해보고 
-- 서박사님 ai배포되면 진행하기
+- **진행해야할 것(8/20 화요일까지)**
+  - [모니터링]
+    - VMS = edge-master-01 으로 가정하고 데이터 전송받는 서버 실행
+    - 데이터 전송받는 서버 `vms_edge.py` 로 재구성하기
+    - SW 배포 및 확인
+      - **배포** : sunny, rainy 배포
+      - **SW 변경** : sunny to rainy
+      - **업데이트** : rainy2 업데이트 배포 확인
+  - [환경정보 AI]
+    - 메타데이터 버전으로 변경
+      - 서박사님 ai 변경되면 시작
+    - 패키징 및 배포
+- **진행 완료**
+  - 도커 private registry 설정
+    - 제일 먼저 진행하고 배포되는지 확인 완료
+
+
+
