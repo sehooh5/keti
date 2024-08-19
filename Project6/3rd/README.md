@@ -921,16 +921,43 @@ v1.30.3
 #### 0819
 
 - **진행해야할 것(8/20 화요일까지)**
+
   - SW 데이터 전송 시스템
+
     - `vms_edge.py`
-      - POST 추가
-    - `monitoring.py`
-      - 현재 모니터링 데이터 response하는 API 추가
+
+      - ~~/res_edge_data(POST 추가)~~
+        - ~~기존 POST 방식에서 변경(요청 후 응답)~~
+      - **/save_edgeData**
+        - 매초 전달되는 json 데이터를 저장하는 API
+        - DB에 저장해서 사용하기위해 DB 종류 선택하고 연결하기
+
+    - ~~`monitoring.py`~~
+
+      - ~~현재 모니터링 데이터 response하는 API 추가~~
+      - ~~nodeport 열어줘야함~~
+
+    - `edgeconfig.xml`
+
+      - ```
+        <Configuration>
+            <vms>
+                <IP>192.168.0.14</IP>
+                <Port>6432</Port>
+                <Path>usage</Path>
+            </vms>
+        </Configuration>
+        ```
+
   - [환경정보 AI]
+
     - 메타데이터 버전으로 변경
       - 서박사님 ai 변경되면 시작
     - 패키징 및 배포
+      - 
+
 - **진행 완료**
+
   - [Private registry 설정]
     - 제일 먼저 진행하고 배포되는지 확인 완료
   - [모니터링]
