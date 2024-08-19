@@ -130,11 +130,9 @@
 
 
 
-### [VMS 구성]
+### [VMS 서버 구성]
 
-- VMS 서버
-
-  - Name : edge-master-01
+- Name : edge-master-01
 
 - IP : 192.168.0.14
 
@@ -169,7 +167,7 @@
 
 
 
-### [CCTV]
+### [CCTV 구성]
 
 - #### CCTV 주소
 
@@ -248,9 +246,9 @@ v1.30.3
 
   - 위치 : /home/edge-master-01/monitoring.zip
 
-  - API 서버로 cpu, 메모리 사용량 메타데이터(Json) POST 전송
+  - VMS 서버로 cpu, 메모리 사용량 메타데이터(Json) POST 전송
 
-    - API 서버 주소 : http://192.168.0.14:6432/usage
+    - VMS 서버 주소 및 API : http://192.168.0.14:6432/usage
 
     - Json 데이터
 
@@ -903,17 +901,45 @@ v1.30.3
 #### 0816
 
 - **진행해야할 것(8/20 화요일까지)**
-  - [모니터링]
-    - VMS = edge-master-01 으로 가정하고 데이터 전송받는 서버 실행
-    - 데이터 전송받는 서버 `vms_edge.py` 로 재구성하기
-    - SW 배포 및 확인
-      - **배포** : sunny배포
-      - **SW 변경** : sunny to rainy
-      - **업데이트** : rainy2 업데이트 배포 확인
   - [환경정보 AI]
     - 메타데이터 버전으로 변경
       - 서박사님 ai 변경되면 시작
     - 패키징 및 배포
 - **진행 완료**
-  - 도커 private registry 설정
+  - [Private registry 설정]
     - 제일 먼저 진행하고 배포되는지 확인 완료
+  - [모니터링]
+    - VMS = edge-master-01 으로 가정하고 데이터 전송받는 서버 실행
+    - 데이터 전송받는 서버 `vms_edge.py` 로 재구성하기
+    - SW 배포 및 확인
+      - **배포** : sunny배포 
+      - **SW 변경** : sunny to rainy
+      - **업데이트** : rainy2 업데이트 배포 확인
+
+
+
+#### 0819
+
+- **진행해야할 것(8/20 화요일까지)**
+  - SW 데이터 전송 시스템
+    - `vms_edge.py`
+      - POST 추가
+    - `monitoring.py`
+      - 현재 모니터링 데이터 response하는 API 추가
+  - [환경정보 AI]
+    - 메타데이터 버전으로 변경
+      - 서박사님 ai 변경되면 시작
+    - 패키징 및 배포
+- **진행 완료**
+  - [Private registry 설정]
+    - 제일 먼저 진행하고 배포되는지 확인 완료
+  - [모니터링]
+    - VMS = edge-master-01
+    - 데이터 전송받는 서버 `vms_edge.py` 로 재구성하기
+    - SW 배포 및 확인
+      - 배포 : sunny배포 
+      - SW 변경 : sunny to rainy
+      - 업데이트 : rainy2 업데이트 배포 확인
+
+
+
