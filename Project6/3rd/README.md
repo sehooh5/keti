@@ -987,6 +987,10 @@ v1.30.3
 - MongoDB 연동 시작
 - 서박사님께 변경사항 말씀드리고 
   - 변경사항 한글파일 작석 및 전달 완료
+    - 파일명 : (무선엣지)환경정보 저장 인터페이스.hwp
+      - 분석결과 전송에 필요한 VMS 정보설정 파일(edgeconfig.xml)에 대한 정보와 VMS에서 실행되는 환경정보 분석결과 저장 API에 대한 인터페이스가 설명되어 있습니다.
+    - 파일명 : edgeconfig.xml
+      - 분석결과 전송에 필요한 정보설정 파일입니다. 해당 파일은 AI가 배포될 때 함께 배포되며 VMS의 정보가 변경될 때 함께 변경될 수 있습니다. 
 
 - 정기 회의
   - **최적화 시나리오 구성하기**
@@ -995,12 +999,131 @@ v1.30.3
     - table 작성 등 기초부터 
   - **[클러스터링, 프라이빗 레포지터리 생성] 기능 자동화가 필요한데 생각해보고 구성하기**
 
-```
-<Configuration>
-    <vms>
-        <IP>192.168.0.14</IP>
-        <Port>6432</Port>
-        <Path>usage</Path>
-    </vms>
-</Configuration>
-```
+
+
+#### 0823
+
+- **최적화 시나리오 구성하기**
+
+  - A4에 작성한 내용을 PPT로 자세히 작성
+
+- **[프라이빗 레포지터리 생성] 기능 자동화가 필요한데 생각해보고 구성하기**
+
+  - 각 노드에서 설정해줘야 하는것들
+
+    - sudo vim /etc/docker/daemon.json 변경
+
+      ```
+      # 모든 노드에서 Docker 데몬에 특정 레지스트리에 대해 HTTP를 허용하도록 구성
+      sudo vim /etc/docker/daemon.json
+      
+      # 아래내용 추가
+      {
+        "insecure-registries" : ["192.168.0.4:5000"]
+      }
+      
+      ## 기존
+      {                                                                                                                                                                "runtimes": {                                                                                                                                                    "nvidia": {                                                                                                                                                      "path": "nvidia-container-runtime",                                                                                                                          "runtimeArgs": []                                                                                                                                        }                                                                                                                                                        },                                                                                                                                                           "insecure-registries": ["192.168.0.4:5000"]                                                                                                              }     
+      
+      # 도커 재시작
+      sudo systemctl restart docker
+      ```
+
+      
+
+    - config 설정
+
+      ```
+      # 위치 이동
+      cd /etc/containerd/
+      
+      # defaul 파일 있으면
+      mv config.toml config_bkup.toml
+       
+      # "없으면" config 파일 default 내용 포함해서 생성
+      sudo su
+      containerd config default > config.toml
+      exit
+      
+      ...
+      
+      [plugins."io.containerd.grpc.v1.cri".registry.configs] # 아래 내용 추가!
+              [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".auth]
+                username = "sehooh5"
+                password = "@Dhtpgh1234"
+              [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".tls]
+                insecure_skip_verify = true
+      
+      [plugins."io.containerd.grpc.v1.cri".registry.headers] # 추가 X
+      
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors] # 아래 내용 추가!
+              [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+                endpoint = ["https://registry-1.docker.io"]
+              [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.0.4:5000"]
+                endpoint = ["http://192.168.0.4:5000"]
+          
+      ...
+      ```
+
+    - 변경 예시 먼저 테스트 해볼 것!
+
+      ```python
+      import paramiko
+      
+      # SSH 연결 정보
+      hostname = '192.168.0.1'  # 원격 서버 IP 주소
+      port = 22                 # SSH 포트
+      username = 'your_username'  # 원격 서버 사용자 이름
+      password = 'your_password'  # 사용자 비밀번호
+      
+      # 추가할 내용
+      config_to_add = '''
+      [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".auth]
+        username = "sehooh5"
+        password = "@Dhtpgh1234"
+      [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".tls]
+        insecure_skip_verify = true
+      '''
+      
+      try:
+          # SSH 클라이언트 초기화 및 서버에 연결
+          client = paramiko.SSHClient()
+          client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+          client.connect(hostname, port=port, username=username, password=password)
+          
+          # sftp 클라이언트를 통해 파일 가져오기
+          sftp_client = client.open_sftp()
+          remote_file_path = '/etc/containerd/config.toml'
+          local_file_path = '/tmp/config.toml'
+          
+          # 원격 파일을 로컬로 다운로드
+          sftp_client.get(remote_file_path, local_file_path)
+          
+          # 로컬 파일 수정
+          with open(local_file_path, 'r+') as file:
+              content = file.read()
+              
+              # 특정 위치에 추가할 내용 삽입
+              insert_position = content.find('[plugins."io.containerd.grpc.v1.cri".registry]') + len('[plugins."io.containerd.grpc.v1.cri".registry]')
+              updated_content = content[:insert_position] + config_to_add + content[insert_position:]
+              
+              # 파일 덮어쓰기
+              file.seek(0)
+              file.write(updated_content)
+              file.truncate()
+          
+          # 수정된 파일을 다시 원격 서버에 업로드
+          sftp_client.put(local_file_path, remote_file_path)
+          
+          print("파일이 성공적으로 업데이트되었습니다.")
+          
+      except Exception as e:
+          print(f"오류 발생: {e}")
+          
+      finally:
+          # SFTP 및 SSH 연결 종료
+          sftp_client.close()
+          client.close()
+      ```
+
+      
