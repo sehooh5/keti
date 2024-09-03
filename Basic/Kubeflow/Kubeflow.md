@@ -60,3 +60,15 @@
 
 - 머신러닝 **워크플로우를 구축하고 배포하기 위한 ML Workflow Orchestration 도구**
 - KFP의 목적은 Pipelines과 Pipeline Components를 재사용하여 다양한 실험을 빠르고 쉽게 수행하는 것
+
+
+
+
+
+## KETI 적용
+
+- 쿠버플로우를 이용해서, AI 학습과 AI를 배포하기 위한 제한이나 방법
+    - 제한사항은 없고 **설정, 관리를 잘 운영하면 문제 없음**
+  - KETI에서 해당 기술을 적용할 수 있는지의 가능성..
+      - 인텔리빅스와 동일한 조건의 엣지에서 Kubernetes 기반 Kubeflow에서 진행하는 것이므로 가능
+          - 다만, **kubernetes, kubeflow의 버전, 환경설정 등 인텔리빅스와 환경정보 통합**과정 필요
