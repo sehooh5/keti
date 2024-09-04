@@ -1203,5 +1203,19 @@ v1.30.3
 
 - 시나리오 추가
 - 쇼빌리티
-  - React-native --- Django 프로젝트간 연동
+  - React-native --- Django 프로젝트간 연동[참고 페이지](https://oliopasta.tistory.com/11)
+    - Django 프로젝트 실행중
   - Expo.dev 활용해 백엔드 개발자 서버 구축
+
+
+
+#### 0904
+
+- 시나리오 회의
+- 쇼빌리티
+  - React-native --- Django 프로젝트간 연동[참고 페이지](https://oliopasta.tistory.com/11)
+    - Django 프로젝트 실행중
+    - 회원가입 전화번호 식별자 확인
+  - Expo.dev 연동될 서버구축하면 됨
+  - django-flask 연동앱 참고
+    - https://django-ninja.dev/
