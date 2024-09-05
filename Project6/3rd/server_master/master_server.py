@@ -25,7 +25,6 @@ from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
 
-# sudo 사용으로 k8s config 설정 파일 위치 지정해주기
 os.environ['KUBECONFIG'] = '/home/edge-master-01/.kube/config'
 
 app = Flask(__name__)
@@ -51,6 +50,7 @@ def check_k8s_node():
 
 
 API_URL = "http://123.214.186.244:4880"
+private_repo = "192.168.0.4:5000"
 
 # IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
@@ -89,43 +89,44 @@ def upload_edgeAi():
     json_data = request.get_json(silent=True)
 
     if json_data == None:
-        return response.message("0021")
+        return response.message("0015")
 
     filename = json_data['filename']
     version = json_data['version']
 
-    fname = filename[:-4]
+#     fname = filename[:-4]
+    fname = filename    # test 에서는 fname = filename
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
     # AI의 이전 버전 있으면 삭제하는 부분
-    tag_list = git.get_image_tags(docker_id, fname) # docker tag list
+    tag_list = git.get_image_tags(docker_id, fname)
     if len(tag_list) >= 1:
         for tag in tag_list:
             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
 
     # ZIP 파일 압축풀기
-    zip_file_path = f"{file_path}/{filename}"
-    try:
-        # Zip 파일 열기
-        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-            # 압축 해제
-            zip_ref.extractall('monitoring')
-        print(f"Zip file '{zip_file_path}' successfully extracted to '/monitoring'.")
-    except zipfile.BadZipFile as e:
-        print(f"Error: {zip_file_path} is not a valid zip file. {e}")
-    except Exception as e:
-        print(f"Error extracting zip file: {e}")
+#     zip_file_path = f"{file_path}/{filename}"
+#     try:
+#         # Zip 파일 열기
+#         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+#             # 압축 해제
+#             zip_ref.extractall('monitoring')
+#         print(f"Zip file '{zip_file_path}' successfully extracted to '/monitoring'.")
+#     except zipfile.BadZipFile as e:
+#         print(f"Error: {zip_file_path} is not a valid zip file. {e}")
+#     except Exception as e:
+#         print(f"Error extracting zip file: {e}")
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
+    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}:{version} .")
     os.system(
-        f"docker build -f {fname}/Dockerfile -t sehooh5/{fname}:{version} .")
+        f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}:{version} .")
     print("Docker image building completed!!")
 
     print("Docker image push to Docker hub..")
-    os.system(f"docker push sehooh5/{fname}:{version}")
+    os.system(f"docker push {private_repo}/{fname}:{version}")
     print("Docker image pushing completed!!")
 
 
@@ -155,16 +156,11 @@ def remove_edgeAi():
     res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    print(res.json())
-    # json 응답으로부터 fname 추출
-#     fileUrl = res.json()["fileUrl"]
-#     filename = fileUrl.split('/')[-1]
-#     if fileUrl.find("zip") != -1:
-#         fname = filename.split('.')[0]
 
     filename = res.json()['name']
     version = res.json()['version']
-    fname = filename[:-4]
+#     fname = filename[:-4]
+    fname = filename    # test 에서는 fname = filename
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software ID : {id} - software name : {fname}")
@@ -172,7 +168,7 @@ def remove_edgeAi():
     # Docker image delete
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image {fname} deleting...")
-    os.system(f"docker rmi -f sehooh5/{fname}:{version}")
+    os.system(f"docker rmi -f {private_repo}/{fname}:{version}")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
 
@@ -188,12 +184,15 @@ def deploy_aiToDevice():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: start deploying software by Kubernetes")
 
-    docker_id = "sehooh5"
-
     json_data = request.get_json(silent=True)
     if json_data == None:
         return response.message("0021")
 
+#   ai id값 받아서
+
+#   ai 이름과 버전을 받고
+
+#   
 
     sid = json_data['sid']  # ai 패키지 ID
     cid = json_data['cid']  # Cluster ID

@@ -1261,3 +1261,125 @@ v1.30.3
   - AI 버전
   - 패키징 위한 spec
 - **서박사님 오시면 다시 환경정보 `(무선엣지)환경정보 저장 인터페이스`한글파일 전달(nid 추가)**
+
+
+
+- **완료 상태**
+  - Edge AI(Test)
+    - monitoring sunny
+      - SUNNY 전송
+    - monitoring rainy
+      - RAINY전송
+  - 최적화서버
+    - 엣지CCTV 로부터 데이터 받아 출력
+  - Master 서버
+    - 현재 테스트에서는 `intellivix-worker-01` 서버에만 배포
+    - 배포 AI
+      - 환경정보 테스트 AI
+      - AI 1
+      - AI 2
+  - 등록, 설정 서버
+
+
+
+- **API 정보**
+
+  - 마스터 서버
+
+    - /upload_edgeAI 
+
+      - POST
+
+        ```
+        <요청>
+        filename
+        version
+        
+        <응답>
+        기본
+        ```
+
+    - /remove_edgeAI 
+
+      - POST
+
+        ```
+        <요청>
+        id : EdgeAI 의 id값
+        
+        <응답>
+        기본
+        ```
+
+    - /deploy_aiToDevice 
+
+      - POST
+
+        ```
+        <요청>
+        filename
+        version
+        
+        <응답>
+        기본
+        ```
+
+    - /undeploy_aiFromDevice
+
+      - POST
+
+        ```
+        <요청>
+        filename
+        version
+        
+        <응답>
+        기본
+        ```
+
+      
+
+  - 등록, 설정 서버
+
+    - get_selectedEdgeAiInfo
+
+      - GET
+
+        ```
+        <요청>
+        id : EdgeAI 의 id값
+        
+        <응답>
+        filename
+        version
+        ```
+
+        
+
+- **명령어**
+
+  - 도커
+
+    ```
+    # 도커 빌드 with private repository
+    docker build -f DockerfileR01 -t 192.168.0.4:5000/monitoringr:01 .
+    
+    # private repository에 push
+    docker push 192.168.0.4:5000/monitoringr:01
+    ```
+
+  - k8s
+
+    ```
+    # 배포
+    kubectl apply -f monitorr.yaml 
+    ```
+
+
+
+
+
+## 0906
+
+- master_server.py
+  - deploy_aiToDevice 중간 주석부터 하면됨

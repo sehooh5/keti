@@ -18,29 +18,39 @@ CORS(app)
 _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
-API_URL = "http://123.214.186.244:4880"
+API_URL = "http://192.168.0.9:5230"
 
 port = "6432"
 
 @ app.route('/optimize_by_weather', methods=['POST'])
 def optimize_by_weather():
+    try:
+        data = request.get_json(silent=True)
+        if data is None:
+            raise ValueError("No JSON data received")
 
-    # 환경정보 데이터 받기
-    data = request.get_json(silent=True)
-    json_data = json.loads(data)
+        json_data = json.loads(data)
 
-    "nid": "0xn1",
-    "created_at": "2024-07-25T12:34:56Z",
-    "res_class": "4",
-    "res_confidence": 0.7
-    nid = json_data['nid']
-    created_at = json_data['cpu']
-    res_class = json_data['memory']
-    res_confidence = json_data['res_confidence']
+        nid = json_data.get('nid')
+        created_at = json_data.get('cpu')
+        res_class = json_data.get('memory')
+        res_confidence = json_data.get('res_confidence')
 
-    print(f"Node ID : {nid} // Created time : {created_at} // Weather Class : {res_class} //  Confidence : {res_confidence} ")
+        if not all([nid, created_at, res_class, res_confidence]):
+            raise KeyError("Missing required fields in the request")
 
-    return res
+        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
+
+        return response.message('0000')
+
+    except json.JSONDecodeError:
+        return response.message('0010')
+
+    except KeyError as e:
+        return response.message('0015')
+
+    except ValueError as e:
+        return response.message('9999')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)
