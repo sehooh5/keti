@@ -93,6 +93,7 @@ def upload_edgeAi():
 
     filename = json_data['filename']
     version = json_data['version']
+    ai_class = json_data['ai_class'] # 추가
 
 #     fname = filename[:-4]
     fname = filename    # test 에서는 fname = filename
@@ -100,10 +101,10 @@ def upload_edgeAi():
     "%c")[:-4], f"{func}: software name: {fname}")
 
     # AI의 이전 버전 있으면 삭제하는 부분
-    tag_list = git.get_image_tags(docker_id, fname)
-    if len(tag_list) >= 1:
-        for tag in tag_list:
-            os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
+#     tag_list = git.get_image_tags(docker_id, fname)
+#     if len(tag_list) >= 1:
+#         for tag in tag_list:
+#             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
 
 
     # ZIP 파일 압축풀기
@@ -120,13 +121,13 @@ def upload_edgeAi():
 #         print(f"Error extracting zip file: {e}")
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}:{version} .")
+    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}{ai_class}:{version} .")
     os.system(
-        f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}:{version} .")
+        f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
     print("Docker image building completed!!")
 
     print("Docker image push to Docker hub..")
-    os.system(f"docker push {private_repo}/{fname}:{version}")
+    os.system(f"docker push {private_repo}/{fname}-{ai_class}:{version}")
     print("Docker image pushing completed!!")
 
 
@@ -159,6 +160,7 @@ def remove_edgeAi():
 
     filename = res.json()['name']
     version = res.json()['version']
+    ai_class = res.json()['ai_class']
 #     fname = filename[:-4]
     fname = filename    # test 에서는 fname = filename
 
@@ -167,8 +169,8 @@ def remove_edgeAi():
 
     # Docker image delete
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: docker image {fname} deleting...")
-    os.system(f"docker rmi -f {private_repo}/{fname}:{version}")
+        "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
+    os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
 
@@ -188,65 +190,66 @@ def deploy_aiToDevice():
     if json_data == None:
         return response.message("0021")
 
-#   ai id값 받아서
-
-#   ai 이름과 버전을 받고
-
-#   
-
-    sid = json_data['sid']  # ai 패키지 ID
-    cid = json_data['cid']  # Cluster ID
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
+    aid = json_data['aid']  # ai 패키지 ID
+#     cid = json_data['cid']  # Cluster ID
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
+    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={aid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
     filename = ai_info_data.json()['name']
-    fname = filename[:-4]
+#     fname = filename[:-4]
+    fname = filename
     version = ai_info_data.json()['version']
+    ai_class = ai_info_data.json()['ai_class']
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")
 
-    # 클러스터명, 디바이스명 불러오기
-    cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
-    if cluster_info_data.json()["code"] != "0000":
-        return response.message(cluster_info_data.json()["code"])
+# POD 생성(yaml 파일이 만들어져있는 상태)
+#     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
+    os.system(f"kubectl apply -f {fname}-{ai_class}.yaml")
 
-    wlist = cluster_info_data.json()['wlist']
 
-    for w in wlist:
-        wid = w['wid']
-        device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
-        host_name = device_info_data.json()["name"]
-
-        # pod 이 이미 생성되어있으면 지우는 기능
-        command = f"kubectl get pods | grep {fname}-{host_name}"
-        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        check_pod = result.returncode
-
-        if check_pod == 0 :
-            print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: existing pod deleting....")
-            os.system(f"kubectl delete -f {fname}-{host_name}.yaml")
-            print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: existing pod deleted....")
-
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: Making deployment...")
-        deployment = dm.making(fname, host_name, docker_id, version)
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: ------ deployment ------ ")
-        print(deployment)
-
-        # POD 생성
-#         os.system("kubectl get pod")
-        os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-        print(datetime.datetime.now().strftime(
-            "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
+#     # 클러스터명, 디바이스명 불러오기
+#     cluster_info_data = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
+#     if cluster_info_data.json()["code"] != "0000":
+#         return response.message(cluster_info_data.json()["code"])
+#
+#     wlist = cluster_info_data.json()['wlist']
+#
+#     for w in wlist:
+#         wid = w['wid']
+#         device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={wid}")
+#         host_name = device_info_data.json()["name"]
+#
+#         # pod 이 이미 생성되어있으면 지우는 기능
+#         command = f"kubectl get pods | grep {fname}-{host_name}"
+#         result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#         check_pod = result.returncode
+#
+#         if check_pod == 0 :
+#             print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: existing pod deleting....")
+#             os.system(f"kubectl delete -f {fname}-{host_name}.yaml")
+#             print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: existing pod deleted....")
+#
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: Making deployment...")
+#         deployment = dm.making(fname, host_name, docker_id, version)
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: ------ deployment ------ ")
+#         print(deployment)
+#
+#         # POD 생성
+# #         os.system("kubectl get pod")
+#         os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
+#         print(datetime.datetime.now().strftime(
+#             "%c")[:-4], f" {func}: deploying {fname}-{host_name}.yaml.....")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: deploy completed !")

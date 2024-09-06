@@ -1294,6 +1294,7 @@ v1.30.3
         <요청>
         filename
         version
+        ai_class
         
         <응답>
         기본
@@ -1317,8 +1318,12 @@ v1.30.3
 
         ```
         <요청>
+        aid - ai ID
+        
+        (aid 로 등록, 서버에 요청해서 받는 값)
         filename
         version
+        ai_class
         
         <응답>
         기본
@@ -1332,6 +1337,7 @@ v1.30.3
         <요청>
         filename
         version
+        ai_class
         
         <응답>
         기본
@@ -1340,6 +1346,30 @@ v1.30.3
       
 
   - 등록, 설정 서버
+
+    - /request_upload_edgeAi
+
+      ```
+      
+      ```
+
+    - /request_remove_edgeAi
+
+      ```
+      
+      ```
+
+    - /request_deploy_aiToDevice 
+
+      ```
+      
+      ```
+
+    - /request_undeploy_aiFromDevice
+
+      ```
+      
+      ```
 
     - get_selectedEdgeAiInfo
 
@@ -1382,4 +1412,22 @@ v1.30.3
 ## 0906
 
 - master_server.py
+
   - deploy_aiToDevice 중간 주석부터 하면됨
+
+- 배포 파일 필수 조건
+
+  - Dockerfile
+
+    - ```
+      
+      ```
+
+  - YAML 파일
+
+    - ```
+      {fname}-{ai_class}.yaml 양식으로 변경 필요
+      
+      # 내부 docker image 명 또한 변경해줘야함
+      {private_repo}/{fname}-{ai_class}:{version}
+      ```
