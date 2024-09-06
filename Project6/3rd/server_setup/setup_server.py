@@ -4,11 +4,14 @@ from importlib import import_module
 from typing import List
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
+from models import db, AI_uploaded, AI_deployed
 import json
 import requests
 import os
 import response
 import string
+import random_string
+
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
@@ -18,146 +21,98 @@ CORS(app)
 _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
-API_URL = "http://192.168.0.9:5230"
+MASTER_API_URL = "http://192.168.0.4:5231"
 
-port = "6432"
+port = "5230"
 
 @ app.route('/request_upload_edgeAi', methods=['POST'])
 def request_upload_edgeAi():
-    try:
-        
+    json_data = request.get_json(silent=True)
 
+    # DB 저장
+    aid = random_string.generate(4)
+    filename = json_data['filename']
+    version = json_data['version']
+    ai_class = json_data['ai_class']
 
-        return response.message('0000')
+    ai_info = AI_uploaded(aid=aid, filename=filename, version=version,
+               ai_class=ai_class)
+    db.session.add(ai_info)
+    db.session.commit
+    print("Uploaded AI Data saved in Database! ---- AI ID :{aid}")
 
-    except json.JSONDecodeError:
-        return response.message('0010')
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json_data)
 
-    except KeyError as e:
-        return response.message('0015')
+    return response.message('0000')
 
-    except ValueError as e:
-        return response.message('9999')
 
 @ app.route('/request_remove_edgeAi', methods=['POST'])
 def request_remove_edgeAi():
-    try:
-        data = request.get_json(silent=True)
-        if data is None:
-            raise ValueError("No JSON data received")
+    json_data = request.get_json(silent=True)
 
-        json_data = json.loads(data)
+    aid = json_data['aid']
 
-        nid = json_data.get('nid')
-        created_at = json_data.get('cpu')
-        res_class = json_data.get('memory')
-        res_confidence = json_data.get('res_confidence')
+    # DB 삭제
+    ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
+    db.session.delete(ai_info)
+    db.session.commit()
 
-        if not all([nid, created_at, res_class, res_confidence]):
-            raise KeyError("Missing required fields in the request")
+    # Master 서버에 요청
+    requests.post(f"{MASTER_API_URL}/remove_edgeAi", data=json_data)
 
-        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
-
-        return response.message('0000')
-
-    except json.JSONDecodeError:
-        return response.message('0010')
-
-    except KeyError as e:
-        return response.message('0015')
-
-    except ValueError as e:
-        return response.message('9999')
+    return response.message('0000')
 
 @ app.route('/request_deploy_aiToDevice ', methods=['POST'])
 def request_deploy_aiToDevice ():
-    try:
-        data = request.get_json(silent=True)
-        if data is None:
-            raise ValueError("No JSON data received")
+    json_data = request.get_json(silent=True)
 
-        json_data = json.loads(data)
+    option = requests.post(
+        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
 
-        nid = json_data.get('nid')
-        created_at = json_data.get('cpu')
-        res_class = json_data.get('memory')
-        res_confidence = json_data.get('res_confidence')
+    # DB 저장
 
-        if not all([nid, created_at, res_class, res_confidence]):
-            raise KeyError("Missing required fields in the request")
 
-        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
-
-        return response.message('0000')
-
-    except json.JSONDecodeError:
-        return response.message('0010')
-
-    except KeyError as e:
-        return response.message('0015')
-
-    except ValueError as e:
-        return response.message('9999')
+    return response.message('0000')
 
 @ app.route('/request_undeploy_aiFromDevice', methods=['POST'])
 def request_undeploy_aiFromDevice():
-    try:
-        data = request.get_json(silent=True)
-        if data is None:
-            raise ValueError("No JSON data received")
+    json_data = request.get_json(silent=True)
 
-        json_data = json.loads(data)
+    option = requests.post(
+        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
 
-        nid = json_data.get('nid')
-        created_at = json_data.get('cpu')
-        res_class = json_data.get('memory')
-        res_confidence = json_data.get('res_confidence')
+    # DB 저장
 
-        if not all([nid, created_at, res_class, res_confidence]):
-            raise KeyError("Missing required fields in the request")
 
-        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
+    return response.message('0000')
 
-        return response.message('0000')
-
-    except json.JSONDecodeError:
-        return response.message('0010')
-
-    except KeyError as e:
-        return response.message('0015')
-
-    except ValueError as e:
-        return response.message('9999')
-
-@ app.route('/get_selectedEdgeAiInfo', methods=['POST'])
+@ app.route('/get_selectedEdgeAiInfo', methods=['GET'])
 def get_selectedEdgeAiInfo():
-    try:
-        data = request.get_json(silent=True)
-        if data is None:
-            raise ValueError("No JSON data received")
+    json_data = request.get_json(silent=True)
 
-        json_data = json.loads(data)
+    option = requests.post(
+        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
 
-        nid = json_data.get('nid')
-        created_at = json_data.get('cpu')
-        res_class = json_data.get('memory')
-        res_confidence = json_data.get('res_confidence')
+    # DB 정보 획득
 
-        if not all([nid, created_at, res_class, res_confidence]):
-            raise KeyError("Missing required fields in the request")
 
-        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
+    return response.message('0000')
 
-        return response.message('0000')
+# DB
+basdir = os.path.abspath(os.path.dirname(__file__))
+dbfile = os.path.join(basdir, 'db.sqlite')
 
-    except json.JSONDecodeError:
-        return response.message('0010')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbfile
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'jqiowejrojzxcovnklqnweiorjqwoijroi'
 
-    except KeyError as e:
-        return response.message('0015')
-
-    except ValueError as e:
-        return response.message('9999')
+db.init_app(app)
+app.app_context().push()
+db.create_all()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)

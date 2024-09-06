@@ -1335,9 +1335,13 @@ v1.30.3
 
         ```
         <요청>
+        aid - ai ID
+        
+        (aid 로 등록, 서버에 요청해서 받는 값)
         filename
         version
         ai_class
+        
         
         <응답>
         기본
@@ -1350,25 +1354,47 @@ v1.30.3
     - /request_upload_edgeAi
 
       ```
-      
+      <요청>
+      filename
+      version
+      ai_class
       ```
 
     - /request_remove_edgeAi
 
       ```
+      <요청>
+      aid - ai ID
       
+      (aid 로 등록, 서버에 요청해서 받는 값)
+      
+      filename
+      version
+      ai_class
       ```
 
     - /request_deploy_aiToDevice 
 
       ```
+      <요청>
+      aid - ai ID
       
+      (aid 로 등록, 서버에 요청해서 받는 값)
+      filename
+      version
+      ai_class
       ```
 
     - /request_undeploy_aiFromDevice
 
       ```
+      <요청>
+      aid - ai ID
       
+      (aid 로 등록, 서버에 요청해서 받는 값)
+      filename
+      version
+      ai_class
       ```
 
     - get_selectedEdgeAiInfo
@@ -1409,7 +1435,7 @@ v1.30.3
 
 
 
-## 0906
+#### 0906
 
 - master_server.py
 
@@ -1419,9 +1445,7 @@ v1.30.3
 
   - Dockerfile
 
-    - ```
-      
-      ```
+    - 
 
   - YAML 파일
 
@@ -1431,3 +1455,8 @@ v1.30.3
       # 내부 docker image 명 또한 변경해줘야함
       {private_repo}/{fname}-{ai_class}:{version}
       ```
+
+- 업로드 기능부터 진행중
+
+  - # 월요일! 업로드 setup-master 서버 연동부터 시작해보기!!
+

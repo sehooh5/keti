@@ -6,29 +6,19 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
-class SW_up(db.Model):
-    __tablename__ = 'software_up'
+class AI_uploaded(db.Model):
+    __tablename__ = 'ai_uploaded'
 
-    sid = db.Column(db.String(32), primary_key=True)
-    name = db.Column(db.String(32))
-    fname = db.Column(db.String(128))
-    copyright = db.Column(db.String(128))
-    type = db.Column(db.String(128))
-    description = db.Column(db.String(128))
-    datetime = db.Column(db.DateTime, default=datetime.utcnow())
+    aid = db.Column(db.String(32), primary_key=True)
+    filename = db.Column(db.String(32))
+    version = db.Column(db.String(32))
+    ai_class = db.Column(db.String(32))
 
+class AI_deployed(db.Model):
+    __tablename__ = 'ai_deployed'
 
-class Server(db.Model):
-    __tablename__ = 'server'
+    aid = db.Column(db.String(32), primary_key=True)
+    filename = db.Column(db.String(32))
+    version = db.Column(db.String(32))
+    ai_class = db.Column(db.String(32))
 
-    sid = db.Column(db.String(32), primary_key=True)
-
-
-class Server_SW(db.Model):
-    __tablename__ = 'server_sw'
-
-    sid = db.Column(db.String(32), primary_key=True)  # server id
-    wid = db.Column(db.String(32), primary_key=True)  # sw id
-    serviceport = db.Column(db.String(32))
-    nodeport = db.Column(db.String(32))
-    targetport = db.Column(db.String(32))
