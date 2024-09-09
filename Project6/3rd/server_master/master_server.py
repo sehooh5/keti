@@ -254,7 +254,7 @@ def undeploy_aiFromDevice():
     if json_data == None:
         return response.message("0021")
 
-    sid = json_data['sid']  # ai 패키지 ID
+    aid = json_data['aid']  # ai 패키지 ID
 #     did = json_data['did']  # Device ID
 #     print(datetime.datetime.now().strftime(
 #         "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {sid}] to server [ID : {did}]")
@@ -265,8 +265,7 @@ def undeploy_aiFromDevice():
 #         return response.message(res.json()["code"])
 #     host_name = device_info_data.json()["name"]
 
-    # fname 불러오기
-    ai_info_data = requests.get(f"{SETUP_API_URL}/get_selectedEdgeAiInfo?id={sid}")
+    ai_info_data = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 

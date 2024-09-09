@@ -98,12 +98,16 @@ def request_deploy_aiToDevice ():
 def request_undeploy_aiFromDevice():
     json_data = request.get_json(silent=True)
 
-    option = requests.post(
-        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
+    aid = json_data['aid']
 
-    # DB 저장
+    data = {
+        "aid": aid
+    }
+    requests.post(f"{MASTER_API_URL}/undeploy_aiFromDevice", json=data)
 
+    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.aid == aid).first()
+    db.session.delete(ai_deployed_info)
+    db.session.commit()
 
     return response.message('0000')
 
@@ -123,7 +127,6 @@ def get_uploadedAiInfo():
         "ai_class": ai_info.ai_class
     }
     json_data = json.dumps(data)
-
 
     return json_data
 
