@@ -74,7 +74,7 @@ def request_remove_edgeAi():
     data = {
         "aid": aid
     }
-    print(data)
+
     # Master 서버에 요청
     requests.post(f"{MASTER_API_URL}/remove_edgeAi", json=data)
 
@@ -119,7 +119,7 @@ def get_uploadedAiInfo():
         "version": ai_info.version,
         "ai_class": ai_info.ai_class
     }
-    json_data = json.dump(data)
+    json_data = json.dumps(data)
 
 
     return json_data
