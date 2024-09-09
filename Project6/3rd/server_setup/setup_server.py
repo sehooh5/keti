@@ -74,7 +74,7 @@ def request_remove_edgeAi():
     data = {
         "aid": aid
     }
-
+    print(data)
     # Master 서버에 요청
     requests.post(f"{MASTER_API_URL}/remove_edgeAi", json=data)
 
