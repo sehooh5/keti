@@ -103,16 +103,16 @@ def request_undeploy_aiFromDevice():
 
     return response.message('0000')
 
-@ app.route('/get_selectedEdgeAiInfo', methods=['GET'])
-def get_selectedEdgeAiInfo():
-    json_data = request.get_json(silent=True)
-
-    option = requests.post(
-        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
+@ app.route('/get_uploadedAiInfo', methods=['GET'])
+def get_uploadedAiInfo():
+    aid = request.args.get('aid')
 
     # DB 정보 획득
-
+    ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
+    print(f"AI ID: {ai_info.aid}")
+    print(f"Filename: {ai_info.filename}")
+    print(f"Version: {ai_info.version}")
+    print(f"AI Class: {ai_info.ai_class}")
 
     return response.message('0000')
 

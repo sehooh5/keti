@@ -139,9 +139,9 @@ def remove_edgeAi():
     if json_data == None:
         return response.message("0021")
 
-    id = json_data['id']
+    aid = json_data['aid']
 
-    res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
+    res = requests.get(f"{API_URL}/get_uploadedAiInfo?aid={aid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
 
@@ -152,17 +152,17 @@ def remove_edgeAi():
     fname = filename    # test 에서는 fname = filename
 
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: software ID : {id} - software name : {fname}")
+        "%c")[:-4], f"{func}: software ID : {aid} - software name : {fname}")
 
     # Docker image delete
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
-    os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: docker image deleted!!")
-
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: software deleted !")
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
+#     os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f"{func}: docker image deleted!!")
+#
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f"{func}: software deleted !")
 
     return response.message("0000")
 
