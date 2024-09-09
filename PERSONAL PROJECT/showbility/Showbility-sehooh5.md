@@ -3,8 +3,10 @@
 - Showbility Project 내 오세호 개인 파일
 - ssh -i [개인키].pem ubuntu@13.209.10.151
 - 개인 일정 및 진행방향 공유
-- DB
-  - PORT : 3306
+- PORT
+  - nginx : 80
+  - uwsgi : http = 0.0.0.0:8080        
+  - DB : 3306
 - **서버 켜는법**
   - nginx + uwsgi로 작동함
     1. `nginx` 켜져 있는지 확인
