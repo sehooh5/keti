@@ -145,7 +145,7 @@ def remove_edgeAi():
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
 
-    filename = res.json()['name']
+    filename = res.json()['filename']
     version = res.json()['version']
     ai_class = res.json()['ai_class']
 #     fname = filename[:-4]
