@@ -115,7 +115,7 @@ def get_uploadedAiInfo():
 
     data = {
         "code":"0000",
-        "message":"처리 성공"
+        "message":"처리 성공",
         "aid": ai_info.aid,
         "filename": ai_info.filename,
         "version": ai_info.version,
