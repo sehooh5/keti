@@ -144,7 +144,7 @@ def remove_edgeAi():
     res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-
+    print(res)
     filename = res.json()['filename']
     version = res.json()['version']
     ai_class = res.json()['ai_class']
