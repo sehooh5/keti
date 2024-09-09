@@ -52,10 +52,10 @@ def request_upload_edgeAi():
         "version": version,
         "ai_class": ai_class
     }
-    json_data = json.dumps(data)
-    print(f"Print out Json data : {json_data}")
 
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json_data)
+    print(f"Print out Json data : {data}")
+
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json.dumps(data))
 
     return response.message('0000')
 
