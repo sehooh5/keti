@@ -94,6 +94,7 @@ def upload_edgeAi():
         "%c")[:-4], f"{func}: start uploading a new software")
     json_data = request.get_json(silent=True)
 
+    print(f"print json_data : {json_data}")
     if json_data == None:
         return response.message("0015")
 
