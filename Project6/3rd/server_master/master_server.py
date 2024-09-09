@@ -49,7 +49,7 @@ def check_k8s_node():
     return response.message("0000")
 
 
-API_URL = "http://123.214.186.244:4880"
+SETUP_API_URL = "http://192.168.0.9:5230"
 private_repo = "192.168.0.4:5000"
 
 # IP 주소
@@ -141,7 +141,7 @@ def remove_edgeAi():
 
     aid = json_data['aid']
     print(aid)
-    res = requests.get(f"{API_URL}/get_uploadedAiInfo?aid={aid}")
+    res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
 
