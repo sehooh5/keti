@@ -75,7 +75,7 @@ def request_remove_edgeAi():
 
     return response.message('0000')
 
-@ app.route('/request_deploy_aiToDevice ', methods=['POST'])
+@ app.route('/request_deploy_aiToDevice', methods=['POST'])
 def request_deploy_aiToDevice ():
     json_data = request.get_json(silent=True)
 
