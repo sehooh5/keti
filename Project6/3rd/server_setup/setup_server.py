@@ -112,12 +112,17 @@ def get_uploadedAiInfo():
 
     # DB 정보 획득
     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
-    print(f"AI ID: {ai_info.aid}")
-    print(f"Filename: {ai_info.filename}")
-    print(f"Version: {ai_info.version}")
-    print(f"AI Class: {ai_info.ai_class}")
 
-    return response.message('0000')
+    data = {
+        "aid": ai_info.aid,
+        "filename": ai_info.filename,
+        "version": ai_info.version,
+        "ai_class": ai_info.ai_class
+    }
+    json_data = json.dump(data)
+
+
+    return json_data
 
 # DB
 basdir = os.path.abspath(os.path.dirname(__file__))
