@@ -114,6 +114,8 @@ def get_uploadedAiInfo():
     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
 
     data = {
+        code="0000",
+        message="처리 성공"
         "aid": ai_info.aid,
         "filename": ai_info.filename,
         "version": ai_info.version,
