@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 import json
 import requests
 import os
-from models import db, SW_up, Server, Server_SW
+# from models import db, SW_up, Server, Server_SW
 import response
 import string
 import random
