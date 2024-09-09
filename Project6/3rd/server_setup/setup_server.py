@@ -90,7 +90,7 @@ def request_deploy_aiToDevice ():
         "aid": aid
     }
 
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
+    requests.post(f"{MASTER_API_URL}/deploy_aiToDevice", json=data)
 
     return response.message('0000')
 
