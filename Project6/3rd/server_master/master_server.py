@@ -198,7 +198,7 @@ def deploy_aiToDevice():
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
 #     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-    os.system(f"kubectl apply -f {fname}/{fname}-{ai_class}.yaml")
+    os.system(f"kubectl apply -f {fname}/{fname}-{ai_class}.yaml --validate=false")
 
 
 #     # 클러스터명, 디바이스명 불러오기
@@ -280,7 +280,7 @@ def undeploy_aiFromDevice():
     #######################################################
 #     print(datetime.datetime.now().strftime(
 #         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
-    os.system(f"kubectl delete -f {fname}/{fname}-{ai_class}.yaml")
+    os.system(f"kubectl delete -f {fname}/{fname}-{ai_class}.yaml --validate=false")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy completed !")
