@@ -44,7 +44,7 @@ def request_upload_edgeAi():
                ai_class=ai_class)
     db.session.add(ai_info)
     db.session.commit
-    print("Uploaded AI Data saved in Database! ---- AI ID :{aid}")
+    print(f"Uploaded AI Data saved in Database! ---- AI ID :{aid}")
 
     data = {
         "aid": aid,
