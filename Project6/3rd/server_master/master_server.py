@@ -114,7 +114,7 @@ def upload_edgeAi():
         f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
     print("Docker image building completed!!")
 
-    print("Docker image push to Docker hub..")
+    print("Docker image push to Private Repository..")
     os.system(f"docker push {private_repo}/{fname}-{ai_class}:{version}")
     print("Docker image pushing completed!!")
 
