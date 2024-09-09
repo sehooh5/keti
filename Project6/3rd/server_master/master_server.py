@@ -25,7 +25,7 @@ from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
 
-os.environ['KUBECONFIG'] = '/home/edge-master-01/.kube/config'
+os.environ['KUBECONFIG'] = '/home/keti-jx-02/.kube/config'
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
