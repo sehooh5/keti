@@ -29,7 +29,6 @@ port = "5230"
 def request_upload_edgeAi():
     json_data = request.get_json(silent=True)
 
-    # DB 저장
     aid = random_string.generate(4)
     filename = json_data['filename']
     version = json_data['version']
@@ -40,6 +39,15 @@ def request_upload_edgeAi():
     db.session.add(ai_info)
     db.session.commit
     print("Uploaded AI Data saved in Database! ---- AI ID :{aid}")
+
+    data = {
+        "aid": aid,
+        "filename": filename,
+        "version": version,
+        "ai_class": ai_class
+    }
+    json_data = json.dumps(data)
+    print(f"Print out Json data : {json_data}")
 
     requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json_data)
 

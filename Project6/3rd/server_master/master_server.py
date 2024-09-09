@@ -91,6 +91,7 @@ def upload_edgeAi():
     if json_data == None:
         return response.message("0015")
 
+    aid = json_data['aid']
     filename = json_data['filename']
     version = json_data['version']
     ai_class = json_data['ai_class'] # 추가
@@ -100,28 +101,8 @@ def upload_edgeAi():
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
-    # AI의 이전 버전 있으면 삭제하는 부분
-#     tag_list = git.get_image_tags(docker_id, fname)
-#     if len(tag_list) >= 1:
-#         for tag in tag_list:
-#             os.system(f"docker rmi -f {docker_id}/{fname}:{tag}")
-
-
-    # ZIP 파일 압축풀기
-#     zip_file_path = f"{file_path}/{filename}"
-#     try:
-#         # Zip 파일 열기
-#         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-#             # 압축 해제
-#             zip_ref.extractall('monitoring')
-#         print(f"Zip file '{zip_file_path}' successfully extracted to '/monitoring'.")
-#     except zipfile.BadZipFile as e:
-#         print(f"Error: {zip_file_path} is not a valid zip file. {e}")
-#     except Exception as e:
-#         print(f"Error extracting zip file: {e}")
-
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}{ai_class}:{version} .")
+    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
     os.system(
         f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
     print("Docker image building completed!!")
@@ -129,7 +110,6 @@ def upload_edgeAi():
     print("Docker image push to Docker hub..")
     os.system(f"docker push {private_repo}/{fname}-{ai_class}:{version}")
     print("Docker image pushing completed!!")
-
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software upload completed !")
