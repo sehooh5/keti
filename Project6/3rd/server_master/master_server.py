@@ -183,11 +183,11 @@ def deploy_aiToDevice():
 #         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={aid}")
+    ai_info_data = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
-    filename = ai_info_data.json()['name']
+    filename = ai_info_data.json()['filename']
 #     fname = filename[:-4]
     fname = filename
     version = ai_info_data.json()['version']
@@ -198,7 +198,7 @@ def deploy_aiToDevice():
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
 #     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-    os.system(f"kubectl apply -f {fname}-{ai_class}.yaml")
+    os.system(f"kubectl apply -f {fname}/{fname}-{ai_class}.yaml")
 
 
 #     # 클러스터명, 디바이스명 불러오기
@@ -255,30 +255,33 @@ def undeploy_aiFromDevice():
         return response.message("0021")
 
     sid = json_data['sid']  # ai 패키지 ID
-    did = json_data['did']  # Device ID
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {sid}] to server [ID : {did}]")
+#     did = json_data['did']  # Device ID
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: kubernetes : undeploy software [ID : {sid}] to server [ID : {did}]")
 
     # 디바이스명 불러오기
-    device_info_data = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={did}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    host_name = device_info_data.json()["name"]
+#     device_info_data = requests.get(f"{SETUP_API_URL}/get_selectedDeviceInfo?id={did}")
+#     if res.json()["code"] != "0000":
+#         return response.message(res.json()["code"])
+#     host_name = device_info_data.json()["name"]
 
     # fname 불러오기
-    ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
+    ai_info_data = requests.get(f"{SETUP_API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
         return response.message(ai_info_data.json()["code"])
 
-    filename = ai_info_data.json()['name']
-    fname = filename[:-4]
-    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
+    filename = ai_info_data.json()['filename']
+#     fname = filename[:-4]
+    fname = filename
+    version = ai_info_data.json()['version']
+    ai_class = ai_info_data.json()['ai_class']
 
 #     fileUrl = ai_info_data.json()["fileUrl"]
 #     fname = fileURL
     #######################################################
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
+    os.system(f"kubectl delete -f {fname}/{fname}-{ai_class}.yaml")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy completed !")
