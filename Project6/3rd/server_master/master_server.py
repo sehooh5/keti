@@ -154,15 +154,15 @@ def remove_edgeAi():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: software ID : {aid} - software name : {fname}")
 
-    # Docker image delete
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
-#     os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: docker image deleted!!")
-#
-#     print(datetime.datetime.now().strftime(
-#         "%c")[:-4], f"{func}: software deleted !")
+#     Docker image delete
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
+    os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: docker image deleted!!")
+
+    print(datetime.datetime.now().strftime(
+        "%c")[:-4], f"{func}: software deleted !")
 
     return response.message("0000")
 
