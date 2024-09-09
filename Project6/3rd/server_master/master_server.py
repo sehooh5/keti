@@ -110,9 +110,7 @@ def upload_edgeAi():
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
     print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
-    os.system(
-#         f"docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
-        f"docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}")
+    os.system(f"docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}")
     print("Docker image building completed!!")
 
     print("Docker image push to Private Repository..")
