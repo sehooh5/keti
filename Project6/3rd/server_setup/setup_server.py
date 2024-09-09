@@ -46,16 +46,16 @@ def request_upload_edgeAi():
     db.session.commit()
     print(f"Uploaded AI Data saved in Database! ---- AI ID :{aid}")
 
-    json_data = {
+    data = {
         "aid": aid,
         "filename": filename,
         "version": version,
         "ai_class": ai_class
     }
 
-    print(f"Print out Json data : {json_data}")
+    print(f"Print out Json data : {data}")
 
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json.dumps(json_data))
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi", data=json.dumps(data))
 
     return response.message('0000')
 
