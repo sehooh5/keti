@@ -1282,6 +1282,61 @@ v1.30.3
 
 
 
+- **명령어**
+
+  - 도커
+
+    ```
+    # 도커 빌드 with private repository
+    docker build -f DockerfileR01 -t 192.168.0.4:5000/monitoringr:01 .
+    
+    # private repository에 push
+    docker push 192.168.0.4:5000/monitoringr:01
+    ```
+
+  - k8s
+
+    ```
+    # 배포
+    kubectl apply -f monitorr.yaml 
+    ```
+
+
+
+
+
+#### 0906
+
+- master_server.py
+
+  - deploy_aiToDevice 중간 주석부터 하면됨
+
+- 배포 파일 필수 조건
+
+  - Dockerfile
+
+    - 
+
+  - YAML 파일
+
+    - ```
+      {fname}-{ai_class}.yaml 양식으로 변경 필요
+      
+      # 내부 docker image 명 또한 변경해줘야함
+      {private_repo}/{fname}-{ai_class}:{version}
+      ```
+
+- 업로드 기능부터 진행중
+
+
+
+#### 0909
+
+- 업로드 : setup-master 서버 연동
+
+  - filename 으로 패키지 폴더가 있어야함
+  - 삭제까지 성공!
+
 - **API 정보**
 
   - 마스터 서버
@@ -1397,13 +1452,13 @@ v1.30.3
       ai_class
       ```
 
-    - get_selectedEdgeAiInfo
+    - get_uploadedAiInfo
 
       - GET
 
         ```
         <요청>
-        id : EdgeAI 의 id값
+        id : 업로드된 EdgeAI 의 id값
         
         <응답>
         filename
@@ -1411,56 +1466,4 @@ v1.30.3
         ```
 
         
-
-- **명령어**
-
-  - 도커
-
-    ```
-    # 도커 빌드 with private repository
-    docker build -f DockerfileR01 -t 192.168.0.4:5000/monitoringr:01 .
-    
-    # private repository에 push
-    docker push 192.168.0.4:5000/monitoringr:01
-    ```
-
-  - k8s
-
-    ```
-    # 배포
-    kubectl apply -f monitorr.yaml 
-    ```
-
-
-
-
-
-#### 0906
-
-- master_server.py
-
-  - deploy_aiToDevice 중간 주석부터 하면됨
-
-- 배포 파일 필수 조건
-
-  - Dockerfile
-
-    - 
-
-  - YAML 파일
-
-    - ```
-      {fname}-{ai_class}.yaml 양식으로 변경 필요
-      
-      # 내부 docker image 명 또한 변경해줘야함
-      {private_repo}/{fname}-{ai_class}:{version}
-      ```
-
-- 업로드 기능부터 진행중
-
-
-
-#### 0909
-
-- 업로드 : setup-master 서버 연동
 

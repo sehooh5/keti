@@ -18,7 +18,4 @@ class AI_deployed(db.Model):
     __tablename__ = 'ai_deployed'
 
     aid = db.Column(db.String(32), primary_key=True)
-    filename = db.Column(db.String(32))
-    version = db.Column(db.String(32))
-    ai_class = db.Column(db.String(32))
 

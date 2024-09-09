@@ -53,8 +53,6 @@ def request_upload_edgeAi():
         "ai_class": ai_class
     }
 
-    print(f"Print out Json data : {data}")
-
     requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
 
     return response.message('0000')
@@ -71,7 +69,6 @@ def request_remove_edgeAi():
     }
     requests.post(f"{MASTER_API_URL}/remove_edgeAi", json=data)
 
-    # DB 삭제
     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
     db.session.delete(ai_info)
     db.session.commit()
@@ -82,12 +79,18 @@ def request_remove_edgeAi():
 def request_deploy_aiToDevice ():
     json_data = request.get_json(silent=True)
 
-    option = requests.post(
-        f"http://{edge_ip}:{nodeport}/connect", data=json_data)
-    requests.post(f"{MASTER_API_URL}/upload_edgeAi")
+    aid = json_data['aid']
 
-    # DB 저장
+    ai_deployed_info = AI_deployed(aid=aid)
+    db.session.add(ai_deployed_info)
+    db.session.commit()
+    print(f"deployed AI Data saved in Database! ---- AI ID :{aid}")
 
+    data = {
+        "aid": aid
+    }
+
+    requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
 
     return response.message('0000')
 
