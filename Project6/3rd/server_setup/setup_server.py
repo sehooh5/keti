@@ -68,12 +68,11 @@ def request_remove_edgeAi():
 
     # DB 삭제
     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
-    print(ai_info)
 #     db.session.delete(ai_info)
 #     db.session.commit()
 
     # Master 서버에 요청
-#     requests.post(f"{MASTER_API_URL}/remove_edgeAi", data=json_data)
+    requests.post(f"{MASTER_API_URL}/remove_edgeAi", data=json_data)
 
     return response.message('0000')
 
