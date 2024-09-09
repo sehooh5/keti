@@ -81,6 +81,12 @@ except subprocess.CalledProcessError:
 def index():
     return "접속 완료"
 
+@ app.route('/ping_from_setup', methods=['GET'])
+def ping_from_setup():
+    print("Ping Alarm by Setup Server!")
+
+    return response.message('0000')
+
 @ app.route('/upload_edgeAi', methods=['POST'])
 def upload_edgeAi():
     func = sys._getframe().f_code.co_name

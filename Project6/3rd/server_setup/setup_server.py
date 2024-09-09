@@ -25,6 +25,12 @@ MASTER_API_URL = "http://192.168.0.4:5231"
 
 port = "5230"
 
+@ app.route('/ping_to_master', methods=['GET'])
+def ping_to_master():
+    requests.get(f"{MASTER_API_URL}/ping_from_setup")
+
+    return response.message('0000')
+
 @ app.route('/request_upload_edgeAi', methods=['POST'])
 def request_upload_edgeAi():
     json_data = request.get_json(silent=True)
