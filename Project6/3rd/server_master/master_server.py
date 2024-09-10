@@ -199,7 +199,7 @@ def deploy_aiToDevice():
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
 #     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-    result = subprocess.run(['kubectl', 'apply', '-f', 'monitorings/monitorings-01.yaml'], capture_output=True, text=True)
+    result = subprocess.run(['kubectl', 'apply', '-f', f'{fname}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)
 
