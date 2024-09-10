@@ -112,7 +112,7 @@ def request_undeploy_aiFromDevice():
     }
     requests.post(f"{MASTER_API_URL}/undeploy_aiFromDevice", json=data)
 
-    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.nid == nid).first()
+    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.nid == nid, AI_deployed.aid == aid).first()
     db.session.delete(ai_deployed_info)
     db.session.commit()
 
