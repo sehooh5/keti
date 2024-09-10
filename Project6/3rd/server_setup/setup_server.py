@@ -80,14 +80,18 @@ def request_deploy_aiToDevice ():
     json_data = request.get_json(silent=True)
 
     aid = json_data['aid']
+### 임시로 ni01 ===  intellivix-worker-01 으로 입력중
+    nid = json_data['nid']
 
-    ai_deployed_info = AI_deployed(aid=aid)
+
+    ai_deployed_info = AI_deployed(aid=aid, nid=nid)
     db.session.add(ai_deployed_info)
     db.session.commit()
-    print(f"deployed AI Data saved in Database! ---- AI ID :{aid}")
+    print(f"deployed AI Data saved in Database! ---- AI ID :{aid} / Node ID : {nid}")
 
     data = {
-        "aid": aid
+        "aid": aid,
+        "nid": nid
     }
 
     requests.post(f"{MASTER_API_URL}/deploy_aiToDevice", json=data)
@@ -99,13 +103,16 @@ def request_undeploy_aiFromDevice():
     json_data = request.get_json(silent=True)
 
     aid = json_data['aid']
+### 임시로 ni01 ===  intellivix-worker-01 으로 입력중
+    nid = json_data['nid']
 
     data = {
-        "aid": aid
+        "aid": aid,
+        "nid": nid
     }
     requests.post(f"{MASTER_API_URL}/undeploy_aiFromDevice", json=data)
 
-    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.aid == aid).first()
+    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.nid == nid).first()
     db.session.delete(ai_deployed_info)
     db.session.commit()
 

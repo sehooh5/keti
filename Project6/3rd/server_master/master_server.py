@@ -177,6 +177,8 @@ def deploy_aiToDevice():
         return response.message("0021")
 
     aid = json_data['aid']  # ai 패키지 ID
+### 임시로 ni01 ===  intellivix-worker-01 으로 입력중
+    nid = json_data['nid']
 #     cid = json_data['cid']  # Cluster ID
 #     print(datetime.datetime.now().strftime(
 #         "%c")[:-4], f" {func}: kubernetes : deploy software [{sid}] to Cluster [{cid}]....")

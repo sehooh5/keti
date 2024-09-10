@@ -12,6 +12,7 @@ spec:
       labels:
         app: monitoringr
     spec:
+      nodeName: intellivix-worker-01
       containers:
         - name: monitoringr
           image: 192.168.0.4:5000/monitoringr:01

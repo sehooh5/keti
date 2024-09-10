@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monitorings
+  name: weatherai
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitorings
+      app: weatherai
   template:
     metadata:
       labels:
-        app: monitorings
+        app: weatherai
     spec:
       nodeName: intellivix-worker-01
       containers:
-        - name: monitorings
-          image: 192.168.0.4:5000/monitorings-01:01
+        - name: weatherai
+          image: 192.168.0.4:5000/weatherai-00:01
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

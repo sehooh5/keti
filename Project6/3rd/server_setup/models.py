@@ -17,5 +17,7 @@ class AI_uploaded(db.Model):
 class AI_deployed(db.Model):
     __tablename__ = 'ai_deployed'
 
-    aid = db.Column(db.String(32), primary_key=True)
+    nid = db.Column(db.String(32), primary_key=True)
+    aid = db.Column(db.String(32))
+
 
