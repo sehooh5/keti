@@ -30,7 +30,7 @@ def cpu_mem_sending():
         "username": username,
         "cpu": cpu_percent,
         "memory": memory_percent,
-        "func": "RAINY"
+        "ai_class": "02"
     }
     json_data = json.dumps(data)
 
