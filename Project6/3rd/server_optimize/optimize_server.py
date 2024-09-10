@@ -63,7 +63,7 @@ def save_edgeData():
     res_class = json_data['res_class']
     res_confidence = json_data['res_confidence']
 
-    print(f"code : {code} // message : {message} // nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
+    print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     ## 지금 문제가 nid에 배포된 AI 들이 어떤 유형의 AI(배회, 폭력 등)인지 알 수 있는 방법이
