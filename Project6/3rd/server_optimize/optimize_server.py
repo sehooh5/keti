@@ -68,7 +68,7 @@ def save_edgeData():
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     ## 지금 문제가 nid에 배포된 AI 들이 어떤 유형의 AI(배회, 폭력 등)인지 알 수 있는 방법이
     ## filename 밖에 없는데...이 구분으로 class를 비교해야하나?
-    
+
 
     # 일치하면 pass
     # 일치하지 않으면 res_class에 맞는 AI 재배포
