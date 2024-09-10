@@ -282,7 +282,7 @@ def undeploy_aiFromDevice():
     #######################################################
 #     print(datetime.datetime.now().strftime(
 #         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
-    result = subprocess.run(['kubectl', 'delete', '-f', 'monitorings/monitorings-01.yaml'], capture_output=True, text=True)
+    result = subprocess.run(['kubectl', 'delete', '-f', f'{fname}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)
 

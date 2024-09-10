@@ -16,9 +16,11 @@ def weather_sending():
     created_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     res_confidence = "0.8"
 
-    if cnt < 30:
+    if 1 <= cnt <= 30:
         res_class = "01"
-    elif cnt >= 30:
+    elif 31 <= cnt <= 59 :
+        res_class = "02"
+    elif cnt >= 60:
         res_class = "02"
         cnt = 0
 
