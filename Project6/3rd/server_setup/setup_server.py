@@ -137,6 +137,27 @@ def get_uploadedAiInfo():
 
     return json_data
 
+@ app.route('/get_deployedAis_by_node', methods=['GET'])
+def get_deployedAis_by_node():
+    nid = request.args.get('nid')
+
+    # DB 정보 획득
+    ai_deployed_list = db.session.query(AI_deployed.aid).filter(AI_deployed.nid == nid).all()
+    aid_list = [result.aid for result in ai_deployed_list]
+
+
+    data = {
+        "code":"0000",
+        "message":"처리 성공",
+        "aid": ai_info.aid,
+        "filename": ai_info.filename,
+        "version": ai_info.version,
+        "ai_class": ai_info.ai_class
+    }
+    json_data = json.dumps(data)
+
+    return json_data
+
 # DB
 basdir = os.path.abspath(os.path.dirname(__file__))
 dbfile = os.path.join(basdir, 'db.sqlite')

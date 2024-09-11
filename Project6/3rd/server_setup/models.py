@@ -18,6 +18,6 @@ class AI_deployed(db.Model):
     __tablename__ = 'ai_deployed'
 
     nid = db.Column(db.String(32), primary_key=True)
-    aid = db.Column(db.String(32))
+    aid = db.Column(db.String(32), primary_key=True)
 
 

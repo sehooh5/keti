@@ -66,11 +66,11 @@ def save_edgeData():
     print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
-    ## 지금 문제가 nid에 배포된 AI 들이 어떤 유형의 AI(배회, 폭력 등)인지 알 수 있는 방법이
-    ## filename 밖에 없는데...이 구분으로 class를 비교해야하나?
+    ai_id_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
 
 
     # 일치하면 pass
+
     # 일치하지 않으면 res_class에 맞는 AI 재배포
 
     # db에 저장하는 기능 ----- 나중에 구형
