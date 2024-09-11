@@ -1440,6 +1440,27 @@ v1.30.3
       filename
       version
       ai_class
+      
+      # 환경정보
+      {
+          "filename": "weatherai",
+          "version": "01",
+          "ai_class": "00"
+      }
+      
+      # monitorings
+      {
+          "filename": "monitorings",
+          "version": "01",
+          "ai_class": "01"
+      }
+      
+      # monitoringr
+      {
+          "filename": "monitoringr",
+          "version": "01",
+          "ai_class": "02"
+      }
       ```
 
     - /request_remove_edgeAi

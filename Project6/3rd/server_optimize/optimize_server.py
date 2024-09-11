@@ -78,5 +78,20 @@ def save_edgeData():
 
     return response.message('0000')
 
+@app.route('/usage', methods=['POST'])
+def usage():
+    data = request.get_json(silent=True)
+    json_data = json.loads(data)
+
+    username = json_data['username']
+    cpu_usage = json_data['cpu']
+    memory_usage = json_data['memory']
+    ai_class = json_data['ai_class']
+
+    print(f"User Name : {username} // AI_class : {ai_class} // CPU Usage : {cpu_usage}% // Memory Usage : {memory_usage}%")
+
+    return "usage"
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, port=port)
