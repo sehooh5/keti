@@ -18,7 +18,7 @@ CORS(app)
 _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
-API_URL = "http://192.168.0.9:5230"
+SETUP_API_URL = "http://192.168.0.9:5230"
 
 port = "6432"
 
@@ -66,8 +66,9 @@ def save_edgeData():
     print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
-    ai_id_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
-
+    aid_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
+    for aid in aid_list:
+        print(aid)
 
     # 일치하면 pass
 

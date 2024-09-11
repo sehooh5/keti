@@ -145,15 +145,7 @@ def get_deployedAis_by_node():
     ai_deployed_list = db.session.query(AI_deployed.aid).filter(AI_deployed.nid == nid).all()
     aid_list = [result.aid for result in ai_deployed_list]
 
-
-    data = {
-        "code":"0000",
-        "message":"처리 성공",
-        "aid": ai_info.aid,
-        "filename": ai_info.filename,
-        "version": ai_info.version,
-        "ai_class": ai_info.ai_class
-    }
+    data = {"aid_list": aid_list}
     json_data = json.dumps(data)
 
     return json_data
