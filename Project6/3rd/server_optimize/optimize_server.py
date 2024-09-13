@@ -71,8 +71,6 @@ def save_edgeData():
     res_class = json_data['res_class']
     res_confidence = json_data['res_confidence']
 
-    print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
-
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
     aid_list_json = res_list.json()
@@ -82,7 +80,7 @@ def save_edgeData():
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
-        print(f"aid : {aid}, ai_class : {ai_class} --- res_class : {res_class}, filename : {filename}")
+#         print(f"aid : {aid}, ai_class : {ai_class} --- res_class : {res_class}, filename : {filename}")
 
         if ai_class != "00" and ai_class != res_class:
             print(ai_class,filename)

@@ -37,8 +37,10 @@ def request_upload_edgeAi():
 
     aid = random_string.generate(4)
     filename = json_data['filename']
+    filename = filename.split('-')[0]
     version = json_data['version']
     ai_class = json_data['ai_class']
+
 
     ai_info = AI_uploaded(aid=aid, filename=filename, version=version,
                ai_class=ai_class)

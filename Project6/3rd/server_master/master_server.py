@@ -103,17 +103,16 @@ def upload_edgeAi():
     version = json_data['version']
     ai_class = json_data['ai_class'] # 추가
 
-    fname = filename.split('-')[0]
     print(datetime.datetime.now().strftime(
-    "%c")[:-4], f"{func}: software name: {fname}")
+    "%c")[:-4], f"{func}: software name: {filename}")
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}-{ai_class}")
-    os.system(f"docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}-{ai_class}")
+    print(f"명령어확인 ----- docker build -t {private_repo}/{filename}-{ai_class}:{version} ./{filename}-{ai_class}")
+    os.system(f"docker build -t {private_repo}/{filename}-{ai_class}:{version} ./{filename}-{ai_class}")
     print("Docker image building completed!!")
 
     print("Docker image push to Private Repository..")
-    os.system(f"docker push {private_repo}/{fname}-{ai_class}:{version}")
+    os.system(f"docker push {private_repo}/{filename}-{ai_class}:{version}")
     print("Docker image pushing completed!!")
 
     print(datetime.datetime.now().strftime(
@@ -146,16 +145,14 @@ def remove_edgeAi():
     filename = res.json()['filename']
     version = res.json()['version']
     ai_class = res.json()['ai_class']
-#     fname = filename[:-4]
-    fname = filename    # test 에서는 fname = filename
 
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: software ID : {aid} - software name : {fname}")
+        "%c")[:-4], f"{func}: software ID : {aid} - software name : {filename}")
 
 #     Docker image delete
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: docker image {fname}-{ai_class} deleting...")
-    os.system(f"docker rmi -f {private_repo}/{fname}-{ai_class}:{version}")
+        "%c")[:-4], f"{func}: docker image {filename}-{ai_class} deleting...")
+    os.system(f"docker rmi -f {private_repo}/{filename}-{ai_class}:{version}")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
 
@@ -188,17 +185,15 @@ def deploy_aiToDevice():
         return response.message(ai_info_data.json()["code"])
 
     filename = ai_info_data.json()['filename']
-#     fname = filename[:-4]
-    fname = filename.split('-')[0]
     version = ai_info_data.json()['version']
     ai_class = ai_info_data.json()['ai_class']
 
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: software name is {fname}.....")
+        "%c")[:-4], f" {func}: software name is {filename}.....")
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
-#     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-    result = subprocess.run(['kubectl', 'apply', '-f', f'{fname}-{ai_class}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
+#     os.system(f"kubectl apply -f {filename}-{host_name}.yaml")
+    result = subprocess.run(['kubectl', 'apply', '-f', f'{filename}-{ai_class}/{filename}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)
 
@@ -271,8 +266,7 @@ def undeploy_aiFromDevice():
         return response.message(ai_info_data.json()["code"])
 
     filename = ai_info_data.json()['filename']
-#     fname = filename[:-4]
-    fname = filename
+
     version = ai_info_data.json()['version']
     ai_class = ai_info_data.json()['ai_class']
 
@@ -281,7 +275,7 @@ def undeploy_aiFromDevice():
     #######################################################
 #     print(datetime.datetime.now().strftime(
 #         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
-    result = subprocess.run(['kubectl', 'delete', '-f', f'{fname}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
+    result = subprocess.run(['kubectl', 'delete', '-f', f'{filename}-{ai_class}/{filename}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)
 
