@@ -78,11 +78,11 @@ def save_edgeData():
     aid_list_json = res_list.json()
     aid_list = aid_list_json.get('aid_list')
     for aid in aid_list:
-        print(f"aid : {aid}")
         ai_informs = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
+        print(f"aid : {aid}, ai_class : {ai_class}, filename : {filename}")
 
         if ai_class != "00" and ai_class != res_class:
             print(ai_class,filename)
