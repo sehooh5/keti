@@ -56,8 +56,15 @@ def optimize_by_weather():
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
     nip = request.remote_addr
-    print(f"Request received from IP: {nip}")
-    nid = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
+    response = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
+    if response.status_code == 200:
+        json_data = response.json()
+        print(json_data)
+        
+        nid = json_data.get('nid')
+        print(f"Node ID: {nid}")
+    else:
+        print(f"Failed to retrieve data. Status code: {response.status_code}")
 
     data = request.get_json(silent=True)
     json_data = json.loads(data)
