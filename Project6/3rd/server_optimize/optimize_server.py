@@ -82,6 +82,7 @@ def save_edgeData():
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
+        print(filename)
 
         if ai_class == 00:
             pass
@@ -108,7 +109,7 @@ def usage():
     memory_usage = json_data['memory']
     ai_class = json_data['ai_class']
 
-    print(f"User Name : {username} // AI_class : {ai_class} // CPU Usage : {cpu_usage}% // Memory Usage : {memory_usage}%")
+#     print(f"User Name : {username} // AI_class : {ai_class} // CPU Usage : {cpu_usage}% // Memory Usage : {memory_usage}%")
 
     return "usage"
 
