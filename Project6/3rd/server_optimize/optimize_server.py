@@ -55,14 +55,7 @@ def optimize_by_weather():
 # - 매초 전달되는 json 파일 저장하기
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
-    nip = request.remote_addr
-    res = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
-    if res.status_code == 200:
-        json_data = res.json()
-        nid = json_data.get('nid')
-    else:
-        print(f"Failed to retrieve data. Status code: {res.status_code}")
-
+#   Data From Weather AI
     data = request.get_json(silent=True)
     json_data = json.loads(data)
 
@@ -72,19 +65,24 @@ def save_edgeData():
 
     print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
+#   Data From DB
+    nip = request.remote_addr
+    res = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
+    if res.status_code == 200:
+        json_data = res.json()
+        nid = json_data.get('nid')
+    else:
+        print(f"Failed to retrieve data. Status code: {res.status_code}")
+
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
     aid_list_json = res_list.json()
     aid_list = aid_list_json.get('aid_list')
-    print(aid_list)
     for aid in aid_list:
-        print(aid)
-#         res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
-#         json_data = res.json()
-#         print(json_data)
-#
-#         nid = json_data.get('nid')
-#         print(f"Node ID: {nid}")
+        res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
+        json_data = res.json()
+        ai_class = json_data.get('ai_class')
+        print(f"Node ID: {ai_class}")
 
     # 일치하면 pass
 
