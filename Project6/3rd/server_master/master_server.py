@@ -103,14 +103,13 @@ def upload_edgeAi():
     version = json_data['version']
     ai_class = json_data['ai_class'] # 추가
 
-#     fname = filename[:-4]
-    fname = filename    # test 에서는 fname = filename
+    fname = filename.split('-')[0]
     print(datetime.datetime.now().strftime(
     "%c")[:-4], f"{func}: software name: {fname}")
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
-    print(f"명령어확인 ----- docker build -f {fname}/Dockerfile -t {private_repo}/{fname}-{ai_class}:{version} .")
-    os.system(f"docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}")
+    print(f"명령어확인 ----- docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}-{ai_class}")
+    os.system(f"docker build -t {private_repo}/{fname}-{ai_class}:{version} ./{fname}-{ai_class}")
     print("Docker image building completed!!")
 
     print("Docker image push to Private Repository..")
@@ -190,7 +189,7 @@ def deploy_aiToDevice():
 
     filename = ai_info_data.json()['filename']
 #     fname = filename[:-4]
-    fname = filename
+    fname = filename.split('-')[0]
     version = ai_info_data.json()['version']
     ai_class = ai_info_data.json()['ai_class']
 
@@ -199,7 +198,7 @@ def deploy_aiToDevice():
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
 #     os.system(f"kubectl apply -f {fname}-{host_name}.yaml")
-    result = subprocess.run(['kubectl', 'apply', '-f', f'{fname}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
+    result = subprocess.run(['kubectl', 'apply', '-f', f'{fname}-{ai_class}/{fname}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)
 
