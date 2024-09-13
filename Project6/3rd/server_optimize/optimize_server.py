@@ -82,13 +82,14 @@ def save_edgeData():
         filename = ai_informs_json.get('filename')
 
         if ai_class != "00" and ai_class != res_class:
-            # 일치하지 않으면
+            print(f"[AI : {filename} / Class : {ai_class}] AI Optimizing.........")
             # res_class에 맞는 AI 재배포 / aid, nid 필요
             # 현재 배포된 AI 삭제
             data = {
                 "aid": aid,
                 "nid": nid
             }
+            print(f"Delete [AI : {filename} / Class : {ai_class}]......")
             requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
 
             # 최적화 AI ID = aid_optimized
@@ -101,6 +102,7 @@ def save_edgeData():
                 "aid": aid_optimized,
                 "nid": nid
             }
+            print(f"Deploy a new [AI : {filename} / Class : {res_class}]......")
             requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
 
     # db에 저장하는 기능 ----- 나중에 구형
