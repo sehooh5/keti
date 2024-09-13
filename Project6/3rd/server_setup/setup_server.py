@@ -172,7 +172,7 @@ def get_aid_by_fnameAndClass():
     aid = db.session.query(AI_uploaded.aid).filter(AI_uploaded.filename == filename,
     AI_uploaded.ai_class == ai_class).first()
 
-    if node:
+    if aid:
         return jsonify({"aid": aid}), 200
     else:
         return jsonify({"error": "aid not found"}), 404
