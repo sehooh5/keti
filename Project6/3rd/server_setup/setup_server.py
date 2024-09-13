@@ -152,7 +152,7 @@ def get_deployedAis_by_node():
 
 @app.route('/get_nid_by_ip', methods=['GET'])
 def get_node_id():
-    nidp = request.args.get('nip')
+    nip = request.args.get('nip')
 
     # nip에 해당하는 nid 찾기
     node = db.session.query(Node_info).filter(Node_info.nip == nip).first()

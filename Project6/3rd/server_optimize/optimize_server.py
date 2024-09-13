@@ -60,7 +60,7 @@ def save_edgeData():
     if response.status_code == 200:
         json_data = response.json()
         print(json_data)
-        
+
         nid = json_data.get('nid')
         print(f"Node ID: {nid}")
     else:
