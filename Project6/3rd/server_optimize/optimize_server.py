@@ -55,8 +55,8 @@ def optimize_by_weather():
 # - 매초 전달되는 json 파일 저장하기
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
-    client_ip = request.remote_addr
-    print(f"Request received from IP: {client_ip}")
+    nip = request.remote_addr
+    print(f"Request received from IP: {nip}")
     nid = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
 
     data = request.get_json(silent=True)
