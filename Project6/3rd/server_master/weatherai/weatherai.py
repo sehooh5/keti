@@ -12,7 +12,7 @@ def weather_sending():
 
     cnt+=1
 
-    nid = "ni01"
+
     created_at = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     res_confidence = "0.8"
 
@@ -25,7 +25,7 @@ def weather_sending():
         cnt = 0
 
     data = {
-        "nid": nid,
+
         "created_at": created_at,
         "res_class": res_class,
         "res_confidence": res_confidence

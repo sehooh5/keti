@@ -55,15 +55,19 @@ def optimize_by_weather():
 # - 매초 전달되는 json 파일 저장하기
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
+    client_ip = request.remote_addr
+    user_agent = request.headers.get('User-Agent')  # User-Agent 또는 다른 헤더 정보
+    print(f"Request received from IP: {client_ip}, User-Agent: {user_agent}")
+
     data = request.get_json(silent=True)
     json_data = json.loads(data)
 
-    nid = json_data['nid']
+#     nid = json_data['nid']
     created_at = json_data['created_at']
     res_class = json_data['res_class']
     res_confidence = json_data['res_confidence']
 
-    print(f"nid : {nid} // time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
+    print(f"time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     aid_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
