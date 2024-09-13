@@ -78,14 +78,19 @@ def save_edgeData():
     aid_list_json = res_list.json()
     aid_list = aid_list_json.get('aid_list')
     for aid in aid_list:
-        res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
-        json_data = res.json()
-        ai_class = json_data.get('ai_class')
-        print(f"Node ID: {ai_class}")
+        ai_informs = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
+        ai_informs_json = ai_informs.json()
+        ai_class = ai_informs_json.get('ai_class')
+        filename = ai_informs_json.get('filename')
 
-    # 일치하면 pass
+        if ai_class == 00:
+            pass
+        elif ai_class != res_class:
+            # 일치하지 않으면 res_class에 맞는 AI 재배포 / aid, nid 필요
+            # DB에서 filename이 일치하면서 ai_class가 res_class와 같은 AI의 aid가 필요
+            aid = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
 
-    # 일치하지 않으면 res_class에 맞는 AI 재배포
+
 
     # db에 저장하는 기능 ----- 나중에 구형
 

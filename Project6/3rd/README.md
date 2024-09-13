@@ -1382,6 +1382,9 @@ v1.30.3
     - ~~배포할때 nid를 사용하는데 그때 Dockerfile을 수정해볼까?~~
     - 배포할때 nid를 사용하는데
   - aid_list 받아온거로 환경정보와 비교해서 재배포 실행하는부분 구현
+    - filename 을 통일시켜야할듯
+      - 기존 s,r 붙이는데 그냥 monitoring 으로 통일, class로 구분
+      - 방법 : uploaded_ai 중 해당 파일명 갖고있는 AI 에서 받은 class와 일치하는 uploaded AI 배포
 
 
 

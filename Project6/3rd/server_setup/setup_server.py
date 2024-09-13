@@ -162,6 +162,19 @@ def get_node_id():
     else:
         return jsonify({"error": "Node not found"}), 404
 
+@app.route('/get_aid_by_fnameAndClass', methods=['GET'])
+def get_aid_by_fnameAndClass():
+    filename = request.args.get('filename')
+    ai_class = request.args.get('class')
+
+    aid = db.session.query(AI_uploaded.aid).filter(AI_uploaded.filename == filename,
+    AI_uploaded.ai_class == ai_class).first()
+
+    if node:
+        return jsonify({"aid": aid}), 200
+    else:
+        return jsonify({"error": "aid not found"}), 404
+
 # DB
 basdir = os.path.abspath(os.path.dirname(__file__))
 dbfile = os.path.join(basdir, 'db.sqlite')
