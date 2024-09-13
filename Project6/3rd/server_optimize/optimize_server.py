@@ -105,9 +105,6 @@ def save_edgeData():
             print(f"Deploy a new [AI : {filename} / Class : {res_class}]......")
             requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
 
-    # db에 저장하는 기능 ----- 나중에 구형
-
-
     return response.message('0000')
 
 @app.route('/usage', methods=['POST'])
