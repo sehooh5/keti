@@ -82,12 +82,11 @@ def save_edgeData():
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
-        print(filename)
 
         if ai_class == 00:
             print("00",filename)
             pass
-        elif ai_class != res_class:
+        elif ai_class != 00 & ai_class != res_class:
             print(ai_class,filename)
             # 일치하지 않으면 res_class에 맞는 AI 재배포 / aid, nid 필요
             # DB에서 filename이 일치하면서 ai_class가 res_class와 같은 AI의 aid가 필요
