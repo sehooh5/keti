@@ -70,9 +70,9 @@ def save_edgeData():
     print(f"time : {created_at} // res_class : {res_class} // res_confidence : {res_confidence}")
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
-    aid_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
-    for aid in aid_list:
-        print(aid)
+#     aid_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
+#     for aid in aid_list:
+#         print(aid)
 
     # 일치하면 pass
 
