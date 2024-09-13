@@ -59,10 +59,7 @@ def save_edgeData():
     res = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
     if res.status_code == 200:
         json_data = res.json()
-        print(json_data)
-
         nid = json_data.get('nid')
-        print(f"Node ID: {nid}")
     else:
         print(f"Failed to retrieve data. Status code: {res.status_code}")
 
@@ -78,6 +75,7 @@ def save_edgeData():
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
     aid_list = res_list.json()
+    print(aid_list)
     for aid in aid_list:
         print(aid)
 #         res = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
