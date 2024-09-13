@@ -20,4 +20,8 @@ class AI_deployed(db.Model):
     nid = db.Column(db.String(32), primary_key=True)
     aid = db.Column(db.String(32), primary_key=True)
 
+class Node_info(db.Model):
+    __tablename__ = 'nodes'
 
+    nid = db.Column(db.String(32), primary_key=True)
+    nip = db.Column(db.String(32), unique=True)

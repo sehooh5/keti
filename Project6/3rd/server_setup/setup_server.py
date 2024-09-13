@@ -4,7 +4,7 @@ from importlib import import_module
 from typing import List
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
-from models import db, AI_uploaded, AI_deployed
+from models import db, AI_uploaded, AI_deployed, Node_info
 import json
 import requests
 import os
@@ -149,6 +149,18 @@ def get_deployedAis_by_node():
     json_data = json.dumps(data)
 
     return json_data
+
+@app.route('/get_nid_by_ip', methods=['GET'])
+def get_node_id():
+    nidp = request.args.get('nip')
+
+    # nip에 해당하는 nid 찾기
+    node = db.session.query(Node_info).filter(Node_info.nip == nip).first()
+
+    if node:
+        return jsonify({"nid": node.nid}), 200
+    else:
+        return jsonify({"error": "Node not found"}), 404
 
 # DB
 basdir = os.path.abspath(os.path.dirname(__file__))
