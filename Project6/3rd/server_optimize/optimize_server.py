@@ -88,8 +88,8 @@ def save_edgeData():
             print(ai_class,filename)
             # 일치하지 않으면 res_class에 맞는 AI 재배포 / aid, nid 필요
             # DB에서 filename이 일치하면서 ai_class가 res_class와 같은 AI의 aid가 필요
-            aid = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
-            print(aid)
+            aid_optimized = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
+            print(aid_optimized)
 
 
 
