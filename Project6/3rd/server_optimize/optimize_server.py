@@ -74,7 +74,8 @@ def save_edgeData():
 
     # db 저장되어있는 nid의 노드가 갖고있는 모든 AI 의 class 비교해서
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
-    aid_list = res_list.json()
+    aid_list_json = res_list.json()
+    aid_list = aid_list_json.get('aid_list')
     print(aid_list)
     for aid in aid_list:
         print(aid)
