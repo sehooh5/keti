@@ -82,7 +82,7 @@ def save_edgeData():
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
-        print(f"aid : {aid}, ai_class : {ai_class}, filename : {filename}")
+        print(f"aid : {aid}, ai_class : {ai_class} --- res_class : {res_class}, filename : {filename}")
 
         if ai_class != "00" and ai_class != res_class:
             print(ai_class,filename)
