@@ -94,6 +94,170 @@
 #### 0909
 
 - Survey 할것들 대충 공부해놓기 - 1시간
-- 테스트서버 구축해보기
 
-#### 
+- 테스트서버 구축하기
+
+  - ### **1. Nginx 설정 변경**
+
+    Nginx에서 테스트 서버용으로 별도의 포트를 할당해야 합니다. 예를 들어, 프로덕션 서버는 포트 80을 사용하고, 테스트 서버는 포트 8080을 사용하도록 설정할 수 있습니다.
+
+    #### 1.1. **Nginx 설정 파일 복제**
+
+    현재 프로덕션 서버에 대한 설정 파일을 복제하여 테스트 서버용 설정을 만듭니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo cp /etc/nginx/sites-available/your_site_config /etc/nginx/sites-available/your_dev_site_config
+    ```
+
+    #### 1.2. **테스트 서버 포트 변경**
+
+    복제한 설정 파일을 열고, 프로덕션 포트(예: `80`)를 테스트용 포트(예: `8080`)으로 변경합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo nano /etc/nginx/sites-available/your_dev_site_config
+    ```
+
+    다음과 같이 `listen` 지시어를 수정합니다.
+
+    ```
+    nginx
+    
+    
+    코드 복사
+    server {
+        listen 8080;
+        server_name your_test_domain_or_ip;
+    
+        location / {
+            proxy_pass http://127.0.0.1:8001;  # uWSGI에서 실행 중인 Django 서버의 포트
+            ...
+        }
+    }
+    ```
+
+    #### 1.3. **사이트 활성화**
+
+    테스트 서버 설정 파일을 활성화하려면 `sites-enabled` 디렉토리에 심볼릭 링크를 생성합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo ln -s /etc/nginx/sites-available/your_dev_site_config /etc/nginx/sites-enabled/
+    ```
+
+    #### 1.4. **Nginx 설정 테스트 및 재시작**
+
+    Nginx 설정을 테스트하고 문제가 없으면 재시작합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo nginx -t
+    sudo service nginx restart
+    ```
+
+    ### **2. uWSGI 설정 변경**
+
+    uWSGI는 테스트 서버를 위한 별도의 포트에서 Django 애플리케이션을 실행해야 합니다. 테스트 서버에서는 예를 들어 `8001` 포트를 사용할 수 있습니다.
+
+    #### 2.1. **uWSGI 설정 파일 복제**
+
+    현재 `uwsgi.ini` 파일을 복제하여 테스트용 설정 파일을 만듭니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo cp /path/to/your/uwsgi.ini /path/to/your/uwsgi_dev.ini
+    ```
+
+    #### 2.2. **테스트 서버용 포트 변경**
+
+    복제한 `uwsgi_dev.ini` 파일을 열어, 포트를 테스트 서버용으로 변경합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo nano /path/to/your/uwsgi_dev.ini
+    ```
+
+    설정 파일에서 `http-socket` 또는 `socket` 항목을 수정하여 다른 포트(예: `8001`)에서 서버가 실행되도록 합니다.
+
+    ```
+    ini
+    
+    
+    코드 복사
+    [uwsgi]
+    http-socket = 127.0.0.1:8001  # 테스트 서버용 포트
+    module = your_project.wsgi:application
+    master = true
+    processes = 5
+    ```
+
+    #### 2.3. **테스트 서버 실행**
+
+    테스트 서버를 실행하려면 `uwsgi_dev.ini` 파일을 사용하여 uWSGI를 실행합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    sudo uwsgi --ini /path/to/your/uwsgi_dev.ini
+    ```
+
+    ### **3. 보안 그룹에서 포트 열기**
+
+    AWS EC2의 보안 그룹에서 새로운 포트(예: `8080`)를 열어야 외부에서 접근할 수 있습니다.
+
+    1. AWS Management Console에 접속하여 EC2 인스턴스의 보안 그룹 설정으로 이동합니다.
+
+    2. 인바운드 규칙
+
+       에서 포트 
+
+       ```
+       8080
+       ```
+
+       을 허용하는 규칙을 추가합니다.
+
+       - **타입**: Custom TCP
+       - **포트 범위**: 8080
+       - **소스**: 0.0.0.0/0 (또는 필요한 IP 범위)
+
+    ### **4. 테스트 서버 확인**
+
+    브라우저에서 EC2 인스턴스의 퍼블릭 IP 주소 또는 도메인 뒤에 테스트용 포트를 추가하여 접속합니다.
+
+    ```
+    bash
+    
+    
+    코드 복사
+    http://your-ec2-ip:8080
+    ```
+
+    ### **결론**
+
+    1. **Nginx 설정**에서 테스트용 포트(예: `8080`)를 추가하고, uWSGI가 다른 포트에서 테스트 서버를 실행하도록 설정합니다.
+    2. **uWSGI 설정 파일**을 복제하고 포트 번호를 수정하여 테스트 서버용 설정을 적용합니다.
+    3. **보안 그룹**에서 새로운 포트를 열고, Nginx와 uWSGI를 재시작하여 테스트 서버를 실행합니다.
+
+    이렇게 하면 동일한 EC2 인스턴스에서 프로덕션과 테스트 서버를 각기 다른 포트에서 운영할 수 있습니다.
