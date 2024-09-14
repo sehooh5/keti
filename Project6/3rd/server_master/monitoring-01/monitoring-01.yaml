@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: monitoringr
+  name: monitoring-01
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitoringr
+      app: monitoring-01
   template:
     metadata:
       labels:
-        app: monitoringr
+        app: monitoring-01
     spec:
+      nodeName: intellivix-worker-01
       containers:
-        - name: monitoringr
-          image: 192.168.0.4:5000/monitoringr:01
+        - name: monitoring-01
+          image: 192.168.0.4:5000/monitoring-01:01
           imagePullPolicy: Always
           ports:
-            - containerPort: 8061
+            - containerPort: 8080
       imagePullSecrets:
       - name : regcred

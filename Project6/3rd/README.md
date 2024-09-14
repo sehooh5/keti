@@ -83,6 +83,14 @@
 
   - IP : 192.168.0.4
 
+    ```
+    # ssh 접속
+    
+    ssh keti-jx-02@192.168.0.4
+    ```
+
+    
+
   - JSON 형태 정보 예시 : 
 
     ```json
@@ -1194,6 +1202,7 @@ v1.30.3
 - kubeflow
   - 쿠버플로우의 개념 및 장점 (간단히)
     - 쿠버플로우를 이용해서, AI 학습과 AI를 배포하기 위한 제한이나 방법
+        
         2. 제한사항은 없고 설정, 관리만 잘해주면 문제 없음
     - KETI에서 해당 기술을 적용할 수 있는지의 가능성..
         3. AI 학습은 KETI에서 진행하는 것이 아니기에 해당사항은 아님
@@ -1342,9 +1351,40 @@ v1.30.3
 
 #### 0910
 
-- 환경정보 AI 대체할만한 SW 만들고
-- 배포
-- 배포 후 환경정보 변경에 따른 재배포 실행
+- 완료 : 
+  - 환경정보 AI 대체할만한 SW 만들고
+    - weatherai.py 작성
+      - 30초마다 class 01/02를 번갈아가며 실행
+  - 배포
+
+
+
+#### 0911
+
+- 진행중 : 
+  - optimize_server : 배포 후 환경정보 변경에 따른 재배포 실행
+    - 기본 api 완료
+    - 비교하는 부분 시작해야함
+      - aid list를 setup_server로부터 받아오는것까지 완료
+
+
+
+#### 0912
+
+- 오산 출장
+
+
+
+#### 0913
+
+- 무선엣지
+  - 서박사님 요청 기존으로 돌리고 어떤 엣지인지 알수있는 방법 찾아보기
+    - ~~배포할때 nid를 사용하는데 그때 Dockerfile을 수정해볼까?~~
+    - 배포할때 nid를 사용하는데
+  - aid_list 받아온거로 환경정보와 비교해서 재배포 실행하는부분 구현
+    - filename 을 통일시켜야할듯
+      - 기존 s,r 붙이는데 그냥 monitoring 으로 통일, class로 구분
+      - 방법 : uploaded_ai 중 해당 파일명 갖고있는 AI 에서 받은 class와 일치하는 uploaded AI 배포
 
 
 
@@ -1426,6 +1466,27 @@ v1.30.3
       filename
       version
       ai_class
+      
+      # 환경정보
+      {
+          "filename": "weatherai",
+          "version": "01",
+          "ai_class": "00"
+      }
+      
+      # monitorings
+      {
+          "filename": "monitorings",
+          "version": "01",
+          "ai_class": "01"
+      }
+      
+      # monitoringr
+      {
+          "filename": "monitoringr",
+          "version": "01",
+          "ai_class": "02"
+      }
       ```
 
     - /request_remove_edgeAi

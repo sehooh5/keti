@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-02
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitoring-02
+  template:
+    metadata:
+      labels:
+        app: monitoring-02
+    spec:
+      nodeName: intellivix-worker-01
+      containers:
+        - name: monitoring-02
+          image: 192.168.0.4:5000/monitoring-02:01
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8061
+      imagePullSecrets:
+      - name : regcred

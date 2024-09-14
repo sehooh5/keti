@@ -4,7 +4,7 @@ from importlib import import_module
 from typing import List
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
-from models import db, AI_uploaded, AI_deployed
+from models import db, AI_uploaded, AI_deployed, Node_info
 import json
 import requests
 import os
@@ -37,8 +37,10 @@ def request_upload_edgeAi():
 
     aid = random_string.generate(4)
     filename = json_data['filename']
+    filename = filename.split('-')[0]
     version = json_data['version']
     ai_class = json_data['ai_class']
+
 
     ai_info = AI_uploaded(aid=aid, filename=filename, version=version,
                ai_class=ai_class)
@@ -80,14 +82,18 @@ def request_deploy_aiToDevice ():
     json_data = request.get_json(silent=True)
 
     aid = json_data['aid']
+### 임시로 ni01 ===  intellivix-worker-01 으로 입력중
+    nid = json_data['nid']
 
-    ai_deployed_info = AI_deployed(aid=aid)
+
+    ai_deployed_info = AI_deployed(aid=aid, nid=nid)
     db.session.add(ai_deployed_info)
     db.session.commit()
-    print(f"deployed AI Data saved in Database! ---- AI ID :{aid}")
+    print(f"deployed AI Data saved in Database! ---- AI ID :{aid} / Node ID : {nid}")
 
     data = {
-        "aid": aid
+        "aid": aid,
+        "nid": nid
     }
 
     requests.post(f"{MASTER_API_URL}/deploy_aiToDevice", json=data)
@@ -99,13 +105,16 @@ def request_undeploy_aiFromDevice():
     json_data = request.get_json(silent=True)
 
     aid = json_data['aid']
+### 임시로 ni01 ===  intellivix-worker-01 으로 입력중
+    nid = json_data['nid']
 
     data = {
-        "aid": aid
+        "aid": aid,
+        "nid": nid
     }
     requests.post(f"{MASTER_API_URL}/undeploy_aiFromDevice", json=data)
 
-    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.aid == aid).first()
+    ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.nid == nid, AI_deployed.aid == aid).first()
     db.session.delete(ai_deployed_info)
     db.session.commit()
 
@@ -129,6 +138,45 @@ def get_uploadedAiInfo():
     json_data = json.dumps(data)
 
     return json_data
+
+@ app.route('/get_deployedAis_by_node', methods=['GET'])
+def get_deployedAis_by_node():
+    nid = request.args.get('nid')
+
+    # DB 정보 획득
+    ai_deployed_list = db.session.query(AI_deployed.aid).filter(AI_deployed.nid == nid).all()
+    aid_list = [result.aid for result in ai_deployed_list]
+
+    data = {"aid_list": aid_list}
+    json_data = json.dumps(data)
+
+    return json_data
+
+@app.route('/get_nid_by_ip', methods=['GET'])
+def get_node_id():
+    nip = request.args.get('nip')
+
+    # nip에 해당하는 nid 찾기
+    node = db.session.query(Node_info).filter(Node_info.nip == nip).first()
+
+    if node:
+        return jsonify({"nid": node.nid}), 200
+    else:
+        return jsonify({"error": "Node not found"}), 404
+
+@app.route('/get_aid_by_fnameAndClass', methods=['GET'])
+def get_aid_by_fnameAndClass():
+    filename = request.args.get('filename')
+    ai_class = request.args.get('class')
+
+    ai_inform = db.session.query(AI_uploaded.aid).filter(AI_uploaded.filename == filename,
+    AI_uploaded.ai_class == ai_class).first()
+
+
+    if ai_inform:
+        return jsonify({"aid": ai_inform.aid}), 200
+    else:
+        return jsonify({"error": "aid not found"}), 404
 
 # DB
 basdir = os.path.abspath(os.path.dirname(__file__))

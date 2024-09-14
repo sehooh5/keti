@@ -1,4 +1,4 @@
-# Rainy 비오는날 AI
+# Sun 맑은날 AI
 
 import psutil
 import requests
@@ -30,7 +30,7 @@ def cpu_mem_sending():
         "username": username,
         "cpu": cpu_percent,
         "memory": memory_percent,
-        "func": "RAINY"
+        "ai_class": "01"
     }
     json_data = json.dumps(data)
 
