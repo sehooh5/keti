@@ -294,3 +294,15 @@
 - Vercel 적용방법 자세히
 - Django to Flask
 
+
+
+#### 0914
+
+- Django -> Flask 시작
+- 
+
+
+
+#### 0915
+
+- AWS - Dev Server 연동 시작
