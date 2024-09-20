@@ -1392,6 +1392,34 @@ v1.30.3
 
 - 30초마다 최적화(완료)
 
+- optimize_server_bp
+
+  ```
+  # error message
+  
+  8.0.21 - - [20/Sep/2024 11:39:54] "POST /usage/ HTTP/1.1" 500 -
+  192.168.0.21 - - [20/Sep/2024 11:39:55] "POST /save_edgeData HTTP/1.1" 404 -
+  192.168.0.21 - - [20/Sep/2024 11:39:56] "POST /usage HTTP/1.1" 308 -
+  [2024-09-20 11:39:56,221] ERROR in app: Exception on /usage/ [POST]
+  Traceback (most recent call last):
+    File "/home/edge-master-01/.local/lib/python3.8/site-packages/flask/app.py", line 1455, in wsgi_app
+      response = self.full_dispatch_request()
+    File "/home/edge-master-01/.local/lib/python3.8/site-packages/flask/app.py", line 869, in full_dispatch_request
+      rv = self.handle_user_exception(e)
+    File "/home/edge-master-01/.local/lib/python3.8/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+      return cors_after_request(app.make_response(f(*args, **kwargs)))
+    File "/home/edge-master-01/.local/lib/python3.8/site-packages/flask/app.py", line 867, in full_dispatch_request
+      rv = self.dispatch_request()
+    File "/home/edge-master-01/.local/lib/python3.8/site-packages/flask/app.py", line 852, in dispatch_request
+      return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+    File "/home/edge-master-01/keti/Project6/3rd/server_optimize/routes/usage.py", line 9, in usage
+      username = json_data['username']
+  TypeError: string indices must be integers
+  
+  ```
+
+  
+
 
 
 - **API 정보**

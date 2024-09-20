@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+import json
 import response
 
 weather_bp = Blueprint('weather', __name__)
@@ -10,7 +11,7 @@ def optimize_by_weather():
         if not data:
             raise ValueError("No JSON data received")
 
-        json_data = data
+        json_data = json.loads(data)
         nid = json_data.get('nid')
         cpu = json_data.get('cpu')
         memory = json_data.get('memory')
