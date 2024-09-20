@@ -1,7 +1,7 @@
 from flask import Blueprint, request, current_app
 import requests
 import json
-from ..utils import response
+from utils import response
 
 edge_bp = Blueprint('edge', __name__)
 
