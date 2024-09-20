@@ -2,6 +2,8 @@ from flask import Blueprint, request
 import requests
 import json
 
+from optimize_server_bp import SETUP_API_URL
+
 edge_bp = Blueprint('edge', __name__)
 
 @edge_bp.route('/', methods=['POST'])

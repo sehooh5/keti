@@ -14,9 +14,6 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
 
-# 랜덤한 문자열 생성기
-_LENGTH = 4
-string_pool = string.ascii_letters + string.digits
 
 SETUP_API_URL = "http://192.168.0.9:5230"
 
