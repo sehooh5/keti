@@ -3,7 +3,7 @@ import json
 
 usage_bp = Blueprint('usage', __name__)
 
-@usage_bp.route('/', methods=['POST'])
+@usage_bp.route('/usage', methods=['POST'])
 def usage():
     data = request.get_json(silent=True)
     json_data = json.loads(data)
