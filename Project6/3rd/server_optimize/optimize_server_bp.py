@@ -7,7 +7,7 @@ from routes.usage import usage_bp
 app = Flask(__name__)
 CORS(app)
 
-SETUP_API_URL = "http://192.168.0.9:5230"
+app.config['SETUP_API_URL'] = "http://192.168.0.9:5230"
 
 # Blueprint 등록
 app.register_blueprint(weather_bp, url_prefix='/optimize_by_weather')

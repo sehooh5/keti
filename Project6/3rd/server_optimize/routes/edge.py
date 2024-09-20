@@ -2,7 +2,7 @@ from flask import Blueprint, request
 import requests
 import json
 
-from optimize_server_bp import SETUP_API_URL
+SETUP_API_URL = current_app.config['SETUP_API_URL']
 
 edge_bp = Blueprint('edge', __name__)
 
