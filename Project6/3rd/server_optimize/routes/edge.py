@@ -1,7 +1,7 @@
 from flask import Blueprint, request, current_app
 import requests
 import json
-from .custom_response import message
+from ..utils import response
 
 edge_bp = Blueprint('edge', __name__)
 
@@ -59,4 +59,4 @@ def save_edgeData():
             print(f"Deploy a new [AI : {filename} / Class : {res_class}]......")
             requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
 
-    return message('0000')
+    return response.message('0000')
