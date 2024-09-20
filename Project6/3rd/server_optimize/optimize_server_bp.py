@@ -8,8 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Blueprint 등록
-app.register_blueprint(weather_bp, url_prefix='/weather')
-app.register_blueprint(edge_bp, url_prefix='/edge')
+app.register_blueprint(weather_bp, url_prefix='/optimize_by_weather')
+app.register_blueprint(edge_bp, url_prefix='/save_edgeData')
 app.register_blueprint(usage_bp, url_prefix='/usage')
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ import json
 
 edge_bp = Blueprint('edge', __name__)
 
-@edge_bp.route('/save_edgeData', methods=['POST'])
+@edge_bp.route('/', methods=['POST'])
 def save_edgeData():
     nip = request.remote_addr
     res = requests.get(f"http://192.168.0.9:5230/get_nid_by_ip?nip={nip}")

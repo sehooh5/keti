@@ -4,7 +4,7 @@ import response
 
 weather_bp = Blueprint('weather', __name__)
 
-@weather_bp.route('/optimize_by_weather', methods=['POST'])
+@weather_bp.route('/', methods=['POST'])
 def optimize_by_weather():
     try:
         data = request.get_json(silent=True)
