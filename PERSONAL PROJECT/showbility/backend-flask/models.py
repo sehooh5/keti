@@ -11,7 +11,6 @@ import os
 Base = declarative_base()
 db = SQLAlchemy()
 
-# 중간 테이블 생성 (ManyToMany 관계 처리)
 category_tag_table = Table('category_tag', Base.metadata,
                            Column('category_id', Integer, ForeignKey('category.id')),
                            Column('tag_id', Integer, ForeignKey('tag.id'))
