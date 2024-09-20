@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 import requests
 import json
 
@@ -7,7 +7,7 @@ edge_bp = Blueprint('edge', __name__)
 @edge_bp.route('/', methods=['POST'])
 def save_edgeData():
     SETUP_API_URL = current_app.config['SETUP_API_URL']
-    
+
     nip = request.remote_addr
     res = requests.get(f"http://192.168.0.9:5230/get_nid_by_ip?nip={nip}")
     if res.status_code == 200:
