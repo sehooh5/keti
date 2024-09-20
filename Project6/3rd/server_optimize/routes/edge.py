@@ -34,7 +34,7 @@ def save_edgeData():
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
-        print(ai_class)
+
         if ai_class != "00" and ai_class != res_class:
             print(f"[AI : {filename} / Class : {ai_class}] AI Optimizing.........")
             # res_class에 맞는 AI 재배포 / aid, nid 필요
