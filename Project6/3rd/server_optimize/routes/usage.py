@@ -5,8 +5,10 @@ usage_bp = Blueprint('usage', __name__)
 
 @usage_bp.route('/usage', methods=['POST'])
 def usage():
+    print("hell usage") #
     data = request.get_json(silent=True)
     json_data = json.loads(data)
+    print(json_data) #
 
     username = json_data['username']
     cpu_usage = json_data['cpu']
