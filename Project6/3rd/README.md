@@ -1427,7 +1427,10 @@ v1.30.3
   - 배포 진행해야함
     - 도커 컨테이너부터 생성하고 잘 돌아가는지 확인 필요
 
+#### 0924
 
+- Cloud Native Korea community Day 2024 참여
+  - kubeflow, MLops 적용
 
 - **API 정보**
 
