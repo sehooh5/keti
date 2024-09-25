@@ -330,18 +330,34 @@
 
 
 
+#### 0925
+
+- fastapi 변경으로 다시 시작
+- poertry
+- DB 고려해보기
+  - turso
+  - neon
+  - supabase
+  - drizzle
+
 
 
 #### 전환 일정
 
-- flask
+-  fastapi 전환
+  - FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포
 
-  - Settings.py 완료
+
+
+- flask -> fastapi 도입
+- Settings.py 완료
   - util 옮기기 완료
   - routes 옮기기 시작
-- models 옮기기 시작
-    - ExtendUser완료
+  - models 옮기기 시작
+  - ExtendUser완료
   
+
+
 
 
 

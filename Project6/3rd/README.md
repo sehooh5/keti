@@ -77,7 +77,21 @@
 
 ### [클러스터 구성]
 
-- **Master**
+- **Master(New)**
+
+  - Name : worker3(worker3-NUC11TNKi5)
+
+  - IP : 192.168.0.15
+
+    ```
+    # ssh 접속 / keti1234
+    
+    ssh worker3@192.168.0.15
+    ```
+
+    
+
+- ~~**Master(기존)**~~
 
   - Name : keti-orin-02(keti-jx-02)
 
@@ -211,6 +225,7 @@
   - rtsp://root:keti@192.168.0.93/onvif-media/media.amp
   - rtsp://root:keti@192.168.0.94/onvif-media/media.amp
   - rtsp://root:keti@192.168.0.96/onvif-media/media.amp
+  - rtsp://root:root@192.168.0.12/axis-media/media.amp
 
 
 
@@ -1445,6 +1460,15 @@ v1.30.3
   - 이제까지 완성된 것
 - 현재 pod 은 다 삭제
   - weather ai 배포하기
+
+
+
+#### 0926
+
+- 클러스터 세팅 다시해야함
+  - Master : orint -> MiniPC
+  - Edge : 기존 인텔리빅스 사용 1
+  - 최적화 : 그대로 사용
 - **Flask -> FastAPI 로 변경해보자**
   - 비동기처리, 속도 강점
   - 많은 요청 처리에 좋음
