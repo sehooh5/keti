@@ -345,7 +345,11 @@
 #### 전환 일정
 
 -  fastapi 전환
-  - FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포
+  - 아래 내용은 기존 Django의 파일이야. FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포하는 프로젝트로 전환하려는데 어떻게 바꿀수있어?
+  - 전환(아래부터)
+    - manage.py : 변경하지 않음
+    - asgi, wisg.py : 변경하지 않음
+    - urls.py : 
 
 
 
