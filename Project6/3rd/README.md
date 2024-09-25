@@ -1449,7 +1449,10 @@ v1.30.3
 
 
 
+#### 0924
 
+- Cloud Native Korea community Day 2024 참여
+  - kubeflow, MLops 적용
 
 - **API 정보**
 
