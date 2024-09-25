@@ -22,8 +22,23 @@ def save_edgeData():
     json_data = json.loads(data)
 
     created_at = json_data['created_at']
-    res_class = json_data['res_class']
+    res_class_str = json_data['res_class']
     res_confidence = json_data['res_confidence']
+
+    if res_class_str == '맑음':
+        res_class = "01"
+    if res_class_str == '비':
+        res_class = "02"
+    if res_class_str == '흐림':
+        res_class = "03"
+    if res_class_str == '눈':
+        res_class = "04"
+    if res_class_str == '일출':
+        res_class = "05"
+    if res_class_str == '천둥':
+        res_class = "06"
+#   res_class_str = '맑음', '비', '흐림', '눈', '일출', '천둥'
+#   res_class =     '01' , '02', '03',  '04', '05',  '06'
 
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")

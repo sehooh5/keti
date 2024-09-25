@@ -314,6 +314,24 @@
 
 
 
+#### 0923
+
+- routes 옮기기 시작
+- models 옮기기 시작
+  - customusermanager 옴겨야함 완료
+  - 나머지 옮기기 시작
+
+
+
+#### 0924
+
+- models 
+  - ExtendUser 이후 옮기기 시작
+
+
+
+
+
 #### 전환 일정
 
 - flask
@@ -321,5 +339,13 @@
   - Settings.py 완료
   - util 옮기기 완료
   - routes 옮기기 시작
-
+- models 옮기기 시작
+    - ExtendUser완료
   
+
+
+
+
+
+
+
