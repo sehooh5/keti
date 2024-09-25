@@ -1432,6 +1432,13 @@ v1.30.3
 
 
 
+#### 0924
+
+- Cloud Native Korea community Day 2024 참여
+  - kubeflow, MLops 적용
+
+
+
 #### 0925
 
 - 회의 자료 만들기
@@ -1446,13 +1453,6 @@ v1.30.3
     - 새로운 버전의 AI 가 업로드되면 자동으로 인식해서 최적화해주는 시나리오
 
 
-
-
-
-#### 0924
-
-- Cloud Native Korea community Day 2024 참여
-  - kubeflow, MLops 적용
 
 - **API 정보**
 
