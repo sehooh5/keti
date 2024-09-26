@@ -337,8 +337,14 @@
 - DB 고려해보기
   - turso
   - neon
-  - supabase
+  - **supabase** : 유력
   - drizzle
+
+#### 0926
+
+- fastapi로 변경중
+  - urls.py 옮기는중
+    - 라우터 설정은 거의 끝났고 로직 부분 정의하면 될듯
 
 
 
@@ -349,7 +355,7 @@
   - 전환(아래부터)
     - manage.py : 변경하지 않음
     - asgi, wisg.py : 변경하지 않음
-    - urls.py : 
+    - urls.py : 변경하는중 0925
 
 
 
