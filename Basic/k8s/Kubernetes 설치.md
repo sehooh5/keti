@@ -2,8 +2,8 @@
 
 ## Kubernetes 설치
 
-- **Version : 1.29**
-  - 레거시 패키지 저장소( `apt.kubernetes.io`)가 변경됨 -> [`pkgs.k8s.io`](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/)**
+- v1.30.3
+  - Version : 1.29 부터 레거시 패키지 저장소( `apt.kubernetes.io`)가 변경됨 -> **[`pkgs.k8s.io`](https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/)**
 
 
 
@@ -20,7 +20,7 @@ sudo apt-get install -y apt-transport-https ca-certificates curl
 #### Kubernetes 패키지 저장소의 공개 서명 키 다운로드
 
 ```bash
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.27/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 ```
 
 
@@ -28,11 +28,8 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.27/deb/Release.key | sudo gpg --
 #### Kubernetes `apt`저장소를 추가
 
 ```bash
-# 1.27 Version
-#echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.27/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# 1.29 Version
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
 
 
@@ -40,37 +37,9 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 #### kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정
 
 ```bash
-sudo apt-mark hold kubelet kubeadm kubectl
-```
-
-
-
-
-
-
-
-- **Version : 1.14**
-
-
-
-### 신뢰할 수 있는 APT 키 추가
-
-```bash
-$ sudo apt install apt-transport-https
-$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-```
-
-
-
-### Repository 추가 및 Kubernetes 설치
-
-```bash
-# Repository 추가
-$ cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
 $ sudo apt-get update
 $ sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-get install -y kubelet=1.30.3 kubeadm=1.30.3 kubectl=1.30.3
 # 패키지가 자동으로 설치, 업그레이드, 제거되지 않도록 hold함.
 $ sudo apt-mark hold kubelet kubeadm kubectl
 # 설치 완료 확인
@@ -86,6 +55,8 @@ $ kubectl version
 ```
 # sysctl net.bridge.bridge-nf-call-iptables=1
 ```
+
+
 
 
 
@@ -108,7 +79,7 @@ $ kubectl version
 
 ```bash
 # Master 노드 생성 명령어
-$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.14
+$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.15
 
 # 셋업 성공 메시지
 [init] Using Kubernetes version: v1.16.3
@@ -148,7 +119,7 @@ kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
 # vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
 
 - 아래 내용 추가
-Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
+Environment="KUBELET_CGROUP_ARGS=–cgroup-driver=systemd"
 ```
 
 - 아래와 같은 에러 발생 시 대처
@@ -179,9 +150,9 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 - 다음 명령어 실행로 `kubectl`권한 설정
 
   ```bash
-  $ mkdir -p $HOME/.kube
-  $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
 - `admin.conf` 파일은 `kubeadm init` 명령어 수행했을 때 생성
@@ -196,7 +167,7 @@ Environment=”KUBELET_CGROUP_ARGS=–cgroup-driver=systemd”
 - Pod 이 서로 통신할 수 있도록 Network Add-on(여기선 Flannel)을 설치한다
 
 ```bash
-$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 
 
@@ -395,7 +366,7 @@ $ umount /var/lib/docker/volumes
 
 # sudo kubeadm reset
 
-$ systemctl restart kubelet
+$ sudo systemctl restart kubelet
 
 
 

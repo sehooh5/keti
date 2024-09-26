@@ -79,6 +79,26 @@
 
 - **Master(New)**
 
+  - Name : edge-worker-01
+
+  - IP : 192.168.0.9
+
+    ```
+    # ssh 접속
+    
+    ssh edge-worker-01@192.168.0.9
+    ```
+
+  - 클러스터링 명령
+
+    ```
+    kubeadm join 192.168.0.9:6443 --token 5mfxs0.fafg1mwjv4p6q66w --discovery-token-ca-cert-hash sha256:5fb74dffd685de3e71a653a0a9c0715d3fa8d1a88fb1698f0b0c0a76dcba7a6b
+    ```
+
+    
+
+  - 
+
   - Name : worker3(worker3-NUC11TNKi5)
 
   - IP : 192.168.0.15
@@ -124,6 +144,12 @@
 
   - IP : 192.168.0.21
 
+    ```
+    # ssh 접속 / admin1234!
+    
+    ssh intellivix@192.168.0.21
+    ```
+
   - - JSON 형태 정보 예시 : 
 
       ```json
@@ -145,10 +171,19 @@
 
   
 
-- **Worker2**
+- **Worker2**(내가 사용할것)
 
   - Name : intellivix-worker-02(intellivix)
+  
   - IP : 192.168.0.19
+  
+    ```
+    # ssh 접속 / admin1234!
+    
+    ssh intellivix@192.168.0.19
+    ```
+  
+    
 
 
 
@@ -200,8 +235,19 @@
 ### [등록, 설정 서버]
 
 - Name : edge-worker-01
+
 - IP : 192.168.0.9
+
+  ```
+  # ssh 접속
+  
+  ssh edge-worker-01@192.168.0.9
+  ```
+
+  
+
 - 등록, 설정 서버
+  
   - 기능 : Master 서버에 업로드, 배포, 클러스터링 등 명령,  DB
 
 
@@ -868,7 +914,7 @@ v1.30.3
 
   ```
   # master 실행문
-  sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.4
+  sudo kubeadm init --node-name opt-master --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.15
   
   # 192.168.0.21
   sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-01 --token 4is1yr.jiwj6x16ba0fwwbr --discovery-token-ca-cert-hash sha256:ee35f3a2b1bfcc6d657266488e6b15791e2f0d2ff177fa6ce3627315f15565cb
@@ -876,7 +922,9 @@ v1.30.3
   # 192.168.0.19
   sudo kubeadm join 192.168.0.4:6443 --node-name intellivix-worker-02 --token 4is1yr.jiwj6x16ba0fwwbr --discovery-token-ca-cert-hash sha256:ee35f3a2b1bfcc6d657266488e6b15791e2f0d2ff177fa6ce3627315f15565cb
   
-                                                                                    mkdir -p $HOME/.kube                                                             sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config                         sudo chown $(id -u):$(id -g) $HOME/.kube/config 
+                                                                                    mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
                                                                                     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml 
                                                                                    
   ```
@@ -1469,12 +1517,19 @@ v1.30.3
   - Master : orint -> MiniPC
   - Edge : 기존 인텔리빅스 사용 1
   - 최적화 : 그대로 사용
+  - 셋업서버 : 그대로 사용
 - **Flask -> FastAPI 로 변경해보자**
   - 비동기처리, 속도 강점
   - 많은 요청 처리에 좋음
 - 시나리오 1개 추가
   - **AI 버전정보에 따른 최적화**
     - 새로운 버전의 AI 가 업로드되면 자동으로 인식해서 최적화해주는 시나리오
+
+
+
+#### 0927
+
+- 마스터 설정이 잘 안됨.......
 
 
 
