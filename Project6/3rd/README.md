@@ -79,34 +79,24 @@
 
 - **Master(New)**
 
-  - Name : edge-worker-01
+  - Name : edge-m-01(edgem01-NUC11TNKi5)
 
-  - IP : 192.168.0.9
+  - IP : 192.168.0.15
 
     ```
-    # ssh 접속
+    # ssh 접속 / keti
     
-    ssh edge-worker-01@192.168.0.9
+    ssh edge-m-01@192.168.0.15
     ```
 
   - 클러스터링 명령
 
     ```
-    kubeadm join 192.168.0.9:6443 --token 5mfxs0.fafg1mwjv4p6q66w --discovery-token-ca-cert-hash sha256:5fb74dffd685de3e71a653a0a9c0715d3fa8d1a88fb1698f0b0c0a76dcba7a6b
-    ```
-
+    # master 실행문
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.15
     
-
-  - 
-
-  - Name : worker3(worker3-NUC11TNKi5)
-
-  - IP : 192.168.0.15
-
-    ```
-    # ssh 접속 / keti1234
-    
-    ssh worker3@192.168.0.15
+    # worker 실행문
+    sudo kubeadm join 192.168.0.15:6443 --token qxpxa7.db51bk2m5ge80kpx --discovery-token-ca-cert-hash sha256:fdd4fc4f5a0dc19ce6ffde2cb5410e3c3c8e4df2bb1e0d7dc1c912633eac0b0d 
     ```
 
     
@@ -1529,7 +1519,24 @@ v1.30.3
 
 #### 0927
 
-- 마스터 설정이 잘 안됨.......
+- 클러스터 구성하기
+  - 마스터 설치가 잘 안됨
+  - 마스터 한번밀고 설치완료!
+- **Flask -> FastAPI 로 변경해보자**
+  - 비동기처리, 속도 강점
+  - 많은 요청 처리에 좋음
+
+
+
+#### 0930
+
+- 시나리오 1개 추가
+  - **AI 버전정보에 따른 최적화**
+    - 새로운 버전의 AI 가 업로드되면 자동으로 인식해서 최적화해주는 시나리오
+- 서박사님 AI 컨테이너화
+- **Flask -> FastAPI 로 변경해보자(다 되면)**
+  - 비동기처리, 속도 강점
+  - 많은 요청 처리에 좋음
 
 
 
