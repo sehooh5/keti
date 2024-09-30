@@ -118,15 +118,18 @@ kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
 ### **여기서 자꾸 에러가 떠서 진행이 안되엇다
 
 - 도커와 kubernetes간 cgroup 이 일치하지 않아서 그럼, `systemd`로 변경했는데도 안되서 아래 내용을 추가해봤다
+
 - 아래 명령어 실행하여 해당 내용 추가
 
-```
-- 10-kobeadm.conf 내용 변경
-# vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
+  ```
+  - 10-kobeadm.conf 내용 변경
+  # vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
+  
+  - 아래 내용 추가
+  Environment="KUBELET_CGROUP_ARGS=–cgroup-driver=systemd"
+  ```
 
-- 아래 내용 추가
-Environment="KUBELET_CGROUP_ARGS=–cgroup-driver=systemd"
-```
+  
 
 - 아래와 같은 에러 발생 시 대처
 
