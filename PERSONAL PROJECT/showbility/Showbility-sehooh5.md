@@ -359,20 +359,23 @@
 #### 전환 일정
 
 -  fastapi 전환
-  - 아래 내용은 기존 Django의 파일이야. FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포하는 프로젝트로 전환하려는데 어떻게 바꿀수있어?
+  - 기존 Django의 model 파일의 일부야. FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포하는 프로젝트로 전환하려는데 어떻게 바꿀수있어?
   - 전환(아래부터)
     - manage.py : 변경하지 않음
     - asgi, wisg.py : 변경하지 않음
-    - urls.py : 변경하는중 0925
+    - urls.py : 변경중 0930
+    - models.py : 변경중
+      - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
+      - 모델 더 추가해야되고 현재는 ExtendUser 처리중
 
 
 
-- flask -> fastapi 도입
-- Settings.py 완료
-  - util 옮기기 완료
-  - routes 옮기기 시작
-  - models 옮기기 시작
-  - ExtendUser완료
+- ~~flask -> fastapi 도입~~
+- ~~Settings.py 완료~~
+  - ~~util 옮기기 완료~~
+  - ~~routes 옮기기 시작~~
+  - ~~models 옮기기 시작~~
+  - ~~ExtendUser완료~~
   
 
 
