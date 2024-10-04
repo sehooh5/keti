@@ -1,7 +1,7 @@
 # FastAPI project with Vercel
 
 - FastAPI 프로젝트를 Vercel에서 운영할 때 기본 틀 잡기
-- DB : Supabase
+- DB : turso
 
 
 
@@ -213,3 +213,115 @@ python-dotenv
 ### 5. 실시간 기능 추가
 인스타그램 같은 소셜 플랫폼에서는 실시간 알림이나 채팅 기능이 중요한데, Supabase의 실시간 데이터베이스 동기화를 활용하거나, FastAPI의 WebSocket을 이용해 채팅 기능을 구현가능
 
+
+
+### 6. 이미지 업로드
+
+1. **이미지를 서버에 업로드**
+2. **이미지를 파일 시스템이나 클라우드 스토리지에 저장**
+3. **이미지의 경로(URL)을 데이터베이스에 저장**
+
+### 1. **파일 업로드 경로 설정 (FastAPI)**
+
+먼저, FastAPI를 사용하여 클라이언트가 이미지를 업로드할 수 있도록 설정합니다.
+
+```python
+from fastapi import FastAPI, File, UploadFile
+import shutil
+import os
+
+app = FastAPI()
+
+# 이미지 업로드 경로 설정
+UPLOAD_DIRECTORY = "./uploaded_images/"
+
+# 업로드 디렉토리가 없을 경우 생성
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
+
+@app.post("/upload-image/")
+async def upload_image(image: UploadFile = File(...)):
+    # 파일을 저장할 경로 설정
+    file_location = os.path.join(UPLOAD_DIRECTORY, image.filename)
+    
+    # 파일을 서버에 저장
+    with open(file_location, "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    
+    return {"info": f"file '{image.filename}' saved at '{file_location}'"}
+```
+
+### 2. **이미지 경로를 Turso (SQLite) DB에 저장**
+
+이미지가 서버에 저장된 후, 해당 이미지의 경로를 데이터베이스에 저장합니다. 여기서는 SQLAlchemy를 사용하여 Turso와 연동된 데이터베이스에 이미지를 저장하는 모델을 정의합니다.
+
+```python
+from sqlalchemy import Column, Integer, String
+from database import Base, engine, SessionLocal
+
+# 데이터베이스 모델 정의
+class ImageModel(Base):
+    __tablename__ = "images"
+
+    id = Column(Integer, primary_key=True, index=True)
+    filename = Column(String, unique=True)
+    filepath = Column(String)
+
+# 데이터베이스 테이블 생성
+Base.metadata.create_all(bind=engine)
+
+# 데이터베이스에 이미지 경로 저장하는 함수
+def save_image_to_db(filename: str, filepath: str):
+    db = SessionLocal()
+    new_image = ImageModel(filename=filename, filepath=filepath)
+    db.add(new_image)
+    db.commit()
+    db.refresh(new_image)
+    db.close()
+    return new_image
+```
+
+### 3. **파일 업로드 및 DB 저장 통합**
+
+이미지 파일을 업로드하고, 그 경로를 데이터베이스에 저장하는 통합 로직을 만듭니다.
+
+```python
+@app.post("/upload-image/")
+async def upload_image(image: UploadFile = File(...)):
+    file_location = os.path.join(UPLOAD_DIRECTORY, image.filename)
+    
+    # 이미지 파일 저장
+    with open(file_location, "wb") as buffer:
+        shutil.copyfileobj(image.file, buffer)
+    
+    # 이미지 경로를 데이터베이스에 저장
+    image_in_db = save_image_to_db(filename=image.filename, filepath=file_location)
+    
+    return {"info": f"file '{image.filename}' saved at '{file_location}'", "db_record": image_in_db.id}
+```
+
+### 4. **이미지 조회**
+
+이미지를 조회하는 API를 추가하여 저장된 이미지를 서버에서 다시 확인할 수 있도록 합니다.
+
+```python
+from fastapi.responses import FileResponse
+
+@app.get("/images/{image_id}")
+async def get_image(image_id: int):
+    db = SessionLocal()
+    image_record = db.query(ImageModel).filter(ImageModel.id == image_id).first()
+    
+    if image_record:
+        return FileResponse(image_record.filepath)
+    return {"error": "Image not found"}
+```
+
+### 5. **결론**
+- **이미지 파일 저장**: 이미지를 서버에 업로드하고 파일 시스템에 저장합니다.
+- **이미지 경로를 DB에 저장**: 이미지 파일이 저장된 경로와 파일명을 데이터베이스에 저장하여, 나중에 해당 이미지를 조회할 수 있도록 합니다.
+- **이미지 조회**: 저장된 이미지를 URL로 접근하거나 제공할 수 있도록 설정합니다.
+
+### 추가 참고사항:
+- **클라우드 스토리지**: 파일 시스템 대신 AWS S3와 같은 클라우드 스토리지에 이미지를 저장하고 URL만 DB에 저장할 수도 있습니다.
+- **파일명 중복**: 업로드되는 파일의 파일명을 UUID 등의 방식으로 고유하게 변경하여 중복 문제를 방지하는 것도 고려해야 합니다.

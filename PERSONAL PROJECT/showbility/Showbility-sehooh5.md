@@ -367,6 +367,12 @@
 
 
 
+#### 1004
+
+- DB 변경
+  - supabase -> turso
+- uuid 사용할지 확인
+
 
 
 #### 전환 일정
@@ -382,6 +388,7 @@
       - 완료
     - /auth/apple.py : 인증 관련 완료
     - config : 일단 완료
+    - permissions.py : 다시 검토해봐야함
 
 
 
