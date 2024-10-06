@@ -449,10 +449,7 @@
     
     - views : 전환중
     
-      - create
-      - delete
-      - reset pw
-      - email vali, re
+      - my, serializer, permission빼고 완료
 
 
 
