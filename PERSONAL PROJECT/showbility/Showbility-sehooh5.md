@@ -25,6 +25,36 @@
 
 
 
+## Setting
+
+- python 3.9.6
+
+  - packages : 
+
+    ```
+    pip3 install 
+    
+    fastapi uvicorn sqlalchemy databases python-dotenv libsql-experimental
+    sqlalchemy-libsql
+    
+    ```
+
+
+
+- DB
+
+  - Turso
+
+    - Download : 
+
+      ```
+      brew install tursodatabase/tap/turso
+      ```
+
+
+
+- 
+
 
 
 ## Study or Survey
@@ -356,7 +386,8 @@
 
 #### 1001
 
-- model 변경 계속 진행
+- model 변경 완료
+- pedantic - schema 시작
 
 
 
@@ -372,8 +403,12 @@
     - urls.py : 변경중 0930
     - models.py : 변경중
       - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
+      
+      - ### **!!파일 처리부분 FastAPI에 맞게 설정해줘야함**
+      
       - 완료
-    - 
+      
+    - pydantic : 변경 시작
 
 
 
