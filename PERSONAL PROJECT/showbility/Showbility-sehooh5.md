@@ -35,7 +35,7 @@
     pip3 install 
     
     fastapi uvicorn sqlalchemy databases python-dotenv libsql-experimental
-    sqlalchemy-libsql
+    sqlalchemy-libsql passlib
     
     ```
 
@@ -391,6 +391,34 @@
 
 
 
+#### 1002
+
+- 오늘은 쇼빌 위주로 진행
+  - 전체적으로 어떻게 전환하면 좋을지 다시 확인해서 진행
+
+
+
+#### 1004
+
+- DB 변경
+  - supabase -> turso
+
+
+
+#### 1005
+
+- model, schema, crud 검토
+- views 전환중
+  - crud : db 
+  - schema - 어떤 원리인지? 기본주터 다시 알아야할듯
+
+
+
+#### 1006
+
+- view 계속 진행중
+  - user part
+
 
 
 #### 전환 일정
@@ -399,16 +427,32 @@
   - 기존 Django의 model 파일의 일부야. FastAPI로 인스타그램 같은 공유 플랫폼을 만들고 Supabase 를 사용하고 vercel에 배포하는 프로젝트로 전환하려는데 어떻게 바꿀수있어?
   - 전환(아래부터)
     - manage.py : 변경하지 않음
+    
     - asgi, wisg.py : 변경하지 않음
+    
     - urls.py : 변경중 0930
+    
     - models.py : 변경중
       - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
       
       - ### **!!파일 처리부분 FastAPI에 맞게 설정해줘야함**
       
       - 완료
-      
-    - pydantic : 변경 시작
+
+    - ##### pydantic : 변경 시작
+    
+    - /auth/apple.py : 인증 관련 완료
+    
+    - config : 일단 완료
+    
+    - permissions.py : 다시 검토해봐야함
+    
+    - views : 전환중
+    
+      - create
+      - delete
+      - reset pw
+      - email vali, re
 
 
 
