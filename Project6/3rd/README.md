@@ -99,6 +99,16 @@
     sudo kubeadm join 192.168.0.15:6443 --token qxpxa7.db51bk2m5ge80kpx --discovery-token-ca-cert-hash sha256:fdd4fc4f5a0dc19ce6ffde2cb5410e3c3c8e4df2bb1e0d7dc1c912633eac0b0d 
     ```
 
+  - 초기세팅 다운로드
+
+    ```
+    sudo apt install 
+    
+    python3-pip
+    ```
+
+    
+
     
 
 - ~~**Master(기존)**~~

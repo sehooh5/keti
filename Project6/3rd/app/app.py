@@ -109,21 +109,16 @@ def add_newEdgeCluster():
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: master server ip: {mip}")
 
-    # 마스터 엣지 구성
     m_output = subprocess.check_output(
         f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip} --node-name {m_name}" , shell=True).decode('utf-8')
 
-    # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = w_input.rstrip()
 
-    # 마스터에서 설정해줘야 하는 내용
-#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
     os.system("mkdir -p $HOME/.kube")
     os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
     command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
 
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
     try:
         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
         print("명령어 실행 성공.")

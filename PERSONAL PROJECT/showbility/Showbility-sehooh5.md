@@ -383,9 +383,9 @@
     - manage.py : 변경하지 않음
     - asgi, wisg.py : 변경하지 않음
     - urls.py : 변경중 0930
-    - models.py : 변경중
+    - models.py : 완료
       - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
-      - 완료
+    - schema : 완료
     - /auth/apple.py : 인증 관련 완료
     - config : 일단 완료
     - permissions.py : 다시 검토해봐야함
