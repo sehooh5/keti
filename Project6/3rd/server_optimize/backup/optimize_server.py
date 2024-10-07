@@ -52,7 +52,32 @@ def optimize_by_weather():
 @ app.route('/optimize_by_version', methods=['POST'])
 def optimize_by_version():
     try:
-### version 체크!!
+        data = request.get_json(silent=True)
+        if data is None:
+            raise ValueError("No JSON data received")
+
+        newAI_json_data = json.loads(data)
+
+        newAI_aid = newAI_json_data.get('aid')
+        newAI_filename = newAI_json_data.get('filename')
+        newAI_version = newAI_json_data.get('version')
+        newAI_ai_class = newAI_json_data.get('ai_class')
+
+        # 등록/설정서버에서 배포된 해당 AI 버전정보 획득
+#참고         aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
+
+        # 배포된 AI중에
+        # filename and ai_class 를 갖는 ai를 찾고
+        # ai의 version을 추출
+        # if : 추출한 ai의 version보다 newAI_version이 높으면(Integer 처리)
+            # 배포된 구버전 AI 삭제
+            # newAI_version 배포 명령
+            # 업로드된 구버전 AI 이미지 삭제
+
+            #### DB 처리 명령
+        # else :
+            # pass
+
         return response.message('0000')
 
     except json.JSONDecodeError:
