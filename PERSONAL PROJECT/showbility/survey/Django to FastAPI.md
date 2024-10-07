@@ -1,5 +1,175 @@
 # Django to FastAPI
 
+Django 프로젝트를 FastAPI와 Turso로 마이그레이션하는 과정은 여러 단계로 나눌 수 있습니다. 다음은 파일 변경 순서와 방법에 대한 가이드입니다:
+
+### 1단계: 프로젝트 구조 설정
+
+1. **FastAPI 프로젝트 초기화**  
+   - 새로운 FastAPI 프로젝트를 생성합니다.
+   - 필요한 라이브러리를 설치합니다:
+     ```bash
+     pip install fastapi uvicorn sqlalchemy turso
+     ```
+
+2. **디렉토리 구조 설정**  
+   ```plaintext
+   your_project/
+   ├── app/
+   │   ├── main.py
+   │   ├── models.py
+   │   ├── crud.py
+   │   ├── routers/
+   │   ├── schemas/
+   │   ├── config.py
+   │   └── utils.py
+   └── requirements.txt
+   ```
+
+### 2단계: 모델 정의
+
+3. **Django 모델을 SQLAlchemy 모델로 변환**  
+   - 기존 Django 모델을 SQLAlchemy 모델로 변환합니다.
+   - `models.py` 파일에 SQLAlchemy ORM을 사용하여 모델을 정의합니다.
+   ```python
+   from sqlalchemy import Column, Integer, String, DateTime
+   from sqlalchemy.ext.declarative import declarative_base
+   
+   Base = declarative_base()
+   
+   class User(Base):
+       __tablename__ = 'users'
+   
+       id = Column(Integer, primary_key=True, index=True)
+       username = Column(String, unique=True, index=True)
+       email = Column(String, unique=True, index=True)
+       # 필요한 다른 필드 추가
+   ```
+
+### 3단계: CRUD 기능 구현
+
+4. **CRUD 함수 정의**  
+   - `crud.py` 파일에 CRUD 기능을 구현합니다.
+   ```python
+   from sqlalchemy.orm import Session
+   from .models import User
+   from .schemas import UserCreate
+   
+   def create_user(db: Session, user: UserCreate):
+       db_user = User(**user.dict())
+       db.add(db_user)
+       db.commit()
+       db.refresh(db_user)
+       return db_user
+   
+   def get_user(db: Session, user_id: int):
+       return db.query(User).filter(User.id == user_id).first()
+   ```
+
+### 4단계: 스키마 정의
+
+5. **Pydantic 스키마 정의**  
+   - `schemas.py` 파일에 Pydantic 스키마를 정의합니다.
+   ```python
+   from pydantic import BaseModel
+   
+   class UserBase(BaseModel):
+       username: str
+       email: str
+   
+   class UserCreate(UserBase):
+       password: str
+   
+   class User(UserBase):
+       id: int
+   
+       class Config:
+           orm_mode = True
+   ```
+
+### 5단계: 라우터 설정
+
+6. **라우터 설정**  
+   - `routers` 폴더에 사용자 라우터를 생성합니다.
+   ```python
+   from fastapi import APIRouter, Depends
+   from sqlalchemy.orm import Session
+   from .. import crud, models, schemas
+   from ..database import get_db
+   
+   router = APIRouter()
+   
+   @router.post("/users/", response_model=schemas.User)
+   def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+       return crud.create_user(db=db, user=user)
+   ```
+
+### 6단계: 데이터베이스 설정
+
+7. **Turso 데이터베이스 설정**  
+   - `config.py` 파일에 Turso 데이터베이스 연결 설정을 추가합니다.
+   ```python
+   from sqlalchemy import create_engine
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import sessionmaker
+   
+   SQLALCHEMY_DATABASE_URL = "turso://<YOUR_TURSO_DATABASE_URL>"
+   engine = create_engine(SQLALCHEMY_DATABASE_URL)
+   SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+   Base = declarative_base()
+   ```
+
+### 7단계: 의존성 주입
+
+8. **데이터베이스 세션 관리**  
+   - `utils.py` 파일에 데이터베이스 세션 관리 함수를 추가합니다.
+   ```python
+   from sqlalchemy.orm import Session
+   from .database import SessionLocal
+   
+   def get_db():
+       db = SessionLocal()
+       try:
+           yield db
+       finally:
+           db.close()
+   ```
+
+### 8단계: FastAPI 앱 설정
+
+9. **FastAPI 애플리케이션 설정**  
+   - `main.py` 파일에서 FastAPI 애플리케이션을 설정합니다.
+   ```python
+   from fastapi import FastAPI
+   from .routers import user
+   
+   app = FastAPI()
+   
+   app.include_router(user.router)
+   ```
+
+### 9단계: 배포 준비
+
+10. **애플리케이션 실행**  
+   - FastAPI 애플리케이션을 실행하여 모든 것이 제대로 작동하는지 확인합니다.
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+### 10단계: 추가 기능 구현
+
+11. **기타 기능 이식**  
+   - Django에서 사용하던 나머지 기능 (인증, 소셜 로그인 등)을 FastAPI로 이식합니다. 이를 위해 FastAPI의 보안 모듈을 활용할 수 있습니다.
+
+### 마무리
+
+이 단계들을 따라 기존 Django 프로젝트를 FastAPI와 Turso로 마이그레이션할 수 있습니다. 각 단계에서는 코드와 문서화를 잘 유지하여, 필요에 따라 리팩토링할 수 있도록 해주세요. 추가적인 질문이 있다면 언제든지 물어보세요!
+
+
+
+
+
+---
+
 
 
 ## 쇼빌 프로젝트에 적용
@@ -183,7 +353,7 @@ Django는 ORM을 기본으로 사용하지만, FastAPI는 SQLAlchemy와 같은 �
 - Django에서 사용하던 모델 필드를 SQLAlchemy의 필드로 바꿔야 하며, 이를 위해 기존 모델을 분석하고 새로운 모델로 작성합니다.
 
 ```
-python코드 복사from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -202,7 +372,7 @@ Django의 `forms.py`에서 사용하는 폼 및 유효성 검사 기능을 FastA
 - Pydantic은 FastAPI에서 데이터를 검증하고 직렬화하는 역할을 합니다.
 
 ```
-python코드 복사from pydantic import BaseModel
+from pydantic import BaseModel
 
 class UserSchema(BaseModel):
     username: str
@@ -215,7 +385,7 @@ class UserSchema(BaseModel):
 - FastAPI에서는 경로를 `@app.get`, `@app.post` 등의 데코레이터로 정의합니다.
 
 ```
-python코드 복사from fastapi import FastAPI
+from fastapi import FastAPI
 
 app = FastAPI()
 
@@ -231,7 +401,7 @@ async def read_user(user_id: int):
 - Django의 `STATIC_URL`과 `MEDIA_URL` 처리 방식을 FastAPI의 `StaticFiles`를 사용하여 구현할 수 있습니다.
 
 ```
-python코드 복사from fastapi.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 ```
@@ -243,7 +413,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 - Flask-JWT-Extended, FastAPI의 `OAuth2PasswordBearer` 등을 사용하여 인증 및 권한 관리를 구축할 수 있습니다.
 
 ```
-python코드 복사from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 ```
@@ -256,7 +426,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 bash
 
 
-코드 복사
 alembic init alembic
 ```
 

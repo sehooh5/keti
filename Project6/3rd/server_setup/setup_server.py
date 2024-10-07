@@ -22,6 +22,7 @@ _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
 MASTER_API_URL = "http://192.168.0.4:5231"
+OPTIMIZE_API_URL = "http://192.168.0.14:6432"
 
 port = "5230"
 
@@ -56,6 +57,9 @@ def request_upload_edgeAi():
     }
 
     requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
+
+    # 최적화 서버에 버전정보 비교 trigger
+    requests.post(f"{OPTIMIZE_API_URL}/optimize_by_version", json=data)
 
     return response.message('0000')
 

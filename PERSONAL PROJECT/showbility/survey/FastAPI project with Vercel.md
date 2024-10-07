@@ -110,7 +110,7 @@ class User(UserBase):
 
 #### `app/crud.py` (CRUD 작업)
 ```python
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Sessionƒ
 from app import models, schemas
 
 def create_user(db: Session, user: schemas.UserCreate):

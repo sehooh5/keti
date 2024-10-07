@@ -49,6 +49,21 @@ def optimize_by_weather():
     except ValueError as e:
         return response.message('9999')
 
+@ app.route('/optimize_by_version', methods=['POST'])
+def optimize_by_version():
+    try:
+### version 체크!!
+        return response.message('0000')
+
+    except json.JSONDecodeError:
+        return response.message('0010')
+
+    except KeyError as e:
+        return response.message('0015')
+
+    except ValueError as e:
+        return response.message('9999')
+
 # - 매초 전달되는 json 파일 저장하기
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
