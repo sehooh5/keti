@@ -102,9 +102,9 @@
   - 초기세팅 다운로드
 
     ```
-    sudo apt install 
+    sudo apt install python3-pip
     
-    python3-pip
+    pip3  install flask
     ```
 
     
@@ -1557,6 +1557,29 @@ v1.30.3
   - AI 버전정보에 따른 최적화
   - 서박사님 AI 컨테이너화
   - Flask -> FastAPI 로 변경
+
+
+
+#### 1008
+
+- 작업 순서
+  - AI 버전정보에 따른 최적화
+    - 코딩 완료
+    - 테스트 필요
+  - 서박사님 AI 컨테이너화
+  - (Flask -> FastAPI 로 변경)
+
+
+
+#### 1010
+
+- 작업 순서
+  - AI 버전정보에 따른 최적화
+    - 테스트 시작
+  - 서박사님 AI 컨테이너화
+  - (Flask -> FastAPI 로 변경)
+
+
 
 
 

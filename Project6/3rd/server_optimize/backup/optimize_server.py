@@ -19,6 +19,7 @@ SETUP_API_URL = "http://192.168.0.9:5230"
 
 port = "6432"
 
+# 현재 안쓰고잇음
 @ app.route('/optimize_by_weather', methods=['POST'])
 def optimize_by_weather():
     try:
@@ -56,27 +57,47 @@ def optimize_by_version():
         if data is None:
             raise ValueError("No JSON data received")
 
+        # 신버전 ai
         newAI_json_data = json.loads(data)
-
         newAI_aid = newAI_json_data.get('aid')
         newAI_filename = newAI_json_data.get('filename')
         newAI_version = newAI_json_data.get('version')
         newAI_ai_class = newAI_json_data.get('ai_class')
 
-        # 등록/설정서버에서 배포된 해당 AI 버전정보 획득
-#참고         aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
+        # 구버전 AI : 등록/설정서버에 업로드된 AI중에 새버전 AI와 같은 filename, ai_class 를 갖는 aid를 찾고
+        aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={filename}&class={res_class}&version={newAI_version}")
+        aid_json_data = json.loads(aid_data)
+        uploaded_aid = aid_json_data.get('aid')
+        uploaded_ai_data = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={uploaded_aid}")
+        uploaded_ai_json_data = uploaded_ai_data.json()
+        uploaded_ai_version = uploaded_ai_json_data.get('version')
+        uploaded_ai_filename = uploaded_ai_json_data.get('filename')
+        uploaded_ai_class = uploaded_ai_json_data.get('ai_class')
 
-        # 배포된 AI중에
-        # filename and ai_class 를 갖는 ai를 찾고
-        # ai의 version을 추출
-        # if : 추출한 ai의 version보다 newAI_version이 높으면(Integer 처리)
-            # 배포된 구버전 AI 삭제
-            # newAI_version 배포 명령
+        if int(uploaded_ai_version) < int(newAI_version):
+            res_list = requests.get(f"{SETUP_API_URL}/get_deployedNodes_by_aid?aid={uploaded_ai_version}")
+            nid_list_json = res_list.json()
+            nid_list = nid_list_json.get('mid_list')
+            for nid in nid_list:
+                old_data = {
+                    "aid": uploaded_aid,
+                    "nid": nid
+                }
+
+                # 구버전 삭제
+                print(f"Delete [AI : {uploaded_ai_filename} / Version : {uploaded_ai_version}]......")
+                requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
+
+                # newAI_version 배포
+                data_optimized = {
+                    "aid": newAI_aid,
+                    "nid": nid
+                }
+                print(f"Deploy a new [AI : {newAI_filename} / Version : {newAI_version}]......")
+                requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
+
             # 업로드된 구버전 AI 이미지 삭제
-
-            #### DB 처리 명령
-        # else :
-            # pass
+            requests.post(f"{SETUP_API_URL}/request_remove_edgeAi", json=old_data)
 
         return response.message('0000')
 
@@ -89,7 +110,7 @@ def optimize_by_version():
     except ValueError as e:
         return response.message('9999')
 
-# - 매초 전달되는 json 파일 저장하기
+# optimize_by_weather
 @app.route('/save_edgeData', methods=['POST'])
 def save_edgeData():
     nip = request.remote_addr

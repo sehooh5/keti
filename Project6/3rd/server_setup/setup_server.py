@@ -156,6 +156,19 @@ def get_deployedAis_by_node():
 
     return json_data
 
+@ app.route('/get_deployedNodes_by_aid', methods=['GET'])
+def get_deployedAis_by_node():
+    aid = request.args.get('aid')
+
+    # DB 정보 획득
+    nid_deployed_list = db.session.query(AI_deployed.nid).filter(AI_deployed.aid == aid).all()
+    nid_list = [result.nid for result in nid_deployed_list]
+
+    data = {"nid_list": nid_list}
+    json_data = json.dumps(data)
+
+    return json_data
+
 @app.route('/get_nid_by_ip', methods=['GET'])
 def get_node_id():
     nip = request.args.get('nip')
@@ -175,6 +188,21 @@ def get_aid_by_fnameAndClass():
 
     ai_inform = db.session.query(AI_uploaded.aid).filter(AI_uploaded.filename == filename,
     AI_uploaded.ai_class == ai_class).first()
+
+
+    if ai_inform:
+        return jsonify({"aid": ai_inform.aid}), 200
+    else:
+        return jsonify({"error": "aid not found"}), 404
+
+@app.route('/get_aid_by_fnameAndClass_not_version', methods=['GET'])
+def get_aid_by_fnameAndClass_not_version():
+    filename = request.args.get('filename')
+    ai_class = request.args.get('class')
+    not_version = request.args.get('version')
+
+    ai_inform = db.session.query(AI_uploaded.aid).filter(AI_uploaded.filename == filename,
+    AI_uploaded.ai_class == ai_class,AI_uploaded.version != not_version).first()
 
 
     if ai_inform:
