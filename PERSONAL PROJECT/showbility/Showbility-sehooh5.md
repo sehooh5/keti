@@ -37,6 +37,8 @@
     fastapi uvicorn sqlalchemy databases python-dotenv libsql-experimental
     sqlalchemy-libsql passlib
     
+    # poetry add
+    poetry add fastapi uvicorn qlalchemy databases alembic pyjwt httpx jinja2 python-dotenv passlib[bcrypt]
     ```
 
 
@@ -48,7 +50,12 @@
     - Download : 
 
       ```
+      # Mac
       brew install tursodatabase/tap/turso
+      
+      # Window
+      curl -sSfL https://get.tur.so/install.sh | bash
+      
       ```
 
 
@@ -419,43 +426,42 @@
 - view 계속 진행중
   - user part
 
+#### 1008
+
+- views
+  - my, serializer, permission 진행
+
+
+
+#### 1010
+
+- 기본세팅 후 버셀에 올리기
+  - config부분 완료
+    - config, prod_config만 사용예정
+  - 이후 기본 틀 main과 env 에 필요한 것들 업로드
+
 
 
 #### 전환 일정
 
 -  fastapi 전환
-  - django view 의 일부와 serializer의 일부야. fastapi의 crud, router, schema로 변환해줘
   - 전환(아래부터)
     - manage.py : 변경하지 않음
-    
     - asgi, wisg.py : 변경하지 않음
-    
     - urls.py : 변경중 0930
-<<<<<<< HEAD
     - models.py : 완료
-      - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
+      - **category 중 이미지 저장 방법을 turso 에 저장하고 url사용하는 방법으로 바꿈**
+        - **!!파일 처리부분 FastAPI에 맞게 설정해줘야함**
     - schema : 완료
-=======
-    
-    - models.py : 변경중
-      - **category 중 이미지 저장 방법을 supabase 에 저장하고 url사용하는 방법으로 바꿈**
-      
-      - ### **!!파일 처리부분 FastAPI에 맞게 설정해줘야함**
-      
       - 완료
-
-    - ##### pydantic : 변경 시작
-    
->>>>>>> 113e8f293399f0278c55371688399df7c031ae20
+    - pydantic : 
     - /auth/apple.py : 인증 관련 완료
-    
     - config : 일단 완료
-    
     - permissions.py : 다시 검토해봐야함
-    
-    - views : 전환중
-    
-      - my, serializer, permission빼고 완료
+
+    - views : 완료
+
+
 
 
 
