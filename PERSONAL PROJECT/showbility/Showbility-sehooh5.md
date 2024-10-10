@@ -438,7 +438,9 @@
 - 기본세팅 후 버셀에 올리기
   - config부분 완료
     - config, prod_config만 사용예정
-  - 이후 기본 틀 main과 env 에 필요한 것들 업로드
+  - 이후 
+    - 기본 틀 main과 env 에 필요한 것들 업로드
+    - turso 업데이트
 
 
 
