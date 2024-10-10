@@ -24,34 +24,34 @@ docker run -d -p 5000:5000 --restart=always --name registry -v /mnt/registry:/va
 
 ```
 # 처음 설정부터 지정 // 127.0.0.1 localhost 사용 가능
-docker build -f DockerfileS -t 192.168.0.4:5000/monitorings:01 .
+docker build -f DockerfileS -t 192.168.0.15:5000/monitorings:01 .
 docker build -f DockerfileS -t 127.0.0.1:5000/monitorings:01 .
 
 # 이미지 태그 변경
-docker tag [이미지]:latest 192.168.0.4:5000/monitorings:01
+docker tag [이미지]:latest 192.168.0.15:5000/monitorings:01
 ```
 
 - 로컬 Docker 이미지를 Private Registry에 푸시하기 위해 이미지를 태그 지정
-  - `[이미지]:latest` 이미지를 `192.168.0.4:5000/[이미지]:latest`로 태그 지정
-- 혹은, 처음 설정부터  `192.168.0.4:5000/[이미지]:latest`로 지정해도 가능
+  - `[이미지]:latest` 이미지를 `192.168.0.15:5000/[이미지]:latest`로 태그 지정
+- 혹은, 처음 설정부터  `192.168.0.15:5000/[이미지]:latest`로 지정해도 가능
 
 
 
 ### 3. Docker 이미지 Push
 
 ```
-docker push 192.168.0.4:5000/monitorings:01
+docker push 192.168.0.15:5000/monitorings:01
 
 # 모든 노드에서 Docker 데몬에 특정 레지스트리에 대해 HTTP를 허용하도록 구성
 sudo vim /etc/docker/daemon.json
 
 # 아래내용 추가
 {
-  "insecure-registries" : ["192.168.0.4:5000"]
+  "insecure-registries" : ["192.168.0.15:5000"]
 }
 
 ## 기존
-{                                                                                                                                                                "runtimes": {                                                                                                                                                    "nvidia": {                                                                                                                                                      "path": "nvidia-container-runtime",                                                                                                                          "runtimeArgs": []                                                                                                                                        }                                                                                                                                                        },                                                                                                                                                           "insecure-registries": ["192.168.0.4:5000"]                                                                                                              }     
+{                                                                                                                                                                "runtimes": {                                                                                                                                                    "nvidia": {                                                                                                                                                      "path": "nvidia-container-runtime",                                                                                                                          "runtimeArgs": []                                                                                                                                        }                                                                                                                                                        },                                                                                                                                                           "insecure-registries": ["192.168.0.15:5000"]                                                                                                              }     
 
 # 도커 재시작
 sudo systemctl restart docker
@@ -64,7 +64,7 @@ sudo systemctl restart docker
 ### 4. Private Registry에서 Docker 이미지 Pull
 
 ```
-docker pull 192.168.0.4:5000/monitorings:01 # 이게 됨
+docker pull 192.168.0.15:5000/monitorings:01 # 이게 됨
 ```
 
 - Private Registry에서 이미지를 Pull
@@ -79,7 +79,7 @@ docker pull 192.168.0.4:5000/monitorings:01 # 이게 됨
 
 ```
 kubectl create secret docker-registry regcred \
-  --docker-server=192.168.0.4:5000 \
+  --docker-server=192.168.0.15:5000 \
   --docker-username=sehooh5 \
   --docker-password=@Dhtpgh1234 \
   --docker-email=sehooh5@gmail.com
@@ -109,7 +109,7 @@ kubectl create secret docker-registry regcred \
       spec:
         containers:
           - name: monitorings
-            image: 192.168.0.4:5000/monitorings:01
+            image: 192.168.0.15:5000/monitorings:01
             imagePullPolicy: Always
             ports:
               - containerPort: 6432
@@ -166,10 +166,10 @@ exit
 ...
 
 [plugins."io.containerd.grpc.v1.cri".registry.configs] # 아래 내용 추가!
-        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".auth]
+        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.15:5000".auth]
           username = "sehooh5"
           password = "@Dhtpgh1234"
-        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.4:5000".tls]
+        [plugins."io.containerd.grpc.v1.cri".registry.configs."192.168.0.15:5000".tls]
           insecure_skip_verify = true
 
 [plugins."io.containerd.grpc.v1.cri".registry.headers] # 추가 X
