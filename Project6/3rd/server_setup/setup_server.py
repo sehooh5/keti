@@ -124,24 +124,24 @@ def request_undeploy_aiFromDevice():
 
     return response.message('0000')
 
-# @ app.route('/get_uploadedAiInfo', methods=['GET'])
-# def get_uploadedAiInfo():
-#     aid = request.args.get('aid')
-#
-#     # DB 정보 획득
-#     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
-#
-#     data = {
-#         "code":"0000",
-#         "message":"처리 성공",
-#         "aid": ai_info.aid,
-#         "filename": ai_info.filename,
-#         "version": ai_info.version,
-#         "ai_class": ai_info.ai_class
-#     }
-#     json_data = json.dumps(data)
-#
-#     return json_data
+@ app.route('/get_uploadedAiInfo', methods=['GET'])
+def get_uploadedAiInfo():
+    aid = request.args.get('aid')
+
+    # DB 정보 획득
+    ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
+
+    data = {
+        "code":"0000",
+        "message":"처리 성공",
+        "aid": ai_info.aid,
+        "filename": ai_info.filename,
+        "version": ai_info.version,
+        "ai_class": ai_info.ai_class
+    }
+    json_data = json.dumps(data)
+
+    return json_data
 
 @ app.route('/get_deployedAis_by_node', methods=['GET'])
 def get_deployedAis_by_node():
@@ -157,7 +157,7 @@ def get_deployedAis_by_node():
     return json_data
 
 @ app.route('/get_deployedNodes_by_aid', methods=['GET'])
-def get_deployedAis_by_node():
+def get_deployedNodes_by_aid():
     aid = request.args.get('aid')
 
     # DB 정보 획득
