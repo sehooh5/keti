@@ -24,7 +24,7 @@ docker run -d -p 5000:5000 --restart=always --name registry -v /mnt/registry:/va
 
 ```
 # 처음 설정부터 지정 // 127.0.0.1 localhost 사용 가능
-docker build -f DockerfileS -t 192.168.0.15:5000/monitorings:01 .
+docker build -f DockerfileS -t 192.168.0.15:5000/monitoring-01:01 .
 docker build -f DockerfileS -t 127.0.0.1:5000/monitorings:01 .
 
 # 이미지 태그 변경
@@ -40,7 +40,7 @@ docker tag [이미지]:latest 192.168.0.15:5000/monitorings:01
 ### 3. Docker 이미지 Push
 
 ```
-docker push 192.168.0.15:5000/monitorings:01
+docker push 192.168.0.15:5000/monitoring-01:01
 
 # 모든 노드에서 Docker 데몬에 특정 레지스트리에 대해 HTTP를 허용하도록 구성
 sudo vim /etc/docker/daemon.json

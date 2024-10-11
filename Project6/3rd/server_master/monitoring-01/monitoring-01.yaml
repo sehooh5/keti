@@ -12,7 +12,7 @@ spec:
       labels:
         app: monitoring-01
     spec:
-      nodeName: intellivix-worker-01
+      nodeName: intellivix-desktop
       containers:
         - name: monitoring-01
           image: 192.168.0.15:5000/monitoring-01:01
