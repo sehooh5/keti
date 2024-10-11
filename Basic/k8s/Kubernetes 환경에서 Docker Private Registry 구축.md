@@ -64,7 +64,7 @@ sudo systemctl restart docker
 ### 4. Private Registry에서 Docker 이미지 Pull
 
 ```
-docker pull 192.168.0.15:5000/monitorings:01 # 이게 됨
+docker pull 192.168.0.15:5000/monitoring-01:01 # 이게 됨
 ```
 
 - Private Registry에서 이미지를 Pull
@@ -153,6 +153,8 @@ mv config.toml config_bkup.toml
 sudo su
 containerd config default > config.toml
 exit
+
+#sudo vim /etc/containerd/config.toml
 ```
 
 
