@@ -108,6 +108,7 @@ def upload_edgeAi():
 
     print(datetime.datetime.now().strftime("%c")[:-4], f"{func}: docker image building...")
     print(f"명령어확인 ----- docker build -t {private_repo}/{filename}-{ai_class}:{version} ./{filename}-{ai_class}")
+    # docker build -t 192.168.0.15:5000/monitoring-01:01 .
     os.system(f"docker build -t {private_repo}/{filename}-{ai_class}:{version} ./{filename}-{ai_class}")
     print("Docker image building completed!!")
 
@@ -193,6 +194,7 @@ def deploy_aiToDevice():
 
 # POD 생성(yaml 파일이 만들어져있는 상태)
 #     os.system(f"kubectl apply -f {filename}-{host_name}.yaml")
+#   kubectl apply -f monitoring-01.yaml
     result = subprocess.run(['kubectl', 'apply', '-f', f'{filename}-{ai_class}/{filename}-{ai_class}.yaml'], capture_output=True, text=True)
     print(result.stdout)
     print(result.stderr)

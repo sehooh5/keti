@@ -127,7 +127,7 @@ Events:                                                                         
 
 - Kubernetes가 Docker Registry에 접근할 때 HTTPS로 접근하려고 시도
 - Docker Registry는 기본적으로 HTTP를 사용하기 때문에 이 문제를 해결하려면 Docker와 Kubernetes가 HTTP로 연결하도록 설정해야 함
-- 아래 내용으로 에러 해결
+- **아래 내용으로 에러 해결**
 
 
 
@@ -177,8 +177,8 @@ exit
 [plugins."io.containerd.grpc.v1.cri".registry.mirrors] # 아래 내용 추가!
         [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
           endpoint = ["https://registry-1.docker.io"]
-        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.0.4:5000"]
-          endpoint = ["http://192.168.0.4:5000"]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."192.168.0.15:5000"]
+          endpoint = ["http://192.168.0.15:5000"]
     
 ...
 ```
