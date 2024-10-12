@@ -35,7 +35,7 @@
     pip3 install 
     
     fastapi uvicorn sqlalchemy databases python-dotenv libsql-experimental
-    sqlalchemy-libsql passlib
+    sqlalchemy-libsql passlib aiosqlite
     
     # poetry add
     poetry add fastapi uvicorn qlalchemy databases alembic pyjwt httpx jinja2 python-dotenv passlib[bcrypt]
@@ -441,6 +441,32 @@
   - 이후 
     - 기본 틀 main과 env 에 필요한 것들 업로드
     - turso 업데이트
+
+
+
+#### 1012
+
+- vercel 기본 세팅 완료
+  - DB 세팅한거 다시 커밋, 푸시 필요
+- 깃헙 
+  - draft
+    - merge 할 pr작업중일 때 열어두는 느낌
+  - branch
+- pipenv install 사용 
+
+
+
+#### 쇼빌리티 방향성
+
+- v2
+- 그룹
+- 페어 참가
+- 특수적인 기능
+  - 채용
+  - 거래
+  - 포트폴리오 AI 제작
+
+
 
 
 
