@@ -456,6 +456,19 @@
 
 
 
+#### 1013
+
+- 기본 fastsapi 예제대로 파일 구성하기
+  - 기초 참고하기 : https://velog.io/@crosstar1228/FastapiSQLAlchemy-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-DB%EC%99%80-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0
+- DB 세팅 완료
+- 이제 현재 옮기고 있던 router, model, crud, schema 옮기기
+  - user -------> 순호님 풀리퀘 후 feat 만든 후 다시 진행
+    - 현재 create_user만 구성중
+      - jwt_handler.py : 적합하게 수정해줘야함
+      - 이미지 파일처리 어떻게 해야할지 정확하게 수정해야함
+
+
+
 #### 쇼빌리티 방향성
 
 - v2
