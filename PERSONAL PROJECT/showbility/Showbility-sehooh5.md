@@ -481,8 +481,15 @@
 - 이제 현재 옮기고 있던 router, model, crud, schema 옮기기
   - user -------> 순호님 풀리퀘 후 feat 만든 후 다시 진행
     - 현재 create_user만 구성중
-      - jwt_handler.py : 적합하게 수정해줘야함
       - 이미지 파일처리 어떻게 해야할지 정확하게 수정해야함
+
+
+
+#### 1015
+
+- 현재 비동기 때문에 에러나는중
+- 공식문서 보고 다시 구성해보기
+  - https://fastapi.tiangolo.com/ko/tutorial/sql-databases/#create-database-tables-on-startup
 
 
 
