@@ -46,13 +46,15 @@
   $ sudo apt-key fingerprint 0EBFCD88
   # 저장소 추가 ## jetson amd -> arm
   $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  
+  sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   # docker 패키지 검색되는지 확인
   $ sudo apt-get update 
   $ sudo apt-cache search docker-ce
   ## 출력메시지
-  docker-ce - Docker: the open-source application container engine
+docker-ce - Docker: the open-source application container engine
   ```
-
+  
   
 
 ### 도커 CE설치
@@ -87,9 +89,21 @@ sudo swapoff -a
     "log-opts": {
       "max-size": "100m"
     },
-    "storage-driver": "overlay2"
+    "storage-driver": "overlay2",
+    "insecure-registries": ["192.168.0.15:5000"]
   }
   EOF
+  
+  # 구버전
+  {
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "100m"
+    },
+    "storage-driver": "overlay2"
+  }
+  # "insecure-registries": ["192.168.0.15:5000"]
   $ sudo mkdir -p /etc/systemd/system/docker.service.d
   $ sudo systemctl daemon-reload
   $ sudo systemctl restart docker

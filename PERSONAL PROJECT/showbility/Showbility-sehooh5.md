@@ -469,6 +469,25 @@
 
 
 
+#### 1014
+
+- pr : DB 세팅
+  - Annotated 확인
+  - schema users
+    - orm 부분 삭제 필요
+  - 환경 별 변수 나누기
+    - local - dev -prod 나누어서 한번 적용해보겠습니다.
+    - os.environ였나로 가져오는것보다, 세팅도 pydantic 통해서 관리하고 validate할수 있는데 적용해보기[docs.pydantic.dev/latest/concepts/pydantic_settings#usage](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#usage)
+- 이제 현재 옮기고 있던 router, model, crud, schema 옮기기
+  - user -------> 순호님 풀리퀘 후 feat 만든 후 다시 진행
+    - 현재 create_user만 구성중
+      - jwt_handler.py : 적합하게 수정해줘야함
+      - 이미지 파일처리 어떻게 해야할지 정확하게 수정해야함
+
+
+
+
+
 #### 쇼빌리티 방향성
 
 - v2
