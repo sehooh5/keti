@@ -136,7 +136,24 @@
     }
     ```
 
+
+
+
+- **Worker2**(내가 사용할것)
+
+  - Name : intellivix-worker-02(intellivix)
+
+  - IP : 192.168.0.19
+
+    ```
+    # ssh 접속 / admin1234!
     
+    ssh intellivix@192.168.0.19
+    ```
+
+    
+
+
 
 - **Worker1**
 
@@ -171,19 +188,8 @@
 
   
 
-- **Worker2**(내가 사용할것)
+  
 
-  - Name : intellivix-worker-02(intellivix)
-  
-  - IP : 192.168.0.19
-  
-    ```
-    # ssh 접속 / admin1234!
-    
-    ssh intellivix@192.168.0.19
-    ```
-  
-    
 
 
 
@@ -1600,9 +1606,34 @@ v1.30.3
 - 작업순서
   1. 클러스터 환경 설정
      - 일단 클러스터해서 배포하는거 자체가 안됨 왜그러는지....다시 다 뒤엎고 하는게 나을듯
+     - 지금은 클러스터 구성은 되었는데 아직도 pod 배포가 안됨...cni때문인가(worker에서 설정이 날라감)
+       - 설정 잘 했더니 된듯?
   2. 환경정보 AI 패키징, 배포
   3. AI 모듈 배포
   4. 디스플레이에 환경정보에 따른 최적화 표출
+
+
+
+- **명령어**
+
+  - 도커
+
+    ```
+    # 도커 빌드 with private repository
+    docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-01:01 .
+    
+    # private repository에 push
+    docker push 192.168.0.15:5000/monitoring-01:01
+    ```
+
+  - k8s
+
+    ```
+    # 배포
+    kubectl apply -f monitoring-01.yaml 
+    ```
+
+
 
 
 

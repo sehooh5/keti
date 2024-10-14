@@ -123,7 +123,7 @@ kubeadm join 192.168.99.102:6443 --token fnbiji.5wob1hu12wdtnmyr \
 
   ```
   - 10-kobeadm.conf 내용 변경
-  # vi /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
+  # vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
   
   - 아래 내용 추가
   Environment="KUBELET_CGROUP_ARGS=–cgroup-driver=systemd"
