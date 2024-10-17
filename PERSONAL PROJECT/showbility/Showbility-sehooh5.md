@@ -496,10 +496,33 @@
 #### 1016
 
 - turso 연동
-  - async -> 동기 엔진으로 변경
-- env 환경설정
+
+  - async -> 동기 엔진으로 변경 완료 실행되는지 확인 with turso
+
+- env 환경설정 -> 추후 진행(AWS)
+
   - 기존 내용 옴기기
+
+    ```
+    EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD
+    APPLE_MEMBER_ID
+    APPLE_KEY_ID
+    APPLE_CERT_KEY_PATH
+    ```
+
+    
+
 - 환경 나누어서 실행하는 방법 
+
+
+
+#### 1017
+
+- 동기엔진 turso와 연동되는지 확인하기
+  - 연동 완료
+  - dev  브랜치 머지 후
+- User 기능 구현 시작
 
 
 
