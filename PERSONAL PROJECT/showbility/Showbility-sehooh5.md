@@ -493,6 +493,16 @@
 
 
 
+#### 1016
+
+- 기존 dev에서 수정할 부분만 수정
+  - pydantic으로 on.environ 세팅
+    - [docs.pydantic.dev/latest/concepts/pydantic_settings#usage](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#usage)
+  - annotated 
+    - 
+
+
+
 
 
 #### 쇼빌리티 방향성

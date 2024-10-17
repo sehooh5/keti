@@ -1610,13 +1610,16 @@ v1.30.3
 
 
 
-#### 1014
+#### 1017
 
 - 작업순서
   1. 클러스터 환경 설정
      - arm, amd 아키텍쳐 다른곳에서 빌드해서 안됨
      - buildx 는 http 연결문제로 안됨(daemon파일은 제대로 설정 되어있음)
+       - arm 한개만 빌드/배포
+     - 완료
   2. 환경정보 AI 패키징, 배포
+     - 
   3. AI 모듈 배포
   4. 디스플레이에 환경정보에 따른 최적화 표출
 
@@ -1627,13 +1630,17 @@ v1.30.3
   - 도커
 
     ```
-    # 도커 빌드 with private repository
-    docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-01:01 .
-    docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-02:01 .
+    # 도커빌드 with x
+    docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/monitoring-01:01 --load . 
     
     # private repository에 push
     docker push 192.168.0.15:5000/monitoring-01:01
     docker push 192.168.0.15:5000/monitoring-02:01
+    
+    
+    # (안씀)도커 빌드 with private repository
+    docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-01:01 .
+    docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-02:01 .
     ```
 
   - k8s
