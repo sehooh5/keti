@@ -495,6 +495,15 @@
 
 #### 1016
 
+<<<<<<< HEAD
+- 기존 dev에서 수정할 부분만 수정
+  - pydantic으로 on.environ 세팅
+    - [docs.pydantic.dev/latest/concepts/pydantic_settings#usage](https://docs.pydantic.dev/latest/concepts/pydantic_settings/#usage)
+  - annotated 
+    - 
+
+
+=======
 - turso 연동
 
   - async -> 동기 엔진으로 변경 완료 실행되는지 확인 with turso
@@ -514,6 +523,7 @@
     
 
 - 환경 나누어서 실행하는 방법 
+>>>>>>> 228f452f467bc294e7b4dccba49bc880a964c16a
 
 
 
