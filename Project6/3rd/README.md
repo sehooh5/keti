@@ -1625,6 +1625,37 @@ v1.30.3
 
 
 
+#### 1018
+
+- 작업순서
+
+  1. ~~클러스터 환경 설정~~(완료)
+
+  2. 환경정보 AI 패키징, 배포
+
+     - docker file 만드는중
+
+     - Worker 설치 필요
+
+       - Docker에서 GPU를 사용하려면 `NVIDIA Container Toolkit` 필요
+       -  Kubernetes 클러스터에서 GPU 자원을 사용하려면 반드시 `NVIDIA Device Plugin` 필요
+       - **설치중 1.7.0 arm 버전으로 설치 필요** 
+
+     - 명령어
+
+       ```
+       # 도커 실행 명령
+       # docker run --gpus all -it --rm your_image_name
+       ```
+
+  3. AI 모듈 배포
+
+  4. 디스플레이에 환경정보에 따른 최적화 표출
+
+
+
+
+
 - **명령어**
 
   - 도커

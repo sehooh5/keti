@@ -58,8 +58,8 @@ def request_upload_edgeAi():
 
     requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
 
-#     # 최적화 서버에 버전정보 비교 trigger
-#     requests.post(f"{OPTIMIZE_API_URL}/optimize_by_version", json=data)
+    # 최적화 서버에 버전정보 비교 trigger
+    requests.post(f"{OPTIMIZE_API_URL}/optimize_by_version", json=data)
 
     return response.message('0000')
 

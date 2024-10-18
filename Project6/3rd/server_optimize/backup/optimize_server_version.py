@@ -20,35 +20,35 @@ SETUP_API_URL = "http://192.168.0.9:5230"
 port = "6432"
 
 # 현재 안쓰고잇음
-# @ app.route('/optimize_by_weather', methods=['POST'])
-# def optimize_by_weather():
-#     try:
-#         data = request.get_json(silent=True)
-#         if data is None:
-#             raise ValueError("No JSON data received")
-#
-#         json_data = json.loads(data)
-#
-#         nid = json_data.get('nid')
-#         created_at = json_data.get('cpu')
-#         res_class = json_data.get('memory')
-#         res_confidence = json_data.get('res_confidence')
-#
-#         if not all([nid, created_at, res_class, res_confidence]):
-#             raise KeyError("Missing required fields in the request")
-#
-#         print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
-#
-#         return response.message('0000')
-#
-#     except json.JSONDecodeError:
-#         return response.message('0010')
-#
-#     except KeyError as e:
-#         return response.message('0015')
-#
-#     except ValueError as e:
-#         return response.message('9999')
+@ app.route('/optimize_by_weather', methods=['POST'])
+def optimize_by_weather():
+    try:
+        data = request.get_json(silent=True)
+        if data is None:
+            raise ValueError("No JSON data received")
+
+        json_data = json.loads(data)
+
+        nid = json_data.get('nid')
+        created_at = json_data.get('cpu')
+        res_class = json_data.get('memory')
+        res_confidence = json_data.get('res_confidence')
+
+        if not all([nid, created_at, res_class, res_confidence]):
+            raise KeyError("Missing required fields in the request")
+
+        print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
+
+        return response.message('0000')
+
+    except json.JSONDecodeError:
+        return response.message('0010')
+
+    except KeyError as e:
+        return response.message('0015')
+
+    except ValueError as e:
+        return response.message('9999')
 
 @ app.route('/optimize_by_version', methods=['POST'])
 def optimize_by_version():
@@ -111,8 +111,8 @@ def optimize_by_version():
         return response.message('9999')
 
 # optimize_by_weather
-@app.route('/optimize_by_weather', methods=['POST'])
-def optimize_by_weather():
+@app.route('/save_edgeData', methods=['POST'])
+def save_edgeData():
     nip = request.remote_addr
     res = requests.get(f"{SETUP_API_URL}/get_nid_by_ip?nip={nip}")
     if res.status_code == 200:
