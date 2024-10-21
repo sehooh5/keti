@@ -1654,6 +1654,19 @@ v1.30.3
 
 
 
+#### 1021
+
+- 환경정보 AI 패키징, 배포
+  - docker file 만드는중
+  - Worker 설치 필요
+    - Docker에서 GPU를 사용하려면 `NVIDIA Container Toolkit` 필요
+    -  Kubernetes 클러스터에서 GPU 자원을 사용하려면 반드시 `NVIDIA Device Plugin` 필요
+    - **설치중 1.7.0 arm 버전으로 설치 필요** 
+
+
+
+
+
 
 
 - **명령어**
