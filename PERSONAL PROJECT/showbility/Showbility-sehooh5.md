@@ -543,43 +543,38 @@
   
   
   
-#### 1021
+#### 1022
 
 - User 기능 구현 시작
 
-  - feat/user branch 에서 작업 진행
+  - feat/user branch 에서 작업 진행 - (완료)
 
     - r-m-s 한번 정리 완료
-
     - deps 검토 완료
-
-    - -> 이미지 관리 부분 시작해야함
-      - 어느정도 완성
+    - -> ~~이미지 관리 부분 시작해야함~~
+      - ~~어느정도 완성~~
     - 테스트중인데 swagger UI (/docs)로 진행하면됨
-        - create 완료
-      - delete : postmand으로 완료
-      - login 기능 완성 : token 반환
-      - auth : 이메일 인증, 비밀번호 재설정
-        - 필요 : showbility 도메인 
-      - update : 사용자 정보 변경 완료
+
+    - create 완료
+    - delete : postman으로 완료
+    - login 기능 완성 
+      - token 반환 - 업데이트 <mark>(테스트 필요)</mark>
+    - update : 사용자 정보 변경 완료
+      - <mark>(테스트 필요)</mark>
+    - auth : verify 부분 추가<mark>(테스트 필요)</mark>
+      - crud, model, router / relationship with user model
+    - 소셜 로그인 완료<mark>(테스트 필요)</mark>
+
+  
+
+  - **Content**
+    - 시작하면 됨
 
   
 
   
 
-  - 추가해야 하는부분
-
-    - **소셜 로그인 기능 (Kakao, Apple 등)**:
-
-      - Django에서는 `kakao`와 `apple` 소셜 로그인 기능이 있었지만, 아직 FastAPI로 전환되지 않았습니다.
-      - 이 부분은 추가적으로 구현해야 합니다.
-
-      **권한 관리 (Permissions)**:
-
-      - Django에서는 권한 관리를 통해 사용자가 자신의 정보만 수정하거나 삭제할 수 있도록 했습니다.
-      - FastAPI에서도 비슷한 방식으로 **권한 관리**를 더 확장하여 구현할 수 있습니다 (예: `is_self` 함수).
-
-
+  
 
 #### 쇼빌리티 방향성
 
@@ -598,33 +593,25 @@
 #### 전환 일정
 
 -  fastapi 전환
-  - 전환(아래부터)
-    - manage.py : 변경하지 않음
-    - asgi, wisg.py : 변경하지 않음
-    - urls.py : 변경중 0930
-    - models.py : 완료
-      - **category 중 이미지 저장 방법을 turso 에 저장하고 url사용하는 방법으로 바꿈**
-        - **!!파일 처리부분 FastAPI에 맞게 설정해줘야함**
-    - schema : 완료
-      - 완료
-    - pydantic : 
-    - /auth/apple.py : 인증 관련 완료
-    - config : 일단 완료
-    - permissions.py : 다시 검토해봐야함
+  - **User** 
+    - 코드 작성 완료
+    - 테스트 필요
+  - **Content**
+    - 시작 1022
 
-    - views : 완료
+
+
+- 일정
+  - **Content(게시물)**: 게시물 생성, 조회, 수정, 삭제 기능을 추가.
+  - **이미지 처리**: 이미지 업로드 및 썸네일 생성 로직, 관련된 경로 설정.
+  - **태그 및 카테고리**: 게시물과 태그 및 카테고리를 연결하고, 조회 및 필터링 기능.
+  - **좋아요 기능**: 사용자가 게시물에 좋아요를 누르거나 취소할 수 있는 기능 구현.
 
 
 
 
 
-- ~~flask -> fastapi 도입~~
-- ~~Settings.py 완료~~
-  - ~~util 옮기기 완료~~
-  - ~~routes 옮기기 시작~~
-  - ~~models 옮기기 시작~~
-  - ~~ExtendUser완료~~
-  
+
 
 
 
