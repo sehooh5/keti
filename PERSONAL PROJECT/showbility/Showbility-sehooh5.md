@@ -1,12 +1,19 @@
 # Showbility - sehooh5
 
 - Showbility Project 내 오세호 개인 파일
+
 - ssh -i [개인키].pem ubuntu@13.209.10.151
+
+  - ```
+    ssh -i ShowbilityServer05.pem ubuntu@13.209.10.151
+
 - 개인 일정 및 진행방향 공유
+
 - PORT
   - nginx : 80
   - uwsgi : http = 0.0.0.0:8080        
   - DB : 3306
+  
 - **서버 켜는법**
   - nginx + uwsgi로 작동함
     1. `nginx` 켜져 있는지 확인
@@ -14,6 +21,7 @@
        2. 안켜져 있으면 켜기 `sudo service nginx start````
     2. `uWSGI` 로 장고 서버 띄우기
        1. `sudo uwsgi --ini uwsgi.ini`
+  
 - **작동 안하는 가짜 설정파일들**
   - apache → 사용 안함
   - 관련 설정이 있는지 nginx가 죽으면 그 자리를 빼앗아(?) 시작됨
