@@ -551,11 +551,11 @@
   
   
   
-#### 1022
+#### 
 
-- User 기능 구현 시작
+- feat
 
-  - feat/user branch 에서 작업 진행 - (완료)
+  - **User**
 
     - r-m-s 한번 정리 완료
     - deps 검토 완료
@@ -564,14 +564,36 @@
     - 테스트중인데 swagger UI (/docs)로 진행하면됨
 
     - create 완료
+      - **프로필 사진 파일 없을때 처리방법 보완해야함** 
     - delete : postman으로 완료
+      - **사진까지 지워지게끔 해야함** 
     - login 기능 완성 
-      - token 반환 - 업데이트 <mark>(테스트 필요)</mark>
+      - token 반환 - 업데이트
     - update : 사용자 정보 변경 완료
       - <mark>(테스트 필요)</mark>
+        - get_tag 바꾸다가 멈춤
     - auth : verify 부분 추가<mark>(테스트 필요)</mark>
       - crud, model, router / relationship with user model
     - 소셜 로그인 완료<mark>(테스트 필요)</mark>
+
+  ```
+      update_data = user_update.model_dump(exclude_unset=True)
+      for key, value in update_data.items():
+          setattr(user, key, value)
+  
+      # 태그 리스트 처리
+      if 'tags' in update_data and update_data['tags']:
+          tag_objects = []
+          for tag_name in update_data['tags']:
+              # 태그가 이미 존재하는지 확인
+              tag = session.query(Tag).filter(Tag.name == tag_name).first()
+              if not tag:
+                  raise HTTPException(status_code=400, detail=f"태그 {tag_name}이 존재하지 않습니다.")
+              tag_objects.append(tag)
+  
+          # 유저와 태그 간의 관계를 업데이트
+          user.tags = tag_objects
+  ```
 
   
 
@@ -580,7 +602,7 @@
 
   
 
-  
+  2410JJM25
 
   
 
