@@ -563,7 +563,6 @@
     - -> ~~이미지 관리 부분 시작해야함~~
       - ~~어느정도 완성~~
     - 테스트중인데 swagger UI (/docs)로 진행하면됨
-
     - create 완료
       - **프로필 사진 파일 없을때 처리방법 보완해야함** 
     - delete : postman으로 완료
@@ -572,12 +571,14 @@
       - token 반환 - 업데이트
     - update : 사용자 정보 변경 완료
       - 태그 추가부분 완료
-    - auth : verify 부분 추가<mark>(테스트 필요)</mark>
+    - auth : verify 부분 추가
       - crud, model, router / relationship with user model
       - 이메일 인증요청/인증 완료
       - 비밀번호 재설정 완료
-      - **나머지 두개 진행하면 됨**
-    - 소셜 로그인 완료<mark>(테스트 필요)</mark>
+      - 이메일 닉네임 중복확인 완료
+    - 소셜 로그인 완료
+      - 카카오 완료
+      - 애플<mark>(테스트 필요)</mark>
 
   
 
