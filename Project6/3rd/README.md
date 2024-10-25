@@ -1663,7 +1663,11 @@ v1.30.3
   ```
   NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
   
+  # Cuda Compute capability (version) / Micro-architecture / GPUs
+  		8.7							/ 		Ampere 		 / GA10B
   
+  # 1025 시도 버전
+  torch==1.12.0+cu114 torchvision==0.13.0+cu114		
   ```
 
   
@@ -1684,7 +1688,18 @@ v1.30.3
 
 - Dockerfile from만 고쳐서 배포해보기
 
+  ```
+  # Docker build with x
+  docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/weatherai-00:01 --load .
+  
+  # Docker push
+  docker push 192.168.0.15:5000/weatherai-00:01
+  
+  # k8s deploy
+  kubectl apply -f deployment.yaml 
+  ```
 
+  
 
 
 
