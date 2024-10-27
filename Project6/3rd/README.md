@@ -139,7 +139,7 @@
 
 
 
-- **Worker2**(내가 사용할것)
+- **Worker2** **(내가 사용할것)**
 
   - Name : intellivix-worker-02(intellivix)
 
@@ -147,17 +147,19 @@
 
     ```
     # ssh 접속 / admin1234!
-    
     ssh intellivix@192.168.0.19
+    
+    # 정보
+    NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
     ```
 
     
 
 
 
-- **Worker1**
+- ~~**Worker1**~~
 
-  - Name : intellivix-worker-01(intellivix)
+  - ~~Name : intellivix-worker-01(intellivix)~~
 
   - IP : 192.168.0.21
 
@@ -1654,16 +1656,50 @@ v1.30.3
 
 
 
-#### 1022
+#### 1024
+
+- 환경정보
+
+  ```
+  NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
+  
+  # Cuda Compute capability (version) / Micro-architecture / GPUs
+  		8.7							/ 		Ampere 		 / GA10B
+  
+  # 1025 시도 버전
+  torch==1.12.0+cu114 torchvision==0.13.0+cu114		
+  ```
+
+  
 
 - 환경정보 AI 패키징, 배포
+
   - docker file 만드는중
-  - Worker 설치 필요
-    - Docker에서 GPU를 사용하려면 `NVIDIA Container Toolkit` 필요
+  - Worker 설치 필요(완료)
+    - Docker에서 GPU를 사용하려면 `NVIDIA Container Toolkit` 필요 - Jetson 용
+      - 공식문서 참고 설치완료
+      - 테스트는 nvidia-smi를 jetson이 사용하지 않아 못해봄
     -  Kubernetes 클러스터에서 GPU 자원을 사용하려면 반드시 `NVIDIA Device Plugin` 필요
     - **설치중 1.7.0 arm 버전으로 설치 필요** 
 
 
+
+#### 1025
+
+- Dockerfile from만 고쳐서 배포해보기
+
+  ```
+  # Docker build with x
+  docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/weatherai-00:01 --load .
+  
+  # Docker push
+  docker push 192.168.0.15:5000/weatherai-00:01
+  
+  # k8s deploy
+  kubectl apply -f deployment.yaml 
+  ```
+
+  
 
 
 
