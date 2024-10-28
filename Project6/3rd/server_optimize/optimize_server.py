@@ -124,6 +124,7 @@ def optimize_by_weather():
 #   Data from Weather AI
     data = request.get_json(silent=True)
     json_data = json.loads(data)
+    print("print : ", json_data)
 
     created_at = json_data['created_at']
     res_class = json_data['res_class']

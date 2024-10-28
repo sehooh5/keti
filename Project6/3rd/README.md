@@ -1684,9 +1684,11 @@ v1.30.3
 
 
 
-#### 1025
+#### 1028
 
 - Dockerfile from만 고쳐서 배포해보기
+
+- 명령어
 
   ```
   # Docker build with x
