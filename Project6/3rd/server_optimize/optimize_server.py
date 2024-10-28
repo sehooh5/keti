@@ -120,6 +120,7 @@ def optimize_by_weather():
         nid = json_data.get('nid')
     else:
         print(f"Failed to retrieve data. Status code: {res.status_code}")
+    print(nid)
 
 #   Data from Weather AI
     data = request.get_json(silent=True)
