@@ -123,12 +123,12 @@ def optimize_by_weather():
 
 #   Data from Weather AI
     data = request.get_json(silent=True)
-    print("print data : ", data)
-    print("print data['res_class'] : ", data['res_class'])
 
     created_at = data['created_at']
     res_class = data['res_class']
     res_confidence = data['res_confidence']
+
+    print(f"{created_at}, {res_class}, {res_confidence}")
 
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
