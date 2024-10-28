@@ -125,7 +125,7 @@ def optimize_by_weather():
     data = request.get_json(silent=True)
     print("print data : ", data)
     print("print data['res_class'] : ", data['res_class'])
-    json_data = json.loads(data)
+#     json_data = json.loads(data)
 
 
     created_at = json_data['created_at']
