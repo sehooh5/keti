@@ -1692,23 +1692,86 @@ v1.30.3
 
 
 
-#### 1029
+#### 1030
 
 - worker node 자체에서도 테스트가 안되고있음 왜그런지 확인해봐야함
+
   - jetson 과 pytorch 호환문제일수도
-  - 무조건 pod 내에서 GPU 사용이 가능하게 해야함!
+  - 무조건 pod 내에서 GPU 사용이 가능하게 한 뒤에 배포
+    - 사용 가능 cuda버전
+    - torch 버전
+    - 모두 일치시킨 후 실행해야함
+
+- 작업중
+
+  - 이걸 추가해야할수도
+
+    ```
+    /etc/containerd/config.toml 파일 내용에 다음내용을 추가해준다. 마지막줄 이후에 추가해주면 된다.
+    
+    version = 2
+    [plugins]
+      [plugins."io.containerd.grpc.v1.cri"]
+        [plugins."io.containerd.grpc.v1.cri".containerd]
+          default_runtime_name = "nvidia"
+    
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia]
+              privileged_without_host_devices = false
+              runtime_engine = ""
+              runtime_root = ""
+              runtime_type = "io.containerd.runc.v2"
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
+                BinaryName = "/usr/bin/nvidia-container-runtime"
+    ```
+
+    
 
 
 
 
 
+- k8s 기본 샘플 pod 생성 deploy
 
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: cuda-container
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.2.1
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+  tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
+EOF
 
-
-
-
-
-
+cat <<EOF | kubectl delete -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gpu-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: cuda-container
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.2.1
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+  tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
+EOF
+```
 
 
 
