@@ -1725,9 +1725,33 @@ v1.30.3
                 BinaryName = "/usr/bin/nvidia-container-runtime"
     ```
 
-    
+- 도커파일 변경 : 기존 이미지에서는 cuda가 안보임
+
+  ```
+  FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+  ```
+
+  - 그래도 안되고 evicted 뜨면서 pod 생성이 안됨
 
 
+
+- 환경
+
+  ```
+  # jetson
+  NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
+  
+  # ubuntu
+  Ubuntu 20.04.6 LTS
+  
+  # Cuda
+  Cuda compilation tools, release 11.4, V11.4.315
+  
+  # python
+  Python 3.8.10
+  ```
+
+  
 
 
 
@@ -1771,6 +1795,21 @@ spec:
     operator: Exists
     effect: NoSchedule
 EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-vector-add
+spec:
+  restartPolicy: Never
+  containers:
+    - name: cuda-vector-container
+      image: nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.2.1
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+EOF        
 ```
 
 
@@ -1792,11 +1831,15 @@ EOF
   
   # k8s deploy
   kubectl apply -f deployment.yaml 
+  kubectl delete -f deployment.yaml 
   ```
 
-  
 
-- **명령어**
+
+
+
+
+- **명령어 예시**
 
   - 도커
 

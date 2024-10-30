@@ -65,6 +65,9 @@ $ nvidia-container-toolkit --version
 - 클러스터전체에 한번만 마스터노드에서 `NVIDIA Device Plugin` 설치
 
 ```cmd
-$ kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.11.0/nvidia-device-plugin.yml
+# kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.11.0/nvidia-device-plugin.yml
+
+# 공식문서로 재설치함
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.16.2/deployments/static/nvidia-device-plugin.yml
 ```
 
