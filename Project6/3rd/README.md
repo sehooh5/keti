@@ -1733,6 +1733,44 @@ v1.30.3
 
   - 그래도 안되고 evicted 뜨면서 pod 생성이 안됨
 
+    ```
+    # docker image 가 12GB가 넘음
+    192.168.0.15:5000/weatherai-00   01  375ef4573ae0   About an hour ago   12.6GB
+    
+    # fs
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/nvme0n1p1   32G   19G   12G  63% /
+    none            7.5G     0  7.5G   0% /dev
+    ```
+
+    
+
+- 이거 사용해보기 도커파일 수정
+
+  ```
+  FROM nvcr.io/nvidia/l4t-base:r35.2.1 AS builder
+  ```
+
+  - 혹은 낮은버전 사용해보기 - 안됨
+
+    ```
+    nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.10-py3
+    ```
+
+    
+
+#### 1031
+
+- 경량화
+  - dockerfile 변경
+  - .dockerignore 파일 추가
+  - 안됨
+- 일단 fs 에서 공간을 확보하든
+  - image 를 줄일 방법을 생각해야함..
+    - 처음에 `FROM nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3` 이게 12GB..
+
+
+
 
 
 - 환경
@@ -1811,8 +1849,6 @@ spec:
           nvidia.com/gpu: 1
 EOF        
 ```
-
-
 
 
 
