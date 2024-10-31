@@ -590,20 +590,25 @@
     - 기능
       - 기본 : 완료
       - Like : 완료
+    -  <mark>(테스트 중)</mark>
+      - create : 
+        - image folder명 잘 들어가나 확인필요
+        - category, tag 들어가나 확인 필요-고치는중
+          - **category, tag 테이블 이용해서 저장하는 방식으로 다시 다 재검토하기, 끝난 후 update 기능 수정 필요**
 
   
 
   - **Category, Tag, Comment**
-    - 일단 완료 <mark>(테스트 필요)</mark>
+    - 일단 완료 <mark>(테스트 중)</mark>
+    - Category
+      - read : 완료
+    - 
 
   
 
   - ##### **Image**
 
     - Content에서 처리하는데 꼭 필요한지?
-
-      - ## 이미지 검색, 패스 때문에 사용하는거일지도 일단 만들어주자!
-
     - <mark>(확인 필요)</mark> 
 
   
