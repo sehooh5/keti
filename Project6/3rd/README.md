@@ -1662,6 +1662,7 @@ v1.30.3
 
   ```
   NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
+  (CUDA 11.4, cuDNN 8.4, TensorRT 8.4)
   
   # Cuda Compute capability (version) / Micro-architecture / GPUs
   		8.7							/ 		Ampere 		 / GA10B
@@ -1771,6 +1772,31 @@ v1.30.3
 
 
 
+#### 1101
+
+- 이미지 변경
+
+  ```
+  # 기존
+  nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+  
+  # 변경 버전
+  nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.10-py3
+  
+  # 안됨 x
+  nvcr.io/nvidia/l4t-cuda:11.4.19-devel
+  docker pull nvcr.io/nvidia/l4t-base:r36.2.0
+  ```
+
+- 확인코드
+
+  ```
+  python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
+  
+  ```
+
+- # 다음주! docker 환경에서부터 cuda, gpu 확인 되는지 먼저 확인하고 시작하기
+
 
 
 - 환경
@@ -1779,11 +1805,13 @@ v1.30.3
   # jetson
   NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
   
+  
   # ubuntu
   Ubuntu 20.04.6 LTS
   
   # Cuda
   Cuda compilation tools, release 11.4, V11.4.315
+  (CUDA 11.4, cuDNN 8.4, TensorRT 8.4)
   
   # python
   Python 3.8.10
@@ -1868,6 +1896,10 @@ EOF
   # k8s deploy
   kubectl apply -f deployment.yaml 
   kubectl delete -f deployment.yaml 
+  
+  # pod 내부에서 cuda 확인
+  python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
+  
   ```
 
 
