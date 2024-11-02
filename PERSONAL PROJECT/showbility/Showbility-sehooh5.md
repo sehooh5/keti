@@ -66,9 +66,32 @@
       
       ```
 
+    
 
+  - Turso Local
 
-- 
+    - 로컬 개발 환경에서 Turso DB 실행
+
+    ```
+    turso dev --db-file local.db
+    
+    # 기본적으로 임시 데이터베이스를 생성하기 때문에, 서버를 종료하면 데이터가 사라짐. 데이터 저장이 필요하다면 SQLite 파일을 지정하여 실행
+    ```
+
+    - ​	이 명령어는 **로컬에서 Turso의 libSQL 서버**를 실행하고 임시 데이터베이스를 만듬
+      - 서버는 기본적으로 `http://127.0.0.1:8080` 주소에서 실행
+
+    - Python SDK를 사용하여 데이터베이스 연결
+
+      ```
+      from libsql_client import create_client
+      
+      client = create_client({
+          "url": "http://127.0.0.1:8080"
+      })
+      ```
+
+      - 로컬 libSQL 서버에 연결
 
 
 
@@ -584,17 +607,26 @@
   
 
   - **Content**
+    
     - 일정 : 
+    
       - 일단 전체적으로 옴기고
       - 이미지 처리, 태그, 카테고리 등등 설정해주기
+    
     - 기능
+    
       - 기본 : 완료
       - Like : 완료
+    
     -  <mark>(테스트 중)</mark>
+    
       - create : 
+    
         - image folder명 잘 들어가나 확인필요
+    
         - category, tag 들어가나 확인 필요-고치는중
-          - **category, tag 테이블 이용해서 저장하는 방식으로 다시 다 재검토하기, 끝난 후 update 기능 수정 필요**
+    
+          - ## **category, tag 테이블 이용해서 저장하는 방식으로 다시 다 재검토하기, 끝난 후 update 기능 수정 필요**
 
   
 
@@ -626,6 +658,16 @@
   #### 1031
 
   - 일단 db 리셋, Router 추가 완료했으니 처음부터 테스트 시작!
+  - 적용하기
+    - ~~환경변수 개수 줄여보기~~
+    - local turso 적용할 수있으면 적용해보기 - local 환경 나누기
+      - :8080
+    - vercel 환경변수 입력하기
+      - env 파일 직접 올릴수있음
+    - static file 관리 -> 기본 API 만들고 진행
+      - s3
+      - uploadthing
+      - blob
 
   
 
