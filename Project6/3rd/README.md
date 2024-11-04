@@ -1795,7 +1795,15 @@ v1.30.3
   
   ```
 
-- # 다음주! docker 환경에서부터 cuda, gpu 확인 되는지 먼저 확인하고 시작하기
+
+
+#### 1104
+
+- docker 환경에서부터 cuda, gpu 확인 되는지 먼저 확인하고 시작하기
+- cuda 11.8 설치했는데 확인 안됨
+  - 공간 너무 꽉참...어떻게?
+
+
 
 
 
@@ -1804,7 +1812,6 @@ v1.30.3
   ```
   # jetson
   NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
-  
   
   # ubuntu
   Ubuntu 20.04.6 LTS
@@ -1815,13 +1822,26 @@ v1.30.3
   
   # python
   Python 3.8.10
+  
+  # pytorch / vision
+  v2.1.0  / 	0.16    
+   
+  # 설치
+   wget https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+   pip3 install torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+  
   ```
 
+- ```
   
+  export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+  ```
+
+- 
 
 
 
-- k8s 기본 샘플 pod 생성 deploy
+- k8s 기본 샘플 pod 생성 deployㅇ
 
 ```
 cat <<EOF | kubectl apply -f -
