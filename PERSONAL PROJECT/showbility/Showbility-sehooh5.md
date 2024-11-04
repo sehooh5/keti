@@ -660,14 +660,67 @@
   - 일단 db 리셋, Router 추가 완료했으니 처음부터 테스트 시작!
   - 적용하기
     - ~~환경변수 개수 줄여보기~~
-    - local turso 적용할 수있으면 적용해보기 - local 환경 나누기
+    - local turso 적용할 수있으면 적용해보기 - local 환경 나누기 >>> 이후에 진행
       - :8080
     - vercel 환경변수 입력하기
       - env 파일 직접 올릴수있음
-    - static file 관리 -> 기본 API 만들고 진행
+    - static file 관리 -> 기본 API 만들고 진행 >>> 이후 진행
       - s3
       - uploadthing
       - blob
+
+  
+
+  #### 1102
+
+  - 오늘 진행
+    - ~~vercel 환경변수 입력하기~~
+      - ~~env 파일 직접 올릴수있음~~
+      - 세팅 완료
+        - static, media 세팅은 일단 보류함
+        - 나중에 관리하는거 정해지면 진행
+    - user, content 
+      - 권한설정
+        - 설계서 보고 고칠거있으면 ㄱㄱ
+      - 파일부분 일단 보류해두기
+        - 보류 완료, 테스트 진행하면 될듯?
+
+  
+
+  
+
+  #### 1104
+
+  - db, fs 백업
+
+    - fs(static, media)
+
+      - ```
+        # 프로젝트 전체 압축/저장
+        tar -czvf ~/backup/static_backup.tar.gz ubuntu
+        
+        # 전체파일 복사/전송
+        scp -i ShowbilityServer05.pem ubuntu@13.209.10.151:~/Volumes/T7/showbility/backup
+        ```
+
+  - **Torso - dev 환경에서 fs 없는 api 테스트 시작**
+
+    - User
+
+  
+
+  - 이후 진행
+    - turso db 구조 변경시 migration 하는 방법 알아보기
+    - static file 관리 -> 기본 API 만들고 진행 >>> 이후 진행
+      - s3
+      - uploadthing
+      - blob
+    - tag
+      - 태그 입력(저장) 가능해야함
+      - disassemble 테이블 필요할듯
+        - 졸ㅈ -> 같은 경우  [ㅈㅗㄹㅈㅏㄱ] 으로 저장해야 검색이 가능
+    - local turso 적용할 수있으면 적용해보기 - local 환경 나누기
+      - :8080
 
   
 
