@@ -1805,6 +1805,37 @@ v1.30.3
 
 
 
+#### 1105
+
+- torch jetson 전용 설치해야함
+
+  - 버전바꿔서 설치완료
+
+- 공간처리
+
+  - 외부 ssd
+
+    ```
+    /mnt/external-ssd 사용(usb 256gb)
+    ```
+
+- docker 실행
+
+  ```
+  # build 
+  docker build -t cuda-pytorch-test .
+  
+  # 실행
+  sudo docker run --rm --gpus all cuda-pytorch-test
+  ```
+
+
+
+#### 1106
+
+- 도커 이미지 완성된거로 실행해보기
+  - 되면 도커환경에서 사용 가능한거임
+
 
 
 - 환경
@@ -1826,9 +1857,14 @@ v1.30.3
   # pytorch / vision
   v2.1.0  / 	0.16    
    
-  # 설치
-   wget https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
-   pip3 install torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+  # 아래 버전으로 설치하니 됨
+  wget https://developer.download.nvidia.com/compute/redist/jp/v50/pytorch/torch-1.12.0a0+2c916ef.nv22.3-cp38-cp38-linux_aarch64.whl
+  pip3 install torch-1.12.0a0+2c916ef.nv22.3-cp38-cp38-linux_aarch64.whl
+  
+  pip3 install torchvision==0.13.0
+  
+  # 간단 확인
+  python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA version:', torch.version.cuda)"
   
   ```
 
