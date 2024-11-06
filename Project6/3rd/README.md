@@ -1838,6 +1838,12 @@ v1.30.3
 
 
 
+#### 1107
+
+- 심볼릭 링크때문에 안되는데...왜 안되는건지 모르겠음.. 알아보고 진행
+
+
+
 - 환경
 
   ```
@@ -1948,6 +1954,7 @@ EOF
   
   # Docker push
   docker push 192.168.0.15:5000/weatherai-00:01
+  # docker run --rm --gpus all 192.168.0.15:5000/weatherai-00:01
   
   # k8s deploy
   kubectl apply -f deployment.yaml 
@@ -1979,10 +1986,13 @@ EOF
     # (안씀)도커 빌드 with private repository
     docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-01:01 .
     docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-02:01 .
-    ```
-
+    
+  # 실행
+    docker run --rm --gpus all 192.168.0.15:5000/monitoring-01:01
+  ```
+  
   - k8s
-
+  
     ```
     # 배포
     kubectl apply -f monitoring-01.yaml 
