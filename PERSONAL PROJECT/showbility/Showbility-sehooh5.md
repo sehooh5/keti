@@ -703,9 +703,16 @@
         scp -i ShowbilityServer05.pem ubuntu@13.209.10.151:~/Volumes/T7/showbility/backup
         ```
 
-  - **Torso - dev 환경에서 fs 없는 api 테스트 시작**
+  
 
+  #### 1105
+
+  - **Torso - dev 환경에서 fs 없는 api 테스트 시작**
     - User
+      - 이용약관 추가 필요
+      - 카테고리 추가하는 부분 추가 필요(구닥 참고)
+
+  
 
   
 
