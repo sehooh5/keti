@@ -1844,6 +1844,12 @@ v1.30.3
 
 
 
+#### 1108
+
+- 아직 문제해결안됨, 심볼릭링크..
+
+
+
 - 환경
 
   ```
@@ -1875,8 +1881,18 @@ v1.30.3
   ```
 
 - ```
-  
   export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+  ```
+
+- ```
+  # 기존 심볼릭링크 설정
+  
+  intellivix@intellivix-desktop:~/edge$ ls -l /usr/lib/aarch64-linux-gnu/libcuda.so*
+  lrwxrwxrwx 1 root root 16  8월  2  2023 /usr/lib/aarch64-linux-gnu/libcuda.so -> tegra/libcuda.so
+  intellivix@intellivix-desktop:~/edge$ ls -l /usr/lib/aarch64-linux-gnu/tegra/libcuda.so*
+  lrwxrwxrwx 1 root root       47 11월  6 17:13 /usr/lib/aarch64-linux-gnu/tegra/libcuda.so -> /usr/lib/aarch64-linux-gnu/tegra/libcuda.so.1.1
+  lrwxrwxrwx 1 root root       47 11월  6 17:13 /usr/lib/aarch64-linux-gnu/tegra/libcuda.so.1 -> /usr/lib/aarch64-linux-gnu/tegra/libcuda.so.1.1
+  -rw-r--r-- 1 root root 23217008  8월  2  2023 /usr/lib/aarch64-linux-gnu/tegra/libcuda.so.1.1
   ```
 
 - 
@@ -1955,6 +1971,11 @@ EOF
   # Docker push
   docker push 192.168.0.15:5000/weatherai-00:01
   # docker run --rm --gpus all 192.168.0.15:5000/weatherai-00:01
+  # docker run --runtime nvidia \
+    --network host \
+    -e NVIDIA_DRIVER_CAPABILITIES=all,compute \
+    -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu \
+    192.168.0.15:5000/weatherai-00:01
   
   # k8s deploy
   kubectl apply -f deployment.yaml 
