@@ -58,6 +58,11 @@ $ sudo systemctl restart docker
 
 # Version check
 $ nvidia-container-toolkit --version
+
+# 이거때매 다 지워졌음 /etc/containerd/config.toml 확인해봐야함
+sudo nvidia-ctk runtime configure --runtime=containerd 
+
+sudo systemctl restart containerd
 ```
 
 

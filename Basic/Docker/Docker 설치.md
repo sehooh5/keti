@@ -94,6 +94,21 @@ sudo swapoff -a
   }
   EOF
   
+  sudo tee /etc/docker/daemon.json <<EOF
+  {
+  	"exec-opts": ["native.cgroupdriver=systemd"],
+      "default-runtime": "nvidia",
+      "insecure-registries": ["192.168.0.15:5000"],
+      
+      "runtimes": {
+          "nvidia": {
+              "path": "nvidia-container-runtime",
+              "runtimeArgs": []
+          }
+      }
+  }
+  EOF
+  
   # 구버전
   {
     "exec-opts": ["native.cgroupdriver=systemd"],

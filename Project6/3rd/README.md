@@ -1847,6 +1847,9 @@ v1.30.3
 #### 1108
 
 - 아직 문제해결안됨, 심볼릭링크..
+- 다 재설치중 # 이거때매 다 지워졌음 
+  - sudo nvidia-ctk runtime configure --runtime=containerd 
+    - /etc/containerd/config.toml 확인해봐야함
 
 
 
