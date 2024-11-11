@@ -1792,7 +1792,6 @@ v1.30.3
 
   ```
   python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
-  
   ```
 
 
@@ -1850,6 +1849,17 @@ v1.30.3
 - 다 재설치중 # 이거때매 다 지워졌음 
   - sudo nvidia-ctk runtime configure --runtime=containerd 
     - /etc/containerd/config.toml 확인해봐야함
+
+
+
+#### 1111
+
+- /etc/containerd/config.toml 확인 후 재시작
+  - 그냥 지금 설정대로 하는중
+    - 컨테이너 내부에서 torch 사용 안됨
+    - 다른 에러는 안뜸
+- 컨테이너 내부(이미지에 의한) pytorch버전이 cuda와 호환이 안되는듯.  `nvcr.io/nvidia/l4t-pytorch:r35.1.0-pth1.12-py3` 이미지로 빌드 다시하는중
+  - 그래도안됨..
 
 
 
