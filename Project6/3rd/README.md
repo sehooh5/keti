@@ -1863,6 +1863,86 @@ v1.30.3
 
 
 
+#### 1112
+
+- <mark>**성공 시나리오**</mark>
+
+  - **도커 이미지**
+
+    ```
+    nvcr.io/nvidia/l4t-pytorch:r35.1.0-pth1.12-py3
+    ```
+
+    - 로컬환경에서 사용가능했던 torch 버전과 거의 일치(완전은 아님)하는 버전을 사용하는 이미지 사용
+
+      ```
+      # Local
+      Cuda 11.4 / 1.12.0a0+2c916ef.nv22.3
+      
+      # Docker
+      Cuda 11.4 / 1.12.0a0+8a1a93a9.nv22.5 
+      ```
+
+      
+
+  - **명령어**
+
+    ```
+    docker run -it --rm --runtime=nvidia --gpus all --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu gpu-test2
+    ```
+
+    - `--runtime=nvidia` : runtime 은 nvidia로 설정
+    - `--gpus all` : GPU 장치 모두 연결
+    - `--privileged` : 도커가 NVIDIA 디바이스에 대한 권한을 주기위함
+    - `-v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu` : 컨테이너 내부에 NVIDIA 드라이버 마운트
+
+    
+
+    - **변경된 특이점**
+
+      - `/etc/containerd/config.toml` 파일이 `sudo nvidia-ctk runtime configure --runtime=containerd ` 명령어때문에 전부 지워지고, NVIDIA container toolkit에 의한 config 만 남게됨(그래서 된듯), 하지만 k8s환경에서도 되는지 확인해봐야함
+
+      - `/etc/docker/daemon.json` 파일이 NVIDIA 설정으로 변경되었는데, 기존 설정 추가 필요
+
+        ```
+        # 기존 세팅
+        {
+          "exec-opts": ["native.cgroupdriver=systemd"],
+          "log-driver": "json-file",
+          "log-opts": {
+            "max-size": "100m"
+          },
+          "storage-driver": "overlay2",
+          "insecure-registries": ["192.168.0.15:5000"],
+          "runtimes": {
+            "nvidia": {
+              "path": "nvidia-container-runtime",
+              "args": []
+            }
+          },
+          "default-runtime": "nvidia"
+        }
+        
+        # 변경중인 세팅
+        {
+            "insecure-registries": ["192.168.0.15:5000"],
+            "data-root": "/mnt/external-ssd/docker",
+            "default-runtime": "nvidia",
+            "runtimes": {
+                "nvidia": {
+                    "args": [],
+                    "path": "nvidia-container-runtime"
+                }
+            }
+        }
+        ```
+
+        
+
+  
+
+
+
 - 환경
 
   ```
