@@ -1888,14 +1888,12 @@ v1.30.3
   - **명령어**
 
     ```
-    docker run -it --rm --runtime=nvidia --gpus all --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu gpu-test2
+    docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu gpu-test2
     ```
 
-    - `--runtime=nvidia` : runtime 은 nvidia로 설정
-    - `--gpus all` : GPU 장치 모두 연결
     - `--privileged` : 도커가 NVIDIA 디바이스에 대한 권한을 주기위함
     - `-v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu` : 컨테이너 내부에 NVIDIA 드라이버 마운트
-
+    
     
 
     - **변경된 특이점**
@@ -1905,7 +1903,7 @@ v1.30.3
       - `/etc/docker/daemon.json` 파일이 NVIDIA 설정으로 변경되었는데, 기존 설정 추가 필요
 
         ```
-        # 기존 세팅
+    # 기존 세팅
         {
           "exec-opts": ["native.cgroupdriver=systemd"],
           "log-driver": "json-file",
@@ -1936,10 +1934,31 @@ v1.30.3
             }
         }
         ```
-
-        
-
+    
   
+
+
+
+#### 1113
+
+- 진행상황
+
+  - 현재 본 도커파일 수정중
+
+    - ```
+      # cv2 import error 발생
+      ImportError: /lib/libopencv_cudaarithm.so.4.5: undefined symbol: _ZN2cv4cuda14StreamAccessor9getStreamERKNS0_6StreamE
+      ```
+
+  - 수정 완료후 docker pull 로 워커노드에서 실행
+
+  - 실행 되면 k8s환경에서 배포하면 될듯
+
+    - evicted (공간부족) 에러가 발생할 확률이 큰데, 현재 docker 추가 저장공간 사용하는 방향으로 진행
+
+
+
+
 
 
 
@@ -1962,17 +1981,16 @@ v1.30.3
   # pytorch / vision
   v2.1.0  / 	0.16    
    
-  # 아래 버전으로 설치하니 됨
+  # torch 아래 버전으로 설치하니 됨
   wget https://developer.download.nvidia.com/compute/redist/jp/v50/pytorch/torch-1.12.0a0+2c916ef.nv22.3-cp38-cp38-linux_aarch64.whl
   pip3 install torch-1.12.0a0+2c916ef.nv22.3-cp38-cp38-linux_aarch64.whl
-  
   pip3 install torchvision==0.13.0
   
   # 간단 확인
   python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA version:', torch.version.cuda)"
   
   ```
-
+  
 - ```
   export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
   ```
@@ -2070,6 +2088,12 @@ EOF
     -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu \
     192.168.0.15:5000/weatherai-00:01
   
+  # Docker pull(Worker node에서)
+  docker pull 192.168.0.15:5000/weatherai-00:01
+  
+  # Docker 환경에서 실행
+  docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu 192.168.0.15:5000/weatherai-00:01
+  
   # k8s deploy
   kubectl apply -f deployment.yaml 
   kubectl delete -f deployment.yaml 
@@ -2101,15 +2125,19 @@ EOF
     docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-01:01 .
     docker build -f Dockerfile -t 192.168.0.15:5000/monitoring-02:01 .
     
+    ```
   # 실행
     docker run --rm --gpus all 192.168.0.15:5000/monitoring-01:01
   ```
   
   - k8s
   
-    ```
+  ```
     # 배포
     kubectl apply -f monitoring-01.yaml 
+  
+    ```
+  
     ```
 
 
