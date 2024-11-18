@@ -1902,8 +1902,8 @@ v1.30.3
 
       - `/etc/docker/daemon.json` 파일이 NVIDIA 설정으로 변경되었는데, 기존 설정 추가 필요
 
-        ```
-    # 기존 세팅
+        
+    #### 기존 세팅
         {
           "exec-opts": ["native.cgroupdriver=systemd"],
           "log-driver": "json-file",
@@ -1958,11 +1958,55 @@ v1.30.3
 
 
 
+#### 1118
+
+- opencv with docker 해결중
+
+  - 참고 사이트 : https://pajamacoder.tistory.com/22
+
+    - 잘안됨
+
+  - 에러 확인하고 고쳐야함.. 
+
+    ```
+    ImportError: /lib/libopencv_cudaarithm.so.4.5: undefined symbol: _ZN2cv4cuda14StreamAccessor9getStreamERKNS0_6StreamE
+    ```
 
 
 
+- ### **실제 사용된 명령어**
 
-- 환경
+  ```
+  # Docker build with x
+  docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/weatherai-00:01 --load .
+  
+  # Docker push
+  docker push 192.168.0.15:5000/weatherai-00:01
+  # docker run --rm --gpus all 192.168.0.15:5000/weatherai-00:01
+  # docker run --runtime nvidia \
+    --network host \
+    -e NVIDIA_DRIVER_CAPABILITIES=all,compute \
+    -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu \
+    192.168.0.15:5000/weatherai-00:01
+  
+  # Docker pull(Worker node에서)
+  docker pull 192.168.0.15:5000/weatherai-00:01
+  
+  # Docker 환경에서 실행
+  docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu 192.168.0.15:5000/weatherai-00:01 /bin/bash
+  
+  # k8s deploy
+  kubectl apply -f deployment.yaml 
+  kubectl delete -f deployment.yaml 
+  
+  # pod 내부에서 cuda 확인
+  python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
+  
+  ```
+
+
+
+- ### 환경
 
   ```
   # jetson
@@ -2006,7 +2050,8 @@ v1.30.3
   -rw-r--r-- 1 root root 23217008  8월  2  2023 /usr/lib/aarch64-linux-gnu/tegra/libcuda.so.1.1
   ```
 
-- 
+  
+  
 
 
 
@@ -2066,42 +2111,6 @@ spec:
           nvidia.com/gpu: 1
 EOF        
 ```
-
-
-
-
-
-
-
-- **실제 사용된 명령어**
-
-  ```
-  # Docker build with x
-  docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/weatherai-00:01 --load .
-  
-  # Docker push
-  docker push 192.168.0.15:5000/weatherai-00:01
-  # docker run --rm --gpus all 192.168.0.15:5000/weatherai-00:01
-  # docker run --runtime nvidia \
-    --network host \
-    -e NVIDIA_DRIVER_CAPABILITIES=all,compute \
-    -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu \
-    192.168.0.15:5000/weatherai-00:01
-  
-  # Docker pull(Worker node에서)
-  docker pull 192.168.0.15:5000/weatherai-00:01
-  
-  # Docker 환경에서 실행
-  docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu 192.168.0.15:5000/weatherai-00:01
-  
-  # k8s deploy
-  kubectl apply -f deployment.yaml 
-  kubectl delete -f deployment.yaml 
-  
-  # pod 내부에서 cuda 확인
-  python3 -c "import torch; print('PyTorch version:', torch.__version__); print('CUDA available:', torch.cuda.is_available())"
-  
-  ```
 
 
 
