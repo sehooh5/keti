@@ -718,38 +718,39 @@
         - 기존 약관은 node.js에서 처리
       - 카카오
         - agree 부분 수정했는데 테스트 필요
+        - 테스트, 401 에러 발생하면서 잘 안되는중!!
       - 애플
         - 카카오와 동일한데, 테스트 아직 해본적 없음
     - 카테고리 추가하는 부분 추가 필요(구닥 참고)
       - update
         - ~~tag가 아닌 category임...모델부터 바꿔야할듯~~ - 변경완료
-
+    
         - 카테고리 추가하는 부분이 현재 string 으로 입력값을 받아서 처리해주고있음
           
           - 입력값 1,2,3
           
         - 현재 카테고리가 입력되어있는 user 가 에러가 발생중
-
+    
           - #### Error 참고해서 해결 ㄱㄱ
       - 카테고리, 태그들 데이터 추가완료
     - my get error(프로필 조회)
       
       - ~~프로필에 카테고리가 들어가잇을때 에러가 생김~~
         - tag 객체가 아닌 int 입력으로 해결 완료
-
   
-
   
-
+  
+  
+  
   - commit - 중요내용 삭제해야함
     - 4b4b432
     - f00fbbc
       - rebase해봣는데 안됨..
-
   
-
+  
+  
   - 카테고리, 태그 입력
-
+  
     ```
     # category, tag 태그명으로 관계형성
     INSERT INTO category_tags (category_id, tag_id)
@@ -778,13 +779,13 @@
     );
     
     ```
-
+  
     
-
   
-
   
-
+  
+  
+  
   ```
   curl -X 'POST' \
     'https://dev.showbility.vercel.app/my?user_id=3' \
@@ -793,11 +794,11 @@
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'nickname=string11&email=string11%40naver.com&phone_number=0213564&description=string11&categories=[1,2]'
   ```
-
   
-
   
-
+  
+  
+  
   - 이후 진행
     - 검색
       - 작가 별명, 작품 제목, 작품 내용
@@ -815,13 +816,13 @@
       - 졸ㅈ -> 같은 경우  [ㅈㅗㄹㅈㅏㄱ] 으로 저장해야 검색이 가능
     - local turso 적용할 수있으면 적용해보기 - local 환경 나누기
     - :8080
-
   
-
   
-
+  
+  
+  
   2410JJM25
-
+  
   
 
 #### 쇼빌리티 방향성
