@@ -708,10 +708,12 @@
 
   
 
-  #### 1112
+  #### 1118
 
   - **Torso - dev 환경에서 fs 없는 api 테스트 시작**
-    - User
+
+    - **User**
+      
       - ~~이용약관 추가 필요~~ 
         - 기존 약관은 node.js에서 처리
       - 카카오
@@ -721,11 +723,19 @@
     - 카테고리 추가하는 부분 추가 필요(구닥 참고)
       - update
         - ~~tag가 아닌 category임...모델부터 바꿔야할듯~~ - 변경완료
+
         - 카테고리 추가하는 부분이 현재 string 으로 입력값을 받아서 처리해주고있음
-          - 예 : 
-      - 카테고리, 태그들 내용 추가완료
+          
+          - 입력값 1,2,3
+          
+        - 현재 카테고리가 입력되어있는 user 가 에러가 발생중
+
+          - #### Error 참고해서 해결 ㄱㄱ
+      - 카테고리, 태그들 데이터 추가완료
     - my get error(프로필 조회)
-      - 프로필에 카테고리가 들어가잇을때 에러가 잘생
+      
+      - ~~프로필에 카테고리가 들어가잇을때 에러가 생김~~
+        - tag 객체가 아닌 int 입력으로 해결 완료
 
   
 
@@ -735,6 +745,41 @@
     - 4b4b432
     - f00fbbc
       - rebase해봣는데 안됨..
+
+  
+
+  - 카테고리, 태그 입력
+
+    ```
+    # category, tag 태그명으로 관계형성
+    INSERT INTO category_tags (category_id, tag_id)
+    SELECT 3, id
+    FROM tags
+    WHERE name IN ('졸업작품', '패턴', '캐릭터', '포스터', '인물', '패션', '거리예술', '매거진', '회화', '3D')
+    AND NOT EXISTS (
+        SELECT 1 
+        FROM category_tags 
+        WHERE category_id = 3 AND tag_id = tags.id
+    );
+    
+    # tag id 찾기
+    SELECT id, name
+    FROM tags
+    WHERE name IN (
+        '졸업작품',
+        '캠페인',
+        '패키지',
+        '제품',
+        '공간',
+        '브랜드',
+        '서비스',
+        '포스터',
+        '로고 디자인'
+    );
+    
+    ```
+
+    
 
   
 
