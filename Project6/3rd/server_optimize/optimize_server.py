@@ -127,7 +127,8 @@ def optimize_by_weather():
     res_class = data['res_class']
     res_confidence = data['res_confidence']
 
-    print(f"{created_at}, {res_class}, {res_confidence}")
+    print(f"res_class : {res_class}, res_confidence : {res_confidence}, created_at : ")
+    print({created_at})
 
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
