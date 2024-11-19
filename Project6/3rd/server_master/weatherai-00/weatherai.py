@@ -25,14 +25,13 @@ def weather_sending():
         cnt = 0
 
     data = {
-
         "created_at": created_at,
         "res_class": res_class,
         "res_confidence": res_confidence
     }
     json_data = json.dumps(data)
 
-    requests.post(f"http://192.168.0.14:6432/save_edgeData", json=json_data)
+    requests.post(f"http://192.168.0.14:6432/optimize_by_weather", json=json_data)
 
 while True:
     weather_sending()
