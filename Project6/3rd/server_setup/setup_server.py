@@ -21,7 +21,7 @@ CORS(app)
 _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
-MASTER_API_URL = "http://192.168.0.4:5231"
+MASTER_API_URL = "http://192.168.0.15:5231"
 OPTIMIZE_API_URL = "http://192.168.0.14:6432"
 
 port = "5230"

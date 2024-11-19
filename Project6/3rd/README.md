@@ -418,6 +418,74 @@ v1.30.3
 
 
 
+## Postman 명령어
+
+
+
+#### 업로드 요청
+
+- POST : http://192.168.0.9:5230/request_upload_edgeAi
+
+  ```
+  # 환경정보별 모니터링 SW 업로드
+  {
+      "filename": "monitoring",
+      "version": "01",
+      "ai_class": "01"
+  }
+  
+  # 환경정보 SW 업로드
+  {
+      "filename": "weatherai",
+      "version": "01",
+      "ai_class": "00"
+  }
+  ```
+
+
+
+#### 업로드 삭제 요청
+
+- POST : http://192.168.0.9:5230/request_remove_edgeAi
+
+  ````
+  {
+      "aid": "K6bw"
+  }
+  ````
+
+  
+
+#### 배포 요청
+
+- POST : http://192.168.0.9:5230/request_deploy_aiToDevice
+
+  ```
+  {
+      "aid": "KaJt",
+      "nid": "ni01"
+  }
+  ```
+
+
+
+#### 배포 삭제 요청
+
+- POST : http://192.168.0.9:5230/request_undeploy_aiFromDevice
+
+  ```
+  {
+      "aid": "esJh",
+      "nid": "ni01"
+  }
+  ```
+
+  
+
+
+
+
+
 ### Daily report
 
 ---
@@ -1621,7 +1689,6 @@ v1.30.3
        - arm 한개만 빌드/배포
      - 완료
   2. 환경정보 AI 패키징, 배포
-     - 
   3. AI 모듈 배포
   4. 디스플레이에 환경정보에 따른 최적화 표출
 
@@ -1971,6 +2038,14 @@ v1.30.3
     ```
     ImportError: /lib/libopencv_cudaarithm.so.4.5: undefined symbol: _ZN2cv4cuda14StreamAccessor9getStreamERKNS0_6StreamE
     ```
+
+
+
+#### 1119
+
+- 오전
+  - 기존 배포구조 복구 후
+  - 보여드릴수 있도록
 
 
 
