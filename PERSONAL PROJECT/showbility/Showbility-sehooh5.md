@@ -708,7 +708,7 @@
 
   
 
-  #### 1118
+  #### 1120
 
   - **Torso - dev 환경에서 fs 없는 api 테스트 시작**
 
@@ -737,20 +737,33 @@
       
       - ~~프로필에 카테고리가 들어가잇을때 에러가 생김~~
         - tag 객체가 아닌 int 입력으로 해결 완료
+
   
+
+  - kakao test
+
+    - vercel 보안때매 안되는거였음...
+
+    - 현재는 #error 내용 고치면 됨, user 모델 필수값 입력이안되서그럼
+
+      ```
+      https://dev.showbility.vercel.app/social/kakao
+      
+      Drqw159357
+      
+      ```
+
   
-  
-  
-  
+
   - commit - 중요내용 삭제해야함
     - 4b4b432
     - f00fbbc
       - rebase해봣는데 안됨..
+
   
-  
-  
+
   - 카테고리, 태그 입력
-  
+
     ```
     # category, tag 태그명으로 관계형성
     INSERT INTO category_tags (category_id, tag_id)
@@ -779,13 +792,13 @@
     );
     
     ```
-  
+
     
+
   
+
   
-  
-  
-  
+
   ```
   curl -X 'POST' \
     'https://dev.showbility.vercel.app/my?user_id=3' \
@@ -794,11 +807,11 @@
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'nickname=string11&email=string11%40naver.com&phone_number=0213564&description=string11&categories=[1,2]'
   ```
+
   
+
   
-  
-  
-  
+
   - 이후 진행
     - 검색
       - 작가 별명, 작품 제목, 작품 내용
@@ -816,13 +829,13 @@
       - 졸ㅈ -> 같은 경우  [ㅈㅗㄹㅈㅏㄱ] 으로 저장해야 검색이 가능
     - local turso 적용할 수있으면 적용해보기 - local 환경 나누기
     - :8080
+
   
+
   
-  
-  
-  
+
   2410JJM25
-  
+
   
 
 #### 쇼빌리티 방향성
