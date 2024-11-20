@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-## app.py 기반 master 에서 실행되는 서버
 from importlib import import_module
 from typing import List
 from flask import Flask, render_template, Response, request, jsonify
@@ -11,44 +9,12 @@ import response
 import string
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
+app.config['JSON_AS_ASCII'] = False
 CORS(app)
-
 
 SETUP_API_URL = "http://192.168.0.9:5230"
 
 port = "6432"
-
-# 현재 안쓰고잇음
-# @ app.route('/optimize_by_weather', methods=['POST'])
-# def optimize_by_weather():
-#     try:
-#         data = request.get_json(silent=True)
-#         if data is None:
-#             raise ValueError("No JSON data received")
-#
-#         json_data = json.loads(data)
-#
-#         nid = json_data.get('nid')
-#         created_at = json_data.get('cpu')
-#         res_class = json_data.get('memory')
-#         res_confidence = json_data.get('res_confidence')
-#
-#         if not all([nid, created_at, res_class, res_confidence]):
-#             raise KeyError("Missing required fields in the request")
-#
-#         print(f"Node ID: {nid} // Created time: {created_at} // Weather Class: {res_class} // Confidence: {res_confidence}")
-#
-#         return response.message('0000')
-#
-#     except json.JSONDecodeError:
-#         return response.message('0010')
-#
-#     except KeyError as e:
-#         return response.message('0015')
-#
-#     except ValueError as e:
-#         return response.message('9999')
 
 @ app.route('/optimize_by_version', methods=['POST'])
 def optimize_by_version():
@@ -57,14 +23,14 @@ def optimize_by_version():
         if data is None:
             raise ValueError("No JSON data received")
 
-        # 신버전 ai
+        # 신버전 AI
         newAI_json_data = json.loads(data)
         newAI_aid = newAI_json_data.get('aid')
         newAI_filename = newAI_json_data.get('filename')
         newAI_version = newAI_json_data.get('version')
         newAI_ai_class = newAI_json_data.get('ai_class')
 
-        # 구버전 AI : 등록/설정서버에 업로드된 AI중에 새버전 AI와 같은 filename, ai_class 를 갖는 aid를 찾고
+        # 구버전 AI
         aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={filename}&class={res_class}&version={newAI_version}")
         aid_json_data = json.loads(aid_data)
         uploaded_aid = aid_json_data.get('aid')
@@ -110,7 +76,6 @@ def optimize_by_version():
     except ValueError as e:
         return response.message('9999')
 
-# optimize_by_weather
 @app.route('/optimize_by_weather', methods=['POST'])
 def optimize_by_weather():
     nip = request.remote_addr
@@ -141,8 +106,6 @@ def optimize_by_weather():
 
         if ai_class != "00" and ai_class != res_class:
             print(f"[AI : {filename} / Class : {ai_class}] AI Optimizing.........")
-            # res_class에 맞는 AI 재배포 / aid, nid 필요
-            # 현재 배포된 AI 삭제
             data = {
                 "aid": aid,
                 "nid": nid
@@ -150,7 +113,7 @@ def optimize_by_weather():
             print(f"Delete [AI : {filename} / Class : {ai_class}]......")
             requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
 
-            # 최적화 AI ID = aid_optimized
+            # 최적화 AI
             aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass?filename={filename}&class={res_class}")
             aid_json = aid_data.json()
             aid_optimized = aid_json.get('aid')
@@ -174,8 +137,6 @@ def usage():
     cpu_usage = json_data['cpu']
     memory_usage = json_data['memory']
     ai_class = json_data['ai_class']
-
-#     print(f"User Name : {username} // AI_class : {ai_class} // CPU Usage : {cpu_usage}% // Memory Usage : {memory_usage}%")
 
     return "usage"
 
