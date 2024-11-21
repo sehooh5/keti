@@ -741,17 +741,14 @@
   
 
   - kakao test
-
     - vercel 보안때매 안되는거였음...
-
     - 현재는 #error 내용 고치면 됨, user 모델 필수값 입력이안되서그럼
 
-      ```
-      https://dev.showbility.vercel.app/social/kakao
-      
-      Drqw159357
-      
-      ```
+  
+
+  #### 1121
+
+  - User 부분 테스트 완료
 
   
 
