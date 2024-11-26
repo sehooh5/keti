@@ -798,6 +798,11 @@
   - contents : 일단 완료
   - users : 고칠거 없음
 
+#### 1127
+
+- content filter = 검색기능인데 한번 확인해봐야함
+  - list int로 받음...전체적으로 어떻게 받을지 정하면 좋음
+
 
 
 ```json
