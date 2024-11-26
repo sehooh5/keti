@@ -783,12 +783,45 @@
 - tag
   - category 가 안나오는데 확인
   - 입력값 str 도 확인해야함
+  - 완료
 
 
 
-순호님 논의
+#### 1126
 
-- 
+- DB 연동 시간 지연되는것 개선
+  - comments : 완료
+  - tag : 완료
+  - follow : 완료
+  - category : 
+  - auth : 
+  - contents : 
+  - users :
+
+
+
+```json
+db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중복되는 쿼리나 시간이 지연될것같은 코드가 있으면 성능을 높히고 최적화 시켜줘
+```
+
+#### 확인 필요
+
+1. [중요] List API의 느린속도 - 원인파악 및 해결 필요
+   - sqlalchemy → n+1 query 문제일수도
+   - 서버 - db 커넥션 pooling
+     - (torso app에서 쿼리사용해보고 속도차이확인)
+   - api startup time - vercel 서버리스 어떻게 동작하는지?
+2. API 오류
+   - 연동중 오류 생기면 공유
+   - 조치
+
+3. API Schema 싱크 맞추기
+   - User에게 받지 않아도되는 입력값 등
+   - Front - Back 요청 시 Schema 싱크 맞추기 각 API 마다 필요할듯
+
+4. Image 업로드
+   - 로그인 연동 후 Content 의 Image 파트 먼저 진행예정
+   - 저장공간 확정 필요
 
 
 
