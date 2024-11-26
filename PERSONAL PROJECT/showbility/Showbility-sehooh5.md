@@ -793,10 +793,10 @@
   - comments : 완료
   - tag : 완료
   - follow : 완료
-  - category : 
-  - auth : 
-  - contents : 
-  - users :
+  - category : 완료
+  - auth : 완료
+  - contents : 일단 완료
+  - users : 고칠거 없음
 
 
 
