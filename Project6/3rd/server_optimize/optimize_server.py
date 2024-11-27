@@ -138,6 +138,14 @@ def usage():
     memory_usage = json_data['memory']
     ai_class = json_data['ai_class']
 
+    print(f"")
+        if ai_class == "01":
+            weather_info = "맑음"
+        elif ai_class == "02":
+            weather_info = "비"
+
+    print(f"User : {username} / CPU : {cpu_usage} / MEM : {memory_usage} / Weather : {weather_info}")
+
     return "usage"
 
 
