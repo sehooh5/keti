@@ -2132,7 +2132,7 @@ v1.30.3
 
 ### <mark>현재 상태</mark>
 
-- 배포 테스트 
+- **배포 테스트 중** - worker 에서 `test-cv2-torch` 배포되어있음
 
   - Dockerfile
 
@@ -2175,9 +2175,13 @@ v1.30.3
 
     
 
-  - 실행명령
+  - 도커명령
 
     ```
+    # build
+    docker buildx build --platform linux/arm64 -t test-cv2-torch --load .
+    
+    # 실행
     docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu test-cv2-torch /bin/bash
     ```
 
