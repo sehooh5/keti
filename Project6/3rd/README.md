@@ -2108,14 +2108,104 @@ v1.30.3
       ## 테스트중
       docker buildx build --platform linux/arm64 -t test-cv2-torch --load .
       
+      # torch 사용 가능 /cv2 : ImportError: /lib/libopencv_cudaarithm.so.4.5: undefined symbol:
       docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu test-cv2-torch /bin/bash
+      
+      #이거로 하니까 일단 오류는 바뀜 / 근데 torch 를 사용할수 없음
+      docker run -it --rm --privileged test-cv2-torch /bin/bash
+      
+      pip3 isntall opencv-python
+      
+      import cv2
+      print("OpenCV version:", cv2.__version__)
+      
+      # Test CUDA support (optional)
+      print("CUDA support in OpenCV:", cv2.cuda.getCudaEnabledDeviceCount() > 0)
       ```
 
-    - 
+      
 
   - **k8s로 배포**
 
-  
+
+
+
+### <mark>현재 상태</mark>
+
+- 배포 테스트 
+
+  - Dockerfile
+
+    ```
+    FROM nvcr.io/nvidia/l4t-pytorch:r35.1.0-pth1.12-py3
+    
+    # 환경 변수 설정
+    ENV DEBIAN_FRONTEND=noninteractive
+    ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    
+    # 필수 라이브러리 설치
+    RUN apt-get update && apt-get install -y \
+        python3 \
+        python3-pip \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libopencv-dev \
+        python3-opencv \
+        ffmpeg \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
+    
+    # PyTorch와 OpenCV 설치
+    RUN pip3 install --no-cache-dir --prefer-binary \
+        opencv-python-headless==4.5.5.64 \
+        numpy==1.21.6
+    
+    # 작업 디렉토리 설정
+    WORKDIR /app
+    
+    # 필요한 파일 복사
+    COPY requirements.txt .
+    RUN pip3 install --no-cache-dir --prefer-binary -r requirements.txt
+    
+    COPY . .
+    
+    # 실행 명령 설정
+    CMD ["python3", "main.py"]
+    
+    ```
+
+    
+
+  - 실행명령
+
+    ```
+    docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu test-cv2-torch /bin/bash
+    ```
+
+    
+
+  - 오류 메시지 2가지
+
+    - 실행명령에서 `-v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu` 빼면 나는 오류
+
+      ```
+      ImportError: libavcodec-e61fde82.so.58.134.100: cannot open shared object file: No such file or directory
+      ```
+
+    - OpenCV (`cv2`)와 PyTorch가 동일한 컨테이너에서 충돌하는것 같음
+
+      ```
+      ImportError: /lib/libopencv_cudaarithm.so.4.5: undefined symbol:
+      ```
+
+      
+
+
+
+
+
+
+
+
 
 - 현재 터미네이팅 속도가 너무 느려서 데이터가 겹치는데 어떻게?
 
