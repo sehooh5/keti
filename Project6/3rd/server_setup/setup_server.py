@@ -12,7 +12,6 @@ import response
 import string
 import random_string
 
-
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
