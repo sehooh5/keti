@@ -2139,14 +2139,17 @@ v1.30.3
 
 #### 1206
 
-- `기술문서` 문서작업 -> 수요일까지 
-  - 내용작성(완료)
-  - 캡쳐, 표 만들기중
-    - 다이어그램 draw.io 로 만드는중
+- `기술문서` 문서작업 -> 금요일 완료
+  - 내용작성
+  - 캡쳐, 표 만들기
   - 편집하기
-    - 배포부터 하면됨
+
+
+
+#### 1209
+
 - `성능목표` 작업
-  - 버전정보에 따른 최적화 기능 -> 금요일까지
+  - 버전정보에 따른 최적화 기능
 
 
 
@@ -2585,4 +2588,31 @@ EOF
         ```
 
         
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitoring-01
+  template:
+    metadata:
+      labels:
+        app: monitoring-01
+    spec:
+      nodeName: intellivix-desktop
+      containers:
+        - name: monitoring-01
+          image: 192.168.0.15:5000/monitoring-01:01
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+      - name : regcred
+      terminationGracePeriodSeconds: 5
+```
 
