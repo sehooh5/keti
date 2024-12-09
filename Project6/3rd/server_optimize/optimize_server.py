@@ -55,11 +55,6 @@ def optimize_by_version():
                         "aid": uploaded_aid,
                         "nid": nid
                     }
-
-                    # 구버전 삭제
-                    print(f"Delete [AI : {uploaded_ai_filename} / Version : {uploaded_ai_version}]......")
-                    requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
-
                     # newAI_version 배포
                     data_optimized = {
                         "aid": newAI_aid,
@@ -69,6 +64,11 @@ def optimize_by_version():
                     requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
             else:
                 print("nid_list가 없습니다.")
+
+            # 구버전 삭제
+            print(f"Delete [AI : {uploaded_ai_filename} / Version : {uploaded_ai_version}]......")
+            requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
+
             # 업로드된 구버전 AI 이미지 삭제
             requests.post(f"{SETUP_API_URL}/request_remove_edgeAi", json=old_data)
 
