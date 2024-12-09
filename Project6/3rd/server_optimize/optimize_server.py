@@ -103,10 +103,18 @@ def optimize_by_weather():
 
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
+    if res_list.status_code != 200:
+        print(f"Failed to retrieve deployed AIs. Status code: {res_list.status_code}")
+        return response.message("Failed to retrieve deployed AIs")
+
     aid_list_json = res_list.json()
     aid_list = aid_list_json.get('aid_list')
     for aid in aid_list:
         ai_informs = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
+        if ai_informs.status_code != 200:
+            print(f"Failed to retrieve AI info for aid {aid}. Status code: {ai_informs.status_code}")
+            continue
+
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')

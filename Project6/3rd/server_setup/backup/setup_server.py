@@ -116,6 +116,7 @@ def request_undeploy_aiFromDevice():
         "aid": aid,
         "nid": nid
     }
+    print("aid, nid data : ", data)
     requests.post(f"{MASTER_API_URL}/undeploy_aiFromDevice", json=data)
 
     ai_deployed_info = db.session.query(AI_deployed).filter(AI_deployed.nid == nid, AI_deployed.aid == aid).first()
@@ -130,6 +131,12 @@ def get_uploadedAiInfo():
 
     # DB 정보 획득
     ai_info = db.session.query(AI_uploaded).filter(AI_uploaded.aid == aid).first()
+    if not ai_info:
+        data = {
+            "code": "404",
+            "message": f"No AI info found for aid: {aid}"
+        }
+        return json.dumps(data), 404
 
     data = {
         "code":"0000",
