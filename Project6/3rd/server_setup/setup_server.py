@@ -161,7 +161,12 @@ def get_deployedNodes_by_aid():
 
     # DB 정보 획득
     nid_deployed_list = db.session.query(AI_deployed.nid).filter(AI_deployed.aid == aid).all()
-    nid_list = [result.nid for result in nid_deployed_list]
+
+    if not nid_deployed_list:
+        print(f"No deployed nodes found for AI ID: {aid}")
+        nid_list = []
+    else:
+        nid_list = [result.nid for result in nid_deployed_list]
 
     data = {"nid_list": nid_list}
     json_data = json.dumps(data)
