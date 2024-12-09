@@ -19,16 +19,19 @@ port = "6432"
 @ app.route('/optimize_by_version', methods=['POST'])
 def optimize_by_version():
     try:
+
+        data = request.get_json(silent=True)
+        if data is None:
+            raise ValueError("No JSON data received")
         data = request.get_json(silent=True)
         if data is None:
             raise ValueError("No JSON data received")
 
         # 신버전 AI
-        newAI_json_data = json.loads(data)
-        newAI_aid = newAI_json_data.get('aid')
-        newAI_filename = newAI_json_data.get('filename')
-        newAI_version = newAI_json_data.get('version')
-        newAI_ai_class = newAI_json_data.get('ai_class')
+        newAI_aid = data.get('aid')
+        newAI_filename = data.get('filename')
+        newAI_version = data.get('version')
+        newAI_ai_class = data.get('ai_class')
 
         # 구버전 AI
         aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={newAI_filename}&class={newAI_ai_class}&version={newAI_version}")
