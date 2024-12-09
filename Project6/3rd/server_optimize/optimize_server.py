@@ -35,18 +35,15 @@ def optimize_by_version():
 
         # 구버전 AI
         aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={newAI_filename}&class={newAI_ai_class}&version={newAI_version}")
-        aid_json_data = json.loads(aid_data)
-        uploaded_aid = aid_json_data.get('aid')
+        uploaded_aid = aid_data.get('aid')
         uploaded_ai_data = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={uploaded_aid}")
-        uploaded_ai_json_data = uploaded_ai_data.json()
-        uploaded_ai_version = uploaded_ai_json_data.get('version')
-        uploaded_ai_filename = uploaded_ai_json_data.get('filename')
-        uploaded_ai_class = uploaded_ai_json_data.get('ai_class')
+        uploaded_ai_version = uploaded_ai_data.get('version')
+        uploaded_ai_filename = uploaded_ai_data.get('filename')
+        uploaded_ai_class = uploaded_ai_data.get('ai_class')
 
         if int(uploaded_ai_version) < int(newAI_version):
             res_list = requests.get(f"{SETUP_API_URL}/get_deployedNodes_by_aid?aid={uploaded_ai_version}")
-            nid_list_json = res_list.json()
-            nid_list = nid_list_json.get('nid_list')
+            nid_list = res_list.get('nid_list')
             for nid in nid_list:
                 old_data = {
                     "aid": uploaded_aid,
