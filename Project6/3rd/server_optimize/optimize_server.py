@@ -24,15 +24,14 @@ def optimize_by_version():
             raise ValueError("No JSON data received")
 
         # 신버전 AI
-        newAI_json_data = json.loads(data)
-        newAI_aid = newAI_json_data.get('aid')
-        newAI_filename = newAI_json_data.get('filename')
-        newAI_version = newAI_json_data.get('version')
-        newAI_ai_class = newAI_json_data.get('ai_class')
+        newAI_aid = data.get('aid')
+        newAI_filename = data.get('filename')
+        newAI_version = data.get('version')
+        newAI_ai_class = data.get('ai_class')
 
         # 구버전 AI
-        aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={filename}&class={res_class}&version={newAI_version}")
-        aid_json_data = json.loads(aid_data)
+        aid_data = requests.get(f"{SETUP_API_URL}/get_aid_by_fnameAndClass_not_version?filename={newAI_filename}&class={newAI_ai_class}&version={newAI_version}")
+        aid_json_data = aid_data.json()
         uploaded_aid = aid_json_data.get('aid')
         uploaded_ai_data = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={uploaded_aid}")
         uploaded_ai_json_data = uploaded_ai_data.json()
@@ -41,27 +40,31 @@ def optimize_by_version():
         uploaded_ai_class = uploaded_ai_json_data.get('ai_class')
 
         if int(uploaded_ai_version) < int(newAI_version):
-            res_list = requests.get(f"{SETUP_API_URL}/get_deployedNodes_by_aid?aid={uploaded_ai_version}")
+            res_list = requests.get(f"{SETUP_API_URL}/get_deployedNodes_by_aid?aid={uploaded_aid}")
             nid_list_json = res_list.json()
-            nid_list = nid_list_json.get('mid_list')
-            for nid in nid_list:
-                old_data = {
-                    "aid": uploaded_aid,
-                    "nid": nid
-                }
+            nid_list = nid_list_json.get('nid_list')
+            #nid list 존재할때만 undeploy 해주는거 추가해야함
+            if nid_list:
+                print("nid_list : ", nid_list)
+                for nid in nid_list:
+                    old_data = {
+                        "aid": uploaded_aid,
+                        "nid": nid
+                    }
 
-                # 구버전 삭제
-                print(f"Delete [AI : {uploaded_ai_filename} / Version : {uploaded_ai_version}]......")
-                requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=data)
+                    # 구버전 삭제
+                    print(f"Delete [AI : {uploaded_ai_filename} / Version : {uploaded_ai_version}]......")
+                    requests.post(f"{SETUP_API_URL}/request_undeploy_aiFromDevice", json=old_data)
 
-                # newAI_version 배포
-                data_optimized = {
-                    "aid": newAI_aid,
-                    "nid": nid
-                }
-                print(f"Deploy a new [AI : {newAI_filename} / Version : {newAI_version}]......")
-                requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
-
+                    # newAI_version 배포
+                    data_optimized = {
+                        "aid": newAI_aid,
+                        "nid": nid
+                    }
+                    print(f"Deploy a new [AI : {newAI_filename} / Version : {newAI_version}]......")
+                    requests.post(f"{SETUP_API_URL}/request_deploy_aiToDevice", json=data_optimized)
+            else:
+                print("nid_list가 없습니다.")
             # 업로드된 구버전 AI 이미지 삭제
             requests.post(f"{SETUP_API_URL}/request_remove_edgeAi", json=old_data)
 
@@ -96,10 +99,18 @@ def optimize_by_weather():
 
 #   Data from DB
     res_list = requests.get(f"{SETUP_API_URL}/get_deployedAis_by_node?nid={nid}")
+    if res_list.status_code != 200:
+        print(f"Failed to retrieve deployed AIs. Status code: {res_list.status_code}")
+        return response.message("Failed to retrieve deployed AIs")
+
     aid_list_json = res_list.json()
     aid_list = aid_list_json.get('aid_list')
     for aid in aid_list:
         ai_informs = requests.get(f"{SETUP_API_URL}/get_uploadedAiInfo?aid={aid}")
+        if ai_informs.status_code != 200:
+            print(f"Failed to retrieve AI info for aid {aid}. Status code: {ai_informs.status_code}")
+            continue
+
         ai_informs_json = ai_informs.json()
         ai_class = ai_informs_json.get('ai_class')
         filename = ai_informs_json.get('filename')
@@ -137,13 +148,14 @@ def usage():
     cpu_usage = json_data['cpu']
     memory_usage = json_data['memory']
     ai_class = json_data['ai_class']
+    version = json_data['version']
 
     if ai_class == "01":
         weather_info = "맑음"
     elif ai_class == "02":
         weather_info = "비"
 
-    print(f"User : {username} / CPU : {cpu_usage} / MEM : {memory_usage} / Weather : {weather_info}")
+    print(f"User : {username} / CPU : {cpu_usage} / MEM : {memory_usage} / Weather : {weather_info} / Version : {version}")
 
     return "usage"
 

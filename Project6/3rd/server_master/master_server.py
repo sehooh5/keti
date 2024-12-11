@@ -1,23 +1,17 @@
 #!/usr/bin/env python
 ## app.py 기반 master 에서 실행되는 서버
-from importlib import import_module
-from typing import List
 from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
 import requests
 import os
-# from models import db, SW_up, Server, Server_SW
 import response
 import string
-import random
 import paramiko
 import time
 import subprocess
-import zipfile
 import datetime
 import sys
-import shutil
 # docker folder
 from docker import getImageTag as git
 # k8s folder
@@ -25,10 +19,8 @@ from k8s import deployment_maker as dm
 from k8s import monitoring_maker as mm
 from k8s import node_selector as ns
 
-# os.environ['KUBECONFIG'] = '/home/keti-jx-02/.kube/config'
-
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
+app.config['JSON_AS_ASCII'] = False
 CORS(app)
 
 # 다른 서버에 명령 보낼때 사용

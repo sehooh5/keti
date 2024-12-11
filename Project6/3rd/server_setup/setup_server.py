@@ -12,7 +12,6 @@ import response
 import string
 import random_string
 
-
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
@@ -58,8 +57,8 @@ def request_upload_edgeAi():
 
     requests.post(f"{MASTER_API_URL}/upload_edgeAi", json=data)
 
-#     # 최적화 서버에 버전정보 비교 trigger
-#     requests.post(f"{OPTIMIZE_API_URL}/optimize_by_version", json=data)
+    # 최적화 서버에 버전정보 비교 trigger
+    requests.post(f"{OPTIMIZE_API_URL}/optimize_by_version", json=data)
 
     return response.message('0000')
 
@@ -162,7 +161,12 @@ def get_deployedNodes_by_aid():
 
     # DB 정보 획득
     nid_deployed_list = db.session.query(AI_deployed.nid).filter(AI_deployed.aid == aid).all()
-    nid_list = [result.nid for result in nid_deployed_list]
+
+    if not nid_deployed_list:
+        print(f"No deployed nodes found for AI ID: {aid}")
+        nid_list = []
+    else:
+        nid_list = [result.nid for result in nid_deployed_list]
 
     data = {"nid_list": nid_list}
     json_data = json.dumps(data)

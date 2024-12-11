@@ -31,7 +31,7 @@ def cpu_mem_sending():
         "cpu": cpu_percent,
         "memory": memory_percent,
         "ai_class": "01",
-        "version": "10"
+        "version": "01"
     }
     json_data = json.dumps(data)
 
