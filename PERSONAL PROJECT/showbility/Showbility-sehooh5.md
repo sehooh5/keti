@@ -872,8 +872,13 @@
 - 콘텐츠, init_db, engine, main 
   - async로 전환했음 
   - 테스트 해봐야함
-- turso..libsql이async 사용이 안되서  일단 미사용하게 해놨음
+- turso..libsql이 async 사용이 안되서  일단 미사용하게 해놨음
   - contents, async_deps 등등
+
+#### 1215
+
+- contents 
+  - create 부분 추가함 되는지 git push 하고 확인하기 (내일) - 아직 push 안함
 
 
 
