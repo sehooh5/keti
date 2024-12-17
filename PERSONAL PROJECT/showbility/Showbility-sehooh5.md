@@ -809,8 +809,9 @@
 #### 1205
 
 - 애플 로그인 구현 
-  - 프론트와 연동필요
-
+  
+- 프론트와 연동필요
+  
 - #### 파일 시스템 도입
 
 - User 로그인 부분에서 소셜로그인에서 이메일 입력 시 
@@ -878,7 +879,29 @@
 #### 1215
 
 - contents 
-  - create 부분 추가함 되는지 git push 하고 확인하기 (내일) - 아직 push 안함
+  - create 부분 추가함 되는지 git push 하고 확인하기
+
+
+
+#### 1216
+
+- git push 완료
+- ~~현재 DB 연동이 잘 안되고있는데 점심먹고 확인 필요~~
+  - 확인 완료
+- content db 확인 완료
+- create 부분 테스트 해보기
+
+
+
+#### 1217
+
+- user 
+  - 약관, 광고 수신 동의 static 내용 추가해야함
+- auth
+  - signup email
+    - 완료
+  - validate
+    - 완료
 
 
 
@@ -948,17 +971,6 @@ db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중�
     
 
   
-
-  
-
-  ```
-  curl -X 'POST' \
-    'https://dev.showbility.vercel.app/my?user_id=3' \
-    -H 'accept: application/json' \
-    -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzEwNzE3NjQsInN1YiI6IjMifQ.l810qP30Lx6AVlnqVE0O7A-fdgnCc5XvZPmIWCvDQ2I' \
-    -H 'Content-Type: application/x-www-form-urlencoded' \
-    -d 'nickname=string11&email=string11%40naver.com&phone_number=0213564&description=string11&categories=[1,2]'
-  ```
 
   
 
