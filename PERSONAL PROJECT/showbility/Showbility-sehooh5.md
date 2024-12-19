@@ -916,7 +916,50 @@
     - 애플 로그인
       - 로직 구성하기
 
+#### 1219
 
+- 타임아웃/레이턴시 에러
+
+  - **SQLAlchemy Core로 전환**: ORM 대신 SQLAlchemy Core를 사용해 명시적으로 쿼리를 작성하여 성능 최적화.
+
+  - Connection Pool 설정 강화
+
+    ```python
+    engine = create_engine(
+        str(settings.DATABASE_URI),
+        pool_size=10,  # 최대 연결 수
+        max_overflow=5,  # 추가 연결 허용 수
+        pool_recycle=1800,  # 연결 재활용 시간
+        pool_pre_ping=True  # 연결 체크 활성화
+    )
+    ```
+
+  - 서버리스 환경에서 연결 유지
+
+    ```python
+    from threading import Thread
+    import time
+    
+    def keep_connection_alive():
+        while True:
+            with engine.connect() as conn:
+                conn.execute("SELECT 1")
+            time.sleep(600)  # 10분마다 핑
+            
+    Thread(target=keep_connection_alive, daemon=True).start()
+    ```
+
+
+
+- user
+  - 카카오 로그인
+    - 로직 변경함 - 토큰 해석 한번만함
+  - 애플 로그인
+    - 로직 구성중
+  - update
+    - 이미지 첨부 추가
+
+## git push 부터해야함!
 
 
 
