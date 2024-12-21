@@ -951,15 +951,24 @@
 
 
 
-- user
+### 1221
+
+- user -> **로그인 파트 STOP**
   - 카카오 로그인
     - 로직 변경함 - 토큰 해석 한번만함
   - 애플 로그인
     - 로직 구성중
   - update
     - 이미지 첨부 추가
-
-## git push 부터해야함!
+- 서버 안정화
+  - startup : python 시작할때 db 마이그레이션이 돌가는지 체크해보기
+  - sqlalchemy orm : n+1 query -> 쿼리를 바꿔야할 수 도 있고, 스키마를 바꿔야 할 수도있다
+  - db -server 간 계속 왔다갔다하는경우
+  - connection pooling - sqlalchemy.pool — connction은 한개
+  - 내 생각 : response data 만드는거 없애야할듯
+  - 측정해보면서 진행하기
+    - vercel latency 측정기
+    - 
 
 
 
