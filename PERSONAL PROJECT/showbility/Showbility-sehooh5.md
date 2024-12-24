@@ -16,6 +16,7 @@
   - DB : 3306
   
 - **서버 켜는법**
+  
   - nginx + uwsgi로 작동함
     1. `nginx` 켜져 있는지 확인
        1. `sudo service nginx status`
@@ -968,7 +969,18 @@
   - 내 생각 : response data 만드는거 없애야할듯
   - 측정해보면서 진행하기
     - vercel latency 측정기
-    - 
+
+
+
+#### 1223
+
+- 프로필 업데이트
+
+
+
+#### 1224
+
+- 로그인/기획 변화에 따른 api 변경
 
 
 
