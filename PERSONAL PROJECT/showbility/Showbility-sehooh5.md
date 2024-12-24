@@ -968,7 +968,16 @@
   - 내 생각 : response data 만드는거 없애야할듯
   - 측정해보면서 진행하기
     - vercel latency 측정기
-    - 
+- 측정해보기
+  - 측정 1 : FastAPI 서버 초기화와 Turso DB 연결 설정이 지연되며, 첫 요청에 500 Timeout 에러가 발생할 수 있습니다.
+  - 측정 2 : Turso DB의 리전이 Vercel과 멀리 떨어져 있으면 
+  - 측정 3 : SQLAlchemy의 Connection Pool이 제대로 작동하지 않을 가능성이 높습니다. 
+
+
+
+- lifespan으로 바꿨는데도 안됨...여전히 500 에러
+
+
 
 
 
