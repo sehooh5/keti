@@ -1032,6 +1032,11 @@
 
   - DB turso -> python 모델로 만드는거 먼저 진행(문서보고 진행)
     - turso dump하고 해야하는데 dump가 안되고있음
+    - dump 하고 생성해서 models.py 생성함
+    - models.py 토대로 코드 변경 필요!
+      - **user 인증부분 빼고 테스트 진행해보기**
+        - user 인증 부분 순호님 코드 확인 후 테스트 가능한지 보고 진행
+      - ExtendUser->User 변경은 완료(확인 필요)
 
 
 
