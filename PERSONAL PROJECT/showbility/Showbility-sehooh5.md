@@ -1021,7 +1021,8 @@
   
 - #### **DB**
 
-  - DB turso -> python 모델로 만드는거 먼저 진행
+  - DB turso -> python 모델로 만드는거 먼저 진행(문서보고 진행)
+    - turso dump하고 해야하는데 dump가 안되고있음
 
 
 
