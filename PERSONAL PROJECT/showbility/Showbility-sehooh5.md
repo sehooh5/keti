@@ -981,6 +981,15 @@
 #### 1224
 
 - 로그인/기획 변화에 따른 api 변경
+  - router
+    - /users/siginup 추가 
+      - username, nickname, agree_rule, agree_marketing, categories 입력
+      - 별명 중복 확인
+      - create_user 함수 실행
+      - 리턴받은 user의 id 값으로 토큰 발급 후 리턴
+      - **1. 토큰 발급 유효한지 / 2. 전달 받는 session에 값에 이메일이 있는지 / 3. session 에 인증정보를 어떻게 활용할지? / 4. 카테고리 업데이트 하는 부분은 따로 처리해야할듯?(update_category 기능 있음)**
+    - **이메일 인증 로직 변경(필요)**
+      - 기존 인증번호 로직 -> 인증버튼(토큰 사용) 인증으로 변경됨
 
 
 
