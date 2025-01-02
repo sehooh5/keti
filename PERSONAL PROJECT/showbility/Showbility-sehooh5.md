@@ -1043,6 +1043,16 @@
 
   - 연동하고 -> 의존성 주입 후 -> 다른 API 테스트 진행
 
+- 안정화
+
+  - httping 테스트
+
+    - 설치 후
+
+      ```
+      httping -c 10 https://dev.showbility.vercel.app/categories
+      ```
+
 
 
 
