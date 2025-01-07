@@ -1048,6 +1048,7 @@
 - user(인증 외)
 - category
 - content(진행중)
+  - create -  create_at 직접 입력으로 변경하기
 
 
 
