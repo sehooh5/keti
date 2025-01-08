@@ -1046,15 +1046,15 @@
 #### 확인 완료
 
 - user(인증 외)
-- category
-- content(진행중)
-  - filter 부터 하면됨
+- category, tag
+- content, image
+- follow
+- comments(진행중)
+  - 얘만 하면 테스트 완료
 
 
 
-- 인증부분 연동 테스트가 안되는중
 
-  - 연동하고 -> 의존성 주입 후 -> 다른 API 테스트 진행
 
 - #### 안정화
 
@@ -1075,6 +1075,7 @@
   - 0106 - $1.85
     - ![image-20250106101344431](C:\Users\KETI\AppData\Roaming\Typora\typora-user-images\image-20250106101344431.png)
   - 0107 - $2.14
+  - 0108 - $2.54 (0.4 증가)
 
 
 
@@ -1144,9 +1145,6 @@ db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중�
     
     ```
     
-    
-
-#   10번부터 진행!
 
   
 
