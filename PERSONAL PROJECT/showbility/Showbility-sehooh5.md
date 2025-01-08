@@ -986,7 +986,7 @@
 
 
 
-#### 0103
+#### 0108
 
 - 로그인/기획 변화에 따른 api 변경
   - router
@@ -1019,7 +1019,7 @@
 
   - 삭제
 
-    - ## contents 삭제 먼저 만들고 해당 crud 사용하기로 진행 (잠시 보류)- 이거부터 해야함
+    - ## contents 삭제 먼저 만들고 해당 crud 사용하기로 진행 (잠시 보류)- 이거부터 해야함 ?? 
 
 - Content
 
@@ -1040,19 +1040,20 @@
       - ExtendUser->User 변경은 완료(확인 필요)
     - created_at 에서 에러 발생하는듯?
       - numeric 에러인데 문제 없다고함 어떻게 해결할지?
+  
+- #### ZAP
+
+  - 기획서보고 확인필요
 
 
 
 #### 확인 완료
 
-- user(인증 외)
+- user(인증 외), validate
 - category, tag
 - content, image
 - follow
-- comments(진행중)
-  - 얘만 하면 테스트 완료
-
-
+- comments
 
 
 
