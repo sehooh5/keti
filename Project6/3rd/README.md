@@ -2198,6 +2198,43 @@ v1.30.3
 
 
 
+#### 0109
+
+- 인텔리빅스 문의	
+
+  - 저장공간
+
+    ```
+    intellivix@intellivix-desktop:~$ df -h
+    Filesystem       Size  Used Avail Use% Mounted on
+    /dev/nvme0n1p1    32G   21G  9.0G  70% / # 기본 mount
+    none             7.5G     0  7.5G   0% /dev
+    tmpfs            7.6G   52K  7.6G   1% /dev/shm
+    tmpfs            1.6G  163M  1.4G  11% /run
+    tmpfs            5.0M  4.0K  5.0M   1% /run/lock
+    tmpfs            7.6G     0  7.6G   0% /sys/fs/cgroup
+    /dev/nvme0n1p15  1.8G  103M  1.6G   6% /mnt/vendorA
+    /dev/nvme0n1p16  1.8G  125M  1.6G   8% /mnt/vendorB
+    /dev/nvme0n1p17   15G  1.6G   13G  12% /mnt/vendorD
+    /dev/nvme0n1p18  183G   16K  174G   1% /mnt/vendorE # 사용해도 가능한지?
+    tmpfs            1.6G   16K  1.6G   1% /run/user/124
+    tmpfs            256M     0  256M   0% /mnt/vendorD/data/Intellivix/tmp
+    tmpfs            1.6G  8.0K  1.6G   1% /run/user/1000
+    ```
+
+  
+
+  - 사용자 추가해서 사용해도 괜찮은지?
+
+
+
+- jetson base 이미지
+  - https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-base/tags -> 35.4.1
+
+
+
+
+
 ### <mark>현재 상태</mark>
 
 - **배포 테스트 중** - worker 에서 `test-cv2-torch` 배포되어있음

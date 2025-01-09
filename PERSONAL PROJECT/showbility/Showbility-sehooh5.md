@@ -1044,8 +1044,6 @@
     - v1 데이터 -> v2 DB 로 옮기기작업 필요
       - DB 읽어서 스크립트 짜기
 
-  - 
-
 - #### ZAP
 
   - 기획서보고 확인필요
@@ -1189,13 +1187,70 @@ db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중�
 
 
 
+### DB 마이그레이션 
+
+```
+# 사용중
+## 전 - 후
+
+## 1:1 매칭으로 변경되는 컬럼만 변경해서 옮기면 될듯
+backend_category 						- category
+backend_category_tags 					- category_tags
+backend_comment 						- comment
+backend_comment_likes					- comment_likes
+backend_content 						- content
+backend_content_categories 				- content_categories
+backend_content_liked_users 			- content_liked_users
+backend_content_tags 					- content_tags
+backend_extenduser 						- users
+backend_extenduser_tags 				- user_tags
+backend_image 							- image
+backend_tag 							- tags
+backend_withdrawuser 					- withdraw_users
+
+# 확인 필요
+## 이전 테이블 데이터 값 확인하고 어떤 테이블인지, 데이값은 무엇인지 확인 필요
+backend_extenduser_followers			- followers_following
+backend_following
+
+## 현재 테이블은 없는듯
+backend_like
+
+현재 바뀐 로직으로 permission이 들어가는데 로직 확인해서 마이그레이션 필요
+auth_permission
+backend_extenduser_user_permissions		- UserAuthProvider
+backend_verifiactioncode
+
+# 신규만 있는 것(안해도됨)
+user_categories
+
+# 사용 안함
+auth_group
+auth_group_permissions
+backend_showbilitygroup
+backend_showbilitygroup_categories
+backend_showbilitygroup_followers
+backend_showbilitygroup_tags
+backend_extenduser_groups
+backend_groupcontent
+backend_groupmember
+django_admin_log
+django_content_type
+django_migrations
+django_session
+```
 
 
 
+#### 순서
+
+- 1:1 매치 테이블부터 마이그레이션 시작
 
 
 
-
+- 확인 필요 테이블 
+  - 스키마 확인 작업
+  - 확인 작업 후 마이그레이션
 
 
 
