@@ -1194,12 +1194,12 @@ db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중�
 ## 전 - 후
 
 ## 1:1 매칭으로 변경되는 컬럼만 변경해서 옮기면 될듯
-backend_category 						- category
+backend_category 						- category				- 현재 테이블 사용 가능
 backend_content 						- content
 backend_comment 						- comment
 backend_extenduser 						- users
 backend_image 							- image
-backend_tag 							- tags
+backend_tag 							- tags					- 현재 테이블 사용 가능
 backend_withdrawuser 					- withdraw_users
 
 backend_category_tags 					- category_tags
