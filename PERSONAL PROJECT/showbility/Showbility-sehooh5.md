@@ -1195,18 +1195,20 @@ db 연동하는데 있어서 시간을 줄이고 싶어 해당 코드에서 중�
 
 ## 1:1 매칭으로 변경되는 컬럼만 변경해서 옮기면 될듯
 backend_category 						- category
-backend_category_tags 					- category_tags
-backend_comment 						- comment
-backend_comment_likes					- comment_likes
 backend_content 						- content
-backend_content_categories 				- content_categories
-backend_content_liked_users 			- content_liked_users
-backend_content_tags 					- content_tags
+backend_comment 						- comment
 backend_extenduser 						- users
-backend_extenduser_tags 				- user_tags
 backend_image 							- image
 backend_tag 							- tags
 backend_withdrawuser 					- withdraw_users
+
+backend_category_tags 					- category_tags
+backend_comment_likes					- comment_likes
+backend_content_categories 				- content_categories
+backend_content_liked_users 			- content_liked_users
+backend_content_tags 					- content_tags
+backend_extenduser_tags 				- user_tags
+
 
 # 확인 필요
 ## 이전 테이블 데이터 값 확인하고 어떤 테이블인지, 데이값은 무엇인지 확인 필요
@@ -1242,9 +1244,12 @@ django_session
 
 
 
-#### 순서
+#### 진행 순서
 
 - 1:1 매치 테이블부터 마이그레이션 시작
+  - 일반 테이블부터 시작
+    - 카테고리먼저
+  - 관계 테이블 
 
 
 
