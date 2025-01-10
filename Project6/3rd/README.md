@@ -81,12 +81,13 @@
 
   - Name : edge-m-01(edgem01-NUC11TNKi5)
 
-  - IP : 192.168.0.15
+  - IP : 192.168.0.5(~~15~~)
 
     ```
     # ssh 접속 / keti
     
-    ssh edge-m-01@192.168.0.15
+    ssh -p <port> edge-m-01@10.252.219.225
+    #ssh edge-m-01@192.168.0.15
     ```
 
   - 클러스터링 명령
@@ -138,10 +139,28 @@
 
 
 
+**Worker2** **(내가 사용할것)**
 
-- **Worker2** **(내가 사용할것)**
+- Name : intellivix
 
-  - Name : intellivix-worker-02(intellivix)
+- IP : 192.168.0.44
+
+  ```
+  # ssh 접속
+  ssh -p <port> intellivix@10.252.219.225
+  
+  # 정보
+  NVIDIA Orin NX Developer Kit -Jetpack 5.1.2 [L4T 35.4.1]
+  ```
+
+  
+
+
+
+
+- ~~**Worker2** **(내가 사용할것)**~~
+
+  - ~~Name : intellivix-worker-02(intellivix)~~
 
   - IP : 192.168.0.19
 
@@ -199,12 +218,13 @@
 
 - Name : edge-master-01
 
-- IP : 192.168.0.14
+- IP : 192.168.0.8(14)
 
   ```
   # ssh 접속
   
-  ssh edge-master-01@192.168.0.14
+  ssh -p <port> edge-master-01@10.252.219.225
+  #ssh edge-master-01@192.168.0.14
   ```
 
   
@@ -249,7 +269,8 @@
   ```
   # ssh 접속
   
-  ssh edge-worker-01@192.168.0.9
+  ssh -p <port> edge-worker-01@10.252.219.225
+  # ssh edge-worker-01@192.168.0.9
   ```
 
   
@@ -2192,7 +2213,7 @@ v1.30.3
     - 192.168.0. -> 16 로 변경
 
   - 최적화
-    - 192.168.0. -> 17 로 변경
+    - 192.168.0. ->8 로 변경
 
 - 테스트 해봐야하고 원격 설정해야함
 
@@ -2230,6 +2251,20 @@ v1.30.3
 
 - jetson base 이미지
   - https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-base/tags -> 35.4.1
+
+
+
+#### 0114
+
+- 자동 DHCP IP여서 변동되는데 고정 사용가능한지
+
+
+
+
+
+
+
+
 
 
 

@@ -1247,9 +1247,21 @@ django_session
 #### 진행 순서
 
 - 1:1 매치 테이블부터 마이그레이션 시작
-  - 일반 테이블부터 시작
-    - 카테고리먼저
-  - 관계 테이블 
+  - **독립 테이블 (참조되지 않는 부모 테이블)**:
+    - `category` : 완료
+    - `tags` : 완료
+    - `users` : 시작 필요
+  - **참조 테이블 (외래 키로 부모 테이블을 참조)**:
+    - `content` (참조 가능: `users`, `category`).
+    - `image` (참조 가능: `content`, `users`).
+    - `withdraw_users` (참조 가능: `users`).
+  - **관계 테이블 (두 개 이상의 테이블 간의 관계를 나타냄)**:
+    - `category_tags` (참조: `category`, `tags`).
+    - `content_categories` (참조: `content`, `category`).
+    - `content_tags` (참조: `content`, `tags`).
+    - `content_liked_users` (참조: `content`, `users`).
+    - `user_tags` (참조: `users`, `tags`).
+    - `comment_likes` (참조: `comments`, `users` → `comments` 테이블 확인 필요).
 
 
 
