@@ -1284,14 +1284,40 @@ django_session
 - tag 입력 -> id 값은 1000 더해서 입력
 - 관계 테이블 : 
   - backend_category_tags : 완료
-  - **backend_content_tags : 나중에 content 하고 입력**
   - backend_extenduser_tags : 완료
 
 
 
 #### Content 작업
 
-- 오후에 시작
+- backend_content : 완료
+- backend_content_categories : 완료
+- backend_content_tags : 완료
+- backend_content_liked_users : 완료
 
 
+
+#### Comment 작업
+
+- backend_comment : 완료
+
+
+
+#### Follow
+
+- 완료
+
+
+
+#### Media DATA 작업
+
+- vercel blob 앞 주소
+
+  ```
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/#personal
+  
+  # 1575 id 로 테스트중
+  ```
+
+  
 
