@@ -1265,13 +1265,33 @@ django_session
 
 
 
-- 확인 필요 테이블 
-  - 스키마 확인 작업
-  - 확인 작업 후 마이그레이션
+- ```
+  | id | name                  | image                              | order |
+  +----+-----------------------+------------------------------------+-------+
+  |  1 | 기타                  | category/images/etc.png            |    99 |
+  |  2 | 포토그래피            | category/images/photo.png          |     4 |
+  |  3 | 일러스트레이션        | category/images/illust.png         |     2 |
+  |  4 | 시각디자인            | category/images/visual_design.png  |     1 |
+  |  5 | UI/UX                 | category/images/uiux.png           |     5 |
+  |  6 | 제품디자인            | category/images/product_design.png |     3
+  ```
 
 
 
+#### tag 작업
 
+- 새로운 입력값은 이제 남겨두기
+- tag 입력 -> id 값은 1000 더해서 입력
+- 관계 테이블 : 
+  - backend_category_tags : 완료
+  - **backend_content_tags : 나중에 content 하고 입력**
+  - backend_extenduser_tags : 완료
+
+
+
+#### Content 작업
+
+- 오후에 시작
 
 
 
