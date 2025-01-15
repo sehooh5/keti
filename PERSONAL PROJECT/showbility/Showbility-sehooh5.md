@@ -1314,13 +1314,17 @@ django_session
 - vercel blob 앞 주소
 
   ```
-  https://eosreg7spptui42u.public.blob.vercel-storage.com/#personal
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/personal
+  
+  # 실제 blob 주소
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/personal/images/000028.6ff9c76646b14fc4ad65550b3cfa6d8f.2204/original/BEF8D34C-C550-4829_EG5zVyz-pV0pkmE9D7kbeNwSnL8c7SRWMgp0ba.png
+  
   
   # 1575 id 로 테스트중
   ```
 
 - 주소가 달라서 
 
-  - blob용으로 url 바꾸고 
+  - blob용으로 url 바꾸고
   - 데이터 입력하는 스크립트 짜야할듯
 
