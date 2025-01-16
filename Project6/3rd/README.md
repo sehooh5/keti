@@ -1822,7 +1822,7 @@ v1.30.3
               runtime_root = ""
               runtime_type = "io.containerd.runc.v2"
               [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.nvidia.options]
-                BinaryName = "/usr/bin/nvidia-container-runtime"
+                BinaryName = "/usr/bin/-container-runtime"
     ```
 
 - 도커파일 변경 : 기존 이미지에서는 cuda가 안보임
@@ -2260,7 +2260,18 @@ v1.30.3
 
 
 
+#### 0116
 
+- 환경 분석 AI 배포 세팅
+  - 현재 사용중인 Edge 카메라의 시스템, 모듈 버전 정보 확인
+    - Jetsonpack
+    - Docker
+    - Kubernetes
+    - Cuda
+    - PyTorch
+    - nvidia-container-runtime 등
+  - Edge 카메라의 버전 정보와 맞게 세팅 or 환경정보 AI 에 맞게 세팅
+    - 이 부분은 어떤게 실행이 가능한지 확인 필요
 
 
 
