@@ -2269,7 +2269,8 @@ v1.30.3
     - Kubernetes
     - Cuda
     - PyTorch
-    - nvidia-container-runtime 등
+    - nvidia-container-runtime
+    - nvidia-container-toolkit
   - Edge 카메라의 버전 정보와 맞게 세팅 or 환경정보 AI 에 맞게 세팅
     - 이 부분은 어떤게 실행이 가능한지 확인 필요
 
