@@ -2263,20 +2263,91 @@ v1.30.3
 #### 0116
 
 - 환경 분석 AI 배포 세팅
-  - 현재 사용중인 Edge 카메라의 시스템, 모듈 버전 정보 확인
-    - Jetsonpack
-    - Docker
-    - Kubernetes
-    - Cuda
-    - PyTorch
-    - nvidia-container-runtime
-    - nvidia-container-toolkit
+
+  - **워커(Edge 카메라)** 시스템, 모듈 버전 정보 확인
+
+    - Ubuntu : `20.04.6 LTS (GNU/Linux 5.10.120-tegra aarch64)`
+
+    - Jetpack : `nvidia-l4t-core 35.4.1-20230801124926`
+
+    - Docker : `Docker version 24.0.5`
+
+    - Kubernetes : 
+
+      ```
+      Client Version: v1.30.9
+      Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+      ```
+
+    - Cuda : `cuda_11.4.r11.4/compiler.31964100_0`
+
+    - PyTorch : 
+
+    - nvidia-container-runtime : 
+
+      ```
+      NVIDIA Container Runtime version 1.11.0-rc.1
+      commit: 629a689
+      spec: 1.0.2-dev
+      
+      runc version 1.1.7-0ubuntu1~20.04.1
+      spec: 1.0.2-dev
+      go: go1.18.1
+      libseccomp: 2.5.1
+      ```
+
+    - nvidia-container-toolkit : 
+
+      ```
+      ii  nvidia-container-toolkit                   1.11.0~rc.1-1                        arm64        NVIDIA Container toolkit
+      ```
+
+  
+
+  - **마스터 노드** 시스템, 모듈 버전 정보 확인
+
+    - Ubuntu : 
+
+      ```
+      Distributor ID: Ubuntu
+      Description:    Ubuntu 20.04.6 LTS
+      Release:        20.04
+      Codename:       focal
+      ```
+
+    - Docker : `Docker version 27.3.1, build ce12230`
+
+    - Kubernetes : 
+
+      ```
+      Client Version: v1.30.5
+      Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+      ```
+
+    - Cuda : 없음
+
+    - PyTorch : 없음
+
+    - nvidia-container-runtime : 없음
+
+    - nvidia-container-toolkit : 없음
+
+  ```
+  sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.15
+  ```
+
+  
+
+  
+
   - Edge 카메라의 버전 정보와 맞게 세팅 or 환경정보 AI 에 맞게 세팅
     - 이 부분은 어떤게 실행이 가능한지 확인 필요
 
 
 
+#### 0117
 
+- NVIDIA GPU Device Plugin 설치부터 진행
 
 
 
