@@ -1306,4 +1306,28 @@ django_session
 
   - blob용으로 url 바꾸고
   - 데이터 입력하는 스크립트 짜야할듯
+  
+- 테스트
 
+  ```
+  # 입력
+  personal/images/000028.6ff9c76646b14fc4ad65550b3cfa6d8f.2204/original/BEF8D34C-C550-4829_EG5zVyz.png
+  
+  # 버셀
+  https://eosreg7spptui42u.public.blob.vercel-storage.com
+  
+  personal/images/000028.6ff9c76646b14fc4ad65550b3cfa6d8f.2204/original/BEF8D34C-C550-4829_EG5zVyz.png
+  
+  
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/personal/images/000028.6ff9c76646b14fc4ad65550b3cfa6d8f.2204/original/BEF8D34C-C550-4829_EG5zVyz.png
+  
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/personal/images/000028.6ff9c76646b14fc4ad65550b3cfa6d8f.2204/small/BEF8D34C-C550-4829-89_jC0CFEX.png
+  
+  
+  https://eosreg7spptui42u.public.blob.vercel-storage.com/personal/images/000095.e87192c31ad64fd79fd803235790d298.0258/original/07539C50-525E-41AB_Aje3Cg1.jpg
+  ```
+
+
+
+- 따로따로 입력은 완료 ... 손수 입력하거나 다른 생각을 해봐야함
+  - blob때문에 쉽지않음

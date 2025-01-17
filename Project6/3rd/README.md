@@ -2345,7 +2345,7 @@ v1.30.3
 
 
 
-#### 0117
+#### 0120
 
 - NVIDIA GPU Device Plugin 설치부터 진행
 
