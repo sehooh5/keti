@@ -1331,3 +1331,10 @@ django_session
 
 - 프로필 데이터 이전 완료
 - 콘텐츠 진행
+
+
+
+- rebase
+- response 값 잘 설정하기 전체적으로!
+- currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기
+- follow crud 로직 다시 gogo
