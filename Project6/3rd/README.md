@@ -2347,7 +2347,9 @@ v1.30.3
 
 #### 0120
 
-- NVIDIA GPU Device Plugin 설치부터 진행
+- NVIDIA GPU Device Plugin 설치부터 진행 -  일단 보류
+  - docker 환경에서 먼저 실행해보기
+  - l4t-base 기반으로 쌓아올리는 형식으로 시작해보기
 
 
 
