@@ -1337,6 +1337,10 @@ django_session
 #### 앞으로 진행해야할 것 먼저
 
 - rebase
-- response 값 잘 설정하기 전체적으로!
-- currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기
-- follow crud 로직 다시 gogo
+- response 값 잘 설정하기  (전체적으로)
+- currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기 (전체적으로)
+- ~~follow crud 로직 다시 gogo~~ 완료
+- 이미지 저장 개선
+- 기존 이미지 파일 용량 큰 것들 축소 필요
+- async 변경 내용 확인 후 조금씩 변경 필요
+
