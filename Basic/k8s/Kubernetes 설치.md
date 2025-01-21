@@ -46,6 +46,7 @@ sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 $ sudo apt-get update
 $ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-get install -y kubelet=1.30.3 kubeadm=1.30.3 kubectl=1.30.3
+sudo apt-get install -y kubelet=1.30.3 kubeadm=1.30.5 kubectl=1.30.5
 # 패키지가 자동으로 설치, 업그레이드, 제거되지 않도록 hold함.
 $ sudo apt-mark hold kubelet kubeadm kubectl
 # 설치 완료 확인

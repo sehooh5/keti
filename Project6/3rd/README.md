@@ -2336,20 +2336,96 @@ v1.30.3
   sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.0.15
   ```
 
-  
-
-  
-
-  - Edge 카메라의 버전 정보와 맞게 세팅 or 환경정보 AI 에 맞게 세팅
-    - 이 부분은 어떤게 실행이 가능한지 확인 필요
 
 
+- docker build
 
-#### 0120
+  - dockerfile
+
+    ```Dockerfile
+    # Base image
+    FROM nvcr.io/nvidia/l4t-base:35.4.1
+    
+    # Set environment variables
+    ENV DEBIAN_FRONTEND=noninteractive
+    
+    # Update system and install Python
+    RUN apt-get update && apt-get install -y \
+        python3-pip \
+        python3-dev \
+        python3-pyqt5 \    
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libopencv-dev \
+        python3-opencv \
+        ffmpeg \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
+    
+    # Upgrade pip
+    RUN pip3 install --upgrade pip
+    
+    # Install PyTorch and dependencies (ARM-compatible version)
+    RUN pip3 install --no-cache-dir torch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/torch_stable.html
+    
+    # Set working directory
+    WORKDIR /app
+    
+    # Copy application files
+    COPY . /app
+    
+    # Install application dependencies
+    RUN pip3 install --no-cache-dir -r requirements.txt
+    
+    # Command to run the application
+    CMD ["python3", "main.py"]
+    ```
+
+    
+
+  - docker 명령어
+
+    ```
+    # Docker build
+    docker buildx build --platform linux/arm64 -t 192.168.0.15:5000/jetson-pytorch-test:latest --load .
+    
+    # Docker push
+    docker push 192.168.0.15:5000/jetson-pytorch-test:latest
+    
+    # Docker pull(Worker node에서)
+    docker pull 192.168.0.15:5000/jetson-pytorch-test:latest
+    
+    # Docker 환경에서 실행 -> 이거로 실행 가능하게됨
+    docker run --runtime=nvidia -it --rm \
+    	--privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu 192.168.0.15:5000/jetson-pytorch-test:latest /bin/bash
+    
+    docker run -it --rm --privileged -v /usr/lib/aarch64-linux-gnu/tegra:/usr/local/cuda/lib64 192.168.0.15:5000/jetson-pytorch-test:latest /bin/bash
+    
+    
+    
+    # Python 명령어
+    docker run --runtime=nvidia -it --rm \
+        --privileged -v /usr/lib/aarch64-linux-gnu:/usr/lib/aarch64-linux-gnu 192.168.0.15:5000/jetson-pytorch-test:latest python3 -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+    ```
+
+    
+
+  - /usr/lib/aarch64-linux-gnu/tegra:/usr/local/cuda/lib64
+
+    
+
+
+
+#### 0121
 
 - NVIDIA GPU Device Plugin 설치부터 진행 -  일단 보류
+
   - docker 환경에서 먼저 실행해보기
+
   - l4t-base 기반으로 쌓아올리는 형식으로 시작해보기
+
+  - cuda 가 컨테이너 내에서 안됨
+
+  - #### 일단 멈춤.... 다시해보기
 
 
 
