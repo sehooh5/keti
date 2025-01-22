@@ -88,7 +88,7 @@ def add_newEdgeCluster():
     if mid == None or wlist == None:
         return response.message("0015")
 
-    res = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
+    res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={mid}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
     mip = res.json()["ip"]
