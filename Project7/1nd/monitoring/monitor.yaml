@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usage-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usage-test
+  template:
+    metadata:
+      labels:
+        app: usage-test
+    spec:
+      containers:
+        - name: usage-test
+          image: sehooh5/usage-test:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

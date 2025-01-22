@@ -31,16 +31,13 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
 
-# 다른 서버에 명령 보낼때 사용
 cli = paramiko.SSHClient()
 cli.set_missing_host_key_policy(paramiko.AutoAddPolicy)
 
-# 랜덤한 문자열 생성기
 _LENGTH = 4
 string_pool = string.ascii_letters + string.digits
 
 
-# k8s 기능 체크
 @ app.route('/check_k8s_node', methods=['GET'])
 def check_k8s_node():
     s_name = os.system("echo $HOME")
@@ -49,39 +46,31 @@ def check_k8s_node():
     return response.message("0000")
 
 
-API_URL = "http://123.214.186.244:4880"
+API_URL = "http://10.252.219.108:4883"
 
-# IP 주소
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
 port = "5231"
 
-# host name
 user_name = os.getlogin()
 print(user_name)
 
-# file path
 file_path = f"/home/{user_name}/"
 
-#Docker Login 실행
-# Docker ID
 docker_id = "sehooh5"
 try:
     print("Docker login status is Checking...")
     subprocess.check_output("docker info | grep Username", shell=True).decode('utf-8')
 except subprocess.CalledProcessError:
     print("Docker login status : none")
-    # docker login 실행
     print("Docker login..")
     os.system(f"docker login -u {docker_id} -p @Dhtpgh1234")
 
 
 @ app.route('/')
 def index():
-
     return "접속 완료"
 
-# 2.4.3 신규 엣지 클러스터 추가 (add_newCluster 와 연동)
 @ app.route('/add_newEdgeCluster', methods=['POST'])
 def add_newEdgeCluster():
     func = sys._getframe().f_code.co_name
