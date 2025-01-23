@@ -1337,16 +1337,18 @@ django_session
 - response 값 잘 설정하기  (전체적으로)
 - currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기 (전체적으로)
 - ~~follow crud 로직 다시 gogo~~ 완료
-- 이미지 저장 개선
-- 기존 이미지 파일 용량 큰 것들 축소 필요
+- ~~이미지 저장 개선~~
+- ~~기존 이미지 파일 용량 큰 것들 축소 필요~~
+  - 일단 진행하지 않음
 - async 변경 내용 확인 후 조금씩 변경 필요
+  - 순호님이 진행중인데 turso -> vercelpostre 변경 필요
 
 
 
-현재 : 
+진행중 : 
 
-- content get 수정중
-  - get contents 까지 수정했는데 
 - 전체적으로 에러나는 부분 다시 복구해야함
   - git dev 가 업데이트되면 feat 에서 어떻게 해야하는지
+    - git rebase -> 충돌파일 해결 후 -> git push origin feat/~~ --force
   - local 셋업을 해야할지? 어떻게 해야하는지?
+    - 
