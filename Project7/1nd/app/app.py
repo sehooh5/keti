@@ -47,6 +47,8 @@ def check_k8s_node():
 
 
 API_URL = "http://10.252.219.108:4883"
+MASTER_URL = "192.168.0.14"
+MASTER_NAME = "edge-master-01"
 
 ips = subprocess.check_output("hostname -I", shell=True).decode('utf-8')
 ip = ips.split(' ')[0]
@@ -82,40 +84,30 @@ def add_newEdgeCluster():
         "%c")[:-4], f"{func}: edge json data: {json_data}")
     if json_data == None:
         return response.message("0021")
-    mid = json_data['mid']
     wlist = json_data['wlist']
 
-    if mid == None or wlist == None:
+    if wlist == None:
         return response.message("0015")
 
-    res = requests.get(f"{API_URL}/get_selectedDeviceInfo?id={mid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    mip = res.json()["ip"]
-    m_name = res.json()["name"]
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: master server ip: {mip}")
+        "%c")[:-4], f"{func}: master server ip: {MASTER_URL}")
 
-    # 마스터 엣지 구성
     m_output = subprocess.check_output(
-        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={mip} --node-name {m_name}" , shell=True).decode('utf-8')
+        f"echo keti | sudo -S kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={MASTER_URL} --node-name {MASTER_NAME}" , shell=True).decode('utf-8')
 
-    # 마스터 - 워커 연결해주는 명령어
     w_input = m_output.split('root:')[-1].lstrip()
     w_input = w_input.rstrip()
 
     # 마스터에서 설정해줘야 하는 내용
-#     os.system("echo yes | sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config")
     os.system("mkdir -p $HOME/.kube")
-    os.system("sudo chown $(id -u):$(id -g) $HOME/.kube/config")
-    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{m_name}/.kube/config"]
-
-    # 인터랙티브 덮어쓰기 확인을 자동으로 수락
+    command = ["sudo", "cp", "/etc/kubernetes/admin.conf",  f"/home/{MASTER_NAME}/.kube/config"]
     try:
         subprocess.run(command, input='y\n', stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, universal_newlines=True)
         print("명령어 실행 성공.")
     except subprocess.CalledProcessError as e:
         print(f"오류 발생: {e}")
+
+    os.system("sudo chown $(id -u):$(id -g) /etc/kubernetes/admin.conf")
     os.system("kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml")
 
 
@@ -183,14 +175,11 @@ def remove_selectedEdgeCluster():
     res_cluster = requests.get(f"{API_URL}/get_selectedClusterInfo?id={cid}")
     if res_cluster.json()["code"] != "0000":
         return response.message(res_cluster.json()["code"])
-    mid = res_cluster.json()["mid"]
     wlist = res_cluster.json()["wlist"]
 
-    res_master = requests.get(f"{API_URL}/get_selectedMasterInfo?id={mid}")
-
-    ips.append(res_master.json()["ip"])
-    names.append(res_master.json()["name"])
-    hnames.append(res_master.json()["name"])
+    ips.append(MASTER_URL)
+    names.append(MASTER_NAME)
+    hnames.append(MASTER_NAME)
     pwds.append("keti")
 
 
@@ -207,15 +196,6 @@ def remove_selectedEdgeCluster():
         names.append(res_device.json()["name"])
         hnames.append(res_device.json()["name"])
         pwds.append("keti")
-
-#     ips.append("192.168.0.14")
-#     names.append("edge-master-01")
-#     hnames.append('edge-master-01')
-#     pwds.append("keti")
-#     ips.append("192.168.0.9")
-#     names.append("edge-worker-01")
-#     hnames.append('edge-worker-01')
-#     pwds.append("keti")
 
     for ip, name, hname, pwd in zip(ips, names, hnames, pwds):
         print(datetime.datetime.now().strftime(
@@ -349,12 +329,6 @@ def remove_uploadedEdgeAi():
     res = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={id}")
     if res.json()["code"] != "0000":
         return response.message(res.json()["code"])
-    print(res.json())
-    # json 응답으로부터 fname 추출
-#     fileUrl = res.json()["fileUrl"]
-#     filename = fileUrl.split('/')[-1]
-#     if fileUrl.find("zip") != -1:
-#         fname = filename.split('.')[0]
 
     filename = res.json()['name']
     version = res.json()['version']
@@ -555,137 +529,137 @@ def remove_deploySwInfo():
 
     return response.message("0000")
 
-
-# 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
-@ app.route('/get_servicePort', methods=['POST'])
-def get_servicePort():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: start")
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    cid = json_data['cid']
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    sid = res.json()["mid"]
-
-    p_list = db.session.query(Server_SW.serviceport).filter(
-        Server_SW.sid == sid).all()
-    port_list = []
-    for p in p_list:
-        port = p[0]
-        port_list.append(port)
-
-    port = f"6{port_maker(3)}"
-    while True:
-        if port in port_list:
-            port = f"6{port_maker(3)}"
-            print(datetime.datetime.now().strftime(
-                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
-        else:
-            print(f"service port : {port}")
-            break
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        port=port
-    )
-    return res
-
-
-# 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
-@ app.route('/get_targetPort', methods=['POST'])
-def get_targetPort():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: start")
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    cid = json_data['cid']
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    sid = res.json()["mid"]
-
-    p_list = db.session.query(Server_SW.targetport).filter(
-        Server_SW.sid == sid).all()
-    port_list = []
-    for p in p_list:
-        port = p[0]
-        port_list.append(port)
-
-    port = f"5{port_maker(3)}"
-    while True:
-        if port in port_list:
-            port = f"5{port_maker(3)}"
-            print(datetime.datetime.now().strftime(
-                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
-        else:
-            print(datetime.datetime.now().strftime(
-                "%c")[:-4], f" {func}: target port : {port}")
-            break
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        port=port
-    )
-    return res
-
-
-# 2.15 마스터 서버의 사용 가능한 노드 포트 조회
-@ app.route('/get_nodePort', methods=['POST'])
-def get_nodePort():
-    func = sys._getframe().f_code.co_name
-    print(datetime.datetime.now().strftime(
-        "%c")[:-4], f" {func}: start")
-
-    json_data = request.get_json(silent=True)
-    if json_data == None:
-        return response.message("0021")
-
-    cid = json_data['cid']
-    # 노드명 불러오기
-    res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
-    if res.json()["code"] != "0000":
-        return response.message(res.json()["code"])
-    sid = res.json()["mid"]
-
-    p_list = db.session.query(Server_SW.nodeport).filter(
-        Server_SW.sid == sid).all()
-    port_list = []
-    for p in p_list:
-        port = p[0]
-        port_list.append(port)
-
-    port = node_port()
-
-    while True:
-        if port in port_list:
-            port = node_port()
-            print(datetime.datetime.now().strftime(
-                "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
-        else:
-            print(datetime.datetime.now().strftime(
-                "%c")[:-4], f" {func}: node port : {port}")
-            break
-
-    res = jsonify(
-        code="0000",
-        message="처리 성공",
-        port=port
-    )
-    return res
+#
+# # 2.13 마스터 서버의 사용 가능한 서비스 포트 조회
+# @ app.route('/get_servicePort', methods=['POST'])
+# def get_servicePort():
+#     func = sys._getframe().f_code.co_name
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: start")
+#
+#     json_data = request.get_json(silent=True)
+#     if json_data == None:
+#         return response.message("0021")
+#
+#     cid = json_data['cid']
+#     # 노드명 불러오기
+#     res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+#     if res.json()["code"] != "0000":
+#         return response.message(res.json()["code"])
+#     sid = res.json()["mid"]
+#
+#     p_list = db.session.query(Server_SW.serviceport).filter(
+#         Server_SW.sid == sid).all()
+#     port_list = []
+#     for p in p_list:
+#         port = p[0]
+#         port_list.append(port)
+#
+#     port = f"6{port_maker(3)}"
+#     while True:
+#         if port in port_list:
+#             port = f"6{port_maker(3)}"
+#             print(datetime.datetime.now().strftime(
+#                 "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
+#         else:
+#             print(f"service port : {port}")
+#             break
+#
+#     res = jsonify(
+#         code="0000",
+#         message="처리 성공",
+#         port=port
+#     )
+#     return res
+#
+#
+# # 2.14 마스터 서버의 사용 가능한 타깃 포트 조회
+# @ app.route('/get_targetPort', methods=['POST'])
+# def get_targetPort():
+#     func = sys._getframe().f_code.co_name
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: start")
+#
+#     json_data = request.get_json(silent=True)
+#     if json_data == None:
+#         return response.message("0021")
+#
+#     cid = json_data['cid']
+#     # 노드명 불러오기
+#     res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+#     if res.json()["code"] != "0000":
+#         return response.message(res.json()["code"])
+#     sid = res.json()["mid"]
+#
+#     p_list = db.session.query(Server_SW.targetport).filter(
+#         Server_SW.sid == sid).all()
+#     port_list = []
+#     for p in p_list:
+#         port = p[0]
+#         port_list.append(port)
+#
+#     port = f"5{port_maker(3)}"
+#     while True:
+#         if port in port_list:
+#             port = f"5{port_maker(3)}"
+#             print(datetime.datetime.now().strftime(
+#                 "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
+#         else:
+#             print(datetime.datetime.now().strftime(
+#                 "%c")[:-4], f" {func}: target port : {port}")
+#             break
+#
+#     res = jsonify(
+#         code="0000",
+#         message="처리 성공",
+#         port=port
+#     )
+#     return res
+#
+#
+# # 2.15 마스터 서버의 사용 가능한 노드 포트 조회
+# @ app.route('/get_nodePort', methods=['POST'])
+# def get_nodePort():
+#     func = sys._getframe().f_code.co_name
+#     print(datetime.datetime.now().strftime(
+#         "%c")[:-4], f" {func}: start")
+#
+#     json_data = request.get_json(silent=True)
+#     if json_data == None:
+#         return response.message("0021")
+#
+#     cid = json_data['cid']
+#     # 노드명 불러오기
+#     res = requests.get(f"{API_URL}/get_edgeClusterInfo?cid={cid}")
+#     if res.json()["code"] != "0000":
+#         return response.message(res.json()["code"])
+#     sid = res.json()["mid"]
+#
+#     p_list = db.session.query(Server_SW.nodeport).filter(
+#         Server_SW.sid == sid).all()
+#     port_list = []
+#     for p in p_list:
+#         port = p[0]
+#         port_list.append(port)
+#
+#     port = node_port()
+#
+#     while True:
+#         if port in port_list:
+#             port = node_port()
+#             print(datetime.datetime.now().strftime(
+#                 "%c")[:-4], f" {func}: port is already used. re-making port : {port}")
+#         else:
+#             print(datetime.datetime.now().strftime(
+#                 "%c")[:-4], f" {func}: node port : {port}")
+#             break
+#
+#     res = jsonify(
+#         code="0000",
+#         message="처리 성공",
+#         port=port
+#     )
+#     return res
 
 
 # DB관련
