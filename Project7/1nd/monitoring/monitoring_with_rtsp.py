@@ -2,9 +2,9 @@ import sys
 import json
 import cv2
 import requests
-from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QTextEdit
-from PyQt6.QtGui import QImage, QPixmap
-from PyQt6.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QTextEdit
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import QTimer
 
 class CCTVStreamApp(QWidget):
     def __init__(self, rtsp_url="rtsp://admin:wonwoo0!23@192.168.0.34:554/stream0", api_url="http://192.168.0.14:6432/usage"):
