@@ -7,18 +7,34 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # jsonify 한글깨짐 해결
 CORS(app)
 
+latest_data = None
+
 @app.route('/usage', methods=['POST'])
 def usage():
+    global latest_data
+
     data = request.get_json(silent=True)
-    json_data = json.loads(data)
 
-    username = json_data['username']
-    cpu_usage = json_data['cpu']
-    memory_usage = json_data['memory']
+    if data:
+        latest_data = data
+        json_data = json.loads(data)
 
-    print(f"User Name : {username}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
+        username = json_data['username']
+        cpu_usage = json_data['cpu']
+        memory_usage = json_data['memory']
 
-    return "index"
+        print(f"User Name : {username}, CPU Usage : {cpu_usage}%, Memory Usage : {memory_usage}%")
 
+        return jsonify({"result": "success"})
+    else:
+        return jsonify({"result": "error", "message": "잘못된 데이터"}), 400
+
+
+@app.route('/usage', methods=['GET'])
+def get_usage():
+    if latest_data is None:
+        return jsonify({"message": "데이터 없음"}), 404
+    else:
+        return jsonify(latest_data)
 
 app.run(host="192.168.0.14",port="6432")
