@@ -2,6 +2,7 @@ import sys
 import json
 import cv2
 import requests
+import time
 from datetime import datetime
 from PyQt5.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget, QTextEdit
 from PyQt5.QtGui import QImage, QPixmap
@@ -70,7 +71,7 @@ class CCTVStreamApp(QWidget):
                     f"CPU 사용량: {cpu}%\n"
                     f"Memory 사용량: {memory}%\n"
                     f"User: {username}\n"
-                    f"{datetime.fromtimestamp(last_update).strftime('%Y-%m-%d %H:%M:%S')}\n"
+                    f"{datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')}\n"
                 )
             else:
                 metadata = "데이터 없음"
