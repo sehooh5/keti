@@ -80,6 +80,6 @@ class CCTVStreamApp(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = CCTVStreamApp("rtsp://your_cctv_stream_url", "http://192.168.0.14:6432/usage")
+    window = CCTVStreamApp("rtsp://admin:wonwoo0!23@192.168.0.34:554/stream0", "http://192.168.0.14:6432/usage")
     window.show()
     sys.exit(app.exec())
