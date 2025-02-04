@@ -55,23 +55,20 @@ class CCTVStreamApp(QWidget):
         """HTTP API에서 JSON 데이터를 가져와 UI에 표시, 데이터 없을 때 '데이터 없음' 처리"""
         try:
             response = requests.get(self.api_url, timeout=2)
-            print("GET 응답 상태:", response.status_code)
-            print("GET 응답 내용:", response.text)  # 실제 응답 내용 확인
 
             if response.status_code == 200:
                 data = response.json()
                 print("파싱된 JSON 데이터:", data)
+                json_data = json.loads(data)
 
                 # 만약 필요한 키들이 모두 있는지 확인하고, 없으면 디폴트값을 사용
-                cpu = data.get("cpu", "N/A")
-                memory = data.get("memory", "N/A")
-                username = data.get("username", "N/A")
-                message = data.get("message", "N/A")
+                cpu = json_data['cpu']
+                memory = json_data['memory']
+                username = json_data['username']
                 metadata = (
-                    f"CPU: {cpu}%\n"
-                    f"Memory: {memory}%\n"
+                    f"CPU 사용량: {cpu}%\n"
+                    f"Memory 사용량: {memory}%\n"
                     f"User: {username}\n"
-                    f"Status: {message}"
                 )
             else:
                 metadata = "데이터 없음"
