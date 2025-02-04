@@ -378,6 +378,7 @@ def deploy_aiToCluster():
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
     version = ai_info_data.json()['version']
+    print("filename : ", filename, " / version : ", version)
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: software name is {fname}.....")

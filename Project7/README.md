@@ -21,7 +21,7 @@
 - 운영체제/시스템 : Ubuntu / AMD
 - Name : edge-master-01
 - IP : 192.168.0.14 
-  - ssh 접속 : 10.252.219.225
+  - ssh 접속 : 10.252.219.113
 - Port : 2214
 - Server URL : 192.168.0.14:5231
 - ID : 6791adaa56342c0a1beb1b09
@@ -33,6 +33,7 @@
 - 운영체제/시스템 : Ubuntu / AMD
 - Name : edge-worker-01
 - IP : 192.168.0.9 
+  - ssh 접속 : 10.252.219.113
 - Port : 2209
 - ID : 6791adcb56342c0a1beb1b27
 
