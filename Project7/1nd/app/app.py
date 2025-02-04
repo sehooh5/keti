@@ -517,13 +517,11 @@ def remove_deploySwInfo():
 
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
-    #### url에서 filename 만 추출해서 진행해야함!!!!!!!! ####
 
-#     fileUrl = ai_info_data.json()["fileUrl"]
-#     fname = fileURL
-    #######################################################
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy Software [{fname}] from server [{host_name}]")
+
+    os.system(f"kubectl delete -f {fname}-{host_name}.yaml")
 
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f" {func}: undeploy completed !")
