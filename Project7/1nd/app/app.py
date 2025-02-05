@@ -373,7 +373,7 @@ def deploy_aiToCluster():
     # fname 불러오기
     ai_info_data = requests.get(f"{API_URL}/get_selectedEdgeAiInfo?id={sid}")
     if ai_info_data.json()["code"] != "0000":
-        raise ValueError(f"에러 발생 / 에러 코드: {ai_info_data.json()["code"]}")
+        raise ValueError(f"에러 발생 / 에러 코드: {ai_info_data.json()['code']}")
 
     filename = ai_info_data.json()['name']
     fname = filename[:-4]
