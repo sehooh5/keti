@@ -339,7 +339,7 @@ def remove_uploadedEdgeAi():
 
     # Docker image delete
     print(datetime.datetime.now().strftime(
-        "%c")[:-4], f"{func}: docker image {fname} deleting...")
+        "%c")[:-4], f"{func}: docker image {fname} deleting...[]sehooh5/{fname}:{version}]")
     os.system(f"docker rmi -f sehooh5/{fname}:{version}")
     print(datetime.datetime.now().strftime(
         "%c")[:-4], f"{func}: docker image deleted!!")
