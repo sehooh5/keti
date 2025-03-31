@@ -1334,8 +1334,8 @@ django_session
 #### 앞으로 진행해야할 것 먼저
 
 - rebase
-- response 값 잘 설정하기  (전체적으로)
-- currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기 (전체적으로)
+- ~~response 값 잘 설정하기  (전체적으로)~~
+- ~~currentuser 를 다시 user_id 빼서 불필요한 작업 있는거 제거하기 (전체적으로)~~
 - ~~follow crud 로직 다시 gogo~~ 완료
 - ~~이미지 저장 개선~~
 - ~~기존 이미지 파일 용량 큰 것들 축소 필요~~
@@ -1347,8 +1347,68 @@ django_session
 
 진행중 : 
 
-- 전체적으로 에러나는 부분 다시 복구해야함
-  - git dev 가 업데이트되면 feat 에서 어떻게 해야하는지
-    - git rebase -> 충돌파일 해결 후 -> git push origin feat/~~ --force
-  - local 셋업을 해야할지? 어떻게 해야하는지?
-    - 
+- 전반적으로 로컬에서 데이터 입력 되는지 확인
+- 검색기능 일단 완성 테스트 전체적으로 해야할듯
+  - 형태소 어떻게 고도화 시킬지?
+    - postgres - full text search?
+
+
+
+- ~~update content 수정해야함 먼저 진행하고~~
+- ~~comment 수정~~
+- ~~reponse_model 설정 다 해주기!~~
+- ~~content 작품 상세 리턴값 잘 작성되어있는지 확인 필요~~
+- zap
+  - 전체적으로 추가
+- **async 로 전환 ㄱㄱ**
+- 일단 잘 실행되는지 확인 후 진행
+- 알렘빅 설정
+  - api 로 auth : showbility123 설정해둬서 revision 생성 후 호출 한번 해줘야함
+
+
+
+
+
+- content
+  - 필터 403 에러...안됨..
+
+
+
+#### 0212
+
+- update profile 완
+
+#### 0213
+
+- delete 완
+  - contents 부분 추가 필요
+
+#### 0214
+
+- 서버 살리려다가 contents 가 연동되지않아 stop
+
+#### 0224
+
+- comment 코드 작성
+  - 스키마 수정중(저녁에 집가서 수정 ㄱㄱ)
+- 서버 살리고 db 연동하는 작업 완료해야함
+
+
+
+### 서버 고치기
+
+- TMI
+  - read query 한번
+  - write query 한번
+  - 정도만 써도 우리 복합도에서는 가능하다
+- validation
+  - pydantic schema 로 routes 앞에서 처리해주면된다
+  - unique 같은 처리는 crud(service)에서 처리 해줘야할수있다
+- schema
+  - 정리 한번 해주면 좋다
+
+
+
+DB 처음에 기획할때 관계는 주된 관계 아니면 아직 넣지말기(comment not in user)
+
+실패에 대한 응답이 정규화된건 -> 디자인, 기획에 명확한경우0                                    
