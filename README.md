@@ -6,14 +6,14 @@
 
 ## 목차
 
-### Basic
+## Basic
 
 - 기본 IT 용어 및 활용 기술에 대한 기본 Document 적 자료
 - 쿠버네티스, PyQt5 등 리서치 자료
 
 
 
-### Project1
+## Project1
 
 - kubernetes 활용
   - Docker
@@ -26,13 +26,13 @@
 
 
 
-### Project1-1
+## Project1-1
 
 - Dockerfile, Deployment 작성 및 배포 기능 웹앱
 
 
 
-### Project2
+## Project2
 
 - Python-C++ 간 Socket 통신
 - Kinect sdk 영상과 string data을 python(server) 에서 C++(client)로 전송
@@ -45,7 +45,7 @@
 
 
 
-### Project3
+## Project3
 
 - AI 학습용 데이터 품질검증(자율주행 분야)
 - 사람, 자동차, 자전거 이미지 데이터를 보고 인식하는 학습 
@@ -56,7 +56,7 @@
 
 
 
-#### Project4 
+## Project4 
 
 - **동시 지능 연계 시스템**     
   - CCTV 를 실시간 영상 스트리밍 데이터를 활용해, 3개의 Edge 컴퓨터로 구성된 Kubernetes 클러스터에서 동작 
@@ -77,7 +77,7 @@
 
 
 
-#### Project5
+## Project5
 
 - **고립지/원격지 지능형 CCTV 시스템 기획**    
   - 고립지 및 원격지 환경에 적합한 무선 기반 지능형 CCTV 시스템 개발을 위한 초기 서베이 단계   
@@ -95,7 +95,7 @@
 
 
 
-#### Project 6
+## Project 6
 - **엣지 AI 보안지능 및 무선 엣지 영상 보안 시스템 개발**  
   
   - 엣지 AI 보안지능의 지속적 최적화와 엣지 보안 단말 간 연계협업을 지원하는 무선 기반 영상 보안 시스템 기술 개발. 
